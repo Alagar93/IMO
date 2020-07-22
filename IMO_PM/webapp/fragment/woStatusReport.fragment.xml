@@ -1,0 +1,70 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:viz="sap.viz.ui5.controls" xmlns:l="sap.ui.layout"
+	xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds" xmlns:viz.data="sap.viz.ui5.data" xmlns:commons="sap.suite.ui.commons">
+	<VBox class="sapUiLargeMarginBegin sapUiMediumMarginTop" visible="{oViewPropertyModel>/woStatusRepVisible}">
+		<Toolbar class="sapBorderClass sapUiSmallMarginBottom">
+			<content>
+				<Label text="{i18n>WO_STATUS_REPORT}" design="Bold"></Label>
+			</content>
+		</Toolbar>
+		<l:Grid>
+			<VBox>
+				<Label text="{i18n>PLANT}" design="Bold"></Label>
+				<Select items="{path:'mLookupModel>/aPlantSet',sorter:{ path: 'plant' }}" forceSelection="false"
+					selectedKey="{oViewPropertyModel>/woStatusPlant}" width="100%" showSecondaryValues="true" change="getWorkCenters">
+					<core:ListItem key="{mLookupModel>name}" additionalText="{mLookupModel>name}" text="{mLookupModel>plant}"/>
+				</Select>
+				<layoutData>
+					<l:GridData span="XL2 L2 M2 S2"/>
+				</layoutData>
+			</VBox>
+			<VBox>
+				<Label text="{i18n>WORK_CENTER}" design="Bold"></Label>
+				<MultiComboBox showSecondaryValues="true" items="{path:'mLookupModel>/aWorkCenterSet',sorter:{ path: 'WorkcenterId' }}"
+					selectedKeys="{oViewPropertyModel>/woStatusWorkCenter}" width="100%" selectionFinish="getTeamLeads">
+					<core:ListItem key="{mLookupModel>WorkcenterId}" additionalText="{mLookupModel>WorkcenterDesc}" text="{mLookupModel>WorkcenterId}"/>
+					<customData>
+						<core:CustomData value="WO_STATUS_WORKCENTER"/>
+					</customData>
+				</MultiComboBox>
+				<layoutData>
+					<l:GridData span="XL2 L2 M2 S2"/>
+				</layoutData>
+			</VBox>
+			<VBox>
+				<Label text="{i18n>TEAM_LEAD}" design="Bold"></Label>
+				<MultiComboBox width="100%" items="{path:'mLookupModel>/aTeamLeadSet',sorter:{ path: 'LeadName' }}"
+					selectedKeys="{oViewPropertyModel>/woStatusWorkTeamLeads}">
+					<core:ListItem key="{mLookupModel>EquipId}" additionalText="{mLookupModel>LeadId}" text="{mLookupModel>LeadName}"/>
+				</MultiComboBox>
+				<layoutData>
+					<l:GridData span="XL2 L2 M2 S2"/>
+				</layoutData>
+			</VBox>
+			<VBox>
+				<Label text="{i18n>DATE_RANGE}" design="Bold"></Label>
+				<ComboBox showSecondaryValues="true" items="{oViewPropertyModel>/timeBucket}" selectedKey="{oViewPropertyModel>/woStatusDatePeriod}"
+					width="100%">
+					<core:ListItem key="{oViewPropertyModel>key}" text="{oViewPropertyModel>text}"/>
+				</ComboBox>
+				<layoutData>
+					<l:GridData span="XL2 L2 M2 S2"/>
+				</layoutData>
+			</VBox>
+			<VBox>
+				<Label/>
+				<HBox>
+					<Button text="{i18n>SEARCH}" type="Emphasized" press="fnSearchWOStatusRep"/>
+				</HBox>
+				<layoutData>
+					<l:GridData span="XL2 L2 M2 S2"/>
+				</layoutData>
+			</VBox>
+		</l:Grid>
+	</VBox>
+	<!--<viz:VizFrame id="WO_STATUS_GRAPH" height="50%" width="96%" vizType="stacked_column" visible="{oViewPropertyModel>/woStatusGraphVisible}"
+		class="sapUiLargeMarginBegin sapUiSmallMarginTop" legendVisible="true"
+		vizProperties="{title:{ visible:'false', style:{color:'gray'}, alignment:'left', layout:{height:'0.2'}}, plotArea: { colorPalette: ['#ed5565 ', '#f8ac59 ', '#23c6c8', '#1ab394', '#1c84c6', '#59016c','#FF0000','#800000','#008080','#000080'],dataLabel: {visible: true}}, valueAxis: { title: { visible: false } },categoryAxis: { title: { visible: 'false' } }}"></viz:VizFrame>-->
+		<viz:VizFrame id="WO_STATUS_GRAPH" height="50%" width="96%" vizType="stacked_column" visible="{oViewPropertyModel>/woStatusGraphVisible}"
+		class="sapUiLargeMarginBegin sapUiSmallMarginTop" legendVisible="true"
+		vizProperties="{title:{ visible:'false', style:{color:'gray'}, alignment:'left', layout:{height:'0.2'}}, plotArea: {dataLabel: {visible: true}}, valueAxis: { title: { visible: 'false' } },categoryAxis: { title: { visible: 'false' } }}"></viz:VizFrame>
+</core:FragmentDefinition>

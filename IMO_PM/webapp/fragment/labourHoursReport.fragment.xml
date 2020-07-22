@@ -1,0 +1,69 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:viz="sap.viz.ui5.controls" xmlns:l="sap.ui.layout"
+	xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds" xmlns:viz.data="sap.viz.ui5.data">
+	<VBox class="sapUiLargeMarginBegin sapUiMediumMarginTop" visible="{oViewPropertyModel>/labourHrsRepVisibile}">
+		<Toolbar class="sapBorderClass sapUiSmallMarginBottom">
+			<content>
+				<Label text="{i18n>LAB_HRS}" design="Bold"></Label>
+			</content>
+		</Toolbar>
+		<l:Grid>
+			<VBox>
+				<Label text="{i18n>PLANT}" design="Bold"></Label>
+				<Select items="{path:'mLookupModel>/aPlantSet',sorter:{ path: 'plant' }}" forceSelection="false" selectedKey="{oViewPropertyModel>/labourHrPlant}" width="100%"
+					showSecondaryValues="true" change="getWorkCentersReports">
+					<core:ListItem key="{mLookupModel>name}" additionalText="{mLookupModel>name}" text="{mLookupModel>plant}"/>
+				</Select>
+				<layoutData>
+					<l:GridData span="XL2 L2 M2 S2"/>
+				</layoutData>
+			</VBox>
+			<VBox>
+				<Label text="{i18n>WORK_CENTER}" design="Bold"></Label>
+				<MultiComboBox showSecondaryValues="true" items="{path:'mLookupModel>/aWorkCenterSet',sorter:{ path: 'WorkcenterId' }}"
+					selectedKeys="{oViewPropertyModel>/labourHrWorkCenter}" width="100%" selectionFinish="getTeamLeads">
+					<core:ListItem key="{mLookupModel>WorkcenterId}" additionalText="{mLookupModel>WorkcenterDesc}" text="{mLookupModel>WorkcenterId}"/>
+					<customData>
+						<core:CustomData value="LBR_HR_WORKCENTER"/>
+					</customData>
+				</MultiComboBox>
+				<layoutData>
+					<l:GridData span="XL2 L2 M2 S2"/>
+				</layoutData>
+			</VBox>
+			<VBox>
+				<Label text="{i18n>TEAM_LEAD}" design="Bold"></Label>
+				<MultiComboBox width="100%" items="{path:'mLookupModel>/aTeamLeadSet',sorter:{ path: 'LeadName' }}"
+					selectedKeys="{oViewPropertyModel>/labourHrWorkTeamLeads}">
+					<core:ListItem key="{mLookupModel>EquipId}" additionalText="{mLookupModel>LeadId}" text="{mLookupModel>LeadName}"/>
+				</MultiComboBox>
+				<layoutData>
+					<l:GridData span="XL2 L2 M2 S2"/>
+				</layoutData>
+			</VBox>
+			<VBox>
+				<Label text="{i18n>DATE_RANGE}" design="Bold"></Label>
+				<ComboBox showSecondaryValues="true" items="{oViewPropertyModel>/timeBucket}" selectedKey="{oViewPropertyModel>/labourHrDatePeriod}"
+					width="100%">
+					<core:ListItem key="{oViewPropertyModel>key}" text="{oViewPropertyModel>text}"/>
+				</ComboBox>
+				<layoutData>
+					<l:GridData span="XL2 L2 M2 S2"/>
+				</layoutData>
+			</VBox>
+			<VBox>
+				<Label/>
+				<HBox>
+					<Button text="{i18n>SEARCH}" type="Emphasized" press="fnSearchLabourHrsRep"/>
+					<!--<Button text="Clear" type="Reject" press="fnClrLabourHrsRepParams" class="sapUiSmallMarginBegin"/>-->
+				</HBox>
+				<layoutData>
+					<l:GridData span="XL2 L2 M2 S2"/>
+				</layoutData>
+			</VBox>
+		</l:Grid>
+	</VBox>
+	<viz:VizFrame id="LABOUR_HOUR_GRAPH" class="sapUiLargeMarginBegin sapUiSmallMarginTop" height="60%" width="96%" vizType="stacked_column"
+		visible="{oViewPropertyModel>/labourHrsGraphVisibile}" legendVisible="true" selectData="showLabourCostCustomToolip"
+		uiConfig="{applicationSet:'fiori'}"
+		vizProperties="{title:{ text:'Labour Hrs by Technician', style:{color:'gray'}, alignment:'left', layout:{height:'0.2'}}, plotArea: { colorPalette: ['#ed5565 ', '#f8ac59 ', '#23c6c8', '#1ab394', '#1c84c6', '#59016c','#FF0000','#800000','#008080','#000080']}, valueAxis: { title: { visible: false } },categoryAxis: { title: { visible: false } }}"></viz:VizFrame>
+</core:FragmentDefinition>

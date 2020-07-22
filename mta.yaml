@@ -1,0 +1,31 @@
+ID: MTA_IMO_PM
+_schema-version: '2.1'
+version: 0.0.1
+
+modules:
+ - name: IMO_PM
+   type: html5
+   path: IMO_PM
+   parameters:
+      disk-quota: 512M
+      memory: 256M
+   build-parameters:
+      builder: grunt
+   requires:
+    - name: uaa_MTA_IMO_PM
+    - name: dest_MTA_IMO_PM
+
+resources:
+ - name: uaa_MTA_IMO_PM
+   parameters:
+      path: ./xs-security.json
+      service-plan: application
+      service: xsuaa
+   type: org.cloudfoundry.managed-service
+
+ - name: dest_MTA_IMO_PM
+   parameters:
+      service-plan: lite
+      service: destination
+   type: org.cloudfoundry.managed-service
+

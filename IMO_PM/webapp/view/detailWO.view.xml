@@ -1,0 +1,74 @@
+<core:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:grid="sap.ui.layout.cssgrid"
+	controllerName="com.sap.incture.IMO_PM.controller.detailWO" xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page showHeader="false" class="sapUiSizeCompact sapMPageBackground" title="{}">
+		<content>
+			<l:Grid class="sapUiSmallMarginTop">
+				<l:content>
+					<VBox class="sapMParentGridBroder">
+						<core:Fragment fragmentName="com.sap.incture.IMO_PM.fragment.headerDetails" type="XML"/>
+						<layoutData>
+							<l:GridData span="XL3 L3 M12 S12"/>
+						</layoutData>
+					</VBox>
+					<VBox class="sapMParentGridBroder">
+						<core:Fragment fragmentName="com.sap.incture.IMO_PM.fragment.workOrderDetails" type="XML"/>
+						<layoutData>
+							<l:GridData span="XL6 L6 M12 S12"/>
+						</layoutData>
+					</VBox>
+					<VBox class="sapMParentGridBroder">
+						<core:Fragment fragmentName="com.sap.incture.IMO_PM.fragment.commentTimelineDetailWO" type="XML"/>
+						<layoutData>
+							<l:GridData span="XL3 L3 M12 S12"/>
+						</layoutData>
+					</VBox>
+				</l:content>
+			</l:Grid>
+		</content>
+		<footer>
+			<Toolbar>
+				<ToolbarSpacer/>
+				<Button text="{i18n>DETAIL_ADD_TASKS}" type="Transparent" press="fnOpenTaskListPopup"
+					visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnSetTaskNotifBtnVisible'}"/>
+				<Button text="{i18n>DETAIL_ADD_NOTIFICATION}" type="Transparent" press="onOpenNotificationPopup"
+					visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnSetTaskNotifBtnVisible'}"/>
+				<Button text="{i18n>DETAIL_CREATE_WO}" press="onCreateUpdateAndExitWO" type="Transparent"
+					visible="{oWorkOrderDetailViewModel>/createVisible}">
+					<customData>
+						<core:CustomData key="dateType" value="WO_DETAIL_CREATE"/>
+					</customData>
+				</Button>
+				<Button text="{i18n>DETAIL_CREATE_EXIT}" press="onCreateUpdateAndExitWO" type="Transparent" enabled="true"
+					visible="{oWorkOrderDetailViewModel>/createExitVisible}">
+					<customData>
+						<core:CustomData key="dateType" value="WO_DETAIL_CREATE_EXIT"/>
+					</customData>
+				</Button>
+				<Button text="{i18n>DETAIL_UPDATE_WO}" press="onCreateUpdateAndExitWO" type="Transparent" enabled="true"
+					visible="{oWorkOrderDetailViewModel>/updateVisible}">
+					<customData>
+						<core:CustomData key="dateType" value="WO_DETAIL_UPDATE"/>
+					</customData>
+				</Button>
+				<Button text="{i18n>DETAIL_UPDATE_EXIT}" press="onCreateUpdateAndExitWO" type="Transparent" enabled="true"
+					visible="{oWorkOrderDetailViewModel>/updateExitVisible}">
+					<customData>
+						<core:CustomData key="dateType" value="WO_DETAIL_UPDATE_EXIT"/>
+					</customData>
+				</Button>
+				<Button text="{i18n>DETAIL_WO_RELEASE}" press="onCreateUpdateAndExitWO" type="Emphasized" enabled="true"
+					visible="{oWODetailFieldsModel>/releaseBtnVisible}">
+					<customData>
+						<core:CustomData key="dateType" value="WO_DETAIL_RELEASE"/>
+					</customData>
+				</Button>
+				<Button text="{i18n>DETAIL_WO_TECO}" press="onCreateUpdateAndExitWO" type="Emphasized"
+					visible="{parts:['oWorkOrderDetailModel>/HEADERTOOPERATIONSNAV', 'oUserDetailModel>/userRole'], formatter:'.formatter.enableTECOButton'}">
+					<customData>
+						<core:CustomData key="dateType" value="WO_DETAIL_TECHO"/>
+					</customData>
+				</Button>
+			</Toolbar>
+		</footer>
+	</Page>
+</core:View>

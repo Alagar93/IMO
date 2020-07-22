@@ -1,0 +1,54 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:viz="sap.viz.ui5.controls"
+	xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds" xmlns:viz.data="sap.viz.ui5.data">
+	<VBox visible="{oViewPropertyModel>/plannedReactiveRepVisible}" class="sapUiMediumMarginBegin sapUiSmallMarginTop">
+		<Toolbar class="sapBorderClass sapUiSmallMarginBottom">
+			<content>
+				<Label text="{i18n>PLANNED_WORK_REPORT}" design="Bold"></Label>
+			</content>
+		</Toolbar>
+		<l:Grid>
+			<VBox>
+				<Label text="{i18n>PLANT}" design="Bold"></Label>
+				<Select items="{path:'mLookupModel>/aPlantSet',sorter:{ path: 'plant' }}" forceSelection="false" selectedKey="{oViewPropertyModel>/plannedReactivePlant}" width="100%"
+					showSecondaryValues="true" change="getWorkCentersReports">
+					<core:ListItem key="{mLookupModel>name}" additionalText="{mLookupModel>name}" text="{mLookupModel>plant}"/>
+				</Select>
+				<layoutData>
+					<l:GridData span="XL2 L2 M2 S2"/>
+				</layoutData>
+			</VBox>
+			<VBox>
+				<Label text="{i18n>WORK_CENTER}" design="Bold"></Label>
+				<MultiComboBox showSecondaryValues="true" width="100%" items="{path:'mLookupModel>/aWorkCenterSet',sorter:{ path: 'WorkcenterId' }}"
+					selectedKeys="{oViewPropertyModel>/plannedReactiveWCs}">
+					<core:ListItem key="{mLookupModel>WorkcenterId}" additionalText="{mLookupModel>WorkcenterDesc}" text="{mLookupModel>WorkcenterId}"/>
+				</MultiComboBox>
+				<layoutData>
+					<l:GridData span="XL2 L2 M2 S2"/>
+				</layoutData>
+			</VBox>
+			<VBox>
+				<Label text="{i18n>DATE_RANGE}" design="Bold"></Label>
+				<ComboBox showSecondaryValues="true" items="{oViewPropertyModel>/timeBucket}" selectedKey="{oViewPropertyModel>/plannedReactiveDatePeriod}"
+					width="100%">
+					<core:ListItem key="{oViewPropertyModel>key}" text="{oViewPropertyModel>text}"/>
+				</ComboBox>
+				<layoutData>
+					<l:GridData span="XL2 L2 M2 S2"/>
+				</layoutData>
+			</VBox>
+			<VBox>
+				<Label/>
+				<HBox>
+					<Button text="{i18n>SEARCH}" type="Emphasized" press="fnSearchPlannedRectiveRep"/>
+				</HBox>
+				<layoutData>
+					<l:GridData span="XL2 L2 M2 S2"/>
+				</layoutData>
+			</VBox>
+		</l:Grid>
+	</VBox>
+	<viz:VizFrame id="PLANNED_REACTIVE_GRAPH" class="sapUiLargeMarginBegin sapUiSmallMarginTop" height="60%" width="96%" vizType="line"
+		visible="{oViewPropertyModel>/plannedReactiveGraphVisible}"
+		vizProperties="{title:{ text:'Planned Vs Reactive', style:{color:'gray'}, alignment:'left', layout:{height:'0.2'}}, plotArea: { colorPalette: ['#e17b24', '#316FA8', '#51AE03', '#AE0303', '#F7F143']}, valueAxis: { title: { visible: false } },categoryAxis: { title: { visible: false } }}"></viz:VizFrame>
+</core:FragmentDefinition>

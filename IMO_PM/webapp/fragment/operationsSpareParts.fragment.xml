@@ -1,0 +1,61 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:layout="sap.ui.layout"
+	xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" class="sapUiSizeCompact"
+	xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+	<Dialog contentHeight="70%" contentWidth="70%" title="Select Operations" class="sapUiSizeCompact">
+		<content>
+			<!--<table:Table mode="SingleSelectLeft" selectionChange="onSelectOperation" growing="false" rows="{mLookupModel>/aOperationListSet}">-->
+			<!--	<table:columns>-->
+			<!--		<table:Column width="3rem" sortProperty="equip" defaultFilterOperator="Contains">-->
+			<!--			<table:template><RadioButton app:workOrder="{mLookupModel>Orderid}" select="onSelectOperation"/></table:template>-->
+			<!--		</table:Column>-->
+			<!--		<table:Column defaultFilterOperator="Contains">-->
+			<!--			<Text class="tableHeaderText" text="{i18n>operation}"/>-->
+			<!--			<table:template>-->
+			<!--				<Text text="{mLookupModel>Activity}" class="tableContentText"></Text>-->
+			<!--			</table:template>-->
+			<!--		</table:Column>-->
+			<!--		<table:Column>-->
+			<!--			<Text class="tableHeaderText" text="{i18n>stext}"/>-->
+			<!--			<table:template>-->
+			<!--				<Text text="{mLookupModel>Description}" class="tableContentText"></Text>-->
+			<!--			</table:template>-->
+			<!--		</table:Column>-->
+			<!--		<table:Column>-->
+			<!--			<Text class="tableHeaderText" text="{i18n>workcenter}"/>-->
+			<!--			<table:template>-->
+			<!--				<Text text="{mLookupModel>WorkCntr}" class="tableContentText"></Text>-->
+			<!--			</table:template>-->
+			<!--		</table:Column>-->
+			<!--	</table:columns>-->
+			<!--</table:Table>-->
+			<Table mode="SingleSelectLeft" selectionChange="onSelectOperation" growing="false" items="{path: 'mLookupModel>/aOperationListSet'}">
+				<columns>
+					<Column>
+						<Text text="{i18n>operation}"/>
+					</Column>
+					<Column>
+						<Text text="{i18n>stext}"/>
+					</Column>
+					<Column>
+						<Text text="{i18n>workcenter}"/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem>
+						<cells >
+							<Text text="{mLookupModel>Activity}"/>
+							<Text text="{mLookupModel>Description}"/>
+							<Text text="{mLookupModel>WorkCntr}"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+	</content>
+	<beginButton>
+		<Button text="{i18n>cancel}" press="onCancelDialogOperns"/>
+	</beginButton>
+	<endButton>
+		<Button text="{i18n>Update}" press="onUpdate"/>
+	</endButton>
+</Dialog>
+</core:FragmentDefinition >

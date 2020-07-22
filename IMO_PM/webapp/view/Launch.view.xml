@@ -1,0 +1,48 @@
+<mvc:View controllerName="com.sap.incture.IMO_PM.controller.Launch" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.uxap" xmlns:m="sap.m"
+	xmlns:core="sap.ui.core">
+	<!--<m:App id="oApp">-->
+	<ObjectPageLayout id="ObjectPageLayout">
+		<!--	<headerTitle>
+			<ObjectPageHeader objectTitle="Section sample"></ObjectPageHeader>
+		</headerTitle>
+		<headerContent>
+			<m:ObjectAttribute title="" text="This example explains the rules for the rendering of sections"/>
+		</headerContent>-->
+		<sections>
+			<ObjectPageSection title="{i18n>opWO}">
+				<subSections>
+					<ObjectPageSubSection class="sub">
+						<m:HBox>
+							<m:GenericTile class=" sapUiTinyMarginEnd tileLayout" header="{i18n>tile_cr/ed_wo}" press="onPressCrEdWo"></m:GenericTile>
+							<m:GenericTile class=" sapUiTinyMarginEnd tileLayout" header="{i18n>tile_woList}" press="onPressWoList"></m:GenericTile>
+							<m:GenericTile class=" sapUiTinyMarginEnd tileLayout" header="{i18n>tile_crNotif}" press="onPressCreateNotif"></m:GenericTile>
+							<m:GenericTile class=" sapUiTinyMarginEnd tileLayout" header="{i18n>tile_notifList}" press="onPressNotifList"></m:GenericTile>
+							<m:GenericTile class=" sapUiTinyMarginEnd tileLayout" header="{i18n>tile_reviewWO}" press="onPressReviewWO"></m:GenericTile>
+						</m:HBox>
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>
+			<ObjectPageSection title="{i18n>op_spParts}">
+				<subSections>
+					<ObjectPageSubSection class="sub">
+						<m:HBox>
+							<m:GenericTile class=" sapUiTinyMarginEnd tileLayout" header="{i18n>tile_spParts}" press="onPressspareParts"></m:GenericTile>
+							<m:GenericTile class=" sapUiTinyMarginEnd tileLayout" header="{i18n>tile_eqp}" press="onPressEquipment" ></m:GenericTile>
+						</m:HBox>
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>
+			<ObjectPageSection title="{i18n>op_reports}">
+				<subSections>
+					<ObjectPageSubSection class="sub">
+						<m:HBox>
+							<m:GenericTile class=" sapUiTinyMarginEnd tileLayout" header="{i18n>tile_anlt}" press="onPressAnalysis"></m:GenericTile>
+							<m:GenericTile class=" sapUiTinyMarginEnd tileLayout" header="{i18n>tile_shRept}" press="onPressShiftReport"></m:GenericTile>
+						</m:HBox>
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>
+		</sections>
+	</ObjectPageLayout>
+	<!--</m:App>-->
+</mvc:View>

@@ -1,0 +1,236 @@
+<mvc:View controllerName="com.sap.incture.IMO_PM.controller.createNotif" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:html="http://www.w3.org/1999/xhtml" displayBlock="true" xmlns="sap.m" xmlns:fb="sap.ui.comp.filterbar" xmlns:core="sap.ui.core"
+	xmlns:l="sap.ui.layout" xmlns:table="sap.ui.table">
+	<Page showHeader="false" class="sapUiSizeCompact sapMPageBackground" floatingFooter="true" title="{}">
+		<content>
+			<VBox class="sapUiSmallMarginBegin sapUiMediumMarginTop">
+				<l:Grid >
+					<VBox>
+						<Label text="{i18n>NOTIF_TYPE}" required="true"></Label>
+						<Select showSecondaryValues="true" items="{mLookupModel>/aNotificationTypeSet}" selectedKey="{oNotificationDataModel>/NotifType}"
+							tooltip="{oNotificationDataModel>/NotifType}" width="70%" forceSelection="false" class="sapInputBorderClass">
+							<core:ListItem key="{mLookupModel>Qmart}" text="{mLookupModel>Qmart} - {mLookupModel>qmartx}"/>
+						</Select>
+						<layoutData>
+							<l:GridData span="XL6 L3 M6 S6"/>
+						</layoutData>
+					</VBox>
+					<VBox>
+						<Label text="{i18n>WORK_ORDER}"></Label>
+						<Input value="{oNotificationDataModel>/Orderid}" width="70%" valueLiveUpdate="true" showSuggestion="true" enabled="false"
+							class="sapTxtAreaBorderClass" suggestionItems="{mLookupModel>/aWorkOrders}" suggest="onSearchWorkOrders" startSuggestion="3"
+							tooltip="{oNotificationDataModel>/Orderid}">
+							<suggestionItems>
+								<core:Item text="{mLookupModel>Orderid}" key="{mLookupModel>Orderid}"/>
+							</suggestionItems>
+						</Input>
+						<layoutData>
+							<l:GridData span="XL6 L3 M6 S6"/>
+						</layoutData>
+					</VBox>
+				</l:Grid>
+				<VBox class="sapVBoxBorderClass">
+					<VBox class="sapRefObjClass sapUiSmallMarginTop ">
+						<Label text="{i18n>REFERENCE_OBJECT}" design="Bold" class="sapUiSmallMarginBegin sapUiTinyMarginBottom"></Label>
+						<layoutData>
+							<l:GridData span="XL6 L12 M6 S6"/>
+						</layoutData>
+					</VBox>
+					<l:Grid class="sapUiSmallMarginTop sapUiTinyMarginBegin">
+						<VBox>
+							<Label text="{i18n>EQUIPMENT}" required="true"></Label>
+							<Input width="70%" showValueHelp="true" value="{oNotificationDataModel>/Equipment}" valueHelpRequest="openEquipmentListValueHelp"
+								tooltip="{oNotificationDataModel>/Equipment}" maxLength="18"></Input>
+							<layoutData>
+								<l:GridData span="XL6 L3 M6 S6"/>
+							</layoutData>
+						</VBox>
+						<VBox>
+							<Label text="{i18n>SUB_ASSEMBLY}"></Label>
+							<ComboBox showSecondaryValues="true" items="{mLookupModel>/aEquipAssemblyList}" selectedKey="{oNotificationDataModel>/Assembly}"
+								class="sapInputBorderClass" tooltip="{oNotificationDataModel>/Assembly}" width="70%">
+								<core:ListItem key="{mLookupModel>Idnrk}" text="{mLookupModel>Idnrk} - {mLookupModel>MAKTX}"/>
+							</ComboBox>
+							<layoutData>
+								<l:GridData span="XL6 L3 M6 S6"/>
+							</layoutData>
+						</VBox>
+						<VBox>
+							<Label text="{i18n>FUNC_LOCATION}"></Label>
+							<Input value="{oNotificationDataModel>/FunctLoc}" width="70%" tooltip="{oNotificationDataModel>/FunctLoc}" enabled="false" maxLength="40"></Input>
+							<layoutData>
+								<l:GridData span="XL6 L3 M6 S6"/>
+							</layoutData>
+						</VBox>
+					</l:Grid>
+					<VBox class="sapRespClass sapUiSmallMarginBegin">
+						<Label text="{i18n>RESPONSIBILITIES}" design="Bold" class="sapUiTinyMarginBottom"></Label>
+						<layoutData>
+							<l:GridData span="XL6 L12 M6 S6"/>
+						</layoutData>
+					</VBox>
+					<l:Grid class="sapUiSmallMarginTop sapUiTinyMarginBegin">
+						<VBox>
+							<Label text="{i18n>PLANNER_GRP}"></Label>
+							<Select class="sapInputBorderClass" forceSelection="false" selectedKey="{oNotificationDataModel>/Plangroup}" width="70%"
+								tooltip="{oNotificationDataModel>/Plangroup}" items="{mLookupModel>/aPlannerGroupSet}" showSecondaryValues="true" enabled="true">
+								<core:ListItem key="{mLookupModel>VAGRP}" text="{mLookupModel>VAGRP} - {mLookupModel>TXT}"/>
+							</Select>
+							<layoutData>
+								<l:GridData span="XL6 L3 M6 S6"/>
+							</layoutData>
+						</VBox>
+						<VBox>
+							<Label text="{i18n>REPORTED_BY}"></Label>
+							<Input value="{oNotificationDataModel>/Reportedby}" showValueHelp="true" width="70%" valueHelpRequest="handleValueHelp"
+								tooltip="{oNotificationDataModel>/Reportedby}"/>
+							<layoutData>
+								<l:GridData span="XL6 L3 M6 S6"/>
+							</layoutData>
+						</VBox>
+						<VBox>
+							<Label text="{i18n>REQ_START_DATE}"></Label>
+							<DatePicker placeholder="dd-MM-yyyy" dateValue="{oNotificationDataModel>/ReqStartdate}" width="70%" displayFormat="dd-MM-yyyy"
+								enabled="true" change="fnValidateDates">
+								<customData>
+									<core:CustomData key="dateType" value="ReqStartdate"/>
+								</customData>
+							</DatePicker>
+							<layoutData>
+								<l:GridData span="XL6 L3 M6 S6"/>
+							</layoutData>
+						</VBox>
+						<VBox>
+							<Label text="{i18n>REQ_END_DATE}"></Label>
+							<DatePicker placeholder="dd-MM-yyyy" dateValue="{oNotificationDataModel>/ReqEnddate}" width="70%" displayFormat="dd-MM-yyyy" enabled="true"
+								change="fnValidateDates">
+								<customData>
+									<core:CustomData key="dateType" value="ReqEnddate"/>
+								</customData>
+							</DatePicker>
+							<layoutData>
+								<l:GridData span="XL6 L3 M6 S6"/>
+							</layoutData>
+						</VBox>
+					</l:Grid>
+					<VBox class="sapSubClass sapUiSmallMarginBegin">
+						<Label text="{i18n>SUBJECT}" design="Bold" class="sapUiTinyMarginBottom"></Label>
+						<layoutData>
+							<l:GridData span="XL6 L12 M6 S6"/>
+						</layoutData>
+					</VBox>
+					<l:Grid class="sapUiSmallMarginTop sapUiTinyMarginBegin">
+						<VBox>
+							<Label text="{i18n>DAMAGE_CODE}"></Label>
+							<Select class="sapInputBorderClass" width="70%" forceSelection="false" selectedKey="{oNotificationDataModel>/DamageCode}"
+								items="{mLookupModel>/aDamageCode}" showSecondaryValues="true" change="getDamageGroupCode" id="CREATE_NOTIF_DAMAGE_CODE">
+								<core:ListItem key="{mLookupModel>Code}" additionalText="{mLookupModel>Codegrtext}" text="{mLookupModel>Code} - {mLookupModel>Codetext}"/>
+							</Select>
+							<layoutData>
+								<l:GridData span="XL6 L3 M6 S6"/>
+							</layoutData>
+						</VBox>
+						<VBox>
+							<Label text="{i18n>CAUSE_CODE}"></Label>
+							<Select class="sapInputBorderClass" width="70%" forceSelection="false" selectedKey="{oNotificationDataModel>/CauseCode}"
+								items="{mLookupModel>/aCauseCode}" showSecondaryValues="true" change="getCauseGroupCode" id="CREATE_NOTIF_CAUSE_CODE">
+								<core:ListItem key="{mLookupModel>Code}" additionalText="{mLookupModel>Codegrtext}" text="{mLookupModel>Code} - {mLookupModel>Codetext}"/>
+							</Select>
+							<layoutData>
+								<l:GridData span="XL6 L3 M6 S6"/>
+							</layoutData>
+						</VBox>
+						<VBox>
+							<Label text="{i18n>BREAK_DOWN}"></Label>
+							<Switch state="{path:'oNotificationDataModel>/Breakdown', formatter:'com.sap.incture.IMO_PM.formatter.formatter.formatBooleanBreakDown'}"
+								customTextOn="{i18n>yes}" customTextOff="{i18n>no}" change="fnUpdateBreakDownStatus"/>
+							<layoutData>
+								<l:GridData span="XL6 L3 M6 S6"/>
+							</layoutData>
+						</VBox>
+						<VBox>
+							<Label text="{i18n>BREAK_DOWN_HRS}"></Label>
+							<Input value="{oNotificationDataModel>/BreakdownDur}" width="70%" tooltip="{oNotificationDataModel>/BreakdownDur}" maxLength="7"
+								enabled="false"></Input>
+							<layoutData>
+								<l:GridData span="XL6 L3 M6 S6"/>
+							</layoutData>
+						</VBox>
+						<VBox visible="{path:'oNotificationDataModel>/Breakdown', formatter:'com.sap.incture.IMO_PM.formatter.formatter.formatBooleanBreakDown'}">
+							<Label text="{i18n>MALFUN_START_DATE}"></Label>
+							<DatePicker placeholder="dd-MM-yyyy" dateValue="{oNotificationDataModel>/Startdate}" width="70%" displayFormat="dd-MM-yyyy"
+								change="fnValidateMalFunDates">
+								<customData>
+									<core:CustomData key="dateType" value="Startdate"/>
+								</customData>
+							</DatePicker>
+							<layoutData>
+								<l:GridData span="XL6 L3 M6 S6"/>
+							</layoutData>
+						</VBox>
+						<VBox visible="{path:'oNotificationDataModel>/Breakdown', formatter:'com.sap.incture.IMO_PM.formatter.formatter.formatBooleanBreakDown'}">
+							<Label text="{i18n>MALFUN_START_TIME}"></Label>
+							<TimePicker value="{oNotificationViewModel>/StartTime}" valueFormat="HH:mm" displayFormat="HH:mm" placeholder="HH:mm"
+								change="fnValidateMalFunDates">
+								<customData>
+									<core:CustomData key="dateType" value="StartTime"/>
+								</customData>
+							</TimePicker>
+							<layoutData>
+								<l:GridData span="XL6 L3 M6 S6"/>
+							</layoutData>
+						</VBox>
+						<VBox visible="{path:'oNotificationDataModel>/Breakdown', formatter:'com.sap.incture.IMO_PM.formatter.formatter.formatBooleanBreakDown'}">
+							<Label text="{i18n>MALFUN_END_DATE}"></Label>
+							<DatePicker placeholder="dd-MM-yyyy" dateValue="{oNotificationDataModel>/Enddate}" width="70%" displayFormat="dd-MM-yyyy"
+								change="fnValidateMalFunDates">
+								<customData>
+									<core:CustomData key="dateType" value="Enddate"/>
+								</customData>
+							</DatePicker>
+							<layoutData>
+								<l:GridData span="XL6 L3 M6 S6"/>
+							</layoutData>
+						</VBox>
+						<VBox visible="{path:'oNotificationDataModel>/Breakdown', formatter:'com.sap.incture.IMO_PM.formatter.formatter.formatBooleanBreakDown'}">
+							<Label text="{i18n>MALFUN_END_TIME}"></Label>
+							<TimePicker value="{oNotificationViewModel>/EndTime}" valueFormat="HH:mm" displayFormat="HH:mm" placeholder="HH:mm"
+								change="fnValidateMalFunDates">
+								<customData>
+									<core:CustomData key="dateType" value="EndTime"/>
+								</customData>
+							</TimePicker>
+							<layoutData>
+								<l:GridData span="XL6 L3 M6 S6"/>
+							</layoutData>
+						</VBox>
+						<VBox>
+							<Label text="{i18n>DESCRIPTION}" required="true"></Label>
+							<Input value="{oNotificationDataModel>/ShortText}" width="67.5%" tooltip="{oNotificationDataModel>/ShortText}" maxLength="40"></Input>
+							<layoutData>
+								<l:GridData span="XL6 L12 M6 S6"/>
+							</layoutData>
+						</VBox>
+						<VBox>
+							<Label text="{i18n>LONG_TEXT}"/>
+							<TextArea width="67.5%" value="{oNotificationDataModel>/Longtext}" tooltip="{oNotificationDataModel>/Longtext}" rows="5" maxLength="2000"/>
+							<layoutData>
+								<l:GridData span="XL6 L12 M6 S6"/>
+							</layoutData>
+						</VBox>
+					</l:Grid>
+				</VBox>
+			</VBox>
+		</content>
+		<footer>
+			<Toolbar>
+				<ToolbarSpacer/>
+				<Button text="{i18n>CREATE_NOTIFICATION}" type="Emphasized" press="checkMandatoryFields">
+					<customData>
+						<core:CustomData key="dateType" value="CREATE"/>
+					</customData>
+				</Button>
+			</Toolbar>
+		</footer>
+	</Page>
+</mvc:View>

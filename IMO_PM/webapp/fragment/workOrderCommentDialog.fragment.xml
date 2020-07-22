@@ -1,0 +1,19 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" class="sapUiSizeCompact" xmlns:l="sap.ui.layout">
+	<Dialog title="Work Order Comment" class="sapUiSizeCompact">
+		<content>
+			<VBox class="sapUiTinyMarginTopBottom sapUiTinyMarginBeginEnd">
+				<Text text="{i18n>ADD_WO_COMMENT}" class="sapMTextFontSize"/>
+				<VBox>
+					<TextArea value="{oWorkOrderDetailModel>/LongText}" enabled="{oWODetailFieldsModel>/workOrderComments}" rows="20" width="100%" maxLength="500" class="sapAddWOCmtClass">
+						<customData>
+							<core:CustomData key="target" value="HYPER_LINK"/>
+						</customData>
+					</TextArea>
+				</VBox>
+			</VBox>
+		</content>
+		<buttons>
+			<Button text="{i18n>CLOSE}" press="closeWordOrderCommentPopup" type="Emphasized"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

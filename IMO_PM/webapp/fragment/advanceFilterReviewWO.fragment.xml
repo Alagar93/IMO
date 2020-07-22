@@ -1,0 +1,26 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:layout="sap.ui.layout"
+	xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form">
+	<Dialog contentHeight="55%" contentWidth="30%" title="Advance Filter" class="sapUiSizeCompact">
+		<content>
+			<l:Grid class="sapUiSmallMarginTop" defaultSpan="L6 M4 S6">
+				<Label text="Assigned Tech" class="sapUiTinyMarginTop styleTextBlue"/>
+				<Input value="{mLookupModel>/sAssignTechFilter}"></Input>
+				<!--	<Label text="Equipment" class="sapUiTinyMarginTop styleTextBlue"/>
+				<Input showValueHelp="true" value="{mLookupModel>/sEquipFilter}" ></Input>-->
+				<Label text="Funct. Location" class="sapUiTinyMarginTop styleTextBlue"/>
+				<Input value="{mLookupModel>/sfnLocFilter}"></Input>
+				<!--<Label text="Funct. Location" class="sapUiTinyMarginTop styleTextBlue"/>
+				<Input showValueHelp="true" value="{mLookupModel>/sEquipFilter}" ></Input>-->
+				<Label text="WO Type" class="sapUiTinyMarginTop styleTextBlue"/>
+				<Input value="{mLookupModel>/sWOTypeFilter}"></Input>
+				<Label text="Work Center" class="sapUiTinyMarginTop styleTextBlue"/>
+				<Input value="{mLookupModel>/sWorkCenterFilter}"></Input>
+			</l:Grid>
+		</content>
+		<buttons>
+			<!--<Button text="{i18n>save}" class="positionButLeft" press="onSaveWOFilter"/>-->
+			<Button text="{i18n>cancel}" press="onCancelDialogWO"/>
+			<Button text="Apply" press="onApplyFilter" type="Emphasized"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition >

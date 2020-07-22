@@ -1,0 +1,46 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:layout="sap.ui.layout"
+	xmlns:l="sap.ui.layout" class="sapUiSizeCompact">
+	<Dialog contentHeight="50%" contentWidth="30%" title="{i18n>operationconfirmation}" verticalScrolling="false">
+		<content>
+			<ScrollContainer height="100%" width="100%" vertical="true" focusable="true">
+				<VBox items="{mLookupModel>/operationCommentDto}" class="sapUiTinyMarginTop">
+					<FlexBox class="sapUiTinyMarginTop sapUiSmallMarginBottom">
+						<VBox width="100%">
+							<Text text="{path:'mLookupModel>operationCreatedDateObj', formatter: 'com.sap.incture.IMO_PM.formatter.formatter.formatJavaDateTime'}"
+								class="sapMCommentFontSize sapUiTinyMarginBegin"/>
+							<FlexBox>
+								<layoutData>
+									<FlexItemData growFactor="1" shrinkFactor="0"/></layoutData>
+								<HBox class="userNameBlueCircle">
+									<Text text="{path:'mLookupModel>userName', formatter: 'com.sap.incture.IMO_PM.formatter.formatter.formatTwoLetterUserName'}"/>
+								</HBox>
+								<HBox class="sapUiTinyMarginTop" width="100%">
+									<VBox class="sapUiLargeMarginEnd">
+										<Label text="{mLookupModel>userName}" class="sapMLabelTxtFontWeight"/>
+										<Label
+											text="{parts:['mLookupModel>operationCreatedDateObj', 'mLookupModel>operationId'], formatter: 'com.sap.incture.IMO_PM.formatter.formatter.formatJavaDateTime'}"
+											class="sapMCommentFontSize"/>
+									</VBox>
+									<VBox class="sapUiLargeMarginBegin sapUiSmallMarginEnd" width="100%">
+										<Label text="Operation Id" textAlign="End" class="sapMCommentFontSize" width="100%"/>
+										<FlexBox direction="RowReverse" alignItems="Start">
+											<items>
+												<Label text="{mLookupModel>operationId}" class="sapMLabelTxtFontWeight"/>
+											</items>
+										</FlexBox>
+									</VBox>
+								</HBox>
+							</FlexBox>
+							<HBox fitContainer="true" class="sapUiCommentsBorderClass sapUiMediumMarginBegin sapUiSmallMarginEnd">
+								<Text wrapping="true" class="sapUiTinyMargin" text="{mLookupModel>operationComments}"/>
+							</HBox>
+						</VBox>
+					</FlexBox>
+				</VBox>
+			</ScrollContainer>
+		</content>
+		<beginButton>
+			<Button text="Close" press="onCloseWOOprnsComments"/>
+		</beginButton>
+	</Dialog>
+</core:FragmentDefinition>
