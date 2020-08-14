@@ -303,7 +303,7 @@ sap.ui.define([
 					mLookupModel.setProperty("/aNotificationListSet", aNotificationListSet);
 					mLookupModel.setProperty("/iDisplayedNotifCount", aNotificationListSet.length);
 					mLookupModel.refresh();
-					that.getView().getContent()[0].getContent()[0].getFlexContent().rerender();
+					// that.getView().getContent()[0].getContent()[0].getFlexContent().rerender();
 
 					var oNotifTbl = that.getView().byId("notifListId");
 					that.fnResetFilers(oNotifTbl, "mLookupModel");
@@ -690,7 +690,7 @@ sap.ui.define([
 				oArry.push(obj);
 			}
 			this.busy.open();
-			this.fnGetWOHeaderDetails(orderId, oArry);
+			this.fnGetWOHeaderDetailsnotiflist(orderId, oArry);
 			this.onCancelDialogAssign();
 			mLookupModel.setProperty("/selectedNotifs", []);
 			mLookupModel.refresh();

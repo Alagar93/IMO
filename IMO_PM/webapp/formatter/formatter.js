@@ -603,6 +603,10 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 			bVal = false;
 		} else if (systemStatus === "CRTD") {
 			bVal = false;
+		} else if (systemStatus === "PCNF") {
+			bVal = true;
+		} else if (systemStatus === "CNF") {
+			bVal = false;
 		} else if (systemStatus === "REL") {
 			if (operationCommentVisible === true) {
 				bVal = true;
@@ -677,6 +681,15 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 
 	//Function to format WO status 
 	formatWOStatusTxt: function (status) {
+	/*	var mLookupModel = this.getModel("mLookupModel");//new
+		var oSelectedWODetails = mLookupModel.getProperty("/oSelectedWODetails");//new
+		
+		if(oSelectedWODetails) {
+			var status = oSelectedWODetails.SysStatusDes;//new		
+		}*/
+		
+	
+
 		var woStatus;
 		if (status === "CRTD") {
 			woStatus = "Created";
@@ -684,7 +697,13 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 			woStatus = "Released";
 		} else if (status === "TECO") {
 			woStatus = "TECO Completed";
-		} else {
+		}
+		else if (status === "PCNF") {
+			woStatus = "Partially Confirmed";
+		}
+		else if (status === "CNF") {
+			woStatus = "Confirmed";
+		}else {
 			woStatus = "";
 		}
 		return woStatus;

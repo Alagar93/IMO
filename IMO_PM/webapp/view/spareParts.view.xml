@@ -1,7 +1,13 @@
-<mvc:View controllerName="com.sap.incture.IMO_PM.controller.spareParts" xmlns:mvc="sap.ui.core.mvc" xmlns:html="http://www.w3.org/1999/xhtml"
-	xmlns="sap.m" xmlns:fb="sap.ui.comp.filterbar" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" height="100%" displayBlock="false"
-	xmlns:table="sap.ui.table">
+<mvc:View controllerName="com.sap.incture.IMO_PM.controller.spareParts" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns="sap.m" xmlns:fb="sap.ui.comp.filterbar" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout"
+	height="100%" displayBlock="false" xmlns:table="sap.ui.table" xmlns:tnt="sap.tnt">
 	<Page showHeader="false" enableScrolling="false" class="sapPageBackgroundclr sapUiSizeCompact">
+		<tnt:ToolHeader>
+			<Button icon="sap-icon://home" type="Transparent" press="onPressHome" tooltip="{i18n>home}"/>
+			<Image src="images/Cherrywork_Logo_final_Option_1.png" height="55%" width="10%"/>
+			<Label design="Bold" class="sapUiSmallMarginBegin" text="{i18n>tile_spParts}" wrapping="true"/>
+			<ToolbarSpacer/>
+		</tnt:ToolHeader>
 		<content>
 			<VBox>
 				<Toolbar class="sapBorderClass">
@@ -14,32 +20,33 @@
 						<l:Grid defaultSpan="L3 M6 S6">
 							<VBox>
 								<Label text="{i18n>component}"/>
-								<Input value="{oSparePartViewModel>/sapId}" submit="getMaterialsListSpareparts" class="sapInputBorderClass" width="70%" showValueHelp="false"
-									valueHelpRequest="onHandleValueHelp"></Input>
+								<Input value="{oSparePartViewModel>/sapId}" submit="getMaterialsListSpareparts" class="sapInputBorderClass" width="70%"
+									showValueHelp="false" valueHelpRequest="onHandleValueHelp"></Input>
 							</VBox>
 							<VBox>
 								<Label text="{i18n>compDes}"/>
-								<Input value="{oSparePartViewModel>/compDesc}" submit="getMaterialsListSpareparts" class="sapInputBorderClass" width="70%" showValueHelp="false"
-									valueHelpRequest="onHandleValueHelp"></Input>
+								<Input value="{oSparePartViewModel>/compDesc}" submit="getMaterialsListSpareparts" class="sapInputBorderClass" width="70%"
+									showValueHelp="false" valueHelpRequest="onHandleValueHelp"></Input>
 							</VBox>
 							<VBox>
 								<Label text="{i18n>supplier}"/>
-								<Input value="{oSparePartViewModel>/supplier}" submit="getMaterialsListSpareparts" class="sapInputBorderClass" width="70%" showValueHelp="false"
-									valueHelpRequest="onHandleValueHelp"></Input>
+								<Input value="{oSparePartViewModel>/supplier}" submit="getMaterialsListSpareparts" class="sapInputBorderClass" width="70%"
+									showValueHelp="false" valueHelpRequest="onHandleValueHelp"></Input>
 							</VBox>
 							<VBox>
 								<Label text="{i18n>supplierPartNo}"/>
-								<Input value="{oSparePartViewModel>/supplierPartno}" width="70%" showValueHelp="false" submit="getMaterialsListSpareparts" valueHelpRequest="onHandleValueHelp"></Input>
+								<Input value="{oSparePartViewModel>/supplierPartno}" width="70%" showValueHelp="false" submit="getMaterialsListSpareparts"
+									valueHelpRequest="onHandleValueHelp"></Input>
 							</VBox>
 							<VBox>
 								<Label text="{i18n>manufact}"/>
-								<Input value="{oSparePartViewModel>/manufacturer}" submit="getMaterialsListSpareparts" class="sapInputBorderClass" width="70%" showValueHelp="false"
-									valueHelpRequest="onHandleValueHelp"></Input>
+								<Input value="{oSparePartViewModel>/manufacturer}" submit="getMaterialsListSpareparts" class="sapInputBorderClass" width="70%"
+									showValueHelp="false" valueHelpRequest="onHandleValueHelp"></Input>
 							</VBox>
 							<VBox>
 								<Label text="{i18n>manufactPartNo}"/>
-								<Input value="{oSparePartViewModel>/mfgPartNo}" submit="getMaterialsListSpareparts" class="sapInputBorderClass" width="70%" showValueHelp="false"
-									valueHelpRequest="onHandleValueHelp"></Input>
+								<Input value="{oSparePartViewModel>/mfgPartNo}" submit="getMaterialsListSpareparts" class="sapInputBorderClass" width="70%"
+									showValueHelp="false" valueHelpRequest="onHandleValueHelp"></Input>
 							</VBox>
 							<VBox class="sapUiSmallMarginTop">
 								<Button text="{i18n>search}" class="sapButtonClass" press="getMaterialsListSpareparts" type="Emphasized"/>

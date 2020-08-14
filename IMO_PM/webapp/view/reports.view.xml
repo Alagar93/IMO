@@ -1,7 +1,14 @@
 <mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="com.sap.incture.IMO_PM.controller.reports"
 	xmlns:f="sap.f" xmlns:l="sap.ui.layout" xmlns:g="sap.ui.layout.cssgrid" xmlns:viz="sap.viz.ui5.controls"
-	xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds" xmlns:viz.data="sap.viz.ui5.data" xmlns:html="http://www.w3.org/1999/xhtml">
+	xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds" xmlns:viz.data="sap.viz.ui5.data" xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:tnt="sap.tnt">
 	<Page showHeader="false" class="sapUiSizeCompact" title="{}">
+		<tnt:ToolHeader>
+			<Button icon="sap-icon://home" type="Transparent" press="onPressHome" tooltip="{i18n>home}"/>
+			<Image src="images/Cherrywork_Logo_final_Option_1.png" height="55%" width="10%"/>
+			<Label design="Bold" class="sapUiSmallMarginBegin" text="{i18n>tile_anlt}" wrapping="true"/>
+			<ToolbarSpacer/>
+		</tnt:ToolHeader>
 		<content>
 			<FlexBox width="95%" class="sapUiSmallMarginTop columns" alignItems="Stretch" id="MYLAN_REPORTS_CUSTOM_TILES">
 				<items>

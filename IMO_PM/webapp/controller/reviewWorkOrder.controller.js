@@ -168,11 +168,12 @@ sap.ui.define([
 			}
 
 			if (aSelectedWOs.length) {
-				if (!this.digitalSignaturePopUp) {
+				/*if (!this.digitalSignaturePopUp) {
 					this.digitalSignaturePopUp = sap.ui.xmlfragment("com.sap.incture.IMO_PM.fragment.digitalSignaturePopup", this);
 					this.getView().addDependent(this.digitalSignaturePopUp);
 				}
-				this.digitalSignaturePopUp.open();
+				this.digitalSignaturePopUp.open();*/
+				this.onTeco();
 			} else {
 				this.showMessage(this.oResourceModel.getText("selectwos"));
 			}
@@ -323,7 +324,8 @@ sap.ui.define([
 						filters: oFilter,
 						success: function (oData) {
 							oModel.setProperty(rowContext + "/oprns", oData.results);
-						    that.fnUpdateOperationComments("oprns", iSelectedWO, oModel, rowContext, oData.results);
+							that.busy.close();
+						   // that.fnUpdateOperationComments("oprns", iSelectedWO, oModel, rowContext, oData.results);
 						},
 						error: function (oData) {
 							that.busy.close();
@@ -569,7 +571,7 @@ sap.ui.define([
 			mLookupModel.setProperty("/messages", messages);
 
 			if (!this.successErrorDialog) {
-				this.successErrorDialog = sap.ui.xmlfragment("com.sap.incture.IMO_PM.reviewWO.fragment.statusMessages", this);
+				this.successErrorDialog = sap.ui.xmlfragment("com.sap.incture.IMO_PM.fragment.statusMessages", this);
 				this.getView().addDependent(this.successErrorDialog);
 			}
 			this.successErrorDialog.open();

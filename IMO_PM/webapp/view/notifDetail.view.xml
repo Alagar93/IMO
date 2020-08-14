@@ -1,6 +1,13 @@
-<mvc:View controllerName="com.sap.incture.IMO_PM.controller.notifDetail" xmlns:mvc="sap.ui.core.mvc" xmlns:html="http://www.w3.org/1999/xhtml"
-	displayBlock="true" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
+<mvc:View controllerName="com.sap.incture.IMO_PM.controller.notifDetail" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:html="http://www.w3.org/1999/xhtml" displayBlock="true" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout"
+	xmlns:tnt="sap.tnt">
 	<Page showHeader="false" class="sapUiSizeCompact sapMPageBackground" floatingFooter="true">
+		<tnt:ToolHeader>
+			<Button icon="sap-icon://home" type="Transparent" press="onPressHome" tooltip="{i18n>home}"/>
+			<Image src="images/Cherrywork_Logo_final_Option_1.png" height="55%" width="10%"/>
+			<Label design="Bold" class="sapUiSmallMarginBegin" text="{i18n>notifDetails}" wrapping="true"/>
+			<ToolbarSpacer/>
+		</tnt:ToolHeader>
 		<content>
 			<VBox class="sapUiSmallMarginBegin sapUiMediumMarginTop">
 				<l:Grid >
@@ -58,7 +65,7 @@
 						</VBox>
 						<VBox>
 							<Label text="{i18n>FunLocation}"></Label>
-							<Input value="{oNotificationDataModel>/FunctLoc}" width="70%" tooltip="{oNotificationDataModel>/FunctLoc}" enabled="false" maxLength="40"
+							<Input value="{oNotificationDataModel>/FunctLoc}" width="70%" tooltip="{oNotificationDataModel>/FunctLoc}" enabled="true" maxLength="40"
 								class="sapInputBorderClass"></Input>
 							<layoutData>
 								<l:GridData span="XL6 L3 M6 S6"/>

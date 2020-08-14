@@ -1,7 +1,14 @@
-<mvc:View controllerName="com.sap.incture.IMO_PM.controller.shiftReport" xmlns:mvc="sap.ui.core.mvc" xmlns:html="http://www.w3.org/1999/xhtml"
-	xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core" xmlns:u="sap.ui.unified" xmlns:commons="sap.ui.commons" displayBlock="true" xmlns="sap.m"
-	xmlns:ui="sap.ui.table" xmlns:viz="sap.viz.ui5.controls">
+<mvc:View controllerName="com.sap.incture.IMO_PM.controller.shiftReport" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core" xmlns:u="sap.ui.unified"
+	xmlns:commons="sap.ui.commons" displayBlock="true" xmlns="sap.m" xmlns:ui="sap.ui.table" xmlns:viz="sap.viz.ui5.controls"
+	xmlns:tnt="sap.tnt">
 	<Page title="" showHeader="false" class="sapUiSizeCompact">
+		<tnt:ToolHeader>
+			<Button icon="sap-icon://home" type="Transparent" press="onPressHome" tooltip="{i18n>home}"/>
+			<Image src="images/Cherrywork_Logo_final_Option_1.png" height="55%" width="10%"/>
+			<Label design="Bold" class="sapUiSmallMarginBegin" text="{i18n>tile_shRept}" wrapping="true"/>
+			<ToolbarSpacer/>
+		</tnt:ToolHeader>
 		<content>
 			<Toolbar class="toolBarBorderClass">
 				<content>
@@ -215,7 +222,8 @@
 										<ui:Column width="9%">
 											<Label design="Bold" text="{i18n>material}" wrapping="true" class="tableHeaderText"/>
 											<ui:template>
-												<Text text="{parts:['mLookupModel>MaterialNo','mLookupModel>ReOrder'],formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnStyleReOrder'}"
+												<Text
+													text="{parts:['mLookupModel>MaterialNo','mLookupModel>ReOrder'],formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnStyleReOrder'}"
 													wrapping="false"/>
 											</ui:template>
 										</ui:Column>
@@ -340,7 +348,8 @@
 							<Label design="Bold" text="{i18n>confirmLongText}" wrapping="true" class="tableHeaderText"/>
 							<ui:template>
 								<Button icon="sap-icon://display" class="LTextButton" type="Emphasized" tooltip="{i18n>confLongTextTooltip}"
-									enabled="{parts:['oReportDataModel>OperationId','oReportDataModel>oprnLText'],formatter:'com.sap.incture.IMO_PM.formatter.formatter.styleCNFLongText'}" press="onOprnLongTextPress"/>
+									enabled="{parts:['oReportDataModel>OperationId','oReportDataModel>oprnLText'],formatter:'com.sap.incture.IMO_PM.formatter.formatter.styleCNFLongText'}"
+									press="onOprnLongTextPress"/>
 							</ui:template>
 						</ui:Column>
 					</ui:columns>

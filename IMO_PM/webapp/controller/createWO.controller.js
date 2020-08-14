@@ -717,6 +717,8 @@ sap.ui.define([
 			oWorkOrderDetailModel.setProperty("/EquipDesc", oSelectedWODetails.EquipDes);
 			oWorkOrderDetailModel.setProperty("/Plangroup", oSelectedWODetails.Plangroup);
 			oWorkOrderDetailModel.setProperty("/SuperOrder", oSelectedWODetails.Orderid);
+			// oWorkOrderDetailModel.setProperty("/SysStatusDes", oSelectedWODetails.SysStatusDes);//new 
+			// oWorkOrderDetailModel.setProperty("/systemstatustext", oSelectedWODetails.SysStatusDes);//new 
 			this.mLookupModel.setProperty("/sCatelogProf", oSelectedWODetails.Rbnr);
 			oWorkOrderDetailModel.setProperty("/Damagecode", "");
 			oWorkOrderDetailModel.setProperty("/Causecode", "");

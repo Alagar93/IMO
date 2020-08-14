@@ -47,6 +47,7 @@
 							<ui:Column width="6rem" hAlign="Center" tooltip="{i18n>STATUS}">
 								<Label text="{i18n>STATUS}" class="sapUITableColumnLabelClass"/>
 								<ui:template>
+									<!--<Text text="{oWorkOrderDetailModel>SysStatusDes}"/>-->
 									<Text text="{oWorkOrderDetailModel>systemstatustext}"/>
 								</ui:template>
 							</ui:Column>

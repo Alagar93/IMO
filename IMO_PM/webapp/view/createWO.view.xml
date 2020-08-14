@@ -1,7 +1,13 @@
-<mvc:View controllerName="com.sap.incture.IMO_PM.controller.createWO" xmlns:mvc="sap.ui.core.mvc"
-	xmlns:html="http://www.w3.org/1999/xhtml" displayBlock="true" xmlns="sap.m" xmlns:fb="sap.ui.comp.filterbar" xmlns:core="sap.ui.core"
-	xmlns:l="sap.ui.layout" xmlns:table="sap.ui.table" xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+<mvc:View controllerName="com.sap.incture.IMO_PM.controller.createWO" xmlns:mvc="sap.ui.core.mvc" xmlns:html="http://www.w3.org/1999/xhtml"
+	displayBlock="true" xmlns="sap.m" xmlns:fb="sap.ui.comp.filterbar" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout"
+	xmlns:table="sap.ui.table" xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" xmlns:tnt="sap.tnt">
 	<Page showHeader="false" enableScrolling="false" class="sapUiSizeCompact" title="{}">
+		<tnt:ToolHeader>
+			<Button icon="sap-icon://home" type="Transparent" press="onPressHome" tooltip="{i18n>home}"/>
+		    <Image src="images/Cherrywork_Logo_final_Option_1.png" height="55%" width="10%"/>
+			<Label design="Bold" class="sapUiSmallMarginBegin" text="{i18n>tile_cr/ed_wo}" wrapping="true"/>
+			<ToolbarSpacer/>
+		</tnt:ToolHeader>
 		<content>
 			<RadioButtonGroup columns="3" selectedIndex="{mLookupModel>/iSelectedIndex}" select="onCreateOptionChange" class="sapUiSmallMargin"
 				width="60%">

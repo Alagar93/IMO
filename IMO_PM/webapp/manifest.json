@@ -14,12 +14,12 @@
 			"version": "1.40.12"
 		},
 		"dataSources": {
+
 			"portalOData": {
 				"uri": "/Incture_DEC/sap/opu/odata/SAP/ZPM_WOM_DETAILS_SRV/",
 				"type": "OData",
 				"settings": {
 					"odataVersion": "2.0"
-					
 				}
 			},
 			"lookUpOData": {
@@ -44,7 +44,7 @@
 				}
 			},
 			"portalUserLogin": {
-				"uri": "/Incture_DEC/sap/opu/odata/SAP/ZPM_WOM_USER_SRV/",
+				"uri": "/Incture_DEC/sap/opu/odata/SAP/ZPM_WOM_USER_LOGIN_SRV/",
 				"type": "OData",
 				"settings": {
 					"odataVersion": "2.0"
@@ -59,6 +59,7 @@
 			}
 		}
 	},
+
 
 	"sap.ui": {
 		"technology": "UI5",
@@ -90,6 +91,7 @@
 			"libs": {
 				"sap.ui.core": {},
 				"sap.m": {},
+				"sap.tnt": {},
 				"sap.ui.layout": {}
 			}
 		},
@@ -110,7 +112,6 @@
 					"metadataUrlParams": {
 						"sap-documentation": "heading"
 					},
-					"headers" : {"SAP-Connectivity-SCC-Location_ID":"incture"},
 					"useBatch": false
 				}
 			},
@@ -273,8 +274,7 @@
 					"name": "reports",
 					"pattern": "reports",
 					"target": "reports"
-				},
-				{
+				}, {
 					"name": "shiftReport",
 					"pattern": "shiftReport",
 					"target": "shiftReport"

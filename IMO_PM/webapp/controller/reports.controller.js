@@ -336,6 +336,9 @@ sap.ui.define([
 			oDataset.setModel(oReportsDataModel);
 			util.getMtrFeedItem(oVizFrame, oReportData, FeedItem);
 			oVizFrame.setDataset(oDataset);
+			// oDataset[0].setModel(oReportsDataModel);
+			// util.getMtrFeedItem(oVizFrame, oReportData, FeedItem, oDataset[1]);
+			// oVizFrame.setDataset(oDataset[0]);
 		},
 		///////////////////////////////////MEAN_TIME_REPORT///////////////////////////////////
 

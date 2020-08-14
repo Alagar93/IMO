@@ -670,46 +670,54 @@ com.sap.incture.IMO_PM.util.util = {
 	checkMandatoryFields: function (oNotificationDataModel, oNotificationViewModel, oResourceModel) {
 		var oErrorMsg = "";
 		var notifType = oNotificationDataModel.getProperty("/NotifType");
-		if (!notifType) {
-			oErrorMsg = oResourceModel.getText("SEL_NOTIF_TYPE");
+/*		if (!notifType) {
+			// oErrorMsg = oResourceModel.getText("SEL_NOTIF_TYPE");
+			oErrorMsg = "Please select Notification type";
 			return [true, oErrorMsg];
-		}
+		}*/
 		var equipment = oNotificationDataModel.getProperty("/Equipment");
 		if (!equipment) {
-			oErrorMsg = oResourceModel.getText("SEL_EQUIPMENT");
+			// oErrorMsg = oResourceModel.getText("SEL_EQUIPMENT");
+			oErrorMsg = "Please select an Equipment";
 			return [true, oErrorMsg];
 		}
 		var plannerGrp = oNotificationDataModel.getProperty("/Plangroup");
 		if (!plannerGrp) {
-			oErrorMsg = oResourceModel.getText("SEL_PLANNER_GRP");
+			// oErrorMsg = oResourceModel.getText("SEL_PLANNER_GRP");
+			oErrorMsg = "Please select Planner Group";
 			return [true, oErrorMsg];
 		}
 		var breakdown = oNotificationDataModel.getProperty("/Breakdown");
 		if (breakdown === "X" || breakdown === true) {
 			var malStartdate = oNotificationDataModel.getProperty("/Startdate");
 			if (!malStartdate) {
-				oErrorMsg = oResourceModel.getText("SEL_MAL_STRT_DATE");
+				// oErrorMsg = oResourceModel.getText("SEL_MAL_STRT_DATE");
+				oErrorMsg = "Please select Malfunction start date";
 				return [true, oErrorMsg];
 			}
 			var malStartime = oNotificationViewModel.getProperty("/StartTime");
 			if (!malStartime) {
-				oErrorMsg = oResourceModel.getText("SEL_MAL_STRT_TIME");
+				// oErrorMsg = oResourceModel.getText("SEL_MAL_STRT_TIME");
+				oErrorMsg = "Please select Malfunction start time";
 				return [true, oErrorMsg];
 			}
 			var malEndDate = oNotificationDataModel.getProperty("/Enddate");
 			if (!malEndDate) {
-				oErrorMsg = oResourceModel.getText("SEL_MAL_END_DATE");
+				// oErrorMsg = oResourceModel.getText("SEL_MAL_END_DATE");
+				oErrorMsg = "Please select Malfunction end date";
 				return [true, oErrorMsg];
 			}
 			var malEndtime = oNotificationViewModel.getProperty("/EndTime");
 			if (!malEndtime) {
-				oErrorMsg = oResourceModel.getText("SEL_MAL_STRT_TIME");
+				// oErrorMsg = oResourceModel.getText("SEL_MAL_STRT_TIME");
+				oErrorMsg = "Please select Malfunction end time";
 				return [true, oErrorMsg];
 			}
 		}
 		var shortTxt = oNotificationDataModel.getProperty("/ShortText");
 		if (!shortTxt) {
-			oErrorMsg = oResourceModel.getText("SEL_DESC");
+			// oErrorMsg = oResourceModel.getText("SEL_DESC");
+			oErrorMsg = "Please enter Description";
 			return [true, oErrorMsg];
 		}
 		return [false];
@@ -1339,22 +1347,26 @@ com.sap.incture.IMO_PM.util.util = {
 		var measures = [];
 		var index = this.fnFindLargestArr(oData);
 		var objKeys = Object.keys(oData[index]);
+		var objvalues = Object.values(oData[index])[1];
 		objKeys.filter(function (obj) {
 			if (!obj.includes("YearMonth")) {
 				keysArr.push(obj);
 			}
 		});
-		for (var i = 0; i < keysArr.length; i++) {
-			var obj = {
-				name: keysArr[i],
-				value: "{" + keysArr[i] + "}"
-			};
-			measures.push(obj);
+		for (var j = 0; j < oData.length; j++) {
+			for (var i = 0; i < keysArr.length; i++) {
+				var obj = {
+					name: keysArr[i],
+					value: oData[j][keysArr[i]]
+						// value: "{" + keysArr[i] + "}"
+				};
+				measures.push(obj);
+			}
 		}
 		var dataset = {
 			dimensions: [{
 				name: "Date",
-				value: "{path:'YearMonth', formatter:'com.mylan.Reports.formatter.formatter.formatUIDate'}"
+				value: "{path:'YearMonth', formatter:'com.sap.incture.IMO_PM.formatter.formatter.formatUIDate'}"
 			}],
 			measures: measures,
 			data: {
@@ -1362,9 +1374,31 @@ com.sap.incture.IMO_PM.util.util = {
 			}
 		};
 		return new FlattenedDataset(dataset);
+		// return [new FlattenedDataset(dataset), measures];
 	},
 
 	//Function to get Feed Items for MTR Report
+	// getMtrFeedItem: function (oVizFrame, oData, FeedItem, measures) {
+
+	// 		var feedPrimaryValues = {
+	// 			uid: "valueAxis",
+	// 			type: "Measure",
+	// 			values: []
+	// 		};
+	// 	for (var i = 0; i < measures.length; i++) {
+	// 		feedPrimaryValues.values.push(measures[i].name);
+	// 		}
+	// 	feedPrimaryValues = new FeedItem(feedPrimaryValues);
+	// 	oVizFrame.addFeed(feedPrimaryValues);
+
+	// 	var feedAxisLabels = {
+	// 		uid: "categoryAxis",
+	// 		type: "Dimension",
+	// 		values: ["Date"]
+	// 	};
+	// 	feedAxisLabels = new FeedItem(feedAxisLabels);
+	// 	oVizFrame.addFeed(feedAxisLabels);
+	// },
 	getMtrFeedItem: function (oVizFrame, oData, FeedItem) {
 		var keysArr = [];
 		var index = this.fnFindLargestArr(oData);

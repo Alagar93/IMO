@@ -56,6 +56,10 @@ sap.ui.define([
 					this.fnFilterSlectedDamageGroup();
 					this.fnFilterSlectedCauseGroup();
 					this.fnFilterCNFOperations(true);
+				/*	var mLookupModel = this.mLookupModel;
+					var oSelectedWODetails = mLookupModel.getProperty("/oSelectedWODetails");
+					oWorkOrderDetailModel.setProperty("/systemstatustext", oSelectedWODetails.SysStatusDes);//new 
+*/
 				} else if (viewType === "CREATE_NOTIF_WO") {
 					this.fnCreateUpdateBtnTxt("CREATE_ORDER");
 					this.fnFilterSlectedDamageGroup();
@@ -1764,26 +1768,30 @@ sap.ui.define([
 				bVal = false;
 			} else if (sysCond1Arr.length === 1) {
 				operationId = sysCond1Arr.join("");
-				oErrorMsg = oResourceModel.getText("syscondnstatuscantbe1foroprn", [operationId]);
-				bVal = false;
+				// oErrorMsg = oResourceModel.getText("syscondnstatuscantbe1foroprn", [operationId]);
+				bVal = true;
+					// bVal = false;
 			} else if (sysCond1Arr.length > 1) {
 				operationId = sysCond1Arr.join(", ");
-				oErrorMsg = oResourceModel.getText("syscondnstatuscantbe1foroprns", [operationId]);
-				bVal = false;
+				// oErrorMsg = oResourceModel.getText("syscondnstatuscantbe1foroprns", [operationId]);
+				// bVal = false;
+					bVal = true;
 			} else if (sysCond0Arr.length === 1) {
 				operationId = sysCond0Arr.join("");
-				oErrorMsg = this.oResourceModel.getText("syscondnstatuscantbe0foroprn", [operationId]);
-				bVal = false;
+				// oErrorMsg = this.oResourceModel.getText("syscondnstatuscantbe0foroprn", [operationId]);
+				// bVal = false;
+					bVal = true;
 			} else if (sysCond0Arr.length > 1) {
 				operationId = sysCond0Arr.join(", ");
-				oErrorMsg = this.oResourceModel.getText("syscondnstatuscantbe0foroprns", [operationId]);
-				bVal = false;
+				// oErrorMsg = this.oResourceModel.getText("syscondnstatuscantbe0foroprns", [operationId]);
+				// bVal = false;
+					bVal = true;
 			} else {
 				bVal = true;
 			}
 			this.showMessage(oErrorMsg);
-			// return bVal;
-			return true;
+			return bVal;
+			// return true;
 		},
 
 		//Function to open Notification list pop-up
@@ -2407,7 +2415,7 @@ sap.ui.define([
 
 			oSource.addHeaderParameter(oCSRFCustomHeader);
 			oSource.addHeaderParameter(oSlugCustomHeader);
-			// oSource.addHeaderParameter(oDisableCSRFHeader);
+		    oSource.addHeaderParameter(oDisableCSRFHeader);
 			oSource.upload();
 		},
 

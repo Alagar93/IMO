@@ -70,6 +70,14 @@ sap.ui.define([
 				}
 			}
 		},
+
+		onPressHome: function (oEvent) {
+			/*var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+			oRouter.navTo("Launch");*/
+			var sURL = "https://ub2qkdfhxg4ubmgqmta-imo-pm-imo-pm.cfapps.eu10.hana.ondemand.com/IMO_PM/index.html";
+
+			sap.m.URLHelper.redirect(sURL, false);
+		},
 		//Function to get KPI's tile count WOs
 		fnGetKPIsWOs: function (serviceType, headerText) {
 			var that = this;
@@ -716,6 +724,62 @@ sap.ui.define([
 						that.showMessage(successErrMsg);
 					}
 					that.busy.close();
+				},
+				error: function (oData) {
+					oWorkOrderDetailModel.setProperty("/", {});
+					oWorkOrderDetailModel.refresh();
+					that.busy.close();
+				}
+			});
+		},
+		//Function to get Work Order details by WO ID
+		fnGetWOHeaderDetailsnotiflist: function (Orderid, notifArry) {
+			var that = this;
+			this.busy.open();
+			var oWorkOrderOData = this.oWorkOrderOData;
+			var oWorkOrderDetailModel = this.oWorkOrderDetailModel;
+
+			var sUrl = "/WorkorderHeaderSet('" + Orderid + "')";
+			oWorkOrderOData.read(sUrl, {
+				urlParameters: {
+					"$expand": "HEADERTOOPERATIONSNAV,HEADERTOPARTNERNAV,HEADERTOCOMPONENTNAV,HEADERTONOTIFNAV"
+				},
+				success: function (oData) {
+					var operationList = oData.HEADERTOOPERATIONSNAV.results;
+					var spareParts = oData.HEADERTOCOMPONENTNAV.results;
+					if (!spareParts) {
+						spareParts = [];
+					}
+					var messages = oData.HEADERTOMESSAGENAV.results;
+					if (!messages) {
+						messages = [{
+							"Message": "",
+							"Status": ""
+						}];
+					}
+					var partner = oData.HEADERTOPARTNERNAV.results;
+					if (!partner) {
+						partner = [{
+							"Orderid": "",
+							"AssignedTo": ""
+						}];
+					}
+					var notifications = oData.HEADERTONOTIFNAV.results;
+					if (!notifications) {
+						notifications = [];
+					}
+					var oTempArr = notifications.concat(notifArry);
+					oData.HEADERTOOPERATIONSNAV = operationList;
+					oData.HEADERTOCOMPONENTNAV = spareParts;
+					oData.HEADERTOMESSAGENAV = messages;
+					oData.HEADERTOPARTNERNAV = partner;
+					oData.HEADERTONOTIFNAV = oTempArr;
+					oWorkOrderDetailModel.setProperty("/", oData);
+					oWorkOrderDetailModel.refresh();
+					that.updateWorkOrder();
+					var notifTbl = that.getView().byId("notifListId");
+					that.fnResetFilers(notifTbl, "mLookupModel");
+					//that.busy.close();
 				},
 				error: function (oData) {
 					oWorkOrderDetailModel.setProperty("/", {});
@@ -2853,6 +2917,7 @@ sap.ui.define([
 				oPortalDataModel.read("/MeanTTRReportSet", {
 					filters: oFilter,
 					success: function (oData) {
+
 						var mtrRep = oData.results;
 						mtrRep = util.fnFormatMtrRepData(mtrRep);
 						oReportsDataModel.setData(mtrRep);

@@ -1,5 +1,17 @@
 <mvc:View controllerName="com.sap.incture.IMO_PM.controller.Launch" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.uxap" xmlns:m="sap.m"
-	xmlns:core="sap.ui.core">
+	xmlns:core="sap.ui.core" xmlns:tnt="sap.tnt">
+	<tnt:ToolHeader>
+		<!--<m:Button icon="sap-icon://home" type="Transparent"/>-->
+		<m:Image class="sapUiMediumMarginBegin" src="images/Cherrywork_Logo_final_Option_1.png" height="55%" width="10%"/>
+	
+		<m:Label design="Bold" class="sapUiSmallMarginBegin" text="{i18n>imo}" wrapping="true"/>
+		
+	<!--	<m:Button icon="sap-icon://search" type="Transparent" />
+		<m:Button icon="sap-icon://task" type="Transparent" />
+		<m:Button icon="sap-icon://bell" type="Transparent" />
+		<m:Avatar src="test-resources/sap/tnt/images/Woman_avatar_01.png" displaySize="XS" press=".onAvatarPressed" />
+		<m:Button icon="sap-icon://grid" type="Transparent" />-->
+		</tnt:ToolHeader>
 	<!--<m:App id="oApp">-->
 	<ObjectPageLayout id="ObjectPageLayout">
 		<!--	<headerTitle>
@@ -45,4 +57,5 @@
 		</sections>
 	</ObjectPageLayout>
 	<!--</m:App>-->
+	
 </mvc:View>

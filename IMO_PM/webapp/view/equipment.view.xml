@@ -2,6 +2,12 @@
 	displayBlock="false" xmlns="sap.m" xmlns:fb="sap.ui.comp.filterbar" xmlns:tnt="sap.tnt" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout"
 	height="100%" xmlns:table="sap.ui.table" xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
 	<Page showHeader="false" class="sapUiSizeCompact">
+		<tnt:ToolHeader>
+			<Button icon="sap-icon://home" type="Transparent" press="onPressHome" tooltip="{i18n>home}"/>
+			<Image src="images/Cherrywork_Logo_final_Option_1.png" height="55%" width="10%"/>
+			<Label design="Bold" class="sapUiSmallMarginBegin" text="{i18n>tile_eqp}" wrapping="true"/>
+			<ToolbarSpacer/>
+		</tnt:ToolHeader>
 		<content>
 			<l:FixFlex>
 				<l:flexContent>
@@ -12,7 +18,9 @@
 							<table:Column sortProperty="Equnr" width="8%" filterProperty="Equnr" defaultFilterOperator="Contains">
 								<Text wrapping="true" text="{i18n>equip}" class="tableHeaderText"/>
 								<table:template>
-									<Link text="{parts:['mLookupModel>Equnr', 'mLookupModel>Status'], formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnCheckIsBreakdown'}" press="onSelectEquip" class="tableContentText"/>
+									<Link
+										text="{parts:['mLookupModel>Equnr', 'mLookupModel>Status'], formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnCheckIsBreakdown'}"
+										press="onSelectEquip" class="tableContentText"/>
 								</table:template>
 							</table:Column>
 							<table:Column sortProperty="Eqktu" width="14%" filterProperty="Eqktu">

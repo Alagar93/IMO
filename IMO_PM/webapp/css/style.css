@@ -5,6 +5,19 @@ width: 50px;
     border-left: 5px solid red;
 }
 
+.sapUxAPObjectPageLayout-Std-Desktop .sapUxAPObjectPageHeaderContent:only-child {
+    padding: 0rem 1rem !important;
+}
+
+.sapTntToolHeader .sapMLabel {
+    color: #fff;
+    margin-top: .15rem !important;
+}
+
+/*.sapMIBar.sapMTB .sapMBarChild:first-child {*/
+/*    margin-left: 2.5rem;*/
+/*}*/
+
 .titleBold.sapMTitle {
     color: black;
     font-weight: bold;

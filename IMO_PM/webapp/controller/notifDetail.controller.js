@@ -42,8 +42,8 @@ sap.ui.define([
 			var notifId = window.location.hash.split("/")[2];
 
 			var oFilter = [];
-			oFilter.push(new Filter("Descriptn", "EQ", notifId));
-			oFilter.push(new Filter("NotifNo", "EQ", ""));
+			oFilter.push(new Filter("Descriptn", "EQ", ""));
+			oFilter.push(new Filter("NotifNo", "EQ", notifId));
 			oFilter.push(new Filter("SysStatus", "EQ", ""));
 			oFilter.push(new Filter("Priority", "EQ", ""));
 			oFilter.push(new Filter("Equipment", "EQ", ""));

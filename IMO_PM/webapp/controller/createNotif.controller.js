@@ -373,7 +373,7 @@ sap.ui.define([
 						that.resetUIFields();
 						var successText = oResourceModel.getText("SUCCSESS_CREATING_NOTIF");
 						successErrMsg = successText + oNotificationId;
-						that.fnNavLaunchpadHome();
+						// that.fnNavLaunchpadHome();
 					} else {
 						var notifyMsgbVal = sData.Notify.hasOwnProperty("results");
 						if (notifyMsgbVal) {
