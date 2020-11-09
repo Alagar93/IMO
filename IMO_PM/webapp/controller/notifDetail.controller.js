@@ -449,8 +449,9 @@ sap.ui.define([
 			});
 			oPortalNotifOData.create("/NotificationSet", oNotifData, {
 				success: function (sData, oResponse) {
+					// var notifyMsg = sData.Notify.hasOwnProperty("results");
 					var oNotifyMsg = sData.Notify;
-					if (oNotifyMsg.hasOwnProperty("results")) {
+					if (oNotifyMsg) {
 						var notifLength = oNotifyMsg.results.length;
 						if (notifLength > 0) {
 							var messages = oNotifyMsg.results;
