@@ -391,12 +391,18 @@ sap.ui.define([
 			for (var i = 0; i < selectedWOs.length; i++) {
 				var selWOOrderId = mLookupModel.getProperty(selectedWOs[i].sPath + "/Orderid");
 				// sURL = sHost + sBSPPath + selWOOrderId;
-				sURL = "https://ub2qkdfhxg4ubmgqmta-imo-pm-imo-pm.cfapps.eu10.hana.ondemand.com/IMO_PM/index.html#/detailTabWO/" + selWOOrderId;
+				sURL = "https://lnvybdvpasstbo1j-imo-imo-pm.cfapps.eu10.hana.ondemand.com/IMO_PM/index.html#/detailTabWO/" + selWOOrderId;
 				sap.m.URLHelper.redirect(sURL, true);
 			}
 			this.getView().byId("idWorkOrderList").clearSelection();
 			mLookupModel.setProperty("/selectedWOs", []);
 			mLookupModel.refresh();
+		},
+		handleLinkPress: function (oEvent) {
+			var sURL;
+			var sNotifID = oEvent.getSource().getText();
+			sURL = "https://lnvybdvpasstbo1j-imo-imo-pm.cfapps.eu10.hana.ondemand.com/IMO_PM/index.html#/detailTabWO/" + sNotifID;
+			sap.m.URLHelper.redirect(sURL, true);
 		},
 
 		onSaveWOFilter: function () {
@@ -568,60 +574,60 @@ sap.ui.define([
 			}
 
 			var that = this;
-			var mLookupModel = this.mLookupModel;
-			this.busy.open();
-			var sUrl = "/GetWorkOrderVariantSet";
-			var oPortalDataModel = this.oPortalDataModel;
-			var oFilter = [];
-			var oRequest = {
-				"userId": mLookupModel.getProperty("/userName"),
-				"filterType": "reference"
-			};
-			oFilter.push(new Filter("REQUEST", "EQ", JSON.stringify(oRequest)));
-			oPortalDataModel.read(sUrl, {
-				filters: oFilter,
-				success: function (oData) {
-					var oComments = oData.results[0];
-					if (oComments.RESPONSE) {
-						oComments = JSON.parse(oComments.RESPONSE);
-						mLookupModel.setProperty("/idwofilter", oComments.id);
-						mLookupModel.setProperty("/sOrderTypeSelFilter", oComments.refWOType);
-						mLookupModel.setProperty("/sPriorSelFilter", oComments.refPriority);
-						mLookupModel.setProperty("/sStatusSelFilter", oComments.refStatus);
-						mLookupModel.setProperty("/iWONumFilter", oComments.refWONumber);
-						mLookupModel.setProperty("/sEquipFilter", oComments.refEquipment);
-						mLookupModel.setProperty("/sCreatedBy", oComments.refCreatedBy);
-						mLookupModel.setProperty("/sAssignedTo", oComments.refAssignedTo);
-						mLookupModel.setProperty("/sWorkCenterFilter", "");
-						mLookupModel.refresh();
-					} else {
-						mLookupModel.setProperty("/idwofilter", "");
-						mLookupModel.setProperty("/sOrderTypeSelFilter", "");
-						mLookupModel.setProperty("/sPriorSelFilter", "");
-						mLookupModel.setProperty("/sStatusSelFilter", "");
-						mLookupModel.setProperty("/iWONumFilter", "");
-						mLookupModel.setProperty("/sEquipFilter", "");
-						mLookupModel.setProperty("/sCreatedBy", "");
-						mLookupModel.setProperty("/sAssignedTo", "");
-						mLookupModel.setProperty("/sWorkCenterFilter", "");
-						mLookupModel.refresh();
-					}
-					that.busy.close();
-				},
-				error: function (oData) {
-					mLookupModel.setProperty("/idwofilter", "");
-					mLookupModel.setProperty("/sOrderTypeSelFilter", "");
-					mLookupModel.setProperty("/sPriorSelFilter", "");
-					mLookupModel.setProperty("/sStatusSelFilter", "");
-					mLookupModel.setProperty("/iWONumFilter", "");
-					mLookupModel.setProperty("/sEquipFilter", "");
-					mLookupModel.setProperty("/sCreatedBy", "");
-					mLookupModel.setProperty("/sAssignedTo", "");
-					mLookupModel.setProperty("/sWorkCenterFilter", "");
-					mLookupModel.refresh();
-					that.busy.close();
-				}
-			});
+			// var mLookupModel = this.mLookupModel;
+			// this.busy.open();
+			// var sUrl = "/GetWorkOrderVariantSet";
+			// var oPortalDataModel = this.oPortalDataModel;
+			// var oFilter = [];
+			// var oRequest = {
+			// 	"userId": mLookupModel.getProperty("/userName"),
+			// 	"filterType": "reference"
+			// };
+			// oFilter.push(new Filter("REQUEST", "EQ", JSON.stringify(oRequest)));
+			// oPortalDataModel.read(sUrl, {
+			// 	filters: oFilter,
+			// 	success: function (oData) {
+			// 		var oComments = oData.results[0];
+			// 		if (oComments.RESPONSE) {
+			// 			oComments = JSON.parse(oComments.RESPONSE);
+			// 			mLookupModel.setProperty("/idwofilter", oComments.id);
+			// 			mLookupModel.setProperty("/sOrderTypeSelFilter", oComments.refWOType);
+			// 			mLookupModel.setProperty("/sPriorSelFilter", oComments.refPriority);
+			// 			mLookupModel.setProperty("/sStatusSelFilter", oComments.refStatus);
+			// 			mLookupModel.setProperty("/iWONumFilter", oComments.refWONumber);
+			// 			mLookupModel.setProperty("/sEquipFilter", oComments.refEquipment);
+			// 			mLookupModel.setProperty("/sCreatedBy", oComments.refCreatedBy);
+			// 			mLookupModel.setProperty("/sAssignedTo", oComments.refAssignedTo);
+			// 			mLookupModel.setProperty("/sWorkCenterFilter", "");
+			// 			mLookupModel.refresh();
+			// 		} else {
+			// 			mLookupModel.setProperty("/idwofilter", "");
+			// 			mLookupModel.setProperty("/sOrderTypeSelFilter", "");
+			// 			mLookupModel.setProperty("/sPriorSelFilter", "");
+			// 			mLookupModel.setProperty("/sStatusSelFilter", "");
+			// 			mLookupModel.setProperty("/iWONumFilter", "");
+			// 			mLookupModel.setProperty("/sEquipFilter", "");
+			// 			mLookupModel.setProperty("/sCreatedBy", "");
+			// 			mLookupModel.setProperty("/sAssignedTo", "");
+			// 			mLookupModel.setProperty("/sWorkCenterFilter", "");
+			// 			mLookupModel.refresh();
+			// 		}
+			// 		that.busy.close();
+			// 	},
+			// 	error: function (oData) {
+			// 		mLookupModel.setProperty("/idwofilter", "");
+			// 		mLookupModel.setProperty("/sOrderTypeSelFilter", "");
+			// 		mLookupModel.setProperty("/sPriorSelFilter", "");
+			// 		mLookupModel.setProperty("/sStatusSelFilter", "");
+			// 		mLookupModel.setProperty("/iWONumFilter", "");
+			// 		mLookupModel.setProperty("/sEquipFilter", "");
+			// 		mLookupModel.setProperty("/sCreatedBy", "");
+			// 		mLookupModel.setProperty("/sAssignedTo", "");
+			// 		mLookupModel.setProperty("/sWorkCenterFilter", "");
+			// 		mLookupModel.refresh();
+			// 		that.busy.close();
+			// 	}
+			// });
 			this._oDialogWO.open();
 		},
 

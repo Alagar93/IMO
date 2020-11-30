@@ -72,10 +72,10 @@ sap.ui.define([
 		},
 
 		onPressHome: function (oEvent) {
+
 			/*var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			oRouter.navTo("Launch");*/
-			var sURL = "https://ub2qkdfhxg4ubmgqmta-imo-pm-imo-pm.cfapps.eu10.hana.ondemand.com/IMO_PM/index.html";
-
+			var sURL = "https://lnvybdvpasstbo1j-imo-imo-pm.cfapps.eu10.hana.ondemand.com/IMO_PM/index.html";
 			sap.m.URLHelper.redirect(sURL, false);
 		},
 		//Function to get KPI's tile count WOs
@@ -307,6 +307,7 @@ sap.ui.define([
 				this.fnFetchNotifList();
 				this.getNotificationKPICount();
 			} else {
+				this.getWOPriorities();
 				this.fnFetchDetailNotifList();
 			}
 			this.getNotificationType();
@@ -315,6 +316,7 @@ sap.ui.define([
 			this.getCauseCode();
 			this.getFavEquips();
 			this.getWorkCentersNotifList();
+			this.getFnLocs();
 		},
 		//Function to get Work centers list
 		getWorkCentersNotifList: function () {
@@ -399,6 +401,7 @@ sap.ui.define([
 			this.getWOPriorities();
 			this.getWorkCentersCreateWO();
 			this.getFavEquips();
+			this.getFnLocs();
 			if (fromView === "WK_ORDER_DETAIL") {
 				this.getPlannerGroups();
 				this.getDamageCode();
@@ -415,6 +418,35 @@ sap.ui.define([
 			this.getDamageCode();
 			this.getCauseCode();
 			this.getFavEquips();
+			this.getWOPriorities();
+			this.getWorkCentersCreateWO();
+			this.getFnLocs();
+		},
+		//Function to get fnlocations List
+		getFnLocs: function (oEvent) {
+			var that = this;
+			var oLookupDataModel = this.oLookupDataModel;
+			var mLookupModel = this.mLookupModel;
+			// var oPortalDataModel = this.oPortalDataModel;
+			var userPlant = this.oUserDetailModel.getProperty("/userPlant");
+
+			var oFilter = [];
+			oFilter.push(new Filter("plant", "EQ", userPlant));
+			// oFilter.push(new Filter("Tidnr", "EQ", TechId.toUpperCase()));
+			// filters: oFilter,
+			oLookupDataModel.read("/FuncLocationSet", {
+				success: function (oData) {
+					var aFnLocsList = oData.results;
+					mLookupModel.setProperty("/aFnLocsList", aFnLocsList);
+					mLookupModel.refresh();
+					that.busy.close();
+				},
+				error: function (oData) {
+					mLookupModel.setProperty("/aFnLocsList", []);
+					mLookupModel.refresh();
+					that.busy.close();
+				}
+			});
 		},
 
 		//Function to get logged in user
@@ -1051,19 +1083,19 @@ sap.ui.define([
 			oPortalUserLoginOData.setSizeLimit(10000);
 			this.getLoggedInUserCreateWO(fromView);
 		},
-		/*			setAppInitData: function (fromView) {
-					this.getOrderType();
-					this.getWOPriorities();
-					this.getWorkCenters();
-					this.getFavEquips();
-					if (fromView === "WK_ORDER_DETAIL") {
-						this.getPlannerGroups();
-						this.getDamageCode();
-						this.getCauseCode();
-						this.getSystemCondition();
-						this.getNotificationType();
-					}
-				},*/
+		// /*			setAppInitData: function (fromView) {
+		// 			this.getOrderType();
+		// 			this.getWOPriorities();
+		// 			this.getWorkCenters();
+		// 			this.getFavEquips();
+		// 			if (fromView === "WK_ORDER_DETAIL") {
+		// 				this.getPlannerGroups();
+		// 				this.getDamageCode();
+		// 				this.getCauseCode();
+		// 				this.getSystemCondition();
+		// 				this.getNotificationType();
+		// 			}
+		// 		},*/
 
 		//Function to get Work Order type
 		getOrderType: function () {

@@ -4,8 +4,9 @@ sap.ui.define([
 	"com/sap/incture/IMO_PM/util/util",
 	"sap/ui/model/json/JSONModel",
 	"sap/ui/model/Filter",
-	"sap/ui/model/FilterOperator"
-], function (BaseController, formatter, util, JSONModel, Filter, FilterOperator) {
+	"sap/ui/model/FilterOperator",
+	"sap/m/MessageBox"
+], function (BaseController, formatter, util, JSONModel, Filter, FilterOperator, MessageBox) {
 	"use strict";
 
 	return BaseController.extend("com.sap.incture.IMO_PM.controller.notifDetail", {
@@ -98,50 +99,58 @@ sap.ui.define([
 		//Function to select a Equipment and auto-populate Functional location
 		onEquipSelect: function (oEvent) {
 			var mLookupModel = this.mLookupModel;
+			var oNotificationDataModel = this.oNotificationDataModel;
 			var oSource = oEvent.getParameter("listItem");
 			var sPath = oSource.getBindingContextPath();
 			var iEqId = mLookupModel.getProperty(sPath + "/Equnr");
 			var iFunLoc = mLookupModel.getProperty(sPath + "/Tplnr");
 			var sCatelogProf = mLookupModel.getProperty(sPath + "/Rbnr");
 			var sPlanGrpSel = mLookupModel.getProperty(sPath + "/Ingrp");
-			var oNotificationDataModel = this.oNotificationDataModel;
+			var sWorkCenterSel = mLookupModel.getProperty(sPath + "/Gewrk");
+			var sWorkCenterDesc = mLookupModel.getProperty(sPath + "/WorkCenter");
+			var sPlant = mLookupModel.getProperty(sPath + "/plant");
 			oNotificationDataModel.setProperty("/Equipment", iEqId);
+			mLookupModel.setProperty("/sWorkCenterSel", sWorkCenterSel);
+			mLookupModel.setProperty("/sEquipFilter", iEqId);
+			mLookupModel.setProperty("/sNotifEquipFilter", iEqId);
+			mLookupModel.setProperty("/sCatelogProf", sCatelogProf);
 			oNotificationDataModel.setProperty("/FunctLoc", iFunLoc);
 			oNotificationDataModel.setProperty("/Plangroup", sPlanGrpSel);
-			mLookupModel.setProperty("/sCatelogProf", sCatelogProf);
+			oNotificationDataModel.setProperty("/PlanPlant", sPlant); //nischal
+			oNotificationDataModel.setProperty("/WorkCenter", sWorkCenterDesc); //nischal
 			this.getEquipsAssmebly(iEqId);
 			this.equipmentsListDialog.close();
-			this.fnFilterSlectedDamageGroup();
-			this.fnFilterSlectedCauseGroup();
+			// this.fnFilterSlectedDamageGroup();
+			// this.fnFilterSlectedCauseGroup();
 		},
 
 		//Function to show selected Equipment
-		fnFilterSlectedDamageGroup: function () {
-			var catGrp = this.mLookupModel.getProperty("/sCatelogProf");
-			var aFilters = [];
-			if (catGrp) {
-				var sFilter = new sap.ui.model.Filter("Codegruppe", "EQ", catGrp);
-				aFilters.push(sFilter);
-			}
+		// fnFilterSlectedDamageGroup: function () {
+		// 	var catGrp = this.mLookupModel.getProperty("/sCatelogProf");
+		// 	var aFilters = [];
+		// 	if (catGrp) {
+		// 		var sFilter = new sap.ui.model.Filter("Codegruppe", "EQ", catGrp);
+		// 		aFilters.push(sFilter);
+		// 	}
 
-			var oDamageCode = this.getView().byId("NOTIF_DETAIL_DAMAGE_CODE");
-			var binding = oDamageCode.getBinding("items");
-			binding.filter(aFilters, "Application");
-		},
+		// 	var oDamageCode = this.getView().byId("NOTIF_DETAIL_DAMAGE_CODE");
+		// 	var binding = oDamageCode.getBinding("items");
+		// 	binding.filter(aFilters, "Application");
+		// },
 
 		//Function to show selected Equipment
-		fnFilterSlectedCauseGroup: function () {
-			var catGrp = this.mLookupModel.getProperty("/sCatelogProf");
-			var aFilters = [];
-			if (catGrp) {
-				var sFilter = new sap.ui.model.Filter("Codegruppe", "EQ", catGrp);
-				aFilters.push(sFilter);
-			}
+		// fnFilterSlectedCauseGroup: function () {
+		// 	var catGrp = this.mLookupModel.getProperty("/sCatelogProf");
+		// 	var aFilters = [];
+		// 	if (catGrp) {
+		// 		var sFilter = new sap.ui.model.Filter("Codegruppe", "EQ", catGrp);
+		// 		aFilters.push(sFilter);
+		// 	}
 
-			var oCauseCode = this.getView().byId("NOTIF_DETAIL_CAUSE_CODE");
-			var binding = oCauseCode.getBinding("items");
-			binding.filter(aFilters, "Application");
-		},
+		// 	var oCauseCode = this.getView().byId("NOTIF_DETAIL_CAUSE_CODE");
+		// 	var binding = oCauseCode.getBinding("items");
+		// 	binding.filter(aFilters, "Application");
+		// },
 
 		//Function to get Equiments List
 		onSearchEquipments: function (oEvent) {
@@ -482,7 +491,132 @@ sap.ui.define([
 				}
 			});
 		},
+		//Funnction to Release the Notification
+		onPressRelease: function () {
+			var that = this;
+			this.busy.open();
+			var oPortalNotifOData = this.oPortalNotifOData;
+			var oNotificationDataModel = this.oNotificationDataModel;
+			var oNotificationViewModel = this.oNotificationViewModel;
+			var oNotifData = oNotificationDataModel.getData();
 
+			var tempLongText = oNotificationViewModel.getProperty("/Longtext");
+			oNotifData.Longtext = tempLongText;
+
+			oNotifData.Startdate = formatter.formatDateobjToString(oNotifData.Startdate);
+			oNotifData.Enddate = formatter.formatDateobjToString(oNotifData.Enddate);
+			oNotifData.Notif_date = formatter.formatDateobjToString(oNotifData.Notif_date);
+			oNotifData.ReqStartdate = formatter.formatDateobjToString(oNotifData.ReqStartdate);
+			oNotifData.ReqEnddate = formatter.formatDateobjToString(oNotifData.ReqEnddate);
+			oNotifData.Type = "RELEASE";
+			if (oNotifData.Breakdown === true) {
+				oNotifData.Breakdown = "X";
+			} else if (oNotifData.Breakdown === false) {
+				oNotifData.Breakdown = " ";
+			}
+
+			var startTime = oNotificationViewModel.getProperty("/StartTime");
+			if (!startTime) {
+				startTime = "00:00";
+			}
+			var splitDate1 = oNotifData.Startdate.split("T")[0];
+			oNotifData.Startdate = splitDate1 + "T" + startTime + ":00";
+
+			var endTime = oNotificationViewModel.getProperty("/EndTime");
+			if (!endTime) {
+				endTime = "00:00";
+			}
+			var splitDate2 = oNotifData.Enddate.split("T")[0];
+			oNotifData.Enddate = splitDate2 + "T" + endTime + ":00";
+			oPortalNotifOData.setHeaders({
+				"X-Requested-With": "X"
+			});
+			oPortalNotifOData.create("/NotificationSet", oNotifData, {
+				async: false,
+				success: function (sData, oResponse) {
+					var statusCode = oResponse.statusCode;
+					if (statusCode == 201) {
+						MessageBox.success("Notification Released Successfully", {
+							actions: [MessageBox.Action.OK],
+							emphasizedAction: MessageBox.Action.OK,
+							onClose: function (sAction) {
+
+							}
+						});
+					}
+					that.busy.close();
+				},
+				error: function (error, oResponse) {
+					console.log(error);
+					that.busy.close();
+				}
+			});
+			that.getView().byId("releaseButton").setVisible(false);
+			
+		},
+		onCloseNotif: function () {
+		var that = this;
+			this.busy.open();
+			var oPortalNotifOData = this.oPortalNotifOData;
+			var oNotificationDataModel = this.oNotificationDataModel;
+			var oNotificationViewModel = this.oNotificationViewModel;
+			var oNotifData = oNotificationDataModel.getData();
+
+			var tempLongText = oNotificationViewModel.getProperty("/Longtext");
+			oNotifData.Longtext = tempLongText;
+
+			oNotifData.Startdate = formatter.formatDateobjToString(oNotifData.Startdate);
+			oNotifData.Enddate = formatter.formatDateobjToString(oNotifData.Enddate);
+			oNotifData.Notif_date = formatter.formatDateobjToString(oNotifData.Notif_date);
+			oNotifData.ReqStartdate = formatter.formatDateobjToString(oNotifData.ReqStartdate);
+			oNotifData.ReqEnddate = formatter.formatDateobjToString(oNotifData.ReqEnddate);
+			oNotifData.Type = "CLOSE";
+			if (oNotifData.Breakdown === true) {
+				oNotifData.Breakdown = "X";
+			} else if (oNotifData.Breakdown === false) {
+				oNotifData.Breakdown = " ";
+			}
+
+			var startTime = oNotificationViewModel.getProperty("/StartTime");
+			if (!startTime) {
+				startTime = "00:00";
+			}
+			var splitDate1 = oNotifData.Startdate.split("T")[0];
+			oNotifData.Startdate = splitDate1 + "T" + startTime + ":00";
+
+			var endTime = oNotificationViewModel.getProperty("/EndTime");
+			if (!endTime) {
+				endTime = "00:00";
+			}
+			var splitDate2 = oNotifData.Enddate.split("T")[0];
+			oNotifData.Enddate = splitDate2 + "T" + endTime + ":00";
+			oPortalNotifOData.setHeaders({
+				"X-Requested-With": "X"
+			});
+			oPortalNotifOData.create("/NotificationSet", oNotifData, {
+				async: false,
+				success: function (sData, oResponse) {
+					var statusCode = oResponse.statusCode;
+					if (statusCode == 201) {
+						MessageBox.success("Notification Closed Successfully", {
+							actions: [MessageBox.Action.OK],
+							emphasizedAction: MessageBox.Action.OK,
+							onClose: function (sAction) {
+
+							}
+						});
+					}
+					that.busy.close();
+				},
+				error: function (error, oResponse) {
+					console.log(error);
+					that.busy.close();
+				}
+			});
+			that.getView().byId("idcloseNotif").setVisible(false);
+			that.getView().byId("updateNotif").setVisible(false);
+			that.getView().byId("releaseButton").setVisible(false);
+		},
 		//Function to get damage code values
 		getDamageGroupCode: function (oEvent, damageCode) {
 			var oSelectedKey = "";
@@ -611,6 +745,129 @@ sap.ui.define([
 		//Function to close User search PopUp
 		onCancelDialogAssignUser: function () {
 			this.usersListDialog.close();
-		}
+		},
+		//nischal - Function to select functional location using dialog box(pop-up) 
+		fnLocValueHelp: function () {
+			if (!this.functionalLocationListDialog) {
+				this.functionalLocationListDialog = sap.ui.xmlfragment("idFunctionalLocationFrag",
+					"com.sap.incture.IMO_PM.fragment.functionalLocationList", this);
+				this.getView().addDependent(this.functionalLocationListDialog);
+			}
+			this.functionalLocationListDialog.open();
+		},
+		onCancelDialogFunLoc: function () {
+			this.functionalLocationListDialog.close();
+			this.functionalLocationListDialog.destroy();
+			this.functionalLocationListDialog = null;
+		},
+		onSearchFnLocs: function (oEvent) {
+			var aFilters = [];
+			var sQuery = oEvent.getSource().getValue();
+			var oList = sap.ui.core.Fragment.byId("idFunctionalLocationFrag", "idFunLocListTable");
+			var oBinding = oList.getBinding("items");
+			if (sQuery && sQuery.length > 0) {
+				var filter = new Filter("FuncLoc", FilterOperator.Contains, sQuery);
+				aFilters.push(filter);
+			}
+			oBinding.filter(aFilters);
+		},
+		onFnLocSelect: function (oEvent) {
+			this.onFunlocChange();
+			var mLookupModel = this.mLookupModel;
+			var oNotificationDataModel = this.oNotificationDataModel;
+			var oSource = oEvent.getParameter("listItem");
+			var sPath = oSource.getBindingContextPath();
+			var iFunLoc = mLookupModel.getProperty(sPath + "/FuncLoc");
+			mLookupModel.setProperty("/sFunLoc", iFunLoc);
+			oNotificationDataModel.setProperty("/FunctLoc", iFunLoc);
+			this.onCancelDialogFunLoc();
+		},
+		//function to clear equipment details on change of functional location
+		onFunlocChange: function () {
+			var mLookupModel = this.mLookupModel;
+			var oNotificationDataModel = this.oNotificationDataModel;
+			mLookupModel.setProperty("/sWorkCenterSel", "");
+			mLookupModel.setProperty("/sEquipFilter", "");
+			mLookupModel.setProperty("/sNotifEquipFilter", "");
+			mLookupModel.setProperty("/sCatelogProf", "");
+			oNotificationDataModel.setProperty("/Plangroup", "");
+			oNotificationDataModel.setProperty("/Equipment", "");
+			mLookupModel.setProperty("/aEquipAssemblyList", "");
+		},
+		// handleEquipIconTabSelect: function (oEvent) {
+		// 	var that = this;
+		// 	var selectedKey = oEvent.getSource().getSelectedKey();
+		// 	if (selectedKey === "idEqFunLoc") {
+		// 		this.busy.open();
+		// 		var mLookupModel = this.mLookupModel;
+		// 		var oNotificationDataModel = this.oNotificationDataModel;
+		// 		var sFunctionalLocation = oNotificationDataModel.getProperty("/FunctLoc");
+		// 		var oPortalDataModel = this.oPortalDataModel;
+		// 		// var userPlant = this.oUserDetailModel.getProperty("/userPlant");
+		// 		var oFilter = [];
+		// 		// oFilter.push(new Filter("Equnr", "EQ", ""));
+		// 		// oFilter.push(new Filter("Tidnr", "EQ", ""));
+		// 		// oFilter.push(new Filter("Eqktu", "EQ", ""));
+		// 		// oFilter.push(new Filter("plant", "EQ", userPlant));
+		// 		oFilter.push(new Filter("FuncLoc", "EQ", sFunctionalLocation));
+		// 		oPortalDataModel.read("/EquipfuncSet", {
+		// 			filters: oFilter,
+		// 			success: function (oData, oResponse) {
+		// 				var aEqListOfFunLoc = oData.results;
+		// 				mLookupModel.setProperty("/aEqListOfFunLoc", aEqListOfFunLoc);
+		// 				mLookupModel.refresh();
+		// 				that.busy.close();
+		// 			},
+		// 			error: function (oResponse) {
+		// 				mLookupModel.setProperty("/aEqListOfFunLoc", []);
+		// 				that.busy.close();
+		// 			}
+		// 		});
+		// 	}
+		// },
+		handleEquipIconTabSelect: function (oEvent) {
+			var that = this;
+			var selectedKey = oEvent.getSource().getSelectedKey();
+			if (selectedKey === "idEqFunLoc") {
+				this.busy.open();
+				var mLookupModel = this.mLookupModel;
+				var oNotificationDataModel = this.oNotificationDataModel;
+				var sFunctionalLocation = oNotificationDataModel.getProperty("/FunctLoc");
+				var sfunLoc = "'" + sFunctionalLocation.replace(/['"]+/g, '') + "'";
+				var oPortalDataModel = this.oPortalDataModel;
+				var userPlant = this.oUserDetailModel.getProperty("/userPlant");
+				var oFilter = [];
+				oFilter.push(new Filter("Equnr", "EQ", ''));
+				oFilter.push(new Filter("Tidnr", "EQ", ''));
+				oFilter.push(new Filter("Eqktu", "EQ", ''));
+				oFilter.push(new Filter("plant", "EQ", '4321'));
+				oFilter.push(new Filter("Tplnr ", "EQ", "'" + sFunctionalLocation.replace(/['"]+/g, '') + "'"));
+				oPortalDataModel.read("/EquipmentDetailsSet", {
+					filters: oFilter,
+					success: function (oData, oResponse) {
+						var aEqListOfFunLoc = oData.results;
+						mLookupModel.setProperty("/aEqListOfFunLoc", aEqListOfFunLoc);
+						mLookupModel.refresh();
+						that.busy.close();
+					},
+					error: function (oResponse) {
+						mLookupModel.setProperty("/aEqListOfFunLoc", []);
+						that.busy.close();
+					}
+				});
+			}
+		},
+		onEquipOfFunLocSelect: function (oEvent) {
+			var mLookupModel = this.mLookupModel;
+			var oNotificationDataModel = this.oNotificationDataModel;
+			var oSource = oEvent.getParameter("listItem");
+			var sPath = oSource.getBindingContextPath();
+			var iEqId = mLookupModel.getProperty(sPath + "/EquipId");
+			var iFunLoc = oNotificationDataModel.getProperty("/FunctLoc");
+			oNotificationDataModel.setProperty("/Equipment", iEqId);
+			oNotificationDataModel.setProperty("/FunctLoc", iFunLoc);
+			this.getEquipsAssmebly(iEqId);
+			this.equipmentsListDialog.close();
+		},
 	});
 });

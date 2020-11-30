@@ -196,28 +196,28 @@
 							<l:GridData span="XL8 L8 M8 S8"/>
 						</layoutData>
 					</VBox>
-					<VBox class="sapUiTinyMarginTop">
-						<Label text="{i18n>DAMAGE_CODE}"></Label>
-						<Select class="sapInputBorderClass" forceSelection="false" selectedKey="{oWorkOrderDetailModel>/Damagecode}" change="getDamageGroupCode"
-							width="100%" enabled="{oWODetailFieldsModel>/damageCode}" items="{mLookupModel>/aDamageCode}" showSecondaryValues="true"
-							id="WO_DETAIL_DAMAGE_CODE">
-							<core:ListItem key="{mLookupModel>Code}" additionalText="{mLookupModel>Codegrtext}" text="{mLookupModel>Code} - {mLookupModel>Codetext}"/>
-						</Select>
-						<layoutData>
-							<l:GridData span="XL6 L6 M6 S6" linebreak="true"/>
-						</layoutData>
-					</VBox>
-					<VBox class="sapUiTinyMarginTop">
-						<Label text="{i18n>CAUSE_CODE}"></Label>
-						<Select class="sapInputBorderClass" forceSelection="false" selectedKey="{oWorkOrderDetailModel>/Causecode}" change="getCauseGroupCode"
-							width="100%" enabled="{oWODetailFieldsModel>/causeCode}" items="{mLookupModel>/aCauseCode}" showSecondaryValues="true"
-							id="WO_DETAIL_CAUSE_CODE">
-							<core:ListItem key="{mLookupModel>Code}" additionalText="{mLookupModel>Codegrtext}" text="{mLookupModel>Code} - {mLookupModel>Codetext}"/>
-						</Select>
-						<layoutData>
-							<l:GridData span="XL6 L6 M6 S6"/>
-						</layoutData>
-					</VBox>
+					<!--<VBox class="sapUiTinyMarginTop">-->
+					<!--	<Label text="{i18n>DAMAGE_CODE}"></Label>-->
+					<!--	<Select class="sapInputBorderClass" forceSelection="false" selectedKey="{oWorkOrderDetailModel>/Damagecode}" change="getDamageGroupCode"-->
+					<!--		width="100%" enabled="{oWODetailFieldsModel>/damageCode}" items="{mLookupModel>/aDamageCode}" showSecondaryValues="true"-->
+					<!--		id="WO_DETAIL_DAMAGE_CODE">-->
+					<!--		<core:ListItem key="{mLookupModel>Code}" additionalText="{mLookupModel>Codegrtext}" text="{mLookupModel>Code} - {mLookupModel>Codetext}"/>-->
+					<!--	</Select>-->
+					<!--	<layoutData>-->
+					<!--		<l:GridData span="XL6 L6 M6 S6" linebreak="true"/>-->
+					<!--	</layoutData>-->
+					<!--</VBox>-->
+					<!--<VBox class="sapUiTinyMarginTop">-->
+					<!--	<Label text="{i18n>CAUSE_CODE}"></Label>-->
+					<!--	<Select class="sapInputBorderClass" forceSelection="false" selectedKey="{oWorkOrderDetailModel>/Causecode}" change="getCauseGroupCode"-->
+					<!--		width="100%" enabled="{oWODetailFieldsModel>/causeCode}" items="{mLookupModel>/aCauseCode}" showSecondaryValues="true"-->
+					<!--		id="WO_DETAIL_CAUSE_CODE">-->
+					<!--		<core:ListItem key="{mLookupModel>Code}" additionalText="{mLookupModel>Codegrtext}" text="{mLookupModel>Code} - {mLookupModel>Codetext}"/>-->
+					<!--	</Select>-->
+					<!--	<layoutData>-->
+					<!--		<l:GridData span="XL6 L6 M6 S6"/>-->
+					<!--	</layoutData>-->
+					<!--</VBox>-->
 					<VBox class="sapUiTinyMarginTop">
 						<Label text="{i18n>SUPERIOR_WO}"></Label>
 						<HBox fitContainer="true" justifyContent="Start" alignContent="Start">

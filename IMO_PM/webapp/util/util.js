@@ -513,7 +513,7 @@ com.sap.incture.IMO_PM.util.util = {
 		oNotificationDataModel.setProperty("/Equipment", "");
 		oNotificationDataModel.setProperty("/Assembly", "");
 		oNotificationDataModel.setProperty("/FunctLoc", "");
-		oNotificationDataModel.setProperty("/PlanPlant", userPlant);
+		oNotificationDataModel.setProperty("/PlanPlant", "");
 		oNotificationDataModel.setProperty("/Plangroup", "");
 		oNotificationDataModel.setProperty("/Startdate", new Date());
 		oNotificationDataModel.setProperty("/Enddate", new Date());
@@ -534,6 +534,7 @@ com.sap.incture.IMO_PM.util.util = {
 		oNotificationDataModel.setProperty("/CauseGroup", "");
 		oNotificationDataModel.setProperty("/CauseText", "");
 		oNotificationDataModel.setProperty("/Reportedby", userName);
+		oNotificationDataModel.setProperty("/WorkCenter", ""); //nischal - workcenter previously was not there
 		oNotificationDataModel.refresh();
 
 		oNotificationViewModel.setProperty("/StartTime", oCurrentTime);
@@ -555,7 +556,7 @@ com.sap.incture.IMO_PM.util.util = {
 			"Type": "",
 			"Message": ""
 		}];
-
+		mLookupModel.setProperty("/assignedToHardCode","John Smith"); //nischal  ---  Hard Coded value for demo
 		oSelectedRow.Downtime = parseFloat(oSelectedRow.Downtime);
 		oSelectedRow.Downtime = oSelectedRow.Downtime.toString();
 
@@ -577,13 +578,14 @@ com.sap.incture.IMO_PM.util.util = {
 			ReqEnddate = this.fnFormatUIDates(ReqEnddate);
 		}
 		//Validation to pre-populate if dates are empty or recieved as 00000000
-
+		var iAssemblyConv = parseInt(oSelectedRow.Assembly);
+		var sAssembly = iAssemblyConv.toString();
 		oNotificationDataModel.setData({});
 		oNotificationDataModel.setProperty("/Notifid", oSelectedRow.NotifNo);
 		oNotificationDataModel.setProperty("/NotifType", oSelectedRow.NotifType);
 		oNotificationDataModel.setProperty("/Orderid", oSelectedRow.Orderid);
 		oNotificationDataModel.setProperty("/Equipment", oSelectedRow.Equipment);
-		oNotificationDataModel.setProperty("/Assembly", oSelectedRow.Assembly);
+		oNotificationDataModel.setProperty("/Assembly", sAssembly); // Data type of assembly is changed
 		oNotificationDataModel.setProperty("/FunctLoc", oSelectedRow.FunctLoc);
 		oNotificationDataModel.setProperty("/PlanPlant", oSelectedRow.Planplant);
 		oNotificationDataModel.setProperty("/Plangroup", oSelectedRow.Plangroup);
@@ -592,7 +594,7 @@ com.sap.incture.IMO_PM.util.util = {
 		oNotificationDataModel.setProperty("/ReqStartdate", ReqStartdate);
 		oNotificationDataModel.setProperty("/ReqEnddate", ReqEnddate);
 		oNotificationDataModel.setProperty("/Notif_date", new Date(oSelectedRow.NotifDate));
-		oNotificationDataModel.setProperty("/ShortText", oSelectedRow.ShortText);
+		oNotificationDataModel.setProperty("/ShortText", oSelectedRow.Descriptn); //nischal - Since short text is coming as empty from backend, Descriptn field is having short text value, Descriptn is assigned to short text
 		oNotificationDataModel.setProperty("/Breakdown", oSelectedRow.Breakdown);
 		oNotificationDataModel.setProperty("/BreakdownDur", oSelectedRow.Downtime);
 		oNotificationDataModel.setProperty("/DamageCode", oSelectedRow.FECOD);
@@ -602,11 +604,14 @@ com.sap.incture.IMO_PM.util.util = {
 		oNotificationDataModel.setProperty("/Notify", oNotifMsg);
 		oNotificationDataModel.setProperty("/ItemKey", "0001");
 		oNotificationDataModel.setProperty("/ItemSortNo", "0001");
+		oNotificationDataModel.setProperty("/Priority", oSelectedRow.Priority); //nischal - Priority is not defined in the model
+		oNotificationDataModel.setProperty("/WorkCenter", oSelectedRow.WorkCntr); //nischal - WorkCenter was not defined
+		mLookupModel.setProperty("/SysStatus", oSelectedRow.SysStatus); //nischal - system status was not present
 		oNotificationDataModel.refresh();
 
 		mLookupModel.setProperty("/sCatelogProf", oSelectedRow.Rbnr);
-		oController.fnFilterSlectedDamageGroup();
-		oController.fnFilterSlectedCauseGroup();
+		// oController.fnFilterSlectedDamageGroup();
+		// oController.fnFilterSlectedCauseGroup();
 		oController.getEquipsAssmebly(oSelectedRow.Equipment);
 
 		oController.getDamageGroupCode("", oSelectedRow.FECOD);
@@ -670,11 +675,11 @@ com.sap.incture.IMO_PM.util.util = {
 	checkMandatoryFields: function (oNotificationDataModel, oNotificationViewModel, oResourceModel) {
 		var oErrorMsg = "";
 		var notifType = oNotificationDataModel.getProperty("/NotifType");
-/*		if (!notifType) {
-			// oErrorMsg = oResourceModel.getText("SEL_NOTIF_TYPE");
-			oErrorMsg = "Please select Notification type";
-			return [true, oErrorMsg];
-		}*/
+		/*		if (!notifType) {
+					// oErrorMsg = oResourceModel.getText("SEL_NOTIF_TYPE");
+					oErrorMsg = "Please select Notification type";
+					return [true, oErrorMsg];
+				}*/
 		var equipment = oNotificationDataModel.getProperty("/Equipment");
 		if (!equipment) {
 			// oErrorMsg = oResourceModel.getText("SEL_EQUIPMENT");

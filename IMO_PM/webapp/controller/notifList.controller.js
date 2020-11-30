@@ -331,53 +331,53 @@ sap.ui.define([
 				this.getView().addDependent(this._oDialogNotif);
 			}
 			var that = this;
-			var mLookupModel = this.mLookupModel;
-			this.busy.open();
-			var sUrl = "/GetNotifVariantSet";
-			var oPortalDataModel = this.oPortalDataModel;
-			var oFilter = [];
-			var oRequest = {
-				"userId": mLookupModel.getProperty("/userName"),
-				"filterType": "notification"
-			};
-			oFilter.push(new Filter("REQUEST", "EQ", JSON.stringify(oRequest)));
-			oPortalDataModel.read(sUrl, {
-				filters: oFilter,
-				success: function (oData) {
-					var oComments = oData.results[0];
-					if (oComments.RESPONSE) {
-						oComments = JSON.parse(oComments.RESPONSE);
-						mLookupModel.setProperty("/idNotifFilter", oComments.id);
-						mLookupModel.setProperty("/sNotifStatusFilter", oComments.notiStatus);
-						mLookupModel.setProperty("/sNotifIdFilter", oComments.notiNotiId);
-						mLookupModel.setProperty("/sNotifEquipFilter", oComments.notiEquipment);
-						mLookupModel.setProperty("/sNotifBDFilter", oComments.notiBreakDown);
-						mLookupModel.setProperty("/sNotifPriorFilter", oComments.notiPriority);
-						mLookupModel.setProperty("/sNotifWkCenterFilter", "");
-						mLookupModel.refresh();
-					} else {
-						mLookupModel.setProperty("/idNotifFilter", "");
-						mLookupModel.setProperty("/sNotifStatusFilter", "");
-						mLookupModel.setProperty("/sNotifIdFilter", "");
-						mLookupModel.setProperty("/sNotifEquipFilter", "");
-						mLookupModel.setProperty("/sNotifBDFilter", "");
-						mLookupModel.setProperty("/sNotifPriorFilter", "");
-						mLookupModel.setProperty("/sNotifWkCenterFilter", "");
-						mLookupModel.refresh();
-					}
-					that.busy.close();
-				},
-				error: function (oData) {
-					mLookupModel.setProperty("/idNotifFilter", "");
-					mLookupModel.setProperty("/sNotifStatusFilter", "");
-					mLookupModel.setProperty("/sNotifIdFilter", "");
-					mLookupModel.setProperty("/sNotifEquipFilter", "");
-					mLookupModel.setProperty("/sNotifBDFilter", "");
-					mLookupModel.setProperty("/sNotifPriorFilter", "");
-					mLookupModel.setProperty("/sNotifWkCenterFilter", "");
-					mLookupModel.refresh();
-				}
-			});
+			// var mLookupModel = this.mLookupModel;
+			// this.busy.open();
+			// var sUrl = "/GetNotifVariantSet";
+			// var oPortalDataModel = this.oPortalDataModel;
+			// var oFilter = [];
+			// var oRequest = {
+			// 	"userId": mLookupModel.getProperty("/userName"),
+			// 	"filterType": "notification"
+			// };
+			// oFilter.push(new Filter("REQUEST", "EQ", JSON.stringify(oRequest)));
+			// oPortalDataModel.read(sUrl, {
+			// 	filters: oFilter,
+			// 	success: function (oData) {
+			// 		var oComments = oData.results[0];
+			// 		if (oComments.RESPONSE) {
+			// 			oComments = JSON.parse(oComments.RESPONSE);
+			// 			mLookupModel.setProperty("/idNotifFilter", oComments.id);
+			// 			mLookupModel.setProperty("/sNotifStatusFilter", oComments.notiStatus);
+			// 			mLookupModel.setProperty("/sNotifIdFilter", oComments.notiNotiId);
+			// 			mLookupModel.setProperty("/sNotifEquipFilter", oComments.notiEquipment);
+			// 			mLookupModel.setProperty("/sNotifBDFilter", oComments.notiBreakDown);
+			// 			mLookupModel.setProperty("/sNotifPriorFilter", oComments.notiPriority);
+			// 			mLookupModel.setProperty("/sNotifWkCenterFilter", "");
+			// 			mLookupModel.refresh();
+			// 		} else {
+			// 			mLookupModel.setProperty("/idNotifFilter", "");
+			// 			mLookupModel.setProperty("/sNotifStatusFilter", "");
+			// 			mLookupModel.setProperty("/sNotifIdFilter", "");
+			// 			mLookupModel.setProperty("/sNotifEquipFilter", "");
+			// 			mLookupModel.setProperty("/sNotifBDFilter", "");
+			// 			mLookupModel.setProperty("/sNotifPriorFilter", "");
+			// 			mLookupModel.setProperty("/sNotifWkCenterFilter", "");
+			// 			mLookupModel.refresh();
+			// 		}
+			// 		that.busy.close();
+			// 	},
+			// 	error: function (oData) {
+			// 		mLookupModel.setProperty("/idNotifFilter", "");
+			// 		mLookupModel.setProperty("/sNotifStatusFilter", "");
+			// 		mLookupModel.setProperty("/sNotifIdFilter", "");
+			// 		mLookupModel.setProperty("/sNotifEquipFilter", "");
+			// 		mLookupModel.setProperty("/sNotifBDFilter", "");
+			// 		mLookupModel.setProperty("/sNotifPriorFilter", "");
+			// 		mLookupModel.setProperty("/sNotifWkCenterFilter", "");
+			// 		mLookupModel.refresh();
+			// 	}
+			// });
 			this._oDialogNotif.open();
 		},
 
@@ -483,7 +483,14 @@ sap.ui.define([
 				notifID: iNotifID
 			});
 		},
-
+		// Function to navigate to Notification Detail page after pressing the corresponding Notification Id
+		handleLinkPress: function (oEvent) {
+			var sNotifID = oEvent.getSource().getText();
+			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+			oRouter.navTo("notifDetail", {
+				notifID: sNotifID
+			});
+		},
 		onSelectionChange: function (oEvent) {
 			var mLookupModel = this.mLookupModel;
 			var rowContext = oEvent.getParameters().rowContext;

@@ -6,7 +6,8 @@
 					<OverflowToolbar class="sapMToolBarBottomBorderClass">
 						<Button text="{i18n>MASS_UPDATE}" class="sapMBtnBlueColor" press="onOpenMassUpdatePopup"
 							visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setWOReleaseFieldsVisible'}"></Button>
-						<CheckBox text="{oWorkOrderDetailViewModel>/switchTooltip}" select="fnFilterCNFOperations" selected="{oWorkOrderDetailViewModel>/isOperationsFiltered}"
+						<CheckBox text="{oWorkOrderDetailViewModel>/switchTooltip}" select="fnFilterCNFOperations"
+							selected="{oWorkOrderDetailViewModel>/isOperationsFiltered}"
 							visible="{parts:['oWorkOrderDetailModel>/OrderStatus','oWorkOrderDetailModel>/Orderid'] , formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnSetFilterOpsCBVisible'}"/>
 						<!--sapCBItalicFont-->
 						<ToolbarSpacer class="sapUiSmallMarginBegin"/>
@@ -36,6 +37,16 @@
 								<ui:template>
 									<Input value="{oWorkOrderDetailModel>Activity}" maxLength="4" change="sortOperations" class="sapInputBorderClass"
 										enabled="{parts:['oWorkOrderDetailModel>OperCode', 'oWorkOrderDetailModel>/OrderStatus'], formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnSetWOUpdateStatusFields'}"/>
+								</ui:template>
+							</ui:Column>
+							<ui:Column width="8rem" hAlign="Center">
+								<Label text="{i18n>control_Key}" class="sapUITableColumnLabelClass"/>
+								<ui:template>
+									<ComboBox  selectedKey="{oWorkOrderDetailModel>ControlKey}" >
+										<core:Item key="PM01" text="PM01"/>
+										<core:Item key="PM02" text="PM02"/>
+										<core:Item key="PM03" text="PM03"/>
+									</ComboBox>
 								</ui:template>
 							</ui:Column>
 							<ui:Column width="6.5rem" hAlign="Center" tooltip="{i18n>WORK_CENTER}">
@@ -99,14 +110,15 @@
 							</ui:Column>
 							<ui:Column width="8rem" hAlign="Center" tooltip="{i18n>COMPLETED_ON}">
 								<Label text="{i18n>COMPLETED_ON}" class="sapUITableColumnLabelClass"/>
-							<!--	<ui:template>
+								<!--	<ui:template>
 									<DatePicker minDate="{oWorkOrderDetailViewModel>/currentDate1}" placeholder="dd-MM-yyyy" dateValue="{oWorkOrderDetailModel>CompletedOn}"
 										displayFormat="dd-MM-yyyy" valueFormat="yyyy-MM-ddTHH:mm:ss" class="sapInputBorderClass"
 										enabled="{parts:['oWorkOrderDetailModel>systemstatustext', 'oWorkOrderDetailModel>/OrderStatus', 'oWorkOrderDetailModel>OperCode'], formatter:'com.mylan.createWorkOrder.formatter.formatter.fnSetWOReleaseStatusFields'}"/>
 								</ui:template>-->
 								<ui:template>
-									<DateTimePicker minDate="{oWorkOrderDetailViewModel>/currentDate1}" placeholder="dd-MM-yyyy, HH:mm" dateValue="{oWorkOrderDetailModel>CompletedOn}"
-										displayFormat="dd-MM-yyyy, HH:mm" valueFormat="yyyy-MM-ddTHH:mm:ss" class="sapInputBorderClass"
+									<DateTimePicker minDate="{oWorkOrderDetailViewModel>/currentDate1}" placeholder="dd-MM-yyyy, HH:mm"
+										dateValue="{oWorkOrderDetailModel>CompletedOn}" displayFormat="dd-MM-yyyy, HH:mm" valueFormat="yyyy-MM-ddTHH:mm:ss"
+										class="sapInputBorderClass"
 										enabled="{parts:['oWorkOrderDetailModel>systemstatustext', 'oWorkOrderDetailModel>/OrderStatus', 'oWorkOrderDetailModel>OperCode'], formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnSetWOReleaseStatusFields'}"/>
 								</ui:template>
 							</ui:Column>
@@ -174,6 +186,15 @@
 											<core:CustomData value="FLOAT"/>
 										</customData>
 									</Input>
+								</ui:template>
+							</ui:Column>
+							<ui:Column width="8rem" hAlign="Center">
+								<Label text="{i18n>itemCategory}" class="sapUITableColumnLabelClass"/>
+								<ui:template>
+									<ComboBox  selectedKey="{oWorkOrderDetailModel>ItemCat}" >
+										<core:Item key="L" text="L"/>
+										<core:Item key="N" text="N"/>
+									</ComboBox>
 								</ui:template>
 							</ui:Column>
 							<ui:Column width="8rem" hAlign="Center" tooltip="{i18n>STOCK_AVAIL}">

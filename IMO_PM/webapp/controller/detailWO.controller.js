@@ -56,7 +56,7 @@ sap.ui.define([
 					this.fnFilterSlectedDamageGroup();
 					this.fnFilterSlectedCauseGroup();
 					this.fnFilterCNFOperations(true);
-				/*	var mLookupModel = this.mLookupModel;
+					/*	var mLookupModel = this.mLookupModel;
 					var oSelectedWODetails = mLookupModel.getProperty("/oSelectedWODetails");
 					oWorkOrderDetailModel.setProperty("/systemstatustext", oSelectedWODetails.SysStatusDes);//new 
 */
@@ -492,6 +492,7 @@ sap.ui.define([
 			});
 
 			oWorkOrderOData.create("/WorkorderHeaderSet", oWorkOrderData, {
+				async: false,
 				success: function (sData, oResponse) {
 					var successErrMsg = "";
 					var confirmationTexts = "";
@@ -547,6 +548,31 @@ sap.ui.define([
 							break;
 						}
 						messages[0].Message = successErrMsg;
+						var oFilter = [];
+						oFilter.push(new Filter("OrderNo", "EQ", orderId));
+						oWorkOrderOData.read("/purchaseReqSet", {
+							async: false,
+							filters: oFilter,
+							success: function (oData) {
+								var aResults = oData.results;
+								console.log(aResults);
+								if (aResults.length > 0) {
+									for (var i = 0; i < aResults.length; i++) {
+										var pr = aResults[i].PurchaseReq;
+										var resItem = aResults[i].ResItem;
+										var oObj = {
+											"Message": "Purchase Request Number :" + pr + " for ResItem :" + resItem,
+											"Status": "S"
+										};
+										messages.push(oObj);
+									}
+
+								}
+							},
+							error: function (oData) {
+								console.log(oData);
+							}
+						});
 					} else {
 						sData = that.fnFormatWODateObjects(sData);
 						var operationList = sData.HEADERTOOPERATIONSNAV.results;
@@ -607,6 +633,17 @@ sap.ui.define([
 					that.busy.close();
 				}
 			});
+		},
+		setPrToTable: function () {
+			var mLookupModel = this.mLookupModel;
+			var aMsg = mLookupModel.getProperty("/messages");
+			var oObj = {
+				"Message": "Its Working",
+				"status": "S"
+			};
+			aMsg.push(oObj);
+			mLookupModel.setProperty("/messages", aMsg);
+			mLookupModel.refresh("true");
 		},
 
 		//Function to save operation comments for a Work Order
@@ -1253,6 +1290,7 @@ sap.ui.define([
 						"StockAvail": material.CurrentStock,
 						"Plant": userPlant,
 						"RequirementQuantity": "",
+						"ItemCat": "L",
 						"RequirementQuantityUnit": material.Uom,
 						"CompCode": "C",
 						"bin": material.BinNo,
@@ -1770,22 +1808,22 @@ sap.ui.define([
 				operationId = sysCond1Arr.join("");
 				// oErrorMsg = oResourceModel.getText("syscondnstatuscantbe1foroprn", [operationId]);
 				bVal = true;
-					// bVal = false;
+				// bVal = false;
 			} else if (sysCond1Arr.length > 1) {
 				operationId = sysCond1Arr.join(", ");
 				// oErrorMsg = oResourceModel.getText("syscondnstatuscantbe1foroprns", [operationId]);
 				// bVal = false;
-					bVal = true;
+				bVal = true;
 			} else if (sysCond0Arr.length === 1) {
 				operationId = sysCond0Arr.join("");
 				// oErrorMsg = this.oResourceModel.getText("syscondnstatuscantbe0foroprn", [operationId]);
 				// bVal = false;
-					bVal = true;
+				bVal = true;
 			} else if (sysCond0Arr.length > 1) {
 				operationId = sysCond0Arr.join(", ");
 				// oErrorMsg = this.oResourceModel.getText("syscondnstatuscantbe0foroprns", [operationId]);
 				// bVal = false;
-					bVal = true;
+				bVal = true;
 			} else {
 				bVal = true;
 			}
@@ -2415,7 +2453,7 @@ sap.ui.define([
 
 			oSource.addHeaderParameter(oCSRFCustomHeader);
 			oSource.addHeaderParameter(oSlugCustomHeader);
-		    oSource.addHeaderParameter(oDisableCSRFHeader);
+			oSource.addHeaderParameter(oDisableCSRFHeader);
 			oSource.upload();
 		},
 

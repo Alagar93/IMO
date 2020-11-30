@@ -4,8 +4,9 @@ sap.ui.define([
 	"com/sap/incture/IMO_PM/util/util",
 	"sap/ui/model/json/JSONModel",
 	"sap/ui/model/Filter",
-	"sap/ui/model/FilterOperator"
-], function (BaseController, formatter, util, JSONModel, Filter, FilterOperator) {
+	"sap/ui/model/FilterOperator",
+	"sap/m/MessageBox"
+], function (BaseController, formatter, util, JSONModel, Filter, FilterOperator, MessageBox) {
 	"use strict";
 
 	return BaseController.extend("com.sap.incture.IMO_PM.controller.createNotif", {
@@ -59,6 +60,8 @@ sap.ui.define([
 			var sCatelogProf = mLookupModel.getProperty(sPath + "/Rbnr");
 			var sPlanGrpSel = mLookupModel.getProperty(sPath + "/Ingrp");
 			var sWorkCenterSel = mLookupModel.getProperty(sPath + "/Gewrk");
+			var sWorkCenterDesc = mLookupModel.getProperty(sPath + "/WorkCenter");
+			var sPlant = mLookupModel.getProperty(sPath + "/plant");
 			oNotificationDataModel.setProperty("/Equipment", iEqId);
 			mLookupModel.setProperty("/sWorkCenterSel", sWorkCenterSel);
 			mLookupModel.setProperty("/sEquipFilter", iEqId);
@@ -66,12 +69,25 @@ sap.ui.define([
 			mLookupModel.setProperty("/sCatelogProf", sCatelogProf);
 			oNotificationDataModel.setProperty("/FunctLoc", iFunLoc);
 			oNotificationDataModel.setProperty("/Plangroup", sPlanGrpSel);
+			oNotificationDataModel.setProperty("/PlanPlant", sPlant); //nischal
+			oNotificationDataModel.setProperty("/WorkCenter", sWorkCenterDesc); //nischal
 			this.getEquipsAssmebly(iEqId);
 			this.equipmentsListDialog.close();
-			this.fnFilterSlectedDamageGroup();
-			this.fnFilterSlectedCauseGroup();
+			// this.fnFilterSlectedDamageGroup();
+			// this.fnFilterSlectedCauseGroup();
 		},
-
+		onEquipOfFunLocSelect: function (oEvent) {
+			var mLookupModel = this.mLookupModel;
+			var oNotificationDataModel = this.oNotificationDataModel;
+			var oSource = oEvent.getParameter("listItem");
+			var sPath = oSource.getBindingContextPath();
+			var iEqId = mLookupModel.getProperty(sPath + "/EquipId");
+			var iFunLoc = oNotificationDataModel.getProperty("/FunctLoc");
+			oNotificationDataModel.setProperty("/Equipment", iEqId);
+			oNotificationDataModel.setProperty("/FunctLoc", iFunLoc);
+			this.getEquipsAssmebly(iEqId);
+			this.equipmentsListDialog.close();
+		},
 		//Function to show selected Equipment
 		fnFilterSlectedDamageGroup: function () {
 			var catGrp = this.mLookupModel.getProperty("/sCatelogProf");
@@ -359,21 +375,24 @@ sap.ui.define([
 			}
 			var splitDate2 = oNotifData.Enddate.split("T")[0];
 			oNotifData.Enddate = splitDate2 + "T" + endTime + ":00";
-			
+
 			oPortalNotifOData.setHeaders({
-				"X-Requested-With":"X"
+				"X-Requested-With": "X"
 			});
 
-
 			oPortalNotifOData.create("/NotificationSet", oNotifData, {
+				async: false,
 				success: function (sData, oResponse) {
 					var successErrMsg = "";
-					var oNotificationId = sData.Notifid;
+					var isSuccess;
+					var oNotificationId = parseInt(sData.Notifid);
+					this.notifID = oNotificationId;
 					if (oNotificationId) {
 						that.resetUIFields();
 						var successText = oResourceModel.getText("SUCCSESS_CREATING_NOTIF");
 						successErrMsg = successText + oNotificationId;
-						// that.fnNavLaunchpadHome();
+						isSuccess = true;
+
 					} else {
 						var notifyMsgbVal = sData.Notify.hasOwnProperty("results");
 						if (notifyMsgbVal) {
@@ -383,9 +402,21 @@ sap.ui.define([
 						}
 						that.fnFormatDateObjects(sData);
 						oNotificationDataModel.setData(sData);
+						that.showMessage(successErrMsg);
 					}
-					that.showMessage(successErrMsg);
+
 					that.busy.close();
+					if (isSuccess === true) {
+						// MessageBox.success("Notification Created Successfully with Notification ID: " + this.notifID);
+						MessageBox.success("Notification Created Successfully with Notification ID: " + this.notifID, {
+							actions: [MessageBox.Action.OK],
+							emphasizedAction: MessageBox.Action.OK,
+							onClose: function (sAction) {
+								that.fnNavLaunchpadHome();
+							}
+						});
+
+					}
 				},
 				error: function (error, oResponse) {
 					var errorMsg = oResourceModel.getText("ERROR_CREATING_NOTIF");
@@ -393,14 +424,17 @@ sap.ui.define([
 					that.busy.close();
 				}
 			});
+
 		},
 
 		//Function to nvaigate to Launchpad home page after creating Notification
 		fnNavLaunchpadHome: function () {
-			var sHost = window.location.origin;
-			var sBSPPath = "/sap/bc/ui5_ui5/ui2/ushell/shells/abap/FioriLaunchpad.html";
-			var sURL = sHost + sBSPPath;
-			sap.m.URLHelper.redirect(sURL);
+			// var sHost = window.location.origin;
+			// var sBSPPath = "/IMO_PM/index.html";
+			// var sURL = sHost + sBSPPath;
+			// sap.m.URLHelper.redirect(sURL);
+			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+			oRouter.navTo("Launch");
 		},
 
 		//Function to format Notification date format fetching from service
@@ -480,6 +514,96 @@ sap.ui.define([
 		//Function to close User search PopUp
 		onCancelDialogAssignUser: function () {
 			this.usersListDialog.close();
+		},
+		//Function to enable/disable the switch button based on Notification Type
+		onChangeNotifType: function (oEvent) {
+			var sSelectedKey = oEvent.getSource().getSelectedItem().getKey();
+			if (sSelectedKey === "M2") {
+				this.getView().byId("idBreakDownSwitch").setEnabled(true);
+			} else {
+				this.getView().byId("idBreakDownSwitch").setEnabled(false);
+			}
+		},
+		//nischal - Function to select functional location using dialog box(pop-up) 
+		fnLocValueHelp: function () {
+			if (!this.functionalLocationListDialog) {
+				this.functionalLocationListDialog = sap.ui.xmlfragment("idFunctionalLocationFrag",
+					"com.sap.incture.IMO_PM.fragment.functionalLocationList", this);
+				this.getView().addDependent(this.functionalLocationListDialog);
+			}
+			this.functionalLocationListDialog.open();
+		},
+		onCancelDialogFunLoc: function () {
+			this.functionalLocationListDialog.close();
+			this.functionalLocationListDialog.destroy();
+			this.functionalLocationListDialog = null;
+		},
+
+		onSearchFnLocs: function (oEvent) {
+			var aFilters = [];
+			var sQuery = oEvent.getSource().getValue();
+			var oList = sap.ui.core.Fragment.byId("idFunctionalLocationFrag", "idFunLocListTable");
+			var oBinding = oList.getBinding("items");
+			if (sQuery && sQuery.length > 0) {
+				var filter = new Filter("FuncLoc", FilterOperator.Contains, sQuery);
+				aFilters.push(filter);
+			}
+			oBinding.filter(aFilters);
+		},
+		onFnLocSelect: function (oEvent) {
+			this.onFunlocChange();
+			var mLookupModel = this.mLookupModel;
+			var oNotificationDataModel = this.oNotificationDataModel;
+			var oSource = oEvent.getParameter("listItem");
+			var sPath = oSource.getBindingContextPath();
+			var iFunLoc = mLookupModel.getProperty(sPath + "/FuncLoc");
+			mLookupModel.setProperty("/sFunLoc", iFunLoc);
+			oNotificationDataModel.setProperty("/FunctLoc", iFunLoc);
+			this.onCancelDialogFunLoc();
+		},
+		//function to clear equipment details on change of functional location
+		onFunlocChange: function () {
+			var mLookupModel = this.mLookupModel;
+			var oNotificationDataModel = this.oNotificationDataModel;
+			mLookupModel.setProperty("/sWorkCenterSel", "");
+			mLookupModel.setProperty("/sEquipFilter", "");
+			mLookupModel.setProperty("/sNotifEquipFilter", "");
+			mLookupModel.setProperty("/sCatelogProf", "");
+			oNotificationDataModel.setProperty("/Plangroup", "");
+			oNotificationDataModel.setProperty("/Equipment", "");
+			mLookupModel.setProperty("/aEquipAssemblyList", "");
+		},
+		handleEquipIconTabSelect: function (oEvent) {
+			var that = this;
+			var selectedKey = oEvent.getSource().getSelectedKey();
+			if (selectedKey === "idEqFunLoc") {
+				this.busy.open();
+				var mLookupModel = this.mLookupModel;
+				var oNotificationDataModel = this.oNotificationDataModel;
+				var sFunctionalLocation = oNotificationDataModel.getProperty("/FunctLoc");
+				var sfunLoc = "'" + sFunctionalLocation.replace(/['"]+/g, '') + "'";
+				var oPortalDataModel = this.oPortalDataModel;
+				var userPlant = this.oUserDetailModel.getProperty("/userPlant");
+				var oFilter = [];
+				oFilter.push(new Filter("Equnr", "EQ", ''));
+				oFilter.push(new Filter("Tidnr", "EQ", ''));
+				oFilter.push(new Filter("Eqktu", "EQ", ''));
+				oFilter.push(new Filter("plant", "EQ", '4321'));
+				oFilter.push(new Filter("Tplnr ", "EQ", "'" + sFunctionalLocation.replace(/['"]+/g, '') + "'"));
+				oPortalDataModel.read("/EquipmentDetailsSet", {
+					filters: oFilter,
+					success: function (oData, oResponse) {
+						var aEqListOfFunLoc = oData.results;
+						mLookupModel.setProperty("/aEqListOfFunLoc", aEqListOfFunLoc);
+						mLookupModel.refresh();
+						that.busy.close();
+					},
+					error: function (oResponse) {
+						mLookupModel.setProperty("/aEqListOfFunLoc", []);
+						that.busy.close();
+					}
+				});
+			}
 		}
 	});
 });

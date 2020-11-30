@@ -1021,7 +1021,7 @@ sap.ui.define([
 			var mLookupModel = this.mLookupModel;
 			var orderId = mLookupModel.getProperty("/editOrderId");
 			var userPlant = this.oUserDetailModel.getProperty("/userPlant");
-			var sUrl = "/ValidateWOSet(Orderid='"+orderId+"',plant='"+userPlant+ "')";
+			var sUrl = "/ValidateWOSet(Orderid='" + orderId + "',plant='" + userPlant + "')";
 			var sMsg = this.oResourceModel.getText("invalidwo");
 
 			var oPortalDataModel = this.oPortalDataModel;
@@ -1032,7 +1032,8 @@ sap.ui.define([
 						var sHost = window.location.origin;
 						var sBSPPath = "/sap/bc/ui5_ui5/sap/ZMYL_WOCREATE/index.html#/detailTabWO/";
 						// var sURL = sHost + sBSPPath + orderId;
-						var sURL = "https://ub2qkdfhxg4ubmgqmta-imo-pm-imo-pm.cfapps.eu10.hana.ondemand.com/IMO_PM/index.html#/detailTabWO/" + orderId;
+						var sURL = "https://ub2qkdfhxg4ubmgqmta-imo-pm-imo-pm.cfapps.eu10.hana.ondemand.com/IMO_PM/index.html#/detailTabWO/" +
+							orderId;
 						sap.m.URLHelper.redirect(sURL, true);
 					} else {
 						that.busy.close();
@@ -1065,6 +1066,88 @@ sap.ui.define([
 		//Function to validate user entered Integer values
 		validateIntegerValues: function (oEvent) {
 			util.validateInputDataType(oEvent, this);
+		},
+		//nischal - Function to select functional location using dialog box(pop-up) 
+		fnLocValueHelp: function () {
+			if (!this.functionalLocationListDialog) {
+				this.functionalLocationListDialog = sap.ui.xmlfragment("idFunctionalLocationFrag",
+					"com.sap.incture.IMO_PM.fragment.functionalLocationList", this);
+				this.getView().addDependent(this.functionalLocationListDialog);
+			}
+			this.functionalLocationListDialog.open();
+		},
+		onCancelDialogFunLoc: function () {
+			this.functionalLocationListDialog.close();
+			this.functionalLocationListDialog.destroy();
+			this.functionalLocationListDialog = null;
+		},
+		onFnLocSelect: function (oEvent) {
+			this.onFunlocChange();
+			var mLookupModel = this.mLookupModel;
+			// var oNotificationDataModel = this.oNotificationDataModel;
+			var oSource = oEvent.getParameter("listItem");
+			var sPath = oSource.getBindingContextPath();
+			var iFunLoc = mLookupModel.getProperty(sPath + "/FuncLoc");
+			mLookupModel.setProperty("/sFunLoc", iFunLoc);
+			// oNotificationDataModel.setProperty("/FunctLoc", iFunLoc);
+			this.onCancelDialogFunLoc();
+		},
+		//function to clear equipment details on change of functional location
+		onFunlocChange: function () {
+			var mLookupModel = this.mLookupModel;
+			// var oNotificationDataModel = this.oNotificationDataModel;
+			mLookupModel.setProperty("/sEquip", "");
+			mLookupModel.setProperty("/sWorkCenterSel", "");
+			mLookupModel.setProperty("/sEquipFilter", "");
+			mLookupModel.setProperty("/sNotifEquipFilter", "");
+			mLookupModel.setProperty("/sCatelogProf", "");
+			// oNotificationDataModel.setProperty("/Plangroup", "");
+			// oNotificationDataModel.setProperty("/Equipment", "");
+			mLookupModel.setProperty("/aEquipAssemblyList", "");
+
+		},
+		handleEquipIconTabSelect: function (oEvent) {
+			var that = this;
+			var selectedKey = oEvent.getSource().getSelectedKey();
+			if (selectedKey === "idEqFunLoc") {
+				this.busy.open();
+				var mLookupModel = this.mLookupModel;
+				// var oNotificationDataModel = this.oNotificationDataModel;
+				var sFunctionalLocation = mLookupModel.getProperty("/sFunLoc");
+				var oPortalDataModel = this.oPortalDataModel;
+				// var userPlant = this.oUserDetailModel.getProperty("/userPlant");
+				var oFilter = [];
+				// oFilter.push(new Filter("Equnr", "EQ", ""));
+				// oFilter.push(new Filter("Tidnr", "EQ", ""));
+				// oFilter.push(new Filter("Eqktu", "EQ", ""));
+				// oFilter.push(new Filter("plant", "EQ", userPlant));
+				oFilter.push(new Filter("FuncLoc", "EQ", sFunctionalLocation));
+				oPortalDataModel.read("/EquipfuncSet", {
+					filters: oFilter,
+					success: function (oData, oResponse) {
+						var aEqListOfFunLoc = oData.results;
+						mLookupModel.setProperty("/aEqListOfFunLoc", aEqListOfFunLoc);
+						mLookupModel.refresh();
+						that.busy.close();
+					},
+					error: function (oResponse) {
+						mLookupModel.setProperty("/aEqListOfFunLoc", []);
+						that.busy.close();
+					}
+				});
+			}
+		},
+		onEquipOfFunLocSelect : function(oEvent){
+			var mLookupModel = this.mLookupModel;
+			// var oNotificationDataModel = this.oNotificationDataModel;
+			var oSource = oEvent.getParameter("listItem");
+			var sPath = oSource.getBindingContextPath();	
+			var iEqId = mLookupModel.getProperty(sPath + "/EquipId");
+			var iFunLoc = mLookupModel.getProperty("/sFunLoc");
+			mLookupModel.setProperty("/sEquip",iEqId)
+			mLookupModel.setProperty("/sFunLoc", iFunLoc);
+			this.getEquipsAssmebly(iEqId);
+			this.equipmentsListDialog.close();
 		}
 	});
 });

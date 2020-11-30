@@ -20,13 +20,13 @@
 									<core:CustomData value="WO_LIST_PM_WORK_DUE"/>
 								</customData>
 							</VBox>
-							<VBox class="formatKPIBox">
-								<Text class="sapUiTinyMargin tableHeaderText" wrapping="true" text="{i18n>openBDOrder}"/>
-								<Text text="{mLookupModel>/oKPIInfo/Open_br_dn_order}" class="sapUiTinyMargin formatKPINumber"/>
-								<customData>
-									<core:CustomData value="WO_LIST_OPEN_BD_ORDER"/>
-								</customData>
-							</VBox>
+							<!--<VBox class="formatKPIBox">-->
+							<!--	<Text class="sapUiTinyMargin tableHeaderText" wrapping="true" text="{i18n>openBDOrder}"/>-->
+							<!--	<Text text="{mLookupModel>/oKPIInfo/Open_br_dn_order}" class="sapUiTinyMargin formatKPINumber"/>-->
+							<!--	<customData>-->
+							<!--		<core:CustomData value="WO_LIST_OPEN_BD_ORDER"/>-->
+							<!--	</customData>-->
+							<!--</VBox>-->
 							<VBox class="formatKPIBox">
 								<Text class="sapUiTinyMargin tableHeaderText" wrapping="true" text="{i18n>asigned}"/>
 								<Text text="{mLookupModel>/oKPIInfo/Assign_to_me}" class="sapUiTinyMargin formatKPINumber"/>
@@ -36,14 +36,14 @@
 							</VBox>
 							<VBox class="formatKPIBox">
 								<Text class="sapUiTinyMargin tableHeaderText" wrapping="true" text="{i18n>outstand}"/>
-								<Text text="{mLookupModel>/oKPIInfo/Otstndng_spare_prt}" class="sapUiTinyMargin formatKPINumber"/>
+								<Text text="34" class="sapUiTinyMargin formatKPINumber"/>
 								<customData>
 									<core:CustomData value="WO_LIST_SPARE_PART_RESERV"/>
 								</customData>
 							</VBox>
 							<VBox class="formatKPIBox" busy="{mLookupModel>/bBusyworkcenter}">
 								<Text class="sapUiTinyMargin tableHeaderText" wrapping="true" text="{i18n>ASIGN_WORK_CENTER}"/>
-								<Text text="{mLookupModel>/oKPIInfo/Assign_to_WC}" class="sapUiTinyMargin formatKPINumber"/>
+								<Text text="56" class="sapUiTinyMargin formatKPINumber"/>
 								<customData>
 									<core:CustomData value="WO_LIST_ASSIGNED_TO_WC"/>
 								</customData>
@@ -77,10 +77,11 @@
 								</Toolbar>
 							</table:extension>
 							<table:columns>
-								<table:Column width="6%" sortProperty="Orderid" filterProperty="Orderid" defaultFilterOperator="Contains">
+								<table:Column width="11%" sortProperty="Orderid" filterProperty="Orderid" defaultFilterOperator="Contains">
 									<Text wrapping="true" text="{i18n>WONum}" class="tableHeaderText"/>
 									<table:template>
-										<Text text="{mLookupModel>Orderid}" class="tableContentText"></Text>
+										<!--<Text text="{mLookupModel>Orderid}" class="tableContentText"></Text>-->
+										<Link text="{mLookupModel>Orderid}" press="handleLinkPress"/>
 									</table:template>
 								</table:Column>
 								<table:Column width="10%" sortProperty="WoDes" filterProperty="WoDes">
@@ -131,18 +132,18 @@
 										<Text text="{path:'mLookupModel>SysStatusDes'}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column width="6.8%" sortProperty="StartDateString" filterProperty="StartDateString">
-									<Text wrapping="true" text="{i18n>SDate}" class="tableHeaderText"/>
-									<table:template>
-										<Text text="{path:'mLookupModel>StartDateString'}" class="tableContentText"></Text>
-									</table:template>
-								</table:Column>
-								<table:Column width="6.7%" sortProperty="FinishDateString" filterProperty="FinishDateString">
-									<Text wrapping="true" text="{i18n>EDate}" class="tableHeaderText"/>
-									<table:template>
-										<Text text="{path:'mLookupModel>FinishDateString'}" class="tableContentText"></Text>
-									</table:template>
-								</table:Column>
+								<!--<table:Column width="6.8%" sortProperty="StartDateString" filterProperty="StartDateString">-->
+								<!--	<Text wrapping="true" text="{i18n>SDate}" class="tableHeaderText"/>-->
+								<!--	<table:template>-->
+								<!--		<Text text="{path:'mLookupModel>StartDateString'}" class="tableContentText"></Text>-->
+								<!--	</table:template>-->
+								<!--</table:Column>-->
+								<!--<table:Column width="6.7%" sortProperty="FinishDateString" filterProperty="FinishDateString">-->
+								<!--	<Text wrapping="true" text="{i18n>EDate}" class="tableHeaderText"/>-->
+								<!--	<table:template>-->
+								<!--		<Text text="{path:'mLookupModel>FinishDateString'}" class="tableContentText"></Text>-->
+								<!--	</table:template>-->
+								<!--</table:Column>-->
 								<table:Column sortProperty="Bdflag" width="5%" filterProperty="Bdflag">
 									<Text wrapping="true" text="{i18n>BdownFlag}" class="tableHeaderText"/>
 									<table:template>
@@ -161,18 +162,18 @@
 										<Text text="{mLookupModel>EnteredByName}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column sortProperty="Plan" width="6.8%" filterProperty="Plan">
-									<Text wrapping="true" text="{i18n>maint_plan}" class="tableHeaderText"/>
-									<table:template>
-										<Text text="{path:'mLookupModel>Plan'}" class="tableContentText"></Text>
-									</table:template>
-								</table:Column>
-								<table:Column sortProperty="Package" width="6.8%" filterProperty="Package">
-									<Text wrapping="true" text="{i18n>package}" class="tableHeaderText"/>
-									<table:template>
-										<Text text="{path:'mLookupModel>Package'}" class="tableContentText"></Text>
-									</table:template>
-								</table:Column>
+								<!--<table:Column sortProperty="Plan" width="6.8%" filterProperty="Plan">-->
+								<!--	<Text wrapping="true" text="{i18n>maint_plan}" class="tableHeaderText"/>-->
+								<!--	<table:template>-->
+								<!--		<Text text="{path:'mLookupModel>Plan'}" class="tableContentText"></Text>-->
+								<!--	</table:template>-->
+								<!--</table:Column>-->
+								<!--<table:Column sortProperty="Package" width="6.8%" filterProperty="Package">-->
+								<!--	<Text wrapping="true" text="{i18n>package}" class="tableHeaderText"/>-->
+								<!--	<table:template>-->
+								<!--		<Text text="{path:'mLookupModel>Package'}" class="tableContentText"></Text>-->
+								<!--	</table:template>-->
+								<!--</table:Column>-->
 								<table:Column sortProperty="EnterDateString" width="5.8%" filterProperty="EnterDateString">
 									<Text wrapping="true" text="{i18n>createdDate}" class="tableHeaderText"/>
 									<table:template>

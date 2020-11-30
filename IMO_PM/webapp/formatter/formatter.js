@@ -25,7 +25,32 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 		return condn;
 
 	},
-
+	//nischal -- notificationDetail Release button visible
+	setBtnVisibleRelease : function(sValue){
+		if (sValue == "NOPR" || sValue == "NOCO"){
+			return false;
+		}
+		else {
+			return true;
+		}
+	},
+	//nischal -- notification Update button visible
+	setBtnVisibleUpdate : function(sValue){
+		if(sValue == "NOCO"){
+			return false;
+		}
+		else{
+			return true;
+		}
+	},
+	//nischal -- notification close button visibility
+	setBtnVisibleClose : function(sValue){
+		if(sValue == "NOCO"){
+			return false;
+		}else{
+			return true;
+		}
+	},
 	VisiblityCNFLongText: function (operationId) {
 
 		if (operationId) {
@@ -1241,6 +1266,14 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 			count = "";
 		}
 		return count;
+	},
+	// formatter to disable/enable switch in notifDetail view
+	setSwitchValue : function(sVal){
+		if(sVal === "M2"){
+			return true;
+		}else{
+			return false;
+		}
 	}
 
 };

@@ -97,6 +97,43 @@
 							</Table>
 						</ScrollContainer>
 					</IconTabFilter>
+					<!--nischal - icontabfilter is included to show equipment list of corresponding functional location-->
+					<IconTabFilter text="{i18n>equip_List}" key="idEqFunLoc" visible="{= ${oNotificationDataModel>/FunctLoc} === '' ? false : true}">
+						<ScrollContainer height="25rem" vertical="true" focusable="false">
+							<HBox class="sapUiTinyMarginTopBottom">
+								<Label design="Bold" text="{i18n>FUNC_LOCATION}" class="sapUiTinyMarginEnd"/>
+								<Text text="{oNotificationDataModel>/FunctLoc}"/>
+							</HBox>
+							<Table mode="SingleSelectLeft" selectionChange="onEquipSelect" growing="false" items="{path: 'mLookupModel>/aEqListOfFunLoc'}"
+								id="idEqListOfFunLoc">
+								<columns>
+									<Column width="{= ${device>/system/tablet} === true ? '6rem' : 'auto' }">
+										<Text text="{i18n>EQUIPMENT_ID}"/>
+									</Column>
+									<Column width="{= ${device>/system/tablet} === true ? '6rem' : 'auto' }">
+										<Text text="{i18n>TECHNICAL_ID}"/>
+									</Column>
+									<Column width="{= ${device>/system/tablet} === true ? '12rem' : 'auto' }">
+										<Text text="{i18n>EQUIP_DESC}"/>
+									</Column>
+									<!--<Column width="{= ${device>/system/tablet} === true ? '6rem' : 'auto' }">-->
+									<!--	<Text text="{i18n>FUNCTIONAL_LOCATION}"/>-->
+									<!--</Column>-->
+								</columns>
+								<items>
+									<ColumnListItem>
+										<cells >
+											<Text text="{mLookupModel>Equnr}"/>
+											<Text text="{mLookupModel>Tidnr}"/>
+											<Text text="{mLookupModel>Eqktu}"/>
+											
+										</cells>
+									</ColumnListItem>
+								</items>
+							</Table>
+						</ScrollContainer>
+					</IconTabFilter>
+					<!--nischal - icontabfilter is included to show equipment list of corresponding functional location-->
 				</items>
 			</IconTabBar>
 		</content>

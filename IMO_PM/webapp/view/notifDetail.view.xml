@@ -1,7 +1,7 @@
 <mvc:View controllerName="com.sap.incture.IMO_PM.controller.notifDetail" xmlns:mvc="sap.ui.core.mvc"
 	xmlns:html="http://www.w3.org/1999/xhtml" displayBlock="true" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout"
 	xmlns:tnt="sap.tnt">
-	<Page showHeader="false" class="sapUiSizeCompact sapMPageBackground" floatingFooter="true">
+	<Page showHeader="false" class="sapUiSizeCompact sapMPageBackground" floatingFooter="false">
 		<tnt:ToolHeader>
 			<Button icon="sap-icon://home" type="Transparent" press="onPressHome" tooltip="{i18n>home}"/>
 			<Image src="images/Cherrywork_Logo_final_Option_1.png" height="55%" width="10%"/>
@@ -13,11 +13,15 @@
 				<l:Grid >
 					<VBox>
 						<Label text="{i18n>notifType}"></Label>
-						<Select class="sapInputBorderClass" showSecondaryValues="true" items="{mLookupModel>/aNotificationTypeSet}"
-							selectedKey="{oNotificationDataModel>/NotifType}" tooltip="{oNotificationDataModel>/NotifType}" width="70%" forceSelection="false"
-							enabled="false">
-							<core:ListItem key="{mLookupModel>Qmart}" text="{mLookupModel>Qmart} - {mLookupModel>qmartx}"/>
-						</Select>
+						<!--<Select class="sapInputBorderClass" showSecondaryValues="true" items="{mLookupModel>/aNotificationTypeSet}"-->
+						<!--	selectedKey="{oNotificationDataModel>/NotifType}" tooltip="{oNotificationDataModel>/NotifType}" width="70%" forceSelection="false"-->
+						<!--	enabled="false">-->
+						<!--	<core:ListItem key="{mLookupModel>Qmart}" text="{mLookupModel>Qmart} - {mLookupModel>qmartx}"/>-->
+						<!--</Select>-->
+						<ComboBox showSecondaryValues="true" items="{path:'mLookupModel>/aNotificationTypeSet',sorter:{ path: 'text' }}"
+							selectedKey="{oNotificationDataModel>/NotifType}" class="sapInputBorderClass" enabled="false" width="70%">
+							<core:ListItem key="{mLookupModel>Qmart}" additionalText="{mLookupModel>qmartx}" text="{mLookupModel>Qmart}"/>
+						</ComboBox>
 						<layoutData>
 							<l:GridData span="XL6 L3 M6 S6"/>
 						</layoutData>
@@ -46,6 +50,14 @@
 					</VBox>
 					<l:Grid class="sapUiSmallMarginTop sapUiTinyMarginBegin">
 						<VBox>
+							<Label text="{i18n>FunLocation}"></Label>
+							<Input width="70%" editable="true" showValueHelp="true" value="{oNotificationDataModel>/FunctLoc}" valueHelpOnly="false"
+								valueHelpRequest="fnLocValueHelp" class="sapInputBorderClass"></Input>
+							<layoutData>
+								<l:GridData span="XL6 L3 M6 S6"/>
+							</layoutData>
+						</VBox>
+						<VBox>
 							<Label text="{i18n>equip}"></Label>
 							<Input width="70%" showValueHelp="true" value="{oNotificationDataModel>/Equipment}" valueHelpRequest="openEquipmentListValueHelp"
 								tooltip="{oNotificationDataModel>/Equipment}" class="sapInputBorderClass" maxLength="18"></Input>
@@ -56,7 +68,7 @@
 						<VBox>
 							<Label text="{i18n>subAssemb}"></Label>
 							<ComboBox showSecondaryValues="true" items="{mLookupModel>/aEquipAssemblyList}" selectedKey="{oNotificationDataModel>/Assembly}"
-								class="sapInputBorderClass" tooltip="{oNotificationDataModel>/Assembly}" width="70%">
+								class="sapInputBorderClass" width="70%">
 								<core:ListItem key="{mLookupModel>Idnrk}" text="{mLookupModel>Idnrk} - {mLookupModel>MAKTX}"/>
 							</ComboBox>
 							<layoutData>
@@ -64,9 +76,11 @@
 							</layoutData>
 						</VBox>
 						<VBox>
-							<Label text="{i18n>FunLocation}"></Label>
-							<Input value="{oNotificationDataModel>/FunctLoc}" width="70%" tooltip="{oNotificationDataModel>/FunctLoc}" enabled="true" maxLength="40"
-								class="sapInputBorderClass"></Input>
+							<Label text="{i18n>assigned_To}"></Label>
+							<ComboBox showSecondaryValues="true" class="sapInputBorderClass" width="70%" selectedKey="{mLookupModel>/assignedToHardCode}">
+								<core:ListItem key="John Smith" text="John Smith"/>
+								<core:ListItem key="Andrew Goal" text="Andrew Goal"/>
+							</ComboBox>
 							<layoutData>
 								<l:GridData span="XL6 L3 M6 S6"/>
 							</layoutData>
@@ -80,11 +94,61 @@
 					</VBox>
 					<l:Grid class="sapUiSmallMarginTop sapUiTinyMarginBegin">
 						<VBox>
+							<Label text="{i18n>notif_Priority}" required="true"></Label>
+							<!--<Select class="sapInputBorderClass" forceSelection="false" width="70%" showSecondaryValues="true" enabled="true">-->
+							<!--	<core:ListItem key="4" text="Very High"/>-->
+							<!--	<core:ListItem key="3" text="High"/>-->
+							<!--</Select>-->
+							<ComboBox items="{ path: 'mLookupModel>/aPrioritySet', sorter: { path: 'text' } }" selectedKey="{oNotificationDataModel>/Priority}"
+								class="sapInputBorderClass" width="70%" showSecondaryValues="true">
+								<core:Item key="{mLookupModel>PRIOK}" text="{mLookupModel>PRIOKX}"/>
+							</ComboBox>
+							<layoutData>
+								<l:GridData span="XL6 L3 M6 S6"/>
+							</layoutData>
+						</VBox>
+						<VBox>
 							<Label text="{i18n>planner}"></Label>
 							<Select class="sapInputBorderClass" forceSelection="false" selectedKey="{oNotificationDataModel>/Plangroup}" width="70%"
 								tooltip="{oNotificationDataModel>/Plangroup}" items="{mLookupModel>/aPlannerGroupSet}" showSecondaryValues="true" enabled="true">
 								<core:ListItem key="{mLookupModel>VAGRP}" text="{mLookupModel>VAGRP} - {mLookupModel>TXT}"/>
 							</Select>
+							<layoutData>
+								<l:GridData span="XL6 L3 M6 S6"/>
+							</layoutData>
+						</VBox>
+						<VBox>
+							<Label text="{i18n>notif_PlanningPlant}" required="true"></Label>
+							<!--<Select class="sapInputBorderClass" forceSelection="false" width="70%" SelectedKey = "4321" enabled="true">-->
+							<!--	<core:ListItem key="4321" text="4321"/>-->
+							<!--</Select>-->
+							<ComboBox class="sapInputBorderClass" width="70%" selectedKey="4321">
+								<core:Item key="4321" text="4321"/>
+							</ComboBox>
+							<layoutData>
+								<l:GridData span="XL6 L3 M6 S6"/>
+							</layoutData>
+						</VBox>
+						<VBox>
+							<Label text="{i18n>notif_mainWorkCtr}" required="true"></Label>
+							<ComboBox showSecondaryValues="true" items="{path:'mLookupModel>/aWorkCenterSet',sorter:{ path: 'text' }}"
+								selectedKey="{oNotificationDataModel>/WorkCenter}" class="sapInputBorderClass" enabled="true" width="70%">
+								<core:ListItem key="{mLookupModel>WorkcenterId}" additionalText="{mLookupModel>WorkcenterDesc}" text="{mLookupModel>WorkcenterId}"/>
+							</ComboBox>
+							<layoutData>
+								<l:GridData span="XL6 L3 M6 S6"/>
+							</layoutData>
+						</VBox>
+					</l:Grid>
+					<l:Grid class="sapUiSmallMarginTop sapUiTinyMarginBegin">
+						<VBox>
+							<Label text="{i18n>notif_plant}" required="true"></Label>
+							<!--<Select class="sapInputBorderClass" forceSelection="false" width="70%" showSecondaryValues="true" enabled="true">-->
+							<!--	<core:ListItem key="4321" text="4321"/>-->
+							<!--</Select>-->
+							<ComboBox class="sapInputBorderClass" width="70%" selectedKey="4321">
+								<core:Item key="4321" text="4321"/>
+							</ComboBox>
 							<layoutData>
 								<l:GridData span="XL6 L3 M6 S6"/>
 							</layoutData>
@@ -129,30 +193,31 @@
 						</layoutData>
 					</VBox>
 					<l:Grid class="sapUiSmallMarginTop sapUiTinyMarginBegin">
-						<VBox>
-							<Label text="Damage Code"></Label>
-							<Select class="sapInputBorderClass" width="70%" forceSelection="false" selectedKey="{oNotificationDataModel>/DamageCode}"
-								items="{mLookupModel>/aDamageCode}" showSecondaryValues="true" change="getDamageGroupCode" id="NOTIF_DETAIL_DAMAGE_CODE">
-								<core:ListItem key="{mLookupModel>Code}" additionalText="{mLookupModel>Codegrtext}" text="{mLookupModel>Code} - {mLookupModel>Codetext}"/>
-							</Select>
-							<layoutData>
-								<l:GridData span="XL6 L3 M6 S6"/>
-							</layoutData>
-						</VBox>
-						<VBox>
-							<Label text="Cause Code"></Label>
-							<Select class="sapInputBorderClass" width="70%" forceSelection="false" selectedKey="{oNotificationDataModel>/CauseCode}"
-								items="{mLookupModel>/aCauseCode}" showSecondaryValues="true" change="getCauseGroupCode" id="NOTIF_DETAIL_CAUSE_CODE">
-								<core:ListItem key="{mLookupModel>Code}" additionalText="{mLookupModel>Codegrtext}" text="{mLookupModel>Code} - {mLookupModel>Codetext}"/>
-							</Select>
-							<layoutData>
-								<l:GridData span="XL6 L3 M6 S6"/>
-							</layoutData>
-						</VBox>
+						<!--<VBox>-->
+						<!--	<Label text="Damage Code"></Label>-->
+						<!--	<Select class="sapInputBorderClass" width="70%" forceSelection="false" selectedKey="{oNotificationDataModel>/DamageCode}"-->
+						<!--		items="{mLookupModel>/aDamageCode}" showSecondaryValues="true" change="getDamageGroupCode" id="NOTIF_DETAIL_DAMAGE_CODE">-->
+						<!--		<core:ListItem key="{mLookupModel>Code}" additionalText="{mLookupModel>Codegrtext}" text="{mLookupModel>Code} - {mLookupModel>Codetext}"/>-->
+						<!--	</Select>-->
+						<!--	<layoutData>-->
+						<!--		<l:GridData span="XL6 L3 M6 S6"/>-->
+						<!--	</layoutData>-->
+						<!--</VBox>-->
+						<!--<VBox>-->
+						<!--	<Label text="Cause Code"></Label>-->
+						<!--	<Select class="sapInputBorderClass" width="70%" forceSelection="false" selectedKey="{oNotificationDataModel>/CauseCode}"-->
+						<!--		items="{mLookupModel>/aCauseCode}" showSecondaryValues="true" change="getCauseGroupCode" id="NOTIF_DETAIL_CAUSE_CODE">-->
+						<!--		<core:ListItem key="{mLookupModel>Code}" additionalText="{mLookupModel>Codegrtext}" text="{mLookupModel>Code} - {mLookupModel>Codetext}"/>-->
+						<!--	</Select>-->
+						<!--	<layoutData>-->
+						<!--		<l:GridData span="XL6 L3 M6 S6"/>-->
+						<!--	</layoutData>-->
+						<!--</VBox>-->
 						<VBox>
 							<Label text="{i18n>breakDown}"></Label>
 							<Switch state="{path:'oNotificationDataModel>/Breakdown', formatter:'com.sap.incture.IMO_PM.formatter.formatter.formatBooleanBreakDown'}"
-								customTextOn="{i18n>yes}" customTextOff="{i18n>no}" change="fnUpdateBreakDownStatus"/>
+								customTextOn="{i18n>yes}" customTextOff="{i18n>no}" change="fnUpdateBreakDownStatus" id="idBreakDownSwitch"
+								enabled="true"/>
 							<layoutData>
 								<l:GridData span="XL6 L3 M6 S6"/>
 							</layoutData>
@@ -243,12 +308,17 @@
 		</content>
 		<footer>
 			<Toolbar>
+				<Button  text ="{i18n>close_notif}" id ="idcloseNotif" type = "Reject" press ="onCloseNotif" 
+				visible="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setBtnVisibleClose'}"/>
 				<ToolbarSpacer/>
-				<Button text="{i18n>updatenot}" type="Emphasized" press="checkMandatoryFields">
+				<Button text="{i18n>updatenot}" id = "updateNotif" type="Emphasized" press="checkMandatoryFields"
+					visible="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setBtnVisibleUpdate'}">
 					<customData>
 						<core:CustomData key="dateType" value="UPDATE"/>
 					</customData>
 				</Button>
+				<Button text="Release" id="releaseButton" type="Emphasized" press="onPressRelease"
+					visible="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setBtnVisibleRelease'}"/>
 			</Toolbar>
 		</footer>
 	</Page>

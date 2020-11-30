@@ -29,7 +29,7 @@
 							</VBox>
 							<VBox class="formatKPIBox">
 								<Text class="sapUiTinyMargin notificationHeaderText" wrapping="true" text="Assigned to me"/>
-								<Text text="{mLookupModel>/assignedtoMeCount}" class="sapUiTinyMargin formatKPINumber"/>
+								<Text text="{mLookupModel>/notificationsDueCount}" class="sapUiTinyMargin formatKPINumber"/>
 								<customData>
 									<core:CustomData value="NOTIF_LIST_ASSIGNED_TO_ME"/>
 								</customData>
@@ -60,7 +60,8 @@
 								<table:Column sortProperty="NotifNo" filterProperty="NotifNo" width="7%">
 									<Text wrapping="true" text="{i18n>notifID}" class="tableHeaderText"/>
 									<table:template>
-										<Text text="{mLookupModel>NotifNo}" class="tableContentText"></Text>
+										<!--<Text text="{mLookupModel>NotifNo}" class="tableContentText"></Text>-->
+										<Link text="{mLookupModel>NotifNo}" press="handleLinkPress"/>
 									</table:template>
 								</table:Column>
 								<table:Column sortProperty="Descriptn" filterProperty="Descriptn" width="10.5%">
@@ -117,10 +118,10 @@
 										<Text text="{path:'mLookupModel>ReqenddateString'}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column sortProperty="Bdflag" filterProperty="Bdflag" width="4%">
+								<table:Column sortProperty="Breakdown" filterProperty="Breakdown" width="4%">
 									<Text wrapping="true" text="{i18n>BdownFlag}" class="tableHeaderText"/>
 									<table:template>
-										<Text text="{mLookupModel>Bdflag}" class="tableContentText"></Text>
+										<Text text="{mLookupModel>Breakdown}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
 								<table:Column sortProperty="PriorityDesNotif" width="6%" filterProperty="PriorityDesNotif">
@@ -158,7 +159,7 @@
 		<footer>
 			<Toolbar>
 				<ToolbarSpacer/>
-				<Button text="{i18n>assign}" press="onAssignWO"
+				<Button text="{i18n>assign}" press="onAssignWO" type="Emphasized"
 					visible="{path:'oUserDetailModel>/userRole', formatter:'com.sap.incture.IMO_PM.formatter.formatter.disableReviewField'}"/>
 				<Button text="{i18n>viewDetail}" enabled="{= ${mLookupModel>/iSelectedIndices} === 1 ? true: false}" press="onNotifDetail" type="Emphasized"/>
 			</Toolbar>
