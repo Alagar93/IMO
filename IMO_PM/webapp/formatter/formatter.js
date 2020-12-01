@@ -25,9 +25,26 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 		return condn;
 
 	},
+	//nischal -- notification Detail Revert button visible
+	setBtnVisibleRevert : function(sValue){
+		if(sValue == "NOCO" || sValue == "NOCO ORAS"){
+			return true;
+		}else {
+			return false;
+		}
+	},
+	//nischal -- set Notification Detail View Enabled/Disabled based on Notification Status
+	setEnabledBasedOnStatus : function(sValue){
+		if(sValue == "NOCO" || sValue == "NOCO ORAS"){
+			return false;
+		}else{
+			return true;
+		}
+	},
+	
 	//nischal -- notificationDetail Release button visible
 	setBtnVisibleRelease : function(sValue){
-		if (sValue == "NOPR" || sValue == "NOCO"){
+		if (sValue == "NOPR" || sValue =="NOPR ORAS" || sValue == "NOCO" || sValue =="NOCO ORAS"){
 			return false;
 		}
 		else {
@@ -36,7 +53,7 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 	},
 	//nischal -- notification Update button visible
 	setBtnVisibleUpdate : function(sValue){
-		if(sValue == "NOCO"){
+		if(sValue == "NOCO" || sValue == "NOCO ORAS"){
 			return false;
 		}
 		else{
@@ -45,7 +62,7 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 	},
 	//nischal -- notification close button visibility
 	setBtnVisibleClose : function(sValue){
-		if(sValue == "NOCO"){
+		if(sValue == "NOCO" || sValue == "NOCO ORAS"){
 			return false;
 		}else{
 			return true;

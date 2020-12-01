@@ -674,24 +674,65 @@ com.sap.incture.IMO_PM.util.util = {
 	//Function to check if mandatory fields are entered during Create Notification
 	checkMandatoryFields: function (oNotificationDataModel, oNotificationViewModel, oResourceModel) {
 		var oErrorMsg = "";
+		//  validation Notif .
 		var notifType = oNotificationDataModel.getProperty("/NotifType");
-		/*		if (!notifType) {
+				if (!notifType) {
 					// oErrorMsg = oResourceModel.getText("SEL_NOTIF_TYPE");
 					oErrorMsg = "Please select Notification type";
 					return [true, oErrorMsg];
-				}*/
+				}
+				//  validation function location .
+		var oFunLocation = oNotificationDataModel.getProperty("/FunctLoc");
+				if (!oFunLocation) {
+					// oErrorMsg = oResourceModel.getText("SEL_NOTIF_TYPE");
+					oErrorMsg = "Please select Function Location";
+					return [true, oErrorMsg];
+				}	
+				//  validation Equipment	
 		var equipment = oNotificationDataModel.getProperty("/Equipment");
 		if (!equipment) {
 			// oErrorMsg = oResourceModel.getText("SEL_EQUIPMENT");
 			oErrorMsg = "Please select an Equipment";
 			return [true, oErrorMsg];
 		}
+	
+					//  validation Priority	
+		var OPriority = oNotificationDataModel.getProperty("/Priority");
+		if (!OPriority) {
+			// oErrorMsg = oResourceModel.getText("SEL_EQUIPMENT");
+			oErrorMsg = "Please select an Priority";
+			return [true, oErrorMsg];
+		}
+			//  validation planner Group
 		var plannerGrp = oNotificationDataModel.getProperty("/Plangroup");
 		if (!plannerGrp) {
 			// oErrorMsg = oResourceModel.getText("SEL_PLANNER_GRP");
 			oErrorMsg = "Please select Planner Group";
 			return [true, oErrorMsg];
 		}
+			//  validation planning Plant
+		var  OPlantPlan = oNotificationDataModel.getProperty("/PlanPlant");
+		if (!OPlantPlan) {
+			// oErrorMsg = oResourceModel.getText("SEL_PLANNER_GRP");
+			oErrorMsg = "Please select Planning Plant";
+			return [true, oErrorMsg];
+		}
+			//  validation main WorkCenter 
+		var  OMianWorkCenter = oNotificationDataModel.getProperty("/WorkCenter");
+		if (!OMianWorkCenter) {
+			// oErrorMsg = oResourceModel.getText("SEL_PLANNER_GRP");
+			oErrorMsg = "Please select Main Workcenter";
+			return [true, oErrorMsg];
+		}
+			//  validation maintenance Plant
+		var  OMaintenancePlant = oNotificationDataModel.getProperty("/PlanPlant");
+		if (!OMaintenancePlant) {
+			// oErrorMsg = oResourceModel.getText("SEL_PLANNER_GRP");
+			oErrorMsg = "Please select Main maintenance Plant";
+			return [true, oErrorMsg];
+		}
+					
+		
 		var breakdown = oNotificationDataModel.getProperty("/Breakdown");
 		if (breakdown === "X" || breakdown === true) {
 			var malStartdate = oNotificationDataModel.getProperty("/Startdate");
@@ -719,6 +760,7 @@ com.sap.incture.IMO_PM.util.util = {
 				return [true, oErrorMsg];
 			}
 		}
+		//  validation Short Description
 		var shortTxt = oNotificationDataModel.getProperty("/ShortText");
 		if (!shortTxt) {
 			// oErrorMsg = oResourceModel.getText("SEL_DESC");

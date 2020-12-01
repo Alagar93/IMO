@@ -7,8 +7,9 @@ sap.ui.define([
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator",
 	"com/sap/incture/IMO_PM/util/util",
-	"com/sap/incture/IMO_PM/formatter/formatter"
-], function (Controller, DateFormat, JSONModel, MessageBox, BusyDialog, Filter, FilterOperator, util, formatter) {
+	"com/sap/incture/IMO_PM/formatter/formatter",
+	"sap/ui/core/routing/History"
+], function (Controller, DateFormat, JSONModel, MessageBox, BusyDialog, Filter, FilterOperator, util, formatter,History) {
 
 	"use strict";
 
@@ -16,7 +17,34 @@ sap.ui.define([
 		util: util,
 		formatter: formatter,
 		//"com/mylan/createWorkOrder/formatter/formatter",
-
+ //  backButton logic start 
+	getRouter : function () {
+			return sap.ui.core.UIComponent.getRouterFor(this);
+		},
+		// back to notif list 
+		onBackTo_Notif_list: function (oEvent) {
+			var oHistory, sPreviousHash;
+			oHistory = History.getInstance();
+			sPreviousHash = oHistory.getPreviousHash();
+			if (sPreviousHash !== undefined) {
+				window.history.go(-1);
+			} else {
+				this.getRouter().navTo("notifList", {}, true /*no history*/);
+			
+			}
+		},
+			// back to WO list 
+		onBack_To_WO_list : function (oEvent) {
+			var oHistory, sPreviousHash;
+			oHistory = History.getInstance();
+			sPreviousHash = oHistory.getPreviousHash();
+			if (sPreviousHash !== undefined) {
+				window.history.go(-1);
+			} else {
+				this.getRouter().navTo("WOList", {}, true /*no history*/);
+			
+			}
+		},
 		//Function to show Message box/Toast message based on Success/Error statues
 		showMessage: function (pMessage, pMsgTyp, pHandler, oTaskType, oSelectedObj) {
 
@@ -421,6 +449,7 @@ sap.ui.define([
 			this.getWOPriorities();
 			this.getWorkCentersCreateWO();
 			this.getFnLocs();
+			this.getOrderType();
 		},
 		//Function to get fnlocations List
 		getFnLocs: function (oEvent) {

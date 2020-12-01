@@ -491,10 +491,16 @@ sap.ui.define([
 				}
 			});
 		},
+		//Function to revert notification
+		onRevertNotif: function () {
+			var that = this;
+			this.onPressRelease("revert");
+		},
 		//Funnction to Release the Notification
-		onPressRelease: function () {
+		onPressRelease: function (sVal) {
 			var that = this;
 			this.busy.open();
+			var mLookupModel = this.mLookupModel;
 			var oPortalNotifOData = this.oPortalNotifOData;
 			var oNotificationDataModel = this.oNotificationDataModel;
 			var oNotificationViewModel = this.oNotificationViewModel;
@@ -536,27 +542,39 @@ sap.ui.define([
 				success: function (sData, oResponse) {
 					var statusCode = oResponse.statusCode;
 					if (statusCode == 201) {
-						MessageBox.success("Notification Released Successfully", {
-							actions: [MessageBox.Action.OK],
-							emphasizedAction: MessageBox.Action.OK,
-							onClose: function (sAction) {
-
-							}
-						});
+						if (sVal === "revert") {
+							MessageBox.success("Notification Reverted Successfully", {
+								actions: [MessageBox.Action.OK],
+								emphasizedAction: MessageBox.Action.OK,
+								onClose: function (sAction) {
+									that.getView().byId("idrevertNotif").setVisible(false);
+									mLookupModel.setProperty("/SysStatus", "NOPR");
+									mLookupModel.refresh();
+								}
+							});
+						} else {
+							MessageBox.success("Notification Released Successfully", {
+								actions: [MessageBox.Action.OK],
+								emphasizedAction: MessageBox.Action.OK,
+								onClose: function (sAction) {
+									that.getView().byId("releaseButton").setVisible(false);
+								}
+							});
+						}
 					}
+
 					that.busy.close();
 				},
 				error: function (error, oResponse) {
-					console.log(error);
 					that.busy.close();
 				}
 			});
-			that.getView().byId("releaseButton").setVisible(false);
-			
+
 		},
 		onCloseNotif: function () {
-		var that = this;
+			var that = this;
 			this.busy.open();
+			var mLookupModel = this.mLookupModel;
 			var oPortalNotifOData = this.oPortalNotifOData;
 			var oNotificationDataModel = this.oNotificationDataModel;
 			var oNotificationViewModel = this.oNotificationViewModel;
@@ -607,15 +625,17 @@ sap.ui.define([
 						});
 					}
 					that.busy.close();
+					mLookupModel.setProperty("/SysStatus", "NOCO");
+					that.getView().byId("idcloseNotif").setVisible(false);
+					that.getView().byId("updateNotif").setVisible(false);
+					that.getView().byId("releaseButton").setVisible(false);
+
 				},
 				error: function (error, oResponse) {
-					console.log(error);
 					that.busy.close();
 				}
 			});
-			that.getView().byId("idcloseNotif").setVisible(false);
-			that.getView().byId("updateNotif").setVisible(false);
-			that.getView().byId("releaseButton").setVisible(false);
+
 		},
 		//Function to get damage code values
 		getDamageGroupCode: function (oEvent, damageCode) {

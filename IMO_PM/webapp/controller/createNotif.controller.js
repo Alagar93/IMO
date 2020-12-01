@@ -34,7 +34,93 @@ sap.ui.define([
 			var oNotificationDataModel = this.oNotificationDataModel;
 			util.resetCreateNotificationFields(oNotificationDataModel, oNotificationViewModel, mLookupModel, oUserDetailModel);
 		},
+		onselectNotif: function (oEvent) {
+			var mLookupModel = this.mLookupModel;
+			var oNotificationDataModel = this.oNotificationDataModel;
+			var oSource = oEvent.getParameter("listItem");
+			var sPath = oSource.getBindingContextPath();
+			var iEqId = mLookupModel.getProperty(sPath + "/Equipment");
+			var iFunLoc = mLookupModel.getProperty(sPath + "/FunctLoc");
+			var sPlanGrpSel = mLookupModel.getProperty(sPath + "/Plangroup");
+			var sWorkCenterSel = mLookupModel.getProperty(sPath + "/WorkCntr");
+			var sPlant = mLookupModel.getProperty(sPath + "/Planplant");
+			var sPriority = mLookupModel.getProperty(sPath + "/Priority");
+			var sNotifType = mLookupModel.getProperty(sPath + "/NotifType");
+			var sDescription = mLookupModel.getProperty(sPath + "/Descriptn");
+			var sLongText = mLookupModel.getProperty(sPath + "/LongText");
+			var bBreakDown = mLookupModel.getProperty(sPath + "/Breakdown");
+			var stempAssembly = mLookupModel.getProperty(sPath + "/Assembly");
+			var sRefnotif = mLookupModel.getProperty(sPath + "/NotifNo");
+			mLookupModel.setProperty("/sRefnotif",sRefnotif);
+			var stempAssembly = parseInt(stempAssembly);
+			var sSubAssembly = stempAssembly.toString();
+			oNotificationDataModel.setProperty("/Equipment", iEqId);
+			oNotificationDataModel.setProperty("/FunctLoc", iFunLoc);
+			oNotificationDataModel.setProperty("/Plangroup", sPlanGrpSel);
+			oNotificationDataModel.setProperty("/PlanPlant", sPlant); //nischal
+			oNotificationDataModel.setProperty("/WorkCenter", sWorkCenterSel); //nischal
+			oNotificationDataModel.setProperty("/Priority", sPriority);
+			oNotificationDataModel.setProperty("/NotifType", sNotifType);
+			oNotificationDataModel.setProperty("/ShortText", sDescription);
+			oNotificationDataModel.setProperty("/Longtext", sLongText);
+			oNotificationDataModel.setProperty("/Breakdown", bBreakDown);
+			oNotificationDataModel.setProperty("/Assembly", sSubAssembly);
+			this.getEquipsAssmebly(iEqId);
+			this.onCloseRefNotif();
+		},
+		onSearchNotifData: function (oEvent) {
+			var mLookupModel = this.mLookupModel;
+			var sQuery = oEvent.getSource().getValue();
+			mLookupModel.setProperty("/notifData", sQuery);
+			this.refNotifValueHelp();
+		},
+		refNotifValueHelp: function () {
+			var that = this;
+			var mLookupModel = this.mLookupModel;
+			var iTopNotif = 50;
+			var iSkipNotif = 0;
+			var sUrl = "/NotificationListSet";
+			var oPortalDataModel = this.oPortalDataModel;
+			if (!this.referenceNotifDialog) {
+				this.referenceNotifDialog = sap.ui.xmlfragment("com/sap/incture/IMO_PM.fragment.refNotification", this);
+				this.getView().addDependent(this.referenceNotifDialog);
+			}
+			this.referenceNotifDialog.open();
+			this.busy.open();
+			var oFilter = [];
+			var userPlant = this.oUserDetailModel.getProperty("/userPlant");
+			var notifData = mLookupModel.getProperty("/notifData");
+			if (notifData !== "undefined") {
+				oFilter.push(new Filter("NotifNo", "EQ", notifData));
+			} else {
+				oFilter.push(new Filter("NotifNo", "EQ", ""));
+			}
+			oFilter.push(new Filter("plant", "EQ", userPlant));
+			oPortalDataModel.read(sUrl, {
+				filters: oFilter,
+				urlParameters: {
+					"$top": iTopNotif,
+					"$skip": iSkipNotif
+				},
+				success: function (oData) {
+					var aNotificationListSet = oData.results;
+					mLookupModel.setProperty("/aNotifListSet", aNotificationListSet);
+					that.busy.close();
+				},
+				error: function (oData) {
+					mLookupModel.setProperty("/aNotifListSet", []);
+					mLookupModel.refresh();
+					that.busy.close();
+				}
+			});
 
+		},
+		onCloseRefNotif: function () {
+			this.referenceNotifDialog.close();
+			this.referenceNotifDialog.destroy();
+			this.referenceNotifDialog = null;
+
+		},
 		//Function to get Equipment List and show in a pop-up
 		openEquipmentListValueHelp: function (oEvent) {
 			if (!this.equipmentsListDialog) {
@@ -47,6 +133,8 @@ sap.ui.define([
 		//Function to close equipment pop-up
 		onCancelDialogEquip: function (oEvent) {
 			this.equipmentsListDialog.close();
+			this.equipmentsListDialog.destroy();
+			this.equipmentsListDialog = null;
 		},
 
 		//Function to select a Equipment and auto-populate Functional location
@@ -604,6 +692,20 @@ sap.ui.define([
 					}
 				});
 			}
+		},
+		onCreateWODialogOpen: function (oEvent) {
+			if (!this.createWoDialog) {
+				this.createWoDialog = sap.ui.xmlfragment("com/sap/incture/IMO_PM.fragment.createWONotifDialog", this);
+				this.getView().addDependent(this.createWoDialog);
+			}
+			this.createWoDialog.open();
+		},
+
+		//Function to close equipment pop-up
+		onCancelWoDialog: function (oEvent) {
+			this.createWoDialog.close();
+			this.createWoDialog.destroy();
+			this.createWoDialog = null;
 		}
 	});
 });
