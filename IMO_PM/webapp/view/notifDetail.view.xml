@@ -3,6 +3,7 @@
 	xmlns:tnt="sap.tnt">
 	<Page showHeader="false" class="sapUiSizeCompact sapMPageBackground" floatingFooter="false">
 		<tnt:ToolHeader>
+			<Button icon="sap-icon://nav-back" type="Transparent" press="onBackTo_Notif_list" />
 			<Button icon="sap-icon://home" type="Transparent" press="onPressHome" tooltip="{i18n>home}"/>
 			<Image src="images/Cherrywork_Logo_final_Option_1.png" height="55%" width="10%"/>
 			<Label design="Bold" class="sapUiSmallMarginBegin" text="{i18n>notifDetails}" wrapping="true"/>
@@ -104,7 +105,7 @@
 							<!--	<core:ListItem key="3" text="High"/>-->
 							<!--</Select>-->
 							<ComboBox items="{ path: 'mLookupModel>/aPrioritySet', sorter: { path: 'text' } }" selectedKey="{oNotificationDataModel>/Priority}"
-								class="sapInputBorderClass" width="70%" showSecondaryValues="true"
+								class="sapInputBorderClass" width="70%" showSecondaryValues="true" change ="onChangePriority"
 								enabled="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setEnabledBasedOnStatus'}">
 								<core:Item key="{mLookupModel>PRIOK}" text="{mLookupModel>PRIOKX}"/>
 							</ComboBox>

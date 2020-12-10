@@ -2,7 +2,7 @@
 	controllerName="com.sap.incture.IMO_PM.controller.detailWO" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:tnt="sap.tnt">
 	<Page showHeader="false" class="sapUiSizeCompact sapMPageBackground" title="{}">
 		<tnt:ToolHeader>
-				<Button icon="sap-icon://nav-back" type="Transparent" press="onBack_To_WO_list" />
+			<Button icon="sap-icon://nav-back" type="Transparent" press="onBack_To_WO_list"/>
 			<Button icon="sap-icon://home" type="Transparent" press="onPressHome" tooltip="{i18n>home}"/>
 			<Image src="images/Cherrywork_Logo_final_Option_1.png" height="55%" width="10%"/>
 			<Label design="Bold" class="sapUiSmallMarginBegin" text="{i18n>WODetail}" wrapping="true"/>
@@ -34,6 +34,12 @@
 		</content>
 		<footer>
 			<Toolbar>
+				<Button text="{i18n>CREATE_NOTIFICATION_WO}" press="onCreateUpdateAndExitWO" type="Transparent"
+					visible="{oWorkOrderDetailViewModel>/createVisible}">
+					<customData>
+						<core:CustomData key="dateType" value="WO_DETAIL_CREATE_NOTIF"/>
+					</customData>
+				</Button>
 				<ToolbarSpacer/>
 				<Button text="{i18n>DETAIL_ADD_TASKS}" type="Transparent" press="fnOpenTaskListPopup"
 					visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnSetTaskNotifBtnVisible'}"/>

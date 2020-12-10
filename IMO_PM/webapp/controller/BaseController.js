@@ -887,7 +887,7 @@ sap.ui.define([
 					var notifications = oData.HEADERTONOTIFNAV.results;
 					if (!notifications) {
 						notifications = [];
-						oData.ReportedBy = "";
+						oData.ReportedBy = ""; //nischal - For Workorder without notification, Reported By is getting empty. So lets  override that with Workorder detail reported BY
 					} else if (notifications.length >= 1) {
 						oData.ReportedBy = notifications[0].Reportedby;
 					}
@@ -2072,9 +2072,13 @@ sap.ui.define([
 			startDate = formatter.formatDtTimeObjToTString(startDate);
 			endDate = formatter.formatDtTimeObjToTString(endDate);
 
-			var oNotification = sData.HEADERTONOTIFNAV.results[0];
+			if (sData.HEADERTONOTIFNAV) {//++George-
+				var oNotification = sData.HEADERTONOTIFNAV.results[0];
+			}
 			var oNewNotif = {};
-			oNewNotif.Notifid = oNotification.NotifNo;
+			if (oNotification) {
+				oNewNotif.Notifid = oNotification.NotifNo;
+			}
 			oNewNotif.Breakdown = breakDown;
 			oNewNotif.BreakdownDur = breakDownDuration;
 			oNewNotif.Startdate = startDate;
