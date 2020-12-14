@@ -25,6 +25,14 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 		return condn;
 
 	},
+	//nischal -- Notification Detail's CreateWO button Visibility function
+	setBtnVisibleCreateOrder : function(sValue){
+		if(sValue == "NOPR"){
+			return true;
+		}else{
+			return false;
+		}
+	},
 	//nischal -- notification Detail Revert button visible
 	setBtnVisibleRevert : function(sValue){
 		if(sValue == "NOCO" || sValue == "NOCO ORAS"){

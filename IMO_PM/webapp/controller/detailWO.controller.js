@@ -393,7 +393,8 @@ sap.ui.define([
 				this.fnMandateUiFields("WO_DETAIL_UPDATE_EXIT");
 				break;
 			case "WO_DETAIL_RELEASE":
-				this.fnCheckOpsSpareBeforeRelease();
+				this.fnCheckOpsSpareBeforeRelease(); //nischal -- just for debugging
+				// this.fnMandateUiFields("WO_DETAIL_RELEASE");
 				break;
 			case "WO_DETAIL_TECHO":
 				this.fnMandateUiFields("WO_DETAIL_TECHO");

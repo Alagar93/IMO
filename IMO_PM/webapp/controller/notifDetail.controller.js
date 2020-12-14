@@ -544,15 +544,21 @@ sap.ui.define([
 				async: false,
 				success: function (sData, oResponse) {
 					var statusCode = oResponse.statusCode;
+					var orderId = oResponse.Orderid;
 					if (statusCode == 201) {
 						if (sVal === "revert") {
 							MessageBox.success("Notification Reverted Successfully", {
 								actions: [MessageBox.Action.OK],
 								emphasizedAction: MessageBox.Action.OK,
 								onClose: function (sAction) {
-									that.getView().byId("idrevertNotif").setVisible(false);
-									mLookupModel.setProperty("/SysStatus", "NOPR");
-									mLookupModel.refresh();
+									that.fnFetchDetailNotifList();
+									// that.getView().byId("idrevertNotif").setVisible(false);
+									// if(orderId === "" || orderId === undefined){
+									// mLookupModel.setProperty("/SysStatus", "NOPR");
+									// }else{
+									// mLookupModel.setProperty("/SysStatus", "NOPR ORAS");	
+									// }
+									// mLookupModel.refresh();
 								}
 							});
 						} else {
@@ -560,7 +566,9 @@ sap.ui.define([
 								actions: [MessageBox.Action.OK],
 								emphasizedAction: MessageBox.Action.OK,
 								onClose: function (sAction) {
-									that.getView().byId("releaseButton").setVisible(false);
+									// that.getView().byId("releaseButton").setVisible(false);
+									// mLookupModel.setProperty("/SysStatus", "NOPR");
+									that.fnFetchDetailNotifList();
 								}
 							});
 						}
@@ -623,15 +631,15 @@ sap.ui.define([
 							actions: [MessageBox.Action.OK],
 							emphasizedAction: MessageBox.Action.OK,
 							onClose: function (sAction) {
-
+								that.fnFetchDetailNotifList();
 							}
 						});
 					}
 					that.busy.close();
-					mLookupModel.setProperty("/SysStatus", "NOCO");
-					that.getView().byId("idcloseNotif").setVisible(false);
-					that.getView().byId("updateNotif").setVisible(false);
-					that.getView().byId("releaseButton").setVisible(false);
+					// mLookupModel.setProperty("/SysStatus", "NOCO");
+					// that.getView().byId("idcloseNotif").setVisible(false);
+					// that.getView().byId("updateNotif").setVisible(false);
+					// that.getView().byId("releaseButton").setVisible(false);
 
 				},
 				error: function (error, oResponse) {
@@ -955,6 +963,28 @@ sap.ui.define([
 			var y = sDate.getFullYear();
 			var someFormattedDate = y + '/' + mm + '/' + dd;
 			return someFormattedDate;
+		},
+		onCreateWODialogOpen: function (oEvent) {
+			if (!this.createWoNotifListDialog) {
+				this.createWoNotifListDialog = sap.ui.xmlfragment("com/sap/incture/IMO_PM.fragment.CreateWONotifList", this);
+				this.getView().addDependent(this.createWoNotifListDialog);
+			}
+			this.createWoNotifListDialog.open();
+		},
+
+		//Function to close equipment pop-up
+		onCancelWoNotifDetailDialog: function (oEvent) {
+			this.createWoNotifListDialog.close();
+			this.createWoNotifListDialog.destroy();
+			this.createWoNotifListDialog = null;
+		},
+		onCreateWO : function(oEvent){
+			this.onCancelWoNotifDetailDialog();
+			this.busy.open();
+			var oNotificationDataModel = this.oNotificationDataModel;
+			var sData = oNotificationDataModel.getData();
+			this.fnCreateWorkOrderForNotif(sData,"NOTIF_DETAIL");
+			
 		}
 	});
 });

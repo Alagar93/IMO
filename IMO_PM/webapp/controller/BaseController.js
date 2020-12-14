@@ -9,7 +9,7 @@ sap.ui.define([
 	"com/sap/incture/IMO_PM/util/util",
 	"com/sap/incture/IMO_PM/formatter/formatter",
 	"sap/ui/core/routing/History"
-], function (Controller, DateFormat, JSONModel, MessageBox, BusyDialog, Filter, FilterOperator, util, formatter,History) {
+], function (Controller, DateFormat, JSONModel, MessageBox, BusyDialog, Filter, FilterOperator, util, formatter, History) {
 
 	"use strict";
 
@@ -17,8 +17,8 @@ sap.ui.define([
 		util: util,
 		formatter: formatter,
 		//"com/mylan/createWorkOrder/formatter/formatter",
- //  backButton logic start 
-	getRouter : function () {
+		//  backButton logic start 
+		getRouter: function () {
 			return sap.ui.core.UIComponent.getRouterFor(this);
 		},
 		// back to notif list 
@@ -29,20 +29,20 @@ sap.ui.define([
 			if (sPreviousHash !== undefined) {
 				window.history.go(-1);
 			} else {
-				this.getRouter().navTo("notifList", {}, true /*no history*/);
-			
+				this.getRouter().navTo("notifList", {}, true /*no history*/ );
+
 			}
 		},
-			// back to WO list 
-		onBack_To_WO_list : function (oEvent) {
+		// back to WO list 
+		onBack_To_WO_list: function (oEvent) {
 			var oHistory, sPreviousHash;
 			oHistory = History.getInstance();
 			sPreviousHash = oHistory.getPreviousHash();
 			if (sPreviousHash !== undefined) {
 				window.history.go(-1);
 			} else {
-				this.getRouter().navTo("WOList", {}, true /*no history*/);
-			
+				this.getRouter().navTo("WOList", {}, true /*no history*/ );
+
 			}
 		},
 		//Function to show Message box/Toast message based on Success/Error statues
@@ -337,6 +337,7 @@ sap.ui.define([
 			} else {
 				this.getWOPriorities();
 				this.fnFetchDetailNotifList();
+				this.getOrderType();
 			}
 			this.getNotificationType();
 			this.getPlannerGroupsNotifList();
@@ -2072,7 +2073,7 @@ sap.ui.define([
 			startDate = formatter.formatDtTimeObjToTString(startDate);
 			endDate = formatter.formatDtTimeObjToTString(endDate);
 
-			if (sData.HEADERTONOTIFNAV) {//++George-
+			if (sData.HEADERTONOTIFNAV) { //++George-
 				var oNotification = sData.HEADERTONOTIFNAV.results[0];
 			}
 			var oNewNotif = {};
@@ -2216,6 +2217,14 @@ sap.ui.define([
 
 			var oPortalUserLoginOData = this.getOwnerComponent().getModel("oPortalUserLoginOData");
 			this.oPortalUserLoginOData = oPortalUserLoginOData;
+
+			//ODataModel holding metadata of Application's GET/POST of WorkOrder Detail only!!
+			var oWorkOrderOData = this.getOwnerComponent().getModel("oWorkOrderOData");
+			this.oWorkOrderOData = oWorkOrderOData;
+			oWorkOrderOData.setHeaders({
+				"Accept": "application/json",
+				"Content-Type": "application/json"
+			});
 
 			this.getLoggedInUserCreateNotif();
 		},
@@ -3111,6 +3120,62 @@ sap.ui.define([
 				}
 			});
 		},
+		fnCreateWorkOrderForNotif: function (sData, btnType) {
+			var that = this;
+			var oResourceModel = this.oResourceModel;
+			var oWorkOrderOData = this.oWorkOrderOData;
+			var oNotificationViewModel = this.oNotificationViewModel;
+
+			var mLookupModel = this.mLookupModel;
+			var oNotificationDataModel = this.oNotificationDataModel;
+			util.fetchDataToWOPayload(sData, mLookupModel, oNotificationDataModel, oNotificationViewModel, this);
+			var oWorkOrderPayload = oNotificationViewModel.getProperty("/oPayLoadWO");
+			oWorkOrderOData.setHeaders({
+				"X-Requested-With": "X"
+			});
+
+			oWorkOrderOData.create("/WorkorderHeaderSet", oWorkOrderPayload, {
+				async: false,
+				success: function (sData, oResponse) {
+					var successErrMsg = "";
+					var confirmationTexts = "";
+					var orderId = sData.Orderid;
+					var sNotifID = sData.HEADERTONOTIFNAV.results[0].NotifNo;
+					if (orderId) {
+						orderId = parseInt(orderId, 10);
+						orderId = orderId.toString();
+						if (btnType === "CREATE_ORDER") {
+							MessageBox.success("Work Order Created with Order ID : " + orderId + "\n Notification Created With Notification ID : " +
+								sNotifID, {
+									actions: [MessageBox.Action.OK],
+									emphasizedAction: MessageBox.Action.OK,
+									onClose: function (sAction) {
+										that.onCancelWoDialog();
+										that.resetUIFields();
+										that.fnNavLaunchpadHome();
+									}
+								});
+						}else if(btnType ==="NOTIF_DETAIL"){
+							MessageBox.success("Work Order Created with Order ID : " + orderId + "\n For Notification ID : " +
+								sNotifID, {
+									actions: [MessageBox.Action.OK],
+									emphasizedAction: MessageBox.Action.OK,
+									onClose: function (sAction) {
+										that.busy.close();
+										that.fnFetchDetailNotifList();
+									}
+								});
+						}
+					}
+				},
+				error: function (error, oResponse) {
+					var errorMsg = that.oResourceModel.getText("errorcreatewo");
+					that.showMessage(errorMsg);
+					// that.busy.close();
+				}
+			});
+
+		}
 
 	});
 });

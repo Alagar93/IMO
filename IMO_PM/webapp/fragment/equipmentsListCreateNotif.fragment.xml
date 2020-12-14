@@ -1,47 +1,9 @@
 <core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:layout="sap.ui.layout"
 	xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" class="sapUiSizeCompact">
-	<Dialog title="{}" contentWidth="40%" contentHeight="80%" showHeader="false" verticalScrolling="false" class="sapUiSizeCompact">
+	<Dialog title="{}" contentWidth="50%" contentHeight="80%" showHeader="false" verticalScrolling="false" class="sapUiSizeCompact">
 		<content>
 			<IconTabBar select="handleEquipIconTabSelect" class="equipmentIconTabBar">
 				<items>
-					<IconTabFilter text="{i18n>FAV_EQUIP}" key="idFav">
-						<SearchField liveChange="onSearchFavEqips" width="100%" class="sapUiSmallMarginBottom" placeholder="{i18n>SEARCH_EQUIP_PLACEHOLDER}"/>
-						<ScrollContainer height="20rem" vertical="true" focusable="false">
-							<Table mode="SingleSelectLeft" selectionChange="onEquipSelect" items="{path: 'mLookupModel>/aFavEquipList'}" class="sapUiSizeCompact">
-								<headerToolbar>
-									<OverflowToolbar>
-										<content>
-											<Title text="{i18n>EQUI_LIST}" level="H6"/>
-										</content>
-									</OverflowToolbar>
-								</headerToolbar>
-								<columns>
-									<Column>
-										<Text text="{i18n>EQUIPMENT_ID}"/>
-									</Column>
-									<Column>
-										<Text text="{i18n>TECHNICAL_ID}"/>
-									</Column>
-									<Column>
-										<Text text="{i18n>EQUIP_DESC}"/>
-									</Column>
-									<Column>
-										<Text text="{i18n>FUNCTIONAL_LOCATION}"/>
-									</Column>
-								</columns>
-								<items>
-									<ColumnListItem>
-										<cells >
-											<Text text="{mLookupModel>Equnr}"/>
-											<Text text="{mLookupModel>Tidnr}"/>
-											<Text text="{mLookupModel>Eqktu}"/>
-											<Text text="{mLookupModel>Tplnr}"/>
-										</cells>
-									</ColumnListItem>
-								</items>
-							</Table>
-						</ScrollContainer>
-					</IconTabFilter>
 					<IconTabFilter text="{i18n>SEARCH_EQUIPMENT}" key="idSearchEq">
 						<l:Grid defaultSpan="L12 M12 S12">
 							<Label text="{i18n>TECHNICAL_ID}" class="styleTextBlue sapUiTinyMarginTop">
@@ -126,7 +88,6 @@
 											<Text text="{mLookupModel>Equnr}"/>
 											<Text text="{mLookupModel>Tidnr}"/>
 											<Text text="{mLookupModel>Eqktu}"/>
-											
 										</cells>
 									</ColumnListItem>
 								</items>
@@ -134,6 +95,44 @@
 						</ScrollContainer>
 					</IconTabFilter>
 					<!--nischal - icontabfilter is included to show equipment list of corresponding functional location-->
+					<IconTabFilter text="{i18n>FAV_EQUIP}" key="idFav">
+						<SearchField liveChange="onSearchFavEqips" width="100%" class="sapUiSmallMarginBottom" placeholder="{i18n>SEARCH_EQUIP_PLACEHOLDER}"/>
+						<ScrollContainer height="20rem" vertical="true" focusable="false">
+							<Table mode="SingleSelectLeft" selectionChange="onEquipSelect" items="{path: 'mLookupModel>/aFavEquipList'}" class="sapUiSizeCompact">
+								<headerToolbar>
+									<OverflowToolbar>
+										<content>
+											<Title text="{i18n>EQUI_LIST}" level="H6"/>
+										</content>
+									</OverflowToolbar>
+								</headerToolbar>
+								<columns>
+									<Column>
+										<Text text="{i18n>EQUIPMENT_ID}"/>
+									</Column>
+									<Column>
+										<Text text="{i18n>TECHNICAL_ID}"/>
+									</Column>
+									<Column>
+										<Text text="{i18n>EQUIP_DESC}"/>
+									</Column>
+									<Column>
+										<Text text="{i18n>FUNCTIONAL_LOCATION}"/>
+									</Column>
+								</columns>
+								<items>
+									<ColumnListItem>
+										<cells >
+											<Text text="{mLookupModel>Equnr}"/>
+											<Text text="{mLookupModel>Tidnr}"/>
+											<Text text="{mLookupModel>Eqktu}"/>
+											<Text text="{mLookupModel>Tplnr}"/>
+										</cells>
+									</ColumnListItem>
+								</items>
+							</Table>
+						</ScrollContainer>
+					</IconTabFilter>
 				</items>
 			</IconTabBar>
 		</content>

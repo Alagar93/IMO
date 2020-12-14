@@ -428,6 +428,8 @@ sap.ui.define([
 		//Function to check Mandaorty fields validation
 		checkMandatoryFields: function (oEvent) {
 			var that = this;
+			var oSource = oEvent.getSource();
+			var oBtnType = oSource.getCustomData()[0].getValue();
 			var oResourceModel = this.oResourceModel;
 			var oNotificationDataModel = this.oNotificationDataModel;
 			var oNotificationViewModel = this.oNotificationViewModel;
@@ -435,7 +437,10 @@ sap.ui.define([
 			if (bVal[0] === true) {
 				that.showMessage(bVal[1]);
 				return;
-			} else {
+			} 
+			else if (bVal[0] === false && oBtnType ===  "CREATE_ORDER"){
+				this.onCreateNotifWithWO(oBtnType);
+			}else {
 				this.onCreateNotification();
 			}
 		},
@@ -520,7 +525,57 @@ sap.ui.define([
 			});
 
 		},
+		onCreateNotifWithWO: function (btnType) {
+			var that = this;
+			var oResourceModel = this.oResourceModel;
+			var oPortalNotifOData = this.oPortalNotifOData;
+			var oNotificationDataModel = this.oNotificationDataModel;
+			var oNotifData = oNotificationDataModel.getData();
+			oNotifData.Startdate = formatter.formatDateobjToStringNotif(oNotifData.Startdate, true);
+			oNotifData.Enddate = formatter.formatDateobjToStringNotif(oNotifData.Enddate, true);
+			oNotifData.ReqStartdate = formatter.formatDateobjToStringNotif(oNotifData.ReqStartdate);
+			oNotifData.ReqEnddate = formatter.formatDateobjToStringNotif(oNotifData.ReqEnddate);
+			oNotifData.Notif_date = formatter.formatDateobjToStringNotif(new Date());
+			oNotifData.Type = "CREATE";
 
+			var oNotificationViewModel = this.oNotificationViewModel;
+			var startTime = oNotificationViewModel.getProperty("/StartTime");
+			if (!startTime) {
+				startTime = "00:00";
+			}
+			var splitDate1 = oNotifData.Startdate.split("T")[0];
+			oNotifData.Startdate = splitDate1 + "T" + startTime + ":00";
+
+			var endTime = oNotificationViewModel.getProperty("/EndTime");
+			if (!endTime) {
+				endTime = "00:00";
+			}
+			var splitDate2 = oNotifData.Enddate.split("T")[0];
+			oNotifData.Enddate = splitDate2 + "T" + endTime + ":00";
+
+			oPortalNotifOData.setHeaders({
+				"X-Requested-With": "X"
+			});
+
+			oPortalNotifOData.create("/NotificationSet", oNotifData, {
+				async: false,
+				success: function (sData, oResponse) {
+					var successErrMsg = "";
+					var isSuccess;
+					var oNotificationId = parseInt(sData.Notifid,10);
+					this.notifID = oNotificationId;
+					if(oNotificationId){
+						that.fnCreateWorkOrderForNotif(sData,btnType);
+					}
+				},
+				error: function (error, oResponse) {
+					var errorMsg = oResourceModel.getText("ERROR_CREATING_NOTIF");
+					that.showMessage(errorMsg);
+					that.busy.close();
+				}
+			});
+
+		},
 		//Function to nvaigate to Launchpad home page after creating Notification
 		fnNavLaunchpadHome: function () {
 			// var sHost = window.location.origin;

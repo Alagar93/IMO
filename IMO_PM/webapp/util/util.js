@@ -86,7 +86,7 @@ com.sap.incture.IMO_PM.util.util = {
 		//nischal -- Fetch required Start Date and End Datefrom oWorkOrderDetailViewModel that was set in Create Workorder controller
 		var oReqStartDate = oWorkOrderDetailViewModel.getProperty("/oRequiredStartDate");
 		var oReqEndDate = oWorkOrderDetailViewModel.getProperty("/oRequiredEndDate");
-		
+
 		oWorkOrderDetailModel.setProperty("/Plant", userPlant);
 		oWorkOrderDetailModel.setProperty("/Pmacttype", "001");
 		oWorkOrderDetailModel.setProperty("/NotifNo", "");
@@ -609,7 +609,9 @@ com.sap.incture.IMO_PM.util.util = {
 		oNotificationDataModel.setProperty("/ItemSortNo", "0001");
 		oNotificationDataModel.setProperty("/Priority", oSelectedRow.Priority); //nischal - Priority is not defined in the model
 		oNotificationDataModel.setProperty("/WorkCenter", oSelectedRow.WorkCntr); //nischal - WorkCenter was not defined
+		// oNotificationDataModel.setProperty("/SysStatus", oSelectedRow.SysStatus); //nischal -- This feature is still not yet supported by post payload
 		mLookupModel.setProperty("/SysStatus", oSelectedRow.SysStatus); //nischal - system status was not present
+		mLookupModel.setProperty("/Userstatus",oSelectedRow.Userstatus); //nischal -- user status was not pesent
 		oNotificationDataModel.refresh();
 
 		mLookupModel.setProperty("/sCatelogProf", oSelectedRow.Rbnr);
@@ -1817,14 +1819,14 @@ com.sap.incture.IMO_PM.util.util = {
 			"FunctLoc": sFunctLoc,
 			"ItemKey": "0001",
 			"ItemSortNo": "0001",
-			"Longtext" : sShortText,
+			"Longtext": sShortText,
 			"NotifType": "M1",
 			"Notif_date": sNotifDate,
 			"Notifid": "",
 			"Notify": [{
 				"Type": "",
 				"Message": ""
-				
+
 			}],
 			"Orderid": "",
 			"PlanPlant": sPlanPlant,
@@ -1838,7 +1840,7 @@ com.sap.incture.IMO_PM.util.util = {
 			"Type": "CREATE",
 			"WorkCenter": sWorkCenter
 		};
-		oWorkOrderDetailViewModel.setProperty("/oNotifPayLoad",oObj);
+		oWorkOrderDetailViewModel.setProperty("/oNotifPayLoad", oObj);
 	},
 	formatDateobjToString: function (oDate, isTimeRequired) {
 		if (typeof (oDate) === "string") {
@@ -1870,6 +1872,117 @@ com.sap.incture.IMO_PM.util.util = {
 		var newDate = yy + "-" + MM + "-" + dd;
 		newDate = newDate + "T" + hh + ":" + mm + ":00";
 		return newDate;
+	},
+	fetchDataToWOPayload: function (sData, mLookupModel, oNotificationDataModel, oNotificationViewModel, oController) {
+		var oNotifData = oNotificationDataModel.getData();
+		var iNotifId = parseInt(sData.Notifid,10);
+		var sNotifId =  iNotifId.toString();
+		var sAssembly = sData.Assembly;
+		var sBreakdown = sData.Breakdown;
+		if(sBreakdown === "X"){
+			sBreakdown = true;
+		}else{
+			sBreakdown = false;
+		}
+		var sBreakdownDur = sData.BreakdownDur;
+		var sEnddate = sData.Enddate;
+		var sEquipment = sData.Equipment;
+		var sFunctLoc = sData.FunctLoc;
+		var sNotifType = sData.NotifType;
+		// var Notif_date = oNotificationDataModel.getProperty("/Notif_date");
+		var sPlanPlant = sData.PlanPlant;
+		var sPlangroup = sData.Plangroup;
+		var sPriority = sData.Priority;
+		var sReportedby = sData.Reportedby;
+		var sReqEnddate = sData.ReqEnddate;
+		var sReqStartdate = sData.ReqStartdate;
+		var sShortText = sData.ShortText;
+		var sStartdate = sData.Startdate;
+		var sWorkCenter = sData.WorkCenter;
+		var sOrderType = mLookupModel.getProperty("/sOrderTypeSel");
+		var sStartdate = this.formatDateobjToString(oNotifData.Startdate, true);
+		var sEnddate = this.formatDateobjToString(oNotifData.Enddate, true);
+		var sReqStartdate = this.formatDateobjToString(oNotifData.ReqStartdate);
+		var sReqEnddate = this.formatDateobjToString(oNotifData.ReqEnddate);
+		var sNotif_date = this.formatDateobjToString(new Date());
+		var oObj = {
+			"Assembly": sAssembly,
+			"Breakdown": sBreakdown,
+			"CauseGroup": "",
+			"Causecode": "",
+			"DamageGroup": "",
+			"Damagecode": "",
+			"DateCreated": sNotif_date,
+			"Downtime": "0",
+			"EquipDesc": "500KVA DG SET",
+			"Equipment": sEquipment,
+			"FunctLoc": sFunctLoc,
+			"HEADERTOMESSAGENAV": [{
+				"Message": "",
+				"Status": ""
+			}],
+			"HEADERTONOTIFNAV": [{
+				"Breakdown": sBreakdown,
+				"Desenddate": sReqEnddate,
+				"Desstdate": sReqStartdate,
+				"LongText": "",
+				"NotifNo": sNotifId,
+				"Reportedby": sReportedby,
+				"ShortText": sShortText
+			}],
+			"HEADERTOOPERATIONSNAV": [{
+				"Activity": "0010",
+				"Acttype": "",
+				"Assembly": "",
+				"BusArea": "",
+				"CalcKey": "",
+				"CompletedOn": sNotif_date,
+				"ControlKey": "PM01",
+				"Description": sShortText,
+				"Equipment": "",
+				"LongText": "",
+				"MatlGroup": "",
+				"OperCode": "C",
+				"Plant": "4321",
+				"ProfitCtr": "",
+				"PurGroup": "",
+				"PurchOrg": "",
+				"SubActivity": "",
+				"Systcond": "",
+				"T": "",
+				"VendorNo": "",
+				"WbsElem": "",
+				"WorkCntr": "ELECT001",
+				"systemstatustext": ""
+			}],
+			"HEADERTOPARTNERNAV": [{
+				"AssignedTo": sReportedby,
+				"Orderid": "",
+				"PARTNERNAV": "C",
+				"PARTNEROLD": ""
+			}],
+			"Maintplant": "",
+			"MalFunStartDate": sNotif_date,
+			"MalFunStartTime": "PT09H48M51S",
+			"MnWkCtr": sWorkCenter,
+			"NotifNo": "",
+			"OrderStatus": "",
+			"OrderType": sOrderType,
+			"PlanEndDate": sReqEnddate,
+			"PlanStartDate": sReqStartdate,
+			"Plangroup": sPlangroup,
+			"Planplant": sPlanPlant,
+			"Plant": sPlanPlant,
+			"Pmacttype": "001",
+			"Priority": sPriority,
+			"ReportedBy": sReportedby,
+			"ShortText": sShortText,
+			"SuperOrder": "",
+			"Systcond": ""
+
+		};
+		oNotificationViewModel.setProperty("/oPayLoadWO",oObj);
+		
 	}
 
 };

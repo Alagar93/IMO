@@ -81,7 +81,7 @@
 									<Text text="{path:'oWorkOrderDetailModel>Activity', formatter:'com.sap.incture.IMO_PM.formatter.formatter.getSparePartsCount'}"/>
 								</ui:template>
 							</ui:Column>
-							<ui:Column width="8rem" hAlign="Center" tooltip="{i18n>MY_WORK}">
+							<ui:Column width="9rem" hAlign="Center" tooltip="{i18n>MY_WORK}">
 								<Label text="{i18n>MY_WORK}" class="sapUITableColumnLabelClass"/>
 								<ui:template>
 									<Input value="{oWorkOrderDetailModel>MyWork}" change="validateFloatValues" class="sapInputBorderClass"

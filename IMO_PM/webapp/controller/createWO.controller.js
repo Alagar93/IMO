@@ -82,7 +82,7 @@ sap.ui.define([
 		//Function to get Equipment List and show in a pop-up
 		equipmentValueHelp: function (oEvent) {
 			if (!this.equipmentsListDialog) {
-				this.equipmentsListDialog = sap.ui.xmlfragment("com.sap.incture.IMO_PM.fragment.equipmentsList", this);
+				this.equipmentsListDialog = sap.ui.xmlfragment("com.sap.incture.IMO_PM.fragment.equipmentsListWO", this);
 				this.getView().addDependent(this.equipmentsListDialog);
 			}
 			this.equipmentsListDialog.open();
@@ -1165,22 +1165,52 @@ sap.ui.define([
 
 		},
 		handleEquipIconTabSelect: function (oEvent) {
+			// var that = this;
+			// var selectedKey = oEvent.getSource().getSelectedKey();
+			// if (selectedKey === "idEqFunLoc") {
+			// 	this.busy.open();
+			// 	var mLookupModel = this.mLookupModel;
+			// 	// var oNotificationDataModel = this.oNotificationDataModel;
+			// 	var sFunctionalLocation = mLookupModel.getProperty("/sFunLoc");
+			// 	var oPortalDataModel = this.oPortalDataModel;
+			// 	// var userPlant = this.oUserDetailModel.getProperty("/userPlant");
+			// 	var oFilter = [];
+			// 	// oFilter.push(new Filter("Equnr", "EQ", ""));
+			// 	// oFilter.push(new Filter("Tidnr", "EQ", ""));
+			// 	// oFilter.push(new Filter("Eqktu", "EQ", ""));
+			// 	// oFilter.push(new Filter("plant", "EQ", userPlant));
+			// 	oFilter.push(new Filter("FuncLoc", "EQ", sFunctionalLocation));
+			// 	oPortalDataModel.read("/EquipfuncSet", {
+			// 		filters: oFilter,
+			// 		success: function (oData, oResponse) {
+			// 			var aEqListOfFunLoc = oData.results;
+			// 			mLookupModel.setProperty("/aEqListOfFunLoc", aEqListOfFunLoc);
+			// 			mLookupModel.refresh();
+			// 			that.busy.close();
+			// 		},
+			// 		error: function (oResponse) {
+			// 			mLookupModel.setProperty("/aEqListOfFunLoc", []);
+			// 			that.busy.close();
+			// 		}
+			// 	});
+			// }
 			var that = this;
 			var selectedKey = oEvent.getSource().getSelectedKey();
 			if (selectedKey === "idEqFunLoc") {
 				this.busy.open();
 				var mLookupModel = this.mLookupModel;
-				// var oNotificationDataModel = this.oNotificationDataModel;
+				var oNotificationDataModel = this.oNotificationDataModel;
 				var sFunctionalLocation = mLookupModel.getProperty("/sFunLoc");
+				var sfunLoc = "'" + sFunctionalLocation.replace(/['"]+/g, '') + "'";
 				var oPortalDataModel = this.oPortalDataModel;
-				// var userPlant = this.oUserDetailModel.getProperty("/userPlant");
+				var userPlant = this.oUserDetailModel.getProperty("/userPlant");
 				var oFilter = [];
-				// oFilter.push(new Filter("Equnr", "EQ", ""));
-				// oFilter.push(new Filter("Tidnr", "EQ", ""));
-				// oFilter.push(new Filter("Eqktu", "EQ", ""));
-				// oFilter.push(new Filter("plant", "EQ", userPlant));
-				oFilter.push(new Filter("FuncLoc", "EQ", sFunctionalLocation));
-				oPortalDataModel.read("/EquipfuncSet", {
+				oFilter.push(new Filter("Equnr", "EQ", ''));
+				oFilter.push(new Filter("Tidnr", "EQ", ''));
+				oFilter.push(new Filter("Eqktu", "EQ", ''));
+				oFilter.push(new Filter("plant", "EQ", '4321'));
+				oFilter.push(new Filter("Tplnr ", "EQ", "'" + sFunctionalLocation.replace(/['"]+/g, '') + "'"));
+				oPortalDataModel.read("/EquipmentDetailsSet", {
 					filters: oFilter,
 					success: function (oData, oResponse) {
 						var aEqListOfFunLoc = oData.results;

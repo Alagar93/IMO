@@ -3,7 +3,7 @@
 	xmlns:tnt="sap.tnt">
 	<Page showHeader="false" class="sapUiSizeCompact sapMPageBackground" floatingFooter="false">
 		<tnt:ToolHeader>
-			<Button icon="sap-icon://nav-back" type="Transparent" press="onBackTo_Notif_list" />
+			<Button icon="sap-icon://nav-back" type="Transparent" press="onBackTo_Notif_list"/>
 			<Button icon="sap-icon://home" type="Transparent" press="onPressHome" tooltip="{i18n>home}"/>
 			<Image src="images/Cherrywork_Logo_final_Option_1.png" height="55%" width="10%"/>
 			<Label design="Bold" class="sapUiSmallMarginBegin" text="{i18n>notifDetails}" wrapping="true"/>
@@ -35,8 +35,22 @@
 						</layoutData>
 					</VBox>
 					<VBox>
-						<Label text="Notification ID"></Label>
+						<Label text="{i18n>NOTIF_ID}"></Label>
 						<Input value="{oNotificationDataModel>/Notifid}" class="sapInputBorderClass" width="70%" enabled="false"/>
+						<layoutData>
+							<l:GridData span="XL6 L3 M6 S6"/>
+						</layoutData>
+					</VBox>
+					<VBox>
+						<Label text="{i18n>NOTIF_STATUS}"></Label>
+						<Input value="{mLookupModel>/SysStatus}" class="sapInputBorderClass" width="70%" enabled="false"/>
+						<layoutData>
+							<l:GridData span="XL6 L3 M6 S6"/>
+						</layoutData>
+					</VBox>
+					<VBox>
+						<Label text="{i18n>USER_STATUS}"></Label>
+						<Input value="{mLookupModel>/Userstatus}" class="sapInputBorderClass" width="70%" enabled="false"/>
 						<layoutData>
 							<l:GridData span="XL6 L3 M6 S6"/>
 						</layoutData>
@@ -105,7 +119,7 @@
 							<!--	<core:ListItem key="3" text="High"/>-->
 							<!--</Select>-->
 							<ComboBox items="{ path: 'mLookupModel>/aPrioritySet', sorter: { path: 'text' } }" selectedKey="{oNotificationDataModel>/Priority}"
-								class="sapInputBorderClass" width="70%" showSecondaryValues="true" change ="onChangePriority"
+								class="sapInputBorderClass" width="70%" showSecondaryValues="true" change="onChangePriority"
 								enabled="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setEnabledBasedOnStatus'}">
 								<core:Item key="{mLookupModel>PRIOK}" text="{mLookupModel>PRIOKX}"/>
 							</ComboBox>
@@ -305,7 +319,7 @@
 			<Toolbar>
 				<Button text="{i18n>close_notif}" id="idcloseNotif" type="Reject" press="onCloseNotif"
 					visible="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setBtnVisibleClose'}"/>
-					<Button text="{i18n>revert_Notif}" id="idrevertNotif" type="Emphasized" press="onRevertNotif"
+				<Button text="{i18n>revert_Notif}" id="idrevertNotif" type="Emphasized" press="onRevertNotif"
 					visible="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setBtnVisibleRevert'}"/>
 				<ToolbarSpacer/>
 				<Button text="{i18n>updatenot}" id="updateNotif" type="Emphasized" press="checkMandatoryFields"
@@ -314,8 +328,13 @@
 						<core:CustomData key="dateType" value="UPDATE"/>
 					</customData>
 				</Button>
-				<Button text="Release" id="releaseButton" type="Emphasized" press="onPressRelease"
+				<Button text="{i18n>APPROVE}" id="releaseButton" type="Emphasized" press="onPressRelease"
 					visible="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setBtnVisibleRelease'}"/>
+				<Button text="{i18n>CREATEORDER}" id="idCreateOrder" type="Emphasized" press="onCreateWODialogOpen"
+					visible="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setBtnVisibleCreateOrder'}"/>
+				<customData>
+					<core:CustomData key="dateType" value="DETAIL_NOTIF"/>
+				</customData>
 			</Toolbar>
 		</footer>
 	</Page>

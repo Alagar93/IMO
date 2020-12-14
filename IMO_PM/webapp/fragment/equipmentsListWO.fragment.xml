@@ -63,11 +63,11 @@
 						</ScrollContainer>
 					</IconTabFilter>
 					<!--nischal - icontabfilter is included to show equipment list of corresponding functional location-->
-					<IconTabFilter text="{i18n>equip_List}" key="idEqFunLoc" visible="{= ${oNotificationDataModel>/FunctLoc} === '' ? false : true}">
+					<IconTabFilter text="{i18n>equip_List}" key="idEqFunLoc" visible="{= ${mLookupModel>/sFunLoc} === '' ? false : true}">
 						<ScrollContainer height="25rem" vertical="true" focusable="false">
 							<HBox class="sapUiTinyMarginTopBottom">
 								<Label design="Bold" text="{i18n>FUNC_LOCATION}" class="sapUiTinyMarginEnd"/>
-								<Text text="{oNotificationDataModel>/FunctLoc}"/>
+								<Text text="{mLookupModel>/sFunLoc}"/>
 							</HBox>
 							<Table mode="SingleSelectLeft" selectionChange="onEquipSelect" growing="false" items="{path: 'mLookupModel>/aEqListOfFunLoc'}"
 								id="idEqListOfFunLoc">
