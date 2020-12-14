@@ -27,7 +27,7 @@
 					</VBox>
 					<VBox>
 						<Label text="{i18n>reference_Notif}"></Label>
-						<Input value="{mLookupModel>/sRefnotif}" width="70%" valueLiveUpdate="true" showValueHelp="true" showSuggestion="true" enabled="true" valueHelpRequest="refNotifValueHelp" valueHelpOnly="false"></Input>
+						<Input value="{mLookupModel>/sRefnotif}" width="70%" valueLiveUpdate="true" showValueHelp="true" showSuggestion="true" enabled="true" valueHelpRequest="refNotifValueHelp" valueHelpOnly="true"></Input>
 						<layoutData>
 							<l:GridData span="XL6 L3 M6 S6"/>
 						</layoutData>
@@ -89,7 +89,7 @@
 						<VBox>
 							<Label text="{i18n>notif_Priority}" required="true"></Label>
 							<ComboBox items="{ path: 'mLookupModel>/aPrioritySet', sorter: { path: 'text' } }" selectedKey="{oNotificationDataModel>/Priority}"
-								class="sapInputBorderClass" width="70%">
+								class="sapInputBorderClass" width="70%" change ="onChangePriority">
 								<core:Item key="{mLookupModel>PRIOK}" text="{mLookupModel>PRIOKX}"/>
 							</ComboBox>
 							<layoutData>
@@ -282,6 +282,7 @@
 		</content>
 		<footer>
 			<Toolbar>
+				<Button text = "{i18n>clear}" type ="Emphasized" press = "onClearCreateNotif"/>
 				<ToolbarSpacer/>
 				<Button text ="{i18n>create_Wo}" type="Emphasized" press ="onCreateWODialogOpen"/>
 				<Button text="{i18n>CREATE_NOTIFICATION}" type="Emphasized" press="checkMandatoryFields">

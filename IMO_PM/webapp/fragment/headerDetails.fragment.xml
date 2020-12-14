@@ -117,7 +117,7 @@
 						</layoutData>
 					</VBox>
 					<VBox class="sapUiTinyMarginTop">
-						<Label text="{i18n>PLANNED_STARTDATE}"></Label>
+						<Label text="{i18n>REQUIRED_STARTDATE}"></Label>
 						<DatePicker minDate="{oWorkOrderDetailViewModel>/currentDate1}" placeholder="dd-MM-yyyy" dateValue="{oWorkOrderDetailModel>/PlanStartDate}"
 							displayFormat="dd-MM-yyyy" valueFormat="yyyy-MM-ddTHH:mm:ss" enabled="{oWODetailFieldsModel>/planStartDate}" change="fnValidateDates"
 							class="sapInputBorderClass" width="100%">
@@ -130,7 +130,7 @@
 						</layoutData>
 					</VBox>
 					<VBox class="sapUiTinyMarginTop">
-						<Label text="{i18n>PLANNED_ENDDATE}"></Label>
+						<Label text="{i18n>REQUIRED_ENDDATE}"></Label>
 						<DatePicker minDate="{oWorkOrderDetailViewModel>/currentDate1}" placeholder="dd-MM-yyyy" dateValue="{oWorkOrderDetailModel>/PlanEndDate}"
 							displayFormat="dd-MM-yyyy" valueFormat="yyyy-MM-ddTHH:mm:ss" enabled="{oWODetailFieldsModel>/planEndDate}" change="fnValidateDates"
 							class="sapInputBorderClass" width="100%">
@@ -158,10 +158,10 @@
 					</VBox>
 					<VBox class="sapUiTinyMarginTop">
 						<Label text="{i18n>PRIORITY}" required="false"></Label>
-						<Select class="sapInputBorderClass" items="{mLookupModel>/aPrioritySet}" selectedKey="{oWorkOrderDetailModel>/Priority}"
-							enabled="{oWODetailFieldsModel>/priority}" forceSelection="false" width="100%">
+						<ComboBox class="sapInputBorderClass" items="{mLookupModel>/aPrioritySet}" selectedKey="{oWorkOrderDetailModel>/Priority}"
+							enabled="{oWODetailFieldsModel>/priority}" width="100%" change ="onChangePriority" > 
 							<core:ListItem key="{mLookupModel>PRIOK}" text="{mLookupModel>PRIOKX}" tooltip="{oWorkOrderDetailModel>/Priority}"/>
-						</Select>
+						</ComboBox>
 						<layoutData>
 							<l:GridData span="XL6 L6 M6 S6"/>
 						</layoutData>

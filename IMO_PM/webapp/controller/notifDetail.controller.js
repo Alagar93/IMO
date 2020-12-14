@@ -103,6 +103,8 @@ sap.ui.define([
 		//Function to close equipment pop-up
 		onCancelDialogEquip: function (oEvent) {
 			this.equipmentsListDialog.close();
+			this.equipmentsListDialog.destroy();
+			this.equipmentsListDialog = null;
 		},
 
 		//Function to select a Equipment and auto-populate Functional location
@@ -128,9 +130,10 @@ sap.ui.define([
 			oNotificationDataModel.setProperty("/PlanPlant", sPlant); //nischal
 			oNotificationDataModel.setProperty("/WorkCenter", sWorkCenterDesc); //nischal
 			this.getEquipsAssmebly(iEqId);
-			this.equipmentsListDialog.close();
+			// this.equipmentsListDialog.close(); //nischal
 			// this.fnFilterSlectedDamageGroup();
 			// this.fnFilterSlectedCauseGroup();
+			this.onCancelDialogEquip();
 		},
 
 		//Function to show selected Equipment
@@ -1099,5 +1102,69 @@ sap.ui.define([
 			this.getEquipsAssmebly(iEqId);
 			this.equipmentsListDialog.close();
 		},
+		onChangePriority: function (oEvent) {
+			var that = this;
+			var mLookupModel = this.mLookupModel;
+			var oNotificationDataModel = this.oNotificationDataModel;
+			var sVal = oEvent.getSource().getSelectedKey();
+			var oReqStartDate = new Date();
+			var tempStartDate = new Date();
+			var tempEndDate = new Date();
+			var oReqEndDate;
+			MessageBox.confirm("Do you want to specify new Date ?", {
+				actions: [MessageBox.Action.OK, MessageBox.Action.CANCEL],
+				emphasizedAction: MessageBox.Action.OK,
+				onClose: function (sAction) {
+					if (sAction === "OK") {
+						if (sVal === "1") {
+							tempEndDate.setDate(tempEndDate.getDate() + 7);
+							var someFormattedDate = that.getFormattedDate(tempEndDate);
+							oReqEndDate = new Date(someFormattedDate);
+							
+						} else if (sVal === "2") {
+							tempStartDate.setDate(tempStartDate.getDate() + 7);
+							var someFormattedDate = that.getFormattedDate(tempStartDate);
+							oReqStartDate = new Date(someFormattedDate);
+							
+							tempEndDate.setDate(tempEndDate.getDate() + 30);
+							someFormattedDate = that.getFormattedDate(tempEndDate);
+							oReqEndDate = new Date(someFormattedDate);
+						} else if (sVal === "3") {
+							tempStartDate.setDate(tempStartDate.getDate() + 14);
+							var someFormattedDate = that.getFormattedDate(tempStartDate);
+							oReqStartDate = new Date(someFormattedDate);
+							
+							tempEndDate.setDate(tempEndDate.getDate() + 90);
+							someFormattedDate = that.getFormattedDate(tempEndDate);
+							oReqEndDate = new Date(someFormattedDate);
+							
+						} else if (sVal === "4") {
+							tempStartDate.setDate(tempStartDate.getDate() + 1);
+							var someFormattedDate = that.getFormattedDate(tempStartDate);
+							oReqStartDate = new Date(someFormattedDate);
+							
+							tempEndDate.setDate(tempEndDate.getDate() + 12);
+							someFormattedDate = that.getFormattedDate(tempEndDate);
+							oReqEndDate = new Date(someFormattedDate);
+						} else if (sVal === "E") {
+							tempEndDate.setDate(tempEndDate.getDate() + 3);
+							var someFormattedDate = that.getFormattedDate(tempEndDate);
+							oReqEndDate = new Date(someFormattedDate);
+						}
+						oNotificationDataModel.setProperty("/ReqStartdate",oReqStartDate);
+						oNotificationDataModel.setProperty("/ReqEnddate",oReqEndDate);
+					}
+
+				}
+			});
+
+		},
+		getFormattedDate: function (sDate) {
+			var dd = sDate.getDate();
+			var mm = sDate.getMonth() + 1;
+			var y = sDate.getFullYear();
+			var someFormattedDate = y + '/' + mm + '/' + dd;
+			return someFormattedDate;
+		}
 	});
 });

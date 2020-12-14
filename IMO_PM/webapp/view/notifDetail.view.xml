@@ -3,6 +3,7 @@
 	xmlns:tnt="sap.tnt" xmlns:u="sap.ui.unified">
 	<Page showHeader="false" class="sapUiSizeCompact sapMPageBackground" floatingFooter="false">
 		<tnt:ToolHeader>
+			<Button icon="sap-icon://nav-back" type="Transparent" press="onBackTo_Notif_list" />
 			<Button icon="sap-icon://home" type="Transparent" press="onPressHome" tooltip="{i18n>home}"/>
 			<Image src="images/Cherrywork_Logo_final_Option_1.png" height="55%" width="10%"/>
 			<Label design="Bold" class="sapUiSmallMarginBegin" text="{i18n>notifDetails}" wrapping="true"/>
@@ -42,9 +43,24 @@
 							</layoutData>
 						</VBox>
 					</l:Grid>
-					<VBox class="sapVBoxBorderClass sapUiSmallMarginTop">
-						<VBox class="sapRefObjClass sapUiSmallMarginTop">
-							<Label text="{i18n>refObject}" design="Bold" class="sapUiSmallMarginBegin sapUiTinyMarginBottom"></Label>
+					<VBox class="sapRespClass sapUiSmallMarginBegin sapUiSmallMarginTop">
+						<Label text="{i18n>resp}" design="Bold" class="sapUiTinyMarginBottom"></Label>
+						<layoutData>
+							<l:GridData span="XL6 L12 M6 S6"/>
+						</layoutData>
+					</VBox>
+					<l:Grid class="sapUiSmallMarginTop sapUiTinyMarginBegin">
+						<VBox>
+							<Label text="{i18n>notif_Priority}" required="true"></Label>
+							<!--<Select class="sapInputBorderClass" forceSelection="false" width="70%" showSecondaryValues="true" enabled="true">-->
+							<!--	<core:ListItem key="4" text="Very High"/>-->
+							<!--	<core:ListItem key="3" text="High"/>-->
+							<!--</Select>-->
+							<ComboBox items="{ path: 'mLookupModel>/aPrioritySet', sorter: { path: 'text' } }" selectedKey="{oNotificationDataModel>/Priority}"
+								class="sapInputBorderClass" width="70%" showSecondaryValues="true" change ="onChangePriority"
+								enabled="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setEnabledBasedOnStatus'}">
+								<core:Item key="{mLookupModel>PRIOK}" text="{mLookupModel>PRIOKX}"/>
+							</ComboBox>
 							<layoutData>
 								<l:GridData span="XL6 L12 M6 S6"/>
 							</layoutData>

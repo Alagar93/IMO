@@ -111,7 +111,8 @@ sap.ui.define([
 			mLookupModel.setProperty("/AssetId", technicalId);
 			this.setEquipWorkCenter(sWorkCenterSel, mLookupModel);
 			this.getEquipsAssmebly(iEqId);
-			this.equipmentsListDialog.close();
+			// this.equipmentsListDialog.close();
+			this.onCancelDialogEquip();
 		},
 
 		//Function to set Work center for a selected 
@@ -314,6 +315,8 @@ sap.ui.define([
 
 		onCancelDialogEquip: function (oEvent) {
 			this.equipmentsListDialog.close();
+			this.equipmentsListDialog.destroy();
+			this.equipmentsListDialog = null;
 		},
 
 		onCancelDialogWO: function () {
@@ -437,7 +440,8 @@ sap.ui.define([
 			var plannerGrp = mLookupModel.getProperty("/sPlanGrpSel");
 			var technicalId = mLookupModel.getProperty("/AssetId");
 			// var setOrderStatus = mLookupModel.getProperty("/SetOrderStatus");
-
+			//nischal -- Setting RequiredStartDate and EndDate Value Based on Priority in WorkOrderDetailViewModel
+			this.fnSetDateBasedOnPriority(priority);
 			oWorkOrderDetailModel.setProperty("/OrderType", orderType);
 			oWorkOrderDetailModel.setProperty("/Equipment", equipment);
 			oWorkOrderDetailModel.setProperty("/FunctLoc", funcLocation);
@@ -447,6 +451,60 @@ sap.ui.define([
 			oWorkOrderDetailModel.setProperty("/Plangroup", plannerGrp);
 			this.oWorkOrderDetailViewModel.setProperty("/AssetId", technicalId);
 			oWorkOrderDetailModel.refresh();
+		},
+		//function to set Required Start Date and End Date based on Priority
+		fnSetDateBasedOnPriority: function (sVal) {
+			var oWorkOrderDetailViewModel = this.oWorkOrderDetailViewModel;
+			var tempStartDate = new Date();
+			var tempEndDate = new Date();
+			var oReqStartDate, oReqEndDate;
+			if (sVal === "1") {
+				tempEndDate.setDate(tempEndDate.getDate() + 7);
+				var someFormattedDate = this.getFormattedDate(tempEndDate);
+				oReqEndDate = new Date(someFormattedDate);
+				oReqStartDate = new Date();
+
+			} else if (sVal === "2") {
+				tempStartDate.setDate(tempStartDate.getDate() + 7);
+				var someFormattedDate = this.getFormattedDate(tempStartDate);
+				oReqStartDate = new Date(someFormattedDate);
+
+				tempEndDate.setDate(tempEndDate.getDate() + 30);
+				someFormattedDate = this.getFormattedDate(tempEndDate);
+				oReqEndDate = new Date(someFormattedDate);
+			} else if (sVal === "3") {
+				tempStartDate.setDate(tempStartDate.getDate() + 14);
+				var someFormattedDate = this.getFormattedDate(tempStartDate);
+				oReqStartDate = new Date(someFormattedDate);
+
+				tempEndDate.setDate(tempEndDate.getDate() + 90);
+				someFormattedDate = this.getFormattedDate(tempEndDate);
+				oReqEndDate = new Date(someFormattedDate);
+
+			} else if (sVal === "4") {
+				tempStartDate.setDate(tempStartDate.getDate() + 1);
+				var someFormattedDate = this.getFormattedDate(tempStartDate);
+				oReqStartDate = new Date(someFormattedDate);
+
+				tempEndDate.setDate(tempEndDate.getDate() + 12);
+				someFormattedDate = this.getFormattedDate(tempEndDate);
+				oReqEndDate = new Date(someFormattedDate);
+			} else if (sVal === "E") {
+				tempEndDate.setDate(tempEndDate.getDate() + 3);
+				var someFormattedDate = this.getFormattedDate(tempEndDate);
+				oReqEndDate = new Date(someFormattedDate);
+				oReqStartDate = new Date();
+			}
+			oWorkOrderDetailViewModel.setProperty("/oRequiredStartDate",oReqStartDate);
+			oWorkOrderDetailViewModel.setProperty("/oRequiredEndDate",oReqEndDate);
+			
+		},
+		getFormattedDate: function (sDate) {
+			var dd = sDate.getDate();
+			var mm = sDate.getMonth() + 1;
+			var y = sDate.getFullYear();
+			var someFormattedDate = y + '/' + mm + '/' + dd;
+			return someFormattedDate;
 		},
 
 		//function to fetch data for work order list and notification list on change of create option(radio button)
@@ -1137,14 +1195,14 @@ sap.ui.define([
 				});
 			}
 		},
-		onEquipOfFunLocSelect : function(oEvent){
+		onEquipOfFunLocSelect: function (oEvent) {
 			var mLookupModel = this.mLookupModel;
 			// var oNotificationDataModel = this.oNotificationDataModel;
 			var oSource = oEvent.getParameter("listItem");
-			var sPath = oSource.getBindingContextPath();	
+			var sPath = oSource.getBindingContextPath();
 			var iEqId = mLookupModel.getProperty(sPath + "/EquipId");
 			var iFunLoc = mLookupModel.getProperty("/sFunLoc");
-			mLookupModel.setProperty("/sEquip",iEqId)
+			mLookupModel.setProperty("/sEquip", iEqId);
 			mLookupModel.setProperty("/sFunLoc", iFunLoc);
 			this.getEquipsAssmebly(iEqId);
 			this.equipmentsListDialog.close();

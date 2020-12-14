@@ -4,8 +4,10 @@ sap.ui.define([
 	"com/sap/incture/IMO_PM/util/util",
 	"sap/ui/model/json/JSONModel",
 	"sap/ui/model/Filter",
-	"sap/ui/model/FilterOperator"
-], function (BaseController, formatter, util, JSONModel, Filter, FilterOperator) {
+	"sap/ui/model/FilterOperator",
+	"sap/m/MessageBox",
+	"sap/m/MessageToast"
+], function (BaseController, formatter, util, JSONModel, Filter, FilterOperator, MessageBox,MessageToast) {
 	"use strict";
 
 	return BaseController.extend("com.sap.incture.IMO_PM.controller.detailWO", {
@@ -43,8 +45,8 @@ sap.ui.define([
 					util.fnEnableCreateWOFields(oWODetailFieldsModel);
 					util.resetDetailWOFields(oUserDetailModel, oWorkOrderDetailModel, oWorkOrderDetailViewModel, "CREATE_ORDER", this.oPortalDataModel);
 					this.fnCreateUpdateBtnTxt("CREATE_ORDER");
-					this.fnFilterSlectedDamageGroup();
-					this.fnFilterSlectedCauseGroup();
+					// this.fnFilterSlectedDamageGroup(); //nischal -- this functionality is removed
+					// this.fnFilterSlectedCauseGroup(); //nischal -- this functionality is removed
 					this.fnFilterCNFOperations(true);
 					var workCenter = oWorkOrderDetailModel.getProperty("/MnWkCtr");
 					this.setOrderTypeOperation(oWorkOrderDetailModel, oWorkOrderDetailViewModel, [], workCenter);
@@ -86,6 +88,72 @@ sap.ui.define([
 			oFileUploader.setUploadUrl(sericeUrl);
 		},
 
+		//nischal -- function to set Required Start Date and End Date based on priority
+
+		onChangePriority: function (oEvent) {
+			var that = this;
+			var mLookupModel = this.mLookupModel;
+			var oWorkOrderDetailModel = this.oWorkOrderDetailModel;
+			var sVal = oEvent.getSource().getSelectedKey();
+			var oReqStartDate = new Date();
+			var tempStartDate = new Date();
+			var tempEndDate = new Date();
+			var oReqEndDate;
+			MessageBox.confirm("Do you want to specify new Date ?", {
+				actions: [MessageBox.Action.OK, MessageBox.Action.CANCEL],
+				emphasizedAction: MessageBox.Action.OK,
+				onClose: function (sAction) {
+					if (sAction === "OK") {
+						if (sVal === "1") {
+							tempEndDate.setDate(tempEndDate.getDate() + 7);
+							var someFormattedDate = that.getFormattedDate(tempEndDate);
+							oReqEndDate = new Date(someFormattedDate);
+
+						} else if (sVal === "2") {
+							tempStartDate.setDate(tempStartDate.getDate() + 7);
+							var someFormattedDate = that.getFormattedDate(tempStartDate);
+							oReqStartDate = new Date(someFormattedDate);
+
+							tempEndDate.setDate(tempEndDate.getDate() + 30);
+							someFormattedDate = that.getFormattedDate(tempEndDate);
+							oReqEndDate = new Date(someFormattedDate);
+						} else if (sVal === "3") {
+							tempStartDate.setDate(tempStartDate.getDate() + 14);
+							var someFormattedDate = that.getFormattedDate(tempStartDate);
+							oReqStartDate = new Date(someFormattedDate);
+
+							tempEndDate.setDate(tempEndDate.getDate() + 90);
+							someFormattedDate = that.getFormattedDate(tempEndDate);
+							oReqEndDate = new Date(someFormattedDate);
+
+						} else if (sVal === "4") {
+							tempStartDate.setDate(tempStartDate.getDate() + 1);
+							var someFormattedDate = that.getFormattedDate(tempStartDate);
+							oReqStartDate = new Date(someFormattedDate);
+
+							tempEndDate.setDate(tempEndDate.getDate() + 12);
+							someFormattedDate = that.getFormattedDate(tempEndDate);
+							oReqEndDate = new Date(someFormattedDate);
+						} else if (sVal === "E") {
+							tempEndDate.setDate(tempEndDate.getDate() + 3);
+							var someFormattedDate = that.getFormattedDate(tempEndDate);
+							oReqEndDate = new Date(someFormattedDate);
+						}
+						oWorkOrderDetailModel.setProperty("/PlanStartDate", oReqStartDate);
+						oWorkOrderDetailModel.setProperty("/PlanEndDate", oReqEndDate);
+					}
+
+				}
+			});
+
+		},
+		getFormattedDate: function (sDate) {
+			var dd = sDate.getDate();
+			var mm = sDate.getMonth() + 1;
+			var y = sDate.getFullYear();
+			var someFormattedDate = y + '/' + mm + '/' + dd;
+			return someFormattedDate;
+		},
 		fnGetTechUserName: function (userid) {
 			var oModel = this.oPortalDataModel;
 			var oWorkOrderDetailViewModel = this.oWorkOrderDetailViewModel;
@@ -294,6 +362,17 @@ sap.ui.define([
 			var oSource = oEvent.getSource();
 			var oBtnType = oSource.getCustomData()[0].getValue();
 			switch (oBtnType) {
+			case "WO_DETAIL_CREATE_NOTIF":
+				var oWorkOrderDetailModel = this.oWorkOrderDetailModel;
+				var oWorkOrderDetailViewModel = this.oWorkOrderDetailViewModel;
+				var headerNotifnav = oWorkOrderDetailModel.getProperty("/HEADERTONOTIFNAV");
+				if (headerNotifnav.length === 0) {
+					oWorkOrderDetailViewModel.setProperty("/isNotifCreated", true);
+				} else {
+					oWorkOrderDetailViewModel.setProperty("/isNotifCreated", false);
+				}
+				this.fnMandateUiFields("WO_DETAIL_CREATE_NOTIF");
+				break;
 			case "WO_DETAIL_CREATE":
 				var oWorkOrderDetailModel = this.oWorkOrderDetailModel;
 				var oWorkOrderDetailViewModel = this.oWorkOrderDetailViewModel;
@@ -368,6 +447,9 @@ sap.ui.define([
 
 		//Function to validate mandatory fields before digital signature pop-up
 		fnMandateUiFields: function (woCreateNavType) {
+			var that = this;
+			var oResourceModel = this.oResourceModel;
+			var oPortalNotifOData = this.oPortalNotifOData;
 			var oWorkOrderDetailModel = this.oWorkOrderDetailModel;
 			var oWorkOrderDetailViewModel = this.oWorkOrderDetailViewModel;
 			var bVal = util.fnMandateDetailWOFields(oWorkOrderDetailModel, this, woCreateNavType);
@@ -376,6 +458,49 @@ sap.ui.define([
 					this.showMessage(bVal[1]);
 				}
 				return;
+			} else if (bVal[0] === false && woCreateNavType === "WO_DETAIL_CREATE_NOTIF") {
+				var bBreakdown = oWorkOrderDetailModel.getProperty("/Breakdown");
+				var oReqEndDate = oWorkOrderDetailModel.getProperty("/PlanEndDate");
+				var oReqStartDate = oWorkOrderDetailModel.getProperty("/PlanStartDate");
+				var sReportedby = oWorkOrderDetailModel.getProperty("/ReportedBy");
+				var sShortText = oWorkOrderDetailModel.getProperty("/ShortText");
+				var oNotifDetails = [{
+					"Breakdown": bBreakdown,
+					"Desenddate" : oReqEndDate,
+					"Desstdate" : oReqStartDate,
+					"LongText" : "",
+					"NotifNo" : "",
+					"NotifStatus" : "NEW",
+					"Reportedby" : sReportedby,
+					"ShortText" :sShortText 
+				}];
+				util.fnSetPayLoadForCreateNotif(oWorkOrderDetailModel, oWorkOrderDetailViewModel, this); //nischal - take value from oWorkOrderDetailModel to CreateNotification Payload
+				var oNotifData = oWorkOrderDetailViewModel.getProperty("/oNotifPayLoad");
+				oPortalNotifOData.setHeaders({
+					"X-Requested-With": "X"
+				});
+
+				oPortalNotifOData.create("/NotificationSet", oNotifData, {
+					async: false,
+					success: function (sData, oResponse) {
+						var successErrMsg = "";
+						var isSuccess;
+						var oNotificationId = parseInt(sData.Notifid,10);
+						var sNotifId = oNotificationId.toString();
+						if (oNotificationId) {
+								oNotifDetails[0].NotifNo = sNotifId;
+								oWorkOrderDetailModel.setProperty("/HEADERTONOTIFNAV",oNotifDetails);
+								woCreateNavType = "WO_DETAIL_CREATE";
+							that.onCreateUpdateWO(woCreateNavType);
+						} else {
+							MessageToast.show("Error Creating Notification");
+						}
+
+					},
+					error: function (error, oResponse) {
+							MessageToast.show("Error Creating Notification");
+					}
+				});
 			} else if (bVal[0] === false) {
 				this.onCreateUpdateWO(woCreateNavType);
 				/*	if (woCreateNavType === "WO_DETAIL_CREATE" || woCreateNavType === "WO_DETAIL_CREATE_EXIT" ||

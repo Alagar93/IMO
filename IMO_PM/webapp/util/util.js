@@ -83,7 +83,10 @@ com.sap.incture.IMO_PM.util.util = {
 		}];
 		var oCurrentTime = com.sap.incture.IMO_PM.formatter.formatter.formatCurrentTime(new Date());
 		var userPlant = oUserDetailModel.getProperty("/userPlant");
-
+		//nischal -- Fetch required Start Date and End Datefrom oWorkOrderDetailViewModel that was set in Create Workorder controller
+		var oReqStartDate = oWorkOrderDetailViewModel.getProperty("/oRequiredStartDate");
+		var oReqEndDate = oWorkOrderDetailViewModel.getProperty("/oRequiredEndDate");
+		
 		oWorkOrderDetailModel.setProperty("/Plant", userPlant);
 		oWorkOrderDetailModel.setProperty("/Pmacttype", "001");
 		oWorkOrderDetailModel.setProperty("/NotifNo", "");
@@ -91,8 +94,8 @@ com.sap.incture.IMO_PM.util.util = {
 		oWorkOrderDetailModel.setProperty("/Maintplant", "");
 		oWorkOrderDetailModel.setProperty("/Planplant", userPlant);
 		oWorkOrderDetailModel.setProperty("/DateCreated", new Date());
-		oWorkOrderDetailModel.setProperty("/PlanStartDate", new Date());
-		oWorkOrderDetailModel.setProperty("/PlanEndDate", new Date());
+		oWorkOrderDetailModel.setProperty("/PlanStartDate", oReqStartDate);
+		oWorkOrderDetailModel.setProperty("/PlanEndDate", oReqEndDate);
 		oWorkOrderDetailModel.setProperty("/MalFunStartDate", new Date());
 		oWorkOrderDetailModel.setProperty("/MalFunStartTime", oCurrentTime);
 		oWorkOrderDetailModel.setProperty("/OrderStatus", "");
@@ -258,7 +261,7 @@ com.sap.incture.IMO_PM.util.util = {
 			} else {
 				if (navType === "WO_DETAIL_CREATE" || navType !== "WO_DETAIL_CREATE_EXIT" ||
 					navType === "WO_DETAIL_UPDATE" || navType !== "WO_DETAIL_UPDATE_EXIT" ||
-					navType === "WO_DETAIL_RELEASE") {
+					navType === "WO_DETAIL_RELEASE" || navType === "WO_DETAIL_CREATE_NOTIF") {
 					var bVal = this.fnValidateOperationsTbl(oWorkOrderDetailModel, oController);
 					if (bVal[0] === false) {
 						var spareParts = oWorkOrderDetailModel.getProperty("/HEADERTOCOMPONENTNAV");
@@ -518,7 +521,7 @@ com.sap.incture.IMO_PM.util.util = {
 		oNotificationDataModel.setProperty("/Startdate", new Date());
 		oNotificationDataModel.setProperty("/Enddate", new Date());
 		oNotificationDataModel.setProperty("/ReqStartdate", new Date());
-		oNotificationDataModel.setProperty("/ReqEnddate", new Date());
+		// oNotificationDataModel.setProperty("/ReqEnddate", new Date("2020-12-20")); 
 		oNotificationDataModel.setProperty("/ShortText", "");
 		oNotificationDataModel.setProperty("/Breakdown", " ");
 		oNotificationDataModel.setProperty("/BreakdownDur", "0");
@@ -556,7 +559,7 @@ com.sap.incture.IMO_PM.util.util = {
 			"Type": "",
 			"Message": ""
 		}];
-		mLookupModel.setProperty("/assignedToHardCode","John Smith"); //nischal  ---  Hard Coded value for demo
+		mLookupModel.setProperty("/assignedToHardCode", "John Smith"); //nischal  ---  Hard Coded value for demo
 		oSelectedRow.Downtime = parseFloat(oSelectedRow.Downtime);
 		oSelectedRow.Downtime = oSelectedRow.Downtime.toString();
 
@@ -677,63 +680,62 @@ com.sap.incture.IMO_PM.util.util = {
 		var oErrorMsg = "";
 		//  validation Notif .
 		var notifType = oNotificationDataModel.getProperty("/NotifType");
-				if (!notifType) {
-					// oErrorMsg = oResourceModel.getText("SEL_NOTIF_TYPE");
-					oErrorMsg = "Please select Notification type";
-					return [true, oErrorMsg];
-				}
-				//  validation function location .
+		if (!notifType) {
+			// oErrorMsg = oResourceModel.getText("SEL_NOTIF_TYPE");
+			oErrorMsg = "Please select Notification type";
+			return [true, oErrorMsg];
+		}
+		//  validation function location .
 		var oFunLocation = oNotificationDataModel.getProperty("/FunctLoc");
-				if (!oFunLocation) {
-					// oErrorMsg = oResourceModel.getText("SEL_NOTIF_TYPE");
-					oErrorMsg = "Please select Function Location";
-					return [true, oErrorMsg];
-				}	
-				//  validation Equipment	
+		if (!oFunLocation) {
+			// oErrorMsg = oResourceModel.getText("SEL_NOTIF_TYPE");
+			oErrorMsg = "Please select Function Location";
+			return [true, oErrorMsg];
+		}
+		//  validation Equipment	
 		var equipment = oNotificationDataModel.getProperty("/Equipment");
 		if (!equipment) {
 			// oErrorMsg = oResourceModel.getText("SEL_EQUIPMENT");
 			oErrorMsg = "Please select an Equipment";
 			return [true, oErrorMsg];
 		}
-	
-					//  validation Priority	
+
+		//  validation Priority	
 		var OPriority = oNotificationDataModel.getProperty("/Priority");
 		if (!OPriority) {
 			// oErrorMsg = oResourceModel.getText("SEL_EQUIPMENT");
 			oErrorMsg = "Please select an Priority";
 			return [true, oErrorMsg];
 		}
-			//  validation planner Group
+		//  validation planner Group
 		var plannerGrp = oNotificationDataModel.getProperty("/Plangroup");
 		if (!plannerGrp) {
 			// oErrorMsg = oResourceModel.getText("SEL_PLANNER_GRP");
 			oErrorMsg = "Please select Planner Group";
 			return [true, oErrorMsg];
 		}
-			//  validation planning Plant
-		var  OPlantPlan = oNotificationDataModel.getProperty("/PlanPlant");
+		//  validation planning Plant
+		var OPlantPlan = oNotificationDataModel.getProperty("/PlanPlant");
 		if (!OPlantPlan) {
 			// oErrorMsg = oResourceModel.getText("SEL_PLANNER_GRP");
 			oErrorMsg = "Please select Planning Plant";
 			return [true, oErrorMsg];
 		}
-			//  validation main WorkCenter 
-		var  OMianWorkCenter = oNotificationDataModel.getProperty("/WorkCenter");
+		//  validation main WorkCenter 
+		var OMianWorkCenter = oNotificationDataModel.getProperty("/WorkCenter");
 		if (!OMianWorkCenter) {
 			// oErrorMsg = oResourceModel.getText("SEL_PLANNER_GRP");
 			oErrorMsg = "Please select Main Workcenter";
 			return [true, oErrorMsg];
 		}
-			//  validation maintenance Plant
-		var  OMaintenancePlant = oNotificationDataModel.getProperty("/PlanPlant");
+		//  validation maintenance Plant
+		var OMaintenancePlant = oNotificationDataModel.getProperty("/PlanPlant");
 		if (!OMaintenancePlant) {
 			// oErrorMsg = oResourceModel.getText("SEL_PLANNER_GRP");
 			oErrorMsg = "Please select Main maintenance Plant";
 			return [true, oErrorMsg];
 		}
-					
-		
+
 		var breakdown = oNotificationDataModel.getProperty("/Breakdown");
 		if (breakdown === "X" || breakdown === true) {
 			var malStartdate = oNotificationDataModel.getProperty("/Startdate");
@@ -766,6 +768,12 @@ com.sap.incture.IMO_PM.util.util = {
 		if (!shortTxt) {
 			// oErrorMsg = oResourceModel.getText("SEL_DESC");
 			oErrorMsg = "Please enter Description";
+			return [true, oErrorMsg];
+		}
+		//nischal - validation for Required End Date
+		var reqEndDate = oNotificationDataModel.getProperty("/ReqEnddate");
+		if (!reqEndDate) {
+			oErrorMsg = "Please select Required End Date";
 			return [true, oErrorMsg];
 		}
 		return [false];
@@ -1750,6 +1758,119 @@ com.sap.incture.IMO_PM.util.util = {
 		};
 		feedAxisLabels = new FeedItem(feedAxisLabels);
 		oVizFrame.addFeed(feedAxisLabels);
+	},
+	// nischal -- function to Set Create Notification Payload from WorkOrderDetailModel
+	fnSetPayLoadForCreateNotif: function (oWorkOrderDetailModel, oWorkOrderDetailViewModel, oController) {
+		var sAssembly = oWorkOrderDetailModel.getProperty("/Assembly");
+		var sBreakdown = oWorkOrderDetailModel.getProperty("/Breakdown");
+		if (sBreakdown == true) {
+			sBreakdown = "X";
+		} else {
+			sBreakdown = " ";
+		}
+		var sBreakdownDur = oWorkOrderDetailModel.getProperty("/Downtime");
+		// var sCauseCode = oWorkOrderDetailModel.getProperty("/");
+		// var sCauseGroup = oWorkOrderDetailModel.getProperty("/");
+		// var sCauseText = oWorkOrderDetailModel.getProperty("/");
+		// var sDamageCode = oWorkOrderDetailModel.getProperty("/");
+		// var sDamageGroup = oWorkOrderDetailModel.getProperty("/");
+
+		var sEquipment = oWorkOrderDetailModel.getProperty("/Equipment");
+		var sFunctLoc = oWorkOrderDetailModel.getProperty("/FunctLoc");
+		// var sNotifType = oWorkOrderDetailModel.getProperty("/");
+
+		// var sNotifId = oWorkOrderDetailModel.getProperty("/");
+		var sPlanPlant = oWorkOrderDetailModel.getProperty("/Planplant");
+		var sPlanGroup = oWorkOrderDetailModel.getProperty("/Plangroup");
+		var sPriority = oWorkOrderDetailModel.getProperty("/Priority");
+		var sReportedby = oWorkOrderDetailModel.getProperty("/ReportedBy");
+
+		var sShortText = oWorkOrderDetailModel.getProperty("/ShortText");
+		var sWorkCenter = oWorkOrderDetailModel.getProperty("/MnWkCtr");
+
+		var oStartDate = new Date();
+		var sStartdate = this.formatDateobjToString(oStartDate, true);
+
+		var oEnddate = new Date();
+		var sEnddate = this.formatDateobjToString(oEnddate, true);
+
+		var oNotifDate = new Date();
+		var sNotifDate = this.formatDateobjToString(oNotifDate, true);
+
+		var oReqEndDate = oWorkOrderDetailModel.getProperty("/PlanEndDate");
+		var sReqEndDate = this.formatDateobjToString(oReqEndDate, true);
+
+		var oReqStartDate = oWorkOrderDetailModel.getProperty("/PlanStartDate");
+		var sReqStartDate = this.formatDateobjToString(oReqStartDate, true);
+
+		var oObj = {
+			"Assembly": sAssembly,
+			"Breakdown": sBreakdown,
+			"BreakdownDur": sBreakdownDur,
+			"CauseCode": "",
+			"CauseGroup": "",
+			"CauseText": "",
+			"DamageCode": "",
+			"DamageGroup": "",
+			"DamgeText": "",
+			"Enddate": sEnddate,
+			"Equipment": sEquipment,
+			"FunctLoc": sFunctLoc,
+			"ItemKey": "0001",
+			"ItemSortNo": "0001",
+			"Longtext" : sShortText,
+			"NotifType": "M1",
+			"Notif_date": sNotifDate,
+			"Notifid": "",
+			"Notify": [{
+				"Type": "",
+				"Message": ""
+				
+			}],
+			"Orderid": "",
+			"PlanPlant": sPlanPlant,
+			"Plangroup": sPlanGroup,
+			"Priority": sPriority,
+			"Reportedby": sReportedby,
+			"ReqEnddate": sReqEndDate,
+			"ReqStartdate": sReqStartDate,
+			"ShortText": sShortText,
+			"Startdate": sStartdate,
+			"Type": "CREATE",
+			"WorkCenter": sWorkCenter
+		};
+		oWorkOrderDetailViewModel.setProperty("/oNotifPayLoad",oObj);
+	},
+	formatDateobjToString: function (oDate, isTimeRequired) {
+		if (typeof (oDate) === "string") {
+			return oDate;
+		}
+		var dd = oDate.getDate();
+		var MM = oDate.getMonth() + 1;
+		var yy = oDate.getFullYear();
+		var hh = oDate.getHours();
+		var mm = oDate.getMinutes();
+		if (dd < 10) {
+			dd = "0" + dd;
+		}
+		if (MM < 10) {
+			MM = "0" + MM;
+		}
+
+		if (isTimeRequired) {
+			if (hh < 10) {
+				hh = "0" + hh;
+			}
+			if (mm < 10) {
+				mm = "0" + mm;
+			}
+		} else {
+			hh = "00";
+			mm = "00";
+		}
+		var newDate = yy + "-" + MM + "-" + dd;
+		newDate = newDate + "T" + hh + ":" + mm + ":00";
+		return newDate;
 	}
 
 };
