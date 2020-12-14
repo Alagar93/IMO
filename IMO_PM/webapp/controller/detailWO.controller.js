@@ -80,6 +80,7 @@ sap.ui.define([
 				this.fnCreateUpdateBtnTxt("UPDATE_ORDER");
 				this.getWODetails(oViewType);
 			}
+			
 			var oPortalDataModel = this.oPortalDataModel;
 			var sericeUrl = oPortalDataModel.sServiceUrl;
 			sericeUrl = sericeUrl + "/AttachmentSet";
@@ -2561,7 +2562,7 @@ sap.ui.define([
 
 			var oPortalDataModel = this.oPortalDataModel;
 			var orderId = this.oWorkOrderDetailModel.getProperty("/Orderid");
-			var slug = orderId + ":" + fileName + ":" + fileType;
+			var slug = orderId + ":" + fileName + ":" + fileType +":"+"W";// To differentiate notification and Work order.
 			var securityToken = oPortalDataModel.getSecurityToken();
 			var oCSRFCustomHeader = new sap.ui.unified.FileUploaderParameter({
 				name: "x-csrf-token",
@@ -2621,6 +2622,7 @@ sap.ui.define([
 		getAttachmentIdForDownload: function (oEvent) {
 			var oSource = oEvent.getSource();
 			var oWorkOrderDetailViewModel = this.oWorkOrderDetailViewModel;
+			var orderId=oWorkOrderDetailViewModel.getProperty("/Orderid");
 			var sPath = oSource.getBindingContext("oWorkOrderDetailViewModel").getPath();
 			var fileType = oWorkOrderDetailViewModel.getProperty(sPath + "/AttachmentType");
 			var documentId = oWorkOrderDetailViewModel.getProperty(sPath + "/DocumentId");
@@ -2629,7 +2631,7 @@ sap.ui.define([
 				var oPortalDataModel = this.oPortalDataModel;
 				var sericeUrl = oPortalDataModel.sServiceUrl;
 				sericeUrl = sericeUrl + "/AttachmentSet(DocumentId='" + documentId + "',MIME_TYPE='x',RelType='" + relType +
-					"',OrderId='')/$value";
+					"',OrderId='',NotifId='')/$value";
 				sap.m.URLHelper.redirect(sericeUrl, true);
 			}
 		},
@@ -2657,7 +2659,7 @@ sap.ui.define([
 			if (documentId) {
 				var oPortalDataModel = this.oPortalDataModel;
 				var sericeUrl = oPortalDataModel.sServiceUrl;
-				sericeUrl = "/AttachmentListSet(DocumentId='" + documentId + "',OrderId='" + orderId + "',AttachmentType='" + type + "')";
+				sericeUrl = "/AttachmentListSet(DocumentId='" + documentId + "',OrderId='" + orderId + "',AttachmentType='" + type + "',NotifId='')";
 				oPortalDataModel.setHeaders({
 					"X-Requested-With": "X"
 				});

@@ -5,7 +5,9 @@
 			<CheckBox text="{i18n>checkfilter}" class="styleTextBlue" selected="{mLookupModel>/sUnAssignedWOFlag}"/>
 			<l:Grid defaultSpan="L6 M4 S6" class="sapUiSmallMarginTop">
 				<Label text="{i18n>notif_stat}" class="sapUiTinyMarginTop styleTextBlue"/>
-				<Input value="{mLookupModel>/sNotifStatusFilter}"></Input>
+				<ComboBox items="{ path: 'mLookupModel>/aNotifStatus', sorter: { path: 'text' } }" selectedKey="{mLookupModel>/sNotifStatusFilter}">
+					<core:Item key="{mLookupModel>key}" text="{mLookupModel>key}"/>
+				</ComboBox>
 				<Label text="{i18n>notifID}" class="sapUiTinyMarginTop styleTextBlue"/>
 				<Input value="{mLookupModel>/sNotifIdFilter}"></Input>
 				<Label text="{i18n>equip}" class="sapUiTinyMarginTop styleTextBlue"/>
@@ -23,6 +25,11 @@
 					selectedKey="{mLookupModel>/sNotifWkCenterFilter}">
 					<core:ListItem key="{mLookupModel>WorkcenterId}" additionalText="{mLookupModel>WorkcenterDesc}" text="{mLookupModel>WorkcenterId}"/>
 				</ComboBox>
+				<Label text="CreatedOn Start Date" class="sapUiTinyMarginTop styleTextBlue"></Label>
+				<DatePicker value="{mLookupModel>/sCreatedOnStart}" valueFormat="MM-dd-yyyy"></DatePicker>
+				<Label text="CreatedOn End Date" class="sapUiTinyMarginTop styleTextBlue"></Label>
+				<DatePicker value="{mLookupModel>/sCreatedOnEnd}" valueFormat="MM-dd-yyyy"
+					minDate="{path:'mLookupModel>/sCreatedOnStart,formatter:'com.sap.incture.IMO_PM.formatter.formatter.EndDateValidation'}"></DatePicker>
 			</l:Grid>
 		</content>
 		<buttons>

@@ -80,7 +80,7 @@
 				<VBox items="{oWorkOrderDetailViewModel>/attachments}" class="sapUiTinyMarginTop">
 					<VBox class="sapUiTinyMarginBeginEnd">
 						<HBox fitContainer="true" justifyContent="SpaceBetween" alignContent="Start" width="100%">
-							<HBox width="80%">
+							<HBox width="70%">
 								<core:Icon src="{path:'oWorkOrderDetailViewModel>FileExtension', formatter:'.formatter.setIconForFile'}" tooltip="{}" size="2rem"
 									class="sapMCommonBlueColor"/>
 								<VBox class="sapUiSmallMarginBegin" width="90%">
@@ -110,7 +110,7 @@
 								<Button icon="sap-icon://delete" tooltip="{}" class="sapMDeleteBtnMarginTop sapUiMediumMarginBegin sapUiTinyMarginEnd sapUiSmallMarginTop"
 									enabled="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.disableUploadAttachment'}"
 									visible="{parts:['oWorkOrderDetailViewModel>AttachmentType', 'oWorkOrderDetailModel>/OrderStatus'], formatter:'.formatter.setAttachmentDeleteVisible'}"
-									type="Transparent" press="fnDeleteWOAttachmentLink">
+									press="fnDeleteWOAttachmentLink">
 									<customData>
 										<core:CustomData value="{oWorkOrderDetailViewModel>AttachmentType}"/>
 									</customData>

@@ -670,6 +670,7 @@ com.sap.incture.IMO_PM.util.util = {
 		oNotificationViewModel.setProperty("/EqIdDes", "");
 		oNotificationViewModel.setProperty("/TechId", "");
 		oNotificationViewModel.setProperty("/BreakdownDur", oSelectedRow.Downtime);
+		oNotificationViewModel.setProperty("/attachmentSet",[]);//Sunanda for attachments in notifDetail
 		oNotificationViewModel.refresh();
 
 		mLookupModel.setProperty("/aEquipmentsList", []);
