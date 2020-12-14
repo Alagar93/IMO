@@ -31,6 +31,13 @@ sap.ui.define([
 			if (viewName === "notifDetail") {
 				this.fnFetchDetailNotifList();
 			}
+			///For Attachements///
+			var oPortalDataModel = this.oPortalDataModel;
+			var sericeUrl = oPortalDataModel.sServiceUrl;
+			sericeUrl = sericeUrl + "/AttachmentSet";
+			var oFileUploader = this.getView().byId("MYLAN_CREATE_Notif_FILEUPLOADER");
+			oFileUploader.setUploadUrl(sericeUrl);
+			
 		},
 
 		//Function to fetch Notification details by Notif Id
@@ -80,6 +87,8 @@ sap.ui.define([
 			var oNotificationViewModel = this.oNotificationViewModel;
 			var oNotificationDataModel = this.oNotificationDataModel;
 			util.resetCreateNotificationFieldsNotifList(oNotificationDataModel, oNotificationViewModel, mLookupModel, notifData, this);
+			var notifid = this.oNotificationDataModel.getProperty("/Notifid");
+			this.fnGetNotifAttachmentLinks(notifid);
 		},
 
 		//Function to get Equipment List and show in a pop-up
@@ -416,6 +425,207 @@ sap.ui.define([
 			}
 		},
 
+		////Attachments////
+		fnGetNotifAttachmentLinks: function (notifId) {
+			var that = this;
+			this.busy.open();
+			var oFilter = [];
+			var oPortalDataModel = this.oPortalDataModel;
+			var oNotificationViewModel = this.oNotificationViewModel;
+			oFilter.push(new Filter("NotifId", "EQ", notifId));
+
+			oPortalDataModel.read("/AttachmentListSet", {
+				filters: oFilter,
+				
+				success: function (oData) {
+					var attachments = oData.results;
+					oNotificationViewModel.setProperty("/attachments", attachments);
+
+					that.busy.close();
+				},
+				error: function (oData) {
+					oNotificationViewModel.setProperty("/attachments", []);
+					that.showMessage(that.oResourceModel.getText("atterror"));
+					that.busy.close();
+				}
+			});
+		},
+
+		onOpenAttchNotiflinkPopup: function (oEvent) {
+			if (!this.attachNotifLink) {
+				this.attachNotifLink = sap.ui.xmlfragment("com.sap.incture.IMO_PM.fragment.attachNotifLink", this);
+				this.getView().addDependent(this.attachNotifLink);
+			}
+			this.attachNotifLink.open();
+		},
+		onCloseAttachNotifLinkPopup:function(oEvent){
+			var oNotificationViewModel = this.oNotificationViewModel;
+			oNotificationViewModel.setProperty("/linkTitle", "");
+			oNotificationViewModel.setProperty("/linkAddress", "");
+			this.attachNotifLink.close();
+		},
+
+		onAttachNotifLink: function () {
+			var that = this;
+			var oResourceModel = this.oResourceModel;
+			var oNotificationViewModel = this.oNotificationViewModel;
+			var linkTitle = oNotificationViewModel.getProperty("/linkTitle");
+			var linkAddress = oNotificationViewModel.getProperty("/linkAddress");
+			var notifid = this.oNotificationDataModel.getProperty("/Notifid");
+			if (!linkTitle) {
+				this.showMessage(oResourceModel.getText("plsprovidelinktitle"));
+				return;
+			}
+			if (!linkAddress) {
+				this.showMessage(oResourceModel.getText("plsprovdielinkaddr"));
+				return;
+			}
+			this.busy.open();
+			var oPayload = {
+				"d": {
+					"NotifId": notifid,
+					"DocName": linkTitle,
+					"AttachmentURL": linkAddress
+				}
+			};
+			var oPortalDataModel = this.oPortalDataModel;
+			oPortalDataModel.setHeaders({
+				"X-Requested-With": "X"
+			});
+			oPortalDataModel.create("/AttachdocSet", oPayload, {
+				success: function (oData) {
+					that.fnGetNotifAttachmentLinks(notifid);
+					that.onCloseAttachNotifLinkPopup();
+					that.busy.close();
+				},
+				error: function (oData) {
+					that.busy.close();
+				}
+			});
+		},
+
+		onUploadNotifAttachment: function (oEvent) {
+
+			this.busy.open();
+			var oSource = oEvent.getSource();
+			var oFile = oEvent.getParameter("files")[0];
+			var fileName = oFile.name.split(".")[0];
+			var fileType = oFile.name.split(".")[1];
+
+			var oPortalDataModel = this.oPortalDataModel;
+			var notifid = this.oNotificationDataModel.getProperty("/Notifid");
+			var slug = notifid + ":" + fileName + ":" + fileType + ":" + "N"; // To differentiate notification and Work order.
+			var securityToken = oPortalDataModel.getSecurityToken();
+			var oCSRFCustomHeader = new sap.ui.unified.FileUploaderParameter({
+				name: "x-csrf-token",
+				value: securityToken
+			});
+			var oSlugCustomHeader = new sap.ui.unified.FileUploaderParameter({
+				name: "slug",
+				value: slug
+			});
+			var oDisableCSRFHeader = new sap.ui.unified.FileUploaderParameter({
+				name: "X-Requested-With",
+				value: "X"
+
+			});
+
+			oSource.addHeaderParameter(oCSRFCustomHeader);
+			oSource.addHeaderParameter(oSlugCustomHeader);
+			oSource.addHeaderParameter(oDisableCSRFHeader);
+			oSource.upload();
+		},
+		onUploadNotifComplete: function (oEvent) {
+
+			var oResourceModel = this.oResourceModel;
+			var statusCode = oEvent.getParameters().status;
+			var notifid = this.oNotificationDataModel.getProperty("/Notifid");
+			if (statusCode === 201) {
+				this.fnGetNotifAttachmentLinks(notifid);
+				this.showMessage(oResourceModel.getText("docuploadsuccess"));
+			} else {
+				this.showMessage(oResourceModel.getText("errinuploadfile"));
+			}
+			var oFileUploader = this.getView().byId("MYLAN_CREATE_Notif_FILEUPLOADER");
+			oFileUploader.removeAllHeaderParameters();
+			this.busy.close();
+		},
+		//Function to show error message on files uploaded with size more than 5mb
+		handleFileSizeExceed: function (oEvent) {
+			var oMsg = this.oResourceModel.getText("FILE_SIZE_EXCEEDED_5MB");
+			this.showMessage(oMsg);
+		},
+
+		//Function to show error message on files uploaded with name more than 50 characters
+		fnFilenameLengthExceed: function (oEvent) {
+			var oMsg = this.oResourceModel.getText("PLS_UPLOAD_FILE_LESS_THAN_50CHAR");
+			this.showMessage(oMsg);
+		},
+
+		//Function to show error message on files uploaded other than supported
+		fnHandleFileType: function (oEvent) {
+			var oMsg = this.oResourceModel.getText("PLS_UPLOAD_FILE_OF_PROPER_FORMAT");
+			this.showMessage(oMsg);
+		},
+		getNotifAttachmentIdForDownload: function (oEvent) {
+			var oSource = oEvent.getSource();
+			var oNotificationViewModel = this.oNotificationViewModel;
+			var sPath = oSource.getBindingContext("oNotificationViewModel").getPath();
+			var fileType = oNotificationViewModel.getProperty(sPath + "/AttachmentType");
+			var documentId = oNotificationViewModel.getProperty(sPath + "/DocumentId");
+			var relType = oNotificationViewModel.getProperty(sPath + "/DocName");
+			if (fileType === "DOC" && documentId) {
+				var oPortalDataModel = this.oPortalDataModel;
+				var sericeUrl = oPortalDataModel.sServiceUrl;
+				sericeUrl = sericeUrl + "/AttachmentSet(DocumentId='" + documentId + "',MIME_TYPE='x',RelType='" + relType +
+					"',OrderId='',NotifId='')/$value";
+				sap.m.URLHelper.redirect(sericeUrl, true);
+			}
+		},
+		//Function to delete Attachtment
+		fnDeleteNotifAttachmentLink: function (oEvent) {
+			var btnFld = "";
+			var that = this;
+			this.busy.open();
+			var oSource = oEvent.getSource();
+			var oResourceModel = this.oResourceModel;
+			var btnType = oSource.getCustomData()[0].getValue();
+			if (btnType === "URL") {
+				btnFld = "Hyper Link";
+			} else {
+				btnFld = "Attachment";
+				btnType = "ATTA";
+			}
+
+			var oNotificationViewModel = this.oNotificationViewModel;
+			var sPath = oSource.getBindingContext("oNotificationViewModel").getPath();
+			var type = oNotificationViewModel.getProperty(sPath + "/AttachmentType");
+			var documentId = oNotificationViewModel.getProperty(sPath + "/DocumentId");
+			var NotifId = this.oNotificationDataModel.getProperty("/Notifid");
+			if (documentId) {
+				var oPortalDataModel = this.oPortalDataModel;
+				var sericeUrl = oPortalDataModel.sServiceUrl;
+				sericeUrl = "/AttachmentListSet(DocumentId='" + documentId + "',OrderId='',AttachmentType='" + type + "',NotifId='" + NotifId + "')";
+				oPortalDataModel.setHeaders({
+					"X-Requested-With": "X"
+				});
+				oPortalDataModel.remove(sericeUrl, {
+					method: "DELETE",
+					success: function (data, response) {
+						that.fnGetNotifAttachmentLinks(NotifId);
+						that.showMessage(btnFld + " " + oResourceModel.getText("SUCCESSFULLY_DELETED"));
+					},
+					error: function (data, response) {
+						that.busy.close();
+						that.showMessage(oResourceModel.getText("ERROR_IN_DELETE") + btnFld);
+					}
+				});
+			} else {
+				this.showMessage(oResourceModel.getText("ERROR_IN_DELETE") + btnFld);
+			}
+		},
+
+		////Attachments Completed///
 		//Function to update notification to server
 		onUpdateNotification: function () {
 			var that = this;

@@ -5,9 +5,10 @@ sap.ui.define([
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator",
 	"sap/m/BusyDialog",
+	"sap/ui/core/format/DateFormat",
 	"com/sap/incture/IMO_PM/util/util",
 	"com/sap/incture/IMO_PM/formatter/formatter"
-], function (BaseController, Controller, JSONModel, Filter, FilterOperator, BusyDialog, util, formatter) {
+], function (BaseController, Controller, JSONModel, Filter, FilterOperator, BusyDialog, DateFormat, util, formatter) {
 	"use strict";
 
 	return BaseController.extend("com.sap.incture.IMO_PM.controller.notifList", {
@@ -69,7 +70,25 @@ sap.ui.define([
 					"des": "NO"
 				}],
 				"sUnAssignedWOFlag": false,
-				"sWorkCenterSel": ""
+				"sWorkCenterSel": "",
+				"aNotifStatus": [{
+					"key": "NOCO ORAS",
+					"text": "Notification closed,Order Assigned"
+				}, {
+					"key": "NOCO",
+					"text": "Notification closed"
+				}, {
+					"key": "NOPR ORAS",
+					"text": "Notification in Progress, Order Assigned"
+				}, {
+					"key": "NOPR",
+					"text": "Notification in Progress"
+				}, {
+					"key": "OSNO",
+					"text": "Outsranding Notification"
+				}],
+				"sCreatedOnStart": "",
+				"sCreatedOnEnd": ""
 			};
 			this.mLookupModel.setProperty("/", oViewSetting);
 			this.getWOPriorities();
@@ -223,6 +242,12 @@ sap.ui.define([
 
 		fnFetchNotifList: function () {
 			var that = this;
+
+			//Trial for Date Range
+			this.FilterDateFormat = DateFormat.getDateTimeInstance({
+				pattern: "yyyy-MM-ddTHH:mm:ss"
+			});
+
 			var mLookupModel = this.mLookupModel;
 			var aNotificationListSet = mLookupModel.getProperty("/aNotificationListSet");
 			var iTopNotif = mLookupModel.getProperty("/iTopNotif");
@@ -264,9 +289,28 @@ sap.ui.define([
 			if (!sNotifWkCenterFilter) {
 				sNotifWkCenterFilter = "";
 			}
+			var sCreatedOnStart = mLookupModel.getProperty("/sCreatedOnStart");
+			if (!sCreatedOnStart) {
+				sCreatedOnStart = new Date(null);
+			} else {
+				sCreatedOnStart = new Date(sCreatedOnStart);
+			}
+			var sCreatedOnEnd = mLookupModel.getProperty("/sCreatedOnEnd");
+			if (!sCreatedOnEnd) {
+				sCreatedOnEnd = new Date();
+			} else {
+				sCreatedOnEnd = new Date(sCreatedOnEnd);
+			}
 
 			var oFilter = [];
 			var userPlant = this.oUserDetailModel.getProperty("/userPlant");
+			oFilter.push(new Filter({
+				filters: [new Filter("CreatedOn", "GE", sCreatedOnStart),
+					new Filter("CreatedOn", "LE", sCreatedOnEnd)
+				],
+				and: true
+			}));
+
 			oFilter.push(new Filter("Descriptn", "EQ", sNotifIDDesFilter));
 			oFilter.push(new Filter("NotifNo", "EQ", sNotifIdFilter));
 			oFilter.push(new Filter("SysStatus", "EQ", sNotifStatusFilter));
@@ -276,6 +320,7 @@ sap.ui.define([
 			oFilter.push(new Filter("Userstatus", "EQ", sUnAssignedWOFlag)); // using userstatus unused field for check box filter
 			oFilter.push(new Filter("plant", "EQ", userPlant));
 			oFilter.push(new Filter("WorkCntr", "EQ", sNotifWkCenterFilter));
+
 			oPortalDataModel.read(sUrl, {
 				filters: oFilter,
 				urlParameters: {
@@ -327,7 +372,9 @@ sap.ui.define([
 
 		onHandleNotifAdvFilter: function (oEvent) {
 			if (!this._oDialogNotif) {
+
 				this._oDialogNotif = sap.ui.xmlfragment("com.sap.incture.IMO_PM.fragment.advFilterNotif", this);
+
 				this.getView().addDependent(this._oDialogNotif);
 			}
 			var that = this;

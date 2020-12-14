@@ -103,9 +103,10 @@ sap.ui.define([
 
 			/*var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			oRouter.navTo("Launch");*/
-			var sURL = "https://lnvybdvpasstbo1j-imo-imo-pm.cfapps.eu10.hana.ondemand.com/IMO_PM/index.html";
+			var sURL = "https://y66f2grv0hgps8wq-imo-imo-pm.cfapps.eu10.hana.ondemand.com/IMO_PM/index.html";
 			sap.m.URLHelper.redirect(sURL, false);
 		},
+		
 		//Function to get KPI's tile count WOs
 		fnGetKPIsWOs: function (serviceType, headerText) {
 			var that = this;
@@ -1053,6 +1054,7 @@ sap.ui.define([
 			this.DateFormat = DateFormat.getDateTimeInstance({
 				pattern: "yyyy-MM-dd HH:mm:ss"
 			});
+			
 
 			this.oHeader = {
 				"Accept": "application/json",

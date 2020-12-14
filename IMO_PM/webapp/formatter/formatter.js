@@ -958,6 +958,25 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 		}
 		return bVal;
 	},
+	///Function to enable notification in Notification notifDetail view
+	disableUploadNotifAttachment:function(notifStatus){
+		
+		var bVal = false;
+		if (notifStatus === "" || notifStatus === undefined ) {
+			bVal = false;
+		} else {
+			bVal = true;
+		}
+		return bVal;
+	},
+	// Function to Set min End Date greater than Start Date
+	EndDateValidation:function(notifCreateStartDate){
+		debugger;
+		if(notifCreateStartDate){
+			return new Date(notifCreateStartDate);
+		}
+		return null;
+	},
 	//Function to format Notifcation's Required Start and End date
 	formatReqStartEndDate: function (date) {
 		var formattedDate = "";

@@ -391,7 +391,7 @@ sap.ui.define([
 			for (var i = 0; i < selectedWOs.length; i++) {
 				var selWOOrderId = mLookupModel.getProperty(selectedWOs[i].sPath + "/Orderid");
 				// sURL = sHost + sBSPPath + selWOOrderId;
-				sURL = "https://lnvybdvpasstbo1j-imo-imo-pm.cfapps.eu10.hana.ondemand.com/IMO_PM/index.html#/detailTabWO/" + selWOOrderId;
+				sURL = "https://y66f2grv0hgps8wq-imo-imo-pm.cfapps.eu10.hana.ondemand.com/IMO_PM/index.html#/detailTabWO/" + selWOOrderId;
 				sap.m.URLHelper.redirect(sURL, true);
 			}
 			this.getView().byId("idWorkOrderList").clearSelection();
@@ -401,7 +401,7 @@ sap.ui.define([
 		handleLinkPress: function (oEvent) {
 			var sURL;
 			var sNotifID = oEvent.getSource().getText();
-			sURL = "https://lnvybdvpasstbo1j-imo-imo-pm.cfapps.eu10.hana.ondemand.com/IMO_PM/index.html#/detailTabWO/" + sNotifID;
+			sURL = "https://y66f2grv0hgps8wq-imo-imo-pm.cfapps.eu10.hana.ondemand.com/IMO_PM/index.html#/detailTabWO/" + sNotifID;
 			sap.m.URLHelper.redirect(sURL, true);
 		},
 
