@@ -38,10 +38,10 @@
       "description": "SAPUI5 Test Resources"
     },
     {
-      "path": "/Incture_DEC1",
+      "path": "/Incture_DEC",
       "target": {
         "type": "destination",
-        "name": "Incture_DEC1"
+        "name": "Incture_DEC"
       },
       "description": "Destination for Murphy Task Management"
     }
