@@ -7,8 +7,9 @@ sap.ui.define([
 	"sap/m/BusyDialog",
 	"sap/ui/core/format/DateFormat",
 	"com/sap/incture/IMO_PM/util/util",
-	"com/sap/incture/IMO_PM/formatter/formatter"
-], function (BaseController, Controller, JSONModel, Filter, FilterOperator, BusyDialog, DateFormat, util, formatter) {
+	"com/sap/incture/IMO_PM/formatter/formatter",
+	"sap/m/MessageBox"
+], function (BaseController, Controller, JSONModel, Filter, FilterOperator, BusyDialog, DateFormat, util, formatter, MessageBox) {
 	"use strict";
 
 	return BaseController.extend("com.sap.incture.IMO_PM.controller.notifList", {
@@ -87,8 +88,8 @@ sap.ui.define([
 					"key": "OSNO",
 					"text": "Outsranding Notification"
 				}],
-				"sCreatedOnStart": "",
-				"sCreatedOnEnd": ""
+				"sCreatedOnStart": formatter.GetMonthsBackDate(3),
+				"sCreatedOnEnd": new Date().toLocaleDateString()
 			};
 			this.mLookupModel.setProperty("/", oViewSetting);
 			this.getWOPriorities();
@@ -164,6 +165,8 @@ sap.ui.define([
 			var sUrl = "/SaveNotifVariantSet";
 			var oPortalDataModel = this.oPortalDataModel;
 			var oFilter = [];
+			//"sCreatedOnStart": formatter.GetMonthsBackDate(3),
+			//	"sCreatedOnEnd": new Date().toLocaleDateString()
 			var oRequest = {
 				"id": mLookupModel.getProperty("/idNotifFilter"),
 				"userId": mLookupModel.getProperty("/userName"),
@@ -172,7 +175,9 @@ sap.ui.define([
 				"notiNotiId": mLookupModel.getProperty("/sNotifIdFilter"),
 				"notiEquipment": mLookupModel.getProperty("/sNotifEquipFilter"),
 				"notiBreakDown": mLookupModel.getProperty("/sNotifBDFilter"),
-				"notiPriority": mLookupModel.getProperty("/sNotifPriorFilter")
+				"notiPriority": mLookupModel.getProperty("/sNotifPriorFilter"),
+				"sCreatedOnStart": mLookupModel.getProperty("/sCreatedOnStart"),
+				"sCreatedOnEnd": mLookupModel.getProperty("/sCreatedOnEnd")
 			};
 			if (oRequest.id === undefined || !oRequest.id) {
 
@@ -205,6 +210,14 @@ sap.ui.define([
 			if (oRequest.notiPriority === undefined || !oRequest.notiPriority) {
 
 				oRequest.notiPriority = "";
+			}
+			if (oRequest.sCreatedOnStart === undefined || !oRequest.sCreatedOnStart) {
+
+				oRequest.sCreatedOnStart = "";
+			}
+			if (oRequest.sCreatedOnEnd === undefined || !oRequest.sCreatedOnEnd) {
+
+				oRequest.sCreatedOnEnd = "";
 			}
 
 			oFilter.push(new Filter("REQUEST", "EQ", JSON.stringify(oRequest)));
@@ -370,6 +383,208 @@ sap.ui.define([
 			this.fnFetchNotifList();
 		},
 
+		//Release Notification function
+		onPressReleaseMassNotif: function () {
+			var mLookupModel = this.mLookupModel;
+			var aSelectedpaths = mLookupModel.getProperty("/selectedNotifs");
+			for (var i = 0; i < aSelectedpaths.length; i++) {
+
+				var notifData = mLookupModel.getProperty(aSelectedpaths[i].sPath);
+				this.fnPressReleaseNotif(notifData);
+			}
+			mLookupModel.setProperty("/selectedNotifs", []);
+			mLookupModel.setProperty("/iSelectedIndices", 0);
+		},
+		onPressReleaseRowNotif: function (oEvent) {
+			var notifDataPath = oEvent.getSource().getParent().getParent().getBindingContext("mLookupModel").sPath;
+			var oNotifData = this.mLookupModel.getProperty(notifDataPath);
+			this.fnPressReleaseNotif(oNotifData);
+		},
+		fnPressReleaseNotif: function (notifData) {
+			var mLookupModel = this.mLookupModel;
+			var oNotificationViewModel = this.oNotificationViewModel;
+			var oNotificationDataModel = this.oNotificationDataModel;
+			util.resetCreateNotificationFieldsNotifList(oNotificationDataModel, oNotificationViewModel, mLookupModel, notifData, this);
+			this.fnReleaseNotif("release");
+		},
+		fnReleaseNotif: function (sVal) {
+			var that = this;
+			this.busy.open();
+			var mLookupModel = this.mLookupModel;
+			var oPortalNotifOData = this.oPortalNotifOData;
+			var oNotificationDataModel = this.oNotificationDataModel;
+			var oNotificationViewModel = this.oNotificationViewModel;
+			var oNotifData = oNotificationDataModel.getData();
+
+			var tempLongText = oNotificationViewModel.getProperty("/Longtext");
+			oNotifData.Longtext = tempLongText;
+
+			oNotifData.Startdate = formatter.formatDateobjToString(oNotifData.Startdate);
+			oNotifData.Enddate = formatter.formatDateobjToString(oNotifData.Enddate);
+			oNotifData.Notif_date = formatter.formatDateobjToString(oNotifData.Notif_date);
+			oNotifData.ReqStartdate = formatter.formatDateobjToString(oNotifData.ReqStartdate);
+			oNotifData.ReqEnddate = formatter.formatDateobjToString(oNotifData.ReqEnddate);
+			oNotifData.Type = "RELEASE";
+			if (oNotifData.Breakdown === true) {
+				oNotifData.Breakdown = "X";
+			} else if (oNotifData.Breakdown === false) {
+				oNotifData.Breakdown = " ";
+			}
+
+			var startTime = oNotificationViewModel.getProperty("/StartTime");
+			if (!startTime) {
+				startTime = "00:00";
+			}
+			var splitDate1 = oNotifData.Startdate.split("T")[0];
+			oNotifData.Startdate = splitDate1 + "T" + startTime + ":00";
+
+			var endTime = oNotificationViewModel.getProperty("/EndTime");
+			if (!endTime) {
+				endTime = "00:00";
+			}
+			var splitDate2 = oNotifData.Enddate.split("T")[0];
+			oNotifData.Enddate = splitDate2 + "T" + endTime + ":00";
+			oPortalNotifOData.setHeaders({
+				"X-Requested-With": "X"
+			});
+			oPortalNotifOData.create("/NotificationSet", oNotifData, {
+				async: false,
+				success: function (sData, oResponse) {
+					var statusCode = oResponse.statusCode;
+					var orderId = oResponse.Orderid;
+					if (statusCode === 201) {
+						if (sVal === "revert") {
+							MessageBox.success("Notification Reverted Successfully", {
+								actions: [MessageBox.Action.OK],
+								emphasizedAction: MessageBox.Action.OK,
+								onClose: function (sAction) {
+									that.mLookupModel.setProperty("/iSkipNotif", 0);
+									that.fnResetUItable();
+									// that.getView().byId("idrevertNotif").setVisible(false);
+									// if(orderId === "" || orderId === undefined){
+									// mLookupModel.setProperty("/SysStatus", "NOPR");
+									// }else{
+									// mLookupModel.setProperty("/SysStatus", "NOPR ORAS");	
+									// }
+									// mLookupModel.refresh();
+								}
+							});
+						} else {
+							MessageBox.success("Notification Released Successfully", {
+								actions: [MessageBox.Action.OK],
+								emphasizedAction: MessageBox.Action.OK,
+								onClose: function (sAction) {
+									// that.getView().byId("releaseButton").setVisible(false);
+									// mLookupModel.setProperty("/SysStatus", "NOPR");
+									that.fnFetchNotifList();
+								}
+							});
+						}
+					}
+
+					that.busy.close();
+				},
+				error: function (error, oResponse) {
+					that.busy.close();
+				}
+			});
+
+		},
+
+		//Release notification complete
+
+		//Create Work Order from Notification List
+		onPressCreateRowNotif: function (oEvent) {
+			var notifDataPath = oEvent.getSource().getParent().getParent().getBindingContext("mLookupModel").sPath;
+			var oNotifData = this.mLookupModel.getProperty(notifDataPath);
+			var mLookupModel = this.mLookupModel;
+
+			var oNotificationViewModel = this.oNotificationViewModel;
+			var oNotificationDataModel = this.oNotificationDataModel;
+			util.resetCreateNotificationFieldsNotifList(oNotificationDataModel, oNotificationViewModel, mLookupModel, oNotifData, this);
+			//mLookupModel.getProperty("/selectedNotifs").splice(1);
+			mLookupModel.setProperty("/CreationWOType", "NOTIF_LIST_SINGLENOTIF");
+			this.onCreateWODialogOpen();
+		},
+
+		onPressCreateMassWO: function () {
+
+			var mLookupModel = this.mLookupModel;
+
+			var aSelectedpaths = mLookupModel.getProperty("/selectedNotifs");
+
+			var notifData = mLookupModel.getProperty(aSelectedpaths[0].sPath);
+			var oNotificationViewModel = this.oNotificationViewModel;
+			var oNotificationDataModel = this.oNotificationDataModel;
+			util.resetCreateNotificationFieldsNotifList(oNotificationDataModel, oNotificationViewModel, mLookupModel, notifData, this);
+			//mLookupModel.getProperty("/selectedNotifs").splice(1);
+			mLookupModel.setProperty("/CreationWOType", "NOTIF_LIST_MULTINOTIF");
+			this.onCreateWODialogOpen();
+		},
+		onCreateWODialogOpen: function (oEvent) {
+			this.getOrderType();
+			if (!this.createWoNotifListDialog) {
+				this.createWoNotifListDialog = sap.ui.xmlfragment("com/sap/incture/IMO_PM.fragment.CreateWONotifList", this);
+				this.getView().addDependent(this.createWoNotifListDialog);
+			}
+			this.createWoNotifListDialog.open();
+		},
+
+		//Function to close equipment pop-up
+		onCancelWoNotifDetailDialog: function (oEvent) {
+			this.createWoNotifListDialog.close();
+			this.createWoNotifListDialog.destroy();
+			this.createWoNotifListDialog = null;
+		},
+		onCreateWO: function (oEvent) {
+			this.onCancelWoNotifDetailDialog();
+			this.busy.open();
+			var oNotificationDataModel = this.oNotificationDataModel;
+			var sData = oNotificationDataModel.getData();
+			var btnType = this.mLookupModel.getProperty("/CreationWOType");
+			this.fnCreateWorkOrderForNotif(sData, btnType); //in BaseController
+
+		},
+
+		AssignNotiftoCreatedWO: function (orderId) {
+			var oArry = [];
+			var mLookupModel = this.mLookupModel;
+			var selectedNotifs = mLookupModel.getProperty("/selectedNotifs");
+
+			for (var i = 1; i < selectedNotifs.length; i++) {
+				var currObj = mLookupModel.getProperty(selectedNotifs[i].sPath);
+				var obj = {};
+				var reqStartDate = formatter.formatReqStartEndDate(currObj.Reqstartdate);
+				var reqEndDate = formatter.formatReqStartEndDate(currObj.Reqenddate);
+				obj.NotifNo = currObj.NotifNo;
+				obj.Reportedby = currObj.Reportedby;
+				obj.ShortText = currObj.ShortText;
+				obj.LongText = currObj.LongText;
+				obj.Breakdown = currObj.Breakdown;
+				if (reqStartDate) {
+					obj.Desstdate = new Date(reqStartDate);
+				} else {
+					obj.Desstdate = null;
+				}
+				if (reqEndDate) {
+					obj.Desenddate = new Date(reqEndDate);
+				} else {
+					obj.Desenddate = null;
+				}
+				obj.NotifStatus = "NEW";
+				oArry.push(obj);
+			}
+			this.busy.open();
+			this.fnGetWOHeaderDetailsnotiflist(orderId, oArry);
+			if (this._oDialogAssignWO) {
+				this.onCancelDialogAssign();
+			}
+
+			mLookupModel.setProperty("/selectedNotifs", []);
+			mLookupModel.refresh();
+		},
+
+		//Create Work Order Complete
 		onHandleNotifAdvFilter: function (oEvent) {
 			if (!this._oDialogNotif) {
 
@@ -901,6 +1116,8 @@ sap.ui.define([
 			mLookupModel.setProperty("/sNotifBDFilter", "");
 			mLookupModel.setProperty("/sNotifPriorFilter", "");
 			mLookupModel.setProperty("/sNotifWkCenterFilter", "");
+			mLookupModel.setProperty("/sCreatedOnStart", formatter.GetMonthsBackDate(3));
+			mLookupModel.setProperty("/sCreatedOnEnd", new Date().toLocaleDateString());
 		}
 	});
 });

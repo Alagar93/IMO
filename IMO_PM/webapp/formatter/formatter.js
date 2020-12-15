@@ -26,53 +26,51 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 
 	},
 	//nischal -- Notification Detail's CreateWO button Visibility function
-	setBtnVisibleCreateOrder : function(sValue){
-		if(sValue == "NOPR"){
+	setBtnVisibleCreateOrder: function (sValue) {
+		if (sValue == "NOPR") {
 			return true;
-		}else{
+		} else {
 			return false;
 		}
 	},
 	//nischal -- notification Detail Revert button visible
-	setBtnVisibleRevert : function(sValue){
-		if(sValue == "NOCO" || sValue == "NOCO ORAS"){
+	setBtnVisibleRevert: function (sValue) {
+		if (sValue == "NOCO" || sValue == "NOCO ORAS") {
 			return true;
-		}else {
+		} else {
 			return false;
 		}
 	},
 	//nischal -- set Notification Detail View Enabled/Disabled based on Notification Status
-	setEnabledBasedOnStatus : function(sValue){
-		if(sValue == "NOCO" || sValue == "NOCO ORAS"){
+	setEnabledBasedOnStatus: function (sValue) {
+		if (sValue == "NOCO" || sValue == "NOCO ORAS") {
 			return false;
-		}else{
+		} else {
 			return true;
 		}
 	},
-	
+
 	//nischal -- notificationDetail Release button visible
-	setBtnVisibleRelease : function(sValue){
-		if (sValue == "NOPR" || sValue =="NOPR ORAS" || sValue == "NOCO" || sValue =="NOCO ORAS"){
+	setBtnVisibleRelease: function (sValue) {
+		if (sValue == "NOPR" || sValue == "NOPR ORAS" || sValue == "NOCO" || sValue == "NOCO ORAS") {
 			return false;
-		}
-		else {
+		} else {
 			return true;
 		}
 	},
 	//nischal -- notification Update button visible
-	setBtnVisibleUpdate : function(sValue){
-		if(sValue == "NOCO" || sValue == "NOCO ORAS"){
+	setBtnVisibleUpdate: function (sValue) {
+		if (sValue == "NOCO" || sValue == "NOCO ORAS") {
 			return false;
-		}
-		else{
+		} else {
 			return true;
 		}
 	},
 	//nischal -- notification close button visibility
-	setBtnVisibleClose : function(sValue){
-		if(sValue == "NOCO" || sValue == "NOCO ORAS"){
+	setBtnVisibleClose: function (sValue) {
+		if (sValue == "NOCO" || sValue == "NOCO ORAS") {
 			return false;
-		}else{
+		} else {
 			return true;
 		}
 	},
@@ -615,6 +613,12 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 		}
 		return "";
 	},
+	//  Function to Generate months back Date
+	GetMonthsBackDate: function (nMonths) {
+		var d = new Date();
+		d.setMonth(d.getMonth() - nMonths+1);
+		return d.toLocaleDateString();
+	},
 
 	//Function to disable Review role field
 	disableReviewField: function (userRole) {
@@ -626,6 +630,37 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 			}
 		}
 		return false;
+	},
+
+	// Function to disable Release Btn in notifList
+	disableReleaseField: function (selectedIndices, selectedPaths, NotifList) {
+		var bStatus = true;
+		if (!selectedIndices || selectedIndices < 1) {
+			return false;
+		}
+		for (var i = 0; i < selectedPaths.length; i++) {
+			var SelectedIndex = selectedPaths[i].sPath.split("/")[2];
+			var SysStatus = NotifList[SelectedIndex].SysStatus;
+			if (SysStatus !== "OSNO") {
+				bStatus = false;
+			}
+		}
+		return bStatus;
+	},
+	//function to disable Create Btn in notifList
+	disableMassCreateField: function (selectedIndices, selectedPaths, NotifList) {
+		var bStatus = true;
+		if (!selectedIndices || selectedIndices < 2) {
+			return false;
+		}
+		for (var i = 0; i < selectedPaths.length; i++) {
+			var SelectedIndex = selectedPaths[i].sPath.split("/")[2];
+			var SysStatus = NotifList[SelectedIndex].SysStatus;
+			if (SysStatus !== "NOPR") {
+				bStatus = false;
+			}
+		}
+		return bStatus;
 	},
 
 	fnWOStatusConversion: function (status) {
@@ -731,14 +766,12 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 
 	//Function to format WO status 
 	formatWOStatusTxt: function (status) {
-	/*	var mLookupModel = this.getModel("mLookupModel");//new
-		var oSelectedWODetails = mLookupModel.getProperty("/oSelectedWODetails");//new
-		
-		if(oSelectedWODetails) {
-			var status = oSelectedWODetails.SysStatusDes;//new		
-		}*/
-		
-	
+		/*	var mLookupModel = this.getModel("mLookupModel");//new
+			var oSelectedWODetails = mLookupModel.getProperty("/oSelectedWODetails");//new
+			
+			if(oSelectedWODetails) {
+				var status = oSelectedWODetails.SysStatusDes;//new		
+			}*/
 
 		var woStatus;
 		if (status === "CRTD") {
@@ -747,13 +780,11 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 			woStatus = "Released";
 		} else if (status === "TECO") {
 			woStatus = "TECO Completed";
-		}
-		else if (status === "PCNF") {
+		} else if (status === "PCNF") {
 			woStatus = "Partially Confirmed";
-		}
-		else if (status === "CNF") {
+		} else if (status === "CNF") {
 			woStatus = "Confirmed";
-		}else {
+		} else {
 			woStatus = "";
 		}
 		return woStatus;
@@ -967,10 +998,10 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 		return bVal;
 	},
 	///Function to enable notification in Notification notifDetail view
-	disableUploadNotifAttachment:function(notifStatus){
-		
+	disableUploadNotifAttachment: function (notifStatus) {
+
 		var bVal = false;
-		if (notifStatus === "" || notifStatus === undefined ) {
+		if (notifStatus === "" || notifStatus === undefined) {
 			bVal = false;
 		} else {
 			bVal = true;
@@ -978,9 +1009,9 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 		return bVal;
 	},
 	// Function to Set min End Date greater than Start Date
-	EndDateValidation:function(notifCreateStartDate){
+	EndDateValidation: function (notifCreateStartDate) {
 		debugger;
-		if(notifCreateStartDate){
+		if (notifCreateStartDate) {
 			return new Date(notifCreateStartDate);
 		}
 		return null;
@@ -1312,10 +1343,10 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 		return count;
 	},
 	// formatter to disable/enable switch in notifDetail view
-	setSwitchValue : function(sVal){
-		if(sVal === "M2"){
+	setSwitchValue: function (sVal) {
+		if (sVal === "M2") {
 			return true;
-		}else{
+		} else {
 			return false;
 		}
 	}

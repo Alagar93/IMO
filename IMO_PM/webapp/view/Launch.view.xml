@@ -44,7 +44,7 @@
 					</ObjectPageSubSection>
 				</subSections>
 			</ObjectPageSection>
-			<ObjectPageSection title="{i18n>op_spParts}">
+			<ObjectPageSection title="{i18n>op_spParts}" visible="false">
 				<subSections>
 					<ObjectPageSubSection class="sub">
 						<m:HBox>
@@ -54,7 +54,7 @@
 					</ObjectPageSubSection>
 				</subSections>
 			</ObjectPageSection>
-			<ObjectPageSection title="{i18n>op_reports}">
+			<ObjectPageSection title="{i18n>op_reports}" visible="false">
 				<subSections>
 					<ObjectPageSubSection class="sub">
 						<m:HBox>

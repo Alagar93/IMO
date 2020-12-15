@@ -106,7 +106,7 @@ sap.ui.define([
 			var sURL = "https://y66f2grv0hgps8wq-imo-imo-pm.cfapps.eu10.hana.ondemand.com/IMO_PM/index.html";
 			sap.m.URLHelper.redirect(sURL, false);
 		},
-		
+
 		//Function to get KPI's tile count WOs
 		fnGetKPIsWOs: function (serviceType, headerText) {
 			var that = this;
@@ -831,6 +831,11 @@ sap.ui.define([
 					if (!notifications) {
 						notifications = [];
 					}
+
+					for (var i = 0; i < notifArry.length; i++) { // Clear Long text of assigned notifications - Sunanda
+						notifArry[i].LongText = "";
+					}
+
 					var oTempArr = notifications.concat(notifArry);
 					oData.HEADERTOOPERATIONSNAV = operationList;
 					oData.HEADERTOCOMPONENTNAV = spareParts;
@@ -842,7 +847,7 @@ sap.ui.define([
 					that.updateWorkOrder();
 					var notifTbl = that.getView().byId("notifListId");
 					that.fnResetFilers(notifTbl, "mLookupModel");
-					//that.busy.close();
+					that.busy.close();
 				},
 				error: function (oData) {
 					oWorkOrderDetailModel.setProperty("/", {});
@@ -1055,7 +1060,6 @@ sap.ui.define([
 			this.DateFormat = DateFormat.getDateTimeInstance({
 				pattern: "yyyy-MM-dd HH:mm:ss"
 			});
-			
 
 			this.oHeader = {
 				"Accept": "application/json",
@@ -2397,8 +2401,11 @@ sap.ui.define([
 					var status = response.Status;
 					sData = that.fnFormatWODateObjects(sData);
 					if (status === "S" && orderId) {
-						that.onCancelDialogAssign();
+						if (that._oDialogAssignWO) {
+							that.onCancelDialogAssign();
+						}
 					}
+					that.mLookupModel.setProperty("/iSkipNotif", 0);
 					that.fnResetUItable();
 					that.fnShowSuccessErrorMsg(messages);
 					that.busy.close();
@@ -3157,7 +3164,7 @@ sap.ui.define([
 										that.fnNavLaunchpadHome();
 									}
 								});
-						}else if(btnType ==="NOTIF_DETAIL"){
+						} else if (btnType === "NOTIF_DETAIL") {
 							MessageBox.success("Work Order Created with Order ID : " + orderId + "\n For Notification ID : " +
 								sNotifID, {
 									actions: [MessageBox.Action.OK],
@@ -3165,6 +3172,19 @@ sap.ui.define([
 									onClose: function (sAction) {
 										that.busy.close();
 										that.fnFetchDetailNotifList();
+									}
+								});
+						} else if (btnType === "NOTIF_LIST_MULTINOTIF") { // To create work order to multiple notifications in NotificationList
+							that.AssignNotiftoCreatedWO(orderId);
+						} else if (btnType === "NOTIF_LIST_SINGLENOTIF") {
+							MessageBox.success("Work Order Created with Order ID : " + orderId + "\n For Notification ID : " +
+								sNotifID, {
+									actions: [MessageBox.Action.OK],
+									emphasizedAction: MessageBox.Action.OK,
+									onClose: function (sAction) {
+										that.busy.close();
+										that.mLookupModel.setProperty("/iSkipNotif", 0);
+										that.fnResetUItable();
 									}
 								});
 						}
