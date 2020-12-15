@@ -1,0 +1,370 @@
+<mvc:View controllerName="com.sap.incture.IMO_PM.controller.notifDetail" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:html="http://www.w3.org/1999/xhtml" displayBlock="true" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout"
+	xmlns:tnt="sap.tnt" xmlns:u="sap.ui.unified">
+	<Page showHeader="false" class="sapUiSizeCompact sapMPageBackground" floatingFooter="false">
+		<tnt:ToolHeader>
+			<Button icon="sap-icon://nav-back" type="Transparent" press="onBackTo_Notif_list"/>
+			<Button icon="sap-icon://home" type="Transparent" press="onPressHome" tooltip="{i18n>home}"/>
+			<Image src="images/Cherrywork_Logo_final_Option_1.png" height="55%" width="10%"/>
+			<Label design="Bold" class="sapUiSmallMarginBegin" text="{i18n>notifDetails}" wrapping="true"/>
+			<ToolbarSpacer/>
+		</tnt:ToolHeader>
+		<content>
+			<l:Grid>
+				<VBox class="sapUiSmallMarginBegin sapUiMediumMarginTop">
+					<l:Grid >
+						<VBox>
+							<Label text="{i18n>notifType}"></Label>
+							<!--<Select class="sapInputBorderClass" showSecondaryValues="true" items="{mLookupModel>/aNotificationTypeSet}"-->
+							<!--	selectedKey="{oNotificationDataModel>/NotifType}" tooltip="{oNotificationDataModel>/NotifType}" width="70%" forceSelection="false"-->
+							<!--	enabled="false">-->
+							<!--	<core:ListItem key="{mLookupModel>Qmart}" text="{mLookupModel>Qmart} - {mLookupModel>qmartx}"/>-->
+							<!--</Select>-->
+							<ComboBox showSecondaryValues="true" items="{path:'mLookupModel>/aNotificationTypeSet',sorter:{ path: 'text' }}"
+								selectedKey="{oNotificationDataModel>/NotifType}" class="sapInputBorderClass" enabled="false" width="70%">
+								<core:ListItem key="{mLookupModel>Qmart}" additionalText="{mLookupModel>qmartx}" text="{mLookupModel>Qmart}"/>
+							</ComboBox>
+							<layoutData>
+								<l:GridData span="XL6 L3 M6 S6"/>
+							</layoutData>
+						</VBox>
+						<VBox>
+							<Label text="{i18n>workOrder}"></Label>
+							<Input value="{oNotificationDataModel>/Orderid}" class="sapInputBorderClass" width="70%" enabled="false"/>
+							<layoutData>
+								<l:GridData span="XL6 L3 M6 S6"/>
+							</layoutData>
+						</VBox>
+						<VBox>
+							<Label text="{i18n>NOTIF_ID}"></Label>
+							<Input value="{oNotificationDataModel>/Notifid}" class="sapInputBorderClass" width="70%" enabled="false"/>
+							<layoutData>
+								<l:GridData span="XL6 L3 M6 S6"/>
+							</layoutData>
+						</VBox>
+						<VBox>
+							<Label text="{i18n>NOTIF_STATUS}"></Label>
+							<Input value="{mLookupModel>/SysStatus}" class="sapInputBorderClass" width="70%" enabled="false"/>
+							<layoutData>
+								<l:GridData span="XL6 L3 M6 S6"/>
+							</layoutData>
+						</VBox>
+						<VBox>
+							<Label text="{i18n>USER_STATUS}"></Label>
+							<Input value="{mLookupModel>/Userstatus}" class="sapInputBorderClass" width="70%" enabled="false"/>
+							<layoutData>
+								<l:GridData span="XL6 L3 M6 S6"/>
+							</layoutData>
+						</VBox>
+					</l:Grid>
+					<VBox class="sapVBoxBorderClass sapUiSmallMarginTop">
+						<VBox class="sapRefObjClass sapUiSmallMarginTop">
+							<Label text="{i18n>refObject}" design="Bold" class="sapUiSmallMarginBegin sapUiTinyMarginBottom"></Label>
+							<layoutData>
+								<l:GridData span="XL6 L12 M6 S6"/>
+							</layoutData>
+						</VBox>
+						<l:Grid class="sapUiSmallMarginTop sapUiTinyMarginBegin">
+							<VBox>
+								<Label text="{i18n>notif_Priority}" required="true"></Label>
+								<!--<Select class="sapInputBorderClass" forceSelection="false" width="70%" showSecondaryValues="true" enabled="true">-->
+								<!--	<core:ListItem key="4" text="Very High"/>-->
+								<!--	<core:ListItem key="3" text="High"/>-->
+								<!--</Select>-->
+								<ComboBox items="{ path: 'mLookupModel>/aPrioritySet', sorter: { path: 'text' } }" selectedKey="{oNotificationDataModel>/Priority}"
+									class="sapInputBorderClass" width="70%" showSecondaryValues="true" change="onChangePriority"
+									enabled="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setEnabledBasedOnStatus'}">
+									<core:Item key="{mLookupModel>PRIOK}" text="{mLookupModel>PRIOKX}"/>
+								</ComboBox>
+								<layoutData>
+									<l:GridData span="XL6 L12 M6 S6"/>
+								</layoutData>
+							</VBox>
+						</l:Grid>
+						<l:Grid class="sapUiSmallMarginTop sapUiTinyMarginBegin">
+							<VBox>
+								<Label text="{i18n>FunLocation}"></Label>
+								<Input width="70%" editable="true" showValueHelp="true" value="{oNotificationDataModel>/FunctLoc}" valueHelpOnly="false"
+									valueHelpRequest="fnLocValueHelp" class="sapInputBorderClass"
+									enabled="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setEnabledBasedOnStatus'}"></Input>
+								<layoutData>
+									<l:GridData span="XL6 L3 M6 S6"/>
+								</layoutData>
+							</VBox>
+							<VBox>
+								<Label text="{i18n>equip}"></Label>
+								<Input width="70%" showValueHelp="true" value="{oNotificationDataModel>/Equipment}" valueHelpRequest="openEquipmentListValueHelp"
+									tooltip="{oNotificationDataModel>/Equipment}" class="sapInputBorderClass" maxLength="18"
+									enabled="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setEnabledBasedOnStatus'}"></Input>
+								<layoutData>
+									<l:GridData span="XL6 L3 M6 S6"/>
+								</layoutData>
+							</VBox>
+							<VBox>
+								<Label text="{i18n>subAssemb}"></Label>
+								<ComboBox showSecondaryValues="true" items="{mLookupModel>/aEquipAssemblyList}" selectedKey="{oNotificationDataModel>/Assembly}"
+									class="sapInputBorderClass" width="70%"
+									enabled="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setEnabledBasedOnStatus'}">
+									<core:ListItem key="{mLookupModel>Idnrk}" text="{mLookupModel>Idnrk} - {mLookupModel>MAKTX}"/>
+								</ComboBox>
+								<layoutData>
+									<l:GridData span="XL6 L3 M6 S6"/>
+								</layoutData>
+							</VBox>
+							<VBox>
+								<Label text="{i18n>assigned_To}"></Label>
+								<ComboBox showSecondaryValues="true" class="sapInputBorderClass" width="70%" selectedKey="{mLookupModel>/assignedToHardCode}"
+									enabled="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setEnabledBasedOnStatus'}">
+									<core:ListItem key="John Smith" text="John Smith"/>
+									<core:ListItem key="Andrew Goal" text="Andrew Goal"/>
+								</ComboBox>
+								<layoutData>
+									<l:GridData span="XL6 L3 M6 S6"/>
+								</layoutData>
+							</VBox>
+						</l:Grid>
+						<VBox class="sapRespClass sapUiSmallMarginBegin sapUiSmallMarginTop">
+							<Label text="{i18n>resp}" design="Bold" class="sapUiTinyMarginBottom"></Label>
+							<layoutData>
+								<l:GridData span="XL6 L12 M6 S6"/>
+							</layoutData>
+						</VBox>
+						<l:Grid class="sapUiSmallMarginTop sapUiTinyMarginBegin">
+							<VBox>
+								<Label text="{i18n>notif_Priority}" required="true"></Label>
+								<!--<Select class="sapInputBorderClass" forceSelection="false" width="70%" showSecondaryValues="true" enabled="true">-->
+								<!--	<core:ListItem key="4" text="Very High"/>-->
+								<!--	<core:ListItem key="3" text="High"/>-->
+								<!--</Select>-->
+								<ComboBox items="{ path: 'mLookupModel>/aPrioritySet', sorter: { path: 'text' } }" selectedKey="{oNotificationDataModel>/Priority}"
+									class="sapInputBorderClass" width="70%" showSecondaryValues="true"
+									enabled="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setEnabledBasedOnStatus'}">
+									<core:Item key="{mLookupModel>PRIOK}" text="{mLookupModel>PRIOKX}"/>
+								</ComboBox>
+								<layoutData>
+									<l:GridData span="XL6 L3 M6 S6"/>
+								</layoutData>
+							</VBox>
+							<VBox>
+								<Label text="{i18n>planner}"></Label>
+								<Select class="sapInputBorderClass" forceSelection="false" selectedKey="{oNotificationDataModel>/Plangroup}" width="70%"
+									tooltip="{oNotificationDataModel>/Plangroup}" items="{mLookupModel>/aPlannerGroupSet}" showSecondaryValues="true"
+									enabled="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setEnabledBasedOnStatus'}">
+									<core:ListItem key="{mLookupModel>VAGRP}" text="{mLookupModel>VAGRP} - {mLookupModel>TXT}"/>
+								</Select>
+								<layoutData>
+									<l:GridData span="XL6 L3 M6 S6"/>
+								</layoutData>
+							</VBox>
+							<VBox>
+								<Label text="{i18n>notif_PlanningPlant}" required="true"></Label>
+								<!--<Select class="sapInputBorderClass" forceSelection="false" width="70%" SelectedKey = "4321" enabled="true">-->
+								<!--	<core:ListItem key="4321" text="4321"/>-->
+								<!--</Select>-->
+								<ComboBox class="sapInputBorderClass" width="70%" selectedKey="4321"
+									enabled="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setEnabledBasedOnStatus'}">
+									<core:Item key="4321" text="4321"/>
+								</ComboBox>
+								<layoutData>
+									<l:GridData span="XL6 L3 M6 S6"/>
+								</layoutData>
+							</VBox>
+							<VBox>
+								<Label text="{i18n>notif_mainWorkCtr}" required="true"></Label>
+								<ComboBox showSecondaryValues="true" items="{path:'mLookupModel>/aWorkCenterSet',sorter:{ path: 'text' }}"
+									selectedKey="{oNotificationDataModel>/WorkCenter}" class="sapInputBorderClass"
+									enabled="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setEnabledBasedOnStatus'}" width="70%">
+									<core:ListItem key="{mLookupModel>WorkcenterId}" additionalText="{mLookupModel>WorkcenterDesc}" text="{mLookupModel>WorkcenterId}"/>
+								</ComboBox>
+								<layoutData>
+									<l:GridData span="XL6 L3 M6 S6"/>
+								</layoutData>
+							</VBox>
+						</l:Grid>
+						<l:Grid class="sapUiSmallMarginTop sapUiTinyMarginBegin">
+							<VBox>
+								<Label text="{i18n>notif_plant}" required="true"></Label>
+								<!--<Select class="sapInputBorderClass" forceSelection="false" width="70%" showSecondaryValues="true" enabled="true">-->
+								<!--	<core:ListItem key="4321" text="4321"/>-->
+								<!--</Select>-->
+								<ComboBox class="sapInputBorderClass" width="70%" selectedKey="4321"
+									enabled="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setEnabledBasedOnStatus'}">
+									<core:Item key="4321" text="4321"/>
+								</ComboBox>
+								<layoutData>
+									<l:GridData span="XL6 L3 M6 S6"/>
+								</layoutData>
+							</VBox>
+							<VBox>
+								<Label text="{i18n>repBy}"></Label>
+								<Input value="{oNotificationDataModel>/Reportedby}" showValueHelp="true" width="70%" valueHelpRequest="handleValueHelp"
+									tooltip="{oNotificationDataModel>/Reportedby}" valueHelpOnly="true" class="sapInputBorderClass"
+									enabled="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setEnabledBasedOnStatus'}"/>
+								<layoutData>
+									<l:GridData span="XL6 L3 M6 S6"/>
+								</layoutData>
+							</VBox>
+							<VBox>
+								<Label text="Required Start Date"></Label>
+								<DatePicker placeholder="dd-MM-yyyy" dateValue="{oNotificationDataModel>/ReqStartdate}" width="70%" displayFormat="dd-MM-yyyy"
+									enabled="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setEnabledBasedOnStatus'}"
+									change="fnValidateDates" class="sapInputBorderClass">
+									<customData>
+										<core:CustomData key="dateType" value="ReqStartdate"/>
+									</customData>
+								</DatePicker>
+								<layoutData>
+									<l:GridData span="XL6 L3 M6 S6"/>
+								</layoutData>
+							</VBox>
+							<VBox>
+								<Label text="Required End Date"></Label>
+								<DatePicker placeholder="dd-MM-yyyy" dateValue="{oNotificationDataModel>/ReqEnddate}" width="70%" displayFormat="dd-MM-yyyy"
+									enabled="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setEnabledBasedOnStatus'}"
+									change="fnValidateDates" class="sapInputBorderClass">
+									<customData>
+										<core:CustomData key="dateType" value="ReqEnddate"/>
+									</customData>
+								</DatePicker>
+								<layoutData>
+									<l:GridData span="XL6 L3 M6 S6"/>
+								</layoutData>
+							</VBox>
+						</l:Grid>
+						<VBox class="sapSubClass sapUiSmallMarginBegin sapUiSmallMarginTop">
+							<Label text="{i18n>sub}" design="Bold" class="sapUiTinyMarginBottom"></Label>
+							<layoutData>
+								<l:GridData span="XL6 L12 M6 S6"/>
+							</layoutData>
+						</VBox>
+						<l:Grid class="sapUiSmallMarginTop sapUiTinyMarginBegin">
+							<VBox>
+								<Label text="{i18n>breakDown}"></Label>
+								<Switch state="{path:'oNotificationDataModel>/Breakdown', formatter:'com.sap.incture.IMO_PM.formatter.formatter.formatBooleanBreakDown'}"
+									customTextOn="{i18n>yes}" customTextOff="{i18n>no}" change="fnUpdateBreakDownStatus" id="idBreakDownSwitch"
+									enabled="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setEnabledBasedOnStatus'}"/>
+								<layoutData>
+									<l:GridData span="XL6 L3 M6 S6"/>
+								</layoutData>
+							</VBox>
+							<VBox>
+								<!--{oNotificationViewModel>/enableBreakDur}-->
+								<Label text="{i18n>BDownDuration}"></Label>
+								<Input value="{oNotificationDataModel>/BreakdownDur}" width="70%" tooltip="{oNotificationDataModel>/BreakdownDur}" maxLength="7"
+									enabled="false" class="sapInputBorderClass"></Input>
+								<layoutData>
+									<l:GridData span="XL6 L3 M6 S6"/>
+								</layoutData>
+							</VBox>
+							<VBox visible="{path:'oNotificationDataModel>/Breakdown', formatter:'com.sap.incture.IMO_PM.formatter.formatter.formatBooleanBreakDown'}">
+								<Label text="{i18n>malfnsDate}"></Label>
+								<DatePicker placeholder="dd-MM-yyyy" dateValue="{oNotificationDataModel>/Startdate}" width="70%" displayFormat="dd-MM-yyyy"
+									change="fnValidateMalFunDates" enabled="false" class="sapInputBorderClass">
+									<customData>
+										<core:CustomData key="dateType" value="Startdate"/>
+									</customData>
+								</DatePicker>
+								<layoutData>
+									<l:GridData span="XL6 L3 M6 S6"/>
+								</layoutData>
+							</VBox>
+							<VBox visible="{path:'oNotificationDataModel>/Breakdown', formatter:'com.sap.incture.IMO_PM.formatter.formatter.formatBooleanBreakDown'}">
+								<Label text="{i18n>malfnsTime}"></Label>
+								<TimePicker value="{oNotificationViewModel>/StartTime}" valueFormat="HH:mm" displayFormat="HH:mm" placeholder="HH:mm"
+									change="fnValidateMalFunDates" enabled="false" class="sapInputBorderClass" width="70%">
+									<customData>
+										<core:CustomData key="dateType" value="StartTime"/>
+									</customData>
+								</TimePicker>
+								<layoutData>
+									<l:GridData span="XL6 L3 M6 S6"/>
+								</layoutData>
+							</VBox>
+							<VBox visible="{path:'oNotificationDataModel>/Breakdown', formatter:'com.sap.incture.IMO_PM.formatter.formatter.formatBooleanBreakDown'}">
+								<Label text="{i18n>malfnedate}"></Label>
+								<DatePicker placeholder="dd-MM-yyyy" dateValue="{oNotificationDataModel>/Enddate}" width="70%" displayFormat="dd-MM-yyyy"
+									change="fnValidateMalFunDates" enabled="false" class="sapInputBorderClass">
+									<customData>
+										<core:CustomData key="dateType" value="Enddate"/>
+									</customData>
+								</DatePicker>
+								<layoutData>
+									<l:GridData span="XL6 L3 M6 S6"/>
+								</layoutData>
+							</VBox>
+							<VBox visible="{path:'oNotificationDataModel>/Breakdown', formatter:'com.sap.incture.IMO_PM.formatter.formatter.formatBooleanBreakDown'}">
+								<Label text="{i18n>malfnetime}"></Label>
+								<TimePicker value="{oNotificationViewModel>/EndTime}" valueFormat="HH:mm" displayFormat="HH:mm" placeholder="HH:mm"
+									change="fnValidateMalFunDates" enabled="false" class="sapInputBorderClass" width="70%">
+									<customData>
+										<core:CustomData key="dateType" value="EndTime"/>
+									</customData>
+								</TimePicker>
+								<layoutData>
+									<l:GridData span="XL6 L3 M6 S6"/>
+								</layoutData>
+							</VBox>
+							<VBox>
+								<Label text="{i18n>desc}" class="sapUiTinyMarginTop"></Label>
+								<Input value="{oNotificationDataModel>/ShortText}" width="70%" tooltip="{oNotificationDataModel>/ShortText}" maxLength="40"
+									class="sapInputBorderClass"
+									enabled="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setEnabledBasedOnStatus'}"></Input>
+								<layoutData>
+									<l:GridData span="XL6 L3 M6 S6"/>
+								</layoutData>
+							</VBox>
+							<VBox>
+								<Label text="{i18n>longText}" class="sapUiTinyMarginTop"/>
+								<VBox>
+									<TextArea width="67.5%" value="{oNotificationDataModel>/Longtext}" tooltip="{oNotificationViewModel>/Longtext}" rows="5" maxLength="2000"
+										class="sapInputBorderClass"
+										enabled="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setEnabledBasedOnStatus'}"/>
+									<!--<VBox fitContainer="true" class="sapUiCommentsBorderClass sapUiSmallMarginEnd sapUiTinyMarginTop" width="67.5%"-->
+									<!--	visible="{path:'oNotificationDataModel>/Longtext', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setLongTextHboxVisible'}"-->
+									<!--	items="{oNotificationViewModel>/longTextHistory}">-->
+									<!--	<Text wrapping="true" text="{oNotificationViewModel>}" class="sapUiTinyMarginBeginEnd sapUiTinyMarginTopBottom"/>-->
+									<!--</VBox>-->
+								</VBox>
+								<layoutData>
+									<l:GridData span="XL12 L12 M12 S12"/>
+								</layoutData>
+							</VBox>
+						</l:Grid>
+						<!--</l:Grid>-->
+					</VBox>
+					<layoutData>
+						<l:GridData span="XL8 L8 M6 S6"/>
+					</layoutData>
+				</VBox>
+				<VBox class="sapUiSmallMarginBegin sapUiMediumMarginTop">
+					<core:Fragment fragmentName="com.sap.incture.IMO_PM.fragment.commentTimelineNotifDetail" type="XML"/>
+					<layoutData>
+						<l:GridData span="XL3 L3 M6 S6"/>
+					</layoutData>
+				</VBox>
+			</l:Grid>
+		</content>
+		<footer>
+			<Toolbar>
+				<Button text="{i18n>close_notif}" id="idcloseNotif" type="Reject" press="onCloseNotif"
+					visible="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setBtnVisibleClose'}"/>
+				<Button text="{i18n>revert_Notif}" id="idrevertNotif" type="Emphasized" press="onRevertNotif"
+					visible="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setBtnVisibleRevert'}"/>
+				<ToolbarSpacer/>
+				<Button text="{i18n>updatenot}" id="updateNotif" type="Emphasized" press="checkMandatoryFields"
+					visible="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setBtnVisibleUpdate'}">
+					<customData>
+						<core:CustomData key="dateType" value="UPDATE"/>
+					</customData>
+				</Button>
+				<Button text="{i18n>APPROVE}" id="releaseButton" type="Emphasized" press="onPressRelease"
+					visible="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setBtnVisibleRelease'}"/>
+				<Button text="{i18n>CREATEORDER}" id="idCreateOrder" type="Emphasized" press="onCreateWODialogOpen"
+					visible="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setBtnVisibleCreateOrder'}"/>
+				<customData>
+					<core:CustomData key="dateType" value="DETAIL_NOTIF"/>
+				</customData>
+			</Toolbar>
+		</footer>
+	</Page>
+</mvc:View>

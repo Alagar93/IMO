@@ -1,0 +1,80 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:l="sap.ui.layout"
+	xmlns:table="sap.ui.table" xmlns:f="sap.ui.layout.form" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:fb="sap.ui.comp.filterbar"
+	xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+	<Dialog title="{}"  showHeader="false" verticalScrolling="false" class="sapUiSizeCompact">
+		<content>
+			<Panel width="auto" headerText="{i18n>BOM}" expandable="false" expanded="true" class="sapUiResponsiveMargin">
+				<content>
+					<table:Table selectionMode="None" visibleRowCountMode="Auto" rows="{mEquipDetailModel>/aBOMSet}">
+						<table:columns>
+							<table:Column sortProperty="item" filterProperty="item" width="8rem" defaultFilterOperator="Contains">
+								<Label design="Bold" text="{i18n>item}"/>
+								<table:template>
+									<Text text="{mEquipDetailModel>item}" class="tableContentText"></Text>
+								</table:template>
+							</table:Column>
+							<table:Column sortProperty="subAssembly" width="8rem" filterProperty="subAssembly">
+								<Label design="Bold" text="{i18n>assemb}"/>
+								<table:template>
+									<Text text="{mEquipDetailModel>subAssembly}" class="tableContentText"></Text>
+								</table:template>
+							</table:Column>
+							<table:Column sortProperty="description" width="12rem" filterProperty="description">
+								<Label design="Bold" text="{i18n>des}"/>
+								<table:template>
+									<Text text="{mEquipDetailModel>description}" class="tableContentText"></Text>
+								</table:template>
+							</table:Column>
+							<table:Column sortProperty="quantity" width="6rem" filterProperty="quantity">
+								<Label design="Bold" text="{i18n>quant}"/>
+								<table:template>
+									<Text text="{mEquipDetailModel>quantity}" class="tableContentText"></Text>
+								</table:template>
+							</table:Column>
+							<table:Column sortProperty="uom" width="4rem" filterProperty="uom">
+								<Label design="Bold" text="{i18n>UOM}"/>
+								<table:template>
+									<Text text="{mEquipDetailModel>uom}" class="tableContentText"></Text>
+								</table:template>
+							</table:Column>
+								<table:Column sortProperty="validStartDateString" hAlign="Center" width="10rem" filterProperty="validStartDateString">
+								<Label design="Bold" text="{i18n>validSDate}"/>
+								<table:template>
+									<Text text="{path:'mEquipDetailModel>validStartDateString'}" class="tableContentText"></Text>
+									<!--<Text text="{path:'mEquipDetailModel>validStartDate',formatter:'com.mylan.equipment.formatter.formatter.fnDateConversion'}"-->
+									<!--	class="tableContentText"></Text>-->
+								</table:template>
+							</table:Column>
+							<table:Column sortProperty="validEndDateString" hAlign="Center" width="10rem" filterProperty="validEndDateString">
+								<Label design="Bold" text="{i18n>validEDate}"/>
+								<table:template>
+									<Text text="{path:'mEquipDetailModel>validEndDateString'}" class="tableContentText"></Text>
+									<!--<Text text="{path:'mEquipDetailModel>validEndDate',formatter:'com.mylan.equipment.formatter.formatter.fnDateConversion'}"-->
+									<!--	class="tableContentText"></Text>-->
+								</table:template>
+							</table:Column>
+							<table:Column sortProperty="price" width="8rem" filterProperty="price">
+								<Label design="Bold" text="{i18n>unitPrice}"/>
+								<table:template>
+									<Text text="$ {mEquipDetailModel>price}" class="tableContentText"></Text>
+								</table:template>
+							</table:Column>
+							<table:Column sortProperty="changeNo" width="10rem" filterProperty="changeNo">
+								<Label design="Bold" text="{i18n>changeNo}"/>
+								<table:template>
+									<Text text="{mEquipDetailModel>changeNo}" class="tableContentText"/>
+								</table:template>
+							</table:Column>
+						</table:columns>
+					</table:Table>
+				</content>
+			</Panel>
+		</content>
+		<beginButton>
+			<Button text="{i18n>CANCEL}" press="onCancelDialogBOM"/>
+		</beginButton>
+		<endButton>
+			<Button text="{i18n>OK}" press="onSearchWOFilter" type="Emphasized"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition >

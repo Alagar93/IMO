@@ -1,0 +1,92 @@
+<mvc:View controllerName="com.sap.incture.IMO_PM.controller.equipment" xmlns:mvc="sap.ui.core.mvc" xmlns:html="http://www.w3.org/1999/xhtml"
+	displayBlock="false" xmlns="sap.m" xmlns:fb="sap.ui.comp.filterbar" xmlns:tnt="sap.tnt" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout"
+	height="100%" xmlns:table="sap.ui.table" xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+	<Page showHeader="false" class="sapUiSizeCompact">
+		<tnt:ToolHeader>
+			<Button icon="sap-icon://home" type="Transparent" press="onPressHome" tooltip="{i18n>home}"/>
+			<Image src="images/Cherrywork_Logo_final_Option_1.png" height="55%" width="10%"/>
+			<Label design="Bold" class="sapUiSmallMarginBegin" text="{i18n>tile_eqp}" wrapping="true"/>
+			<ToolbarSpacer/>
+		</tnt:ToolHeader>
+		<content>
+			<l:FixFlex>
+				<l:flexContent>
+					<table:Table id="idEquipTable" title="{i18n>searchRes}" selectionMode="None" class="sapUiTblHeaderColClass sapUiSmallMargin"
+						visibleRowCount="{mLookupModel>/rowCount}" rowHeight="40rem" rowSelectionChange="onSelectionChange" enableSelectAll="false"
+						rows="{mLookupModel>/aEquipmentsTable}">
+						<table:columns>
+							<table:Column sortProperty="Equnr" width="8%" filterProperty="Equnr" defaultFilterOperator="Contains">
+								<Text wrapping="true" text="{i18n>equip}" class="tableHeaderText"/>
+								<table:template>
+									<Link
+										text="{parts:['mLookupModel>Equnr', 'mLookupModel>Status'], formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnCheckIsBreakdown'}"
+										press="onSelectEquip" class="tableContentText"/>
+								</table:template>
+							</table:Column>
+							<table:Column sortProperty="Eqktu" width="14%" filterProperty="Eqktu">
+								<Text wrapping="true" text="{i18n>equipDes}" class="tableHeaderText"/>
+								<table:template>
+									<Text text="{mLookupModel>Eqktu}" class="tableContentText"></Text>
+								</table:template>
+							</table:Column>
+							<table:Column sortProperty="Tidnr" width="11%" filterProperty="Tidnr">
+								<Text wrapping="true" text="{i18n>techId}" class="tableHeaderText"/>
+								<table:template>
+									<Text text="{mLookupModel>Tidnr}" class="tableContentText"></Text>
+								</table:template>
+							</table:Column>
+							<table:Column sortProperty="Tplnr" width="11%" filterProperty="Tplnr">
+								<Text wrapping="true" text="{i18n>fn}" class="tableHeaderText"/>
+								<table:template>
+									<Text text="{mLookupModel>Tplnr}" class="tableContentText"></Text>
+								</table:template>
+							</table:Column>
+							<table:Column sortProperty="WorkCenter" width="7.5%" filterProperty="WorkCenter">
+								<Text wrapping="true" text="{i18n>mainWC}" class="tableHeaderText"/>
+								<table:template>
+									<Text text="{mLookupModel>WorkCenter}" class="tableContentText"></Text>
+								</table:template>
+							</table:Column>
+							<table:Column sortProperty="BomFlag" width="5%" filterProperty="BomFlag">
+								<Text wrapping="true" text="{i18n>bomflag}" class="tableHeaderText"/>
+								<table:template>
+									<Text text="{mLookupModel>BomFlag}" class="tableContentText"></Text>
+								</table:template>
+							</table:Column>
+							<table:Column sortProperty="SumLabHrs" width="10%" filterProperty="SumLabHrs">
+								<Text text="{i18n>sumlabhr}" class="tableHeaderText" wrapping="true"/>
+								<table:template>
+									<Text text="{mLookupModel>SumLabHrs}" class="tableContentText"></Text>
+								</table:template>
+							</table:Column>
+							<table:Column sortProperty="BDQty" width="9%" filterProperty="BDQty">
+								<Text text="{i18n>BDq}" class="tableHeaderText" wrapping="true"/>
+								<table:template>
+									<Text text="{mLookupModel>BDQty}" class="tableContentText"></Text>
+								</table:template>
+							</table:Column>
+							<table:Column sortProperty="PartCnt" width="9%" filterProperty="PartCnt">
+								<Text text="{i18n>pcount}" class="tableHeaderText" wrapping="true"/>
+								<table:template>
+									<Text text="{mLookupModel>PartCnt}" class="tableContentText"></Text>
+								</table:template>
+							</table:Column>
+							<table:Column sortProperty="PartCst" width="9%" filterProperty="PartCst">
+								<Text text="{i18n>pcost}" class="tableHeaderText" wrapping="true"/>
+								<table:template>
+									<Text text="{mLookupModel>PartCst}" class="tableContentText"></Text>
+								</table:template>
+							</table:Column>
+							<table:Column sortProperty="Status" width="9%" filterProperty="Status">
+								<Text wrapping="true" class="tableHeaderText" text="{i18n>stat}"/>
+								<table:template>
+									<Text text="{mLookupModel>Status}" class="tableContentText"/>
+								</table:template>
+							</table:Column>
+						</table:columns>
+					</table:Table>
+				</l:flexContent>
+			</l:FixFlex>
+		</content>
+	</Page>
+</mvc:View>

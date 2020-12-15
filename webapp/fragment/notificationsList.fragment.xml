@@ -1,0 +1,58 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:ui="sap.ui.table">
+	<Dialog title="{i18n>NOTIFICATION_LIST}" class="sapUiSizeCompact">
+		<content>
+			<HBox class="sapUiSmallMarginTop sapUiTinyMarginBegin">
+				<SearchField search="onSearchNotif" value="{oWorkOrderDetailViewModel>/notifSearchVal}" class="sapUiSmallMarginEnd sapInputBorderClass"
+					placeholder="{i18n>NOTI_ID_OR_DESC}"/>
+			</HBox>
+			<ui:Table rows="{oWorkOrderDetailViewModel>/aNotificationsSet}" selectionMode="MultiToggle" visibleRowCount="8" id="WO_DETAIL_NOTIF_TBL"
+				class="sapUITableColumn sapUiTinyMarginTop" enableSelectAll="false" rowSelectionChange="onSelectNotifications">
+				<ui:columns>
+					<ui:Column width="8rem" hAlign="Center">
+						<Label text="{i18n>NOTIFICATION}" class="sapUITableColumnLabelClass"/>
+						<ui:template>
+							<Text text="{oWorkOrderDetailViewModel>NotifNo}"/>
+						</ui:template>
+					</ui:Column>
+					<ui:Column width="15rem" hAlign="Center">
+						<Label text="{i18n>notifType}" class="sapUITableColumnLabelClass"/>
+						<ui:template>
+							<Select items="{mLookupModel>/aNotificationTypeSet}" selectedKey="{oWorkOrderDetailViewModel>NotifType}" enabled="false">
+								<core:ListItem key="{mLookupModel>Qmart}" text="{mLookupModel>Qmart} - {mLookupModel>qmartx}"/>
+							</Select>
+						</ui:template>
+					</ui:Column>
+					<ui:Column width="15rem" hAlign="Center">
+						<Label text="{i18n>DESCRIPTION}" class="sapUITableColumnLabelClass"/>
+						<ui:template>
+							<Text text="{oWorkOrderDetailViewModel>Descriptn}"/>
+						</ui:template>
+					</ui:Column>
+					<ui:Column width="8rem" hAlign="Center">
+						<Label text="{i18n>notifDate}" class="sapUITableColumnLabelClass"/>
+						<ui:template>
+							<DatePicker placeholder="dd-MM-yyyy" dateValue="{oWorkOrderDetailViewModel>NotifDate}" displayFormat="dd-MM-yyyy"
+								valueFormat="yyyy-MM-ddTHH:mm:ss" enabled="false"/>
+						</ui:template>
+					</ui:Column>
+					<ui:Column width="8rem" hAlign="Center">
+						<Label text="{i18n>equip}" class="sapUITableColumnLabelClass"/>
+						<ui:template>
+							<Text text="{oWorkOrderDetailViewModel>Equipment}"/>
+						</ui:template>
+					</ui:Column>
+					<ui:Column width="8rem" hAlign="Center">
+						<Label text="{i18n>breakDown}" class="sapUITableColumnLabelClass"/>
+						<ui:template>
+							<Switch state="{oWorkOrderDetailViewModel>Breakdown}" enabled="false"></Switch>
+						</ui:template>
+					</ui:Column>
+				</ui:columns>
+			</ui:Table>
+		</content>
+		<buttons>
+			<Button text="{i18n>CANCEL}" press="onCloseNotificationPopup"></Button>
+			<Button text="{i18n>ADD}" press="onAddNotifications" type="Emphasized"></Button>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,22 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:ui="sap.ui.table">
+	<Dialog title="Digital Signature" class="sapUiSizeCompact">
+		<content>
+			<FlexBox alignItems="Start" justifyContent="SpaceBetween" class="sapUiTinyMarginTopBottom sapUiTinyMarginEnd">
+				<items>
+					<Label text="{i18n>USER_ID}" class="sapUiTinyMarginBegin"/>
+					<Input value="{mLookupModel>/userName}" editable="false"/>
+				</items>
+			</FlexBox>
+			<FlexBox alignItems="Start" justifyContent="SpaceBetween" class="sapUiTinyMarginTopBottom sapUiTinyMarginEnd">
+				<items>
+					<Label text="{i18n>PASSWORD}" class="sapUiTinyMarginBegin"/>
+					<Input value="{mLookupModel>/digitalSign}" enabled="true" maxLength="30" type="Password" submit="fnValidateLoggedInUser"/>
+				</items>
+			</FlexBox>
+		</content>
+		<buttons>
+			<Button text="{i18n>CANCEL}" press="onCloseDigitalSignPopUp"></Button>
+			<Button text="{i18n>OK}" press="fnValidateLoggedInUser" type="Emphasized"></Button>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

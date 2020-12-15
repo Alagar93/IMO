@@ -1,0 +1,390 @@
+<mvc:View controllerName="com.sap.incture.IMO_PM.controller.shiftReport" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core" xmlns:u="sap.ui.unified"
+	xmlns:commons="sap.ui.commons" displayBlock="true" xmlns="sap.m" xmlns:ui="sap.ui.table" xmlns:viz="sap.viz.ui5.controls"
+	xmlns:tnt="sap.tnt">
+	<Page title="" showHeader="false" class="sapUiSizeCompact">
+		<tnt:ToolHeader>
+			<Button icon="sap-icon://home" type="Transparent" press="onPressHome" tooltip="{i18n>home}"/>
+			<Image src="images/Cherrywork_Logo_final_Option_1.png" height="55%" width="10%"/>
+			<Label design="Bold" class="sapUiSmallMarginBegin" text="{i18n>tile_shRept}" wrapping="true"/>
+			<ToolbarSpacer/>
+		</tnt:ToolHeader>
+		<content>
+			<Toolbar class="toolBarBorderClass">
+				<content>
+					<Label text="{i18n>SHIFT_END_REPORT}" design="Bold" class="titleClass sapUiSmallMarginTop sapUiSmallMarginBegin"/>
+				</content>
+			</Toolbar>
+			<l:Grid defaultSpan="L3 M6 S6" class="sapUiSmallMarginTop">
+				<VBox>
+					<Label text="{i18n>Plant}" required="true"/>
+					<ComboBox width="70%" filterSecondaryValues="true" showSecondaryValues="true"
+						items="{path:'mLookupModel>/aPlantSet',sorter:{ path: 'text' }}" selectedKey="{mLookupModel>/sPlantSel}" change="getWorkCenters"
+						class="sapInputBorderClass">
+						<core:ListItem key="{mLookupModel>name}" additionalText="{mLookupModel>plant}" text="{mLookupModel>name}"/>
+					</ComboBox>
+				</VBox>
+				<VBox>
+					<Label text="{i18n>Work Center}" required="true"/>
+					<ComboBox width="70%" showSecondaryValues="true" items="{path:'mLookupModel>/aWorkCenterSet',sorter:{ path: 'text' }}"
+						selectedKey="{mLookupModel>/sWorkCenterSel}" class="sapInputBorderClass">
+						<core:ListItem key="{mLookupModel>WorkcenterId}" additionalText="{mLookupModel>WorkcenterDesc}" text="{mLookupModel>WorkcenterId}"/>
+					</ComboBox>
+				</VBox>
+				<VBox visible="{mLookupModel>/startDate}">
+					<Label required="true" text="{i18n>fromDt}"/>
+					<DateTimePicker width="70%" placeholder="dd-MM-yyyy, HH:mm" displayFormat="dd-MM-yyyy, HH:mm" dateValue="{mLookupModel>/sFromDate}"
+						valueFormat="yyyy-MM-ddTHH:mm:ss" id="START_DATE">
+						<customData>
+							<core:CustomData value="START_DATE"/>
+						</customData>
+					</DateTimePicker>
+				</VBox>
+				<VBox visible="{mLookupModel>/endDate}">
+					<Label required="true" text="{i18n>endDt}"/>
+					<DateTimePicker width="70%" placeholder="dd-MM-yyyy, HH:mm" displayFormat="dd-MM-yyyy, HH:mm" dateValue="{mLookupModel>/sToDate}"
+						valueFormat="yyyy-MM-ddTHH:mm:ss" id="END_DATE">
+						<customData>
+							<core:CustomData value="END_DATE"/>
+						</customData>
+					</DateTimePicker>
+				</VBox>
+				<VBox>
+					<Label text="Type" required="true"/>
+					<ComboBox width="70%" showSecondaryValues="true" items="{mLookupModel>/uiSearchType}" selectedKey="{mLookupModel>/uiSearchTypeKey}"
+						class="sapInputBorderClass">
+						<core:ListItem key="{mLookupModel>key}" text="{mLookupModel>text}"/>
+					</ComboBox>
+				</VBox>
+				<VBox>
+					<Label/>
+					<Button text="{i18n>generateReport}" press="onGenerateReport" type="Emphasized" class="normalButton"/>
+				</VBox>
+			</l:Grid>
+			<VBox class="sapUiSmallMarginBegin sapUiSmallMarginEnd">
+				<IconTabBar class="iconTabBarCls sapMITBLabelBold" tabDensityMode="Compact" select="onIconbarSelect"
+					selectedKey="{mLookupModel>/selectedIconTab}">
+					<items>
+						<IconTabFilter text="{i18n>workSummary}" key="WORK_SUMMARY">
+							<VBox class="sapUiSmallMarginEnd">
+								<Label textAlign="Right"
+									text="{i18n>dateRange}: {path:'mLookupModel>/sFromDateLabel',formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnDateConversion'} - {path:'mLookupModel>/sToDateLabel',formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnDateConversion'}"/>
+								<ui:Table class="sapUiTblHeaderColClass" rows="{mLookupModel>/aWorkSummaryTable}" selectionMode="None" visibleRowCount="8"
+									visible="{mLookupModel>/iconTabar}">
+									<ui:columns>
+										<ui:Column width="17%">
+											<Label design="Bold" text="{i18n>fnLocTechId}" wrapping="true" class="tableHeaderText"/>
+											<ui:template>
+												<Text text="{mLookupModel>sFunTechId}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="10%" hAlign="Center">
+											<Label design="Bold" text="{i18n>worKCenter}" wrapping="true" class="tableHeaderText"/>
+											<ui:template>
+												<Text text="{mLookupModel>WorkCenter}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="12%" hAlign="Center">
+											<Label design="Bold" text="{i18n>newNotification}" wrapping="true" class="tableHeaderText"/>
+											<ui:template>
+												<Text text="{mLookupModel>NotifCount}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="8%" hAlign="Center">
+											<Label design="Bold" text="{i18n>PMHours}" wrapping="true" class="tableHeaderText"/>
+											<ui:template>
+												<Text text="{mLookupModel>PMHrs}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="9%" hAlign="Center">
+											<Label design="Bold" text="{i18n>reactiveHrs}" wrapping="true" class="tableHeaderText"/>
+											<ui:template>
+												<Text text="{mLookupModel>ReactiveHrs}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="8%" hAlign="Center">
+											<Label design="Bold" text="{i18n>totalHrs}" wrapping="true" class="tableHeaderText"/>
+											<ui:template>
+												<Text text="{mLookupModel>TotalHrs}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="8%" hAlign="Center">
+											<Label design="Bold" text="{i18n>BDCount}" wrapping="true" class="tableHeaderText"/>
+											<ui:template>
+												<Text text="{mLookupModel>BDCount}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="9%" hAlign="Center">
+											<Label design="Bold" text="{i18n>BDDuration}" wrapping="true" class="tableHeaderText"/>
+											<ui:template>
+												<Text text="{mLookupModel>BDDuration}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="9%" hAlign="Center">
+											<Label design="Bold" text="{i18n>partsIssued}" wrapping="true" class="tableHeaderText"/>
+											<ui:template>
+												<Text text="{mLookupModel>PartsIssued}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="12%" hAlign="Center">
+											<Label design="Bold" text="{i18n>costSummary}" wrapping="true" class="tableHeaderText"/>
+											<ui:template>
+												<Text text="{mLookupModel>CostSummary}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+									</ui:columns>
+								</ui:Table>
+							</VBox>
+							<l:FixFlex minFlexSize="250">
+								<l:flexContent>
+									<viz:VizFrame id="idStackedChart" vizType="stacked_column" width="100%" height="100%"></viz:VizFrame>
+								</l:flexContent>
+							</l:FixFlex>
+						</IconTabFilter>
+						<IconTabFilter text="{i18n>planMaintainVisiblity}" key="PLANNED_MAINTAIN">
+							<VBox class="sapUiSmallMarginEnd">
+								<Label textAlign="Right"
+									text="{i18n>dateRange}: {path:'mLookupModel>/sFromDatePM',formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnDateConversion'} - {path:'mLookupModel>/sToDatePM',formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnDateConversion'}"/>
+								<ui:Table class="sapUiTblHeaderColClass" rows="{mLookupModel>/aPMtable}" selectionMode="None" visibleRowCount="8">
+									<ui:columns>
+										<ui:Column width="6%">
+											<Label design="Bold" text="{i18n>plan}" wrapping="true" class="tableHeaderText"/>
+											<ui:template>
+												<Text text="{mLookupModel>MaintenancePlan}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="20%">
+											<Label design="Bold" text="{i18n>descp}" wrapping="true" class="tableHeaderText"/>
+											<ui:template>
+												<Text text="{mLookupModel>PlanDescription}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="11%">
+											<Label design="Bold" text="{i18n>package}" wrapping="true" class="tableHeaderText"/>
+											<ui:template>
+												<Text text="{mLookupModel>Package}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="11%">
+											<Label design="Bold" text="{i18n>dueDate}" wrapping="true" class="tableHeaderText"/>
+											<ui:template>
+												<Text
+													text="{parts:['mLookupModel>PlannedDate','mLookupModel>CompletionPercentage'],formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnStyleDueDate'}"
+													wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="6%" hAlign="Center">
+											<Label design="Bold" text="{i18n>estHrs}" wrapping="true" class="tableHeaderText"/>
+											<ui:template>
+												<Text text="{mLookupModel>EstimatedHours}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="9%" hAlign="Center">
+											<Label design="Bold" text="{i18n>bookedHrs}" wrapping="true" class="tableHeaderText"/>
+											<ui:template>
+												<Text text="{mLookupModel>BookedHours}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="9%" hAlign="Center">
+											<Label design="Bold" text="{i18n>orderCount}" wrapping="true" class="tableHeaderText"/>
+											<ui:template>
+												<Text text="{path:'mLookupModel>OrderCount',formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnFomatInteger'}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="9%" hAlign="Center">
+											<Label design="Bold" text="{i18n>opcount}" wrapping="true" class="tableHeaderText"/>
+											<ui:template>
+												<Text text="{path:'mLookupModel>OperationCount',formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnFomatInteger'}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="11%" hAlign="Center">
+											<Label design="Bold" text="{i18n>completion}" wrapping="true" class="tableHeaderText"/>
+											<ui:template>
+												<Text text="{mLookupModel>CompletionPercentage}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+									</ui:columns>
+								</ui:Table>
+							</VBox>
+						</IconTabFilter>
+						<IconTabFilter text="{i18n>sparePart}" key="SPARE_PART">
+							<VBox class="sapUiSmallMarginEnd">
+								<Label textAlign="Right"
+									text="{i18n>dateRange}: {path:'mLookupModel>/sFromDateLabel',formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnDateConversion'} - {path:'mLookupModel>/sToDateLabel',formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnDateConversion'}"/>
+								<ui:Table class="sapUiTblHeaderColClass" rows="{mLookupModel>/aSparePartsTable}" selectionMode="None" visibleRowCount="8">
+									<ui:columns>
+										<ui:Column width="14%">
+											<Label design="Bold" text="{i18n>fnLocTechId}" wrapping="true" class="tableHeaderText"/>
+											<ui:template>
+												<Text text="{mLookupModel>sFunTechId}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="9%">
+											<Label design="Bold" text="{i18n>material}" wrapping="true" class="tableHeaderText"/>
+											<ui:template>
+												<Text
+													text="{parts:['mLookupModel>MaterialNo','mLookupModel>ReOrder'],formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnStyleReOrder'}"
+													wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="14%">
+											<Label design="Bold" text="{i18n>description}" wrapping="true" class="tableHeaderText"/>
+											<ui:template>
+												<Text text="{mLookupModel>MaterialDescripiton}" wrapping="false" tooltip="{mLookupModel>MaterialDescripiton}"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="9%" hAlign="Center">
+											<Label design="Bold" text="{i18n>qtybooked}" wrapping="true" class="tableHeaderText"/>
+											<ui:template>
+												<Text text="{mLookupModel>QtyBooked}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="9%" hAlign="Center">
+											<Label design="Bold" text="{i18n>qtyIssued}" wrapping="true" class="tableHeaderText"/>
+											<ui:template>
+												<Text text="{mLookupModel>QtyIssued}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="9%" hAlign="Center">
+											<Label design="Bold" text="{i18n>qtyReturned}" wrapping="true" class="tableHeaderText"/>
+											<ui:template>
+												<Text text="{mLookupModel>QtyReturned}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="9%" hAlign="Center">
+											<Label design="Bold" text="{i18n>qtyOnOrder}" wrapping="true" class="tableHeaderText"/>
+											<ui:template>
+												<Text text="{mLookupModel>QtyOnOrder}"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="8%" hAlign="Center">
+											<Label design="Bold" text="{i18n>reorder}" wrapping="true" class="tableHeaderText"/>
+											<ui:template>
+												<Text text="{mLookupModel>ReOrder}"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="10%" hAlign="Center">
+											<Label design="Bold" text="{i18n>workOrder}" wrapping="true" class="tableHeaderText"/>
+											<ui:template>
+												<Text text="{mLookupModel>WorkOrderNo}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="9%" hAlign="Center">
+											<Label design="Bold" text="{i18n>lineCost}" wrapping="true" class="tableHeaderText"/>
+											<ui:template>
+												<Text text="{mLookupModel>LineCost}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+									</ui:columns>
+								</ui:Table>
+							</VBox>
+						</IconTabFilter>
+					</items>
+				</IconTabBar>
+			</VBox>
+			<VBox class="sapUiTinyMarginTop sapUiSmallMarginBegin sapUiSmallMarginEnd">
+				<IconTabBar id="idIconTabbar" tabDensityMode="Compact" items="{/}" select="onAssemblySelect" visible="{mLookupModel>/iconTabar}"
+					class="sapMITBLabelBold">
+					<items>
+						<IconTabFilter text="{sFunTechId}" key="{sFunTechId}"></IconTabFilter>
+					</items>
+				</IconTabBar>
+			</VBox>
+			<VBox>
+				<ui:TreeTable class="sapUiSmallMarginBeginEnd sapUiSmallMarginTop tableLayout sapUiTblHeaderColClass"
+					rows="{path:'oReportDataModel>/aTreeData', parameters: {arrayNames:['oprns']}}" toggleOpenState="onExpandCollapse" selectionMode="None"
+					visible="{mLookupModel>/iconTabar}" showNoData="true">
+					<ui:columns>
+						<ui:Column width="9%">
+							<Label design="Bold" text="{i18n>order}" wrapping="true" class="tableHeaderText"/>
+							<ui:template>
+								<Link text="{oReportDataModel>WorkOrderNo}" press="onViewWO" wrapping="false"/>
+								<!--<Text text="{oReportDataModel>WorkOrderNo}" wrapping="false"/>-->
+							</ui:template>
+						</ui:Column>
+						<ui:Column width="14%">
+							<Label design="Bold" text="{i18n>equipment}" wrapping="true" class="tableHeaderText"/>
+							<ui:template>
+								<Text text="{oReportDataModel>EquipDescription}" tooltip="{oReportDataModel>EquipDescription}"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column width="14%">
+							<Label design="Bold" text="{i18n>title1}" wrapping="true" class="tableHeaderText"/>
+							<ui:template>
+								<Text text="{oReportDataModel>WODescription}" tooltip="{oReportDataModel>WODescription}" wrapping="false"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column width="8%">
+							<Label design="Bold" text="{i18n>breakdown}" wrapping="true" class="tableHeaderText"/>
+							<ui:template>
+								<Text text="{oReportDataModel>BDFlag}" wrapping="false"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column width="7%" hAlign="Center">
+							<Label design="Bold" text="{i18n>status}" wrapping="true" class="tableHeaderText"/>
+							<ui:template>
+								<Text text="{oReportDataModel>SystemStatus}" wrapping="false"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column width="7%" hAlign="Center">
+							<Label design="Bold" text="{i18n>operation}" wrapping="true" class="tableHeaderText"/>
+							<ui:template>
+								<Text text="{oReportDataModel>OperationId}" wrapping="false"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column width="10%" hAlign="Center">
+							<Label design="Bold" text="{i18n>systemCondition}" wrapping="true" class="tableHeaderText"/>
+							<ui:template>
+								<Text text="{oReportDataModel>SystemCondition}" wrapping="false"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column width="12%" hAlign="Center">
+							<Label design="Bold" text="{i18n>operationST}" wrapping="true" class="tableHeaderText"/>
+							<ui:template>
+								<Text text="{oReportDataModel>OperationText}" tooltip="{OperationText}" wrapping="false"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column width="14%" hAlign="Center">
+							<Label design="Bold" text="{i18n>confirmLongText}" wrapping="true" class="tableHeaderText"/>
+							<ui:template>
+								<Button icon="sap-icon://display" class="LTextButton" type="Emphasized" tooltip="{i18n>confLongTextTooltip}"
+									enabled="{parts:['oReportDataModel>OperationId','oReportDataModel>oprnLText'],formatter:'com.sap.incture.IMO_PM.formatter.formatter.styleCNFLongText'}"
+									press="onOprnLongTextPress"/>
+							</ui:template>
+						</ui:Column>
+					</ui:columns>
+				</ui:TreeTable>
+				<ui:Table class="sapUiSmallMarginBeginEnd sapUiSmallMarginTopBottom tableLayout sapUiTblHeaderColClass"
+					rows="{oReportDataModel>/aNotifData}" selectionMode="None" visibleRowCount="8" visible="{mLookupModel>/iconTabar}">
+					<ui:columns>
+						<ui:Column>
+							<Label design="Bold" text="{i18n>notification}" wrapping="true" class="tableHeaderText"/>
+							<ui:template>
+								<Text text="{oReportDataModel>NotificationNo}" wrapping="false"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column>
+							<Label design="Bold" text="{i18n>equipment}" wrapping="true" class="tableHeaderText"/>
+							<ui:template>
+								<Text text="{oReportDataModel>EquipDescription}" wrapping="false"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column>
+							<Label design="Bold" text="{i18n>createdDate}" wrapping="true" class="tableHeaderText"/>
+							<ui:template>
+								<Text text="{path:'oReportDataModel>CreationDate',formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnDateConversion'}" wrapping="false"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column>
+							<Label design="Bold" text="{i18n>notificationComment}" wrapping="true" class="tableHeaderText"/>
+							<ui:template>
+								<Button icon="sap-icon://display" enabled="{= ${oReportDataModel>LongText} ? true : false }" type="Emphasized"
+									tooltip="show notification comment" press="onLongTextPress"></Button>
+							</ui:template>
+						</ui:Column>
+					</ui:columns>
+				</ui:Table>
+			</VBox>
+		</content>
+	</Page>
+</mvc:View>

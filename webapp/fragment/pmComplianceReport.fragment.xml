@@ -1,0 +1,133 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:viz="sap.viz.ui5.controls"
+	xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds" xmlns:viz.data="sap.viz.ui5.data">
+	<VBox visible="{oViewPropertyModel>/pmComplianceRepVisible}" class="sapUiMediumMarginBegin sapUiSmallMarginTop">
+		<Toolbar class="sapBorderClass sapUiSmallMarginBottom">
+			<content>
+				<Label text="{i18n>PM_MAINTENANCE_REORT}" design="Bold"></Label>
+			</content>
+		</Toolbar>
+		<SegmentedButton selectedKey="{oViewPropertyModel>/pmComplianceViewType}" class="sapUiSmallMarginBottom sapUiSmallMarginBegin"
+			select="onSelComplianceSearchType">
+			<items>
+				<SegmentedButtonItem text="{i18n>FUN_LOC}" key="FUNC_LOCATION"/>
+				<SegmentedButtonItem text="{i18n>ORDER_TYPES}" key="ODER_TYPES"/>
+			</items>
+		</SegmentedButton>
+		<l:Grid visible="{oViewPropertyModel>/pmComplianceFLVisible}">
+			<VBox>
+				<Label text="{i18n>PLANT}" design="Bold"></Label>
+				<Select items="{path:'mLookupModel>/aPlantSet',sorter:{ path: 'plant' }}" forceSelection="false"
+					selectedKey="{oViewPropertyModel>/pmCompliancePlant}" width="100%" showSecondaryValues="true" change="getWorkCentersReports">
+					<core:ListItem key="{mLookupModel>name}" additionalText="{mLookupModel>name}" text="{mLookupModel>plant}"/>
+				</Select>
+				<layoutData>
+					<l:GridData span="XL2 L2 M2 S2"/>
+				</layoutData>
+			</VBox>
+			<VBox>
+				<Label text="{i18n>FUN_LOCA}" design="Bold"></Label>
+				<MultiComboBox width="100%" items="{mLookupModel>/aFuncLocSet}" showSecondaryValues="true"
+					selectedKeys="{oViewPropertyModel>/pmComplianceFunLoc}">
+					<core:ListItem key="{mLookupModel>Tplnr}" text="{mLookupModel>Tplnr}"/>
+				</MultiComboBox>
+				<layoutData>
+					<l:GridData span="XL2 L2 M2 S2"/>
+				</layoutData>
+			</VBox>
+			<VBox>
+				<Label text="{i18n>COMPLIANCE}" design="Bold"></Label>
+				<ComboBox showSecondaryValues="true" items="{oViewPropertyModel>/complicanceOptions}"
+					selectedKey="{oViewPropertyModel>/pmComplianceOptions}" width="100%">
+					<core:ListItem key="{oViewPropertyModel>key}" text="{oViewPropertyModel>text}"/>
+				</ComboBox>
+				<layoutData>
+					<l:GridData span="XL2 L2 M2 S2"/>
+				</layoutData>
+			</VBox>
+			<VBox>
+				<Label text="{i18n>DATE_RANGE}" design="Bold"></Label>
+				<ComboBox showSecondaryValues="true" items="{oViewPropertyModel>/timeBucket}" selectedKey="{oViewPropertyModel>/pmComplianceTimeBucket}"
+					width="100%">
+					<core:ListItem key="{oViewPropertyModel>key}" text="{oViewPropertyModel>text}"/>
+				</ComboBox>
+				<layoutData>
+					<l:GridData span="XL2 L2 M2 S2"/>
+				</layoutData>
+			</VBox>
+			<VBox>
+				<Label/>
+				<HBox>
+					<Button text="{i18n>SEARCH}" type="Emphasized" press="fnSearchFLComplianceRep"/>
+					<!--<Button text="Clear" type="Reject" press="fnClrPlanRectiveRepParams" class="sapUiSmallMarginBegin"/>-->
+				</HBox>
+				<layoutData>
+					<l:GridData span="XL2 L2 M2 S2"/>
+				</layoutData>
+			</VBox>
+		</l:Grid>
+		<l:Grid visible="{oViewPropertyModel>/pmComplianceWCVisible}">
+			<VBox>
+				<Label text="{i18n>PLANT}" design="Bold"></Label>
+				<Select items="{path:'mLookupModel>/aPlantSet',sorter:{ path: 'plant' }}" forceSelection="false" selectedKey="{oViewPropertyModel>/pmCompliancePlant}" width="100%"
+					showSecondaryValues="true" change="getWorkCentersReports">
+					<core:ListItem key="{mLookupModel>name}" additionalText="{mLookupModel>name}" text="{mLookupModel>plant}"/>
+				</Select>
+				<layoutData>
+					<l:GridData span="XL2 L2 M2 S2"/>
+				</layoutData>
+			</VBox>
+			<VBox>
+				<Label text="{i18n>WORK_CENTER}" design="Bold"></Label>
+				<MultiComboBox width="100%" items="{path:'mLookupModel>/aWorkCenterSet',sorter:{ path: 'WorkcenterId' }}" showSecondaryValues="true"
+					selectedKeys="{oViewPropertyModel>/pmComplianceWCs}">
+					<core:ListItem key="{mLookupModel>WorkcenterId}" additionalText="{mLookupModel>WorkcenterDesc}" text="{mLookupModel>WorkcenterId}"/>
+				</MultiComboBox>
+				<layoutData>
+					<l:GridData span="XL2 L2 M2 S2"/>
+				</layoutData>
+			</VBox>
+			<VBox>
+				<Label text="{i18n>ORDER_TYPE}" design="Bold"></Label>
+				<MultiComboBox width="100%" items="{path:'mLookupModel>/aOrderTypeSet',sorter:{ path: 'text' }}" showSecondaryValues="true"
+					selectedKeys="{oViewPropertyModel>/pmComplianceOrders}">
+					<core:ListItem key="{mLookupModel>AUART}" additionalText="{mLookupModel>TXT}" text="{mLookupModel>AUART}"/>
+				</MultiComboBox>
+				<layoutData>
+					<l:GridData span="XL2 L2 M2 S2"/>
+				</layoutData>
+			</VBox>
+			<VBox>
+				<Label text="{i18n>COMPLIANCE}" design="Bold"></Label>
+				<ComboBox showSecondaryValues="true" items="{oViewPropertyModel>/complicanceOptions}"
+					selectedKey="{oViewPropertyModel>/pmComplianceOptions}" width="100%">
+					<core:ListItem key="{oViewPropertyModel>key}" text="{oViewPropertyModel>text}"/>
+				</ComboBox>
+				<layoutData>
+					<l:GridData span="XL2 L2 M2 S2"/>
+				</layoutData>
+			</VBox>
+			<VBox>
+				<Label text="{i18n>DATE_RANGE}" design="Bold"></Label>
+				<ComboBox showSecondaryValues="true" items="{oViewPropertyModel>/timeBucket}" selectedKey="{oViewPropertyModel>/pmComplianceTimeBucket}"
+					width="100%">
+					<core:ListItem key="{oViewPropertyModel>key}" text="{oViewPropertyModel>text}"/>
+				</ComboBox>
+				<layoutData>
+					<l:GridData span="XL2 L2 M2 S2"/>
+				</layoutData>
+			</VBox>
+			<VBox>
+				<Label/>
+				<HBox>
+					<Button text="{i18n>SEARCH}" type="Emphasized" press="fnSearchWOComplianceRep"/>
+				</HBox>
+				<layoutData>
+					<l:GridData span="XL2 L2 M2 S2"/>
+				</layoutData>
+			</VBox>
+		</l:Grid>
+	</VBox>
+	<viz:VizFrame id="PM_COMPLIANCE_FL_GRAPH" class="sapUiLargeMarginBegin sapUiSmallMarginTop" height="60%" width="96%"
+		visible="{oViewPropertyModel>/pmComplianceGraphVisible}"
+		vizProperties="{title:{ text:'PM Compliance Graph', style:{color:'gray'}, alignment:'left', layout:{height:'0.2'}}, plotArea: { colorPalette: ['#e17b24', '#316FA8', '#51AE03', '#AE0303', '#F7F143']}, valueAxis: { title: { visible: false } },categoryAxis: { title: { visible: false } }}"></viz:VizFrame>
+</core:FragmentDefinition>

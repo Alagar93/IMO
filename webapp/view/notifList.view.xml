@@ -1,0 +1,183 @@
+<mvc:View controllerName="com.sap.incture.IMO_PM.controller.notifList" xmlns:mvc="sap.ui.core.mvc" xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns="sap.m" xmlns:fb="sap.ui.comp.filterbar" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" height="100%" xmlns:table="sap.ui.table"
+	xmlns:tnt="sap.tnt">
+	<Page showHeader="false" class="sapUiSizeCompact sapMPageBackground">
+		<tnt:ToolHeader>
+			<Button icon="sap-icon://home" type="Transparent" press="onPressHome" tooltip="{i18n>home}"/>
+			<Image src="images/Cherrywork_Logo_final_Option_1.png" height="55%" width="10%"/>
+			<Label design="Bold" class="sapUiSmallMarginBegin" text="{i18n>tile_notifList}" wrapping="true"/>
+			<ToolbarSpacer/>
+		</tnt:ToolHeader>
+		<content>
+			<l:FixFlex>
+				<l:fixContent width="100%">
+					<HBox class="sapUiSmallMarginTop sapUiTinyMarginBegin">
+						<HBox width="85%" id="NOTIF_LIST_KPI_TILES">
+							<VBox class="formatKPIBox">
+								<Text class="sapUiTinyMargin notificationHeaderText" wrapping="true" text="{i18n>BDNotif}"/>
+								<Text text="{mLookupModel>/breakDownNotificationCount}" class="sapUiTinyMargin formatKPINumber"/>
+								<customData>
+									<core:CustomData value="NOTIF_LIST_BREAKDOWNS"/>
+								</customData>
+							</VBox>
+							<VBox class="formatKPIBox">
+								<Text class="sapUiTinyMargin notificationHeaderText" wrapping="true" text="{i18n>notifDue}"/>
+								<Text text="{mLookupModel>/notificationsDueCount}" class="sapUiTinyMargin formatKPINumber"/>
+								<customData>
+									<core:CustomData value="NOTIF_LIST_NOTIFICATIONS_DUE"/>
+								</customData>
+							</VBox>
+							<VBox class="formatKPIBox">
+								<Text class="sapUiTinyMargin notificationHeaderText" wrapping="true" text="Assigned to me"/>
+								<Text text="{mLookupModel>/notificationsDueCount}" class="sapUiTinyMargin formatKPINumber"/>
+								<customData>
+									<core:CustomData value="NOTIF_LIST_ASSIGNED_TO_ME"/>
+								</customData>
+							</VBox>
+						</HBox>
+						<layoutData>
+							<l:GridData span="L6 M8 S12"/>
+						</layoutData>
+					</HBox>
+				</l:fixContent>
+				<l:flexContent>
+					<VBox height="100%" class="sapVBoxNotiListClass sapUiTinyMarginTop sapUiTinyMarginBegin">
+						<table:Table visibleRowCountMode="Fixed" visibleRowCount="{mLookupModel>/rowCount}" rowHeight="40" selectionMode="MultiToggle"
+							class="sapUiTblHeaderColClass" rowSelectionChange="onSelectionChange" enableSelectAll="false" id="notifListId"
+							rows="{mLookupModel>/aNotificationListSet}">
+							<table:extension>
+								<Toolbar class="notListToolBarBorderClass">
+									<content>
+										<Title text="{i18n>notifList}" class="styleTableTitle"/>
+										<ToolbarSpacer/>
+										<Link text="{i18n>advFilter}" press="onHandleNotifAdvFilter"/>
+										<SearchField width="25%" search="onSearchNotif" value="{mLookupModel>/sNotifIDDesFilter}" placeholder="{i18n>searchNotif}"
+											class="sapSearchFieldBorderClass"/>
+									</content>
+								</Toolbar>
+							</table:extension>
+							<table:columns>
+								<table:Column sortProperty="NotifNo" filterProperty="NotifNo" width="7%">
+									<Text wrapping="true" text="{i18n>notifID}" class="tableHeaderText"/>
+									<table:template>
+										<!--<Text text="{mLookupModel>NotifNo}" class="tableContentText"></Text>-->
+										<Link text="{mLookupModel>NotifNo}" press="handleLinkPress"/>
+									</table:template>
+								</table:Column>
+								<table:Column sortProperty="Descriptn" filterProperty="Descriptn" width="10.5%">
+									<Text wrapping="true" text="{i18n>notifDes}" class="tableHeaderText"/>
+									<table:template>
+										<Text text="{mLookupModel>Descriptn}" class="tableContentText"></Text>
+									</table:template>
+								</table:Column>
+								<table:Column sortProperty="WorkCntr" filterProperty="WorkCntr" width="6.5%">
+									<Text wrapping="true" text="{i18n>mainWC}" class="tableHeaderText"/>
+									<table:template>
+										<Text text="{mLookupModel>WorkCntr}" class="tableContentText"></Text>
+									</table:template>
+								</table:Column>
+								<table:Column sortProperty="Orderid" filterProperty="Orderid" width="5.5%">
+									<Text wrapping="true" text="{i18n>WONum}" class="tableHeaderText"/>
+									<table:template>
+										<Text text="{mLookupModel>Orderid}" class="tableContentText"></Text>
+									</table:template>
+								</table:Column>
+								<table:Column sortProperty="Equipment" filterProperty="Equipment" width="6.5%">
+									<Text wrapping="true" text="{i18n>equip}" class="tableHeaderText"/>
+									<table:template>
+										<Text text="{mLookupModel>Equipment}" class="tableContentText"></Text>
+									</table:template>
+								</table:Column>
+								<table:Column sortProperty="TechId" filterProperty="TechId" width="9%">
+									<Text wrapping="true" text="{i18n>techID}" class="tableHeaderText"/>
+									<table:template>
+										<Text text="{mLookupModel>TechId}" class="tableContentText"></Text>
+									</table:template>
+								</table:Column>
+								<table:Column sortProperty="Equidescr" filterProperty="Equidescr" width="11%">
+									<Text wrapping="true" text="{i18n>EqDes}" class="tableHeaderText"/>
+									<table:template>
+										<Text text="{mLookupModel>Equidescr}" class="tableContentText"></Text>
+									</table:template>
+								</table:Column>
+								<table:Column sortProperty="SysStatus" filterProperty="SysStatus" width="7%">
+									<Text wrapping="true" text="{i18n>notifStatus}" class="tableHeaderText"/>
+									<table:template>
+										<Text text="{mLookupModel>SysStatus}" class="tableContentText"></Text>
+									</table:template>
+								</table:Column>
+								<table:Column sortProperty="ReqstartdateString" filterProperty="ReqstartdateString" width="6%">
+									<Text wrapping="true" text="{i18n>reqStart}" class="tableHeaderText"/>
+									<table:template>
+										<Text text="{path:'mLookupModel>ReqstartdateString'}" class="tableContentText"></Text>
+									</table:template>
+								</table:Column>
+								<table:Column sortProperty="ReqenddateString" filterProperty="ReqenddateString" width="6%">
+									<Text wrapping="true" text="{i18n>reqFinish}" class="tableHeaderText"/>
+									<table:template>
+										<Text text="{path:'mLookupModel>ReqenddateString'}" class="tableContentText"></Text>
+									</table:template>
+								</table:Column>
+								<table:Column sortProperty="Breakdown" filterProperty="Breakdown" width="4%">
+									<Text wrapping="true" text="{i18n>BdownFlag}" class="tableHeaderText"/>
+									<table:template>
+										<Text text="{mLookupModel>Breakdown}" class="tableContentText"></Text>
+									</table:template>
+								</table:Column>
+								<table:Column sortProperty="PriorityDesNotif" width="6%" filterProperty="PriorityDesNotif">
+									<Text wrapping="true" text="{i18n>prior}" class="tableHeaderText"/>
+									<table:template>
+										<Text text="{path:'mLookupModel>PriorityDesNotif'}" class="tableContentText"></Text>
+									</table:template>
+								</table:Column>
+								<table:Column sortProperty="CreatedOnString" filterProperty="CreatedOnString" width="6%">
+									<Text wrapping="true" text="{i18n>createdDate}" class="tableHeaderText"/>
+									<table:template>
+										<Text text="{path:'mLookupModel>CreatedOnString'}" class="tableContentText"></Text>
+									</table:template>
+								</table:Column>
+								<table:Column sortProperty="CreatedBy" filterProperty="CreatedBy" width="7%">
+									<Text wrapping="true" text="{i18n>createdby}" class="tableHeaderText"/>
+									<table:template>
+										<Text text="{mLookupModel>CreatedBy}" class="tableContentText"></Text>
+									</table:template>
+								</table:Column>
+								<table:Column width="7%">
+									<Text wrapping="true" text="{i18n>Action}" class="tableHeaderText"/>
+									<table:template>
+										<HBox>
+											<Button text="{i18n>Notif_List_Release}" press="onPressReleaseRowNotif" type="Emphasized"
+												visible="{=${mLookupModel>SysStatus}==='OSNO'?true:false}"/>
+											<Button text="{i18n>Notif_List_CreateWO}" press="onPressCreateRowNotif" type="Emphasized"
+												visible="{=${mLookupModel>SysStatus}==='NOPR'?true:false}"/>
+										</HBox>
+									</table:template>
+								</table:Column>
+							</table:columns>
+							<table:footer>
+								<Toolbar>
+									<ToolbarSpacer/>
+									<Button text="{i18n>loadmore}" press="handleLoadMoreNotif"></Button>
+									<Text text="{i18n>totalrec}"></Text>
+									<Input width="5rem" value="{mLookupModel>/aNotificationListSet/0/Totalrecords}" enabled="false"></Input>
+								</Toolbar>
+							</table:footer>
+						</table:Table>
+					</VBox>
+				</l:flexContent>
+			</l:FixFlex>
+		</content>
+		<footer>
+			<Toolbar>
+				<Button text="{i18n>Notif_List_Mass_Release}" press="onPressReleaseMassNotif" type="Emphasized"
+					visible="{parts:['mLookupModel>/iSelectedIndices','mLookupModel>/selectedNotifs','mLookupModel>/aNotificationListSet'],formatter:'com.sap.incture.IMO_PM.formatter.formatter.disableReleaseField'}"/>
+				<Button text="{i18n>Notif_List_Create_Mass_WO}" press="onPressCreateMassWO" type="Emphasized"
+					visible="{parts:['mLookupModel>/iSelectedIndices','mLookupModel>/selectedNotifs','mLookupModel>/aNotificationListSet'],formatter:'com.sap.incture.IMO_PM.formatter.formatter.disableMassCreateField'}"/>
+				<ToolbarSpacer/>
+				<Button text="{i18n>assign}" press="onAssignWO" type="Emphasized"
+					visible="{path:'oUserDetailModel>/userRole', formatter:'com.sap.incture.IMO_PM.formatter.formatter.disableReviewField'}"/>
+				<Button text="{i18n>viewDetail}" enabled="{= ${mLookupModel>/iSelectedIndices} === 1 ? true: false}" press="onNotifDetail" type="Emphasized"/>
+			</Toolbar>
+		</footer>
+	</Page>
+</mvc:View>

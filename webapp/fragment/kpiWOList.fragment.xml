@@ -1,0 +1,27 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:ui="sap.ui.table">
+	<Dialog title="{mLookupModel>/kpiWOHeader}" class="sapUiSizeCompact">
+		<content>
+			<ui:Table rows="{mLookupModel>/kpiWOlist}" selectionMode="MultiToggle" rowSelectionChange="getSelectedKPIsWOs" visibleRowCount="8"
+				class="sapUITableColumn sapUiTinyMarginTop" enableSelectAll="false" id="WO_KPI_LIST_TBL">
+				<ui:columns>
+					<ui:Column hAlign="Center" filterProperty="Number" sortProperty="Number" defaultFilterOperator="Contains">
+						<Label text="{i18n>orderID}" class="sapUITableColumnLabelClass" design="Bold"/>
+						<ui:template>
+							<Text text="{mLookupModel>Number}"/>
+						</ui:template>
+					</ui:Column>
+					<ui:Column hAlign="Center" filterProperty="Description" sortProperty="Description" defaultFilterOperator="Contains">
+						<Label text="{i18n>ORDER_DESC}" class="sapUITableColumnLabelClass" design="Bold"/>
+						<ui:template>
+							<Text text="{mLookupModel>Description}"/>
+						</ui:template>
+					</ui:Column>
+				</ui:columns>
+			</ui:Table>
+		</content>
+		<buttons>
+			<Button text="{i18n>CANCEL}" press="closeKPIWOListPopover"></Button>
+			<Button text="{i18n>viewDetails}" press="viewKPIWODetails"></Button>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

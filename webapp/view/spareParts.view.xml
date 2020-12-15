@@ -1,0 +1,349 @@
+<mvc:View controllerName="com.sap.incture.IMO_PM.controller.spareParts" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns="sap.m" xmlns:fb="sap.ui.comp.filterbar" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout"
+	height="100%" displayBlock="false" xmlns:table="sap.ui.table" xmlns:tnt="sap.tnt">
+	<Page showHeader="false" enableScrolling="false" class="sapPageBackgroundclr sapUiSizeCompact">
+		<tnt:ToolHeader>
+			<Button icon="sap-icon://home" type="Transparent" press="onPressHome" tooltip="{i18n>home}"/>
+			<Image src="images/Cherrywork_Logo_final_Option_1.png" height="55%" width="10%"/>
+			<Label design="Bold" class="sapUiSmallMarginBegin" text="{i18n>tile_spParts}" wrapping="true"/>
+			<ToolbarSpacer/>
+		</tnt:ToolHeader>
+		<content>
+			<VBox>
+				<Toolbar class="sapBorderClass">
+					<content>
+						<Label text="{i18n>SP_SEARCH}" design="Bold" class="HeaderText sapUiSmallMarginTop sapUiSmallMarginBeginEnd"></Label>
+					</content>
+				</Toolbar>
+				<Panel width="auto" class="sapVBoxCreateByRefClass sapUiSmallMarginTop sapUiSmallMarginBeginEnd">
+					<content>
+						<l:Grid defaultSpan="L3 M6 S6">
+							<VBox>
+								<Label text="{i18n>component}"/>
+								<Input value="{oSparePartViewModel>/sapId}" submit="getMaterialsListSpareparts" class="sapInputBorderClass" width="70%"
+									showValueHelp="false" valueHelpRequest="onHandleValueHelp"></Input>
+							</VBox>
+							<VBox>
+								<Label text="{i18n>compDes}"/>
+								<Input value="{oSparePartViewModel>/compDesc}" submit="getMaterialsListSpareparts" class="sapInputBorderClass" width="70%"
+									showValueHelp="false" valueHelpRequest="onHandleValueHelp"></Input>
+							</VBox>
+							<VBox>
+								<Label text="{i18n>supplier}"/>
+								<Input value="{oSparePartViewModel>/supplier}" submit="getMaterialsListSpareparts" class="sapInputBorderClass" width="70%"
+									showValueHelp="false" valueHelpRequest="onHandleValueHelp"></Input>
+							</VBox>
+							<VBox>
+								<Label text="{i18n>supplierPartNo}"/>
+								<Input value="{oSparePartViewModel>/supplierPartno}" width="70%" showValueHelp="false" submit="getMaterialsListSpareparts"
+									valueHelpRequest="onHandleValueHelp"></Input>
+							</VBox>
+							<VBox>
+								<Label text="{i18n>manufact}"/>
+								<Input value="{oSparePartViewModel>/manufacturer}" submit="getMaterialsListSpareparts" class="sapInputBorderClass" width="70%"
+									showValueHelp="false" valueHelpRequest="onHandleValueHelp"></Input>
+							</VBox>
+							<VBox>
+								<Label text="{i18n>manufactPartNo}"/>
+								<Input value="{oSparePartViewModel>/mfgPartNo}" submit="getMaterialsListSpareparts" class="sapInputBorderClass" width="70%"
+									showValueHelp="false" valueHelpRequest="onHandleValueHelp"></Input>
+							</VBox>
+							<VBox class="sapUiSmallMarginTop">
+								<Button text="{i18n>search}" class="sapButtonClass" press="getMaterialsListSpareparts" type="Emphasized"/>
+							</VBox>
+						</l:Grid>
+					</content>
+				</Panel>
+				<!--<VBox visible="{oViewPropertyModel>/iTableVisibility}">-->
+				<table:Table visible="{oViewPropertyModel>/iTableVisibility}" rowSelectionChange="onSelectionChange"
+					visibleRowCount="{mLookupModel>/rowCount}" selectionMode="None" rowHeight="40" id="SPARE_PART_MAT_TBL"
+					rows="{oSparePartViewModel>/aMaterialsList}" class="sapSpTableClass sapUiTinyMarginTop sapUiSmallMarginBeginEnd">
+					<table:toolbar>
+						<Toolbar class="sapSPtoolBarClass">
+							<content>
+								<Label text="{i18n>SEARCH_RES}" design="Bold" class="HeaderText"></Label>
+								<!--<Title level="L2" text="{i18n>SEARCH_RES}" class="sapMTblToolbarHeaderTxt"/>-->
+								<ToolbarSpacer/>
+								<Button text="{i18n>addtoWO}" press="onAddtoWO" type="Emphasized"
+									visible="{path:'oUserDetailModel>/userRole', formatter:'com.sap.incture.IMO_PM.formatter.formatter.disableReviewField'}"/>
+							</content>
+						</Toolbar>
+					</table:toolbar>
+					<table:columns>
+						<table:Column width="1.5%" hAlign="Center">
+							<CheckBox select="onSelectAll"></CheckBox>
+							<table:template>
+								<CheckBox selected="{oSparePartViewModel>isSelected}" select="onSelectSparePart"></CheckBox>
+							</table:template>
+						</table:Column>
+						<table:Column width="6.5%" hAlign="Center" sortProperty="Material" filterProperty="Material" defaultFilterOperator="Contains">
+							<Text text="{i18n>SAP_ID}" wrapping="true" class="tableHeaderText"/>
+							<table:template>
+								<Text text="{oSparePartViewModel>Material}"></Text>
+							</table:template>
+						</table:Column>
+						<table:Column width="10%" sortProperty="MaterialDesc" filterProperty="MaterialDesc">
+							<Text text="{i18n>DESC}" wrapping="true" class="tableHeaderText"/>
+							<table:template>
+								<Text text="{oSparePartViewModel>MaterialDesc}"></Text>
+							</table:template>
+						</table:Column>
+						<table:Column width="7.8%" hAlign="Center" sortProperty="StorageLoc" filterProperty="StorageLoc">
+							<Text text="{i18n>STORAGE_LOC}" wrapping="true" class="tableHeaderText"/>
+							<table:template>
+								<Text text="{oSparePartViewModel>StorageLoc}"></Text>
+							</table:template>
+						</table:Column>
+						<table:Column width="4%" hAlign="Center" sortProperty="BinNo" filterProperty="BinNo">
+							<Text text="{i18n>BIN_NO}" wrapping="true" class="tableHeaderText"/>
+							<table:template>
+								<Text text="{oSparePartViewModel>BinNo}"></Text>
+							</table:template>
+						</table:Column>
+						<table:Column width="6%" hAlign="Center" class="RequirementQuantity"
+							visible="{path:'oUserDetailModel>/userRole', formatter:'com.sap.incture.IMO_PM.formatter.formatter.disableReviewField'}">
+							<!--<Text text="{i18n>REQQNT}" wrapping="true" class="tableHeaderText"/>-->
+							<Label text="{i18n>REQQNT}" class="sapReqLabelCls" design="Bold" required="true"/>
+							<table:template>
+								<Input value="{oSparePartViewModel>RequirementQuantity}" class="sapInputBorderClass" change="validateFloatValues">
+									<customData>
+										<core:CustomData value="FLOAT"/>
+									</customData>
+								</Input>
+							</table:template>
+						</table:Column>
+						<table:Column width="4%" hAlign="Center" sortProperty="CurrentStock" filterProperty="CurrentStock">
+							<Text text="{i18n>CURR_STOCK}" wrapping="true" class="tableHeaderText"/>
+							<!--<Label text="{i18n>CURR_STOCK}"/>-->
+							<table:template>
+								<Text text="{oSparePartViewModel>CurrentStock}"></Text>
+							</table:template>
+						</table:Column>
+						<table:Column width="5.8%" hAlign="Center" sortProperty="OpenReservs" filterProperty="OpenReservs">
+							<Text text="{i18n>OPEN_RESV}" wrapping="true" class="tableHeaderText"/>
+							<!--<Label text="{i18n>OPEN_RESV}"/>-->
+							<table:template>
+								<Text text="{oSparePartViewModel>OpenReservs}"></Text>
+							</table:template>
+						</table:Column>
+						<table:Column width="5.8%" hAlign="Center" sortProperty="OutstandingQty" filterProperty="OutstandingQty">
+							<Text text="{i18n>OUTSTANDING_QTY_ORDER}" wrapping="true" class="tableHeaderText"/>
+							<!--<Label text="{i18n>OUTSTANDING_QTY_ORDER}"/>-->
+							<table:template>
+								<Text text="{oSparePartViewModel>OutstandingQty}"></Text>
+							</table:template>
+						</table:Column>
+						<!--<table:Column width="5.8%" hAlign="Center" sortProperty="Avg" filterProperty="Avg">-->
+						<!--	<Text text="{i18n>AVERAGE}" wrapping="true" class="tableHeaderText"/>-->
+						<!--<Label text="{i18n>AVERAGE}"/>-->
+						<!--	<table:template>-->
+						<!--		<Text text="{oSparePartViewModel>Avg}"></Text>-->
+						<!--	</table:template>-->
+						<!--</table:Column>-->
+						<table:Column width="6.8%" sortProperty="SupplierName" filterProperty="SupplierName">
+							<Text text="{i18n>SUPPLER}" wrapping="true" class="tableHeaderText"/>
+							<!--<Label text="{i18n>SUPPLER}"/>-->
+							<table:template>
+								<Text text="{oSparePartViewModel>SupplierName}"></Text>
+							</table:template>
+						</table:Column>
+						<table:Column width="6%" hAlign="Center" sortProperty="SupplierPartNo" filterProperty="SupplierPartNo">
+							<Text text="{i18n>SUPP_PART_NO}" wrapping="true" class="tableHeaderText"/>
+							<!--<Label text="{i18n>SUPP_PART_NO}"/>-->
+							<table:template>
+								<Text text="{oSparePartViewModel>SupplierPartNo}"></Text>
+							</table:template>
+						</table:Column>
+						<table:Column width="6.8%" sortProperty="MfgName" filterProperty="MfgName">
+							<Text text="{i18n>MANU_ID}" wrapping="true" class="tableHeaderText"/>
+							<!--<Label text="{i18n>MANU_ID}"/>-->
+							<table:template>
+								<Text text="{oSparePartViewModel>MfgName}"></Text>
+							</table:template>
+						</table:Column>
+						<table:Column width="7.8%" hAlign="Center" sortProperty="MfgPartNo" filterProperty="MfgPartNo">
+							<Text text="{i18n>MFG_PART_NO}" wrapping="true" class="tableHeaderText"/>
+							<!--<Label text="{i18n>MFG_PART_NO}"/>-->
+							<table:template>
+								<Text text="{oSparePartViewModel>MfgPartNo}"></Text>
+							</table:template>
+						</table:Column>
+						<table:Column width="3%" hAlign="Center" sortProperty="QtyIssuedStr" filterProperty="QtyIssuedStr">
+							<Text text="{i18n>Qty_ISsued}" wrapping="true" class="tableHeaderText"/>
+							<!--<Label text="{i18n>Qty_ISsued}"/>-->
+							<table:template>
+								<Text text="{oSparePartViewModel>QtyIssued}"></Text>
+							</table:template>
+						</table:Column>
+						<table:Column width="3%" hAlign="Center" sortProperty="QtyReturnedStr" filterProperty="QtyReturnedStr">
+							<Text text="{i18n>Qty_returned}" wrapping="true" class="tableHeaderText"/>
+							<!--<Label text="{i18n>Qty_returned}"/>-->
+							<table:template>
+								<Text text="{oSparePartViewModel>QtyReturned}"></Text>
+							</table:template>
+						</table:Column>
+						<table:Column width="5%" hAlign="Center" sortProperty="price" filterProperty="price">
+							<Text text="{i18n>PRICE}" wrapping="true" class="tableHeaderText"/>
+							<!--<Label text="{i18n>PRICE}"/>-->
+							<table:template>
+								<Text text="{oSparePartViewModel>unit} {oSparePartViewModel>price}"></Text>
+							</table:template>
+						</table:Column>
+					</table:columns>
+				</table:Table>
+				<!--</VBox>-->
+			</VBox>
+			<!--<VBox visible="{= ${oViewPropertyModel>/iSelectedRadioIndex} === 1 ? true : false}">-->
+			<!--	<Panel width="auto" class="sapVBoxCreateByRefClass sapUiResponsiveMargin">-->
+			<!--		<content>-->
+			<!--			<l:Grid defaultSpan="L3 M6 S6">-->
+			<!--<VBox>-->
+			<!--	<Label text="{i18n>equip}"/>-->
+			<!--	<Input width="70%" showValueHelp="true" value="{mLookupModel>/sEquip}" valueHelpRequest="equipmentValueHelp"></Input>-->
+			<!--</VBox>-->
+			<!--<VBox>-->
+			<!--	<Label text="{i18n>FunLoc}"/>-->
+			<!--	<Input width="70%" showValueHelp="true" value="{mLookupModel>/sFunLoc}" valueHelpRequest="onHandleValueHelp"></Input>-->
+			<!--</VBox>-->
+			<!--<VBox>-->
+			<!--	<Label text="{i18n>equipBOM}"/>-->
+			<!--	<Input width="70%" showValueHelp="true" valueHelpRequest="onHandleValueHelp"></Input>-->
+			<!--</VBox>-->
+			<!--				<VBox class="sapUiSmallMarginTop">-->
+			<!--					<Button text="{i18n>search}" class="sapButtonClass" press="getEquipmentList" type="Emphasized"/>-->
+			<!--				</VBox>-->
+			<!--			</l:Grid>-->
+			<!--		</content>-->
+			<!--	</Panel>-->
+			<!--	<VBox visible="{oViewPropertyModel>/iEqTableVisibility}">-->
+			<!--		<table:Table selectionMode="None" visibleRowCount="8" rows="{oSparePartViewModel>/aMaterialsList}"-->
+			<!--			class="sapVBoxCreateByRefClass sapUiTinyMarginTop sapUiMediumMarginBeginEnd">-->
+			<!--			<table:toolbar>-->
+			<!--				<Toolbar>-->
+			<!--					<content>-->
+			<!--						<Title level="L2" text="{i18n>SEARCH_RES}"/>-->
+			<!--						<ToolbarSpacer/>-->
+			<!--						<Button text="{i18n>SHOW_BOM}" press="onShowBOM" type="Emphasized"/>-->
+			<!--						<Button text="{i18n>addtoWO}" press="onAddtoWO" type="Emphasized"/>-->
+			<!--					</content>-->
+			<!--				</Toolbar>-->
+			<!--			</table:toolbar>-->
+			<!--			<table:columns>-->
+			<!--				<table:Column width="6rem" hAlign="Center">-->
+			<!--					<CheckBox select="onSelectAll"></CheckBox>-->
+			<!--					<table:template>-->
+			<!--						<CheckBox selected="{oSparePartViewModel>isSelected}" select="onSelectSparePart"></CheckBox>-->
+			<!--					</table:template>-->
+			<!--				</table:Column>-->
+			<!--				<table:Column width="6rem" hAlign="Center" sortProperty="Material" filterProperty="Material" defaultFilterOperator="Contains">-->
+			<!--					<Label text="{i18n>SAP_ID}"/>-->
+			<!--					<table:template>-->
+			<!--						<Text text="{oSparePartViewModel>Material}"></Text>-->
+			<!--					</table:template>-->
+			<!--				</table:Column>-->
+			<!--				<table:Column width="11rem" sortProperty="MaterialDesc" filterProperty="MaterialDesc">-->
+			<!--					<Label text="{i18n>DESC}"/>-->
+			<!--					<table:template>-->
+			<!--						<Text text="{oSparePartViewModel>MaterialDesc}"></Text>-->
+			<!--					</table:template>-->
+			<!--				</table:Column>-->
+			<!--				<table:Column width="12rem" hAlign="Center" sortProperty="StorageLoc" filterProperty="StorageLoc">-->
+			<!--					<Label text="{i18n>STORAGE_LOC}"/>-->
+			<!--					<table:template>-->
+			<!--						<Text text="{oSparePartViewModel>StorageLoc}"></Text>-->
+			<!--					</table:template>-->
+			<!--				</table:Column>-->
+			<!--				<table:Column width="8rem" hAlign="Center" sortProperty="BinNo" filterProperty="BinNo">-->
+			<!--					<Label text="{i18n>BIN_NO}"/>-->
+			<!--					<table:template>-->
+			<!--						<Text text="{oSparePartViewModel>BinNo}"></Text>-->
+			<!--					</table:template>-->
+			<!--				</table:Column>-->
+			<!--				<table:Column width="8rem" hAlign="Center" class="RequirementQuantity">-->
+			<!--					<Label text="{i18n>REQQNT}" required="true"/>-->
+			<!--					<table:template>-->
+			<!--						<Input value="{oSparePartViewModel>RequirementQuantity}"></Input>-->
+			<!--					</table:template>-->
+			<!--				</table:Column>-->
+			<!--				<table:Column width="10rem" hAlign="Center" sortProperty="CurrentStock" filterProperty="CurrentStock">-->
+			<!--					<Label text="{i18n>CURR_STOCK}"/>-->
+			<!--					<table:template>-->
+			<!--						<Text text="{oSparePartViewModel>CurrentStock}"></Text>-->
+			<!--					</table:template>-->
+			<!--				</table:Column>-->
+			<!--				<table:Column width="11rem" hAlign="Center" sortProperty="OpenReservs" filterProperty="OpenReservs">-->
+			<!--					<Label text="{i18n>OPEN_RESV}"/>-->
+			<!--					<table:template>-->
+			<!--						<Text text="{oSparePartViewModel>OpenReservs}"></Text>-->
+			<!--					</table:template>-->
+			<!--				</table:Column>-->
+			<!--				<table:Column width="15rem" hAlign="Center" sortProperty="OutstandingQty" filterProperty="OutstandingQty">-->
+			<!--					<Label text="{i18n>OUTSTANDING_QTY_ORDER}"/>-->
+			<!--					<table:template>-->
+			<!--						<Text text="{oSparePartViewModel>OutstandingQty}"></Text>-->
+			<!--					</table:template>-->
+			<!--				</table:Column>-->
+			<!--				<table:Column width="8rem" hAlign="Center" sortProperty="Avg" filterProperty="Avg">-->
+			<!--					<Label text="{i18n>AVERAGE}"/>-->
+			<!--					<table:template>-->
+			<!--						<Text text="{oSparePartViewModel>Avg}"></Text>-->
+			<!--					</table:template>-->
+			<!--				</table:Column>-->
+			<!--				<table:Column width="8rem" sortProperty="SupplierName" filterProperty="SupplierName">-->
+			<!--					<Label text="{i18n>SUPPLER}"/>-->
+			<!--					<table:template>-->
+			<!--						<Text text="{oSparePartViewModel>SupplierName}"></Text>-->
+			<!--					</table:template>-->
+			<!--				</table:Column>-->
+			<!--				<table:Column width="14rem" hAlign="Center" sortProperty="SupplierPartNo" filterProperty="SupplierPartNo">-->
+			<!--					<Label text="{i18n>SUPP_PART_NO}"/>-->
+			<!--					<table:template>-->
+			<!--						<Text text="{oSparePartViewModel>SupplierPartNo}"></Text>-->
+			<!--					</table:template>-->
+			<!--				</table:Column>-->
+			<!--				<table:Column width="10rem" sortProperty="MfgName" filterProperty="MfgName">-->
+			<!--					<Label text="{i18n>MANU_ID}"/>-->
+			<!--					<table:template>-->
+			<!--						<Text text="{oSparePartViewModel>MfgName}"></Text>-->
+			<!--					</table:template>-->
+			<!--				</table:Column>-->
+			<!--				<table:Column width="14rem" hAlign="Center" sortProperty="MfgPartNo" filterProperty="MfgPartNo">-->
+			<!--					<Label text="{i18n>MFG_PART_NO}"/>-->
+			<!--					<table:template>-->
+			<!--						<Text text="{oSparePartViewModel>MfgPartNo}"></Text>-->
+			<!--					</table:template>-->
+			<!--				</table:Column>-->
+			<!--				<table:Column width="14rem" hAlign="Center" sortProperty="QtyIssuedStr" filterProperty="QtyIssuedStr">-->
+			<!--					<Label text="{i18n>Qty_ISsued}"/>-->
+			<!--					<table:template>-->
+			<!--						<Text text="{oSparePartViewModel>QtyIssued}"></Text>-->
+			<!--					</table:template>-->
+			<!--				</table:Column>-->
+			<!--				<table:Column width="14rem" hAlign="Center" sortProperty="QtyReturnedStr" filterProperty="QtyReturnedStr">-->
+			<!--					<Label text="{i18n>Qty_returned}"/>-->
+			<!--					<table:template>-->
+			<!--						<Text text="{oSparePartViewModel>QtyReturned}"></Text>-->
+			<!--					</table:template>-->
+			<!--				</table:Column>-->
+			<!--				<table:Column width="7rem" hAlign="Center" sortProperty="price" filterProperty="price">-->
+			<!--					<Label text="{i18n>PRICE}"/>-->
+			<!--					<table:template>-->
+			<!--						<Text text="{oSparePartViewModel>unit} {oSparePartViewModel>price}"></Text>-->
+			<!--					</table:template>-->
+			<!--				</table:Column>-->
+			<!--			</table:columns>-->
+			<!--		</table:Table>-->
+			<!--	</VBox>-->
+			<!--</VBox>-->
+		</content>
+		<!--<footer>-->
+		<!--	<Toolbar>-->
+		<!--		<ToolbarSpacer/>-->
+		<!--		<Button text="{i18n>search}" visible="{= ${oViewPropertyModel>/iSelectedRadioIndex} === 0 ? true : false}" press="getMaterialsListSpareparts"-->
+		<!--			type="Emphasized"/>-->
+		<!--		<Button text="{i18n>search}" visible="{= ${oViewPropertyModel>/iSelectedRadioIndex} === 1 ? true : false}" press="getEquipmentList"-->
+		<!--			type="Emphasized"/>-->
+		<!--	</Toolbar>-->
+		<!--</footer>-->
+	</Page>
+</mvc:View>

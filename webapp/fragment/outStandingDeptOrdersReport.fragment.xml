@@ -1,0 +1,23 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:viz="sap.viz.ui5.controls"
+	xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds" xmlns:viz.data="sap.viz.ui5.data">
+	<viz:VizFrame height="38%" width="96%" vizType="line" visible="{oViewPropertyModel>/plannedWOVisibility}"
+		uiConfig="{applicationSet:'fiori'}" class="sapUiLargeMarginBegin sapUiSmallMarginTop"
+		vizProperties="{title:{ text:'Outstanding Orders by Dept', style:{color:'gray'}, alignment:'left', layout:{height:'0.2'}}, plotArea: { colorPalette: ['#e17b24', '#316FA8']}, valueAxis: { title: { visible: true } },categoryAxis: { title: { visible: false } }}">
+		<viz:dataset>
+			<viz.data:FlattenedDataset data="{oReportsDataModel>/aPlanedWOData}">
+				<viz.data:dimensions>
+					<viz.data:DimensionDefinition name="date" value="{oReportsDataModel>date}"/>
+				</viz.data:dimensions>
+				<viz.data:measures>
+					<viz.data:MeasureDefinition name="value1" value="{oReportsDataModel>value1}"/>
+					<viz.data:MeasureDefinition name="value2" value="{oReportsDataModel>value2}"/>
+				</viz.data:measures>
+			</viz.data:FlattenedDataset>
+		</viz:dataset>
+		<viz:feeds>
+			<viz.feeds:FeedItem uid="valueAxis" type="Measure" values="value1"/>
+			<viz.feeds:FeedItem uid="valueAxis" type="Measure" values="value2"/>
+			<viz.feeds:FeedItem uid="categoryAxis" type="Dimension" values="date"/>
+		</viz:feeds>
+	</viz:VizFrame>
+</core:FragmentDefinition>

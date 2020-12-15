@@ -1,0 +1,86 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:viz="sap.viz.ui5.controls" xmlns:l="sap.ui.layout"
+	xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds" xmlns:viz.data="sap.viz.ui5.data">
+	<HBox width="100%" visible="{oViewPropertyModel>/spareCostRepVisibile}">
+		<VBox class="sapUiSmallMarginBegin sapUiTinyMarginTop" visible="{oViewPropertyModel>/spareCostRepVisibile}">
+			<Toolbar class="sapBorderClass sapUiSmallMarginBottom">
+				<content>
+					<Label text="{i18n>SP_COST_REPORT}" design="Bold"></Label>
+				</content>
+			</Toolbar>
+			<VBox class="borderClass" height="90%">
+				<l:VerticalLayout class="sapUiContentPadding">
+					<VBox class="sapUiSmallMarginBottom">
+						<Label text="{i18n>PLANT}" design="Bold"></Label>
+						<Select items="{path:'mLookupModel>/aPlantSet',sorter:{ path: 'plant' }}" forceSelection="false" selectedKey="{oViewPropertyModel>/spareCostPlant}" width="100%"
+							showSecondaryValues="true">
+							<core:ListItem key="{mLookupModel>name}" additionalText="{mLookupModel>name}" text="{mLookupModel>plant}"/>
+						</Select>
+						<layoutData>
+							<l:GridData span="XL2 L2 M2 S2"/>
+						</layoutData>
+					</VBox>
+					<VBox class="sapUiSmallMarginBottom">
+						<Label text="{i18n>FUN_LOC}" design="Bold"></Label>
+						<HBox>
+							<ComboBox width="100%" items="{mLookupModel>/aFuncLocSet}" showSecondaryValues="true"
+								selectedKey="{oViewPropertyModel>/spareCostFuncLocKey}" change="setSCSelectedFuncLocEquips">
+								<core:ListItem key="{mLookupModel>Tplnr}" text="{mLookupModel>Tplnr}"/>
+							</ComboBox>
+						</HBox>
+						<MultiInput enableMultiLineMode="true" class="multipleInputClass" showValueHelp="false" tokens="{oViewPropertyModel>/spareCostFuncLoc}">
+							<tokens>
+								<Token key="{oViewPropertyModel>}" text="{oViewPropertyModel>}" delete="fnDeleteSelectedFnLoc"/>
+							</tokens>
+						</MultiInput>
+						<layoutData>
+							<l:GridData span="XL2 L2 M2 S2"/>
+						</layoutData>
+					</VBox>
+					<VBox class="sapUiSmallMarginBottom">
+						<Label text="{i18n>EQUIPMENTS}" design="Bold"></Label>
+						<Input type="Text" placeholder="{i18n>ENTER_EQUIP_ID}" showSuggestion="true"
+							suggestionItems="{path:'mLookupModel>/aEuipSet',sorter:{ path: 'Tidnr' }}" width="100%" suggestionItemSelected="fnGetSuggestedEquipment"
+							value="{oViewPropertyModel>/spareCostEquipmentKey}" startSuggestion="3">
+							<suggestionItems>
+								<core:Item text="{mLookupModel>Equnr}"/>
+							</suggestionItems>
+						</Input>
+						<MultiInput width="100%" enableMultiLineMode="true" class="multipleInputClass" showValueHelp="false"
+							tokens="{path:'oViewPropertyModel>/spareCostEquipments',sorter:{ path: 'Tidnr' }}" maxTokens="100" placeholder="{i18n>MAX_100_EQUIP}">
+							<tokens>
+								<Token key="{oViewPropertyModel>Equnr}" text="{oViewPropertyModel>Tidnr}" deselect="fnDeleteSelectedEquip" delete="fnDeleteSelectedEquip"/>
+							</tokens>
+						</MultiInput>
+						<layoutData>
+							<l:GridData span="XL2 L2 M2 S2"/>
+						</layoutData>
+					</VBox>
+					<VBox class="sapUiSmallMarginBottom">
+						<Label text="{i18n>DATE_RANGE}" design="Bold"></Label>
+						<ComboBox showSecondaryValues="true" items="{oViewPropertyModel>/timeBucket}" selectedKey="{oViewPropertyModel>/spareCostDatePeriod}"
+							width="100%">
+							<core:ListItem key="{oViewPropertyModel>key}" text="{oViewPropertyModel>text}"/>
+						</ComboBox>
+						<layoutData>
+							<l:GridData span="XL2 L2 M2 S2"/>
+						</layoutData>
+					</VBox>
+					<VBox class="sapUiSmallMarginBottom">
+						<FlexBox alignItems="Start" justifyContent="SpaceBetween">
+							<Label/>
+							<Button text="{i18n>SEARCH}" type="Emphasized" press="fnSearchSpareCostRep"/>
+						</FlexBox>
+						<layoutData>
+							<l:GridData span="XL2 L2 M2 S2"/>
+						</layoutData>
+					</VBox>
+				</l:VerticalLayout>
+			</VBox>
+		</VBox>
+		<VBox width="80%" height="90%">
+			<viz:VizFrame vizType="stacked_bar" width="95%" visible="{oViewPropertyModel>/spareCostGraphVisibile}" uiConfig="{applicationSet:'fiori'}"
+				class="sapUiLargeMarginBegin sapUiMediumMarginTop" align="right" id="SPARE_COST_GRAPH" selectData="showSparePartCustomToolip"
+				vizProperties="{title:{ text:'Spare Part Cost', style:{color:'gray'}, alignment:'left', layout:{height:'0.2'}}, plotArea: { colorPalette: ['#e17b24', '#316FA8', '#51AE03', '#AE0303', '#F7F143']}, valueAxis: { title: { visible: false } },categoryAxis: { title: { visible: false } }}"></viz:VizFrame>
+		</VBox>
+	</HBox>
+</core:FragmentDefinition>

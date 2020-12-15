@@ -1,0 +1,177 @@
+<mvc:View controllerName="com.sap.incture.IMO_PM.controller.equipDetail" xmlns:mvc="sap.ui.core.mvc" xmlns:html="http://www.w3.org/1999/xhtml"
+	displayBlock="false" height="100%" xmlns="sap.m" xmlns:fb="sap.ui.comp.filterbar" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout"
+	xmlns:table="sap.ui.table" xmlns:tnt="sap.tnt">
+
+	<Page showHeader="false" class="sapUiSizeCompact">
+		<tnt:ToolHeader>
+		<Button icon="sap-icon://home" type="Transparent" press="onPressHome" tooltip="{i18n>home}"/>
+		<Image src="images/Cherrywork_Logo_final_Option_1.png" height="55%" width="10%"/>
+		<Label design="Bold" class="sapUiSmallMarginBegin" text="{i18n>eqDetails}" wrapping="true"/>
+		<ToolbarSpacer/>
+	</tnt:ToolHeader>
+		<content>
+			<l:Grid class="sapUiSmallMarginTop sapUiSmallMarginBeginEnd">
+				<VBox height="7%">
+					<Label design="Bold" text="{i18n>equip}"/>
+					<Input id="idEquipInput" enabled="false" width="70%" class="sapInputBorderClass" showValueHelp="false" value="{mEquipDetailModel>/sEquipID}"
+						valueHelpRequest="onHandleValueHelp"></Input>
+					<layoutData>
+						<l:GridData span="XL6 L3 M6 S6"/>
+					</layoutData>
+				</VBox>
+				<VBox height="7%">
+					<Label design="Bold" text="{i18n>FunLoc}"/>
+					<Input id="idFunLocInput" enabled="false" width="70%" class="sapInputBorderClass" showValueHelp="false" valueHelpRequest="onHandleValueHelp"
+						value="{mEquipDetailModel>/sFunLoc}"></Input>
+					<layoutData>
+						<l:GridData span="XL6 L3 M6 S6"/>
+					</layoutData>
+				</VBox>
+			</l:Grid>
+			<Panel width="auto" headerText="{i18n>BOM}" expandable="true" expanded="true" class="panelHeader sapUiSmallMarginBeginEnd">
+				<content>
+					<table:Table id="idBOMTable" class="sapUiTblHeaderColClass" selectionMode="None" visibleRowCountMode="Fixed"
+						visibleRowCount="{mLookupModel>/detRowCount}" rowHeight="40" rows="{mEquipDetailModel>/aBOMSet}">
+						<table:columns>
+							<table:Column sortProperty="item" filterProperty="item" width="7%" defaultFilterOperator="Contains">
+								<Text wrapping="true" text="{i18n>item}" class="tableHeaderText"/>
+								<table:template>
+									<Text text="{mEquipDetailModel>item}" class="tableContentText"></Text>
+								</table:template>
+							</table:Column>
+							<table:Column sortProperty="subAssembly" width="10%" filterProperty="subAssembly">
+								<Text wrapping="true" text="{i18n>assemb}" class="tableHeaderText"/>
+								<table:template>
+									<Text text="{mEquipDetailModel>subAssembly}" class="tableContentText"></Text>
+								</table:template>
+							</table:Column>
+							<table:Column sortProperty="description" width="20%" filterProperty="description">
+								<Text wrapping="true" text="{i18n>des}" class="tableHeaderText"/>
+								<!--<Label design="Bold" text="{i18n>des}"/>-->
+								<table:template>
+									<Text text="{mEquipDetailModel>description}" class="tableContentText"></Text>
+								</table:template>
+							</table:Column>
+							<table:Column sortProperty="quantity" width="6%" filterProperty="quantity">
+								<Text wrapping="true" text="{i18n>quant}" class="tableHeaderText"/>
+								<table:template>
+									<Text text="{mEquipDetailModel>quantity}" class="tableContentText"></Text>
+								</table:template>
+							</table:Column>
+							<table:Column sortProperty="uom" width="10%" filterProperty="uom">
+								<Text wrapping="true" text="{i18n>UOM}" class="tableHeaderText"/>
+								<table:template>
+									<Text text="{mEquipDetailModel>uom}" class="tableContentText"></Text>
+								</table:template>
+							</table:Column>
+							<table:Column sortProperty="validStartDate" width="11%" filterProperty="validStartDate">
+								<Text wrapping="true" text="{i18n>validSDate}" class="tableHeaderText"/>
+								<table:template>
+									<Text text="{path:'mEquipDetailModel>validStartDate',formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnDateConversion'}"
+										class="tableContentText"></Text>
+								</table:template>
+							</table:Column>
+							<table:Column sortProperty="validEndDate" width="11%" filterProperty="validEndDate">
+								<Text wrapping="true" text="{i18n>validEDate}" class="tableHeaderText"/>
+								<table:template>
+									<Text text="{path:'mEquipDetailModel>validEndDate',formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnDateConversion'}"
+										class="tableContentText"></Text>
+								</table:template>
+							</table:Column>
+							<table:Column sortProperty="price" width="11%" filterProperty="price">
+								<Text wrapping="true" text="{i18n>unitPrice}" class="tableHeaderText"/>
+								<table:template>
+									<Text text="{mEquipDetailModel>unit} {mEquipDetailModel>price}" class="tableContentText"></Text>
+								</table:template>
+							</table:Column>
+							<table:Column sortProperty="changeNo" width="11%" filterProperty="changeNo">
+								<Text wrapping="true" text="{i18n>changeNo}" class="tableHeaderText"/>
+								<table:template>
+									<Text text="{mEquipDetailModel>changeNo}" class="tableContentText"/>
+								</table:template>
+							</table:Column>
+						</table:columns>
+					</table:Table>
+				</content>
+			</Panel>
+			<Panel width="auto" headerText="Last 3 Months WO's" expandable="true" expanded="true" class="panelHeader sapUiSmallMarginBeginEnd">
+				<content>
+					<table:Table id="idWOList" class="sapUiTblHeaderColClass" visibleRowCountMode="Fixed" visibleRowCount="{mLookupModel>/detRowCount}"
+						rowHeight="40" selectionMode="None" rows="{mEquipDetailModel>/aWorkOrderListSet}">
+						<table:columns>
+							<table:Column sortProperty="Orderid" width="9%" filterProperty="Orderid" defaultFilterOperator="Contains">
+								<Text wrapping="true" text="{i18n>WONum}" class="tableHeaderText"/>
+								<table:template>
+									<Text text="{mEquipDetailModel>Orderid}" class="tableContentText"></Text>
+								</table:template>
+							</table:Column>
+							<table:Column sortProperty="OrderType" width="9%" filterProperty="OrderType">
+								<Text wrapping="true" text="{i18n>WOType}" class="tableHeaderText"/>
+								<table:template>
+									<Text text="{mEquipDetailModel>OrderType}" class="tableContentText"></Text>
+								</table:template>
+							</table:Column>
+							<table:Column sortProperty="Equipment" width="9%" filterProperty="Equipment">
+								<Text wrapping="true" text="{i18n>equip}" class="tableHeaderText"/>
+								<table:template>
+									<Text text="{mEquipDetailModel>Equipment}" class="tableContentText"></Text>
+								</table:template>
+							</table:Column>
+							<table:Column sortProperty="SysStatus" width="9%" filterProperty="SysStatus">
+								<Text wrapping="true" text="{i18n>stat}" class="tableHeaderText"/>
+								<table:template>
+									<Text text="{path:'mEquipDetailModel>SysStatus',formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnWOStatusConversion'}"
+										class="tableContentText"></Text>
+								</table:template>
+							</table:Column>
+							<table:Column sortProperty="WoDes" width="9%" filterProperty="WoDes">
+								<Text wrapping="true" text="{i18n>SHORT_DESCRIPTION}" class="tableHeaderText"/>
+								<table:template>
+									<Text text="{mEquipDetailModel>WoDes}" class="tableContentText"></Text>
+								</table:template>
+							</table:Column>
+							<table:Column sortProperty="Technicianname" width="9%" filterProperty="Technicianname">
+								<Text wrapping="true" text="{i18n>OWNER}" class="tableHeaderText"/>
+								<table:template>
+									<Text text="{mEquipDetailModel>Technicianname}" class="tableContentText"></Text>
+								</table:template>
+							</table:Column>
+							<table:Column sortProperty="NotifNo" width="9%" filterProperty="NotifNo">
+								<Text wrapping="true" text="{i18n>NOTIFICATION}" class="tableHeaderText"/>
+								<table:template>
+									<Text text="{mEquipDetailModel>NotifNo}" class="tableContentText"></Text>
+								</table:template>
+							</table:Column>
+							<table:Column sortProperty="Bdflag" width="9%" filterProperty="Bdflag">
+								<Text wrapping="true" text="{i18n>breakDown}" class="tableHeaderText"/>
+								<table:template>
+									<Text text="{mEquipDetailModel>Bdflag}" class="tableContentText"></Text>
+								</table:template>
+							</table:Column>
+							<table:Column sortProperty="PriorityDes" width="9%" filterProperty="PriorityDes">
+								<Text wrapping="true" text="{i18n>PRIORITY}" class="tableHeaderText"/>
+								<table:template>
+									<Text text="{path:'mEquipDetailModel>PriorityDes'}" class="tableContentText"></Text>
+								</table:template>
+							</table:Column>
+							<table:Column sortProperty="StartDate" width="9%" filterProperty="StartDate">
+								<Text wrapping="true" text="{i18n>START_DATE}" class="tableHeaderText"/>
+								<table:template>
+									<Text text="{path:'mEquipDetailModel>StartDate',formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnDateConversion'}"
+										class="tableContentText"></Text>
+								</table:template>
+							</table:Column>
+							<table:Column sortProperty="FinishDate" width="9%" filterProperty="FinishDate">
+								<Text wrapping="true" text="{i18n>END_DATE}" class="tableHeaderText"/>
+								<table:template>
+									<Text text="{path:'mEquipDetailModel>FinishDate',formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnDateConversion'}"
+										class="tableContentText"></Text>
+								</table:template>
+							</table:Column>
+						</table:columns>
+					</table:Table>
+				</content>
+			</Panel>
+		</content>
+	</Page>
+</mvc:View>

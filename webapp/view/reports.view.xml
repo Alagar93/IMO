@@ -1,0 +1,86 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="com.sap.incture.IMO_PM.controller.reports"
+	xmlns:f="sap.f" xmlns:l="sap.ui.layout" xmlns:g="sap.ui.layout.cssgrid" xmlns:viz="sap.viz.ui5.controls"
+	xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds" xmlns:viz.data="sap.viz.ui5.data" xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:tnt="sap.tnt">
+	<Page showHeader="false" class="sapUiSizeCompact" title="{}">
+		<tnt:ToolHeader>
+			<Button icon="sap-icon://home" type="Transparent" press="onPressHome" tooltip="{i18n>home}"/>
+			<Image src="images/Cherrywork_Logo_final_Option_1.png" height="55%" width="10%"/>
+			<Label design="Bold" class="sapUiSmallMarginBegin" text="{i18n>tile_anlt}" wrapping="true"/>
+			<ToolbarSpacer/>
+		</tnt:ToolHeader>
+		<content>
+			<FlexBox width="95%" class="sapUiSmallMarginTop columns" alignItems="Stretch" id="MYLAN_REPORTS_CUSTOM_TILES">
+				<items>
+					<CustomListItem type="Active" press="fnShowSelectedReport" class="sapUiMediumMarginBegin">
+						<VBox width="10rem" height="4rem" class="sapVBoxClass">
+							<layoutData>
+								<FlexItemData growFactor="1" shrinkFactor="0"/></layoutData>
+							<Text text="{i18n>MAINTENANCE_REORT}" class="sapUiSmallMarginBegin sapUiTinyMarginEnd sapUiSmallMarginTop" wrapping="true"/>
+						</VBox>
+						<customData>
+							<core:CustomData value="MAINTENANCE_REPORT"/>
+						</customData>
+					</CustomListItem>
+					<CustomListItem type="Active" press="fnShowSelectedReport" class="sapUiSmallMarginBegin">
+						<VBox width="10rem" height="4rem" class="sapVBoxClass">
+							<layoutData>
+								<FlexItemData growFactor="1" shrinkFactor="0"/></layoutData>
+							<Text text="{i18n>PLANNED_WORK_REPORT}" class="sapUiSmallMarginBegin sapUiSmallMarginTop" wrapping="true"/>
+						</VBox>
+						<customData>
+							<core:CustomData value="PLANNED_WORK_REPORT"/>
+						</customData>
+					</CustomListItem>
+					<CustomListItem type="Active" press="fnShowSelectedReport" class="sapUiSmallMarginBegin" visible="{oUserDetailModel>/hasLabHrReport}">
+						<VBox width="10rem" height="4rem" class="sapVBoxClass">
+							<layoutData>
+								<FlexItemData growFactor="" shrinkFactor="0"/></layoutData>
+							<Text text="{i18n>LABOUR_WORK_REPORT}" class="sapUiSmallMarginBegin sapUiSmallMarginTop" wrapping="true"/>
+						</VBox>
+						<customData>
+							<core:CustomData value="LABOUR_WORK_REPORT"/>
+						</customData>
+					</CustomListItem>
+					<CustomListItem type="Active" press="fnShowSelectedReport" class="sapUiSmallMarginBegin">
+						<VBox width="10rem" height="4rem" class="sapVBoxClass">
+							<layoutData>
+								<FlexItemData growFactor="" shrinkFactor="0"/></layoutData>
+							<Text text="{i18n>MEAN_TIME_REPAIR}" class="sapUiSmallMarginBegin sapUiSmallMarginTop" wrapping="true"/>
+						</VBox>
+						<customData>
+							<core:CustomData value="MTR_REPORT"/>
+						</customData>
+					</CustomListItem>
+					<CustomListItem type="Active" press="fnShowSelectedReport" class="sapUiSmallMarginBegin">
+						<VBox width="10rem" height="4rem" class="sapVBoxClass">
+							<layoutData>
+								<FlexItemData growFactor="1" shrinkFactor="0"/></layoutData>
+							<Text text="{i18n>WORK_ORDER_STATUS_REPORT}" class="sapUiSmallMarginBegin sapUiSmallMarginTop" wrapping="true"/>
+						</VBox>
+						<customData>
+							<core:CustomData value="WORK_ORDER_STATUS_REPORT"/>
+						</customData>
+					</CustomListItem>
+					<CustomListItem type="Active" press="fnShowSelectedReport" class="sapUiSmallMarginBegin">
+						<VBox width="10rem" height="4rem" class="sapVBoxClass">
+							<layoutData>
+								<FlexItemData growFactor="1" shrinkFactor="0"/></layoutData>
+							<Text text="{i18n>SPARE_PART_COST_REPORT}" class="sapUiSmallMarginBegin sapUiTinyMarginEnd sapUiSmallMarginTop" wrapping="true"/>
+						</VBox>
+						<customData>
+							<core:CustomData value="SPARE_PART_COST_REPORT"/>
+						</customData>
+					</CustomListItem>
+				</items>
+			</FlexBox>
+			<core:Fragment fragmentName="com.sap.incture.IMO_PM.fragment.pmComplianceReport" type="XML"/>
+			<core:Fragment fragmentName="com.sap.incture.IMO_PM.fragment.plannedReactiveReport" type="XML"/>
+			<!--<core:Fragment fragmentName="com.mylan.Reports.fragment.outStandingDeptOrdersReport" type="XML"/>-->
+			<core:Fragment fragmentName="com.sap.incture.IMO_PM.fragment.labourHoursReport" type="XML"/>
+			<core:Fragment fragmentName="com.sap.incture.IMO_PM.fragment.meanTimeRepairReport" type="XML"/>
+			<core:Fragment fragmentName="com.sap.incture.IMO_PM.fragment.woStatusReport" type="XML"/>
+			<core:Fragment fragmentName="com.sap.incture.IMO_PM.fragment.sparePartCostReport" type="XML"/>
+		</content>
+	</Page>
+</mvc:View>
