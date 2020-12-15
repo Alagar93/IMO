@@ -16,42 +16,42 @@
 		"dataSources": {
 
 			"portalOData": {
-				"uri": "/Incture_DEC/sap/opu/odata/SAP/ZPM_WOM_DETAILS_SRV/",
+				"uri": "/Incture_DEC1/sap/opu/odata/SAP/ZPM_WOM_DETAILS_SRV/",
 				"type": "OData",
 				"settings": {
 					"odataVersion": "2.0"
 				}
 			},
 			"lookUpOData": {
-				"uri": "/Incture_DEC/sap/opu/odata/SAP/ZPM_WOM_LOOKUPS_SRV/",
+				"uri": "/Incture_DEC1/sap/opu/odata/SAP/ZPM_WOM_LOOKUPS_SRV/",
 				"type": "OData",
 				"settings": {
 					"odataVersion": "2.0"
 				}
 			},
 			"workOrderOData": {
-				"uri": "/Incture_DEC/sap/opu/odata/SAP/ZPM_WOM_WORKORDER_SRV/",
+				"uri": "/Incture_DEC1/sap/opu/odata/SAP/ZPM_WOM_WORKORDER_SRV/",
 				"type": "OData",
 				"settings": {
 					"odataVersion": "2.0"
 				}
 			},
 			"portalNotifOData": {
-				"uri": "/Incture_DEC/sap/opu/odata/SAP/ZPM_WOM_NOTIFICATION_SRV/",
+				"uri": "/Incture_DEC1/sap/opu/odata/SAP/ZPM_WOM_NOTIFICATION_SRV/",
 				"type": "OData",
 				"settings": {
 					"odataVersion": "2.0"
 				}
 			},
 			"portalUserLogin": {
-				"uri": "/Incture_DEC/sap/opu/odata/SAP/ZPM_WOM_USER_LOGIN_SRV/",
+				"uri": "/Incture_DEC1/sap/opu/odata/SAP/ZPM_WOM_USER_LOGIN_SRV/",
 				"type": "OData",
 				"settings": {
 					"odataVersion": "2.0"
 				}
 			},
 			"shiftEndReport": {
-				"uri": "/Incture_DEC/sap/opu/odata/SAP/ZPM_WOM_REPORTS_SRV/",
+				"uri": "/Incture_DEC1/sap/opu/odata/SAP/ZPM_WOM_REPORTS_SRV/",
 				"type": "OData",
 				"settings": {
 					"odataVersion": "2.0"
