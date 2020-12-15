@@ -99,6 +99,7 @@ com.sap.incture.IMO_PM.util.util = {
 		oWorkOrderDetailModel.setProperty("/MalFunStartDate", new Date());
 		oWorkOrderDetailModel.setProperty("/MalFunStartTime", oCurrentTime);
 		oWorkOrderDetailModel.setProperty("/OrderStatus", "");
+		oWorkOrderDetailModel.setProperty("/UserStatus",""); //nischal -- User Status is added
 		oWorkOrderDetailModel.setProperty("/SetOrderStatus", "");
 		oWorkOrderDetailModel.setProperty("/Breakdown", false);
 		oWorkOrderDetailModel.setProperty("/Downtime", "0");

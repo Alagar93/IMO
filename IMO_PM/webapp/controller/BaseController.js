@@ -103,7 +103,7 @@ sap.ui.define([
 
 			/*var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			oRouter.navTo("Launch");*/
-			var sURL = "https://y66f2grv0hgps8wq-imo-imo-pm.cfapps.eu10.hana.ondemand.com/IMO_PM/index.html";
+			var sURL = "https://lnvybdvpasstbo1j-imo-imo-pm.cfapps.eu10.hana.ondemand.com/IMO_PM/index.html";
 			sap.m.URLHelper.redirect(sURL, false);
 		},
 		
@@ -2053,7 +2053,10 @@ sap.ui.define([
 					breakDownDuration = 0;
 				}
 			}
-
+			var oPlanStartDate = sData.PlanStartDate;
+			var sPlanStartDate = formatter.formatDtTimeObjToTString(oPlanStartDate);
+			var oPlanEndDate = sData.PlanEndDate;
+			var sPlanEndDate = formatter.formatDtTimeObjToTString(oPlanEndDate);
 			var malFnStartDate = new Date(sData.MalFunStartDate);
 			var malfnStartTime = sData.MalFunStartTime.ms;
 			var oMalFnStDateTime = formatter.getUTSHrsMins(malfnStartTime);
@@ -2095,8 +2098,8 @@ sap.ui.define([
 			oNewNotif.ItemSortNo = "0001";
 			oNewNotif.PlanPlant = userPlant;
 			oNewNotif.Notif_date = startDate;
-			oNewNotif.ReqStartdate = startDate;
-			oNewNotif.ReqEnddate = startDate;
+			oNewNotif.ReqStartdate = sPlanStartDate;
+			oNewNotif.ReqEnddate = sPlanEndDate;
 			oNewNotif.ShortText = sData.ShortText;
 			oNewNotif.Plangroup = sData.Plangroup;
 			oNewNotif.Equipment = sData.Equipment;

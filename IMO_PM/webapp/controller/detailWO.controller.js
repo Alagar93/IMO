@@ -574,12 +574,13 @@ sap.ui.define([
 				operations = this.fnDeleteOperationsFields(operations);
 				oWorkOrderData.HEADERTOOPERATIONSNAV = operations;
 			} else if (woCreateNavType === "WO_DETAIL_UPDATE" || woCreateNavType === "WO_DETAIL_UPDATE_EXIT") {
-				operations = this.fnDeleteOperationsFields(operations);
+				// operations = this.fnDeleteOperationsFields(operations); //nischal--MyWork field should not be deleted 
 				oWorkOrderData.HEADERTOOPERATIONSNAV = operations;
 				oWorkOrderData.SetOrderStatus = "";
 			} else if (woCreateNavType === "WO_DETAIL_RELEASE") {
 				oWorkOrderData.SetOrderStatus = "REL";
 			} else if (woCreateNavType === "WO_DETAIL_TECHO") {
+				// oWorkOrderData.UserStatus = "COMP";
 				oWorkOrderData.SetOrderStatus = "TECO";
 			} else if (woCreateNavType === "WO_DETAIL_OPERATION_CONFIRM") {
 				var operationsList = oWorkOrderDetailViewModel.getProperty("/confirmOperations");
@@ -617,7 +618,6 @@ sap.ui.define([
 			oWorkOrderOData.setHeaders({
 				"X-Requested-With": "X"
 			});
-
 			oWorkOrderOData.create("/WorkorderHeaderSet", oWorkOrderData, {
 				async: false,
 				success: function (sData, oResponse) {

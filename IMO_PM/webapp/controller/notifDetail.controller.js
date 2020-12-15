@@ -772,7 +772,7 @@ sap.ui.define([
 								}
 							});
 						} else {
-							MessageBox.success("Notification Released Successfully", {
+							MessageBox.success("Notification Approved Successfully", {
 								actions: [MessageBox.Action.OK],
 								emphasizedAction: MessageBox.Action.OK,
 								onClose: function (sAction) {
