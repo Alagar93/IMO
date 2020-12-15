@@ -83,7 +83,7 @@
 			"viewName": "com.sap.incture.IMO_PM.view.App",
 			"type": "XML",
 			"async": true,
-			"id": "App"
+			"id": "View1"
 		},
 		"dependencies": {
 			"minUI5Version": "1.65.6",
@@ -212,7 +212,7 @@
 				"async": true,
 				"viewPath": "com.sap.incture.IMO_PM.view",
 				"controlAggregation": "pages",
-				"controlId": "app",
+				"controlId": "oApp",
 				"clearControlAggregation": false
 			},
 			"routes": [{
