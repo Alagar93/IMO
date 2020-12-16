@@ -37,6 +37,12 @@
 					selectedKey="{mLookupModel>/sWorkCenterFilter}">
 					<core:ListItem key="{mLookupModel>WorkcenterId}" additionalText="{mLookupModel>WorkcenterDesc}" text="{mLookupModel>WorkcenterId}"/>
 				</ComboBox>
+				<Label text="CreatedOn Start Date" class="sapUiTinyMarginTop styleTextBlue"></Label>
+				<DatePicker value="{mLookupModel>/sCreatedOnStart}" valueFormat="MM/dd/yyyy" displayFormat="MMM dd,yyyy"
+					maxDate="{path:'mLookupModel>/sCreatedOnEnd',formatter:'com.sap.incture.IMO_PM.formatter.formatter.StartDateValidation'}"></DatePicker>
+				<Label text="CreatedOn End Date" class="sapUiTinyMarginTop styleTextBlue"></Label>
+				<DatePicker value="{path:'mLookupModel>/sCreatedOnEnd'}" valueFormat="MM/dd/yyyy" displayFormat="MMM dd,yyyy"
+					minDate="{path:'mLookupModel>/sCreatedOnStart',formatter:'com.sap.incture.IMO_PM.formatter.formatter.EndDateValidation'}"></DatePicker>
 			</l:Grid>
 		</content>
 		<buttons>

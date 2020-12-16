@@ -256,11 +256,6 @@ sap.ui.define([
 		fnFetchNotifList: function () {
 			var that = this;
 
-			//Trial for Date Range
-			this.FilterDateFormat = DateFormat.getDateTimeInstance({
-				pattern: "yyyy-MM-ddTHH:mm:ss"
-			});
-
 			var mLookupModel = this.mLookupModel;
 			var aNotificationListSet = mLookupModel.getProperty("/aNotificationListSet");
 			var iTopNotif = mLookupModel.getProperty("/iTopNotif");
@@ -387,10 +382,15 @@ sap.ui.define([
 		onPressReleaseMassNotif: function () {
 			var mLookupModel = this.mLookupModel;
 			var aSelectedpaths = mLookupModel.getProperty("/selectedNotifs");
+			mLookupModel.setProperty("/ReleaseStatus", "releaseMassNotif");
 			for (var i = 0; i < aSelectedpaths.length; i++) {
 
 				var notifData = mLookupModel.getProperty(aSelectedpaths[i].sPath);
 				this.fnPressReleaseNotif(notifData);
+			}
+			var releaseStatus = mLookupModel.getProperty("/massReleaseSuccess");
+			if (releaseStatus) {
+				this.fnShowReleaseSuccess();
 			}
 			mLookupModel.setProperty("/selectedNotifs", []);
 			mLookupModel.setProperty("/iSelectedIndices", 0);
@@ -398,14 +398,17 @@ sap.ui.define([
 		onPressReleaseRowNotif: function (oEvent) {
 			var notifDataPath = oEvent.getSource().getParent().getParent().getBindingContext("mLookupModel").sPath;
 			var oNotifData = this.mLookupModel.getProperty(notifDataPath);
+			this.mLookupModel.setProperty("/ReleaseStatus", "releaseNotif");
 			this.fnPressReleaseNotif(oNotifData);
 		},
 		fnPressReleaseNotif: function (notifData) {
 			var mLookupModel = this.mLookupModel;
 			var oNotificationViewModel = this.oNotificationViewModel;
 			var oNotificationDataModel = this.oNotificationDataModel;
+			var ReleaseStatus = mLookupModel.getProperty("/ReleaseStatus");
 			util.resetCreateNotificationFieldsNotifList(oNotificationDataModel, oNotificationViewModel, mLookupModel, notifData, this);
-			this.fnReleaseNotif("release");
+
+			this.fnReleaseNotif(ReleaseStatus);
 		},
 		fnReleaseNotif: function (sVal) {
 			var that = this;
@@ -470,30 +473,53 @@ sap.ui.define([
 									// mLookupModel.refresh();
 								}
 							});
+						} else if (sVal === "releaseMassNotif") {
+							that.mLookupModel.setProperty("/massReleaseSuccess", true);
 						} else {
 							MessageBox.success("Notification Released Successfully", {
+
 								actions: [MessageBox.Action.OK],
 								emphasizedAction: MessageBox.Action.OK,
 								onClose: function (sAction) {
 									// that.getView().byId("releaseButton").setVisible(false);
 									// mLookupModel.setProperty("/SysStatus", "NOPR");
 									//that.fnFetchNotifList();
-									
-									var SkipNotif = that.mLookupModel.getProperty("/iSkipNotif");//Sunanda-to ensure the record with change is updated
+
+									var SkipNotif = that.mLookupModel.getProperty("/iSkipNotif"); //Sunanda-to ensure the record with change is updated
 									that.mLookupModel.setProperty("/iSkipNotif", 0);
 									that.fnRefreshNotifListTable(SkipNotif);
 								}
 							});
 						}
+
 					}
 
 					that.busy.close();
 				},
 				error: function (error, oResponse) {
+					if (sVal === "releaseMassNotif") {
+						that.mLookupModel.setProperty("/massReleaseSuccess", false);
+					}
 					that.busy.close();
 				}
 			});
 
+		},
+		fnShowReleaseSuccess: function () {
+			MessageBox.success("Notification Released Successfully", {
+
+				actions: [MessageBox.Action.OK],
+				emphasizedAction: MessageBox.Action.OK,
+				onClose: function (sAction) {
+					// that.getView().byId("releaseButton").setVisible(false);
+					// mLookupModel.setProperty("/SysStatus", "NOPR");
+					//that.fnFetchNotifList();
+
+					var SkipNotif = this.mLookupModel.getProperty("/iSkipNotif"); //Sunanda-to ensure the record with change is updated
+					this.mLookupModel.setProperty("/iSkipNotif", 0);
+					this.fnRefreshNotifListTable(SkipNotif);
+				}
+			});
 		},
 
 		//Release notification complete
@@ -662,14 +688,27 @@ sap.ui.define([
 
 		onApplyFilterNotif: function () {
 			var mLookupModel = this.mLookupModel;
-			var oNotifTbl = this.getView().byId("notifListId");
-			this.fnResetFilers(oNotifTbl, "mLookupModel");
-			mLookupModel.setProperty("/selectedNotifs", []);
-			mLookupModel.setProperty("/iSelectedIndices", 0);
-			mLookupModel.setProperty("/sNotifIDDesFilter", ""); // clearing live search by id or desc
-			mLookupModel.refresh();
-			this.fnFetchNotifList();
-			this._oDialogNotif.close();
+			var sCreatedOnStart = mLookupModel.getProperty("/sCreatedOnStart");
+			var sCreatedOnEnd = mLookupModel.getProperty("/sCreatedOnEnd");
+			if (!sCreatedOnEnd || sCreatedOnEnd === "00000000" || sCreatedOnEnd === undefined || sCreatedOnEnd === null) {
+				sCreatedOnEnd = new Date().toLocaleDateString();
+			}
+			var nDuration = formatter.getCreatedOnFilterDuration(sCreatedOnStart, sCreatedOnEnd);
+			if (nDuration <= 90) {
+				var oNotifTbl = this.getView().byId("notifListId");
+				this.fnResetFilers(oNotifTbl, "mLookupModel");
+				mLookupModel.setProperty("/selectedNotifs", []);
+				mLookupModel.setProperty("/iSelectedIndices", 0);
+				mLookupModel.setProperty("/sNotifIDDesFilter", ""); // clearing live search by id or desc
+				mLookupModel.refresh();
+				this.fnFetchNotifList();
+				this._oDialogNotif.close();
+			} else { //restrict the created date range to 90 days
+				MessageBox.error("Please select Created on Date range within 90 days. ", {
+					actions: [MessageBox.Action.OK],
+					emphasizedAction: MessageBox.Action.OK
+				});
+			}
 		},
 
 		onSearchFavEqips: function (oEvent) {

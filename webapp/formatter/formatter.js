@@ -1009,13 +1009,29 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 		return bVal;
 	},
 	// Function to Set min End Date greater than Start Date
-	EndDateValidation: function (notifCreateStartDate) {
-		debugger;
-		if (notifCreateStartDate) {
-			return new Date(notifCreateStartDate);
+	EndDateValidation: function (CreateStartDate) {
+		
+		if (CreateStartDate) {
+			return new Date(CreateStartDate);
 		}
 		return null;
 	},
+	// Function to Set Max Start Date in filter
+	StartDateValidation:function(CreateEndDate){
+		if (CreateEndDate) {
+			return new Date(CreateEndDate);
+		}
+		return null;
+	},
+	//Function to get duration sent through filter
+	getCreatedOnFilterDuration:function(sCreatedOnStart,sCreatedOnEnd){
+		sCreatedOnStart=new Date(sCreatedOnStart);
+		sCreatedOnEnd=new Date(sCreatedOnEnd);
+		var nDurationTime=sCreatedOnEnd.getTime()-sCreatedOnStart.getTime();
+		var nDays=nDurationTime/(1000 * 3600 * 24);
+		return nDays;
+	},
+	
 	//Function to format Notifcation's Required Start and End date
 	formatReqStartEndDate: function (date) {
 		var formattedDate = "";

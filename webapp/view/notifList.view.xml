@@ -174,9 +174,9 @@
 									<Text wrapping="true" text="{i18n>Action}" class="tableHeaderText"/>
 									<table:template>
 										<HBox>
-											<Button text="{i18n>Notif_List_Release}" press="onPressReleaseRowNotif" type="Emphasized"
+											<Button icon="sap-icon://SAP-icons-TNT/data" press="onPressReleaseRowNotif" type="Emphasized"
 												visible="{=${mLookupModel>SysStatus}==='OSNO'?true:false}"/>
-											<Button text="{i18n>Notif_List_CreateWO}" press="onPressCreateRowNotif" type="Emphasized"
+											<Button icon="sap-icon://flag" press="onPressCreateRowNotif" type="Emphasized"
 												visible="{=${mLookupModel>SysStatus}==='NOPR'?true:false}"/>
 										</HBox>
 									</table:template>

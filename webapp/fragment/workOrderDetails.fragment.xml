@@ -42,7 +42,7 @@
 							<ui:Column width="8rem" hAlign="Center">
 								<Label text="{i18n>control_Key}" class="sapUITableColumnLabelClass"/>
 								<ui:template>
-									<ComboBox  selectedKey="{oWorkOrderDetailModel>ControlKey}" >
+									<ComboBox  selectedKey="{oWorkOrderDetailModel>ControlKey}" change = "onControlKeyChange">
 										<core:Item key="PM01" text="PM01"/>
 										<core:Item key="PM02" text="PM02"/>
 										<core:Item key="PM03" text="PM03"/>

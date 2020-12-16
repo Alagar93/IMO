@@ -7,7 +7,7 @@ sap.ui.define([
 	"sap/ui/model/FilterOperator",
 	"sap/m/MessageBox",
 	"sap/m/MessageToast"
-], function (BaseController, formatter, util, JSONModel, Filter, FilterOperator, MessageBox,MessageToast) {
+], function (BaseController, formatter, util, JSONModel, Filter, FilterOperator, MessageBox, MessageToast) {
 	"use strict";
 
 	return BaseController.extend("com.sap.incture.IMO_PM.controller.detailWO", {
@@ -80,12 +80,41 @@ sap.ui.define([
 				this.fnCreateUpdateBtnTxt("UPDATE_ORDER");
 				this.getWODetails(oViewType);
 			}
-			
+
 			var oPortalDataModel = this.oPortalDataModel;
 			var sericeUrl = oPortalDataModel.sServiceUrl;
 			sericeUrl = sericeUrl + "/AttachmentSet";
 			var oFileUploader = this.getView().byId("MYLAN_CREATE_WO_FILEUPLOADER");
 			oFileUploader.setUploadUrl(sericeUrl);
+		},
+		//nischal -- function to open popup for enter additional details for operations
+		onControlKeyChange: function (oEvent) {
+			var oWorkOrderDetailModel = this.oWorkOrderDetailModel;
+			var oWorkOrderDetailViewModel = this.oWorkOrderDetailViewModel;
+			var sKey = oEvent.getSource().getSelectedKey();
+			var oSource = oEvent.getSource();
+			var sPath = oSource.getBindingContext("oWorkOrderDetailModel").getPath();
+			if (sKey === "PM03") {
+				oWorkOrderDetailViewModel.setProperty("/sPathControlKey",sPath);
+				var oOpertionDetails = oWorkOrderDetailModel.getProperty(sPath);
+				oWorkOrderDetailViewModel.setProperty("/oControlkeyOperation",oOpertionDetails);
+				if (!this.controlKeyDialog) {
+					this.controlKeyDialog = sap.ui.xmlfragment("com.sap.incture.IMO_PM.fragment.controlKeyPopUp", this);
+					this.getView().addDependent(this.controlKeyDialog);
+				}
+				this.controlKeyDialog.open();
+			}
+
+		},
+		onSaveControlKey: function(oEvent){
+			var oWorkOrderDetailModel = this.oWorkOrderDetailModel;
+			var oWorkOrderDetailViewModel = this.oWorkOrderDetailViewModel;
+			this.onCancelControlKeyDialog();
+		},
+		onCancelControlKeyDialog: function (oEvent) {
+			this.controlKeyDialog.close();
+			this.controlKeyDialog.destroy();
+			this.controlKeyDialog = null;
 		},
 
 		//nischal -- function to set Required Start Date and End Date based on priority
@@ -467,13 +496,13 @@ sap.ui.define([
 				var sShortText = oWorkOrderDetailModel.getProperty("/ShortText");
 				var oNotifDetails = [{
 					"Breakdown": bBreakdown,
-					"Desenddate" : oReqEndDate,
-					"Desstdate" : oReqStartDate,
-					"LongText" : "",
-					"NotifNo" : "",
-					"NotifStatus" : "NEW",
-					"Reportedby" : sReportedby,
-					"ShortText" :sShortText 
+					"Desenddate": oReqEndDate,
+					"Desstdate": oReqStartDate,
+					"LongText": "",
+					"NotifNo": "",
+					"NotifStatus": "NEW",
+					"Reportedby": sReportedby,
+					"ShortText": sShortText
 				}];
 				util.fnSetPayLoadForCreateNotif(oWorkOrderDetailModel, oWorkOrderDetailViewModel, this); //nischal - take value from oWorkOrderDetailModel to CreateNotification Payload
 				var oNotifData = oWorkOrderDetailViewModel.getProperty("/oNotifPayLoad");
@@ -486,12 +515,12 @@ sap.ui.define([
 					success: function (sData, oResponse) {
 						var successErrMsg = "";
 						var isSuccess;
-						var oNotificationId = parseInt(sData.Notifid,10);
+						var oNotificationId = parseInt(sData.Notifid, 10);
 						var sNotifId = oNotificationId.toString();
 						if (oNotificationId) {
-								oNotifDetails[0].NotifNo = sNotifId;
-								oWorkOrderDetailModel.setProperty("/HEADERTONOTIFNAV",oNotifDetails);
-								woCreateNavType = "WO_DETAIL_CREATE";
+							oNotifDetails[0].NotifNo = sNotifId;
+							oWorkOrderDetailModel.setProperty("/HEADERTONOTIFNAV", oNotifDetails);
+							woCreateNavType = "WO_DETAIL_CREATE";
 							that.onCreateUpdateWO(woCreateNavType);
 						} else {
 							MessageToast.show("Error Creating Notification");
@@ -499,7 +528,7 @@ sap.ui.define([
 
 					},
 					error: function (error, oResponse) {
-							MessageToast.show("Error Creating Notification");
+						MessageToast.show("Error Creating Notification");
 					}
 				});
 			} else if (bVal[0] === false) {
@@ -2562,7 +2591,7 @@ sap.ui.define([
 
 			var oPortalDataModel = this.oPortalDataModel;
 			var orderId = this.oWorkOrderDetailModel.getProperty("/Orderid");
-			var slug = orderId + ":" + fileName + ":" + fileType +":"+"W";// To differentiate notification and Work order.
+			var slug = orderId + ":" + fileName + ":" + fileType + ":" + "W"; // To differentiate notification and Work order.
 			var securityToken = oPortalDataModel.getSecurityToken();
 			var oCSRFCustomHeader = new sap.ui.unified.FileUploaderParameter({
 				name: "x-csrf-token",
@@ -2622,7 +2651,7 @@ sap.ui.define([
 		getAttachmentIdForDownload: function (oEvent) {
 			var oSource = oEvent.getSource();
 			var oWorkOrderDetailViewModel = this.oWorkOrderDetailViewModel;
-			var orderId=oWorkOrderDetailViewModel.getProperty("/Orderid");
+			var orderId = oWorkOrderDetailViewModel.getProperty("/Orderid");
 			var sPath = oSource.getBindingContext("oWorkOrderDetailViewModel").getPath();
 			var fileType = oWorkOrderDetailViewModel.getProperty(sPath + "/AttachmentType");
 			var documentId = oWorkOrderDetailViewModel.getProperty(sPath + "/DocumentId");
@@ -2659,7 +2688,8 @@ sap.ui.define([
 			if (documentId) {
 				var oPortalDataModel = this.oPortalDataModel;
 				var sericeUrl = oPortalDataModel.sServiceUrl;
-				sericeUrl = "/AttachmentListSet(DocumentId='" + documentId + "',OrderId='" + orderId + "',AttachmentType='" + type + "',NotifId='')";
+				sericeUrl = "/AttachmentListSet(DocumentId='" + documentId + "',OrderId='" + orderId + "',AttachmentType='" + type +
+					"',NotifId='')";
 				oPortalDataModel.setHeaders({
 					"X-Requested-With": "X"
 				});
