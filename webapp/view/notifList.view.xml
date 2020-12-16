@@ -3,10 +3,10 @@
 	xmlns:tnt="sap.tnt">
 	<Page showHeader="false" class="sapUiSizeCompact sapMPageBackground">
 		<tnt:ToolHeader>
-			<Button icon="sap-icon://home" type="Transparent" press="onPressHome" tooltip="{i18n>home}"/>
-			<Image src="images/Cherrywork_Logo_final_Option_1.png" height="55%" width="10%"/>
+			<!--<Button icon="sap-icon://home" type="Transparent" press="onPressHome" tooltip="{i18n>home}"/>-->
+			<!--<Image src="images/Cherrywork_Logo_final_Option_1.png" height="55%" width="10%"/>-->
 			<Label design="Bold" class="sapUiSmallMarginBegin" text="{i18n>tile_notifList}" wrapping="true"/>
-			<ToolbarSpacer/>
+			<!--<ToolbarSpacer/>-->
 		</tnt:ToolHeader>
 		<content>
 			<l:FixFlex>

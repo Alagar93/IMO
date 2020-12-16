@@ -3,10 +3,10 @@
 	xmlns:table="sap.ui.table" xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" xmlns:tnt="sap.tnt">
 	<Page showHeader="false" enableScrolling="false" class="sapUiSizeCompact" title="{}">
 		<tnt:ToolHeader>
-			<Button icon="sap-icon://home" type="Transparent" press="onPressHome" tooltip="{i18n>home}"/>
-			<Image src="images/Cherrywork_Logo_final_Option_1.png" height="55%" width="10%"/>
+			<!--<Button icon="sap-icon://home" type="Transparent" press="onPressHome" tooltip="{i18n>home}"/>-->
+			<!--<Image src="images/Cherrywork_Logo_final_Option_1.png" height="55%" width="10%"/>-->
 			<Label design="Bold" class="sapUiSmallMarginBegin" text="{i18n>tile_cr/ed_wo}" wrapping="true"/>
-			<ToolbarSpacer/>
+			<!--<ToolbarSpacer/>-->
 		</tnt:ToolHeader>
 		<content>
 			<RadioButtonGroup columns="3" selectedIndex="{mLookupModel>/iSelectedIndex}" select="onCreateOptionChange" class="sapUiSmallMargin"
