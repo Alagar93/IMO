@@ -14,7 +14,6 @@
 			"version": "1.40.12"
 		},
 		"dataSources": {
-
 			"portalOData": {
 				"uri": "/Incture_DEC/sap/opu/odata/SAP/ZPM_WOM_DETAILS_SRV/",
 				"type": "OData",
@@ -59,7 +58,6 @@
 			}
 		}
 	},
-
 	"sap.ui": {
 		"technology": "UI5",
 		"icons": {
@@ -76,7 +74,6 @@
 			"phone": true
 		}
 	},
-
 	"sap.ui5": {
 		"flexEnabled": false,
 		"rootView": {
@@ -201,9 +198,11 @@
 			}
 		},
 		"resources": {
-			"css": [{
-				"uri": "css/style.css"
-			}]
+			"css": [
+				{
+					"uri": "css/style.css"
+				}
+			]
 		},
 		"routing": {
 			"config": {
@@ -215,77 +214,83 @@
 				"controlId": "oApp",
 				"clearControlAggregation": false
 			},
-			"routes": [{
+			"routes": [
+				{
 					"name": "Launch",
 					"pattern": "",
 					"viewName": "Launch"
-
-				}, {
+				},
+				{
 					"name": "createWO",
 					"pattern": "createWO",
 					"target": "createWO"
-				}, {
+				},
+				{
 					"name": "detailTabWO",
 					"pattern": "detailTabWO/{workOrderID}",
 					"target": "detailWO"
-				}, {
+				},
+				{
 					"name": "reviewWO",
 					"pattern": "reviewWO",
 					"target": "reviewWO"
-
-				}, {
+				},
+				{
 					"name": "createNotif",
 					"pattern": "createNotif",
 					"target": "createNotif"
 				},
-
 				{
 					"name": "WOList",
 					"pattern": "WOList",
 					"target": "WOList"
-				}, {
+				},
+				{
 					"name": "detailWO",
 					"pattern": "detailWO/{workOrderID}",
 					"target": "detailWO"
-				}, {
+				},
+				{
 					"name": "spareParts",
 					"pattern": "spareParts",
 					"target": "spareParts"
-
-				}, {
+				},
+				{
 					"name": "equipment",
 					"pattern": "equipment",
 					"target": "equipment"
-				}, {
+				},
+				{
 					"name": "equipDetail",
 					"pattern": "equipDetail",
 					"target": "equipDetail"
-				}, {
+				},
+				{
 					"name": "notifList",
 					"pattern": "notifList",
 					"target": "notifList"
-				}, {
+				},
+				{
 					"name": "notifDetail",
 					"pattern": "notifDetail/{notifID}",
 					"target": "notifDetail"
-				}, {
+				},
+				{
 					"name": "reports",
 					"pattern": "reports",
 					"target": "reports"
-				}, {
+				},
+				{
 					"name": "shiftReport",
 					"pattern": "shiftReport",
 					"target": "shiftReport"
 				}
-
 			],
 			"targets": {
-
 				"Launch": {
 					"viewType": "XML",
 					"viewName": "Launch"
 				},
-
 				"reviewWO": {
 					"viewType": "XML",
 					"viewName": "reviewWorkOrder"
@@ -336,8 +341,11 @@
 					"clearControlAggregation": false,
 					"viewName": "shiftReport"
 				}
-
 			}
 		}
+	},
+	"sap.platform.hcp": {
+		"uri": "webapp",
+		"_version": "1.1.0"
 	}
 }

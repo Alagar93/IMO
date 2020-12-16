@@ -1,0 +1,104 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:layout="sap.ui.layout"
+	xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" class="sapUiSizeCompact">
+	<Dialog title="{}" contentWidth="40%" contentHeight="60%" showHeader="false" verticalScrolling="false" class="sapUiSizeCompact">
+		<Page title="Change Corrective Maintenance Order" showHeader="true" titleAlignment="Center">
+			<content>
+				<l:Grid >
+					<VBox class="sapUiSmallMarginTop">
+						<Label text="Oper. Short Text"></Label>
+						<Input value="{oWorkOrderDetailViewModel>/oControlkeyOperation/Description}"></Input>
+						<layoutData>
+							<l:GridData span="XL6 L12 M12 S6"/>
+						</layoutData>
+					</VBox>
+					<VBox class="sapUiSmallMarginTop">
+						<Label text="Operation qty"></Label>
+						<HBox>
+							<Input value="{oWorkOrderDetailViewModel>/oControlkeyOperation/Quantity}" width="100%"></Input>
+							<Input value="AU" width="100%"></Input>
+						</HBox>
+						<layoutData>
+							<l:GridData span="XL6 L6 M6 S6"/>
+						</layoutData>
+					</VBox>
+					<VBox class="sapUiSmallMarginTop">
+						<Label text="Price"></Label>
+						<HBox>
+							<Input value="{oWorkOrderDetailViewModel>/oControlkeyOperation/Price}" width="100%"></Input>
+							<Input value="USD" width="100%"></Input>
+						</HBox>
+						<layoutData>
+							<l:GridData span="XL6 L6 M6 S6"/>
+						</layoutData>
+					</VBox>
+					<VBox class="sapUiSmallMarginTop">
+						<Label text="Per"></Label>
+						<Input value="{oWorkOrderDetailViewModel>/oControlkeyOperation/PriceUnit}"></Input>
+						<layoutData>
+							<l:GridData span="XL6 L6 M6 S6"/>
+						</layoutData>
+					</VBox>
+					<VBox class="sapUiSmallMarginTop">
+						<Label text="Material Group"></Label>
+						<Input value="{oWorkOrderDetailViewModel>/oControlkeyOperation/MatlGroup}"></Input>
+						<layoutData>
+							<l:GridData span="XL6 L6 M6 S6"/>
+						</layoutData>
+					</VBox>
+					<VBox class="sapUiSmallMarginTop">
+						<Label text="Purch. Group"></Label>
+						<HBox>
+							<Input value="{oWorkOrderDetailViewModel>/oControlkeyOperation/PurGroup}" width="100%"></Input>
+							<Input value="US01" width="100%"></Input>
+						</HBox>
+						<layoutData>
+							<l:GridData span="XL6 L6 M6 S6"/>
+						</layoutData>
+					</VBox>
+					<VBox class="sapUiSmallMarginTop">
+						<Label text="Vendor"></Label>
+						<Input value="{oWorkOrderDetailViewModel>/oControlkeyOperation/VendorNo}"></Input>
+						<layoutData>
+							<l:GridData span="XL6 L6 M6 S6"/>
+						</layoutData>
+					</VBox>
+					<VBox class="sapUiSmallMarginTop">
+						<Label text="Agreement"></Label>
+						<HBox>
+							<Input value="" width="100%"></Input>
+							<Input value="" width="100%"></Input>
+						</HBox>
+						<layoutData>
+							<l:GridData span="XL6 L6 M6 S6"/>
+						</layoutData>
+					</VBox>
+					<VBox class="sapUiSmallMarginTop">
+						<Label text="Recipient"></Label>
+						<Input value=""></Input>
+						<layoutData>
+							<l:GridData span="XL6 L6 M6 S6"/>
+						</layoutData>
+					</VBox>
+					<VBox class="sapUiSmallMarginTop">
+						<Label text="Requisitioner"></Label>
+						<Input value=""></Input>
+						<layoutData>
+							<l:GridData span="XL6 L6 M6 S6"/>
+						</layoutData>
+					</VBox>
+				</l:Grid>
+			</content>
+			<footer>
+				<Toolbar>
+					<Button type="Reject" text="Cancel" press="onCancelControlKeyDialog"/>
+					<ToolbarSpacer/>
+					<Button type="Accept" text="Save" press="onSaveControlKey">
+						<customData>
+							<core:CustomData key="dateType" value="CREATE_ORDER"/>
+						</customData>
+					</Button>
+				</Toolbar>
+			</footer>
+		</Page>
+	</Dialog>
+</core:FragmentDefinition >

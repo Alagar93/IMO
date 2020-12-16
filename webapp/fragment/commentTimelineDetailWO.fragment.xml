@@ -2,7 +2,7 @@
 	xmlns:u="sap.ui.unified">
 	<IconTabBar expandable="false" class="sapMIconTabBarHeight">
 		<items>
-			<IconTabFilter text="{i18n>ALL_COMMENTS}">
+			<IconTabFilter text="{i18n>ALL_COMMENTS}" visible = "false">
 				<SegmentedButton selectedKey="WORK_ORDER_CMTS" class="sapUiTinyMarginBottom" width="100%" select="setCommentsVisibleLayout"
 					visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setVisibleCommentsView'}">
 					<items>

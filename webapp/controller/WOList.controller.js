@@ -399,10 +399,17 @@ sap.ui.define([
 			mLookupModel.refresh();
 		},
 		handleLinkPress: function (oEvent) {
-			var sURL;
-			var sNotifID = oEvent.getSource().getText();
-			sURL = "https://lnvybdvpasstbo1j-imo-imo-pm.cfapps.eu10.hana.ondemand.com/IMO_PM/index.html#/detailTabWO/" + sNotifID;
-			sap.m.URLHelper.redirect(sURL, true);
+			//nischal -- Removing the Hardcoded URL
+			// var sURL;
+			// var sNotifID = oEvent.getSource().getText();
+			// sURL = "https://lnvybdvpasstbo1j-imo-imo-pm.cfapps.eu10.hana.ondemand.com/IMO_PM/index.html#/detailTabWO/" + sNotifID;
+			// sap.m.URLHelper.redirect(sURL, true);
+			var sWorkOrderID = oEvent.getSource().getText();
+			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+			oRouter.navTo("detailTabWO", {
+				workOrderID: sWorkOrderID
+			});
+			//nischal -- added inbuilt routing
 		},
 
 		onSaveWOFilter: function () {
