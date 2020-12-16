@@ -256,11 +256,7 @@ sap.ui.define([
 		fnFetchNotifList: function () {
 			var that = this;
 
-			//Trial for Date Range
-			this.FilterDateFormat = DateFormat.getDateTimeInstance({
-				pattern: "yyyy-MM-ddTHH:mm:ss"
-			});
-
+		
 			var mLookupModel = this.mLookupModel;
 			var aNotificationListSet = mLookupModel.getProperty("/aNotificationListSet");
 			var iTopNotif = mLookupModel.getProperty("/iTopNotif");
@@ -478,8 +474,8 @@ sap.ui.define([
 									// that.getView().byId("releaseButton").setVisible(false);
 									// mLookupModel.setProperty("/SysStatus", "NOPR");
 									//that.fnFetchNotifList();
-									
-									var SkipNotif = that.mLookupModel.getProperty("/iSkipNotif");//Sunanda-to ensure the record with change is updated
+
+									var SkipNotif = that.mLookupModel.getProperty("/iSkipNotif"); //Sunanda-to ensure the record with change is updated
 									that.mLookupModel.setProperty("/iSkipNotif", 0);
 									that.fnRefreshNotifListTable(SkipNotif);
 								}
@@ -662,14 +658,27 @@ sap.ui.define([
 
 		onApplyFilterNotif: function () {
 			var mLookupModel = this.mLookupModel;
-			var oNotifTbl = this.getView().byId("notifListId");
-			this.fnResetFilers(oNotifTbl, "mLookupModel");
-			mLookupModel.setProperty("/selectedNotifs", []);
-			mLookupModel.setProperty("/iSelectedIndices", 0);
-			mLookupModel.setProperty("/sNotifIDDesFilter", ""); // clearing live search by id or desc
-			mLookupModel.refresh();
-			this.fnFetchNotifList();
-			this._oDialogNotif.close();
+			var sCreatedOnStart = mLookupModel.getProperty("/sCreatedOnStart");
+			var sCreatedOnEnd = mLookupModel.getProperty("/sCreatedOnEnd");
+			if (!sCreatedOnEnd || sCreatedOnEnd === "00000000" || sCreatedOnEnd === undefined || sCreatedOnEnd === null) {
+				sCreatedOnEnd = new Date().toLocaleDateString();
+			}
+			var nDuration = formatter.getCreatedOnFilterDuration(sCreatedOnStart, sCreatedOnEnd);
+			if (nDuration <= 90) {
+				var oNotifTbl = this.getView().byId("notifListId");
+				this.fnResetFilers(oNotifTbl, "mLookupModel");
+				mLookupModel.setProperty("/selectedNotifs", []);
+				mLookupModel.setProperty("/iSelectedIndices", 0);
+				mLookupModel.setProperty("/sNotifIDDesFilter", ""); // clearing live search by id or desc
+				mLookupModel.refresh();
+				this.fnFetchNotifList();
+				this._oDialogNotif.close();
+			} else {                                                  //restrict the created date range to 90 days
+				MessageBox.error("Please select Created on Date range within 90 days. ", {
+					actions: [MessageBox.Action.OK],
+					emphasizedAction: MessageBox.Action.OK
+				});
+			}
 		},
 
 		onSearchFavEqips: function (oEvent) {

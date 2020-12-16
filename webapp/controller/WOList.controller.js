@@ -6,8 +6,9 @@ sap.ui.define([
 	"sap/ui/model/FilterOperator",
 	"sap/m/BusyDialog",
 	"com/sap/incture/IMO_PM/formatter/formatter",
-	"com/sap/incture/IMO_PM/util/util"
-], function (BaseController, Controller, JSONModel, Filter, FilterOperator, BusyDialog, formatter, util) {
+	"com/sap/incture/IMO_PM/util/util",
+	"sap/m/MessageBox"
+], function (BaseController, Controller, JSONModel, Filter, FilterOperator, BusyDialog, formatter, util,MessageBox) {
 	"use strict";
 
 	return BaseController.extend("com.sap.incture.IMO_PM.controller.WOList", {
@@ -65,7 +66,9 @@ sap.ui.define([
 					"id": "TECO"
 				}],
 				"iSelectedIndices": 0,
-				"sWorkCenterSel": ""
+				"sWorkCenterSel": "",
+				"sCreatedOnStart": formatter.GetMonthsBackDate(3), // Date Range for Enter Date
+				"sCreatedOnEnd": new Date().toLocaleDateString()
 			};
 			this.mLookupModel.setProperty("/", oViewSetting);
 			this.busy = new BusyDialog();
@@ -424,7 +427,9 @@ sap.ui.define([
 				"refWONumber": mLookupModel.getProperty("/iWONumFilter"),
 				"refEquipment": mLookupModel.getProperty("/sEquipFilter"),
 				"refCreatedBy": mLookupModel.getProperty("/sCreatedBy"),
-				"refAssignedTo": mLookupModel.getProperty("/sAssignedTo")
+				"refAssignedTo": mLookupModel.getProperty("/sAssignedTo"),
+				"sCreatedOnStart": mLookupModel.getProperty("/sCreatedOnStart"), // Date Range for Enter Date
+				"sCreatedOnEnd": mLookupModel.getProperty("/sCreatedOnEnd")
 			};
 			if (oRequest.id === undefined || !oRequest.id) {
 				oRequest.id = "";
@@ -483,9 +488,22 @@ sap.ui.define([
 			var that = this;
 			var mLookupModel = this.mLookupModel;
 			var iTop = mLookupModel.getProperty("/iTop");
+
 			var iSkip = mLookupModel.getProperty("/iSkip");
 			var userPlant = mLookupModel.getProperty("/userPlant");
 			var aWorkOrderListSet = mLookupModel.getProperty("/aWorkOrderListSet");
+			var sCreatedOnStart = mLookupModel.getProperty("/sCreatedOnStart"); // Date Range for Enter Date
+			var sCreatedOnEnd = mLookupModel.getProperty("/sCreatedOnEnd");
+			if (!sCreatedOnStart) {
+				sCreatedOnStart = new Date(null);
+			} else {
+				sCreatedOnStart = new Date(sCreatedOnStart);
+			}
+			if (!sCreatedOnEnd) {
+				sCreatedOnEnd = new Date();
+			} else {
+				sCreatedOnEnd = new Date(sCreatedOnEnd);
+			}
 			this.busy.open();
 			var sUrl = "/WorkOrderListSet";
 			var oPortalDataModel = this.oPortalDataModel;
@@ -501,6 +519,12 @@ sap.ui.define([
 			oFilter.push(new Filter("MnWkCtr", "EQ", mLookupModel.getProperty("/sWorkCenterFilter")));
 			oFilter.push(new Filter("FunctLoc", "EQ", ""));
 			oFilter.push(new Filter("Plant", "EQ", userPlant));
+			oFilter.push(new Filter({
+				filters: [new Filter("EnterDate", "GE", sCreatedOnStart),
+					new Filter("EnterDate", "LE", sCreatedOnEnd)
+				],
+				and: true
+			}));
 			oPortalDataModel.read(sUrl, {
 				filters: oFilter,
 				urlParameters: {
@@ -558,13 +582,27 @@ sap.ui.define([
 		// clearing live search by id or desc
 		onApplyFilter: function () {
 			var mLookupModel = this.mLookupModel;
-			mLookupModel.setProperty("/sWorderIdDesFilter", "");
-			mLookupModel.setProperty("/selectedWOs", []);
-			mLookupModel.setProperty("/iSelectedIndices", 0);
-			this.getView().byId("idWorkOrderList").clearSelection();
-			mLookupModel.refresh();
-			this.fnFetchWOList();
-			this._oDialogWO.close();
+			var sCreatedOnStart = mLookupModel.getProperty("/sCreatedOnStart");
+			var sCreatedOnEnd = mLookupModel.getProperty("/sCreatedOnEnd");
+			if (!sCreatedOnEnd || sCreatedOnEnd === "00000000" || sCreatedOnEnd === undefined || sCreatedOnEnd === null) {
+				sCreatedOnEnd = new Date().toLocaleDateString();
+			}
+			var nDuration = formatter.getCreatedOnFilterDuration(sCreatedOnStart, sCreatedOnEnd);
+			if (nDuration <= 90) {
+				mLookupModel.setProperty("/sWorderIdDesFilter", "");
+				mLookupModel.setProperty("/selectedWOs", []);
+				mLookupModel.setProperty("/iSelectedIndices", 0);
+				this.getView().byId("idWorkOrderList").clearSelection();
+				mLookupModel.refresh();
+				this.fnFetchWOList();
+				this._oDialogWO.close();
+			}else{
+				MessageBox.error("Please select Created on Date range within 90 days. ", {
+					actions: [MessageBox.Action.OK],
+					emphasizedAction: MessageBox.Action.OK
+				});
+			}
+
 		},
 
 		onHandleAdvFilterWO: function (oEvent) {
@@ -573,7 +611,7 @@ sap.ui.define([
 				this.getView().addDependent(this._oDialogWO);
 			}
 
-			var that = this;
+			//var that = this;
 			// var mLookupModel = this.mLookupModel;
 			// this.busy.open();
 			// var sUrl = "/GetWorkOrderVariantSet";
@@ -909,6 +947,8 @@ sap.ui.define([
 			mLookupModel.setProperty("/sCreatedBy", "");
 			mLookupModel.setProperty("/sAssignedTo", "");
 			mLookupModel.setProperty("/sWorkCenterFilter", "");
+			mLookupModel.setProperty("/sCreatedOnStart", formatter.GetMonthsBackDate(3)); // Date Range for Enter Date
+			mLookupModel.setProperty("/sCreatedOnEnd", new Date().toLocaleDateString());
 		}
 	});
 });
