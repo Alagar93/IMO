@@ -458,8 +458,9 @@ sap.ui.define([
 								actions: [MessageBox.Action.OK],
 								emphasizedAction: MessageBox.Action.OK,
 								onClose: function (sAction) {
+									var SkipNotif = that.mLookupModel.getProperty("/iSkipNotif");
 									that.mLookupModel.setProperty("/iSkipNotif", 0);
-									that.fnResetUItable();
+									that.fnRefreshNotifListTable(SkipNotif);
 									// that.getView().byId("idrevertNotif").setVisible(false);
 									// if(orderId === "" || orderId === undefined){
 									// mLookupModel.setProperty("/SysStatus", "NOPR");
@@ -476,7 +477,11 @@ sap.ui.define([
 								onClose: function (sAction) {
 									// that.getView().byId("releaseButton").setVisible(false);
 									// mLookupModel.setProperty("/SysStatus", "NOPR");
-									that.fnFetchNotifList();
+									//that.fnFetchNotifList();
+									
+									var SkipNotif = that.mLookupModel.getProperty("/iSkipNotif");//Sunanda-to ensure the record with change is updated
+									that.mLookupModel.setProperty("/iSkipNotif", 0);
+									that.fnRefreshNotifListTable(SkipNotif);
 								}
 							});
 						}

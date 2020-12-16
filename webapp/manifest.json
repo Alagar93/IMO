@@ -82,12 +82,16 @@
 			"async": true,
 			"id": "View1"
 		},
+		"config": {
+			"fullWidth": true,
+			"sapFiori2Adaptation": true
+		},
 		"dependencies": {
 			"minUI5Version": "1.65.6",
 			"libs": {
-				"sap.ui.layout": {},
+				"sap.m": {},
 				"sap.ui.core": {},
-				"sap.m": {}
+				"sap.ui.layout": {}
 			}
 		},
 		"contentDensities": {

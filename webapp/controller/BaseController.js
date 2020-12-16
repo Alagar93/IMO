@@ -2408,8 +2408,9 @@ sap.ui.define([
 							that.onCancelDialogAssign();
 						}
 					}
+					var SkipNotif = that.mLookupModel.getProperty("/iSkipNotif");//Sunanda-to ensure the record with change is updated
 					that.mLookupModel.setProperty("/iSkipNotif", 0);
-					that.fnResetUItable();
+					that.fnRefreshNotifListTable(SkipNotif);
 					that.fnShowSuccessErrorMsg(messages);
 					that.busy.close();
 				},
@@ -3186,8 +3187,9 @@ sap.ui.define([
 									emphasizedAction: MessageBox.Action.OK,
 									onClose: function (sAction) {
 										that.busy.close();
+										var SkipNotif = that.mLookupModel.getProperty("/iSkipNotif");//Sunanda-to ensure the record with change is updated
 										that.mLookupModel.setProperty("/iSkipNotif", 0);
-										that.fnResetUItable();
+										that.fnRefreshNotifListTable(SkipNotif);
 									}
 								});
 						}
@@ -3200,6 +3202,20 @@ sap.ui.define([
 				}
 			});
 
+		},
+		//Function to reload the the Notification table with more records
+		fnRefreshNotifListTable: function (nSkipNotif) {
+			var nSkip = 0;
+			var mLookupModel=this.mLookupModel;
+			mLookupModel.setProperty("/aNotificationListSet", []);
+			this.fnFetchNotifList();
+			while (nSkip < nSkipNotif) {
+				this.handleLoadMoreNotif();
+				nSkip = this.mLookupModel.getProperty("/iSkipNotif");
+			}
+			mLookupModel.setProperty("/selectedNotifs", []);
+			mLookupModel.setProperty("/iSelectedIndices", 0);
+			//mLookupModel.refresh(true);
 		}
 
 	});

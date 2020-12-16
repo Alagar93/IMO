@@ -18,6 +18,7 @@ sap.ui.define([
 
 		onInit: function () {
 			//Application Model used only for Translation of texts
+			this._router = this.getOwnerComponent().getRouter();
 			var oResourceModel = this.getOwnerComponent().getModel("i18n");
 			this.oResourceModel = oResourceModel.getResourceBundle();
 
@@ -399,17 +400,16 @@ sap.ui.define([
 			mLookupModel.refresh();
 		},
 		handleLinkPress: function (oEvent) {
-			//nischal -- Removing the Hardcoded URL
-			// var sURL;
-			// var sNotifID = oEvent.getSource().getText();
+			var sURL;
+			var sNotifID = oEvent.getSource().getText();
+			this._router.navTo("detailTabWO", {workOrderID: sNotifID});
 			// sURL = "https://lnvybdvpasstbo1j-imo-imo-pm.cfapps.eu10.hana.ondemand.com/IMO_PM/index.html#/detailTabWO/" + sNotifID;
 			// sap.m.URLHelper.redirect(sURL, true);
-			var sWorkOrderID = oEvent.getSource().getText();
-			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-			oRouter.navTo("detailTabWO", {
-				workOrderID: sWorkOrderID
-			});
-			//nischal -- added inbuilt routing
+			
+			/*var navUrl = "#/detailTabWO/" + sNotifID;
+            var url = window.location.href.split('#')[0] + navUrl;
+            window.open(url, '_blank');*/
+
 		},
 
 		onSaveWOFilter: function () {
