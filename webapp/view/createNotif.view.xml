@@ -33,7 +33,7 @@
 						</layoutData>
 					</VBox>
 				</l:Grid>
-				<VBox class="sapVBoxBorderClass">
+				<VBox class="">
 					<VBox class="sapRefObjClass sapUiSmallMarginTop ">
 						<Label text="{i18n>REFERENCE_OBJECT}" design="Bold" class="sapUiSmallMarginBegin sapUiTinyMarginBottom"></Label>
 						<layoutData>
