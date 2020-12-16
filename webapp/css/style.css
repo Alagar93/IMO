@@ -28,9 +28,9 @@ width: 50px;
 }
 
 .tableHeaderText {
-    font-weight: bold;
+    /*font-weight: bold;*/
     font-size: 13px;
-    color: #316FA8;
+    color: #3d3d3d;
 }
 
 .tableContentText {
@@ -217,8 +217,8 @@ width: 50px;
 }
 
 .formatKPINumber {
-    color: black;
-    font-weight: bold;
+    color: #4c6a7f;
+    /*font-weight: bold;*/
     font-size: 1.5rem;
 }
 
@@ -1138,7 +1138,8 @@ html:not([data-sap-ui-browser^="ie"]):not([data-sap-ui-browser^="ed"]) .sapUiIco
 
 .notificationHeaderText {
     font-weight: bold;
-    font-size: 13px;
+    font-size: 14px;
+    color: #666666;
 }
 
 .tableHeaderText {
@@ -1179,8 +1180,8 @@ html:not([data-sap-ui-browser^="ie"]):not([data-sap-ui-browser^="ed"]) .sapUiIco
 /*}*/
 
 .formatKPINumber {
-    color: #004C8D;
-    font-weight: bold;
+    color: #4c6a7f;
+    /*font-weight: bold;*/
     font-size: 1.5rem;
 }
 
@@ -2229,4 +2230,28 @@ background-color: #377295;
     color: #cae4fb;
     /*background: #8dc237 !important;
 color: #fff !important;*/
+}
+
+.murphyHdrTileClass {
+    height: 6rem !important;
+    width: 100% !important;
+    padding: 0.5rem !important;
+    /*background: transparent !important;*/
+    box-shadow: none !important;
+}
+
+.murphyHdrTileClass .sapMTileCntContent,
+.murphyHdrTileClass .sapMTileCnt,
+.murphyHdrTileClass .sapMGTContent {
+    padding: 0px;
+    margin: 0px;
+    height: 5rem;
+}
+
+.murphyHdrTileClass .sapMGTHdrContent,
+.murphyHdrTileClass .sapMTileCntFtrTxt {
+    display: none !important;
+}
+.KPIShadow {
+    box-shadow: 1px 1px 2px 2px lightgrey !important;
 }
