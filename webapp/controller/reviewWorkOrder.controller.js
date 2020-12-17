@@ -14,7 +14,7 @@ sap.ui.define([
 		formatter: formatter,
 		util: util,
 		onInit: function () {
-
+			this._router = this.getOwnerComponent().getRouter();
 			this.busy = new BusyDialog();
 			var oPortalDataModel = this.getOwnerComponent().getModel("oPortalDataModel");
 			this.oPortalDataModel = oPortalDataModel;
@@ -456,9 +456,11 @@ sap.ui.define([
 			var sHost = window.location.origin;
 			var sBSPPath = "/sap/bc/ui5_ui5/sap/ZMYL_WOCREATE/index.html#/detailWO/";
 			// var sURL = sHost + sBSPPath + sWorkOrderSel;
-			var sURL = "https://ub2qkdfhxg4ubmgqmta-imo-pm-imo-pm.cfapps.eu10.hana.ondemand.com/IMO_PM/index.html#/detailTabWO/" +
+			
+			this._router.navTo("detailTabWO", {workOrderID: sWorkOrderSel});
+			/*var sURL = "https://ub2qkdfhxg4ubmgqmta-imo-pm-imo-pm.cfapps.eu10.hana.ondemand.com/IMO_PM/index.html#/detailTabWO/" +
 				sWorkOrderSel;
-			sap.m.URLHelper.redirect(sURL, true);
+			sap.m.URLHelper.redirect(sURL, true);*/
 		},
 
 		onTeco: function (oEvent) {

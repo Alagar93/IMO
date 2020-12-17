@@ -1,20 +1,20 @@
 <mvc:View controllerName="com.sap.incture.IMO_PM.controller.reviewWorkOrder" xmlns="sap.ui.table" xmlns:mvc="sap.ui.core.mvc"
 	xmlns:m="sap.m" xmlns:u="sap.ui.unified" xmlns:core="sap.ui.core" xmlns:commons="sap.ui.commons" xmlns:l="sap.ui.layout" xmlns:tnt="sap.tnt">
-	<m:Page showHeader="true" enableScrolling="false" class="sapUiSizeCompact" title="{}">
-		<m:customHeader>
-		<tnt:ToolHeader>
+	<m:Page showHeader="false" enableScrolling="false" class="sapUiSizeCompact" title="{}">
+		<!--<m:customHeader>-->
+		<!--<tnt:ToolHeader>-->
 			<!--<m:Button icon="sap-icon://home" type="Transparent" press="onPressHome" tooltip="{i18n>home}"/>-->
 			<!--<m:Image src="images/Cherrywork_Logo_final_Option_1.png" height="55%" width="10%"/>-->
-			<m:Label design="Bold" class="sapUiSmallMarginBegin" text="{tile_reviewWO}" wrapping="true"/>
+			<!--<m:Label design="Bold" class="sapUiSmallMarginBegin" text="{tile_reviewWO}" wrapping="true"/>-->
 			<!--<m:ToolbarSpacer/>-->
-		</tnt:ToolHeader>
-		</m:customHeader>
+		<!--</tnt:ToolHeader>-->
+		<!--</m:customHeader>-->
 		<m:content>
-			<TreeTable class="sapUiSmallMarginTop" id="idreviewTreeTable" rows="{path:'/', parameters: {arrayNames:['oprns']}}" selectionMode="None"
+			<TreeTable class="sapUiSmallMargin" id="idreviewTreeTable" rows="{path:'/', parameters: {arrayNames:['oprns']}}" selectionMode="None"
 				enableSelectAll="false" visibleRowCount="{mLookupModel>/rowCount}" visibleRowCountMode="Fixed" ariaLabelledBy="title" fixedColumnCount="2"
 				rowHeight="58rem" toggleOpenState="onExpandCollapse" filter="onFilterColumn">
 				<extension>
-					<m:OverflowToolbar class="toolBarClass">
+					<m:OverflowToolbar class="toolBarClass sapUiSmallMarginTopBottom">
 						<m:Title id="title" text="{i18n>revTable} ({mLookupModel>/aWorkOrderListSet/0/Totalrecords} WO's)" class="titleBold"/>
 						<m:ToolbarSpacer/>
 						<m:Link text="{i18n>advFilter}" press="onHandleAdvFilterWO"/>
@@ -182,7 +182,7 @@
 		<m:footer>
 			<m:Toolbar>
 				<m:ToolbarSpacer/>
-				<m:Button text="{i18n>TecoWO}" press="onOpenDigitalSignPopup" type="Emphasized"
+				<m:Button text="{i18n>TecoWO}" press="onOpenDigitalSignPopup" class="murphyCreateBtn"
 					visible="{path:'mLookupModel>/userRole', formatter:'com.sap.incture.IMO_PM.formatter.formatter.disableReviewField'}"/>
 			</m:Toolbar>
 		</m:footer>

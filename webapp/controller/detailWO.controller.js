@@ -95,9 +95,9 @@ sap.ui.define([
 			var oSource = oEvent.getSource();
 			var sPath = oSource.getBindingContext("oWorkOrderDetailModel").getPath();
 			if (sKey === "PM03") {
-				oWorkOrderDetailViewModel.setProperty("/sPathControlKey",sPath);
-				var oOpertionDetails = oWorkOrderDetailModel.getProperty(sPath);
-				oWorkOrderDetailViewModel.setProperty("/oControlkeyOperation",oOpertionDetails);
+				oWorkOrderDetailViewModel.setProperty("/sPathControlKey", sPath);
+				var oOpertionDetails = jQuery.extend(true, {}, oWorkOrderDetailModel.getProperty(sPath));
+				oWorkOrderDetailViewModel.setProperty("/oControlkeyOperation", oOpertionDetails);
 				if (!this.controlKeyDialog) {
 					this.controlKeyDialog = sap.ui.xmlfragment("com.sap.incture.IMO_PM.fragment.controlKeyPopUp", this);
 					this.getView().addDependent(this.controlKeyDialog);
@@ -106,9 +106,12 @@ sap.ui.define([
 			}
 
 		},
-		onSaveControlKey: function(oEvent){
+		onSaveControlKey: function (oEvent) {
 			var oWorkOrderDetailModel = this.oWorkOrderDetailModel;
 			var oWorkOrderDetailViewModel = this.oWorkOrderDetailViewModel;
+			var sPath = oWorkOrderDetailViewModel.getProperty("/sPathControlKey");
+			var oData = oWorkOrderDetailViewModel.getProperty("/oControlkeyOperation");
+			oWorkOrderDetailModel.setProperty(sPath, oData);
 			this.onCancelControlKeyDialog();
 		},
 		onCancelControlKeyDialog: function (oEvent) {
@@ -388,6 +391,7 @@ sap.ui.define([
 
 		//Function to Create/Update and Exit WO detail screen
 		onCreateUpdateAndExitWO: function (oEvent) {
+			var that = this;
 			var oSource = oEvent.getSource();
 			var oBtnType = oSource.getCustomData()[0].getValue();
 			switch (oBtnType) {
@@ -427,7 +431,23 @@ sap.ui.define([
 				// this.fnMandateUiFields("WO_DETAIL_RELEASE");
 				break;
 			case "WO_DETAIL_TECHO":
-				this.fnMandateUiFields("WO_DETAIL_TECHO");
+				//nischal -- TECO based on user status
+				var oWorkOrderDetailModel = this.oWorkOrderDetailModel;
+				var sUserStatus = oWorkOrderDetailModel.getProperty("/UserStatus");
+				if (sUserStatus === "HOLD") {
+					MessageBox.warning("The order is on Hold status. Do you want to proceed with TECO?", {
+						actions: [MessageBox.Action.OK, MessageBox.Action.CANCEL],
+						emphasizedAction: MessageBox.Action.OK,
+						onClose: function (sAction) {
+							if(sAction === "OK"){
+								that.fnMandateUiFields("WO_DETAIL_TECHO");
+							}
+						}
+					});
+				} else {
+					this.fnMandateUiFields("WO_DETAIL_TECHO"); //nischal -- TECO based on user status
+				}
+						
 				break;
 			case "WO_DETAIL_OPERATION_CONFIRM":
 				this.fnMandateUiFields("WO_DETAIL_OPERATION_CONFIRM");

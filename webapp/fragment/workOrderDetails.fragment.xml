@@ -33,14 +33,14 @@
 						visibleRowCount="8" class="sapUITableColumn" rowSelectionChange="onSelectOperation" id="MYLAN_OPERATIONS_TABLE">
 						<ui:columns>
 							<ui:Column width="6rem" hAlign="Center" tooltip="{i18n>operation}">
-								<Label text="{i18n>operation}" class="sapUITableColumnLabelClass"/>
+								<Label text="{i18n>operation}" class="tableHeaderText"/>
 								<ui:template>
 									<Input value="{oWorkOrderDetailModel>Activity}" maxLength="4" change="sortOperations" class="sapInputBorderClass"
 										enabled="{parts:['oWorkOrderDetailModel>OperCode', 'oWorkOrderDetailModel>/OrderStatus'], formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnSetWOUpdateStatusFields'}"/>
 								</ui:template>
 							</ui:Column>
 							<ui:Column width="8rem" hAlign="Center">
-								<Label text="{i18n>control_Key}" class="sapUITableColumnLabelClass"/>
+								<Label text="{i18n>control_Key}" class="tableHeaderText"/>
 								<ui:template>
 									<ComboBox  selectedKey="{oWorkOrderDetailModel>ControlKey}" change = "onControlKeyChange">
 										<core:Item key="PM01" text="PM01"/>
@@ -50,39 +50,39 @@
 								</ui:template>
 							</ui:Column>
 							<ui:Column width="6.5rem" hAlign="Center" tooltip="{i18n>WORK_CENTER}">
-								<Label text="{i18n>WORK_CENTER}" class="sapUITableColumnLabelClass"/>
+								<Label text="{i18n>WORK_CENTER}" class="tableHeaderText"/>
 								<ui:template>
 									<Text text="{oWorkOrderDetailModel>WorkCntr}"/>
 								</ui:template>
 							</ui:Column>
 							<ui:Column width="6rem" hAlign="Center" tooltip="{i18n>STATUS}">
-								<Label text="{i18n>STATUS}" class="sapUITableColumnLabelClass"/>
+								<Label text="{i18n>STATUS}" class="tableHeaderText"/>
 								<ui:template>
 									<!--<Text text="{oWorkOrderDetailModel>SysStatusDes}"/>-->
 									<Text text="{oWorkOrderDetailModel>systemstatustext}"/>
 								</ui:template>
 							</ui:Column>
 							<ui:Column width="12rem" hAlign="Center" tooltip="{i18n>SHORT_TEXT}">
-								<Label text="{i18n>SHORT_TEXT}" class="sapUITableColumnLabelClass"/>
+								<Label text="{i18n>SHORT_TEXT}" class="tableHeaderText"/>
 								<ui:template>
 									<Input value="{oWorkOrderDetailModel>Description}" maxLength="40" change="fnOperationUpdateStatus" class="sapInputBorderClass"
 										enabled="{parts:['oWorkOrderDetailModel>OperCode', 'oWorkOrderDetailModel>/OrderStatus', 'oWorkOrderDetailModel>systemstatustext', 'oWorkOrderDetailModel>Systcond'], formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnSetWOUpdateStatusFields'}"/>
 								</ui:template>
 							</ui:Column>
 							<ui:Column width="3rem" hAlign="Center" tooltip="{i18n>LText}">
-								<Label text="{i18n>LT}" class="sapUITableColumnLabelClass"/>
+								<Label text="{i18n>LT}" class="tableHeaderText"/>
 								<ui:template>
 									<Text text="{path:'oWorkOrderDetailModel>LongText', formatter:'.formatter.isOperationLongTxtAvailable'}"/>
 								</ui:template>
 							</ui:Column>
 							<ui:Column width="3rem" hAlign="Center" tooltip="{i18n>SPARE_PARTS}">
-								<Label text="{i18n>SPS}" class="sapUITableColumnLabelClass"/>
+								<Label text="{i18n>SPS}" class="tableHeaderText"/>
 								<ui:template>
 									<Text text="{path:'oWorkOrderDetailModel>Activity', formatter:'com.sap.incture.IMO_PM.formatter.formatter.getSparePartsCount'}"/>
 								</ui:template>
 							</ui:Column>
 							<ui:Column width="9rem" hAlign="Center" tooltip="{i18n>MY_WORK}">
-								<Label text="{i18n>MY_WORK}" class="sapUITableColumnLabelClass"/>
+								<Label text="{i18n>MY_WORK}" class="tableHeaderText"/>
 								<ui:template>
 									<Input value="{oWorkOrderDetailModel>MyWork}" change="validateFloatValues" class="sapInputBorderClass"
 										enabled="{parts:['oWorkOrderDetailModel>systemstatustext', 'oWorkOrderDetailModel>/OrderStatus', 'oWorkOrderDetailModel>OperCode'], formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnSetWOReleaseStatusFields'}">
@@ -93,13 +93,13 @@
 								</ui:template>
 							</ui:Column>
 							<ui:Column width="6rem" hAlign="Center" tooltip="Total Work">
-								<Label text="{i18n>T_WORK}" class="sapUITableColumnLabelClass"/>
+								<Label text="{i18n>T_WORK}" class="tableHeaderText"/>
 								<ui:template>
 									<Text text="{oWorkOrderDetailModel>TWork}"/>
 								</ui:template>
 							</ui:Column>
 							<ui:Column width="8rem" hAlign="Center" tooltip="{i18n>syscondtn}">
-								<Label text="{i18n>SC}" class="sapUITableColumnLabelClass"/>
+								<Label text="{i18n>SC}" class="tableHeaderText"/>
 								<ui:template>
 									<Select class="sapInputBorderClass" items="{mLookupModel>/aSystemCondition}" showSecondaryValues="true"
 										selectedKey="{oWorkOrderDetailModel>Systcond}" forceSelection="false" change="fnUpdateSystcondShortTxt"
@@ -109,7 +109,7 @@
 								</ui:template>
 							</ui:Column>
 							<ui:Column width="8rem" hAlign="Center" tooltip="{i18n>COMPLETED_ON}">
-								<Label text="{i18n>COMPLETED_ON}" class="sapUITableColumnLabelClass"/>
+								<Label text="{i18n>COMPLETED_ON}" class="tableHeaderText"/>
 								<!--	<ui:template>
 									<DatePicker minDate="{oWorkOrderDetailViewModel>/currentDate1}" placeholder="dd-MM-yyyy" dateValue="{oWorkOrderDetailModel>CompletedOn}"
 										displayFormat="dd-MM-yyyy" valueFormat="yyyy-MM-ddTHH:mm:ss" class="sapInputBorderClass"
@@ -153,10 +153,10 @@
 						</Button>
 					</OverflowToolbar>
 					<ui:Table rows="{oWorkOrderDetailModel>/HEADERTOCOMPONENTNAV}" enableSelectAll="false" selectionMode="MultiToggle" visibleRowCount="8"
-						class="sapUITableColumn" id="MYLAN_OP_SPARE_PART_TBL" rowSelectionChange="onSelectSparePart">
+						class="tableHeaderBg" id="MYLAN_OP_SPARE_PART_TBL" rowSelectionChange="onSelectSparePart">
 						<ui:columns>
 							<ui:Column width="8rem" hAlign="Center" tooltip="{i18n>operation}">
-								<Label text="{i18n>operation}" class="sapUITableColumnLabelClass"/>
+								<Label text="{i18n>operation}" class="tableHeaderText"/>
 								<ui:template>
 									<Select class="sapInputBorderClass" items="{oWorkOrderDetailViewModel>/operationsLookup}"
 										enabled="{parts:['oWorkOrderDetailModel>Movement', 'oUserDetailModel>/userRole'], formatter:'com.sap.incture.IMO_PM.formatter.formatter.setSpareFieldsEnabled'}"
@@ -166,19 +166,19 @@
 								</ui:template>
 							</ui:Column>
 							<ui:Column width="8rem" hAlign="Center" tooltip="{i18n>SAP_ID}">
-								<Label text="{i18n>SAP_ID}" class="sapUITableColumnLabelClass"/>
+								<Label text="{i18n>SAP_ID}" class="tableHeaderText"/>
 								<ui:template>
 									<Text text="{path:'oWorkOrderDetailModel>Material', formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnCheckSafetyStock'}"/>
 								</ui:template>
 							</ui:Column>
 							<ui:Column width="12rem" hAlign="Center" tooltip="{i18n>DESCRIPTION}">
-								<Label text="{i18n>DESCRIPTION}" class="sapUITableColumnLabelClass"/>
+								<Label text="{i18n>DESCRIPTION}" class="tableHeaderText"/>
 								<ui:template>
 									<Text text="{oWorkOrderDetailModel>MatlDesc}"/>
 								</ui:template>
 							</ui:Column>
 							<ui:Column width="8rem" hAlign="Center" tooltip="{i18n>REQ_QUANTITY}">
-								<Label text="{i18n>REQ_QUANTITY}" class="sapUITableColumnLabelClass"/>
+								<Label text="{i18n>REQ_QUANTITY}" class="tableHeaderText"/>
 								<ui:template>
 									<Input value="{oWorkOrderDetailModel>RequirementQuantity}" maxLength="7" change="fnComponentUpdateStatus" class="sapInputBorderClass"
 										enabled="{parts:['oWorkOrderDetailModel>Movement', 'oUserDetailModel>/userRole'], formatter:'com.sap.incture.IMO_PM.formatter.formatter.setSpareFieldsEnabled'}">
@@ -189,7 +189,7 @@
 								</ui:template>
 							</ui:Column>
 							<ui:Column width="8rem" hAlign="Center">
-								<Label text="{i18n>itemCategory}" class="sapUITableColumnLabelClass"/>
+								<Label text="{i18n>itemCategory}" class="tableHeaderText"/>
 								<ui:template>
 									<ComboBox  selectedKey="{oWorkOrderDetailModel>ItemCat}" >
 										<core:Item key="L" text="L"/>
@@ -198,43 +198,43 @@
 								</ui:template>
 							</ui:Column>
 							<ui:Column width="8rem" hAlign="Center" tooltip="{i18n>STOCK_AVAIL}">
-								<Label text="{i18n>STOCK_AVAIL}" class="sapUITableColumnLabelClass"/>
+								<Label text="{i18n>STOCK_AVAIL}" class="tableHeaderText"/>
 								<ui:template>
 									<Text text="{oWorkOrderDetailModel>StockAvail}"/>
 								</ui:template>
 							</ui:Column>
 							<ui:Column width="6rem" hAlign="Center" tooltip="{i18n>BinNo}">
-								<Label text="{i18n>BinNo}" class="sapUITableColumnLabelClass"/>
+								<Label text="{i18n>BinNo}" class="tableHeaderText"/>
 								<ui:template>
 									<Text text="{oWorkOrderDetailModel>bin}"/>
 								</ui:template>
 							</ui:Column>
 							<ui:Column width="8rem" hAlign="Center" tooltip="{i18n>STORAGE_LOCATION}">
-								<Label text="{i18n>STORAGE_LOCATION}" class="sapUITableColumnLabelClass"/>
+								<Label text="{i18n>STORAGE_LOCATION}" class="tableHeaderText"/>
 								<ui:template>
 									<Text text="{oWorkOrderDetailModel>StgeLoc}"/>
 								</ui:template>
 							</ui:Column>
 							<ui:Column width="8rem" hAlign="Center" tooltip="{i18n>QTY_ISSUED}">
-								<Label text="{i18n>QTY_ISSUED}" class="sapUITableColumnLabelClass"/>
+								<Label text="{i18n>QTY_ISSUED}" class="tableHeaderText"/>
 								<ui:template>
 									<Text text="{oWorkOrderDetailModel>IssueQty}"/>
 								</ui:template>
 							</ui:Column>
 							<ui:Column width="8rem" hAlign="Center" tooltip="{i18n>QTY_RETURNED}">
-								<Label text="{i18n>QTY_RETURNED}" class="sapUITableColumnLabelClass"/>
+								<Label text="{i18n>QTY_RETURNED}" class="tableHeaderText"/>
 								<ui:template>
 									<Text text="{oWorkOrderDetailModel>returnQty}"/>
 								</ui:template>
 							</ui:Column>
 							<ui:Column width="12rem" hAlign="Center" tooltip="{i18n>OUTSTANDING_QTY_ORD}">
-								<Label text="{i18n>OUTSTANDING_QTY_ORD}" class="sapUITableColumnLabelClass"/>
+								<Label text="{i18n>OUTSTANDING_QTY_ORD}" class="tableHeaderText"/>
 								<ui:template>
 									<Text text="{oWorkOrderDetailModel>OutQtyOrd}"/>
 								</ui:template>
 							</ui:Column>
 							<ui:Column width="8rem" hAlign="Center" tooltip="{i18n>SAFETY_STOCK}">
-								<Label text="{i18n>SAFETY_STOCK}" class="sapUITableColumnLabelClass"/>
+								<Label text="{i18n>SAFETY_STOCK}" class="tableHeaderText"/>
 								<ui:template>
 									<Text text="{oWorkOrderDetailModel>MinStockReq}"/>
 								</ui:template>
