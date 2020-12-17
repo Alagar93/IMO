@@ -1,6 +1,6 @@
 <core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:layout="sap.ui.layout"
 	xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form">
-	<Dialog contentWidth="50%" title="Advance Filter" class="dialogHeader sapUiSizeCompact">
+	<Dialog contentWidth="40%" title="Advance Filter" class="dialogHeader sapUiSizeCompact">
 		<content>
 			<VBox class="sapUiSmallMargin">
 				<CheckBox class="sapUiTinyMargin" text="{i18n>checkfilter}" selected="{mLookupModel>/sUnAssignedWOFlag}"/>

@@ -196,7 +196,7 @@
 					</Toolbar>
 				</table:footer>
 			</table:Table>
-			<table:Table selectionMode="MultiToggle" enableSelectAll="false" id="notifListId"
+			<table:Table class="tableHeaderBg" selectionMode="MultiToggle" enableSelectAll="false" id="notifListId"
 				visible="{= ${mLookupModel>/iSelectedIndex} === 2 ? true : false}" rowSelectionChange="onSelectionChange"
 				rows="{mLookupModel>/aNotificationListSet}" visibleRowCount="{mLookupModel>/rowCount}" rowHeight="40">
 				<table:toolbar>
@@ -217,7 +217,7 @@
 							<Text text="{mLookupModel>NotifNo}" class="tableContentText"></Text>
 						</table:template>
 					</table:Column>
-					<table:Column sortProperty="ShortText" filterProperty="ShortText" width="10%">
+					<table:Column sortProperty="ShortText" filterProperty="ShortText" width="9%">
 						<Text wrapping="true" text="{i18n>notifDes}" class="tableHeaderText"/>
 						<table:template>
 							<Text text="{mLookupModel>ShortText}" class="tableContentText"></Text>
@@ -247,7 +247,7 @@
 							<Text text="{mLookupModel>TechId}" class="tableContentText"></Text>
 						</table:template>
 					</table:Column>
-					<table:Column sortProperty="Equidescr" filterProperty="Equidescr" width="10%">
+					<table:Column sortProperty="Equidescr" filterProperty="Equidescr" width="9%">
 						<Text wrapping="true" text="{i18n>EqDes}" class="tableHeaderText"/>
 						<table:template>
 							<Text text="{mLookupModel>Equidescr}" class="tableContentText"></Text>
@@ -273,7 +273,7 @@
 							<Text text="{path:'mLookupModel>ReqenddateString'}" class="tableContentText"></Text>
 						</table:template>
 					</table:Column>
-					<table:Column sortProperty="Bdflag" filterProperty="Bdflag" width="4.5%">
+					<table:Column sortProperty="Bdflag" filterProperty="Bdflag" width="6.5%">
 						<Text wrapping="true" text="{i18n>BdownFlag}" class="tableHeaderText"/>
 						<table:template>
 							<Text text="{mLookupModel>Bdflag}" class="tableContentText"></Text>
