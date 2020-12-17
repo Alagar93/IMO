@@ -196,15 +196,15 @@
 			</l:FixFlex>
 		</content>
 		<footer>
-			<Toolbar>
-				<Button text="{i18n>Notif_List_Mass_Release}" press="onPressReleaseMassNotif" type="Emphasized"
+			<Toolbar class="footerBG">
+				<Button class="murphyCreateBtn" text="{i18n>Notif_List_Mass_Release}" press="onPressReleaseMassNotif" 
 					visible="{parts:['mLookupModel>/iSelectedIndices','mLookupModel>/selectedNotifs','mLookupModel>/aNotificationListSet'],formatter:'com.sap.incture.IMO_PM.formatter.formatter.disableReleaseField'}"/>
-				<Button text="{i18n>Notif_List_Create_Mass_WO}" press="onPressCreateMassWO" type="Emphasized"
+				<Button class="murphyCreateBtn" text="{i18n>Notif_List_Create_Mass_WO}" press="onPressCreateMassWO" 
 					visible="{parts:['mLookupModel>/iSelectedIndices','mLookupModel>/selectedNotifs','mLookupModel>/aNotificationListSet'],formatter:'com.sap.incture.IMO_PM.formatter.formatter.disableMassCreateField'}"/>
 				<ToolbarSpacer/>
-				<Button text="{i18n>assign}" press="onAssignWO" type="Emphasized"
+				<Button class="murphyCreateBtn" text="{i18n>assign}" press="onAssignWO" 
 					visible="{path:'oUserDetailModel>/userRole', formatter:'com.sap.incture.IMO_PM.formatter.formatter.disableReviewField'}"/>
-				<Button text="{i18n>viewDetail}" enabled="{= ${mLookupModel>/iSelectedIndices} === 1 ? true: false}" press="onNotifDetail" type="Emphasized"/>
+				<Button class="murphyCreateBtn" text="{i18n>viewDetail}" enabled="{= ${mLookupModel>/iSelectedIndices} === 1 ? true: false}" press="onNotifDetail"/>
 			</Toolbar>
 		</footer>
 	</Page>
