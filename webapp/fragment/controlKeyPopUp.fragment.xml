@@ -65,8 +65,8 @@
 					<VBox class="sapUiSmallMarginTop">
 						<Label text="Agreement"></Label>
 						<HBox>
-							<Input value="" width="100%"></Input>
-							<Input value="" width="100%"></Input>
+							<Input value="{oWorkOrderDetailViewModel>/oControlkeyOperation/Agreement}" width="100%"></Input>
+							<Input value="{oWorkOrderDetailViewModel>/oControlkeyOperation/AgmtItem}" width="100%"></Input>
 						</HBox>
 						<layoutData>
 							<l:GridData span="XL6 L6 M6 S6"/>
@@ -74,14 +74,14 @@
 					</VBox>
 					<VBox class="sapUiSmallMarginTop">
 						<Label text="Recipient"></Label>
-						<Input value=""></Input>
+						<Input value="{oWorkOrderDetailViewModel>/oControlkeyOperation/Recipient}"></Input>
 						<layoutData>
 							<l:GridData span="XL6 L6 M6 S6"/>
 						</layoutData>
 					</VBox>
 					<VBox class="sapUiSmallMarginTop">
 						<Label text="Requisitioner"></Label>
-						<Input value=""></Input>
+						<Input value="{oWorkOrderDetailViewModel>/oControlkeyOperation/Requisitioner}"></Input>
 						<layoutData>
 							<l:GridData span="XL6 L6 M6 S6"/>
 						</layoutData>
