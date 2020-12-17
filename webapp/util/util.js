@@ -99,7 +99,7 @@ com.sap.incture.IMO_PM.util.util = {
 		oWorkOrderDetailModel.setProperty("/MalFunStartDate", new Date());
 		oWorkOrderDetailModel.setProperty("/MalFunStartTime", oCurrentTime);
 		oWorkOrderDetailModel.setProperty("/OrderStatus", "CRTD");
-		oWorkOrderDetailModel.setProperty("/UserStatus","INIT"); //nischal -- User Status is added
+		oWorkOrderDetailModel.setProperty("/UserStatus", "INIT"); //nischal -- User Status is added
 		oWorkOrderDetailModel.setProperty("/SetOrderStatus", "");
 		oWorkOrderDetailModel.setProperty("/Breakdown", false);
 		oWorkOrderDetailModel.setProperty("/Downtime", "0");
@@ -612,7 +612,7 @@ com.sap.incture.IMO_PM.util.util = {
 		oNotificationDataModel.setProperty("/WorkCenter", oSelectedRow.WorkCntr); //nischal - WorkCenter was not defined
 		// oNotificationDataModel.setProperty("/SysStatus", oSelectedRow.SysStatus); //nischal -- This feature is still not yet supported by post payload
 		mLookupModel.setProperty("/SysStatus", oSelectedRow.SysStatus); //nischal - system status was not present
-		mLookupModel.setProperty("/Userstatus",oSelectedRow.Userstatus); //nischal -- user status was not pesent
+		mLookupModel.setProperty("/Userstatus", oSelectedRow.Userstatus); //nischal -- user status was not pesent
 		oNotificationDataModel.refresh();
 
 		mLookupModel.setProperty("/sCatelogProf", oSelectedRow.Rbnr);
@@ -666,15 +666,16 @@ com.sap.incture.IMO_PM.util.util = {
 
 		var longTextHistory = oNotificationDataModel.getProperty("/Longtext");
 		longTextHistory = longTextHistory.split("* ----------------------------------------*");
-
+		var aLongTextHistory = oSelectedRow.LongText.split("---------------------------------------- ");
+		var aLatestLongText = aLongTextHistory[aLongTextHistory.length - 1];
 		oNotificationViewModel.setProperty("/longTextHistory", longTextHistory);
-		oNotificationViewModel.setProperty("/Longtext", "");
+		oNotificationViewModel.setProperty("/Longtext", aLatestLongText); // to update long text in notification detail view
 		oNotificationViewModel.setProperty("/StartTime", strmlfntime);
 		oNotificationViewModel.setProperty("/EndTime", endmlfntime);
 		oNotificationViewModel.setProperty("/EqIdDes", "");
 		oNotificationViewModel.setProperty("/TechId", "");
 		oNotificationViewModel.setProperty("/BreakdownDur", oSelectedRow.Downtime);
-		oNotificationViewModel.setProperty("/attachmentSet",[]);//Sunanda for attachments in notifDetail
+		oNotificationViewModel.setProperty("/attachmentSet", []); //Sunanda for attachments in notifDetail
 		oNotificationViewModel.refresh();
 
 		mLookupModel.setProperty("/aEquipmentsList", []);
@@ -1880,13 +1881,13 @@ com.sap.incture.IMO_PM.util.util = {
 	},
 	fetchDataToWOPayload: function (sData, mLookupModel, oNotificationDataModel, oNotificationViewModel, oController) {
 		var oNotifData = oNotificationDataModel.getData();
-		var iNotifId = parseInt(sData.Notifid,10);
-		var sNotifId =  iNotifId.toString();
+		var iNotifId = parseInt(sData.Notifid, 10);
+		var sNotifId = iNotifId.toString();
 		var sAssembly = sData.Assembly;
 		var sBreakdown = sData.Breakdown;
-		if(sBreakdown === "X"){
+		if (sBreakdown === "X") {
 			sBreakdown = true;
-		}else{
+		} else {
 			sBreakdown = false;
 		}
 		var sBreakdownDur = sData.BreakdownDur;
@@ -1986,8 +1987,8 @@ com.sap.incture.IMO_PM.util.util = {
 			"Systcond": ""
 
 		};
-		oNotificationViewModel.setProperty("/oPayLoadWO",oObj);
-		
+		oNotificationViewModel.setProperty("/oPayLoadWO", oObj);
+
 	}
 
 };
