@@ -5,9 +5,9 @@ width: 50px;
     border-left: 5px solid red;
 }
 
-.sapUxAPObjectPageLayout-Std-Desktop .sapUxAPObjectPageHeaderContent:only-child {
+/*.sapUxAPObjectPageLayout-Std-Desktop .sapUxAPObjectPageHeaderContent:only-child {
     padding: 0rem 1rem !important;
-}
+}*/
 
 .sapTntToolHeader .sapMLabel {
     color: #fff;
@@ -27,14 +27,14 @@ width: 50px;
     color: #316FA8;
 }
 
-.tableHeaderText {
-    /*font-weight: bold;*/
+/*.tableHeaderText {
+    font-weight: bold;
     font-size: 13px;
     color: #3d3d3d;
-}
+}*/
 
 .tableContentText {
-    font-size: 12px;
+    font-size: 12px !important;
 }
 
 .StyleCollapseExpand .sapMBtnContent {
@@ -190,10 +190,10 @@ width: 50px;
     color: #32363a;
 }
 /***************************************WOLIST*****************************************/
-.tableHeaderText {
+/*.tableHeaderText {
     font-weight: bold;
     font-size: 13px;
-}
+}*/
 
 .tableHeaderText1 {
     font-weight: bold;
@@ -212,9 +212,9 @@ width: 50px;
     background: #a4c5ed;
 }
 
-.tableContentText {
+/*.tableContentText {
     font-size: 12px;
-}
+}*/
 
 .formatKPINumber {
     color: #4c6a7f;
@@ -301,7 +301,7 @@ html:not([data-sap-ui-browser^="ie"]):not([data-sap-ui-browser^="ed"]) .sapUiIco
 .sapSearchfieldClass .sapMSFF {
     border-radius: 0.2rem;
 }
-.sapUiTblHeaderColClass .sapUiTableColHdrTr .sapUiTableCol{
+/*.sapUiTblHeaderColClass .sapUiTableColHdrTr .sapUiTableCol{
     color: #ffffff;
     border-bottom: none;
     background-color: #377295;
@@ -309,9 +309,6 @@ html:not([data-sap-ui-browser^="ie"]):not([data-sap-ui-browser^="ed"]) .sapUiIco
 .sapUiTblHeaderColClass .sapUiTableCell.sapUiTableHeaderCell{
 	background-color: #377295;
 }
-/*.sapUiTblHeaderColClass .sapUiTableHeaderDataCell{*/
-/*background-color: #377295;	*/
-/*}*/
 
 .sapUiTblHeaderColClass .tableHeaderText {
     font-weight: bold;
@@ -323,7 +320,7 @@ html:not([data-sap-ui-browser^="ie"]):not([data-sap-ui-browser^="ed"]) .sapUiIco
 }
 .sapUiTblHeaderColClass.sapUiTableRSel .sapUiTableColRowHdr{
 	background-color: #377295;
-}
+}*/
 
 
 /***************************************Spareparts*****************************************/
@@ -417,14 +414,14 @@ html:not([data-sap-ui-browser^="ie"]):not([data-sap-ui-browser^="ed"]) .sapUiIco
 /***************************************Equipment*****************************************/
 /* Enter your custom styles here */
 
-.tableHeaderText {
+/*.tableHeaderText {
     font-weight: bold;
     font-size: 13px;
-}
+}*/
 
-.tableContentText {
+/*.tableContentText {
     font-size: 12px;
-}
+}*/
 
 .titleBold.sapMTitle {
     color: black;
@@ -447,13 +444,13 @@ html:not([data-sap-ui-browser^="ie"]):not([data-sap-ui-browser^="ed"]) .sapUiIco
     border-bottom: none;
 }
 
-.tableHeaderText {
+/*.tableHeaderText {
     font-weight: bold;
     font-size: 13px;
     color: black;
-}
+}*/
 
-.sapUiTblHeaderColClass .sapUiTableCell.sapUiTableHeaderCell {
+/*.sapUiTblHeaderColClass .sapUiTableCell.sapUiTableHeaderCell {
     background-color: #377295;
 }
 
@@ -479,7 +476,7 @@ html:not([data-sap-ui-browser^="ie"]):not([data-sap-ui-browser^="ed"]) .sapUiIco
 
 .sapUiTblHeaderColClass.sapUiTableRSel .sapUiTableColRowHdr {
     background-color: #377295;
-}
+}*/
 
 .cellStyleRed {
     border-left: 5px solid Red;
@@ -502,9 +499,9 @@ html:not([data-sap-ui-browser^="ie"]):not([data-sap-ui-browser^="ed"]) .sapUiIco
     border: 1px solid #ccc!important;
 }
 
-.tableContentText {
+/*.tableContentText {
     font-size: 12px;
-}
+}*/
 
 .styleTitle {
     font-weight: bold;
@@ -516,25 +513,25 @@ html:not([data-sap-ui-browser^="ie"]):not([data-sap-ui-browser^="ed"]) .sapUiIco
     color: black;
 }*/
 
-.styleTableTitle {
+/*.styleTableTitle {
     color: #666666;
     font-weight: bold;
-}
+}*/
 
 .myClass.sapMRbSel .sapMRbBInn {
-    background-color: #316FA8;
+    background-color: #354a5f;
 }
 
 .myClass.sapMRbSel .sapMRbBOut {
-    border-color: #316FA8;
+    border-color: #354a5f;
 }
 
-.myClass .sapMRbBLabel {
+/*.myClass .sapMRbBLabel {
     font-weight: bold;
-}
+}*/
 
 .myClass.sapMRbSel .sapMRbBLabel {
-    color: #316FA8;
+    color: #354a5f;
 }
 
 .styleTextBlue {
@@ -1059,7 +1056,7 @@ html:not([data-sap-ui-browser^="ie"]):not([data-sap-ui-browser^="ed"]) .sapUiIco
 }
 
 .panelBackgroundClass .sapMPanelBGTranslucent {
-    background-color: #ffffff;
+    background-color: #f7f7f700;
 }
 
 .sapUiSizeCompact .sapInputBorderClass .sapMInputBaseInner {
@@ -1080,10 +1077,11 @@ html:not([data-sap-ui-browser^="ie"]):not([data-sap-ui-browser^="ed"]) .sapUiIco
     height: 3rem;
 }*/
 
-.sapUiTableCell.sapUiTableHeaderCell {
+.tableHeaderBg .sapUiTableCell.sapUiTableHeaderCell {
     color: #ffffff;
     border-bottom: none;
-    background-color: #377295 !important;
+    height: 3rem;
+    /*background-color: #d6d6d6 !important;*/
 }
 
 .tableHeaderText {
@@ -1142,11 +1140,11 @@ html:not([data-sap-ui-browser^="ie"]):not([data-sap-ui-browser^="ed"]) .sapUiIco
     color: #666666;
 }
 
-.tableHeaderText {
+/*.tableHeaderText {
     font-weight: bold;
     font-size: 13px;
     color:black;
-}
+}*/
 
 .formatKPIBox {
     margin-left: 1.5px;
@@ -1160,9 +1158,9 @@ html:not([data-sap-ui-browser^="ie"]):not([data-sap-ui-browser^="ed"]) .sapUiIco
     opacity: 1;*/
 }
 
-.tableContentText {
+/*.tableContentText {
     font-size: 12px;
-}
+}*/
 
 
 /*---Kavya---*/
@@ -1189,10 +1187,10 @@ html:not([data-sap-ui-browser^="ie"]):not([data-sap-ui-browser^="ed"]) .sapUiIco
     color: black;
 }
 
-.styleTableTitle {
+/*.styleTableTitle {
     color: #666666;
     font-weight: bold;
-}
+}*/
 
 .sapMTB-Transparent-CTX>.sapMTitleTB.sapMTitleStyleAuto.styleTableTitle {
     font-size: 1rem;
@@ -1251,9 +1249,7 @@ html:not([data-sap-ui-browser^="ie"]):not([data-sap-ui-browser^="ed"]) .sapUiIco
 
 /*}*/
 
-.positionButLeft {
-    margin-right: 8rem !important;
-}
+
 
 
 /* Kavya
@@ -2029,7 +2025,7 @@ html:not([data-sap-ui-browser^="ie"]):not([data-sap-ui-browser^="ed"]) .sapUiIco
     color: #377295;
 }
 
-.sapUiTblHeaderColClass .sapUiTableColHdrTr .sapUiTableCol{
+/*.sapUiTblHeaderColClass .sapUiTableColHdrTr .sapUiTableCol{
     color: #ffffff;
     border-bottom: none;
     background-color: #377295;
@@ -2051,7 +2047,7 @@ background-color: #377295;
 }
 .sapUiTblHeaderColClass.sapUiTableRSel .sapUiTableColRowHdr{
 	background-color: #377295;
-}
+}*/
 
 /*.sapUiSizeCompact .sapMSFF {*/
 
@@ -2151,13 +2147,13 @@ background-color: #377295;
     text-shadow: 0 0 0.125rem #ffffff;
 }
 
-.tableHeaderText {
+/*.tableHeaderText {
     font-weight: bold;
     font-size: 13px;
     color: black;
-}
+}*/
 
-.sapUiTblHeaderColClass .sapUiTableColHdrTr .sapUiTableCol {
+/*.sapUiTblHeaderColClass .sapUiTableColHdrTr .sapUiTableCol {
     color: #ffffff;
     border-bottom: none;
     background-color: #377295;
@@ -2183,7 +2179,7 @@ background-color: #377295;
 
 .sapUiTblHeaderColClass.sapUiTableRSel .sapUiTableColRowHdr {
     background-color: #377295;
-}
+}*/
 
 
 /*Operations Comments timeline css */
@@ -2228,8 +2224,7 @@ background-color: #377295;
 .murphyCreateBtn .sapMBtnInner {
     border: 1px solid #a0b2c1 !important;
     color: #cae4fb;
-    /*background: #8dc237 !important;
-color: #fff !important;*/
+      width: 10rem;
 }
 
 .murphyHdrTileClass {
@@ -2254,4 +2249,26 @@ color: #fff !important;*/
 }
 .KPIShadow {
     box-shadow: 1px 1px 2px 2px lightgrey !important;
+}
+.dialogHeader .sapMBarTitleStart .sapMBarPH {
+    justify-content: center;
+}
+html.sap-desktop .sapMIBar.sapMFooter-CTX {
+    background-color: #2f3c48 !important;
+    border-top: 1px solid #475b6d !important;
+}
+.murphyClearBtn .sapMBtnInner {
+    color: #cae4fb;
+}
+
+.createEditToolbar {
+	height: 4rem !important;
+    background-color: white;
+}
+.toolbarBorder {
+	border-bottom-width: 2px;
+}
+.murphyDialogBtn .sapMBtnInner {
+    border: 1px solid #a0b2c1 !important;
+    color: #cae4fb;
 }

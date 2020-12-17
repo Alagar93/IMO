@@ -1,49 +1,71 @@
 <core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:layout="sap.ui.layout"
 	xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form">
-	<Dialog contentHeight="55%" contentWidth="50%" title="{i18n>ADVANCE_FILTER}" class="sapUiSizeCompact">
+	<Dialog contentWidth="50%" title="{i18n>ADVANCE_FILTER}" class="dialogHeader sapUiSizeCompact">
 		<content>
-			<l:Grid class="sapUiSmallMarginTop" defaultSpan="L6 M4 S6">
-				<Label text="{i18n>WOtype}" class="sapUiTinyMarginTop styleTextBlue"/>
-				<ComboBox items="{ path: 'mLookupModel>/aOrderTypeSet', sorter: { path: 'text' } }" showSecondaryValues="true"
-					selectedKey="{mLookupModel>/sOrderTypeSelFilter}">
-					<core:ListItem key="{mLookupModel>AUART}" text="{mLookupModel>TXT}" additionalText="{mLookupModel>AUART}"/>
-				</ComboBox>
-				<Label text="{i18n>STATUS}" class=" sapUiTinyMarginTop styleTextBlue"/>
-				<ComboBox items="{ path: 'mLookupModel>/aStatus'}" selectedKey="{mLookupModel>/sStatusSelFilter}">
-					<core:ListItem key="{mLookupModel>id}" text="{mLookupModel>id}"/>
-				</ComboBox>
-				<Label text="{i18n>prior}" class="sapUiTinyMarginTop styleTextBlue"/>
-				<ComboBox items="{ path: 'mLookupModel>/aPrioritySet', sorter: { path: 'text' } }" selectedKey="{mLookupModel>/sPriorSelFilter}">
-					<core:Item key="{mLookupModel>PRIOK}" text="{mLookupModel>PRIOKX}"/>
-				</ComboBox>
-				<Label text="{i18n>WONum}" class="sapUiTinyMarginTop styleTextBlue"/>
-				<Input value="{mLookupModel>/iWONumFilter}"></Input>
-				<Label text="{i18n>EQUIPMENT}" class="sapUiTinyMarginTop styleTextBlue"/>
-				<Input showValueHelp="true" value="{mLookupModel>/sEquipFilter}" valueHelpRequest="equipmentValueHelp"></Input>
-				<Label text="{i18n>createdby}" class="sapUiTinyMarginTop styleTextBlue"/>
-				<Input showSuggestion="true" suggest="onSearchUser" suggestionItems="{mLookupModel>/aUsers}" value="{mLookupModel>/sCreatedBy}">
-					<suggestionItems>
-						<core:ListItem text="{mLookupModel>Bname}" additionalText="{mLookupModel>NameTextc}" key="{mLookupModel>Bname}"/>
-					</suggestionItems>
-				</Input>
-				<Label text="{i18n>ASSIGNED_TO}" class="sapUiTinyMarginTop styleTextBlue"/>
-				<Input showSuggestion="true" suggest="onSearchUser" suggestionItems="{mLookupModel>/aUsers}" value="{mLookupModel>/sAssignedTo}">
-					<suggestionItems>
-						<core:ListItem text="{mLookupModel>Bname}" additionalText="{mLookupModel>NameTextc}" key="{mLookupModel>Bname}"/>
-					</suggestionItems>
-				</Input>
-				<Label text="{i18n>WORK_CENTER}" class="sapUiTinyMarginTop styleTextBlue"></Label>
-				<ComboBox showSecondaryValues="true" items="{path:'mLookupModel>/aWorkCenterSet',sorter:{ path: 'text' }}"
-					selectedKey="{mLookupModel>/sWorkCenterFilter}">
-					<core:ListItem key="{mLookupModel>WorkcenterId}" additionalText="{mLookupModel>WorkcenterDesc}" text="{mLookupModel>WorkcenterId}"/>
-				</ComboBox>
-				<Label text="CreatedOn Start Date" class="sapUiTinyMarginTop styleTextBlue"></Label>
-				<DatePicker value="{mLookupModel>/sCreatedOnStart}" valueFormat="MM/dd/yyyy" displayFormat="MMM dd,yyyy"
-					maxDate="{path:'mLookupModel>/sCreatedOnEnd',formatter:'com.sap.incture.IMO_PM.formatter.formatter.StartDateValidation'}"></DatePicker>
-				<Label text="CreatedOn End Date" class="sapUiTinyMarginTop styleTextBlue"></Label>
-				<DatePicker value="{path:'mLookupModel>/sCreatedOnEnd'}" valueFormat="MM/dd/yyyy" displayFormat="MMM dd,yyyy"
-					minDate="{path:'mLookupModel>/sCreatedOnStart',formatter:'com.sap.incture.IMO_PM.formatter.formatter.EndDateValidation'}"></DatePicker>
-			</l:Grid>
+			<VBox class="sapUiSmallMargin">
+				<l:Grid class="sapUiSmallMarginTop" defaultSpan="L6 M4 S6">
+					<VBox class="sapUiTinyMargin">
+						<Label text="{i18n>WOtype}" class="sapUiTinyMarginTop styleTextBlue"/>
+						<ComboBox items="{ path: 'mLookupModel>/aOrderTypeSet', sorter: { path: 'text' } }" showSecondaryValues="true"
+							selectedKey="{mLookupModel>/sOrderTypeSelFilter}">
+							<core:ListItem key="{mLookupModel>AUART}" text="{mLookupModel>TXT}" additionalText="{mLookupModel>AUART}"/>
+						</ComboBox>
+					</VBox>
+					<VBox class="sapUiTinyMargin">
+						<Label text="{i18n>STATUS}" class=" sapUiTinyMarginTop styleTextBlue"/>
+						<ComboBox items="{ path: 'mLookupModel>/aStatus'}" selectedKey="{mLookupModel>/sStatusSelFilter}">
+							<core:ListItem key="{mLookupModel>id}" text="{mLookupModel>id}"/>
+						</ComboBox>
+					</VBox>
+					<VBox class="sapUiTinyMargin">
+						<Label text="{i18n>prior}" class="sapUiTinyMarginTop styleTextBlue"/>
+						<ComboBox items="{ path: 'mLookupModel>/aPrioritySet', sorter: { path: 'text' } }" selectedKey="{mLookupModel>/sPriorSelFilter}">
+							<core:Item key="{mLookupModel>PRIOK}" text="{mLookupModel>PRIOKX}"/>
+						</ComboBox>
+					</VBox>
+					<VBox class="sapUiTinyMargin">
+						<Label text="{i18n>WONum}" class="sapUiTinyMarginTop styleTextBlue"/>
+						<Input value="{mLookupModel>/iWONumFilter}"></Input>
+					</VBox>
+					<VBox class="sapUiTinyMargin">
+						<Label text="{i18n>EQUIPMENT}" class="sapUiTinyMarginTop styleTextBlue"/>
+						<Input showValueHelp="true" value="{mLookupModel>/sEquipFilter}" valueHelpRequest="equipmentValueHelp"></Input>
+					</VBox>
+					<VBox class="sapUiTinyMargin">
+						<Label text="{i18n>createdby}" class="sapUiTinyMarginTop styleTextBlue"/>
+						<Input showSuggestion="true" suggest="onSearchUser" suggestionItems="{mLookupModel>/aUsers}" value="{mLookupModel>/sCreatedBy}">
+							<suggestionItems>
+								<core:ListItem text="{mLookupModel>Bname}" additionalText="{mLookupModel>NameTextc}" key="{mLookupModel>Bname}"/>
+							</suggestionItems>
+						</Input>
+					</VBox>
+					<VBox class="sapUiTinyMargin">
+						<Label text="{i18n>ASSIGNED_TO}" class="sapUiTinyMarginTop styleTextBlue"/>
+						<Input showSuggestion="true" suggest="onSearchUser" suggestionItems="{mLookupModel>/aUsers}" value="{mLookupModel>/sAssignedTo}">
+							<suggestionItems>
+								<core:ListItem text="{mLookupModel>Bname}" additionalText="{mLookupModel>NameTextc}" key="{mLookupModel>Bname}"/>
+							</suggestionItems>
+						</Input>
+					</VBox>
+					<VBox class="sapUiTinyMargin">
+						<Label text="{i18n>WORK_CENTER}" class="sapUiTinyMarginTop styleTextBlue"></Label>
+						<ComboBox showSecondaryValues="true" items="{path:'mLookupModel>/aWorkCenterSet',sorter:{ path: 'text' }}"
+							selectedKey="{mLookupModel>/sWorkCenterFilter}">
+							<core:ListItem key="{mLookupModel>WorkcenterId}" additionalText="{mLookupModel>WorkcenterDesc}" text="{mLookupModel>WorkcenterId}"/>
+						</ComboBox>
+					</VBox>
+					<VBox class="sapUiTinyMargin">
+						<Label text="CreatedOn Start Date" class="sapUiTinyMarginTop styleTextBlue"></Label>
+						<DatePicker value="{mLookupModel>/sCreatedOnStart}" valueFormat="MM/dd/yyyy" displayFormat="MMM dd,yyyy"
+							maxDate="{path:'mLookupModel>/sCreatedOnEnd',formatter:'com.sap.incture.IMO_PM.formatter.formatter.StartDateValidation'}"></DatePicker>
+					</VBox>
+					<VBox class="sapUiTinyMargin">
+						<Label text="CreatedOn End Date" class="sapUiTinyMarginTop styleTextBlue"></Label>
+						<DatePicker value="{path:'mLookupModel>/sCreatedOnEnd'}" valueFormat="MM/dd/yyyy" displayFormat="MMM dd,yyyy"
+							minDate="{path:'mLookupModel>/sCreatedOnStart',formatter:'com.sap.incture.IMO_PM.formatter.formatter.EndDateValidation'}"></DatePicker>
+					</VBox>
+				</l:Grid>
+			</VBox>
 		</content>
 		<buttons>
 			<Button text="{i18n>CLEAR}" press="onClearWoFilter"/>
