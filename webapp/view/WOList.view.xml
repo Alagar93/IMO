@@ -48,7 +48,7 @@
 					<core:ListItem key="{mLookupModel>WorkcenterId}" additionalText="{mLookupModel>WorkcenterDesc}" text="{mLookupModel>WorkcenterId}"/>
 				</ComboBox>
 			</l:Grid>
-			<l:FixFlex class="fixFlexVertical">
+			<!--<l:FixFlex class="fixFlexVertical">-->
 				<!--<l:fixContent width="100%">
 					<HBox class="sapUiTinyMarginBeginEnd sapUiTinyMarginTop">
 						<HBox width="85%" id="WO_LIST_KPI_TILES">
@@ -92,9 +92,9 @@
 						</HBox>
 					</HBox>
 				</l:fixContent>-->
-				<l:flexContent>
-					<VBox height="100%" class="sapUiTinyMarginBeginEnd sapUiSmallMarginTop">
-						<table:Table id="idWorkOrderList" class="sapUiTblHeaderColClass" visibleRowCountMode="Fixed" visibleRowCount="{mLookupModel>/rowCount}"
+				<!--<l:flexContent>-->
+					<!--<VBox height="100%" class="sapUiTinyMarginBeginEnd sapUiSmallMarginTop">-->
+						<table:Table id="idWorkOrderList" class="tableHeaderBg" visibleRowCountMode="Fixed" visibleRowCount="{mLookupModel>/rowCount}"
 							rowHeight="40" selectionMode="MultiToggle" enableSelectAll="false" rows="{mLookupModel>/aWorkOrderListSet}"
 							rowSelectionChange="onSelectionChange" filter="dateFormat">
 							<table:extension>
@@ -109,7 +109,7 @@
 								</Toolbar>
 							</table:extension>
 							<table:columns>
-								<table:Column width="11%" sortProperty="Orderid" filterProperty="Orderid" defaultFilterOperator="Contains">
+								<table:Column width="8%" sortProperty="Orderid" filterProperty="Orderid" defaultFilterOperator="Contains">
 									<Text wrapping="true" text="{i18n>WONum}" class="tableHeaderText"/>
 									<table:template>
 										<!--<Text text="{mLookupModel>Orderid}" class="tableContentText"></Text>-->
@@ -140,13 +140,13 @@
 										<Text text="{mLookupModel>Equipment}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column sortProperty="TechId" width="5.8%" filterProperty="TechId">
+								<table:Column sortProperty="TechId" width="7.8%" filterProperty="TechId">
 									<Text wrapping="true" text="{i18n>techID}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{mLookupModel>TechId}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column sortProperty="EquipDes" width="10%" filterProperty="EquipDes">
+								<table:Column sortProperty="EquipDes" width="9%" filterProperty="EquipDes">
 									<Text wrapping="true" text="{i18n>EqDes}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{mLookupModel>EquipDes}" class="tableContentText"></Text>
@@ -176,7 +176,7 @@
 								<!--		<Text text="{path:'mLookupModel>FinishDateString'}" class="tableContentText"></Text>-->
 								<!--	</table:template>-->
 								<!--</table:Column>-->
-								<table:Column sortProperty="Bdflag" width="5%" filterProperty="Bdflag">
+								<table:Column sortProperty="Bdflag" width="7%" filterProperty="Bdflag">
 									<Text wrapping="true" text="{i18n>BdownFlag}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{mLookupModel>Bdflag}" class="tableContentText"></Text>
@@ -222,9 +222,9 @@
 								</Toolbar>
 							</table:footer>
 						</table:Table>
-					</VBox>
-				</l:flexContent>
-			</l:FixFlex>
+					<!--</VBox>-->
+				<!--</l:flexContent>-->
+			<!--</l:FixFlex>-->
 		</content>
 		<footer>
 			<Toolbar class="footerBG">

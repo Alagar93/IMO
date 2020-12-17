@@ -37,7 +37,7 @@
 			</l:Grid>
 			
 			
-			<l:FixFlex>
+			<!--<l:FixFlex>-->
 				<!--<l:fixContent width="100%">
 					<HBox class="sapUiSmallMarginTop sapUiTinyMarginBegin">
 						<HBox width="85%" id="NOTIF_LIST_KPI_TILES">
@@ -68,10 +68,10 @@
 						</layoutData>
 					</HBox>
 				</l:fixContent>-->
-				<l:flexContent>
-					<VBox height="100%" class="sapUiSmallMarginTop sapUiTinyMarginBeginEnd">
-						<table:Table visibleRowCountMode="Fixed" visibleRowCount="{mLookupModel>/rowCount}" rowHeight="40" selectionMode="MultiToggle"
-							class="sapUiTblHeaderColClass" rowSelectionChange="onSelectionChange" enableSelectAll="false" id="notifListId"
+				<!--<l:flexContent>-->
+					<!--<VBox height="100%" class="sapUiSmallMarginTop sapUiTinyMarginBeginEnd">-->
+						<table:Table class="tableHeaderBg" visibleRowCountMode="Fixed" visibleRowCount="{mLookupModel>/rowCount}" rowHeight="40" selectionMode="MultiToggle"
+							 rowSelectionChange="onSelectionChange" enableSelectAll="false" id="notifListId"
 							rows="{mLookupModel>/aNotificationListSet}">
 							<table:extension>
 								<Toolbar class="sapUiTinyMargin">
@@ -92,7 +92,7 @@
 										<Link text="{mLookupModel>NotifNo}" press="handleLinkPress"/>
 									</table:template>
 								</table:Column>
-								<table:Column sortProperty="Descriptn" filterProperty="Descriptn" width="10.5%">
+								<table:Column sortProperty="Descriptn" filterProperty="Descriptn" width="10%">
 									<Text wrapping="true" text="{i18n>notifDes}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{mLookupModel>Descriptn}" class="tableContentText"></Text>
@@ -116,13 +116,13 @@
 										<Text text="{mLookupModel>Equipment}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column sortProperty="TechId" filterProperty="TechId" width="9%">
+								<table:Column sortProperty="TechId" filterProperty="TechId">
 									<Text wrapping="true" text="{i18n>techID}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{mLookupModel>TechId}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column sortProperty="Equidescr" filterProperty="Equidescr" width="11%">
+								<table:Column sortProperty="Equidescr" filterProperty="Equidescr" width="9.5%">
 									<Text wrapping="true" text="{i18n>EqDes}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{mLookupModel>Equidescr}" class="tableContentText"></Text>
@@ -146,7 +146,7 @@
 										<Text text="{path:'mLookupModel>ReqenddateString'}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column sortProperty="Breakdown" filterProperty="Breakdown" width="4%">
+								<table:Column sortProperty="Breakdown" filterProperty="Breakdown" >
 									<Text wrapping="true" text="{i18n>BdownFlag}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{mLookupModel>Breakdown}" class="tableContentText"></Text>
@@ -164,13 +164,13 @@
 										<Text text="{path:'mLookupModel>CreatedOnString'}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column sortProperty="CreatedBy" filterProperty="CreatedBy" width="7%">
+								<table:Column sortProperty="CreatedBy" filterProperty="CreatedBy" width="6%">
 									<Text wrapping="true" text="{i18n>createdby}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{mLookupModel>CreatedBy}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column width="7%">
+								<table:Column width="6%">
 									<Text wrapping="true" text="{i18n>Action}" class="tableHeaderText"/>
 									<table:template>
 										<HBox>
@@ -191,9 +191,9 @@
 								</Toolbar>
 							</table:footer>
 						</table:Table>
-					</VBox>
-				</l:flexContent>
-			</l:FixFlex>
+					<!--</VBox>-->
+				<!--</l:flexContent>-->
+			<!--</l:FixFlex>-->
 		</content>
 		<footer>
 			<Toolbar class="footerBG">
