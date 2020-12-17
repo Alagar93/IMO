@@ -995,7 +995,7 @@ sap.ui.define([
 			}.bind(this));
 
 			//Attaching click event for the KPI tiles
-			var that = this;
+			/*var that = this;  //SH: not needed - using genericTiles in view 
 			var oHbox = this.getView().byId("NOTIF_LIST_KPI_TILES");
 			var oItems = oHbox.getItems();
 			for (var i = 0; i < oItems.length; i++) {
@@ -1003,7 +1003,7 @@ sap.ui.define([
 				oVbox.onclick = function (oEvent) {
 					that.getKPIsNotifList(oEvent);
 				};
-			}
+			}*/
 		},
 
 		//Function to get KPI notifications list
@@ -1011,7 +1011,8 @@ sap.ui.define([
 			var headerText = "";
 			var serviceType = "";
 			var oVbox = oEvent.srcControl;
-			var selVBox = oVbox.getCustomData()[0].getValue();
+			// var selVBox = oVbox.getCustomData()[0].getValue();
+			var selVBox = oEvent.getSource().getAriaLabel();
 			switch (selVBox) {
 			case "NOTIF_LIST_BREAKDOWNS":
 				headerText = "Breakdown Notifications";

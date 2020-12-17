@@ -2,15 +2,43 @@
 	xmlns="sap.m" xmlns:fb="sap.ui.comp.filterbar" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" height="100%" xmlns:table="sap.ui.table"
 	xmlns:tnt="sap.tnt">
 	<Page showHeader="false" class="sapUiSizeCompact sapMPageBackground">
-		<tnt:ToolHeader>
+		<!--<tnt:ToolHeader>-->
 			<!--<Button icon="sap-icon://home" type="Transparent" press="onPressHome" tooltip="{i18n>home}"/>-->
 			<!--<Image src="images/Cherrywork_Logo_final_Option_1.png" height="55%" width="10%"/>-->
-			<Label design="Bold" class="sapUiSmallMarginBegin" text="{i18n>tile_notifList}" wrapping="true"/>
+			<!--<Label design="Bold" class="sapUiSmallMarginBegin" text="{i18n>tile_notifList}" wrapping="true"/>-->
 			<!--<ToolbarSpacer/>-->
-		</tnt:ToolHeader>
+		<!--</tnt:ToolHeader>-->
 		<content>
+			<l:Grid defaultSpan="L2 M2 S12" class="sapUiSmallMarginTop">
+				<GenericTile press="getKPIsNotifList" class="murphyHdrTileClass KPIShadow" ariaLabel="NOTIF_LIST_BREAKDOWNS">
+					<TileContent>
+						<VBox class="sapUiTinyMargin">
+							<Text class="notificationHeaderText sapUiSmallMarginBottom" wrapping="true" text="{i18n>BDNotif}"/>
+							<Text text="{mLookupModel>/breakDownNotificationCount}" class="formatKPINumber"/>
+						</VBox>
+					</TileContent>
+				</GenericTile>
+				<GenericTile press="getKPIsNotifList" class="murphyHdrTileClass KPIShadow" ariaLabel="NOTIF_LIST_NOTIFICATIONS_DUE">
+					<TileContent>
+						<VBox class="sapUiTinyMargin">
+							<Text class="notificationHeaderText sapUiSmallMarginBottom" wrapping="true" text="{i18n>notifDue}"/>
+							<Text text="{mLookupModel>/notificationsDueCount}" class="formatKPINumber"/>
+						</VBox>
+					</TileContent>
+				</GenericTile>
+				<GenericTile press="getKPIsNotifList" class="murphyHdrTileClass KPIShadow" ariaLabel="NOTIF_LIST_ASSIGNED_TO_ME">
+					<TileContent>
+						<VBox class="sapUiTinyMargin">
+							<Text class="notificationHeaderText sapUiSmallMarginBottom" wrapping="true" text="Assigned to me"/>
+							<Text text="{mLookupModel>/notificationsDueCount}" class="formatKPINumber"/>
+						</VBox>
+					</TileContent>
+				</GenericTile>
+			</l:Grid>
+			
+			
 			<l:FixFlex>
-				<l:fixContent width="100%">
+				<!--<l:fixContent width="100%">
 					<HBox class="sapUiSmallMarginTop sapUiTinyMarginBegin">
 						<HBox width="85%" id="NOTIF_LIST_KPI_TILES">
 							<VBox class="formatKPIBox">
@@ -39,18 +67,18 @@
 							<l:GridData span="L6 M8 S12"/>
 						</layoutData>
 					</HBox>
-				</l:fixContent>
+				</l:fixContent>-->
 				<l:flexContent>
-					<VBox height="100%" class="sapVBoxNotiListClass sapUiTinyMarginTop sapUiTinyMarginBegin">
+					<VBox height="100%" class="sapUiSmallMarginTop sapUiTinyMarginBeginEnd">
 						<table:Table visibleRowCountMode="Fixed" visibleRowCount="{mLookupModel>/rowCount}" rowHeight="40" selectionMode="MultiToggle"
 							class="sapUiTblHeaderColClass" rowSelectionChange="onSelectionChange" enableSelectAll="false" id="notifListId"
 							rows="{mLookupModel>/aNotificationListSet}">
 							<table:extension>
-								<Toolbar class="notListToolBarBorderClass">
+								<Toolbar class="sapUiTinyMargin">
 									<content>
 										<Title text="{i18n>notifList}" class="styleTableTitle"/>
 										<ToolbarSpacer/>
-										<Link text="{i18n>advFilter}" press="onHandleNotifAdvFilter"/>
+										<Link class="sapUiTinyMarginEnd" text="{i18n>advFilter}" press="onHandleNotifAdvFilter"/>
 										<SearchField width="25%" search="onSearchNotif" value="{mLookupModel>/sNotifIDDesFilter}" placeholder="{i18n>searchNotif}"
 											class="sapSearchFieldBorderClass"/>
 									</content>

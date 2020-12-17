@@ -2,15 +2,54 @@
 	xmlns="sap.m" xmlns:fb="sap.ui.comp.filterbar" height="100%" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:table="sap.ui.table"
 	xmlns:tnt="sap.tnt">
 	<Page showHeader="false" title="{}" class="sapUiSizeCompact">
-		<tnt:ToolHeader>
-			<!--<Button icon="sap-icon://home" type="Transparent" press="onPressHome" tooltip="{i18n>home}"/>-->
-			<!--<Image src="images/Cherrywork_Logo_final_Option_1.png" height="55%" width="10%"/>-->
-			<Label design="Bold" class="sapUiSmallMarginBegin" text="{i18n>tile_woList}" wrapping="true"/>
-			<!--<ToolbarSpacer/>-->
-		</tnt:ToolHeader>
+		<!--<tnt:ToolHeader>-->
+		<!--<Button icon="sap-icon://home" type="Transparent" press="onPressHome" tooltip="{i18n>home}"/>-->
+		<!--<Image src="images/Cherrywork_Logo_final_Option_1.png" height="55%" width="10%"/>-->
+		<!--<Label design="Bold" class="sapUiSmallMarginBegin" text="{i18n>tile_woList}" wrapping="true"/>-->
+		<!--<ToolbarSpacer/>-->
+		<!--</tnt:ToolHeader>-->
 		<content>
+			<l:Grid defaultSpan="L2 M2 S12" class="sapUiSmallMarginTop">
+				<GenericTile press="getKPIsWoList" class="murphyHdrTileClass KPIShadow" ariaLabel="WO_LIST_PM_WORK_DUE">
+					<TileContent>
+						<VBox class="sapUiTinyMargin">
+							<Text class="notificationHeaderText sapUiSmallMarginBottom" wrapping="true" text="{i18n>PMWODue}"/>
+							<Text text="{mLookupModel>/oKPIInfo/WO_due}" class="formatKPINumber"/>
+						</VBox>
+					</TileContent>
+				</GenericTile>
+				<GenericTile press="getKPIsWoList" class="murphyHdrTileClass KPIShadow" ariaLabel="WO_LIST_ASSIGEND_TO_ME">
+					<TileContent>
+						<VBox class="sapUiTinyMargin">
+							<Text class="notificationHeaderText sapUiSmallMarginBottom" wrapping="true" text="{i18n>asigned}"/>
+							<Text text="{mLookupModel>/oKPIInfo/Assign_to_me}" class="formatKPINumber"/>
+						</VBox>
+					</TileContent>
+				</GenericTile>
+				<GenericTile press="getKPIsWoList" class="murphyHdrTileClass KPIShadow" ariaLabel="WO_LIST_SPARE_PART_RESERV">
+					<TileContent>
+						<VBox class="sapUiTinyMargin">
+							<Text class="notificationHeaderText sapUiTinyMarginBottom" wrapping="true" text="{i18n>outstand}"/>
+							<Text text="34" class="formatKPINumber"/>
+						</VBox>
+					</TileContent>
+				</GenericTile>
+				<GenericTile press="getKPIsWoList" class="murphyHdrTileClass KPIShadow" ariaLabel="WO_LIST_ASSIGNED_TO_WC">
+					<TileContent>
+						<VBox class="sapUiTinyMargin">
+							<Text class="notificationHeaderText sapUiSmallMarginBottom" wrapping="true" text="{i18n>ASIGN_WORK_CENTER}"/>
+							<Text text="56" class="formatKPINumber"/>
+						</VBox>
+					</TileContent>
+				</GenericTile>
+				<ToolbarSpacer/>
+				<ComboBox width="90%" showSecondaryValues="true" items="{path:'mLookupModel>/aWorkCenterSet',sorter:{ path: 'text' }}"
+					selectedKey="{mLookupModel>/sWorkCenterSel}" placeholder="{i18n>WorkCenter_KPI}" tooltip="{i18n>SELECT_WORK_CENTER}" change="fnFetchKPIInfo">
+					<core:ListItem key="{mLookupModel>WorkcenterId}" additionalText="{mLookupModel>WorkcenterDesc}" text="{mLookupModel>WorkcenterId}"/>
+				</ComboBox>
+			</l:Grid>
 			<l:FixFlex class="fixFlexVertical">
-				<l:fixContent width="100%">
+				<!--<l:fixContent width="100%">
 					<HBox class="sapUiTinyMarginBeginEnd sapUiTinyMarginTop">
 						<HBox width="85%" id="WO_LIST_KPI_TILES">
 							<VBox class="formatKPIBox">
@@ -20,13 +59,6 @@
 									<core:CustomData value="WO_LIST_PM_WORK_DUE"/>
 								</customData>
 							</VBox>
-							<!--<VBox class="formatKPIBox">-->
-							<!--	<Text class="sapUiTinyMargin tableHeaderText" wrapping="true" text="{i18n>openBDOrder}"/>-->
-							<!--	<Text text="{mLookupModel>/oKPIInfo/Open_br_dn_order}" class="sapUiTinyMargin formatKPINumber"/>-->
-							<!--	<customData>-->
-							<!--		<core:CustomData value="WO_LIST_OPEN_BD_ORDER"/>-->
-							<!--	</customData>-->
-							<!--</VBox>-->
 							<VBox class="formatKPIBox">
 								<Text class="sapUiTinyMargin tableHeaderText" wrapping="true" text="{i18n>asigned}"/>
 								<Text text="{mLookupModel>/oKPIInfo/Assign_to_me}" class="sapUiTinyMargin formatKPINumber"/>
@@ -59,18 +91,18 @@
 							</VBox>
 						</HBox>
 					</HBox>
-				</l:fixContent>
+				</l:fixContent>-->
 				<l:flexContent>
 					<VBox height="100%" class="sapUiTinyMarginBeginEnd sapUiSmallMarginTop">
 						<table:Table id="idWorkOrderList" class="sapUiTblHeaderColClass" visibleRowCountMode="Fixed" visibleRowCount="{mLookupModel>/rowCount}"
 							rowHeight="40" selectionMode="MultiToggle" enableSelectAll="false" rows="{mLookupModel>/aWorkOrderListSet}"
 							rowSelectionChange="onSelectionChange" filter="dateFormat">
 							<table:extension>
-								<Toolbar>
+								<Toolbar class="sapUiTinyMargin">
 									<content>
 										<Title text="{i18n>WOList}" class="styleTableTitle"/>
 										<ToolbarSpacer/>
-										<Link text="{i18n>advFilter}" press="onHandleAdvFilterWO"/>
+										<Link class="sapUiTinyMarginEnd" text="{i18n>advFilter}" press="onHandleAdvFilterWO"/>
 										<SearchField width="25%" value="{mLookupModel>/sWorderIdDesFilter}" class="sapSearchfieldClass" search="onSearchWO"
 											placeholder="{i18n>searchbyWorkOrderIdDes}"/>
 									</content>

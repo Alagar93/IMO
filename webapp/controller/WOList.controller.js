@@ -93,7 +93,7 @@ sap.ui.define([
 			}.bind(this));
 
 			//Attaching click event for the KPI tiles
-			var that = this;
+			/*var that = this; //SH: Not needed - used GenericTile in view
 			var oHbox = this.getView().byId("WO_LIST_KPI_TILES");
 			var oItems = oHbox.getItems();
 			for (var i = 0; i < oItems.length; i++) {
@@ -101,7 +101,7 @@ sap.ui.define([
 				oVbox.onclick = function (oEvent) {
 					that.getKPIsWoList(oEvent);
 				};
-			}
+			}*/
 		},
 
 		//Function to get selected KPI tile and search WOs
@@ -110,7 +110,8 @@ sap.ui.define([
 			var serviceType = "";
 			var oVbox = oEvent.srcControl;
 			var oResourceModel = this.oResourceModel;
-			var selVBox = oVbox.getCustomData()[0].getValue();
+			// var selVBox = oVbox.getCustomData()[0].getValue();
+			var selVBox = oEvent.getSource().getAriaLabel();
 
 			switch (selVBox) {
 			case "WO_LIST_PM_WORK_DUE":
