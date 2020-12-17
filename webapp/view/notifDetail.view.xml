@@ -316,7 +316,7 @@
 							<VBox>
 								<Label text="{i18n>longText}" class="sapUiTinyMarginTop"/>
 								<VBox>
-									<TextArea width="67.5%" value="{oNotificationDataModel>/Longtext}" tooltip="{oNotificationViewModel>/Longtext}" rows="5" maxLength="2000"
+									<TextArea width="67.5%" value="{oNotificationViewModel>/Longtext}" tooltip="{oNotificationViewModel>/Longtext}" rows="5" maxLength="2000"
 										class="sapInputBorderClass"
 										enabled="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setEnabledBasedOnStatus'}"/>
 									<!--<VBox fitContainer="true" class="sapUiCommentsBorderClass sapUiSmallMarginEnd sapUiTinyMarginTop" width="67.5%"-->
