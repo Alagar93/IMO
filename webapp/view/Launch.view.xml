@@ -11,7 +11,7 @@
 		<m:Button icon="sap-icon://grid" type="Transparent" />-->
 	<!--</tnt:ToolHeader>-->
 	<!--<m:App id="oApp">-->
-	<ObjectPageLayout id="ObjectPageLayout">
+	<ObjectPageLayout id="ObjectPageLayout" backgroundDesignAnchorBar="Transparent">
 		<!--	<headerTitle>
 			<ObjectPageHeader objectTitle="Section sample"></ObjectPageHeader>
 		</headerTitle>
@@ -19,7 +19,7 @@
 			<m:ObjectAttribute title="" text="This example explains the rules for the rendering of sections"/>
 		</headerContent>-->
 		<sections>
-			<ObjectPageSection title="{i18n>opWO}">
+			<ObjectPageSection title="{i18n>opWO}" titleUppercase="false" titleLevel="H3">
 				<subSections>
 					<ObjectPageSubSection class="sub">
 						<m:HBox>
