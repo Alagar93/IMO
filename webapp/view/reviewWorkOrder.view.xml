@@ -182,7 +182,7 @@
 		<m:footer>
 			<m:Toolbar>
 				<m:ToolbarSpacer/>
-				<m:Button text="{i18n>TecoWO}" press="onOpenDigitalSignPopup" type="Emphasized"
+				<m:Button text="{i18n>TecoWO}" press="onOpenDigitalSignPopup" class="murphyCreateBtn"
 					visible="{path:'mLookupModel>/userRole', formatter:'com.sap.incture.IMO_PM.formatter.formatter.disableReviewField'}"/>
 			</m:Toolbar>
 		</m:footer>

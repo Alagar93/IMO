@@ -34,48 +34,48 @@
 		</content>
 		<footer>
 			<Toolbar>
-				<Button text="{i18n>CREATE_NOTIFICATION_WO}" press="onCreateUpdateAndExitWO" type="Transparent"
+				<Button text="{i18n>CREATE_NOTIFICATION_WO}" press="onCreateUpdateAndExitWO" class="murphyCreateBtn"
 					visible="{oWorkOrderDetailViewModel>/createVisible}">
 					<customData>
 						<core:CustomData key="dateType" value="WO_DETAIL_CREATE_NOTIF"/>
 					</customData>
 				</Button>
 				<ToolbarSpacer/>
-				<Button text="{i18n>DETAIL_ADD_TASKS}" type="Transparent" press="fnOpenTaskListPopup"
+				<Button text="{i18n>DETAIL_ADD_TASKS}" class="murphyCreateBtn" press="fnOpenTaskListPopup"
 					visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnSetTaskNotifBtnVisible'}"/>
-				<Button text="{i18n>DETAIL_ADD_NOTIFICATION}" type="Transparent" press="onOpenNotificationPopup"
+				<Button text="{i18n>DETAIL_ADD_NOTIFICATION}" class="murphyCreateBtn" press="onOpenNotificationPopup"
 					visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnSetTaskNotifBtnVisible'}"/>
-				<Button text="{i18n>DETAIL_CREATE_WO}" press="onCreateUpdateAndExitWO" type="Transparent"
+				<Button text="{i18n>DETAIL_CREATE_WO}" press="onCreateUpdateAndExitWO" class="murphyCreateBtn"
 					visible="{oWorkOrderDetailViewModel>/createVisible}">
 					<customData>
 						<core:CustomData key="dateType" value="WO_DETAIL_CREATE"/>
 					</customData>
 				</Button>
-				<Button text="{i18n>DETAIL_CREATE_EXIT}" press="onCreateUpdateAndExitWO" type="Transparent" enabled="true"
+				<Button text="{i18n>DETAIL_CREATE_EXIT}" press="onCreateUpdateAndExitWO" class="murphyCreateBtn" enabled="true"
 					visible="{oWorkOrderDetailViewModel>/createExitVisible}">
 					<customData>
 						<core:CustomData key="dateType" value="WO_DETAIL_CREATE_EXIT"/>
 					</customData>
 				</Button>
-				<Button text="{i18n>DETAIL_UPDATE_WO}" press="onCreateUpdateAndExitWO" type="Transparent" enabled="true"
+				<Button text="{i18n>DETAIL_UPDATE_WO}" press="onCreateUpdateAndExitWO" class="murphyCreateBtn" enabled="true"
 					visible="{oWorkOrderDetailViewModel>/updateVisible}">
 					<customData>
 						<core:CustomData key="dateType" value="WO_DETAIL_UPDATE"/>
 					</customData>
 				</Button>
-				<Button text="{i18n>DETAIL_UPDATE_EXIT}" press="onCreateUpdateAndExitWO" type="Transparent" enabled="true"
+				<Button text="{i18n>DETAIL_UPDATE_EXIT}" press="onCreateUpdateAndExitWO" class="murphyCreateBtn" enabled="true"
 					visible="{oWorkOrderDetailViewModel>/updateExitVisible}">
 					<customData>
 						<core:CustomData key="dateType" value="WO_DETAIL_UPDATE_EXIT"/>
 					</customData>
 				</Button>
-				<Button text="{i18n>DETAIL_WO_RELEASE}" press="onCreateUpdateAndExitWO" type="Emphasized" enabled="true"
+				<Button text="{i18n>DETAIL_WO_RELEASE}" press="onCreateUpdateAndExitWO" class="murphyCreateBtn" enabled="true"
 					visible="{oWODetailFieldsModel>/releaseBtnVisible}">
 					<customData>
 						<core:CustomData key="dateType" value="WO_DETAIL_RELEASE"/>
 					</customData>
 				</Button>
-				<Button text="{i18n>DETAIL_WO_TECO}" press="onCreateUpdateAndExitWO" type="Emphasized"
+				<Button text="{i18n>DETAIL_WO_TECO}" press="onCreateUpdateAndExitWO" class="murphyCreateBtn"
 					visible="{parts:['oWorkOrderDetailModel>/HEADERTOOPERATIONSNAV', 'oUserDetailModel>/userRole'], formatter:'.formatter.enableTECOButton'}">
 					<customData>
 						<core:CustomData key="dateType" value="WO_DETAIL_TECHO"/>
