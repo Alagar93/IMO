@@ -613,6 +613,17 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 		}
 		return "";
 	},
+	//function to calculate breakdowntime in create notification in Hrs
+	fnGetBreakdownDur:function(sStartDate,sStartTime,sEnddate,sEndTime){
+		var sStartDatetime=sStartDate+" "+sStartTime;
+		var sEndDatetime=sEnddate+" "+sEndTime;
+		var nDuration,nDurHrs;
+		sStartDatetime= new Date(sStartDatetime);
+		sEndDatetime=new Date(sEndDatetime);
+		nDuration=sEndDatetime-sStartDatetime;
+		nDurHrs=nDuration/(1000*60*60);
+		return parseInt(nDurHrs,10).toString();
+	},
 	//  Function to Generate months back Date
 	GetMonthsBackDate: function (nMonths) {
 		var d = new Date();
