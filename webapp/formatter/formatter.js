@@ -635,7 +635,7 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 	// Function to disable Release Btn in notifList
 	disableReleaseField: function (selectedIndices, selectedPaths, NotifList) {
 		var bStatus = true;
-		if (!selectedIndices || selectedIndices < 1) {
+		if (!selectedIndices || selectedIndices < 2) {
 			return false;
 		}
 		for (var i = 0; i < selectedPaths.length; i++) {

@@ -3205,6 +3205,7 @@ sap.ui.define([
 		},
 		//Function to reload the the Notification table with more records
 		fnRefreshNotifListTable: function (nSkipNotif) {
+			this.busy.open();
 			var nSkip = 0;
 			var mLookupModel=this.mLookupModel;
 			mLookupModel.setProperty("/aNotificationListSet", []);
@@ -3216,6 +3217,7 @@ sap.ui.define([
 			mLookupModel.setProperty("/selectedNotifs", []);
 			mLookupModel.setProperty("/iSelectedIndices", 0);
 			//mLookupModel.refresh(true);
+			this.busy.close();
 		}
 
 	});

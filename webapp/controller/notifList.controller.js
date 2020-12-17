@@ -382,33 +382,29 @@ sap.ui.define([
 		onPressReleaseMassNotif: function () {
 			var mLookupModel = this.mLookupModel;
 			var aSelectedpaths = mLookupModel.getProperty("/selectedNotifs");
-			mLookupModel.setProperty("/ReleaseStatus", "releaseMassNotif");
-			for (var i = 0; i < aSelectedpaths.length; i++) {
-
+			for (var i = aSelectedpaths.length-1; i >= 0; i--) {
 				var notifData = mLookupModel.getProperty(aSelectedpaths[i].sPath);
+				mLookupModel.getProperty("/selectedNotifs").pop();
 				this.fnPressReleaseNotif(notifData);
-			}
-			var releaseStatus = mLookupModel.getProperty("/massReleaseSuccess");
-			if (releaseStatus) {
-				this.fnShowReleaseSuccess();
 			}
 			mLookupModel.setProperty("/selectedNotifs", []);
 			mLookupModel.setProperty("/iSelectedIndices", 0);
+
 		},
 		onPressReleaseRowNotif: function (oEvent) {
 			var notifDataPath = oEvent.getSource().getParent().getParent().getBindingContext("mLookupModel").sPath;
 			var oNotifData = this.mLookupModel.getProperty(notifDataPath);
-			this.mLookupModel.setProperty("/ReleaseStatus", "releaseNotif");
+			
 			this.fnPressReleaseNotif(oNotifData);
 		},
 		fnPressReleaseNotif: function (notifData) {
 			var mLookupModel = this.mLookupModel;
 			var oNotificationViewModel = this.oNotificationViewModel;
 			var oNotificationDataModel = this.oNotificationDataModel;
-			var ReleaseStatus = mLookupModel.getProperty("/ReleaseStatus");
+			
 			util.resetCreateNotificationFieldsNotifList(oNotificationDataModel, oNotificationViewModel, mLookupModel, notifData, this);
 
-			this.fnReleaseNotif(ReleaseStatus);
+			this.fnReleaseNotif("release");
 		},
 		fnReleaseNotif: function (sVal) {
 			var that = this;
@@ -417,6 +413,8 @@ sap.ui.define([
 			var oPortalNotifOData = this.oPortalNotifOData;
 			var oNotificationDataModel = this.oNotificationDataModel;
 			var oNotificationViewModel = this.oNotificationViewModel;
+			var nSelectedNotifs=mLookupModel.getProperty("/selectedNotifs").length;
+			
 			var oNotifData = oNotificationDataModel.getData();
 
 			var tempLongText = oNotificationViewModel.getProperty("/Longtext");
@@ -473,9 +471,8 @@ sap.ui.define([
 									// mLookupModel.refresh();
 								}
 							});
-						} else if (sVal === "releaseMassNotif") {
-							that.mLookupModel.setProperty("/massReleaseSuccess", true);
-						} else {
+						}
+						if (nSelectedNotifs===0) {
 							MessageBox.success("Notification Released Successfully", {
 
 								actions: [MessageBox.Action.OK],
@@ -497,29 +494,11 @@ sap.ui.define([
 					that.busy.close();
 				},
 				error: function (error, oResponse) {
-					if (sVal === "releaseMassNotif") {
-						that.mLookupModel.setProperty("/massReleaseSuccess", false);
-					}
+
 					that.busy.close();
 				}
 			});
 
-		},
-		fnShowReleaseSuccess: function () {
-			MessageBox.success("Notification Released Successfully", {
-
-				actions: [MessageBox.Action.OK],
-				emphasizedAction: MessageBox.Action.OK,
-				onClose: function (sAction) {
-					// that.getView().byId("releaseButton").setVisible(false);
-					// mLookupModel.setProperty("/SysStatus", "NOPR");
-					//that.fnFetchNotifList();
-
-					var SkipNotif = this.mLookupModel.getProperty("/iSkipNotif"); //Sunanda-to ensure the record with change is updated
-					this.mLookupModel.setProperty("/iSkipNotif", 0);
-					this.fnRefreshNotifListTable(SkipNotif);
-				}
-			});
 		},
 
 		//Release notification complete
