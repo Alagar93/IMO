@@ -660,6 +660,9 @@ com.sap.incture.IMO_PM.util.util = {
 		} else {
 			oNotificationViewModel.setProperty("/enableBreakDur", false);
 		}
+		/*if(oSelectedRow.Downtime==="NaN"){
+			oSelectedRow.Downtime="";
+		}*/
 
 		var longTextHistory = oNotificationDataModel.getProperty("/Longtext");
 		longTextHistory = longTextHistory.split("* ----------------------------------------*");

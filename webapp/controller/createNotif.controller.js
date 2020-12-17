@@ -409,6 +409,11 @@ sap.ui.define([
 					oNotificationDataModel.setProperty("/Enddate", dateValue);
 				}
 			}
+			//to Calculate Breakdown Duration
+			var sStartDate = oNotificationDataModel.getProperty("/Startdate").toDateString();
+			var sEnddate = oNotificationDataModel.getProperty("/Enddate").toDateString();
+			var nDuration = formatter.fnGetBreakdownDur(sStartDate, startTime, sEnddate, endTime);
+			oNotificationDataModel.setProperty("/BreakdownDur", nDuration);
 			oNotificationDataModel.refresh();
 		},
 
@@ -418,11 +423,21 @@ sap.ui.define([
 			var oNotificationDataModel = this.oNotificationDataModel;
 			if (bVal) {
 				oNotificationDataModel.setProperty("/Breakdown", "X");
+				this.fnResetMalfnDateTimes();
 			} else {
 				oNotificationDataModel.setProperty("/Breakdown", " ");
 				oNotificationDataModel.setProperty("/BreakdownDur", "0");
+				this.fnResetMalfnDateTimes();
 			}
 			oNotificationDataModel.refresh();
+		},
+		fnResetMalfnDateTimes:function(){
+			var oNotificationDataModel=this.oNotificationDataModel;
+			var oNotificationViewModel=this.oNotificationViewModel;
+			oNotificationDataModel.setProperty("/Startdate",new Date());
+			oNotificationDataModel.setProperty("/Enddate",new Date());
+			oNotificationViewModel.setProperty("/StartTime",formatter.formatCurrentTime(new Date()));
+			oNotificationViewModel.setProperty("/EndTime",formatter.formatCurrentTime(new Date()));
 		},
 
 		//Function to check Mandaorty fields validation
@@ -437,10 +452,9 @@ sap.ui.define([
 			if (bVal[0] === true) {
 				that.showMessage(bVal[1]);
 				return;
-			} 
-			else if (bVal[0] === false && oBtnType ===  "CREATE_ORDER"){
+			} else if (bVal[0] === false && oBtnType === "CREATE_ORDER") {
 				this.onCreateNotifWithWO(oBtnType);
-			}else {
+			} else {
 				this.onCreateNotification();
 			}
 		},
@@ -562,10 +576,10 @@ sap.ui.define([
 				success: function (sData, oResponse) {
 					var successErrMsg = "";
 					var isSuccess;
-					var oNotificationId = parseInt(sData.Notifid,10);
+					var oNotificationId = parseInt(sData.Notifid, 10);
 					this.notifID = oNotificationId;
-					if(oNotificationId){
-						that.fnCreateWorkOrderForNotif(sData,btnType);
+					if (oNotificationId) {
+						that.fnCreateWorkOrderForNotif(sData, btnType);
 					}
 				},
 				error: function (error, oResponse) {
@@ -794,12 +808,12 @@ sap.ui.define([
 							tempEndDate.setDate(tempEndDate.getDate() + 7);
 							var someFormattedDate = that.getFormattedDate(tempEndDate);
 							oReqEndDate = new Date(someFormattedDate);
-							
+
 						} else if (sVal === "2") {
 							tempStartDate.setDate(tempStartDate.getDate() + 7);
 							var someFormattedDate = that.getFormattedDate(tempStartDate);
 							oReqStartDate = new Date(someFormattedDate);
-							
+
 							tempEndDate.setDate(tempEndDate.getDate() + 30);
 							someFormattedDate = that.getFormattedDate(tempEndDate);
 							oReqEndDate = new Date(someFormattedDate);
@@ -807,16 +821,16 @@ sap.ui.define([
 							tempStartDate.setDate(tempStartDate.getDate() + 14);
 							var someFormattedDate = that.getFormattedDate(tempStartDate);
 							oReqStartDate = new Date(someFormattedDate);
-							
+
 							tempEndDate.setDate(tempEndDate.getDate() + 90);
 							someFormattedDate = that.getFormattedDate(tempEndDate);
 							oReqEndDate = new Date(someFormattedDate);
-							
+
 						} else if (sVal === "4") {
 							tempStartDate.setDate(tempStartDate.getDate() + 1);
 							var someFormattedDate = that.getFormattedDate(tempStartDate);
 							oReqStartDate = new Date(someFormattedDate);
-							
+
 							tempEndDate.setDate(tempEndDate.getDate() + 12);
 							someFormattedDate = that.getFormattedDate(tempEndDate);
 							oReqEndDate = new Date(someFormattedDate);
@@ -825,8 +839,8 @@ sap.ui.define([
 							var someFormattedDate = that.getFormattedDate(tempEndDate);
 							oReqEndDate = new Date(someFormattedDate);
 						}
-						oNotificationDataModel.setProperty("/ReqStartdate",oReqStartDate);
-						oNotificationDataModel.setProperty("/ReqEnddate",oReqEndDate);
+						oNotificationDataModel.setProperty("/ReqStartdate", oReqStartDate);
+						oNotificationDataModel.setProperty("/ReqEnddate", oReqEndDate);
 					}
 
 				}
