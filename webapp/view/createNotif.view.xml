@@ -28,7 +28,7 @@
 				<VBox class="gridPadding">
 					<Label text="{i18n>reference_Notif}"/>
 					<Input value="{mLookupModel>/sRefnotif}" width="90%" valueLiveUpdate="true" showValueHelp="true" showSuggestion="true" enabled="true"
-						valueHelpRequest="refNotifValueHelp" valueHelpOnly="true"></Input>
+						valueHelpRequest="refNotifValueHelp" valueHelpOnly="false"></Input>
 				</VBox>
 				<OverflowToolbar class="createNotifOverflowBorder">
 					<Label text="{i18n>REFERENCE_OBJECT}" design="Bold" class="sapUiTinyMarginBottom"></Label>

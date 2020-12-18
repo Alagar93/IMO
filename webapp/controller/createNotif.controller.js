@@ -45,6 +45,7 @@ sap.ui.define([
 			var sWorkCenterSel = mLookupModel.getProperty(sPath + "/WorkCntr");
 			var sPlant = mLookupModel.getProperty(sPath + "/Planplant");
 			var sPriority = mLookupModel.getProperty(sPath + "/Priority");
+			this.fnSetDateBasedOnPriority(sPriority); // nischal 
 			var sNotifType = mLookupModel.getProperty(sPath + "/NotifType");
 			var sDescription = mLookupModel.getProperty(sPath + "/Descriptn");
 			var sLongText = mLookupModel.getProperty(sPath + "/LongText");
@@ -73,6 +74,54 @@ sap.ui.define([
 			this.getEquipsAssmebly(iEqId);
 			this.onCloseRefNotif();
 		},
+		//nischal -- Function to set Required Start Date and End Date based on Priority
+		fnSetDateBasedOnPriority: function (sVal) {
+			var oNotificationDataModel = this.oNotificationDataModel;
+			var tempStartDate = new Date();
+			var tempEndDate = new Date();
+			var oReqStartDate, oReqEndDate;
+			if (sVal === "1") {
+				tempEndDate.setDate(tempEndDate.getDate() + 7);
+				var someFormattedDate = this.getFormattedDate(tempEndDate);
+				oReqEndDate = new Date(someFormattedDate);
+				oReqStartDate = new Date();
+
+			} else if (sVal === "2") {
+				tempStartDate.setDate(tempStartDate.getDate() + 7);
+				var someFormattedDate = this.getFormattedDate(tempStartDate);
+				oReqStartDate = new Date(someFormattedDate);
+
+				tempEndDate.setDate(tempEndDate.getDate() + 30);
+				someFormattedDate = this.getFormattedDate(tempEndDate);
+				oReqEndDate = new Date(someFormattedDate);
+			} else if (sVal === "3") {
+				tempStartDate.setDate(tempStartDate.getDate() + 14);
+				var someFormattedDate = this.getFormattedDate(tempStartDate);
+				oReqStartDate = new Date(someFormattedDate);
+
+				tempEndDate.setDate(tempEndDate.getDate() + 90);
+				someFormattedDate = this.getFormattedDate(tempEndDate);
+				oReqEndDate = new Date(someFormattedDate);
+
+			} else if (sVal === "4") {
+				tempStartDate.setDate(tempStartDate.getDate() + 1);
+				var someFormattedDate = this.getFormattedDate(tempStartDate);
+				oReqStartDate = new Date(someFormattedDate);
+
+				tempEndDate.setDate(tempEndDate.getDate() + 12);
+				someFormattedDate = this.getFormattedDate(tempEndDate);
+				oReqEndDate = new Date(someFormattedDate);
+			} else if (sVal === "E") {
+				tempEndDate.setDate(tempEndDate.getDate() + 3);
+				var someFormattedDate = this.getFormattedDate(tempEndDate);
+				oReqEndDate = new Date(someFormattedDate);
+				oReqStartDate = new Date();
+			}
+			oNotificationDataModel.setProperty("/ReqStartdate", oReqStartDate);
+			oNotificationDataModel.setProperty("/ReqEnddate", oReqEndDate);
+
+		},
+		//nischal
 		onSearchNotifData: function (oEvent) {
 			var mLookupModel = this.mLookupModel;
 			var sQuery = oEvent.getSource().getValue();
@@ -431,13 +480,13 @@ sap.ui.define([
 			}
 			oNotificationDataModel.refresh();
 		},
-		fnResetMalfnDateTimes:function(){
-			var oNotificationDataModel=this.oNotificationDataModel;
-			var oNotificationViewModel=this.oNotificationViewModel;
-			oNotificationDataModel.setProperty("/Startdate",new Date());
-			oNotificationDataModel.setProperty("/Enddate",new Date());
-			oNotificationViewModel.setProperty("/StartTime",formatter.formatCurrentTime(new Date()));
-			oNotificationViewModel.setProperty("/EndTime",formatter.formatCurrentTime(new Date()));
+		fnResetMalfnDateTimes: function () {
+			var oNotificationDataModel = this.oNotificationDataModel;
+			var oNotificationViewModel = this.oNotificationViewModel;
+			oNotificationDataModel.setProperty("/Startdate", new Date());
+			oNotificationDataModel.setProperty("/Enddate", new Date());
+			oNotificationViewModel.setProperty("/StartTime", formatter.formatCurrentTime(new Date()));
+			oNotificationViewModel.setProperty("/EndTime", formatter.formatCurrentTime(new Date()));
 		},
 
 		//Function to check Mandaorty fields validation
@@ -467,8 +516,8 @@ sap.ui.define([
 			var oPortalNotifOData = this.oPortalNotifOData;
 			var oNotificationDataModel = this.oNotificationDataModel;
 			var oNotifData = oNotificationDataModel.getData();
-			oNotifData.Startdate = formatter.formatDateobjToStringNotif(oNotifData.Startdate, true);
-			oNotifData.Enddate = formatter.formatDateobjToStringNotif(oNotifData.Enddate, true);
+			oNotifData.Startdate = formatter.formatDateobjToStringNotif(oNotifData.Startdate, false);
+			oNotifData.Enddate = formatter.formatDateobjToStringNotif(oNotifData.Enddate, false);
 			oNotifData.ReqStartdate = formatter.formatDateobjToStringNotif(oNotifData.ReqStartdate);
 			oNotifData.ReqEnddate = formatter.formatDateobjToStringNotif(oNotifData.ReqEnddate);
 			oNotifData.Notif_date = formatter.formatDateobjToStringNotif(new Date());

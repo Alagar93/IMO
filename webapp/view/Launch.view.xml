@@ -32,7 +32,7 @@
 							<m:GenericTile class=" sapUiTinyMarginEnd tileLayout" header="{i18n>tile_cr/ed_wo}" press="onPressCrEdWo"></m:GenericTile>
 							<m:GenericTile class=" sapUiTinyMarginEnd tileLayout" header="{i18n>tile_woList}" press="onPressWoList">
 								<m:TileContent footer="Work Orders Due">
-									<m:NumericContent value="12" withMargin="true"/>
+									<m:NumericContent value="{mLookupModel>/woDueCount}" withMargin="true"/>
 								</m:TileContent>
 							</m:GenericTile>
 							<m:GenericTile class=" sapUiTinyMarginEnd tileLayout" header="{i18n>tile_reviewWO}" press="onPressReviewWO">
