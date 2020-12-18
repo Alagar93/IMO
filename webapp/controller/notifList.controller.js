@@ -88,7 +88,7 @@ sap.ui.define([
 					"key": "OSNO",
 					"text": "Outsranding Notification"
 				}],
-				"sCreatedOnStart": formatter.GetMonthsBackDate(3),
+				"sCreatedOnStart": formatter.GetMonthsBackDate(2),
 				"sCreatedOnEnd": new Date().toLocaleDateString()
 			};
 			this.mLookupModel.setProperty("/", oViewSetting);
@@ -301,13 +301,13 @@ sap.ui.define([
 			if (!sCreatedOnStart) {
 				sCreatedOnStart = new Date(null);
 			} else {
-				sCreatedOnStart = new Date(sCreatedOnStart);
+				sCreatedOnStart = new Date(sCreatedOnStart + " " + new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds());
 			}
 			var sCreatedOnEnd = mLookupModel.getProperty("/sCreatedOnEnd");
 			if (!sCreatedOnEnd) {
 				sCreatedOnEnd = new Date();
 			} else {
-				sCreatedOnEnd = new Date(sCreatedOnEnd);
+				sCreatedOnEnd = new Date(sCreatedOnEnd + " " + new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds());
 			}
 
 			var oFilter = [];
@@ -382,6 +382,7 @@ sap.ui.define([
 		onPressReleaseMassNotif: function () {
 			var mLookupModel = this.mLookupModel;
 			var aSelectedpaths = mLookupModel.getProperty("/selectedNotifs");
+			this.mLookupModel.setProperty("/ReleaseStatus","MassNotif");
 			for (var i = aSelectedpaths.length-1; i >= 0; i--) {
 				var notifData = mLookupModel.getProperty(aSelectedpaths[i].sPath);
 				mLookupModel.getProperty("/selectedNotifs").pop();
@@ -394,17 +395,17 @@ sap.ui.define([
 		onPressReleaseRowNotif: function (oEvent) {
 			var notifDataPath = oEvent.getSource().getParent().getParent().getBindingContext("mLookupModel").sPath;
 			var oNotifData = this.mLookupModel.getProperty(notifDataPath);
-			
+			this.mLookupModel.setProperty("/ReleaseStatus","RowNotif");
 			this.fnPressReleaseNotif(oNotifData);
 		},
 		fnPressReleaseNotif: function (notifData) {
 			var mLookupModel = this.mLookupModel;
 			var oNotificationViewModel = this.oNotificationViewModel;
 			var oNotificationDataModel = this.oNotificationDataModel;
-			
+			var ReleaseStatus=mLookupModel.getProperty("/ReleaseStatus");
 			util.resetCreateNotificationFieldsNotifList(oNotificationDataModel, oNotificationViewModel, mLookupModel, notifData, this);
 
-			this.fnReleaseNotif("release");
+			this.fnReleaseNotif(ReleaseStatus);
 		},
 		fnReleaseNotif: function (sVal) {
 			var that = this;
@@ -421,7 +422,13 @@ sap.ui.define([
 			oNotifData.Longtext = tempLongText;
 
 			oNotifData.Startdate = formatter.formatDateobjToString(oNotifData.Startdate);
-			oNotifData.Enddate = formatter.formatDateobjToString(oNotifData.Enddate);
+			if(oNotifData.Enddate){
+				oNotifData.Enddate = formatter.formatDateobjToString(oNotifData.Enddate);
+			}
+			else{
+				oNotifData.Enddate="";
+			}
+			
 			oNotifData.Notif_date = formatter.formatDateobjToString(oNotifData.Notif_date);
 			oNotifData.ReqStartdate = formatter.formatDateobjToString(oNotifData.ReqStartdate);
 			oNotifData.ReqEnddate = formatter.formatDateobjToString(oNotifData.ReqEnddate);
@@ -472,7 +479,7 @@ sap.ui.define([
 								}
 							});
 						}
-						if (nSelectedNotifs===0) {
+						if (nSelectedNotifs===0||sVal==="RowNotif") {
 							MessageBox.success("Notification Released Successfully", {
 
 								actions: [MessageBox.Action.OK],
@@ -487,6 +494,8 @@ sap.ui.define([
 									that.fnRefreshNotifListTable(SkipNotif);
 								}
 							});
+							
+							
 						}
 
 					}

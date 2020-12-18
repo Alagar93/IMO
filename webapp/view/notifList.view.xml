@@ -174,9 +174,9 @@
 									<Text wrapping="true" text="{i18n>Action}" class="tableHeaderText"/>
 									<table:template>
 										<HBox>
-											<Button icon="sap-icon://SAP-icons-TNT/data" press="onPressReleaseRowNotif" type="Emphasized"
+											<Button icon="sap-icon://flag" press="onPressReleaseRowNotif"  tooltip="Release"
 												visible="{=${mLookupModel>SysStatus}==='OSNO'?true:false}"/>
-											<Button icon="sap-icon://flag" press="onPressCreateRowNotif" type="Emphasized"
+											<Button icon="sap-icon://SAP-icons-TNT/data" press="onPressCreateRowNotif"  tooltip="Create Order"
 												visible="{=${mLookupModel>SysStatus}==='NOPR'?true:false}"/>
 										</HBox>
 									</table:template>
@@ -197,12 +197,12 @@
 		</content>
 		<footer>
 			<Toolbar class="footerBG">
-				<Button class="murphyCreateBtn" text="{i18n>Notif_List_Mass_Release}" press="onPressReleaseMassNotif" 
+				<Button class="murphyCreateBtn" text="{i18n>Notif_List_Mass_Release}" press="onPressReleaseMassNotif"  tooltip="Mass Release"
 					visible="{parts:['mLookupModel>/iSelectedIndices','mLookupModel>/selectedNotifs','mLookupModel>/aNotificationListSet'],formatter:'com.sap.incture.IMO_PM.formatter.formatter.disableReleaseField'}"/>
 				<Button class="murphyCreateBtn" text="{i18n>Notif_List_Create_Mass_WO}" press="onPressCreateMassWO" 
 					visible="{parts:['mLookupModel>/iSelectedIndices','mLookupModel>/selectedNotifs','mLookupModel>/aNotificationListSet'],formatter:'com.sap.incture.IMO_PM.formatter.formatter.disableMassCreateField'}"/>
 				<ToolbarSpacer/>
-				<Button class="murphyCreateBtn" text="{i18n>assign}" press="onAssignWO" 
+				<Button class="murphyCreateBtn" text="{i18n>assign}" press="onAssignWO"  tooltip="Create Mass Order"
 					visible="{path:'oUserDetailModel>/userRole', formatter:'com.sap.incture.IMO_PM.formatter.formatter.disableReviewField'}"/>
 				<Button class="murphyCreateBtn" text="{i18n>viewDetail}" enabled="{= ${mLookupModel>/iSelectedIndices} === 1 ? true: false}" press="onNotifDetail"/>
 			</Toolbar>

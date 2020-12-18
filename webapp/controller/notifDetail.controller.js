@@ -37,7 +37,7 @@ sap.ui.define([
 			sericeUrl = sericeUrl + "/AttachmentSet";
 			var oFileUploader = this.getView().byId("MYLAN_CREATE_Notif_FILEUPLOADER");
 			oFileUploader.setUploadUrl(sericeUrl);
-			
+
 		},
 
 		//Function to fetch Notification details by Notif Id
@@ -71,6 +71,7 @@ sap.ui.define([
 				success: function (oData) {
 					var notifData = oData.results[0];
 					that.resetUIFields(notifData);
+
 					that.busy.close();
 				},
 				error: function (oData) {
@@ -88,7 +89,32 @@ sap.ui.define([
 			var oNotificationDataModel = this.oNotificationDataModel;
 			util.resetCreateNotificationFieldsNotifList(oNotificationDataModel, oNotificationViewModel, mLookupModel, notifData, this);
 			var notifid = this.oNotificationDataModel.getProperty("/Notifid");
+			this.fnsetBreakdownDur();
 			this.fnGetNotifAttachmentLinks(notifid);
+		},
+		//function to set Breakdown Dur from Ui side
+		fnsetBreakdownDur: function () {
+			var oNotificationViewModel = this.oNotificationViewModel;
+			var oNotificationDataModel = this.oNotificationDataModel;
+			var sBreakDown = oNotificationDataModel.getProperty("/Breakdown");
+			if (sBreakDown) {
+				var MalEnddate = oNotificationDataModel.getProperty("/Enddate");
+				var MalEndTime = oNotificationViewModel.getProperty("/EndTime");
+				var MalStartdate = oNotificationDataModel.getProperty("/Startdate");
+				var MalStartTime = oNotificationViewModel.getProperty("/StartTime");
+				if(MalEnddate&&MalEndTime!==""){
+					var nDuration=formatter.fnGetBreakdownDur(MalStartdate.toDateString(), MalStartTime, MalEnddate.toDateString(), MalEndTime); 
+					oNotificationDataModel.setProperty("/BreakdownDur",nDuration);
+					//oNotificationViewModel.setProperty("/DownTime","")
+				}
+				else{
+					oNotificationDataModel.setProperty("/BreakdownDur","0");
+				}
+			}
+			else{
+				oNotificationDataModel.setProperty("/BreakdownDur","");
+			}
+
 		},
 
 		//Function to get Equipment List and show in a pop-up
@@ -230,6 +256,7 @@ sap.ui.define([
 				oNotificationDataModel.setProperty("/Breakdown", " ");
 				oNotificationDataModel.setProperty("/BreakdownDur", "0");
 				oNotificationViewModel.setProperty("/enableBreakDur", false);
+				this.fnResetMalfnDateTimes();
 			}
 			oNotificationDataModel.refresh();
 		},
@@ -373,6 +400,7 @@ sap.ui.define([
 					oNotificationDataModel.setProperty("/Enddate", dateValue);
 				}
 			}
+			this.fnGetBreakdownDurNotif();
 			oNotificationDataModel.refresh();
 		},
 
@@ -439,7 +467,7 @@ sap.ui.define([
 
 			oPortalDataModel.read("/AttachmentListSet", {
 				filters: oFilter,
-				
+
 				success: function (oData) {
 					var attachments = oData.results;
 					oNotificationViewModel.setProperty("/attachments", attachments);
@@ -461,7 +489,7 @@ sap.ui.define([
 			}
 			this.attachNotifLink.open();
 		},
-		onCloseAttachNotifLinkPopup:function(oEvent){
+		onCloseAttachNotifLinkPopup: function (oEvent) {
 			var oNotificationViewModel = this.oNotificationViewModel;
 			oNotificationViewModel.setProperty("/linkTitle", "");
 			oNotificationViewModel.setProperty("/linkAddress", "");
@@ -608,7 +636,8 @@ sap.ui.define([
 			if (documentId) {
 				var oPortalDataModel = this.oPortalDataModel;
 				var sericeUrl = oPortalDataModel.sServiceUrl;
-				sericeUrl = "/AttachmentListSet(DocumentId='" + documentId + "',OrderId='',AttachmentType='" + type + "',NotifId='" + NotifId + "')";
+				sericeUrl = "/AttachmentListSet(DocumentId='" + documentId + "',OrderId='',AttachmentType='" + type + "',NotifId='" + NotifId +
+					"')";
 				oPortalDataModel.setHeaders({
 					"X-Requested-With": "X"
 				});
@@ -642,7 +671,12 @@ sap.ui.define([
 			oNotifData.Longtext = tempLongText;
 
 			oNotifData.Startdate = formatter.formatDateobjToString(oNotifData.Startdate);
-			oNotifData.Enddate = formatter.formatDateobjToString(oNotifData.Enddate);
+			if (oNotifData.Enddate) {
+				oNotifData.Enddate = formatter.formatDateobjToString(oNotifData.Enddate);
+			} else {
+				oNotifData.Enddate = "";
+			}
+
 			oNotifData.Notif_date = formatter.formatDateobjToString(oNotifData.Notif_date);
 			oNotifData.ReqStartdate = formatter.formatDateobjToString(oNotifData.ReqStartdate);
 			oNotifData.ReqEnddate = formatter.formatDateobjToString(oNotifData.ReqEnddate);
@@ -664,8 +698,15 @@ sap.ui.define([
 			if (!endTime) {
 				endTime = "00:00";
 			}
-			var splitDate2 = oNotifData.Enddate.split("T")[0];
-			oNotifData.Enddate = splitDate2 + "T" + endTime + ":00";
+			if (oNotifData.Enddate !== "") {
+				var splitDate2 = oNotifData.Enddate.split("T")[0];
+				oNotifData.Enddate = splitDate2 + "T" + endTime + ":00";
+			}
+			var BreakdownDur = oNotificationDataModel.getProperty("/BreakdownDur");
+			if (BreakdownDur === "NaN") {
+				oNotifData.BreakdownDur = "0";
+			}
+
 			oPortalNotifOData.setHeaders({
 				"X-Requested-With": "X"
 			});
@@ -723,7 +764,12 @@ sap.ui.define([
 			oNotifData.Longtext = tempLongText;
 
 			oNotifData.Startdate = formatter.formatDateobjToString(oNotifData.Startdate);
-			oNotifData.Enddate = formatter.formatDateobjToString(oNotifData.Enddate);
+			if (oNotifData.Enddate) {
+				oNotifData.Enddate = formatter.formatDateobjToString(oNotifData.Enddate, true);
+			}
+			else{
+				oNotifData.Enddate="";
+			}
 			oNotifData.Notif_date = formatter.formatDateobjToString(oNotifData.Notif_date);
 			oNotifData.ReqStartdate = formatter.formatDateobjToString(oNotifData.ReqStartdate);
 			oNotifData.ReqEnddate = formatter.formatDateobjToString(oNotifData.ReqEnddate);
@@ -745,8 +791,10 @@ sap.ui.define([
 			if (!endTime) {
 				endTime = "00:00";
 			}
-			var splitDate2 = oNotifData.Enddate.split("T")[0];
-			oNotifData.Enddate = splitDate2 + "T" + endTime + ":00";
+			if (oNotifData.Enddate!=="") {
+				var splitDate2 = oNotifData.Enddate.split("T")[0];
+				oNotifData.Enddate = splitDate2 + "T" + endTime + ":00";
+			}
 			oPortalNotifOData.setHeaders({
 				"X-Requested-With": "X"
 			});
@@ -805,7 +853,13 @@ sap.ui.define([
 			oNotifData.Longtext = tempLongText;
 
 			oNotifData.Startdate = formatter.formatDateobjToString(oNotifData.Startdate);
-			oNotifData.Enddate = formatter.formatDateobjToString(oNotifData.Enddate);
+			if (oNotifData.Enddate) {
+				oNotifData.Enddate = formatter.formatDateobjToString(oNotifData.Enddate, true);
+			}
+			else{
+				/*MessageBox.error("Please enter Break DownEnd Date");*/
+				oNotifData.Enddate="";
+			}
 			oNotifData.Notif_date = formatter.formatDateobjToString(oNotifData.Notif_date);
 			oNotifData.ReqStartdate = formatter.formatDateobjToString(oNotifData.ReqStartdate);
 			oNotifData.ReqEnddate = formatter.formatDateobjToString(oNotifData.ReqEnddate);
@@ -827,8 +881,10 @@ sap.ui.define([
 			if (!endTime) {
 				endTime = "00:00";
 			}
-			var splitDate2 = oNotifData.Enddate.split("T")[0];
-			oNotifData.Enddate = splitDate2 + "T" + endTime + ":00";
+			if (oNotifData.Enddate!=="") {
+				var splitDate2 = oNotifData.Enddate.split("T")[0];
+				oNotifData.Enddate = splitDate2 + "T" + endTime + ":00";
+			}
 			oPortalNotifOData.setHeaders({
 				"X-Requested-With": "X"
 			});
@@ -1128,12 +1184,12 @@ sap.ui.define([
 							tempEndDate.setDate(tempEndDate.getDate() + 7);
 							var someFormattedDate = that.getFormattedDate(tempEndDate);
 							oReqEndDate = new Date(someFormattedDate);
-							
+
 						} else if (sVal === "2") {
 							tempStartDate.setDate(tempStartDate.getDate() + 7);
 							var someFormattedDate = that.getFormattedDate(tempStartDate);
 							oReqStartDate = new Date(someFormattedDate);
-							
+
 							tempEndDate.setDate(tempEndDate.getDate() + 30);
 							someFormattedDate = that.getFormattedDate(tempEndDate);
 							oReqEndDate = new Date(someFormattedDate);
@@ -1141,16 +1197,16 @@ sap.ui.define([
 							tempStartDate.setDate(tempStartDate.getDate() + 14);
 							var someFormattedDate = that.getFormattedDate(tempStartDate);
 							oReqStartDate = new Date(someFormattedDate);
-							
+
 							tempEndDate.setDate(tempEndDate.getDate() + 90);
 							someFormattedDate = that.getFormattedDate(tempEndDate);
 							oReqEndDate = new Date(someFormattedDate);
-							
+
 						} else if (sVal === "4") {
 							tempStartDate.setDate(tempStartDate.getDate() + 1);
 							var someFormattedDate = that.getFormattedDate(tempStartDate);
 							oReqStartDate = new Date(someFormattedDate);
-							
+
 							tempEndDate.setDate(tempEndDate.getDate() + 12);
 							someFormattedDate = that.getFormattedDate(tempEndDate);
 							oReqEndDate = new Date(someFormattedDate);
@@ -1159,8 +1215,8 @@ sap.ui.define([
 							var someFormattedDate = that.getFormattedDate(tempEndDate);
 							oReqEndDate = new Date(someFormattedDate);
 						}
-						oNotificationDataModel.setProperty("/ReqStartdate",oReqStartDate);
-						oNotificationDataModel.setProperty("/ReqEnddate",oReqEndDate);
+						oNotificationDataModel.setProperty("/ReqStartdate", oReqStartDate);
+						oNotificationDataModel.setProperty("/ReqEnddate", oReqEndDate);
 					}
 
 				}
@@ -1188,13 +1244,13 @@ sap.ui.define([
 			this.createWoNotifListDialog.destroy();
 			this.createWoNotifListDialog = null;
 		},
-		onCreateWO : function(oEvent){
+		onCreateWO: function (oEvent) {
 			this.onCancelWoNotifDetailDialog();
 			this.busy.open();
 			var oNotificationDataModel = this.oNotificationDataModel;
 			var sData = oNotificationDataModel.getData();
-			this.fnCreateWorkOrderForNotif(sData,"NOTIF_DETAIL");
-			
+			this.fnCreateWorkOrderForNotif(sData, "NOTIF_DETAIL");
+
 		}
 	});
 });

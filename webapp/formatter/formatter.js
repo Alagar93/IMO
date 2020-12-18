@@ -627,7 +627,7 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 	//  Function to Generate months back Date
 	GetMonthsBackDate: function (nMonths) {
 		var d = new Date();
-		d.setMonth(d.getMonth() - nMonths+1);
+		d.setMonth(d.getMonth() - nMonths);
 		return d.toLocaleDateString();
 	},
 
