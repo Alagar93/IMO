@@ -35,7 +35,9 @@ sap.ui.define([
 			var oPortalDataModel = this.oPortalDataModel;
 			var sericeUrl = oPortalDataModel.sServiceUrl;
 			sericeUrl = sericeUrl + "/AttachmentSet";
-			var oFileUploader = this.getView().byId("MYLAN_CREATE_Notif_FILEUPLOADER");
+			var rightPanel = this.getView().createId("idRightAttachmentPanel"); //SH: Right Panel for Attachments
+			var oFileUploader = sap.ui.core.Fragment.byId(rightPanel, "MYLAN_CREATE_Notif_FILEUPLOADER");
+			// var oFileUploader = this.getView().byId("MYLAN_CREATE_Notif_FILEUPLOADER");
 			oFileUploader.setUploadUrl(sericeUrl);
 			this._setNotificationPanelHeights(); //SH: Set right panel size
 
