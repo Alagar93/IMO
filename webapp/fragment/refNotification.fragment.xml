@@ -1,6 +1,6 @@
 <core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:layout="sap.ui.layout"
 	xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" class="sapUiSizeCompact">
-	<Dialog title="{}" contentWidth="50%" contentHeight="60%" showHeader="false" verticalScrolling="false" class="sapUiSizeCompact">
+	<Dialog title="{}" contentWidth="50%" contentHeight="65%" showHeader="false" verticalScrolling="false" class="dialogHeader sapUiSizeCompact">
 		<Page title="Select Notification" showHeader="true">
 			<content>
 				<!--<Label text="Notification Id :"/>-->
@@ -10,7 +10,7 @@
 					</customData>
 				</SearchField>
 				<ScrollContainer height="20rem" vertical="true" focusable="false">
-					<Table mode="SingleSelectLeft" selectionChange="onselectNotif" growing="false" items="{path: 'mLookupModel>/aNotifListSet'}">
+					<Table sticky="ColumnHeaders" mode="SingleSelectLeft" selectionChange="onselectNotif" growing="false" items="{path: 'mLookupModel>/aNotifListSet'}">
 						<columns>
 							<Column>
 								<Text text="{i18n>notif_Num}"/>
@@ -40,9 +40,9 @@
 			</content>
 			<footer>
 				<Toolbar>
-					<Button type="Reject" text="Cancel" press="onCloseRefNotif"/>
 					<ToolbarSpacer/>
-					<Button type="Accept" text="Apply" press="onNotifSearch"/>
+					<Button text="Cancel" press="onCloseRefNotif" class="murphyDialogBtn"/>
+					<Button text="Apply" press="onNotifSearch" class="murphyDialogBtn"/>
 				</Toolbar>
 			</footer>
 		</Page>

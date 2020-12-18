@@ -1,18 +1,23 @@
 <mvc:View controllerName="com.sap.incture.IMO_PM.controller.notifDetail" xmlns:mvc="sap.ui.core.mvc"
 	xmlns:html="http://www.w3.org/1999/xhtml" displayBlock="true" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout"
-	xmlns:tnt="sap.tnt" xmlns:u="sap.ui.unified">
-	<Page showHeader="false" class="sapUiSizeCompact sapMPageBackground" floatingFooter="false">
-		<tnt:ToolHeader>
-			<!--<Button icon="sap-icon://nav-back" type="Transparent" press="onBackTo_Notif_list"/>-->
-			<!--<Button icon="sap-icon://home" type="Transparent" press="onPressHome" tooltip="{i18n>home}"/>-->
-			<!--<Image src="images/Cherrywork_Logo_final_Option_1.png" height="55%" width="10%"/>-->
-			<Label design="Bold" class="sapUiSmallMarginBegin" text="{i18n>notifDetails}" wrapping="true"/>
-			<!--<ToolbarSpacer/>-->
-		</tnt:ToolHeader>
+	xmlns:tnt="sap.tnt" xmlns:u="sap.ui.unified" xmlns:c="sap.ui.core">
+	<Page showHeader="false" class="sapUiSizeCompact sapMPageBackground" floatingFooter="false" enableScrolling="true">
+		<!--<tnt:ToolHeader>-->
+		<!--<Button icon="sap-icon://nav-back" type="Transparent" press="onBackTo_Notif_list"/>-->
+		<!--<Button icon="sap-icon://home" type="Transparent" press="onPressHome" tooltip="{i18n>home}"/>-->
+		<!--<Image src="images/Cherrywork_Logo_final_Option_1.png" height="55%" width="10%"/>-->
+		<!--<Label design="Bold" class="sapUiSmallMarginBegin" text="{i18n>notifDetails}" wrapping="true"/>-->
+		<!--<ToolbarSpacer/>-->
+		<!--</tnt:ToolHeader>-->
 		<content>
+			<VBox height="{mLookupModel>/notificationPanelHeight}" class="iopRightPanelContainer"
+				width="{= ${mLookupModel>/showTaskManagementPanel} === true ? '25rem' : '5%' }">
+				<c:Fragment fragmentName="com.sap.incture.IMO_PM.fragment.RightAttachmentPanel" type="XML" id="idRightAttachmentPanel"></c:Fragment>
+			</VBox>
+			<!--<ScrollContainer height="calc(100vh - 6rem)" vertical="true">-->
 			<l:Grid>
 				<VBox class="sapUiSmallMarginBegin sapUiMediumMarginTop">
-					<l:Grid >
+					<l:Grid defaultSpan="L4 M4 S6">
 						<VBox>
 							<Label text="{i18n>notifType}"></Label>
 							<!--<Select class="sapInputBorderClass" showSecondaryValues="true" items="{mLookupModel>/aNotificationTypeSet}"-->
@@ -24,37 +29,22 @@
 								selectedKey="{oNotificationDataModel>/NotifType}" class="sapInputBorderClass" enabled="false" width="70%">
 								<core:ListItem key="{mLookupModel>Qmart}" additionalText="{mLookupModel>qmartx}" text="{mLookupModel>Qmart}"/>
 							</ComboBox>
-							<layoutData>
-								<l:GridData span="XL6 L3 M6 S6"/>
-							</layoutData>
 						</VBox>
 						<VBox>
 							<Label text="{i18n>workOrder}"></Label>
 							<Input value="{oNotificationDataModel>/Orderid}" class="sapInputBorderClass" width="70%" enabled="false"/>
-							<layoutData>
-								<l:GridData span="XL6 L3 M6 S6"/>
-							</layoutData>
 						</VBox>
 						<VBox>
 							<Label text="{i18n>NOTIF_ID}"></Label>
 							<Input value="{oNotificationDataModel>/Notifid}" class="sapInputBorderClass" width="70%" enabled="false"/>
-							<layoutData>
-								<l:GridData span="XL6 L3 M6 S6"/>
-							</layoutData>
 						</VBox>
-						<VBox>
+						<VBox class="sapUiSmallMarginTop">
 							<Label text="{i18n>NOTIF_STATUS}"></Label>
 							<Input value="{mLookupModel>/SysStatus}" class="sapInputBorderClass" width="70%" enabled="false"/>
-							<layoutData>
-								<l:GridData span="XL6 L3 M6 S6"/>
-							</layoutData>
 						</VBox>
-						<VBox>
+						<VBox class="sapUiSmallMarginTop">
 							<Label text="{i18n>USER_STATUS}"></Label>
 							<Input value="{mLookupModel>/Userstatus}" class="sapInputBorderClass" width="70%" enabled="false"/>
-							<layoutData>
-								<l:GridData span="XL6 L3 M6 S6"/>
-							</layoutData>
 						</VBox>
 					</l:Grid>
 					<VBox class="sapVBoxBorderClass sapUiSmallMarginTop">
@@ -336,30 +326,31 @@
 						<l:GridData span="XL8 L8 M6 S6"/>
 					</layoutData>
 				</VBox>
-				<VBox class="sapUiSmallMarginBegin sapUiMediumMarginTop">
+				<!--<VBox class="sapUiSmallMarginBegin sapUiMediumMarginTop">
 					<core:Fragment fragmentName="com.sap.incture.IMO_PM.fragment.commentTimelineNotifDetail" type="XML"/>
 					<layoutData>
 						<l:GridData span="XL3 L3 M6 S6"/>
 					</layoutData>
-				</VBox>
+				</VBox>-->
 			</l:Grid>
+			<!--</ScrollContainer>-->
 		</content>
 		<footer>
 			<Toolbar>
-				<Button text="{i18n>close_notif}" id="idcloseNotif" type="Reject" press="onCloseNotif"
+				<Button text="{i18n>close_notif}" id="idcloseNotif" press="onCloseNotif" class="murphyCreateBtn"
 					visible="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setBtnVisibleClose'}"/>
-				<Button text="{i18n>revert_Notif}" id="idrevertNotif" type="Emphasized" press="onRevertNotif"
+				<Button text="{i18n>revert_Notif}" id="idrevertNotif" class="murphyCreateBtn" press="onRevertNotif"
 					visible="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setBtnVisibleRevert'}"/>
 				<ToolbarSpacer/>
-				<Button text="{i18n>updatenot}" id="updateNotif" type="Emphasized" press="checkMandatoryFields"
+				<Button text="{i18n>updatenot}" id="updateNotif" class="murphyCreateBtn" press="checkMandatoryFields"
 					visible="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setBtnVisibleUpdate'}">
 					<customData>
 						<core:CustomData key="dateType" value="UPDATE"/>
 					</customData>
 				</Button>
-				<Button text="{i18n>APPROVE}" id="releaseButton" type="Emphasized" press="onPressRelease"
+				<Button text="{i18n>APPROVE}" id="releaseButton" class="murphyCreateBtn" press="onPressRelease"
 					visible="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setBtnVisibleRelease'}"/>
-				<Button text="{i18n>CREATEORDER}" id="idCreateOrder" type="Emphasized" press="onCreateWODialogOpen"
+				<Button text="{i18n>CREATEORDER}" id="idCreateOrder" class="murphyCreateBtn" press="onCreateWODialogOpen"
 					visible="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setBtnVisibleCreateOrder'}"/>
 				<customData>
 					<core:CustomData key="dateType" value="DETAIL_NOTIF"/>
