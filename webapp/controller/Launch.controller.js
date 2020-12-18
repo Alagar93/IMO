@@ -1,3 +1,4 @@
+// jQuery.sap.require("./images/sapCompanyLogo.jpeg");
 sap.ui.define([
 	"com/sap/incture/IMO_PM/controller/BaseController",
 	"sap/ui/core/mvc/Controller",

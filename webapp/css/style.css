@@ -2272,3 +2272,11 @@ html.sap-desktop .sapMIBar.sapMFooter-CTX {
     border: 1px solid #a0b2c1 !important;
     color: #cae4fb;
 }
+
+.imoObjectPageLayout {
+	background-image: url("/images/sapCompanyLogo.jpeg");
+}
+
+.imoObjectPageSection {
+	background-color: transparent;
+}
