@@ -37,7 +37,8 @@ sap.ui.define([
 			sericeUrl = sericeUrl + "/AttachmentSet";
 			var oFileUploader = this.getView().byId("MYLAN_CREATE_Notif_FILEUPLOADER");
 			oFileUploader.setUploadUrl(sericeUrl);
-			
+			this._setNotificationPanelHeights(); //SH: Set right panel size
+
 		},
 
 		//Function to fetch Notification details by Notif Id
@@ -439,7 +440,7 @@ sap.ui.define([
 
 			oPortalDataModel.read("/AttachmentListSet", {
 				filters: oFilter,
-				
+
 				success: function (oData) {
 					var attachments = oData.results;
 					oNotificationViewModel.setProperty("/attachments", attachments);
@@ -461,7 +462,7 @@ sap.ui.define([
 			}
 			this.attachNotifLink.open();
 		},
-		onCloseAttachNotifLinkPopup:function(oEvent){
+		onCloseAttachNotifLinkPopup: function (oEvent) {
 			var oNotificationViewModel = this.oNotificationViewModel;
 			oNotificationViewModel.setProperty("/linkTitle", "");
 			oNotificationViewModel.setProperty("/linkAddress", "");
@@ -608,7 +609,8 @@ sap.ui.define([
 			if (documentId) {
 				var oPortalDataModel = this.oPortalDataModel;
 				var sericeUrl = oPortalDataModel.sServiceUrl;
-				sericeUrl = "/AttachmentListSet(DocumentId='" + documentId + "',OrderId='',AttachmentType='" + type + "',NotifId='" + NotifId + "')";
+				sericeUrl = "/AttachmentListSet(DocumentId='" + documentId + "',OrderId='',AttachmentType='" + type + "',NotifId='" + NotifId +
+					"')";
 				oPortalDataModel.setHeaders({
 					"X-Requested-With": "X"
 				});
@@ -1128,12 +1130,12 @@ sap.ui.define([
 							tempEndDate.setDate(tempEndDate.getDate() + 7);
 							var someFormattedDate = that.getFormattedDate(tempEndDate);
 							oReqEndDate = new Date(someFormattedDate);
-							
+
 						} else if (sVal === "2") {
 							tempStartDate.setDate(tempStartDate.getDate() + 7);
 							var someFormattedDate = that.getFormattedDate(tempStartDate);
 							oReqStartDate = new Date(someFormattedDate);
-							
+
 							tempEndDate.setDate(tempEndDate.getDate() + 30);
 							someFormattedDate = that.getFormattedDate(tempEndDate);
 							oReqEndDate = new Date(someFormattedDate);
@@ -1141,16 +1143,16 @@ sap.ui.define([
 							tempStartDate.setDate(tempStartDate.getDate() + 14);
 							var someFormattedDate = that.getFormattedDate(tempStartDate);
 							oReqStartDate = new Date(someFormattedDate);
-							
+
 							tempEndDate.setDate(tempEndDate.getDate() + 90);
 							someFormattedDate = that.getFormattedDate(tempEndDate);
 							oReqEndDate = new Date(someFormattedDate);
-							
+
 						} else if (sVal === "4") {
 							tempStartDate.setDate(tempStartDate.getDate() + 1);
 							var someFormattedDate = that.getFormattedDate(tempStartDate);
 							oReqStartDate = new Date(someFormattedDate);
-							
+
 							tempEndDate.setDate(tempEndDate.getDate() + 12);
 							someFormattedDate = that.getFormattedDate(tempEndDate);
 							oReqEndDate = new Date(someFormattedDate);
@@ -1159,8 +1161,8 @@ sap.ui.define([
 							var someFormattedDate = that.getFormattedDate(tempEndDate);
 							oReqEndDate = new Date(someFormattedDate);
 						}
-						oNotificationDataModel.setProperty("/ReqStartdate",oReqStartDate);
-						oNotificationDataModel.setProperty("/ReqEnddate",oReqEndDate);
+						oNotificationDataModel.setProperty("/ReqStartdate", oReqStartDate);
+						oNotificationDataModel.setProperty("/ReqEnddate", oReqEndDate);
 					}
 
 				}
@@ -1188,13 +1190,32 @@ sap.ui.define([
 			this.createWoNotifListDialog.destroy();
 			this.createWoNotifListDialog = null;
 		},
-		onCreateWO : function(oEvent){
+		onCreateWO: function (oEvent) {
 			this.onCancelWoNotifDetailDialog();
 			this.busy.open();
 			var oNotificationDataModel = this.oNotificationDataModel;
 			var sData = oNotificationDataModel.getData();
-			this.fnCreateWorkOrderForNotif(sData,"NOTIF_DETAIL");
-			
+			this.fnCreateWorkOrderForNotif(sData, "NOTIF_DETAIL");
+
+		},
+		onAfterRendering: function () {
+			this._setNotificationPanelHeights(); //SH: Set right panel size
+		},
+		onPressBack: function () {
+			var mLookupModel = this.mLookupModel;
+			mLookupModel.setProperty("/selectedTaskTab", undefined);
+			mLookupModel.setProperty("/showTaskManagementPanel", false);
+			mLookupModel.setProperty("/showAttachmentPanel", false);
+			// mLookupModel.setProperty("/taskManagementPanel/showCommentsPanel", false);
+
+		},
+		onPressAttachments: function (oEvent) {
+			var mLookupModel = this.mLookupModel;
+			mLookupModel.setProperty("/selectedTaskTab", "Attachments");
+			mLookupModel.setProperty("/showTaskManagementPanel", true);
+			mLookupModel.setProperty("/showAttachmentPanel", true);
+			mLookupModel.refresh(true);
+			// mLookupModel.setProperty("/taskManagementPanel/showCommentsPanel", false);
 		}
 	});
 });

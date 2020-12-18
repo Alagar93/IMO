@@ -3218,7 +3218,12 @@ sap.ui.define([
 			mLookupModel.setProperty("/iSelectedIndices", 0);
 			//mLookupModel.refresh(true);
 			this.busy.close();
-		}
+		},
+		_setNotificationPanelHeights: function () {
+			var notificationPanelHeight = this.getView().$().height() - 40 + "px";
+			this.getOwnerComponent().getModel("mLookupModel").setProperty("/notificationPanelHeight", notificationPanelHeight);
+			this.getOwnerComponent().getModel("mLookupModel").refresh(true);
+		},
 
 	});
 });

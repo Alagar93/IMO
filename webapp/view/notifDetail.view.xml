@@ -1,15 +1,20 @@
 <mvc:View controllerName="com.sap.incture.IMO_PM.controller.notifDetail" xmlns:mvc="sap.ui.core.mvc"
 	xmlns:html="http://www.w3.org/1999/xhtml" displayBlock="true" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout"
-	xmlns:tnt="sap.tnt" xmlns:u="sap.ui.unified">
-	<Page showHeader="false" class="sapUiSizeCompact sapMPageBackground" floatingFooter="false">
+	xmlns:tnt="sap.tnt" xmlns:u="sap.ui.unified" xmlns:c="sap.ui.core">
+	<Page showHeader="false" class="sapUiSizeCompact sapMPageBackground" floatingFooter="false" enableScrolling="true">
 		<!--<tnt:ToolHeader>-->
-			<!--<Button icon="sap-icon://nav-back" type="Transparent" press="onBackTo_Notif_list"/>-->
-			<!--<Button icon="sap-icon://home" type="Transparent" press="onPressHome" tooltip="{i18n>home}"/>-->
-			<!--<Image src="images/Cherrywork_Logo_final_Option_1.png" height="55%" width="10%"/>-->
-			<!--<Label design="Bold" class="sapUiSmallMarginBegin" text="{i18n>notifDetails}" wrapping="true"/>-->
-			<!--<ToolbarSpacer/>-->
+		<!--<Button icon="sap-icon://nav-back" type="Transparent" press="onBackTo_Notif_list"/>-->
+		<!--<Button icon="sap-icon://home" type="Transparent" press="onPressHome" tooltip="{i18n>home}"/>-->
+		<!--<Image src="images/Cherrywork_Logo_final_Option_1.png" height="55%" width="10%"/>-->
+		<!--<Label design="Bold" class="sapUiSmallMarginBegin" text="{i18n>notifDetails}" wrapping="true"/>-->
+		<!--<ToolbarSpacer/>-->
 		<!--</tnt:ToolHeader>-->
 		<content>
+			<VBox height="{mLookupModel>/notificationPanelHeight}" class="iopRightPanelContainer"
+				width="{= ${mLookupModel>/showTaskManagementPanel} === true ? '25rem' : '5%' }">
+				<c:Fragment fragmentName="com.sap.incture.IMO_PM.fragment.RightAttachmentPanel" type="XML" id="idRightAttachmentPanel"></c:Fragment>
+			</VBox>
+			<!--<ScrollContainer height="calc(100vh - 6rem)" vertical="true">-->
 			<l:Grid>
 				<VBox class="sapUiSmallMarginBegin sapUiMediumMarginTop">
 					<l:Grid defaultSpan="L4 M4 S6">
@@ -321,13 +326,14 @@
 						<l:GridData span="XL8 L8 M6 S6"/>
 					</layoutData>
 				</VBox>
-				<VBox class="sapUiSmallMarginBegin sapUiMediumMarginTop">
+				<!--<VBox class="sapUiSmallMarginBegin sapUiMediumMarginTop">
 					<core:Fragment fragmentName="com.sap.incture.IMO_PM.fragment.commentTimelineNotifDetail" type="XML"/>
 					<layoutData>
 						<l:GridData span="XL3 L3 M6 S6"/>
 					</layoutData>
-				</VBox>
+				</VBox>-->
 			</l:Grid>
+			<!--</ScrollContainer>-->
 		</content>
 		<footer>
 			<Toolbar>
