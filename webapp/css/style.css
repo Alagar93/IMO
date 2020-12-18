@@ -2274,11 +2274,11 @@ html.sap-desktop .sapMIBar.sapMFooter-CTX {
 }
 
 .imoObjectPageLayout {
-	background-image: url("../images/sapCompanyLogo.jpeg");
+	/*background-image: url("../images/sapCompanyLogo.jpeg");*/
 }
 
 .imoObjectPageSection {
-	background-color: transparent;
+	background-color: transparent !important;
 }
 /* ______________________RIGHT PANEL CSS Begin________________________________*/
 .iopRightPanelContainer {
