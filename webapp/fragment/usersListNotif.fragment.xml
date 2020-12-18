@@ -1,5 +1,5 @@
 <core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" class="sapUiSizeCompact">
-	<Dialog contentHeight="50%" contentWidth="30%" title="Search Users">
+	<Dialog contentHeight="50%" contentWidth="30%" title="Search Users" class="dialogHeader">
 		<content>
 			<SearchField search="onSearchUser" width="100%" placeholder="{i18n>searchuser}"/>
 			<Table mode="SingleSelectLeft" items="{path: 'mLookupModel>/aUsers'}" selectionChange="onSetReportedbyUserNotif">
@@ -22,7 +22,7 @@
 			</Table>
 		</content>
 		<buttons>
-			<Button text="{i18n>cancel}" press="onCancelDialogAssignUser"/>
+			<Button text="{i18n>cancel}" press="onCancelDialogAssignUser" class="murphyDialogBtn"/>
 		</buttons>
 	</Dialog>
 </core:FragmentDefinition >

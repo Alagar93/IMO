@@ -35,8 +35,11 @@ sap.ui.define([
 			var oPortalDataModel = this.oPortalDataModel;
 			var sericeUrl = oPortalDataModel.sServiceUrl;
 			sericeUrl = sericeUrl + "/AttachmentSet";
-			var oFileUploader = this.getView().byId("MYLAN_CREATE_Notif_FILEUPLOADER");
+			var rightPanel = this.getView().createId("idRightAttachmentPanel"); //SH: Right Panel for Attachments
+			var oFileUploader = sap.ui.core.Fragment.byId(rightPanel, "MYLAN_CREATE_Notif_FILEUPLOADER");
+			// var oFileUploader = this.getView().byId("MYLAN_CREATE_Notif_FILEUPLOADER");
 			oFileUploader.setUploadUrl(sericeUrl);
+			this._setNotificationPanelHeights(); //SH: Set right panel size
 
 		},
 
@@ -1251,6 +1254,25 @@ sap.ui.define([
 			var sData = oNotificationDataModel.getData();
 			this.fnCreateWorkOrderForNotif(sData, "NOTIF_DETAIL");
 
+		},
+		onAfterRendering: function () {
+			this._setNotificationPanelHeights(); //SH: Set right panel size
+		},
+		onPressBack: function () {
+			var mLookupModel = this.mLookupModel;
+			mLookupModel.setProperty("/selectedTaskTab", undefined);
+			mLookupModel.setProperty("/showTaskManagementPanel", false);
+			mLookupModel.setProperty("/showAttachmentPanel", false);
+			// mLookupModel.setProperty("/taskManagementPanel/showCommentsPanel", false);
+
+		},
+		onPressAttachments: function (oEvent) {
+			var mLookupModel = this.mLookupModel;
+			mLookupModel.setProperty("/selectedTaskTab", "Attachments");
+			mLookupModel.setProperty("/showTaskManagementPanel", true);
+			mLookupModel.setProperty("/showAttachmentPanel", true);
+			mLookupModel.refresh(true);
+			// mLookupModel.setProperty("/taskManagementPanel/showCommentsPanel", false);
 		}
 	});
 });

@@ -5,27 +5,15 @@
 			<IconTabBar select="handleEquipIconTabSelect" class="equipmentIconTabBar">
 				<items>
 					<IconTabFilter text="{i18n>SEARCH_EQUIPMENT}" key="idSearchEq">
-						<l:Grid defaultSpan="L12 M12 S12">
-							<Label text="{i18n>TECHNICAL_ID}" class="styleTextBlue sapUiTinyMarginTop">
-								<layoutData>
-									<l:GridData span="L4 M8 S12"/>
-								</layoutData>
-							</Label>
-							<Input placeholder="{i18n>TECH_ID_PLACEHOLDER}" submit="onSearchEquipments" value="{oNotificationViewModel>/TechId}" width="100%">
-								<layoutData>
-									<l:GridData span="L8 M8 S12"/>
-								</layoutData>
-							</Input>
-							<Label text="{i18n>EQUIPMENT_ID}" class="styleTextBlue sapUiTinyMarginTop">
-								<layoutData>
-									<l:GridData span="L4 M8 S12"/>
-								</layoutData>
-							</Label>
-							<Input placeholder="{i18n>SEARCH_EQUIP_PLACEHOLDER}" submit="onSearchEquipments" value="{oNotificationViewModel>/EqIdDes}">
-								<layoutData>
-									<l:GridData span="L8 M8 S12"/>
-								</layoutData>
-							</Input>
+						<l:Grid defaultSpan="L6 M6 S12">
+							<VBox>
+								<Label text="{i18n>TECHNICAL_ID}" class="sapUiTinyMarginTop"></Label>
+								<Input placeholder="{i18n>TECH_ID_PLACEHOLDER}" submit="onSearchEquipments" value="{oNotificationViewModel>/TechId}" width="100%"></Input>
+							</VBox>
+							<VBox>
+								<Label text="{i18n>EQUIPMENT_ID}" class="sapUiTinyMarginTop"></Label>
+								<Input placeholder="{i18n>SEARCH_EQUIP_PLACEHOLDER}" submit="onSearchEquipments" value="{oNotificationViewModel>/EqIdDes}"></Input>
+							</VBox>
 						</l:Grid>
 						<ScrollContainer height="20rem" vertical="true" focusable="false">
 							<Table mode="SingleSelectLeft" selectionChange="onEquipSelect" growing="false" items="{path: 'mLookupModel>/aEquipmentsList'}">
@@ -137,10 +125,10 @@
 			</IconTabBar>
 		</content>
 		<beginButton>
-			<Button text="{i18n>CANCEL}" press="onCancelDialogEquip"/>
+			<Button text="{i18n>CANCEL}" press="onCancelDialogEquip" class="murphyDialogBtn"/>
 		</beginButton>
 		<endButton>
-			<Button text="{i18n>SEARCH}" press="onSearchEquipments" type="Emphasized"/>
+			<Button text="{i18n>SEARCH}" press="onSearchEquipments" class="murphyDialogBtn"/>
 		</endButton>
 	</Dialog>
 </core:FragmentDefinition >
