@@ -2224,7 +2224,7 @@ background-color: #377295;
 .murphyCreateBtn .sapMBtnInner {
     border: 1px solid #a0b2c1 !important;
     color: #cae4fb;
-      width: 10rem;
+     width: 10rem;
 }
 
 .murphyHdrTileClass {
@@ -2274,7 +2274,7 @@ html.sap-desktop .sapMIBar.sapMFooter-CTX {
 }
 
 .imoObjectPageLayout {
-	background-image: url("/images/sapCompanyLogo.jpeg");
+	background-image: url("../images/sapCompanyLogo.jpeg");
 }
 
 .imoObjectPageSection {

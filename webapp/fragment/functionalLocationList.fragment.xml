@@ -1,10 +1,10 @@
 <core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:layout="sap.ui.layout"
 	xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" class="sapUiSizeCompact">
-	<Dialog title="{i18n>Dialog_title_funLoc}" contentWidth="30%" verticalScrolling="false" class="sapUiSizeCompact mpmAddSPDialogStyle">
+	<Dialog title="{i18n>Dialog_title_funLoc}" contentWidth="30%" verticalScrolling="false" class="dialogHeader sapUiSizeCompact">
 		<content>
-			<SearchField liveChange="onSearchFnLocs" width="100%" class="sapUiSmallMarginBottom"/>
+			<SearchField liveChange="onSearchFnLocs" width="100%" class="sapUiTinyMarginBottom"/>
 			<ScrollContainer height="20rem" vertical="true" focusable="false">
-				<Table mode="SingleSelectLeft" selectionChange="onFnLocSelect" growing="false" id ="idFunLocListTable" items="{path: 'mLookupModel>/aFnLocsList'}">
+				<Table sticky="ColumnHeaders" mode="SingleSelectLeft" selectionChange="onFnLocSelect" growing="false" id ="idFunLocListTable" items="{path: 'mLookupModel>/aFnLocsList'}">
 					<columns>
 						<Column>
 							<Text text="{i18n>FUN_LOC}"/>
@@ -21,7 +21,7 @@
 			</ScrollContainer>
 		</content>
 		<beginButton>
-			<Button text="{i18n>CANCEL}" press="onCancelDialogFunLoc"/>
+			<Button text="{i18n>CANCEL}" press="onCancelDialogFunLoc" class="murphyDialogBtn"/>
 		</beginButton>
 		<!--<endButton>-->
 		<!--	<Button text="{i18n>SEARCH}" press="onSearchWOFilter" type="Emphasized"/>-->
