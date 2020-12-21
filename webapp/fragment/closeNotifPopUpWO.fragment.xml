@@ -1,0 +1,20 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:layout="sap.ui.layout"
+	xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" class="sapUiSizeCompact">
+	<Dialog title="{}" contentWidth="30%" contentHeight="20%" showHeader="false" verticalScrolling="false" class="sapUiSizeCompact">
+		<Page title="Warning" showHeader="true" titleAlignment="Center">
+			<content>
+				<VBox>
+					<!--<Text text=""/>-->
+					<CheckBox text="Do u want to Close Notifications as well ?" valueState ="Information" selected="true"/>
+				</VBox>
+			</content>
+			<footer>
+				<Toolbar>
+					<Button type="Accept" text="Cancel" press="onCloseNotifPopUpClose"/>
+					<ToolbarSpacer/>
+					<Button type="Accept" text="Save" press="onSaveCloseNotifPopUp"/>
+				</Toolbar>
+			</footer>
+		</Page>
+	</Dialog>
+</core:FragmentDefinition >
