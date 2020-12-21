@@ -87,6 +87,25 @@ sap.ui.define([
 			var oFileUploader = this.getView().byId("MYLAN_CREATE_WO_FILEUPLOADER");
 			oFileUploader.setUploadUrl(sericeUrl);
 		},
+		//nischal -- function to open CloseNotificationsPop-up 
+		onOpenCloseNotifPopUp : function(){
+			if (!this.closeNotifPopUp) {
+					this.closeNotifPopUp = sap.ui.xmlfragment("com.sap.incture.IMO_PM.fragment.closeNotifPopUpWO", this);
+					this.getView().addDependent(this.closeNotifPopUp);
+				}
+				this.closeNotifPopUp.open();
+		},
+		onSaveCloseNotifPopUp : function(){
+			this.onCloseNotifPopUpClose();
+			this.fnMandateUiFields("WO_DETAIL_TECHO");
+			
+		},
+		//nischal -- function to close CloseNotificationsPop-up 
+		onCloseNotifPopUpClose: function(oEvent){
+			this.closeNotifPopUp.close();
+			this.closeNotifPopUp.destroy();
+			this.closeNotifPopUp = null;
+		},
 		//nischal -- function to open popup for enter additional details for operations
 		onControlKeyChange: function (oEvent) {
 			var oWorkOrderDetailModel = this.oWorkOrderDetailModel;
@@ -440,12 +459,14 @@ sap.ui.define([
 						emphasizedAction: MessageBox.Action.OK,
 						onClose: function (sAction) {
 							if(sAction === "OK"){
-								that.fnMandateUiFields("WO_DETAIL_TECHO");
+								// that.fnMandateUiFields("WO_DETAIL_TECHO");
+								that.onOpenCloseNotifPopUp();
 							}
 						}
 					});
 				} else {
-					this.fnMandateUiFields("WO_DETAIL_TECHO"); //nischal -- TECO based on user status
+					// this.fnMandateUiFields("WO_DETAIL_TECHO"); //nischal -- TECO based on user status
+					this.onOpenCloseNotifPopUp();
 				}
 						
 				break;

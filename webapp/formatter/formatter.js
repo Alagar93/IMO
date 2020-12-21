@@ -1080,7 +1080,7 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 			hh = "0" + hh;
 		}
 		if (mm < 10) {
-			hh = "0" + mm;
+			mm = "0" + mm; //nischal -- hh = "0" + mm was there initally
 		}
 		var oTime = hh + ":" + mm;
 		return oTime;

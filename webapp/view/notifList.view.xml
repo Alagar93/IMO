@@ -2,14 +2,14 @@
 	xmlns="sap.m" xmlns:fb="sap.ui.comp.filterbar" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" height="100%" xmlns:table="sap.ui.table"
 	xmlns:tnt="sap.tnt">
 	<Page showHeader="false" class="sapUiSizeCompact sapMPageBackground">
-		<!--<tnt:ToolHeader>-->
+		<tnt:ToolHeader class="headerBG headerShadow">
 			<!--<Button icon="sap-icon://home" type="Transparent" press="onPressHome" tooltip="{i18n>home}"/>-->
 			<!--<Image src="images/Cherrywork_Logo_final_Option_1.png" height="55%" width="10%"/>-->
-			<!--<Label design="Bold" class="sapUiSmallMarginBegin" text="{i18n>tile_notifList}" wrapping="true"/>-->
+			<Label design="Bold" class="textColr" text="{i18n>tile_notifList}" wrapping="true"/>
 			<!--<ToolbarSpacer/>-->
-		<!--</tnt:ToolHeader>-->
+		</tnt:ToolHeader>
 		<content>
-			<l:Grid defaultSpan="L2 M2 S12" class="sapUiSmallMarginTop">
+			<l:Grid defaultSpan="L2 M2 S12" class="sapUiTinyMargin">
 				<GenericTile press="getKPIsNotifList" class="murphyHdrTileClass KPIShadow" ariaLabel="NOTIF_LIST_BREAKDOWNS">
 					<TileContent>
 						<VBox class="sapUiTinyMargin">
@@ -70,11 +70,11 @@
 				</l:fixContent>-->
 				<!--<l:flexContent>-->
 					<!--<VBox height="100%" class="sapUiSmallMarginTop sapUiTinyMarginBeginEnd">-->
-						<table:Table class="tableHeaderBg" visibleRowCountMode="Fixed" visibleRowCount="{mLookupModel>/rowCount}" rowHeight="40" selectionMode="MultiToggle"
+						<table:Table class="sapUiSmallMargin" visibleRowCountMode="Fixed" visibleRowCount="{mLookupModel>/rowCount}" rowHeight="40" selectionMode="MultiToggle"
 							 rowSelectionChange="onSelectionChange" enableSelectAll="false" id="notifListId"
 							rows="{mLookupModel>/aNotificationListSet}">
 							<table:extension>
-								<Toolbar class="sapUiTinyMargin">
+								<Toolbar class="tableHeaderBG" height="3rem">
 									<content>
 										<Title text="{i18n>notifList}" class="styleTableTitle"/>
 										<ToolbarSpacer/>
@@ -92,13 +92,13 @@
 										<Link text="{mLookupModel>NotifNo}" press="handleLinkPress"/>
 									</table:template>
 								</table:Column>
-								<table:Column sortProperty="Descriptn" filterProperty="Descriptn" width="10%">
+								<table:Column sortProperty="Descriptn" filterProperty="Descriptn" width="9%">
 									<Text wrapping="true" text="{i18n>notifDes}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{mLookupModel>Descriptn}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column sortProperty="WorkCntr" filterProperty="WorkCntr" width="6.5%">
+								<table:Column sortProperty="WorkCntr" filterProperty="WorkCntr" width="7.5%">
 									<Text wrapping="true" text="{i18n>mainWC}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{mLookupModel>WorkCntr}" class="tableContentText"></Text>
@@ -164,7 +164,7 @@
 										<Text text="{path:'mLookupModel>CreatedOnString'}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column sortProperty="CreatedBy" filterProperty="CreatedBy" width="6%">
+								<table:Column sortProperty="CreatedBy" filterProperty="CreatedBy" width="5%">
 									<Text wrapping="true" text="{i18n>createdby}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{mLookupModel>CreatedBy}" class="tableContentText"></Text>
