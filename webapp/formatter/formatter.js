@@ -614,20 +614,35 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 		return "";
 	},
 	//function to calculate breakdowntime in create notification in Hrs
-	fnGetBreakdownDur:function(sStartDate,sStartTime,sEnddate,sEndTime){
-		var sStartDatetime=sStartDate+" "+sStartTime;
-		var sEndDatetime=sEnddate+" "+sEndTime;
-		var nDuration,nDurHrs;
-		sStartDatetime= new Date(sStartDatetime);
-		sEndDatetime=new Date(sEndDatetime);
-		nDuration=sEndDatetime-sStartDatetime;
-		nDurHrs=nDuration/(1000*60*60);
-		return parseInt(nDurHrs,10).toString();
+	fnGetBreakdownDur: function (sStartDate, sStartTime, sEnddate, sEndTime) {
+		var sStartDatetime = sStartDate + " " + sStartTime;
+		var sEndDatetime = sEnddate + " " + sEndTime;
+		var nDuration, nDurHrs;
+		sStartDatetime = new Date(sStartDatetime);
+		sEndDatetime = new Date(sEndDatetime);
+		nDuration = sEndDatetime - sStartDatetime;
+		nDurHrs = nDuration / (1000 * 60 * 60);
+		return parseInt(nDurHrs, 10).toString();
 	},
+	//Function to perform Breakdown Validation While closing notification
+	fnBreakDownValidation: function (bBreakdown, sEnddate) {
+		if (bBreakdown) {
+			if (sEnddate) {
+				return true;
+			}
+			else{
+				return false;
+			}
+		}
+		else{
+			return true;
+		}
+	},
+
 	//  Function to Generate months back Date
 	GetMonthsBackDate: function (nMonths) {
 		var d = new Date();
-		d.setMonth(d.getMonth() - nMonths+1);
+		d.setMonth(d.getMonth() - nMonths);
 		return d.toLocaleDateString();
 	},
 
@@ -1021,28 +1036,28 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 	},
 	// Function to Set min End Date greater than Start Date
 	EndDateValidation: function (CreateStartDate) {
-		
+
 		if (CreateStartDate) {
 			return new Date(CreateStartDate);
 		}
 		return null;
 	},
 	// Function to Set Max Start Date in filter
-	StartDateValidation:function(CreateEndDate){
+	StartDateValidation: function (CreateEndDate) {
 		if (CreateEndDate) {
 			return new Date(CreateEndDate);
 		}
 		return null;
 	},
 	//Function to get duration sent through filter
-	getCreatedOnFilterDuration:function(sCreatedOnStart,sCreatedOnEnd){
-		sCreatedOnStart=new Date(sCreatedOnStart);
-		sCreatedOnEnd=new Date(sCreatedOnEnd);
-		var nDurationTime=sCreatedOnEnd.getTime()-sCreatedOnStart.getTime();
-		var nDays=nDurationTime/(1000 * 3600 * 24);
+	getCreatedOnFilterDuration: function (sCreatedOnStart, sCreatedOnEnd) {
+		sCreatedOnStart = new Date(sCreatedOnStart);
+		sCreatedOnEnd = new Date(sCreatedOnEnd);
+		var nDurationTime = sCreatedOnEnd.getTime() - sCreatedOnStart.getTime();
+		var nDays = nDurationTime / (1000 * 3600 * 24);
 		return nDays;
 	},
-	
+
 	//Function to format Notifcation's Required Start and End date
 	formatReqStartEndDate: function (date) {
 		var formattedDate = "";

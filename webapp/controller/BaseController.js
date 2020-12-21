@@ -184,17 +184,20 @@ sap.ui.define([
 
 		//Function to view KPIs WOs detail in new tab
 		viewKPIWODetails: function (oEvent) {
-			var sURL;
+			// var sURL;
 			var sHost = window.location.origin;
 			var mLookupModel = this.mLookupModel;
+			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			var selectedWOs = mLookupModel.getProperty("/selectedKPIWOs");
-			var sBSPPath = "/sap/bc/ui5_ui5/sap/ZMYL_WOCREATE/index.html#/detailTabWO/";
+			// var sBSPPath = "/sap/bc/ui5_ui5/sap/ZMYL_WOCREATE/index.html#/detailTabWO/";
 			for (var i = 0; i < selectedWOs.length; i++) {
 				var selWOOrderId = mLookupModel.getProperty(selectedWOs[i].sPath + "/Number");
 				// sURL = sHost + sBSPPath + selWOOrderId;
-				sURL = "https://ub2qkdfhxg4ubmgqmta-imo-pm-imo-pm.cfapps.eu10.hana.ondemand.com/IMO_PM/index.html#/detailTabWO/" + selWOOrderId;
-
-				sap.m.URLHelper.redirect(sURL, true);
+				// sURL = "https://ub2qkdfhxg4ubmgqmta-imo-pm-imo-pm.cfapps.eu10.hana.ondemand.com/IMO_PM/index.html#/detailTabWO/" + selWOOrderId;
+				// sap.m.URLHelper.redirect(sURL, true);
+				oRouter.navTo("detailWO", {
+					workOrderID: selWOOrderId
+				});
 			}
 			sap.ui.getCore().byId("WO_KPI_LIST_TBL").clearSelection();
 			mLookupModel.setProperty("/selectedKPIWOs", []);
@@ -2038,6 +2041,56 @@ sap.ui.define([
 				}
 			});
 		},
+		//Function to update Breakdown Duration
+		fnGetBreakdownDurNotif: function () {
+			var oNotificationDataModel = this.oNotificationDataModel;
+			var oNotificationViewModel = this.oNotificationViewModel;
+			var startTime = oNotificationViewModel.getProperty("/StartTime");
+			var endTime = oNotificationViewModel.getProperty("/EndTime");
+			var sStartDate = oNotificationDataModel.getProperty("/Startdate").toDateString();
+
+			var sEnddate = oNotificationDataModel.getProperty("/Enddate");
+			if (sEnddate && endTime !== "") {
+				sEnddate = sEnddate.toDateString();
+				var nDuration = formatter.fnGetBreakdownDur(sStartDate, startTime, sEnddate, endTime);
+				if (nDuration >= 24) {
+					MessageBox.warning("The Breakdown duration is greater than or equal to 24 hours");
+					oNotificationDataModel.setProperty("/BreakdownDur", nDuration);
+				} else if (nDuration < 0) {
+					MessageBox.error("Please enter valid malfunction Date and Time");
+					this.fnResetMalfnDateTimes();
+				} else {
+					oNotificationDataModel.setProperty("/BreakdownDur", nDuration);
+				}
+			} else if (sEnddate && endTime === "") {
+				var oDate = new Date();
+				endTime = oDate.getHours() + ":" + oDate.getMinutes();
+				oNotificationViewModel.setProperty("/EndTime", endTime);
+				sEnddate = sEnddate.toDateString();
+				var nDuration = formatter.fnGetBreakdownDur(sStartDate, startTime, sEnddate, endTime);
+				if (nDuration >= 24) {
+					MessageBox.warning("The Breakdown duration is greater than or equal to 24 hours");
+					oNotificationDataModel.setProperty("/BreakdownDur", nDuration);
+				} else if (nDuration < 0) {
+					MessageBox.error("Please enter valid malfunction Date and Time");
+					this.fnResetMalfnDateTimes();
+				} else {
+					oNotificationDataModel.setProperty("/BreakdownDur", nDuration);
+				}
+			}
+
+		},
+
+		//Function to reset malfunction fields
+		fnResetMalfnDateTimes: function () {
+			var oNotificationDataModel = this.oNotificationDataModel;
+			var oNotificationViewModel = this.oNotificationViewModel;
+			oNotificationDataModel.setProperty("/Startdate", new Date());
+			oNotificationDataModel.setProperty("/Enddate", null);
+			oNotificationViewModel.setProperty("/StartTime", formatter.formatCurrentTime(new Date()));
+			oNotificationViewModel.setProperty("/EndTime", "");
+			oNotificationDataModel.setProperty("/BreakdownDur", "0");
+		},
 
 		//Function to update notification
 		onUpdateNotifcationFields: function (sData, navType) {
@@ -2408,7 +2461,7 @@ sap.ui.define([
 							that.onCancelDialogAssign();
 						}
 					}
-					var SkipNotif = that.mLookupModel.getProperty("/iSkipNotif");//Sunanda-to ensure the record with change is updated
+					var SkipNotif = that.mLookupModel.getProperty("/iSkipNotif"); //Sunanda-to ensure the record with change is updated
 					that.mLookupModel.setProperty("/iSkipNotif", 0);
 					that.fnRefreshNotifListTable(SkipNotif);
 					that.fnShowSuccessErrorMsg(messages);
@@ -3187,7 +3240,7 @@ sap.ui.define([
 									emphasizedAction: MessageBox.Action.OK,
 									onClose: function (sAction) {
 										that.busy.close();
-										var SkipNotif = that.mLookupModel.getProperty("/iSkipNotif");//Sunanda-to ensure the record with change is updated
+										var SkipNotif = that.mLookupModel.getProperty("/iSkipNotif"); //Sunanda-to ensure the record with change is updated
 										that.mLookupModel.setProperty("/iSkipNotif", 0);
 										that.fnRefreshNotifListTable(SkipNotif);
 									}
@@ -3207,7 +3260,7 @@ sap.ui.define([
 		fnRefreshNotifListTable: function (nSkipNotif) {
 			this.busy.open();
 			var nSkip = 0;
-			var mLookupModel=this.mLookupModel;
+			var mLookupModel = this.mLookupModel;
 			mLookupModel.setProperty("/aNotificationListSet", []);
 			this.fnFetchNotifList();
 			while (nSkip < nSkipNotif) {

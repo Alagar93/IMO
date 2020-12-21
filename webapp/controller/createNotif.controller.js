@@ -12,7 +12,6 @@ sap.ui.define([
 	return BaseController.extend("com.sap.incture.IMO_PM.controller.createNotif", {
 		formatter: formatter,
 		util: util,
-
 		onInit: function () {
 			var that = this;
 			this.fnInitCreateNotifApp();
@@ -411,8 +410,8 @@ sap.ui.define([
 						this.fnDateObjToGWDateFormat(oEvent, true, fieldType, startDate, endDate);
 					} else if (startDate > endDate) {
 						this.fnDateObjToGWDateFormat(oEvent, false, fieldType, startDate, endDate);
-						var erorText = oResourceModel.getText("MAL_STARTDATE_GREATER_MAL_ENDATE");
-						this.showMessage(erorText);
+						//var erorText = oResourceModel.getText("MAL_STARTDATE_GREATER_MAL_ENDATE");
+						//this.showMessage(erorText);
 					} else {
 						startDate = formatter.formatDateobjToStringNotif(startDate);
 						splitDate = startDate.split("T")[0];
@@ -458,11 +457,10 @@ sap.ui.define([
 					oNotificationDataModel.setProperty("/Enddate", dateValue);
 				}
 			}
+
 			//to Calculate Breakdown Duration
-			var sStartDate = oNotificationDataModel.getProperty("/Startdate").toDateString();
-			var sEnddate = oNotificationDataModel.getProperty("/Enddate").toDateString();
-			var nDuration = formatter.fnGetBreakdownDur(sStartDate, startTime, sEnddate, endTime);
-			oNotificationDataModel.setProperty("/BreakdownDur", nDuration);
+			this.fnGetBreakdownDurNotif();
+
 			oNotificationDataModel.refresh();
 		},
 
@@ -480,14 +478,8 @@ sap.ui.define([
 			}
 			oNotificationDataModel.refresh();
 		},
-		fnResetMalfnDateTimes: function () {
-			var oNotificationDataModel = this.oNotificationDataModel;
-			var oNotificationViewModel = this.oNotificationViewModel;
-			oNotificationDataModel.setProperty("/Startdate", new Date());
-			oNotificationDataModel.setProperty("/Enddate", new Date());
-			oNotificationViewModel.setProperty("/StartTime", formatter.formatCurrentTime(new Date()));
-			oNotificationViewModel.setProperty("/EndTime", formatter.formatCurrentTime(new Date()));
-		},
+		
+		
 
 		//Function to check Mandaorty fields validation
 		checkMandatoryFields: function (oEvent) {
@@ -517,8 +509,14 @@ sap.ui.define([
 			var oNotificationDataModel = this.oNotificationDataModel;
 			var oNotifData = oNotificationDataModel.getData();
 			oNotifData.Startdate = formatter.formatDateobjToStringNotif(oNotifData.Startdate, true);
-			oNotifData.Enddate = formatter.formatDateobjToStringNotif(oNotifData.Enddate, true);
-			oNotifData.ReqStartdate = formatter.formatDateobjToStringNotif(oNotifData.ReqStartdate);
+			//oNotifData.Enddate = formatter.formatDateobjToStringNotif(oNotifData.Enddate, false);
+			if (oNotifData.Enddate) {
+				oNotifData.Enddate = formatter.formatDateobjToStringNotif(oNotifData.Enddate, true);
+			}
+			else{
+				oNotifData.Enddate="";
+			}
+            oNotifData.ReqStartdate = formatter.formatDateobjToStringNotif(oNotifData.ReqStartdate);
 			oNotifData.ReqEnddate = formatter.formatDateobjToStringNotif(oNotifData.ReqEnddate);
 			oNotifData.Notif_date = formatter.formatDateobjToStringNotif(new Date());
 			oNotifData.Type = "CREATE";
@@ -535,8 +533,10 @@ sap.ui.define([
 			if (!endTime) {
 				endTime = "00:00";
 			}
-			var splitDate2 = oNotifData.Enddate.split("T")[0];
-			oNotifData.Enddate = splitDate2 + "T" + endTime + ":00";
+			if (oNotifData.Enddate!=="") {
+				var splitDate2 = oNotifData.Enddate.split("T")[0];
+				oNotifData.Enddate = splitDate2 + "T" + endTime + ":00";
+			}
 
 			oPortalNotifOData.setHeaders({
 				"X-Requested-With": "X"
@@ -595,7 +595,12 @@ sap.ui.define([
 			var oNotificationDataModel = this.oNotificationDataModel;
 			var oNotifData = oNotificationDataModel.getData();
 			oNotifData.Startdate = formatter.formatDateobjToStringNotif(oNotifData.Startdate, true);
-			oNotifData.Enddate = formatter.formatDateobjToStringNotif(oNotifData.Enddate, true);
+			if (oNotifData.Enddate) {
+				oNotifData.Enddate = formatter.formatDateobjToStringNotif(oNotifData.Enddate, true);
+			}
+			else{
+				oNotifData.Enddate="";
+			}
 			oNotifData.ReqStartdate = formatter.formatDateobjToStringNotif(oNotifData.ReqStartdate);
 			oNotifData.ReqEnddate = formatter.formatDateobjToStringNotif(oNotifData.ReqEnddate);
 			oNotifData.Notif_date = formatter.formatDateobjToStringNotif(new Date());
@@ -613,9 +618,10 @@ sap.ui.define([
 			if (!endTime) {
 				endTime = "00:00";
 			}
-			var splitDate2 = oNotifData.Enddate.split("T")[0];
-			oNotifData.Enddate = splitDate2 + "T" + endTime + ":00";
-
+			if (oNotifData.Enddate!=="") {
+				var splitDate2 = oNotifData.Enddate.split("T")[0];
+				oNotifData.Enddate = splitDate2 + "T" + endTime + ":00";
+			}
 			oPortalNotifOData.setHeaders({
 				"X-Requested-With": "X"
 			});

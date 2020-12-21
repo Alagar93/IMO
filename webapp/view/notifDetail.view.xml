@@ -249,7 +249,7 @@
 							<VBox visible="{path:'oNotificationDataModel>/Breakdown', formatter:'com.sap.incture.IMO_PM.formatter.formatter.formatBooleanBreakDown'}">
 								<Label text="{i18n>malfnsDate}"></Label>
 								<DatePicker placeholder="dd-MM-yyyy" dateValue="{oNotificationDataModel>/Startdate}" width="70%" displayFormat="dd-MM-yyyy"
-									change="fnValidateMalFunDates" enabled="false" class="sapInputBorderClass">
+									change="fnValidateMalFunDates"  class="sapInputBorderClass">
 									<customData>
 										<core:CustomData key="dateType" value="Startdate"/>
 									</customData>
@@ -261,7 +261,7 @@
 							<VBox visible="{path:'oNotificationDataModel>/Breakdown', formatter:'com.sap.incture.IMO_PM.formatter.formatter.formatBooleanBreakDown'}">
 								<Label text="{i18n>malfnsTime}"></Label>
 								<TimePicker value="{oNotificationViewModel>/StartTime}" valueFormat="HH:mm" displayFormat="HH:mm" placeholder="HH:mm"
-									change="fnValidateMalFunDates" enabled="false" class="sapInputBorderClass" width="70%">
+									change="fnValidateMalFunDates"  class="sapInputBorderClass" width="70%">
 									<customData>
 										<core:CustomData key="dateType" value="StartTime"/>
 									</customData>
@@ -273,7 +273,7 @@
 							<VBox visible="{path:'oNotificationDataModel>/Breakdown', formatter:'com.sap.incture.IMO_PM.formatter.formatter.formatBooleanBreakDown'}">
 								<Label text="{i18n>malfnedate}"></Label>
 								<DatePicker placeholder="dd-MM-yyyy" dateValue="{oNotificationDataModel>/Enddate}" width="70%" displayFormat="dd-MM-yyyy"
-									change="fnValidateMalFunDates" enabled="false" class="sapInputBorderClass">
+									change="fnValidateMalFunDates"  class="sapInputBorderClass">
 									<customData>
 										<core:CustomData key="dateType" value="Enddate"/>
 									</customData>
@@ -285,7 +285,7 @@
 							<VBox visible="{path:'oNotificationDataModel>/Breakdown', formatter:'com.sap.incture.IMO_PM.formatter.formatter.formatBooleanBreakDown'}">
 								<Label text="{i18n>malfnetime}"></Label>
 								<TimePicker value="{oNotificationViewModel>/EndTime}" valueFormat="HH:mm" displayFormat="HH:mm" placeholder="HH:mm"
-									change="fnValidateMalFunDates" enabled="false" class="sapInputBorderClass" width="70%">
+									change="fnValidateMalFunDates"  class="sapInputBorderClass" width="70%">
 									<customData>
 										<core:CustomData key="dateType" value="EndTime"/>
 									</customData>

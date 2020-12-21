@@ -561,8 +561,9 @@ com.sap.incture.IMO_PM.util.util = {
 			"Message": ""
 		}];
 		mLookupModel.setProperty("/assignedToHardCode", "John Smith"); //nischal  ---  Hard Coded value for demo
-		oSelectedRow.Downtime = parseFloat(oSelectedRow.Downtime);
-		oSelectedRow.Downtime = oSelectedRow.Downtime.toString();
+		/*oSelectedRow.Downtime = parseFloat(oSelectedRow.Downtime);
+		oSelectedRow.Downtime = oSelectedRow.Downtime.toString();*/
+		
 
 		//Validation to pre-populate if dates are empty or recieved as 00000000
 		var ReqStartdate = oSelectedRow.Reqstartdate;
@@ -614,6 +615,10 @@ com.sap.incture.IMO_PM.util.util = {
 		mLookupModel.setProperty("/SysStatus", oSelectedRow.SysStatus); //nischal - system status was not present
 		mLookupModel.setProperty("/Userstatus", oSelectedRow.Userstatus); //nischal -- user status was not pesent
 		oNotificationDataModel.refresh();
+		// Malfunction Enddate verification
+		if (oSelectedRow.Endmlfndate.getFullYear() === 9999) {
+			oNotificationDataModel.setProperty("/Enddate", null);
+		}
 
 		mLookupModel.setProperty("/sCatelogProf", oSelectedRow.Rbnr);
 		// oController.fnFilterSlectedDamageGroup();
@@ -638,21 +643,27 @@ com.sap.incture.IMO_PM.util.util = {
 		} else {
 			strmlfntime = hours + ":" + minutes;
 		}
-
+		
+		// If the malfunction end date is not present
 		var endmlfntime = oSelectedRow.Endmlfntime.ms;
-		var milliseconds = parseInt(endmlfntime, 10);
-		var hours = Math.floor(milliseconds / 3600000);
-		if (hours < 10) {
-			hours = "0" + hours;
+		if (endmlfntime !== 0) {
+			var milliseconds = parseInt(endmlfntime, 10);
+			var hours = Math.floor(milliseconds / 3600000);
+			if (hours < 10) {
+				hours = "0" + hours;
+			}
+			var minutes = Math.floor((milliseconds - (hours * 3600000)) / 60000);
+			if (minutes < 10) {
+				minutes = "0" + minutes;
+			}
+			if (hours === "00" && minutes === "00") {
+				endmlfntime = "00:00";
+			} else {
+				endmlfntime = hours + ":" + minutes;
+			}
 		}
-		var minutes = Math.floor((milliseconds - (hours * 3600000)) / 60000);
-		if (minutes < 10) {
-			minutes = "0" + minutes;
-		}
-		if (hours === "00" && minutes === "00") {
-			endmlfntime = "00:00";
-		} else {
-			endmlfntime = hours + ":" + minutes;
+		else{
+			endmlfntime="";
 		}
 
 		if (oSelectedRow.Breakdown) {
@@ -660,9 +671,7 @@ com.sap.incture.IMO_PM.util.util = {
 		} else {
 			oNotificationViewModel.setProperty("/enableBreakDur", false);
 		}
-		/*if(oSelectedRow.Downtime==="NaN"){
-			oSelectedRow.Downtime="";
-		}*/
+		
 
 		var longTextHistory = oNotificationDataModel.getProperty("/Longtext");
 		longTextHistory = longTextHistory.split("* ----------------------------------------*");
@@ -757,7 +766,7 @@ com.sap.incture.IMO_PM.util.util = {
 				oErrorMsg = "Please select Malfunction start time";
 				return [true, oErrorMsg];
 			}
-			var malEndDate = oNotificationDataModel.getProperty("/Enddate");
+			/*var malEndDate = oNotificationDataModel.getProperty("/Enddate");
 			if (!malEndDate) {
 				// oErrorMsg = oResourceModel.getText("SEL_MAL_END_DATE");
 				oErrorMsg = "Please select Malfunction end date";
@@ -768,7 +777,7 @@ com.sap.incture.IMO_PM.util.util = {
 				// oErrorMsg = oResourceModel.getText("SEL_MAL_STRT_TIME");
 				oErrorMsg = "Please select Malfunction end time";
 				return [true, oErrorMsg];
-			}
+			}*/
 		}
 		//  validation Short Description
 		var shortTxt = oNotificationDataModel.getProperty("/ShortText");
@@ -1852,6 +1861,7 @@ com.sap.incture.IMO_PM.util.util = {
 		if (typeof (oDate) === "string") {
 			return oDate;
 		}
+		
 		var dd = oDate.getDate();
 		var MM = oDate.getMonth() + 1;
 		var yy = oDate.getFullYear();
@@ -1907,7 +1917,11 @@ com.sap.incture.IMO_PM.util.util = {
 		var sWorkCenter = sData.WorkCenter;
 		var sOrderType = mLookupModel.getProperty("/sOrderTypeSel");
 		var sStartdate = this.formatDateobjToString(oNotifData.Startdate, true);
-		var sEnddate = this.formatDateobjToString(oNotifData.Enddate, true);
+		
+		var sEnddate = oNotifData.Enddate;
+		if(sEnddate){
+			sEnddate = this.formatDateobjToString(oNotifData.Enddate, true);
+		}
 		var sReqStartdate = this.formatDateobjToString(oNotifData.ReqStartdate);
 		var sReqEnddate = this.formatDateobjToString(oNotifData.ReqEnddate);
 		var sNotif_date = this.formatDateobjToString(new Date());
