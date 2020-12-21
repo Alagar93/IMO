@@ -105,17 +105,15 @@ sap.ui.define([
 				var MalEndTime = oNotificationViewModel.getProperty("/EndTime");
 				var MalStartdate = oNotificationDataModel.getProperty("/Startdate");
 				var MalStartTime = oNotificationViewModel.getProperty("/StartTime");
-				if(MalEnddate&&MalEndTime!==""){
-					var nDuration=formatter.fnGetBreakdownDur(MalStartdate.toDateString(), MalStartTime, MalEnddate.toDateString(), MalEndTime); 
-					oNotificationDataModel.setProperty("/BreakdownDur",nDuration);
+				if (MalEnddate && MalEndTime !== "") {
+					var nDuration = formatter.fnGetBreakdownDur(MalStartdate.toDateString(), MalStartTime, MalEnddate.toDateString(), MalEndTime);
+					oNotificationDataModel.setProperty("/BreakdownDur", nDuration);
 					//oNotificationViewModel.setProperty("/DownTime","")
+				} else {
+					oNotificationDataModel.setProperty("/BreakdownDur", "0");
 				}
-				else{
-					oNotificationDataModel.setProperty("/BreakdownDur","0");
-				}
-			}
-			else{
-				oNotificationDataModel.setProperty("/BreakdownDur","");
+			} else {
+				oNotificationDataModel.setProperty("/BreakdownDur", "");
 			}
 
 		},
@@ -580,7 +578,7 @@ sap.ui.define([
 			} else {
 				this.showMessage(oResourceModel.getText("errinuploadfile"));
 			}
-			var oFileUploader = this.getView().byId("MYLAN_CREATE_Notif_FILEUPLOADER");
+			var oFileUploader = sap.ui.core.Fragment.byId("idRightAttachmentPanel", "MYLAN_CREATE_Notif_FILEUPLOADER");
 			oFileUploader.removeAllHeaderParameters();
 			this.busy.close();
 		},
@@ -769,9 +767,8 @@ sap.ui.define([
 			oNotifData.Startdate = formatter.formatDateobjToString(oNotifData.Startdate);
 			if (oNotifData.Enddate) {
 				oNotifData.Enddate = formatter.formatDateobjToString(oNotifData.Enddate, true);
-			}
-			else{
-				oNotifData.Enddate="";
+			} else {
+				oNotifData.Enddate = "";
 			}
 			oNotifData.Notif_date = formatter.formatDateobjToString(oNotifData.Notif_date);
 			oNotifData.ReqStartdate = formatter.formatDateobjToString(oNotifData.ReqStartdate);
@@ -794,7 +791,7 @@ sap.ui.define([
 			if (!endTime) {
 				endTime = "00:00";
 			}
-			if (oNotifData.Enddate!=="") {
+			if (oNotifData.Enddate !== "") {
 				var splitDate2 = oNotifData.Enddate.split("T")[0];
 				oNotifData.Enddate = splitDate2 + "T" + endTime + ":00";
 			}
@@ -851,70 +848,76 @@ sap.ui.define([
 			var oNotificationDataModel = this.oNotificationDataModel;
 			var oNotificationViewModel = this.oNotificationViewModel;
 			var oNotifData = oNotificationDataModel.getData();
+			var bVal=formatter.fnBreakDownValidation(oNotifData.Breakdown,oNotifData.Enddate);
+			
+			if (bVal) {
 
-			var tempLongText = oNotificationViewModel.getProperty("/Longtext");
-			oNotifData.Longtext = tempLongText;
+				var tempLongText = oNotificationViewModel.getProperty("/Longtext");
+				oNotifData.Longtext = tempLongText;
 
-			oNotifData.Startdate = formatter.formatDateobjToString(oNotifData.Startdate);
-			if (oNotifData.Enddate) {
-				oNotifData.Enddate = formatter.formatDateobjToString(oNotifData.Enddate, true);
-			}
-			else{
-				/*MessageBox.error("Please enter Break DownEnd Date");*/
-				oNotifData.Enddate="";
-			}
-			oNotifData.Notif_date = formatter.formatDateobjToString(oNotifData.Notif_date);
-			oNotifData.ReqStartdate = formatter.formatDateobjToString(oNotifData.ReqStartdate);
-			oNotifData.ReqEnddate = formatter.formatDateobjToString(oNotifData.ReqEnddate);
-			oNotifData.Type = "CLOSE";
-			if (oNotifData.Breakdown === true) {
-				oNotifData.Breakdown = "X";
-			} else if (oNotifData.Breakdown === false) {
-				oNotifData.Breakdown = " ";
-			}
-
-			var startTime = oNotificationViewModel.getProperty("/StartTime");
-			if (!startTime) {
-				startTime = "00:00";
-			}
-			var splitDate1 = oNotifData.Startdate.split("T")[0];
-			oNotifData.Startdate = splitDate1 + "T" + startTime + ":00";
-
-			var endTime = oNotificationViewModel.getProperty("/EndTime");
-			if (!endTime) {
-				endTime = "00:00";
-			}
-			if (oNotifData.Enddate!=="") {
-				var splitDate2 = oNotifData.Enddate.split("T")[0];
-				oNotifData.Enddate = splitDate2 + "T" + endTime + ":00";
-			}
-			oPortalNotifOData.setHeaders({
-				"X-Requested-With": "X"
-			});
-			oPortalNotifOData.create("/NotificationSet", oNotifData, {
-				async: false,
-				success: function (sData, oResponse) {
-					var statusCode = oResponse.statusCode;
-					if (statusCode == 201) {
-						MessageBox.success("Notification Closed Successfully", {
-							actions: [MessageBox.Action.OK],
-							emphasizedAction: MessageBox.Action.OK,
-							onClose: function (sAction) {
-								that.fnFetchDetailNotifList();
-							}
-						});
-					}
-					that.busy.close();
-					// mLookupModel.setProperty("/SysStatus", "NOCO");
-					// that.getView().byId("idcloseNotif").setVisible(false);
-					// that.getView().byId("updateNotif").setVisible(false);
-					// that.getView().byId("releaseButton").setVisible(false);
-
-				},
-				error: function (error, oResponse) {
-					that.busy.close();
+				oNotifData.Startdate = formatter.formatDateobjToString(oNotifData.Startdate);
+				if (oNotifData.Enddate) {
+					oNotifData.Enddate = formatter.formatDateobjToString(oNotifData.Enddate, true);
+				} else {
+					/*MessageBox.error("Please enter Break DownEnd Date");*/
+					oNotifData.Enddate = "";
 				}
-			});
+				oNotifData.Notif_date = formatter.formatDateobjToString(oNotifData.Notif_date);
+				oNotifData.ReqStartdate = formatter.formatDateobjToString(oNotifData.ReqStartdate);
+				oNotifData.ReqEnddate = formatter.formatDateobjToString(oNotifData.ReqEnddate);
+				oNotifData.Type = "CLOSE";
+				if (oNotifData.Breakdown === true) {
+					oNotifData.Breakdown = "X";
+				} else if (oNotifData.Breakdown === false) {
+					oNotifData.Breakdown = " ";
+				}
+
+				var startTime = oNotificationViewModel.getProperty("/StartTime");
+				if (!startTime) {
+					startTime = "00:00";
+				}
+				var splitDate1 = oNotifData.Startdate.split("T")[0];
+				oNotifData.Startdate = splitDate1 + "T" + startTime + ":00";
+
+				var endTime = oNotificationViewModel.getProperty("/EndTime");
+				if (!endTime) {
+					endTime = "00:00";
+				}
+				if (oNotifData.Enddate !== "") {
+					var splitDate2 = oNotifData.Enddate.split("T")[0];
+					oNotifData.Enddate = splitDate2 + "T" + endTime + ":00";
+				}
+				oPortalNotifOData.setHeaders({
+					"X-Requested-With": "X"
+				});
+				oPortalNotifOData.create("/NotificationSet", oNotifData, {
+					async: false,
+					success: function (sData, oResponse) {
+						var statusCode = oResponse.statusCode;
+						if (statusCode == 201) {
+							MessageBox.success("Notification Closed Successfully", {
+								actions: [MessageBox.Action.OK],
+								emphasizedAction: MessageBox.Action.OK,
+								onClose: function (sAction) {
+									that.fnFetchDetailNotifList();
+								}
+							});
+						}
+						that.busy.close();
+						// mLookupModel.setProperty("/SysStatus", "NOCO");
+						// that.getView().byId("idcloseNotif").setVisible(false);
+						// that.getView().byId("updateNotif").setVisible(false);
+						// that.getView().byId("releaseButton").setVisible(false);
+
+					},
+					error: function (error, oResponse) {
+						that.busy.close();
+					}
+				});
+			}else{
+				this.busy.close();
+				MessageBox.error("Please enter valid Malfunction Enddate.");
+			}
 
 		},
 		//Function to get damage code values

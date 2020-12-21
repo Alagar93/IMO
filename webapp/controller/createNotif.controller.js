@@ -410,8 +410,8 @@ sap.ui.define([
 						this.fnDateObjToGWDateFormat(oEvent, true, fieldType, startDate, endDate);
 					} else if (startDate > endDate) {
 						this.fnDateObjToGWDateFormat(oEvent, false, fieldType, startDate, endDate);
-						var erorText = oResourceModel.getText("MAL_STARTDATE_GREATER_MAL_ENDATE");
-						this.showMessage(erorText);
+						//var erorText = oResourceModel.getText("MAL_STARTDATE_GREATER_MAL_ENDATE");
+						//this.showMessage(erorText);
 					} else {
 						startDate = formatter.formatDateobjToStringNotif(startDate);
 						splitDate = startDate.split("T")[0];
@@ -478,14 +478,8 @@ sap.ui.define([
 			}
 			oNotificationDataModel.refresh();
 		},
-		fnResetMalfnDateTimes: function () {
-			var oNotificationDataModel = this.oNotificationDataModel;
-			var oNotificationViewModel = this.oNotificationViewModel;
-			oNotificationDataModel.setProperty("/Startdate", new Date());
-			oNotificationDataModel.setProperty("/Enddate", new Date());
-			oNotificationViewModel.setProperty("/StartTime", formatter.formatCurrentTime(new Date()));
-			oNotificationViewModel.setProperty("/EndTime", formatter.formatCurrentTime(new Date()));
-		},
+		
+		
 
 		//Function to check Mandaorty fields validation
 		checkMandatoryFields: function (oEvent) {
