@@ -1,0 +1,28 @@
+{
+	"tabs": [{
+		"tabText": "Create Notification",
+		"tabKey": "createNotif",
+		"icon": "sap-icon://bell",
+		"isVis": true
+	}, {
+		"tabText": "Notification List",
+		"tabKey": "notifList",
+		"icon": "sap-icon://add-activity-2",
+		"isVis": true
+	}, {
+		"tabText": "Create/Edit WO",
+		"tabKey": "createWO",
+		"icon": "sap-icon://request",
+		"isVis": true
+	}, {
+		"tabText": "Work Order List",
+		"tabKey": "WOList",
+		"icon": "sap-icon://activity-2",
+		"isVis": true
+	}, {
+		"tabText": "Review Work Order and TECO",
+		"tabKey": "reviewWO",
+		"icon": "sap-icon://inspection",
+		"isVis": true
+	}]
+}
