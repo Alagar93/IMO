@@ -516,8 +516,8 @@ sap.ui.define([
 			var oPortalNotifOData = this.oPortalNotifOData;
 			var oNotificationDataModel = this.oNotificationDataModel;
 			var oNotifData = oNotificationDataModel.getData();
-			oNotifData.Startdate = formatter.formatDateobjToStringNotif(oNotifData.Startdate, false);
-			oNotifData.Enddate = formatter.formatDateobjToStringNotif(oNotifData.Enddate, false);
+			oNotifData.Startdate = formatter.formatDateobjToStringNotif(oNotifData.Startdate, true);
+			oNotifData.Enddate = formatter.formatDateobjToStringNotif(oNotifData.Enddate, true);
 			oNotifData.ReqStartdate = formatter.formatDateobjToStringNotif(oNotifData.ReqStartdate);
 			oNotifData.ReqEnddate = formatter.formatDateobjToStringNotif(oNotifData.ReqEnddate);
 			oNotifData.Notif_date = formatter.formatDateobjToStringNotif(new Date());

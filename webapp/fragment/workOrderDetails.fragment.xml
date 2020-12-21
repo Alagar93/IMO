@@ -92,7 +92,7 @@
 									</Input>
 								</ui:template>
 							</ui:Column>
-							<ui:Column width="6rem" hAlign="Center" tooltip="Total Work">
+							<ui:Column width="6rem" hAlign="Center" tooltip="Total Work in Hrs">
 								<Label text="{i18n>T_WORK}" class="tableHeaderText"/>
 								<ui:template>
 									<Text text="{oWorkOrderDetailModel>TWork}"/>
@@ -203,12 +203,12 @@
 									<Text text="{oWorkOrderDetailModel>StockAvail}"/>
 								</ui:template>
 							</ui:Column>
-							<ui:Column width="6rem" hAlign="Center" tooltip="{i18n>BinNo}">
-								<Label text="{i18n>BinNo}" class="tableHeaderText"/>
-								<ui:template>
-									<Text text="{oWorkOrderDetailModel>bin}"/>
-								</ui:template>
-							</ui:Column>
+							<!--<ui:Column width="6rem" hAlign="Center" tooltip="{i18n>BinNo}">-->
+							<!--	<Label text="{i18n>BinNo}" class="tableHeaderText"/>-->
+							<!--	<ui:template>-->
+							<!--		<Text text="{oWorkOrderDetailModel>bin}"/>-->
+							<!--	</ui:template>-->
+							<!--</ui:Column>-->
 							<ui:Column width="8rem" hAlign="Center" tooltip="{i18n>STORAGE_LOCATION}">
 								<Label text="{i18n>STORAGE_LOCATION}" class="tableHeaderText"/>
 								<ui:template>
