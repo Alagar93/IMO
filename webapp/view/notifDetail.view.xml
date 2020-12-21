@@ -337,7 +337,7 @@
 		</content>
 		<footer>
 			<Toolbar>
-				<Button text="{i18n>close_notif}" id="idcloseNotif" press="onCloseNotif" class="murphyCreateBtn"
+				<Button text="{i18n>close_notif}" id="idcloseNotif" press="fnSaveandCloseNotif" class="murphyCreateBtn"
 					visible="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setBtnVisibleClose'}"/>
 				<Button text="{i18n>revert_Notif}" id="idrevertNotif" class="murphyCreateBtn" press="onRevertNotif"
 					visible="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setBtnVisibleRevert'}"/>

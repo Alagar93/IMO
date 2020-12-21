@@ -613,6 +613,11 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 		}
 		return "";
 	},
+	//Function to Add timezone offset to Dateobjects
+	fnDatewithTimezoneoffset: function (oDate) {
+		var userTimezoneOffset = oDate.getTimezoneOffset() * 60000;
+		return new Date(oDate.getTime() - userTimezoneOffset);
+	},
 	//function to calculate breakdowntime in create notification in Hrs
 	fnGetBreakdownDur: function (sStartDate, sStartTime, sEnddate, sEndTime) {
 		var sStartDatetime = sStartDate + " " + sStartTime;
@@ -629,12 +634,10 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 		if (bBreakdown) {
 			if (sEnddate) {
 				return true;
-			}
-			else{
+			} else {
 				return false;
 			}
-		}
-		else{
+		} else {
 			return true;
 		}
 	},
