@@ -1095,8 +1095,8 @@ sap.ui.define([
 
 		//Function to get selected Notifications
 		getSelectedKPIsNotifs: function (oEvent) {
-			var sURL;
-			var sHost = window.location.origin;
+			// var sURL;
+			// var sHost = window.location.origin;
 			var mLookupModel = this.mLookupModel;
 			var rowContext = oEvent.getParameters().rowContext;
 			if (!rowContext) {
@@ -1105,10 +1105,14 @@ sap.ui.define([
 			var oSelectedRow = rowContext.getPath();
 			var selectedObj = mLookupModel.getProperty(oSelectedRow);
 			var oNotifId = selectedObj.Number;
-			var sBSPPath = "/sap/bc/ui5_ui5/sap/ZMYL_NOTIFLIST/index.html#/notifDetail/";
+			// var sBSPPath = "/sap/bc/ui5_ui5/sap/ZMYL_NOTIFLIST/index.html#/notifDetail/";
 			// sURL = sHost + sBSPPath + oNotifId;
-			sURL = "https://ub2qkdfhxg4ubmgqmta-imo-pm-imo-pm.cfapps.eu10.hana.ondemand.com/IMO_PM/index.html#/notifDetail/" + oNotifId;
-			sap.m.URLHelper.redirect(sURL, true);
+			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+			oRouter.navTo("notifDetail", {
+				notifID: oNotifId
+			});
+			// sURL = "https://ub2qkdfhxg4ubmgqmta-imo-pm-imo-pm.cfapps.eu10.hana.ondemand.com/IMO_PM/index.html#/notifDetail/" + oNotifId;
+			// sap.m.URLHelper.redirect(sURL, true);
 			//sap.ui.getCore().byId("NOTIF_KPI_LIST_TBL").clearSelection();
 		},
 

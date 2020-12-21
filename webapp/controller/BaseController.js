@@ -184,17 +184,20 @@ sap.ui.define([
 
 		//Function to view KPIs WOs detail in new tab
 		viewKPIWODetails: function (oEvent) {
-			var sURL;
+			// var sURL;
 			var sHost = window.location.origin;
 			var mLookupModel = this.mLookupModel;
+			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
 			var selectedWOs = mLookupModel.getProperty("/selectedKPIWOs");
-			var sBSPPath = "/sap/bc/ui5_ui5/sap/ZMYL_WOCREATE/index.html#/detailTabWO/";
+			// var sBSPPath = "/sap/bc/ui5_ui5/sap/ZMYL_WOCREATE/index.html#/detailTabWO/";
 			for (var i = 0; i < selectedWOs.length; i++) {
 				var selWOOrderId = mLookupModel.getProperty(selectedWOs[i].sPath + "/Number");
 				// sURL = sHost + sBSPPath + selWOOrderId;
-				sURL = "https://ub2qkdfhxg4ubmgqmta-imo-pm-imo-pm.cfapps.eu10.hana.ondemand.com/IMO_PM/index.html#/detailTabWO/" + selWOOrderId;
-
-				sap.m.URLHelper.redirect(sURL, true);
+				// sURL = "https://ub2qkdfhxg4ubmgqmta-imo-pm-imo-pm.cfapps.eu10.hana.ondemand.com/IMO_PM/index.html#/detailTabWO/" + selWOOrderId;
+				// sap.m.URLHelper.redirect(sURL, true);
+				oRouter.navTo("detailWO", {
+					workOrderID: selWOOrderId
+				});
 			}
 			sap.ui.getCore().byId("WO_KPI_LIST_TBL").clearSelection();
 			mLookupModel.setProperty("/selectedKPIWOs", []);
@@ -2047,7 +2050,7 @@ sap.ui.define([
 			var sStartDate = oNotificationDataModel.getProperty("/Startdate").toDateString();
 
 			var sEnddate = oNotificationDataModel.getProperty("/Enddate");
-			if (sEnddate&&endTime!=="") {
+			if (sEnddate && endTime !== "") {
 				sEnddate = sEnddate.toDateString();
 				var nDuration = formatter.fnGetBreakdownDur(sStartDate, startTime, sEnddate, endTime);
 				if (nDuration >= 24) {
@@ -2059,11 +2062,10 @@ sap.ui.define([
 				} else {
 					oNotificationDataModel.setProperty("/BreakdownDur", nDuration);
 				}
-			} 
-			else if(sEnddate&&endTime===""){
-				var oDate=new Date();
-				endTime=oDate.getHours()+":"+oDate.getMinutes();
-				oNotificationViewModel.setProperty("/EndTime",endTime);
+			} else if (sEnddate && endTime === "") {
+				var oDate = new Date();
+				endTime = oDate.getHours() + ":" + oDate.getMinutes();
+				oNotificationViewModel.setProperty("/EndTime", endTime);
 				sEnddate = sEnddate.toDateString();
 				var nDuration = formatter.fnGetBreakdownDur(sStartDate, startTime, sEnddate, endTime);
 				if (nDuration >= 24) {
@@ -2076,8 +2078,7 @@ sap.ui.define([
 					oNotificationDataModel.setProperty("/BreakdownDur", nDuration);
 				}
 			}
-			
-			
+
 		},
 
 		//Function to reset malfunction fields
