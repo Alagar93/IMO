@@ -84,24 +84,25 @@ sap.ui.define([
 			var oPortalDataModel = this.oPortalDataModel;
 			var sericeUrl = oPortalDataModel.sServiceUrl;
 			sericeUrl = sericeUrl + "/AttachmentSet";
-			var oFileUploader = this.getView().byId("MYLAN_CREATE_WO_FILEUPLOADER");
+			var rightPanel = this.getView().createId("idRightAttachmentPanelWO"); //SH: Right Panel for Attachments
+			var oFileUploader = sap.ui.core.Fragment.byId(rightPanel,"MYLAN_CREATE_WO_FILEUPLOADER");
 			oFileUploader.setUploadUrl(sericeUrl);
 		},
 		//nischal -- function to open CloseNotificationsPop-up 
-		onOpenCloseNotifPopUp : function(){
+		onOpenCloseNotifPopUp: function () {
 			if (!this.closeNotifPopUp) {
-					this.closeNotifPopUp = sap.ui.xmlfragment("com.sap.incture.IMO_PM.fragment.closeNotifPopUpWO", this);
-					this.getView().addDependent(this.closeNotifPopUp);
-				}
-				this.closeNotifPopUp.open();
+				this.closeNotifPopUp = sap.ui.xmlfragment("com.sap.incture.IMO_PM.fragment.closeNotifPopUpWO", this);
+				this.getView().addDependent(this.closeNotifPopUp);
+			}
+			this.closeNotifPopUp.open();
 		},
-		onSaveCloseNotifPopUp : function(){
+		onSaveCloseNotifPopUp: function () {
 			this.onCloseNotifPopUpClose();
 			this.fnMandateUiFields("WO_DETAIL_TECHO");
-			
+
 		},
 		//nischal -- function to close CloseNotificationsPop-up 
-		onCloseNotifPopUpClose: function(oEvent){
+		onCloseNotifPopUpClose: function (oEvent) {
 			this.closeNotifPopUp.close();
 			this.closeNotifPopUp.destroy();
 			this.closeNotifPopUp = null;
@@ -458,7 +459,7 @@ sap.ui.define([
 						actions: [MessageBox.Action.OK, MessageBox.Action.CANCEL],
 						emphasizedAction: MessageBox.Action.OK,
 						onClose: function (sAction) {
-							if(sAction === "OK"){
+							if (sAction === "OK") {
 								// that.fnMandateUiFields("WO_DETAIL_TECHO");
 								that.onOpenCloseNotifPopUp();
 							}
@@ -468,7 +469,7 @@ sap.ui.define([
 					// this.fnMandateUiFields("WO_DETAIL_TECHO"); //nischal -- TECO based on user status
 					this.onOpenCloseNotifPopUp();
 				}
-						
+
 				break;
 			case "WO_DETAIL_OPERATION_CONFIRM":
 				this.fnMandateUiFields("WO_DETAIL_OPERATION_CONFIRM");
@@ -2972,16 +2973,28 @@ sap.ui.define([
 
 		//Function to view Superior WO detail
 		onViewSuperiorWO: function (oEvent) {
-				var oSource = oEvent.getSource();
-				var supOrderId = oSource.getCustomData()[0].getValue();
-				if (supOrderId) {
-					var sHost = window.location.origin;
-					var sBSPPath = "/sap/bc/ui5_ui5/sap/ZMYL_WOCREATE/index.html#/detailTabWO/";
-					var sURL = sHost + sBSPPath + supOrderId;
-					sap.m.URLHelper.redirect(sURL, true);
-				}
+			var oSource = oEvent.getSource();
+			var supOrderId = oSource.getCustomData()[0].getValue();
+			if (supOrderId) {
+				var sHost = window.location.origin;
+				var sBSPPath = "/sap/bc/ui5_ui5/sap/ZMYL_WOCREATE/index.html#/detailTabWO/";
+				var sURL = sHost + sBSPPath + supOrderId;
+				sap.m.URLHelper.redirect(sURL, true);
 			}
-			/**
+		},
+		onPressBackWO: function () {
+			var mLookupModel = this.mLookupModel;
+			mLookupModel.setProperty("/showTaskManagementPanelWO", false);
+			mLookupModel.setProperty("/showAttachmentPanelWO", false);
+
+		},
+		onPressAttachmentsWO: function (oEvent) {
+			var mLookupModel = this.mLookupModel;
+			mLookupModel.setProperty("/showTaskManagementPanelWO", true);
+			mLookupModel.setProperty("/showAttachmentPanelWO", true);
+			mLookupModel.refresh(true);
+		}
+					/**
 			 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered
 			 * (NOT before the first rendering! onInit() is used for that one!).
 			 * @memberOf com.mylan.createWorkOrder.CreateWorkOrder
@@ -3005,6 +3018,7 @@ sap.ui.define([
 		//	onExit: function() {
 		//
 		//	}
+		
 
 	});
 });

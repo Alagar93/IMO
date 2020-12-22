@@ -2338,7 +2338,9 @@ html.sap-desktop .sapMIBar.sapMFooter-CTX {
     border-color: #b5bbc2;
     /*background: #b5bbc2!important*/
 }
-
+.iopwbBoxStyle{
+	background: white;
+}
 .iopwbBoxStyle.sapMVBox {
     overflow-y: auto;
     padding: 1rem

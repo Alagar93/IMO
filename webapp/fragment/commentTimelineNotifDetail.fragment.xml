@@ -3,10 +3,10 @@
 	<!--<IconTabBar >
 		<items>
 	<IconTabFilter text="Attachments">-->
-	<OverflowToolbar class="sapUiTinyMarginBottom">
+	<OverflowToolbar class="createNotifOverflowBorder sapUiTinyMarginBottom">
 		<Label design="Bold" text="Attachments" wrapping="true"/>
 		<ToolbarSpacer/>
-		<c:Icon src="sap-icon://decline" tooltip="Close Attachments" press="onPressBack" color="#142e5e" class="attachmentsIconSize"/>
+		<c:Icon src="sap-icon://decline" tooltip="Close Attachments" press="onPressBack" color="#142e5e" class="attachmentsIconSize sapUiSmallMarginEnd"/>
 		<layoutData>
 			<l:GridData span="XL12 L12 M12 S12"></l:GridData>
 		</layoutData>

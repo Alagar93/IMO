@@ -1,15 +1,12 @@
 <mvc:View controllerName="com.sap.incture.IMO_PM.controller.WOList" xmlns:mvc="sap.ui.core.mvc" xmlns:html="http://www.w3.org/1999/xhtml"
 	xmlns="sap.m" xmlns:fb="sap.ui.comp.filterbar" height="100%" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:table="sap.ui.table"
 	xmlns:tnt="sap.tnt">
-	<Page showHeader="false" title="{}" class="sapUiSizeCompact">
-		<!--<tnt:ToolHeader>-->
-		<!--<Button icon="sap-icon://home" type="Transparent" press="onPressHome" tooltip="{i18n>home}"/>-->
-		<!--<Image src="images/Cherrywork_Logo_final_Option_1.png" height="55%" width="10%"/>-->
-		<!--<Label design="Bold" class="sapUiSmallMarginBegin" text="{i18n>tile_woList}" wrapping="true"/>-->
-		<!--<ToolbarSpacer/>-->
-		<!--</tnt:ToolHeader>-->
+	<Page showHeader="false" class="sapUiSizeCompact sapMPageBackground">
+		<tnt:ToolHeader class="headerBG headerShadow">
+			<Label design="Bold" class="sapUiSmallMarginBegin textColr" text="{i18n>tile_woList}" wrapping="true"/>
+		</tnt:ToolHeader>
 		<content>
-			<l:Grid defaultSpan="L2 M2 S12" class="sapUiSmallMarginTop">
+			<l:Grid defaultSpan="L2 M2 S12" class="sapUiTinyMargin">
 				<GenericTile press="getKPIsWoList" class="murphyHdrTileClass KPIShadow" ariaLabel="WO_LIST_PM_WORK_DUE">
 					<TileContent>
 						<VBox class="sapUiTinyMargin">
@@ -49,7 +46,7 @@
 				</ComboBox>
 			</l:Grid>
 			<!--<l:FixFlex class="fixFlexVertical">-->
-				<!--<l:fixContent width="100%">
+			<!--<l:fixContent width="100%">
 					<HBox class="sapUiTinyMarginBeginEnd sapUiTinyMarginTop">
 						<HBox width="85%" id="WO_LIST_KPI_TILES">
 							<VBox class="formatKPIBox">
@@ -92,138 +89,138 @@
 						</HBox>
 					</HBox>
 				</l:fixContent>-->
-				<!--<l:flexContent>-->
-					<!--<VBox height="100%" class="sapUiTinyMarginBeginEnd sapUiSmallMarginTop">-->
-						<table:Table id="idWorkOrderList" class="tableHeaderBg" visibleRowCountMode="Fixed" visibleRowCount="{mLookupModel>/rowCount}"
-							rowHeight="40" selectionMode="MultiToggle" enableSelectAll="false" rows="{mLookupModel>/aWorkOrderListSet}"
-							rowSelectionChange="onSelectionChange" filter="dateFormat">
-							<table:extension>
-								<Toolbar class="sapUiTinyMargin">
-									<content>
-										<Title text="{i18n>WOList}" class="styleTableTitle"/>
-										<ToolbarSpacer/>
-										<Link class="sapUiTinyMarginEnd" text="{i18n>advFilter}" press="onHandleAdvFilterWO"/>
-										<SearchField width="25%" value="{mLookupModel>/sWorderIdDesFilter}" class="sapSearchfieldClass" search="onSearchWO"
-											placeholder="{i18n>searchbyWorkOrderIdDes}"/>
-									</content>
-								</Toolbar>
-							</table:extension>
-							<table:columns>
-								<table:Column width="8%" sortProperty="Orderid" filterProperty="Orderid" defaultFilterOperator="Contains">
-									<Text wrapping="true" text="{i18n>WONum}" class="tableHeaderText"/>
-									<table:template>
-										<!--<Text text="{mLookupModel>Orderid}" class="tableContentText"></Text>-->
-										<Link text="{mLookupModel>Orderid}" press="handleLinkPress"/>
-									</table:template>
-								</table:Column>
-								<table:Column width="10%" sortProperty="WoDes" filterProperty="WoDes">
-									<Text wrapping="true" text="{i18n>WODes}" class="tableHeaderText"/>
-									<table:template>
-										<Text text="{mLookupModel>WoDes}" class="tableContentText"></Text>
-									</table:template>
-								</table:Column>
-								<table:Column width="6.7%" sortProperty="MnWkCtr" filterProperty="MnWkCtr">
-									<Text wrapping="true" text="{i18n>mainWC}" class="tableHeaderText"/>
-									<table:template>
-										<Text text="{mLookupModel>MnWkCtr}" class="tableContentText"></Text>
-									</table:template>
-								</table:Column>
-								<table:Column sortProperty="OrderType" width="5%" filterProperty="OrderType">
-									<Text wrapping="true" text="{i18n>WOtype}" class="tableHeaderText"/>
-									<table:template>
-										<Text text="{mLookupModel>OrderType}" class="tableContentText"></Text>
-									</table:template>
-								</table:Column>
-								<table:Column sortProperty="Equipment" width="6%" filterProperty="Equipment">
-									<Text wrapping="true" text="{i18n>EQUIPMENT}" class="tableHeaderText"/>
-									<table:template>
-										<Text text="{mLookupModel>Equipment}" class="tableContentText"></Text>
-									</table:template>
-								</table:Column>
-								<table:Column sortProperty="TechId" width="7.8%" filterProperty="TechId">
-									<Text wrapping="true" text="{i18n>techID}" class="tableHeaderText"/>
-									<table:template>
-										<Text text="{mLookupModel>TechId}" class="tableContentText"></Text>
-									</table:template>
-								</table:Column>
-								<table:Column sortProperty="EquipDes" width="9%" filterProperty="EquipDes">
-									<Text wrapping="true" text="{i18n>EqDes}" class="tableHeaderText"/>
-									<table:template>
-										<Text text="{mLookupModel>EquipDes}" class="tableContentText"></Text>
-									</table:template>
-								</table:Column>
-								<table:Column width="8rem" sortProperty="Technicianname" filterProperty="Technicianname">
-									<Text wrapping="true" text="{i18n>assignedTech}" class="tableHeaderText"/>
-									<table:template>
-										<Text text="{mLookupModel>Technicianname}" class="tableContentText"></Text>
-									</table:template>
-								</table:Column>
-								<table:Column sortProperty="SysStatusDes" width="6.7%" filterProperty="SysStatusDes">
-									<Text wrapping="true" text="{i18n>stat}" class="tableHeaderText"/>
-									<table:template>
-										<Text text="{path:'mLookupModel>SysStatusDes'}" class="tableContentText"></Text>
-									</table:template>
-								</table:Column>
-								<!--<table:Column width="6.8%" sortProperty="StartDateString" filterProperty="StartDateString">-->
-								<!--	<Text wrapping="true" text="{i18n>SDate}" class="tableHeaderText"/>-->
-								<!--	<table:template>-->
-								<!--		<Text text="{path:'mLookupModel>StartDateString'}" class="tableContentText"></Text>-->
-								<!--	</table:template>-->
-								<!--</table:Column>-->
-								<!--<table:Column width="6.7%" sortProperty="FinishDateString" filterProperty="FinishDateString">-->
-								<!--	<Text wrapping="true" text="{i18n>EDate}" class="tableHeaderText"/>-->
-								<!--	<table:template>-->
-								<!--		<Text text="{path:'mLookupModel>FinishDateString'}" class="tableContentText"></Text>-->
-								<!--	</table:template>-->
-								<!--</table:Column>-->
-								<table:Column sortProperty="Bdflag" width="7%" filterProperty="Bdflag">
-									<Text wrapping="true" text="{i18n>BdownFlag}" class="tableHeaderText"/>
-									<table:template>
-										<Text text="{mLookupModel>Bdflag}" class="tableContentText"></Text>
-									</table:template>
-								</table:Column>
-								<table:Column sortProperty="PriorityDes" width="5%" filterProperty="PriorityDes">
-									<Text wrapping="true" text="{i18n>prior}" class="tableHeaderText"/>
-									<table:template>
-										<Text text="{path:'mLookupModel>PriorityDes'}" class="tableContentText"></Text>
-									</table:template>
-								</table:Column>
-								<table:Column sortProperty="EnteredByName" width="7%" filterProperty="EnteredByName">
-									<Text wrapping="true" text="{i18n>createdby}" class="tableHeaderText"/>
-									<table:template>
-										<Text text="{mLookupModel>EnteredByName}" class="tableContentText"></Text>
-									</table:template>
-								</table:Column>
-								<!--<table:Column sortProperty="Plan" width="6.8%" filterProperty="Plan">-->
-								<!--	<Text wrapping="true" text="{i18n>maint_plan}" class="tableHeaderText"/>-->
-								<!--	<table:template>-->
-								<!--		<Text text="{path:'mLookupModel>Plan'}" class="tableContentText"></Text>-->
-								<!--	</table:template>-->
-								<!--</table:Column>-->
-								<!--<table:Column sortProperty="Package" width="6.8%" filterProperty="Package">-->
-								<!--	<Text wrapping="true" text="{i18n>package}" class="tableHeaderText"/>-->
-								<!--	<table:template>-->
-								<!--		<Text text="{path:'mLookupModel>Package'}" class="tableContentText"></Text>-->
-								<!--	</table:template>-->
-								<!--</table:Column>-->
-								<table:Column sortProperty="EnterDateString" width="5.8%" filterProperty="EnterDateString">
-									<Text wrapping="true" text="{i18n>createdDate}" class="tableHeaderText"/>
-									<table:template>
-										<Text text="{path:'mLookupModel>EnterDateString'}" class="tableContentText"></Text>
-									</table:template>
-								</table:Column>
-							</table:columns>
-							<table:footer>
-								<Toolbar>
-									<ToolbarSpacer/>
-									<Button text="{i18n>LOAD_RECORDS}" press="handleLoadMoreRecords"></Button>
-									<Text text="{i18n>TOTAL_RECORDS}"></Text>
-									<Input width="5rem" value="{mLookupModel>/aWorkOrderListSet/0/Totalrecords}" enabled="false"></Input>
-								</Toolbar>
-							</table:footer>
-						</table:Table>
-					<!--</VBox>-->
-				<!--</l:flexContent>-->
+			<!--<l:flexContent>-->
+			<!--<VBox height="100%" class="sapUiTinyMarginBeginEnd sapUiSmallMarginTop">-->
+			<table:Table id="idWorkOrderList" class="sapUiSmallMargin" visibleRowCountMode="Fixed" visibleRowCount="{mLookupModel>/rowCount}"
+				rowHeight="40" selectionMode="MultiToggle" enableSelectAll="false" rows="{mLookupModel>/aWorkOrderListSet}"
+				rowSelectionChange="onSelectionChange" filter="dateFormat">
+				<table:extension>
+					<Toolbar class="tableHeaderBG" height="3rem">
+						<content>
+							<Title text="{i18n>WOList}" class="styleTableTitle"/>
+							<ToolbarSpacer/>
+							<Link class="sapUiTinyMarginEnd" text="{i18n>advFilter}" press="onHandleAdvFilterWO"/>
+							<SearchField width="25%" value="{mLookupModel>/sWorderIdDesFilter}" class="sapSearchfieldClass" search="onSearchWO"
+								placeholder="{i18n>searchbyWorkOrderIdDes}"/>
+						</content>
+					</Toolbar>
+				</table:extension>
+				<table:columns>
+					<table:Column width="8%" sortProperty="Orderid" filterProperty="Orderid" defaultFilterOperator="Contains">
+						<Text wrapping="true" text="{i18n>WONum}" class="tableHeaderText"/>
+						<table:template>
+							<!--<Text text="{mLookupModel>Orderid}" class="tableContentText"></Text>-->
+							<Link text="{mLookupModel>Orderid}" press="handleLinkPress"/>
+						</table:template>
+					</table:Column>
+					<table:Column width="10%" sortProperty="WoDes" filterProperty="WoDes">
+						<Text wrapping="true" text="{i18n>WODes}" class="tableHeaderText"/>
+						<table:template>
+							<Text text="{mLookupModel>WoDes}" class="tableContentText"></Text>
+						</table:template>
+					</table:Column>
+					<table:Column width="6.7%" sortProperty="MnWkCtr" filterProperty="MnWkCtr">
+						<Text wrapping="true" text="{i18n>mainWC}" class="tableHeaderText"/>
+						<table:template>
+							<Text text="{mLookupModel>MnWkCtr}" class="tableContentText"></Text>
+						</table:template>
+					</table:Column>
+					<table:Column sortProperty="OrderType" width="5%" filterProperty="OrderType">
+						<Text wrapping="true" text="{i18n>WOtype}" class="tableHeaderText"/>
+						<table:template>
+							<Text text="{mLookupModel>OrderType}" class="tableContentText"></Text>
+						</table:template>
+					</table:Column>
+					<table:Column sortProperty="Equipment" width="6%" filterProperty="Equipment">
+						<Text wrapping="true" text="{i18n>EQUIPMENT}" class="tableHeaderText"/>
+						<table:template>
+							<Text text="{mLookupModel>Equipment}" class="tableContentText"></Text>
+						</table:template>
+					</table:Column>
+					<table:Column sortProperty="TechId" width="7.8%" filterProperty="TechId">
+						<Text wrapping="true" text="{i18n>techID}" class="tableHeaderText"/>
+						<table:template>
+							<Text text="{mLookupModel>TechId}" class="tableContentText"></Text>
+						</table:template>
+					</table:Column>
+					<table:Column sortProperty="EquipDes" width="9%" filterProperty="EquipDes">
+						<Text wrapping="true" text="{i18n>EqDes}" class="tableHeaderText"/>
+						<table:template>
+							<Text text="{mLookupModel>EquipDes}" class="tableContentText"></Text>
+						</table:template>
+					</table:Column>
+					<table:Column width="8rem" sortProperty="Technicianname" filterProperty="Technicianname">
+						<Text wrapping="true" text="{i18n>assignedTech}" class="tableHeaderText"/>
+						<table:template>
+							<Text text="{mLookupModel>Technicianname}" class="tableContentText"></Text>
+						</table:template>
+					</table:Column>
+					<table:Column sortProperty="SysStatusDes" width="6.7%" filterProperty="SysStatusDes">
+						<Text wrapping="true" text="{i18n>stat}" class="tableHeaderText"/>
+						<table:template>
+							<Text text="{path:'mLookupModel>SysStatusDes'}" class="tableContentText"></Text>
+						</table:template>
+					</table:Column>
+					<!--<table:Column width="6.8%" sortProperty="StartDateString" filterProperty="StartDateString">-->
+					<!--	<Text wrapping="true" text="{i18n>SDate}" class="tableHeaderText"/>-->
+					<!--	<table:template>-->
+					<!--		<Text text="{path:'mLookupModel>StartDateString'}" class="tableContentText"></Text>-->
+					<!--	</table:template>-->
+					<!--</table:Column>-->
+					<!--<table:Column width="6.7%" sortProperty="FinishDateString" filterProperty="FinishDateString">-->
+					<!--	<Text wrapping="true" text="{i18n>EDate}" class="tableHeaderText"/>-->
+					<!--	<table:template>-->
+					<!--		<Text text="{path:'mLookupModel>FinishDateString'}" class="tableContentText"></Text>-->
+					<!--	</table:template>-->
+					<!--</table:Column>-->
+					<table:Column sortProperty="Bdflag" width="7%" filterProperty="Bdflag">
+						<Text wrapping="true" text="{i18n>BdownFlag}" class="tableHeaderText"/>
+						<table:template>
+							<Text text="{mLookupModel>Bdflag}" class="tableContentText"></Text>
+						</table:template>
+					</table:Column>
+					<table:Column sortProperty="PriorityDes" width="5%" filterProperty="PriorityDes">
+						<Text wrapping="true" text="{i18n>prior}" class="tableHeaderText"/>
+						<table:template>
+							<Text text="{path:'mLookupModel>PriorityDes'}" class="tableContentText"></Text>
+						</table:template>
+					</table:Column>
+					<table:Column sortProperty="EnteredByName" width="7%" filterProperty="EnteredByName">
+						<Text wrapping="true" text="{i18n>createdby}" class="tableHeaderText"/>
+						<table:template>
+							<Text text="{mLookupModel>EnteredByName}" class="tableContentText"></Text>
+						</table:template>
+					</table:Column>
+					<!--<table:Column sortProperty="Plan" width="6.8%" filterProperty="Plan">-->
+					<!--	<Text wrapping="true" text="{i18n>maint_plan}" class="tableHeaderText"/>-->
+					<!--	<table:template>-->
+					<!--		<Text text="{path:'mLookupModel>Plan'}" class="tableContentText"></Text>-->
+					<!--	</table:template>-->
+					<!--</table:Column>-->
+					<!--<table:Column sortProperty="Package" width="6.8%" filterProperty="Package">-->
+					<!--	<Text wrapping="true" text="{i18n>package}" class="tableHeaderText"/>-->
+					<!--	<table:template>-->
+					<!--		<Text text="{path:'mLookupModel>Package'}" class="tableContentText"></Text>-->
+					<!--	</table:template>-->
+					<!--</table:Column>-->
+					<table:Column sortProperty="EnterDateString" width="5.8%" filterProperty="EnterDateString">
+						<Text wrapping="true" text="{i18n>createdDate}" class="tableHeaderText"/>
+						<table:template>
+							<Text text="{path:'mLookupModel>EnterDateString'}" class="tableContentText"></Text>
+						</table:template>
+					</table:Column>
+				</table:columns>
+				<table:footer>
+					<Toolbar>
+						<ToolbarSpacer/>
+						<Button text="{i18n>LOAD_RECORDS}" press="handleLoadMoreRecords"></Button>
+						<Text text="{i18n>TOTAL_RECORDS}"></Text>
+						<Input width="5rem" value="{mLookupModel>/aWorkOrderListSet/0/Totalrecords}" enabled="false"></Input>
+					</Toolbar>
+				</table:footer>
+			</table:Table>
+			<!--</VBox>-->
+			<!--</l:flexContent>-->
 			<!--</l:FixFlex>-->
 		</content>
 		<footer>
@@ -232,7 +229,8 @@
 				<Button class="murphyCreateBtn" text="{i18n>ASIGN_TECHNICIAN}"
 					visible="{path:'mLookupModel>/userRole', formatter:'com.sap.incture.IMO_PM.formatter.formatter.disableReviewField'}"
 					enabled="{= ${mLookupModel>/iSelectedIndices} >= 1 ? true: false}" press="onAssignWO"/>
-				<Button class="murphyCreateBtn" text="{i18n>viewDetails}" enabled="{= ${mLookupModel>/iSelectedIndices} >= 1 ? true: false}" press="onNavigatetoDetail"/>
+				<Button class="murphyCreateBtn" text="{i18n>viewDetails}" enabled="{= ${mLookupModel>/iSelectedIndices} >= 1 ? true: false}"
+					press="onNavigatetoDetail"/>
 			</Toolbar>
 		</footer>
 	</Page>
