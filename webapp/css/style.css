@@ -2302,7 +2302,8 @@ html.sap-desktop .sapMIBar.sapMFooter-CTX {
     height: 100%;
     position: fixed;
     z-index: 40;
-    right: 0;
+    right: 13px;
+    top: 0;
     /*background-color: #f7f7f7;*/
     /*#Theme*/
     overflow: hidden;
@@ -2549,4 +2550,7 @@ html.sap-desktop .sapMIBar.sapMFooter-CTX {
 
 .NavItemSelect.sapContrast .sapTntNavLIItemSelected.sapTntNavLIItem {
     background-color: #142e5e !important;
+}
+.attachmentsIconSize {
+    font-size: 1.2rem;
 }
