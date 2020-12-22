@@ -40,7 +40,7 @@
 					</TileContent>
 				</GenericTile>
 				<ToolbarSpacer/>
-				<ComboBox width="90%" showSecondaryValues="true" items="{path:'mLookupModel>/aWorkCenterSet',sorter:{ path: 'text' }}"
+				<ComboBox class="inputRadius" width="90%" showSecondaryValues="true" items="{path:'mLookupModel>/aWorkCenterSet',sorter:{ path: 'text' }}"
 					selectedKey="{mLookupModel>/sWorkCenterSel}" placeholder="{i18n>WorkCenter_KPI}" tooltip="{i18n>SELECT_WORK_CENTER}" change="fnFetchKPIInfo">
 					<core:ListItem key="{mLookupModel>WorkcenterId}" additionalText="{mLookupModel>WorkcenterDesc}" text="{mLookupModel>WorkcenterId}"/>
 				</ComboBox>

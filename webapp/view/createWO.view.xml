@@ -1,13 +1,10 @@
 <mvc:View controllerName="com.sap.incture.IMO_PM.controller.createWO" xmlns:mvc="sap.ui.core.mvc" xmlns:html="http://www.w3.org/1999/xhtml"
 	displayBlock="true" xmlns="sap.m" xmlns:fb="sap.ui.comp.filterbar" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout"
 	xmlns:table="sap.ui.table" xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" xmlns:tnt="sap.tnt">
-	<Page showHeader="false" enableScrolling="false" class="sapUiSizeCompact" title="{}">
-		<!--<tnt:ToolHeader>-->
-		<!--<Button icon="sap-icon://home" type="Transparent" press="onPressHome" tooltip="{i18n>home}"/>-->
-		<!--<Image src="images/Cherrywork_Logo_final_Option_1.png" height="55%" width="10%"/>-->
-		<!--<Label design="Bold" class="sapUiSmallMarginBegin" text="{i18n>tile_cr/ed_wo}" wrapping="true"/>-->
-		<!--<ToolbarSpacer/>-->
-		<!--</tnt:ToolHeader>-->
+	<Page showHeader="false" class="sapUiSizeCompact sapMPageBackground">
+		<tnt:ToolHeader class="headerBG headerShadow">
+			<Label design="Bold" class="sapUiSmallMarginBegin textColr" text="{i18n>tile_cr/ed_wo}" wrapping="true"/>
+		</tnt:ToolHeader>
 		<content>
 			<Toolbar class="createEditToolbar">
 				<RadioButtonGroup columns="3" selectedIndex="{mLookupModel>/iSelectedIndex}" select="onCreateOptionChange" class="sapUiSmallMargin"
@@ -19,7 +16,7 @@
 					</buttons>
 				</RadioButtonGroup>
 			</Toolbar>
-			<Panel visible="{= ${mLookupModel>/iSelectedIndex} === 0 ? true : false}" width="auto" class="sapUiResponsiveMargin panelBackgroundClass">
+			<Panel visible="{= ${mLookupModel>/iSelectedIndex} === 0 ? true : false}" width="auto" class="sapUiSmallMargin panelBackgroundClass">
 				<headerToolbar>
 					<Toolbar height="3rem" class="toolbarBorder">
 						<Title text="{i18n>CREATE_WO}" class="styleTitle"/>
@@ -30,7 +27,7 @@
 						<VBox>
 							<Label text="{i18n>oType}" required="true"/>
 							<ComboBox showSecondaryValues="true" items="{path:'mLookupModel>/aOrderTypeSet',sorter:{ path: 'text' }}"
-								selectedKey="{mLookupModel>/sOrderTypeSel}" class="sapInputBorderClass" width="90%">
+								selectedKey="{mLookupModel>/sOrderTypeSel}" class="inputRadius" width="90%">
 								<core:ListItem key="{mLookupModel>AUART}" additionalText="{mLookupModel>TXT}" text="{mLookupModel>AUART}"/>
 								<customData>
 									<core:CustomData value="WO_CREATE_ORDER_TYPE"/>
@@ -40,25 +37,25 @@
 						<VBox>
 							<Label text="{i18n>equip}" required="true"/>
 							<Input width="90%" showValueHelp="true" value="{mLookupModel>/sEquip}" valueHelpOnly="true" valueHelpRequest="equipmentValueHelp"
-								class="sapInputBorderClass"></Input>
+								class="inputRadius"></Input>
 						</VBox>
 						<VBox>
 							<Label text="{i18n>FunLocation}" required="true"/>
 							<Input width="90%" editable="true" showValueHelp="true" value="{mLookupModel>/sFunLoc}" valueHelpOnly="true"
-								valueHelpRequest="fnLocValueHelp" class="sapInputBorderClass"></Input>
-							<!--<Input width="70%" editable="false" value="{mLookupModel>/sFunLoc}" class="sapInputBorderClass"></Input>-->
+								valueHelpRequest="fnLocValueHelp" class="inputRadius"></Input>
+							<!--<Input width="70%" editable="false" value="{mLookupModel>/sFunLoc}" class="inputRadius"></Input>-->
 						</VBox>
 						<VBox>
 							<Label text="{i18n>prior}" required="true"/>
 							<ComboBox items="{ path: 'mLookupModel>/aPrioritySet', sorter: { path: 'text' } }" selectedKey="{mLookupModel>/sPrior}"
-								class="sapInputBorderClass" width="90%">
+								class="inputRadius" width="90%">
 								<core:Item key="{mLookupModel>PRIOK}" text="{mLookupModel>PRIOKX}"/>
 							</ComboBox>
 						</VBox>
 					</l:Grid>
 				</content>
 			</Panel>
-			<Panel visible="{= ${mLookupModel>/iSelectedIndex} === 0 ? true : false}" width="auto" class="sapUiResponsiveMargin panelBackgroundClass">
+			<Panel visible="{= ${mLookupModel>/iSelectedIndex} === 0 ? true : false}" width="auto" class="sapUiSmallMargin panelBackgroundClass">
 				<headerToolbar>
 					<Toolbar height="3rem" class="toolbarBorder">
 						<Title text="{i18n>editWO}" class="styleTitle"/>
@@ -68,24 +65,25 @@
 					<l:Grid defaultSpan="L3 M6 S6">
 						<VBox>
 							<Label text="{i18n>orderNum}"/>
-							<Input value="{mLookupModel>/editOrderId}" class="sapInputBorderClass" width="90%"></Input>
+							<Input value="{mLookupModel>/editOrderId}" class="inputRadius" width="90%"></Input>
 						</VBox>
 					</l:Grid>
 				</content>
 			</Panel>
-			<table:Table class="tableHeaderBg" id="idSearchWOTable" selectionMode="None" visible="{= ${mLookupModel>/iSelectedIndex} === 1 ? true : false}"
-				rows="{mLookupModel>/aWorkOrderListSet}" visibleRowCount="{mLookupModel>/rowCount}" rowHeight="40">
-				<table:toolbar>
-					<Toolbar>
+			<table:Table class="sapUiSmallMargin" id="idSearchWOTable" selectionMode="None"
+				visible="{= ${mLookupModel>/iSelectedIndex} === 1 ? true : false}" rows="{mLookupModel>/aWorkOrderListSet}"
+				visibleRowCount="{mLookupModel>/rowCount}" rowHeight="40">
+				<table:extension>
+					<Toolbar class="tableHeaderBG" height="3rem">
 						<content>
 							<Title text="{i18n>WOList}" class="styleTableTitle"/>
 							<ToolbarSpacer/>
 							<Link text="{i18n>advFilter}" press="onHandleAdvFilterWO"/>
 							<SearchField width="25%" value="{mLookupModel>/sWorderIdDesFilter}" search="onSearchWO" placeholder="{i18n>searchbyWorkOrderIdDes}"
-								class="sapInputBorderClass"/>
+								class="sapSearchFieldBorderClass"/>
 						</content>
 					</Toolbar>
-				</table:toolbar>
+				</table:extension>
 				<table:columns>
 					<table:Column width="2%">
 						<table:template><RadioButton app:workOrder="{mLookupModel>Orderid}" select="onSelectWordOrder" selected="{mLookupModel>radio}"/></table:template>
@@ -96,19 +94,19 @@
 							<Text text="{mLookupModel>Orderid}" class="tableContentText"></Text>
 						</table:template>
 					</table:Column>
-					<table:Column width="8%" sortProperty="WoDes" filterProperty="WoDes">
+					<table:Column width="7%" sortProperty="WoDes" filterProperty="WoDes">
 						<Text wrapping="true" text="{i18n>WODes}" class="tableHeaderText"/>
 						<table:template>
 							<Text text="{mLookupModel>WoDes}" class="tableContentText"></Text>
 						</table:template>
 					</table:Column>
-					<table:Column width="6.7%" sortProperty="MnWkCtr" filterProperty="MnWkCtr">
+					<table:Column width="7.7%" sortProperty="MnWkCtr" filterProperty="MnWkCtr">
 						<Text wrapping="true" text="{i18n>mainWC}" class="tableHeaderText"/>
 						<table:template>
 							<Text text="{mLookupModel>MnWkCtr}" class="tableContentText"></Text>
 						</table:template>
 					</table:Column>
-					<table:Column sortProperty="OrderType" width="5%" filterProperty="OrderType">
+					<table:Column sortProperty="OrderType" width="4%" filterProperty="OrderType">
 						<Text wrapping="true" text="{i18n>WOtype}" class="tableHeaderText"/>
 						<table:template>
 							<Text text="{mLookupModel>OrderType}" class="tableContentText"></Text>
@@ -156,7 +154,7 @@
 							<Text text="{path:'mLookupModel>FinishDateString'}" class="tableContentText"></Text>
 						</table:template>
 					</table:Column>
-					<table:Column sortProperty="Bdflag" width="6.8%" filterProperty="Bdflag">
+					<table:Column sortProperty="Bdflag" width="7.8%" filterProperty="Bdflag">
 						<Text wrapping="true" text="{i18n>BdownFlag}" class="tableHeaderText"/>
 						<table:template>
 							<Text text="{mLookupModel>Bdflag}" class="tableContentText"></Text>
@@ -196,20 +194,20 @@
 					</Toolbar>
 				</table:footer>
 			</table:Table>
-			<table:Table class="tableHeaderBg" selectionMode="MultiToggle" enableSelectAll="false" id="notifListId"
+			<table:Table class="sapUiSmallMargin" selectionMode="MultiToggle" enableSelectAll="false" id="notifListId"
 				visible="{= ${mLookupModel>/iSelectedIndex} === 2 ? true : false}" rowSelectionChange="onSelectionChange"
 				rows="{mLookupModel>/aNotificationListSet}" visibleRowCount="{mLookupModel>/rowCount}" rowHeight="40">
-				<table:toolbar>
-					<Toolbar>
+				<table:extension>
+					<Toolbar class="tableHeaderBG" height="3rem">
 						<content>
 							<Title text="{i18n>notifList}" class="styleTableTitle"/>
 							<ToolbarSpacer/>
 							<Link text="{i18n>advFilter}" press="onHandleNotifAdvFilter"/>
 							<SearchField width="25%" search="onSearchNotif" value="{mLookupModel>/sNotifIDDesFilter}" placeholder="{i18n>searchNotif}"
-								class="sapInputBorderClass"/>
+								class="sapSearchFieldBorderClass"/>
 						</content>
 					</Toolbar>
-				</table:toolbar>
+				</table:extension>
 				<table:columns>
 					<table:Column sortProperty="NotifNo" filterProperty="NotifNo" width="6%">
 						<Text wrapping="true" text="{i18n>notifID}" class="tableHeaderText"/>
@@ -308,7 +306,8 @@
 				<ToolbarSpacer/>
 				<Button text="{i18n>edit}" press="onEditWO" visible="{= ${mLookupModel>/iSelectedIndex} === 0 ? true : false}" class="murphyCreateBtn"/>
 				<Button text="{i18n>create}" press="onCreateWO" visible="{= ${mLookupModel>/iSelectedIndex} === 0 ? false : true}" class="murphyCreateBtn"/>
-				<Button text="{i18n>NEXT}" press="onCreateViewWorkOrder" visible="{= ${mLookupModel>/iSelectedIndex} === 0 ? true : false}" class="murphyCreateBtn"/>
+				<Button text="{i18n>NEXT}" press="onCreateViewWorkOrder" visible="{= ${mLookupModel>/iSelectedIndex} === 0 ? true : false}"
+					class="murphyCreateBtn"/>
 			</Toolbar>
 		</footer>
 	</Page>

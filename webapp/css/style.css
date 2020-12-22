@@ -1061,7 +1061,7 @@ html:not([data-sap-ui-browser^="ie"]):not([data-sap-ui-browser^="ed"]) .sapUiIco
 }
 
 .panelBackgroundClass .sapMPanelBGTranslucent {
-    background-color: #f7f7f700;
+    background-color: #ffffff;
 }
 
 /*.sapUiSizeCompact .sapInputBorderClass .sapMInputBaseInner {
@@ -1836,7 +1836,7 @@ html:not([data-sap-ui-browser^="ie"]):not([data-sap-ui-browser^="ed"]) .sapUiIco
 }*/
 
 .sapSearchFieldBorderClass .sapMSFF {
-    border-radius: 0.2rem;
+    border-radius: 4px;
 }
 
 .notListToolBarBorderClass {
@@ -2282,6 +2282,7 @@ html.sap-desktop .sapMIBar.sapMFooter-CTX {
 
 .toolbarBorder {
     border-bottom-width: 2px;
+    background-color: white;
 }
 
 .murphyDialogBtn .sapMBtnInner {
@@ -2338,9 +2339,11 @@ html.sap-desktop .sapMIBar.sapMFooter-CTX {
     border-color: #b5bbc2;
     /*background: #b5bbc2!important*/
 }
-.iopwbBoxStyle{
-	background: white;
+
+.iopwbBoxStyle {
+    background: white;
 }
+
 .iopwbBoxStyle.sapMVBox {
     overflow-y: auto;
     padding: 1rem
@@ -2553,6 +2556,7 @@ html.sap-desktop .sapMIBar.sapMFooter-CTX {
 .NavItemSelect.sapContrast .sapTntNavLIItemSelected.sapTntNavLIItem {
     background-color: #142e5e !important;
 }
+
 .attachmentsIconSize {
     font-size: 1.2rem;
 }
