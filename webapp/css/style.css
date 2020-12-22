@@ -2414,15 +2414,15 @@ html.sap-desktop .sapMIBar.sapMFooter-CTX {
 }
 
 .iopV2SidePanelRightBorder.sapContrast .sapTntNavLIItemSelected .sapTntNavLIGroup {
-    background-color: #c2c2c4
+    background-color: #142e5e;
 }
 
 .iopV2SidePanelRightBorder.sapContrast .sapTntNavLIItem {
-    background-color: #1b3a75
+    background-color: #1b3a75;
 }
 
 .FracIconSize.iopV2SidePanelRightBorder.sapContrast .sapTntNavLIItem>.sapUiIcon {
-    font-size: large !important
+    font-size: large !important;
 }
 
 .iopV2SidePanelTextIconColor>li>div>span {
@@ -2448,7 +2448,7 @@ html.sap-desktop .sapMIBar.sapMFooter-CTX {
 }
 
 .iopV2SidePanelSelected>li>div[aria-selected=true] {
-    /*border-left: 4px solid #142e5e !important;*/
+    border-left: none !important;
     transition: .3s
 }
 
@@ -2480,11 +2480,12 @@ html.sap-desktop .sapMIBar.sapMFooter-CTX {
 }
 
 .murphySideNavHover .sapTntNavLIItemSelected .sapTntNavLIGroup {
-    border-left: 4px solid #000;
+    border-left: 4px solid #142e5e;
+    background-color: #142e5e !important;
 }
 
 .murphyFooterNavList .sapTntNavLIItem {
-    background: #c2c2c4 !important;
+    background: #142e5e !important;
 }
 
 .murphySideNavHover .murphyFooterNavList .sapUiIcon,
@@ -2545,6 +2546,7 @@ html.sap-desktop .sapMIBar.sapMFooter-CTX {
 .tableColHeader .sapUiTableCHdr .sapUiTableColHdrCnt {
     background-color: white !important;
 }
-.NavItemSelect .sapContrast .sapTntNavLIItemSelected.sapTntNavLIItem {
+
+.NavItemSelect.sapContrast .sapTntNavLIItemSelected.sapTntNavLIItem {
     background-color: #142e5e !important;
 }
