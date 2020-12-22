@@ -4,14 +4,14 @@
 		<tnt:sideContent>
 			<tnt:SideNavigation id="idSideNavigation" class="crtIconSizeSideNav iopV2SidePanelBgColor iopV2SidePanelNoBorder iopV2SidePanelRightBorder">
 				<tnt:NavigationList
-					class="iopV2SidePanelTextIconColor iopV2SidePanelSelected iopV2SidePanelBgColor iopV2SidePanelNoBorder iopV2SidePanelMargin"
+					class="NavItemSelect iopV2SidePanelTextIconColor iopV2SidePanelSelected iopV2SidePanelBgColor iopV2SidePanelNoBorder iopV2SidePanelMargin"
 					items="{oMasterModel>/tabs}" id="idNavList">
 					<tnt:NavigationListItem text="{oMasterModel>tabText}" icon="{oMasterModel>icon}" expanded="false" visible="{oMasterModel>isVis}"
 						select="onSideNavSelect"/>
 				</tnt:NavigationList>
 				<tnt:footer>
 					<tnt:NavigationList class="iopV2SidePanelTextIconColor iopV2SidePanelBgColor iopV2SidePanelNoBorder iopV2SidePanelMargin lockText">
-						<tnt:NavigationListItem tooltip="{= ${oMasterModel>/isLocked} === true? 'Unlock Panel' : ''}"
+						<tnt:NavigationListItem tooltip="{= ${oMasterModel>/isLocked} === true? 'Unlock Panel' : ''}" class="NavItemSelect"
 							icon="{= ${oMasterModel>/isLocked} === true? 'sap-icon://locked' : 'sap-icon://unlocked'}"
 							text="{= ${oMasterModel>/isLocked} === true? '' : 'Lock Panel'}" select="onLockSideNav"></tnt:NavigationListItem>
 					</tnt:NavigationList>

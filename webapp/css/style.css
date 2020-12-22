@@ -2241,7 +2241,7 @@ background-color: #377295;
     height: 6rem !important;
     width: 100% !important;
     padding: 0.5rem !important;
-    /*background: transparent !important;*/
+    background: #ffffff !important;
     box-shadow: none !important;
 }
 
@@ -2518,6 +2518,7 @@ html.sap-desktop .sapMIBar.sapMFooter-CTX {
 
 .headerShadow.sapTntToolHeader.sapMTB {
     box-shadow: 1px -1rem 14px 6px #354a5f;
+    border: none !important;
 }
 
 .textColr {
@@ -2543,4 +2544,7 @@ html.sap-desktop .sapMIBar.sapMFooter-CTX {
 
 .tableColHeader .sapUiTableCHdr .sapUiTableColHdrCnt {
     background-color: white !important;
+}
+.NavItemSelect .sapContrast .sapTntNavLIItemSelected.sapTntNavLIItem {
+    background-color: #142e5e !important;
 }
