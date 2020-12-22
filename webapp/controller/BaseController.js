@@ -645,7 +645,7 @@ sap.ui.define([
 			var supplierPartno = oWorkOrderDetailViewModel.getProperty("/supplierPartno");
 			var mfgPartNo = oWorkOrderDetailViewModel.getProperty("/mfgPartNo");
 			var mfgPartDesc = oWorkOrderDetailViewModel.getProperty("/mfgPartDesc");
-
+			var oSearchTbl=sap.ui.getCore().byId("MYLAN_MATERIALS_SEARCH_TBL");
 			var oFilter = [];
 			if (isFrequent) {
 				oFilter.push(new Filter("IsFrequent", "EQ", "X"));
@@ -690,7 +690,9 @@ sap.ui.define([
 						oWorkOrderDetailViewModel.setProperty("/aSearchMatList", aMaterialsList);
 					}
 					oWorkOrderDetailViewModel.setProperty("/aMaterialsList", aMaterialsList);
+					if(oSearchTbl){
 					sap.ui.getCore().byId("MYLAN_MATERIALS_SEARCH_TBL").clearSelection();
+					}
 					oWorkOrderDetailViewModel.refresh();
 					that.busy.close();
 				},

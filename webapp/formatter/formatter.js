@@ -1165,6 +1165,22 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 		newDate = newDate + "T" + newTime;
 		return newDate;
 	},
+	//Function to close Notification on TECO
+	fnCheckCloseNotifField: function (bCloseNotif) {
+		var sFlag = "N";
+		if (bCloseNotif) {
+			sFlag = "Y";
+		}
+		return sFlag;
+	},
+	//Function to check Saved Spare Parts and make them uneditable
+	fnCheckSavedSpareParts: function (CompCode) {
+		var bVal = false;
+		if (CompCode !== "" || CompCode !== "C") {
+			bVal = true;
+		}
+		return bVal;
+	},
 	//Function to check for Safety stock
 	fnCheckSafetyStock: function (materialId) {
 		$("#" + this.getParent().getId() + "-col0").removeClass("cellStyleRed");

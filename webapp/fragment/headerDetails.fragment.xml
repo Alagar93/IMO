@@ -343,54 +343,56 @@
 		</headerToolbar>
 		<content>
 			<VBox items="{oWorkOrderDetailModel>/HEADERTONOTIFNAV}">
-				<l:Grid class="sapUiTinyMarginTop">
-					<l:content>
-						<VBox>
-							<Label text="{i18n>NOTIFICATION}"></Label>
-							<Input value="{oWorkOrderDetailModel>NotifNo}" maxLength="10" enabled="false" tooltip="{oWorkOrderDetailModel>Qmnum}"
-								class="sapInputBorderClass"></Input>
-							<layoutData>
-								<l:GridData span="XL12 L12 M12 S12"/>
-							</layoutData>
-						</VBox>
-						<VBox class="sapUiTinyMarginTop">
-							<Label text="{i18n>START_DATE}"></Label>
-							<DatePicker minDate="" placeholder="dd MM yyyy" dateValue="{oWorkOrderDetailModel>Desstdate}" displayFormat="dd-MM-yyyy" enabled="false"
-								class="sapInputBorderClass" width="100%"/>
-							<layoutData>
-								<l:GridData span="XL6 L6 M6 S6"/>
-							</layoutData>
-						</VBox>
-						<VBox class="sapUiTinyMarginTop">
-							<Label text="{i18n>END_DATE}"></Label>
-							<DatePicker minDate="" placeholder="dd MM yyyy" dateValue="{oWorkOrderDetailModel>Desenddate}" displayFormat="dd-MM-yyyy" enabled="false"
-								class="sapInputBorderClass" width="100%"/>
-							<layoutData>
-								<l:GridData span="XL6 L6 M6 S6"/>
-							</layoutData>
-						</VBox>
-						<VBox class="sapUiTinyMarginTop">
-							<Label text="{i18n>REPORTED_BY}"></Label>
-							<Input value="{oWorkOrderDetailModel>Reportedby}" enabled="false" tooltip="{oWorkOrderDetailModel>Reportedby}" class="sapInputBorderClass"></Input>
-							<layoutData>
-								<l:GridData span="XL12 L12 M12 S12"/>
-							</layoutData>
-						</VBox>
-						<VBox class="sapUiTinyMarginTop">
-							<Label text="{i18n>SHORT_DESCRIPTION}"></Label>
-							<Input value="{oWorkOrderDetailModel>ShortText}" enabled="false" tooltip="{oWorkOrderDetailModel>ShortText}" class="sapInputBorderClass"></Input>
-							<layoutData>
-								<l:GridData span="XL12 L12 M12 S12"/>
-							</layoutData>
-						</VBox>
-						<VBox>
-							<core:HTML content="&lt;hr&gt;" class="sapUiSmallMarginBottom"/>
-							<layoutData>
-								<l:GridData span="XL12 L12 M12 S12"/>
-							</layoutData>
-						</VBox>
-					</l:content>
-				</l:Grid>
+				<items>
+					<l:Grid class="sapUiTinyMarginTop">
+						<l:content>
+							<VBox>
+								<Label text="{i18n>NOTIFICATION}"></Label>
+								<Input value="{oWorkOrderDetailModel>NotifNo}" maxLength="10" enabled="false" tooltip="{oWorkOrderDetailModel>Qmnum}"
+									class="sapInputBorderClass"></Input>
+								<layoutData>
+									<l:GridData span="XL12 L12 M12 S12"/>
+								</layoutData>
+							</VBox>
+							<VBox class="sapUiTinyMarginTop">
+								<Label text="{i18n>START_DATE}"></Label>
+								<DatePicker minDate="" placeholder="dd MM yyyy" dateValue="{oWorkOrderDetailModel>Desstdate}" displayFormat="dd-MM-yyyy" enabled="false"
+									class="sapInputBorderClass" width="100%"/>
+								<layoutData>
+									<l:GridData span="XL6 L6 M6 S6"/>
+								</layoutData>
+							</VBox>
+							<VBox class="sapUiTinyMarginTop">
+								<Label text="{i18n>END_DATE}"></Label>
+								<DatePicker minDate="" placeholder="dd MM yyyy" dateValue="{oWorkOrderDetailModel>Desenddate}" displayFormat="dd-MM-yyyy" enabled="false"
+									class="sapInputBorderClass" width="100%"/>
+								<layoutData>
+									<l:GridData span="XL6 L6 M6 S6"/>
+								</layoutData>
+							</VBox>
+							<VBox class="sapUiTinyMarginTop">
+								<Label text="{i18n>REPORTED_BY}"></Label>
+								<Input value="{oWorkOrderDetailModel>Reportedby}" enabled="false" tooltip="{oWorkOrderDetailModel>Reportedby}" class="sapInputBorderClass"></Input>
+								<layoutData>
+									<l:GridData span="XL12 L12 M12 S12"/>
+								</layoutData>
+							</VBox>
+							<VBox class="sapUiTinyMarginTop">
+								<Label text="{i18n>SHORT_DESCRIPTION}"></Label>
+								<Input value="{oWorkOrderDetailModel>ShortText}" enabled="false" tooltip="{oWorkOrderDetailModel>ShortText}" class="sapInputBorderClass"></Input>
+								<layoutData>
+									<l:GridData span="XL12 L12 M12 S12"/>
+								</layoutData>
+							</VBox>
+							<VBox>
+								<core:HTML content="&lt;hr&gt;" class="sapUiSmallMarginBottom"/>
+								<layoutData>
+									<l:GridData span="XL12 L12 M12 S12"/>
+								</layoutData>
+							</VBox>
+						</l:content>
+					</l:Grid>
+				</items>
 			</VBox>
 		</content>
 	</Panel>

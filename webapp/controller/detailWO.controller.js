@@ -88,20 +88,21 @@ sap.ui.define([
 			oFileUploader.setUploadUrl(sericeUrl);
 		},
 		//nischal -- function to open CloseNotificationsPop-up 
-		onOpenCloseNotifPopUp : function(){
+		onOpenCloseNotifPopUp: function () {
 			if (!this.closeNotifPopUp) {
-					this.closeNotifPopUp = sap.ui.xmlfragment("com.sap.incture.IMO_PM.fragment.closeNotifPopUpWO", this);
-					this.getView().addDependent(this.closeNotifPopUp);
-				}
-				this.closeNotifPopUp.open();
+				this.closeNotifPopUp = sap.ui.xmlfragment("com.sap.incture.IMO_PM.fragment.closeNotifPopUpWO", this);
+				this.getView().addDependent(this.closeNotifPopUp);
+			}
+			
+			this.closeNotifPopUp.open();
 		},
-		onSaveCloseNotifPopUp : function(){
+		onSaveCloseNotifPopUp: function () {
 			this.onCloseNotifPopUpClose();
 			this.fnMandateUiFields("WO_DETAIL_TECHO");
-			
+
 		},
 		//nischal -- function to close CloseNotificationsPop-up 
-		onCloseNotifPopUpClose: function(oEvent){
+		onCloseNotifPopUpClose: function (oEvent) {
 			this.closeNotifPopUp.close();
 			this.closeNotifPopUp.destroy();
 			this.closeNotifPopUp = null;
@@ -458,17 +459,34 @@ sap.ui.define([
 						actions: [MessageBox.Action.OK, MessageBox.Action.CANCEL],
 						emphasizedAction: MessageBox.Action.OK,
 						onClose: function (sAction) {
-							if(sAction === "OK"){
+							if (sAction === "OK") {
 								// that.fnMandateUiFields("WO_DETAIL_TECHO");
-								that.onOpenCloseNotifPopUp();
+								//that.onOpenCloseNotifPopUp();
+								var headerNotifnav = oWorkOrderDetailModel.getProperty("/HEADERTONOTIFNAV"); //Sunanda--If the Notifications are not there.
+								if (headerNotifnav.length === 0) {
+									that.oWorkOrderDetailViewModel.setProperty("/closenotifflag", false);
+									that.fnMandateUiFields("WO_DETAIL_TECHO");
+								} else {
+									that.oWorkOrderDetailViewModel.setProperty("/closenotifflag", true);
+									that.onOpenCloseNotifPopUp();
+								}
+
 							}
 						}
 					});
 				} else {
 					// this.fnMandateUiFields("WO_DETAIL_TECHO"); //nischal -- TECO based on user status
-					this.onOpenCloseNotifPopUp();
+					var headerNotifnav = oWorkOrderDetailModel.getProperty("/HEADERTONOTIFNAV"); //Sunanda--If the Notifications are not there.
+					if (headerNotifnav.length === 0) {
+						this.oWorkOrderDetailViewModel.setProperty("/closenotifflag", false);
+						this.fnMandateUiFields("WO_DETAIL_TECHO");
+					} else {
+						this.oWorkOrderDetailViewModel.setProperty("/closenotifflag", true);
+						this.onOpenCloseNotifPopUp();
+					}
+
 				}
-						
+
 				break;
 			case "WO_DETAIL_OPERATION_CONFIRM":
 				this.fnMandateUiFields("WO_DETAIL_OPERATION_CONFIRM");
@@ -647,11 +665,18 @@ sap.ui.define([
 				// operations = this.fnDeleteOperationsFields(operations); //nischal--MyWork field should not be deleted 
 				oWorkOrderData.HEADERTOOPERATIONSNAV = operations;
 				oWorkOrderData.SetOrderStatus = "";
+				//testing with emptying longtext of assigned notifications
+				var oNotifs = oWorkOrderData.HEADERTONOTIFNAV;
+				for (var i = 0; i < oNotifs.length; i++) {
+					oNotifs[i].LongText = "";
+				}
+
 			} else if (woCreateNavType === "WO_DETAIL_RELEASE") {
 				oWorkOrderData.SetOrderStatus = "REL";
 			} else if (woCreateNavType === "WO_DETAIL_TECHO") {
 				// oWorkOrderData.UserStatus = "COMP";
 				oWorkOrderData.SetOrderStatus = "TECO";
+				oWorkOrderData.closenotifflag = formatter.fnCheckCloseNotifField(oWorkOrderDetailViewModel.getProperty("/closenotifflag"));
 			} else if (woCreateNavType === "WO_DETAIL_OPERATION_CONFIRM") {
 				var operationsList = oWorkOrderDetailViewModel.getProperty("/confirmOperations");
 				oConfirmTexts = that.getConfirmLongText(operationsList, oWorkOrderData.Orderid);
@@ -1453,6 +1478,77 @@ sap.ui.define([
 			}
 			oWorkOrderDetailViewModel.setProperty("/selectedMaterials", oSelectedMaterials);
 			oWorkOrderDetailViewModel.refresh();
+		},
+		//Function to add Empty Row for SpareParts
+		onAddEmptySparePart: function () {
+			var oWorkOrderDetailModel = this.oWorkOrderDetailModel;
+			var oWorkOrderDetailViewModel = this.oWorkOrderDetailViewModel;
+			var spareParts = oWorkOrderDetailModel.getProperty("/HEADERTOCOMPONENTNAV");
+			var userPlant = this.oUserDetailModel.getProperty("/userPlant");
+			var sEquipId = oWorkOrderDetailModel.getProperty("/Equipment");
+			this.getMaterialsList("", sEquipId, true);
+			if (!spareParts) {
+				spareParts = [];
+			}
+			var oTempObj = {
+				"ReservNo": "",
+				"ActivityOperation": "",
+				"Material": "",
+				"MatlDesc": "",
+				"StgeLoc": "",
+				"OutQtyOrd": "",
+				"StockAvail": "",
+				"Plant": userPlant,
+				"RequirementQuantity": "",
+				"ItemCat": "L",
+				"RequirementQuantityUnit": "",
+				"CompCode": "C",
+				"bin": "",
+				"IssueQty": "0",
+				"returnQty": "0",
+				"MinStockReq": 0
+			};
+			spareParts.push(oTempObj);
+			oWorkOrderDetailModel.setProperty("/HEADERTOCOMPONENTNAV", spareParts);
+			oWorkOrderDetailModel.refresh();
+		},
+
+		//Function to Add material with Material/SAPID
+		oSelectMatSparePart: function (oEvent) {
+			var sMaterial = oEvent.getSource().getValue();
+			var oWorkOrderDetailModel = this.oWorkOrderDetailModel;
+			var oWorkOrderDetailViewModel = this.oWorkOrderDetailViewModel;
+			var aMaterialList = oWorkOrderDetailViewModel.getProperty("/aMaterialsList");
+			var sMaterialPath = oEvent.getSource().getBindingContext("oWorkOrderDetailModel").getPath();
+			var sOperation = oWorkOrderDetailModel.getProperty(sMaterialPath).ActivityOperation;
+			var userPlant = this.oUserDetailModel.getProperty("/userPlant");
+			var oMaterial = aMaterialList.find(({
+				Material
+			}) => Material === sMaterial);
+
+			var oTempObj = {
+				"ReservNo": "",
+				"ActivityOperation": "",
+				"Material": oMaterial.Material,
+				"MatlDesc": oMaterial.MaterialDesc,
+				"StgeLoc": oMaterial.StorLocId,
+				"OutQtyOrd": oMaterial.OutstandingQty,
+				"StockAvail": oMaterial.CurrentStock,
+				"Plant": userPlant,
+				"RequirementQuantity": "",
+				"ItemCat": "L",
+				"RequirementQuantityUnit": oMaterial.Uom,
+				"CompCode": "C",
+				"bin": oMaterial.BinNo,
+				"IssueQty": "0",
+				"returnQty": "0",
+				"MinStockReq": oMaterial.MinSafetyStock
+			};
+			if (sOperation) {
+				oTempObj.ActivityOperation = sOperation;
+			}
+			oWorkOrderDetailModel.setProperty(sMaterialPath, oTempObj);
+
 		},
 
 		//Function to add materials to spare parts table after material search
