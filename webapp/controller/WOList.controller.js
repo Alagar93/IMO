@@ -404,7 +404,7 @@ sap.ui.define([
 			mLookupModel.refresh();
 		},
 		handleLinkPress: function (oEvent) {
-			var sURL;
+			//var sURL;
 			var sNotifID = oEvent.getSource().getText();
 			this._router.navTo("detailTabWO", {workOrderID: sNotifID});
 			// sURL = "https://lnvybdvpasstbo1j-imo-imo-pm.cfapps.eu10.hana.ondemand.com/IMO_PM/index.html#/detailTabWO/" + sNotifID;

@@ -5,7 +5,7 @@
 			<content>
 				<VBox>
 					<!--<Text text=""/>-->
-					<CheckBox text="Do u want to Close Notifications as well ?" valueState ="Information" selected="true"/>
+					<CheckBox text="Do u want to Close Notifications as well ?" valueState ="Information" selected="{oWorkOrderDetailViewModel>/closenotifFlag}"/>
 				</VBox>
 			</content>
 			<footer>
