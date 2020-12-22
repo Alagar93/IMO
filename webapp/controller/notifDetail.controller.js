@@ -737,7 +737,7 @@ sap.ui.define([
 					}
 					that.fnFormatDateObjects(sData);
 					oNotificationDataModel.setData(sData);
-					if(sVal==="SaveAndClose"){
+					if (sVal === "SaveAndClose") {
 						that.onCloseNotif();
 					}
 					that.busy.close();
@@ -843,20 +843,19 @@ sap.ui.define([
 			});
 
 		},
-		fnSaveandCloseNotif:function(){
+		fnSaveandCloseNotif: function () {
 			var oNotificationDataModel = this.oNotificationDataModel;
-		
+
 			var oNotifData = oNotificationDataModel.getData();
-			var bVal=formatter.fnBreakDownValidation(oNotifData.Breakdown,oNotifData.Enddate);
-			if(bVal){
+			var bVal = formatter.fnBreakDownValidation(oNotifData.Breakdown, oNotifData.Enddate);
+			if (bVal) {
 				this.onUpdateNotification("SaveAndClose");
-			}
-			else{
-				
+			} else {
+
 				MessageBox.error("Please enter valid Malfunction Enddate.");
 			}
 		},
-		
+
 		onCloseNotif: function () {
 			var that = this;
 			this.busy.open();
@@ -865,72 +864,69 @@ sap.ui.define([
 			var oNotificationDataModel = this.oNotificationDataModel;
 			var oNotificationViewModel = this.oNotificationViewModel;
 			var oNotifData = oNotificationDataModel.getData();
-			
-			
-			
-				var tempLongText = oNotificationViewModel.getProperty("/Longtext");
-				oNotifData.Longtext = tempLongText;
 
-				oNotifData.Startdate = formatter.formatDateobjToString(oNotifData.Startdate);
-				if (oNotifData.Enddate) {
-					oNotifData.Enddate = formatter.formatDateobjToString(oNotifData.Enddate, true);
-				} else {
-					/*MessageBox.error("Please enter Break DownEnd Date");*/
-					oNotifData.Enddate = "";
-				}
-				oNotifData.Notif_date = formatter.formatDateobjToString(oNotifData.Notif_date);
-				oNotifData.ReqStartdate = formatter.formatDateobjToString(oNotifData.ReqStartdate);
-				oNotifData.ReqEnddate = formatter.formatDateobjToString(oNotifData.ReqEnddate);
-				oNotifData.Type = "CLOSE";
-				if (oNotifData.Breakdown === true) {
-					oNotifData.Breakdown = "X";
-				} else if (oNotifData.Breakdown === false) {
-					oNotifData.Breakdown = " ";
-				}
+			var tempLongText = oNotificationViewModel.getProperty("/Longtext");
+			oNotifData.Longtext = tempLongText;
 
-				var startTime = oNotificationViewModel.getProperty("/StartTime");
-				if (!startTime) {
-					startTime = "00:00";
-				}
-				var splitDate1 = oNotifData.Startdate.split("T")[0];
-				oNotifData.Startdate = splitDate1 + "T" + startTime + ":00";
+			oNotifData.Startdate = formatter.formatDateobjToString(oNotifData.Startdate);
+			if (oNotifData.Enddate) {
+				oNotifData.Enddate = formatter.formatDateobjToString(oNotifData.Enddate, true);
+			} else {
+				/*MessageBox.error("Please enter Break DownEnd Date");*/
+				oNotifData.Enddate = "";
+			}
+			oNotifData.Notif_date = formatter.formatDateobjToString(oNotifData.Notif_date);
+			oNotifData.ReqStartdate = formatter.formatDateobjToString(oNotifData.ReqStartdate);
+			oNotifData.ReqEnddate = formatter.formatDateobjToString(oNotifData.ReqEnddate);
+			oNotifData.Type = "CLOSE";
+			if (oNotifData.Breakdown === true) {
+				oNotifData.Breakdown = "X";
+			} else if (oNotifData.Breakdown === false) {
+				oNotifData.Breakdown = " ";
+			}
 
-				var endTime = oNotificationViewModel.getProperty("/EndTime");
-				if (!endTime) {
-					endTime = "00:00";
-				}
-				if (oNotifData.Enddate !== "") {
-					var splitDate2 = oNotifData.Enddate.split("T")[0];
-					oNotifData.Enddate = splitDate2 + "T" + endTime + ":00";
-				}
-				oPortalNotifOData.setHeaders({
-					"X-Requested-With": "X"
-				});
-				oPortalNotifOData.create("/NotificationSet", oNotifData, {
-					async: false,
-					success: function (sData, oResponse) {
-						var statusCode = oResponse.statusCode;
-						if (statusCode == 201) {
-							MessageBox.success("Notification Closed Successfully", {
-								actions: [MessageBox.Action.OK],
-								emphasizedAction: MessageBox.Action.OK,
-								onClose: function (sAction) {
-									that.fnFetchDetailNotifList();
-								}
-							});
-						}
-						that.busy.close();
-						// mLookupModel.setProperty("/SysStatus", "NOCO");
-						// that.getView().byId("idcloseNotif").setVisible(false);
-						// that.getView().byId("updateNotif").setVisible(false);
-						// that.getView().byId("releaseButton").setVisible(false);
+			var startTime = oNotificationViewModel.getProperty("/StartTime");
+			if (!startTime) {
+				startTime = "00:00";
+			}
+			var splitDate1 = oNotifData.Startdate.split("T")[0];
+			oNotifData.Startdate = splitDate1 + "T" + startTime + ":00";
 
-					},
-					error: function (error, oResponse) {
-						that.busy.close();
+			var endTime = oNotificationViewModel.getProperty("/EndTime");
+			if (!endTime) {
+				endTime = "00:00";
+			}
+			if (oNotifData.Enddate !== "") {
+				var splitDate2 = oNotifData.Enddate.split("T")[0];
+				oNotifData.Enddate = splitDate2 + "T" + endTime + ":00";
+			}
+			oPortalNotifOData.setHeaders({
+				"X-Requested-With": "X"
+			});
+			oPortalNotifOData.create("/NotificationSet", oNotifData, {
+				async: false,
+				success: function (sData, oResponse) {
+					var statusCode = oResponse.statusCode;
+					if (statusCode == 201) {
+						MessageBox.success("Notification Closed Successfully", {
+							actions: [MessageBox.Action.OK],
+							emphasizedAction: MessageBox.Action.OK,
+							onClose: function (sAction) {
+								that.fnFetchDetailNotifList();
+							}
+						});
 					}
-				});
-			
+					that.busy.close();
+					// mLookupModel.setProperty("/SysStatus", "NOCO");
+					// that.getView().byId("idcloseNotif").setVisible(false);
+					// that.getView().byId("updateNotif").setVisible(false);
+					// that.getView().byId("releaseButton").setVisible(false);
+
+				},
+				error: function (error, oResponse) {
+					that.busy.close();
+				}
+			});
 
 		},
 		//Function to get damage code values
@@ -1283,12 +1279,20 @@ sap.ui.define([
 
 		},
 		onPressAttachments: function (oEvent) {
+			// var oIcon = oEvent.getSource().getProperty("src");
 			var mLookupModel = this.mLookupModel;
+			// if (oIcon.includes("grid")) {
 			mLookupModel.setProperty("/selectedTaskTab", "Attachments");
 			mLookupModel.setProperty("/showTaskManagementPanel", true);
 			mLookupModel.setProperty("/showAttachmentPanel", true);
 			mLookupModel.refresh(true);
-			// mLookupModel.setProperty("/taskManagementPanel/showCommentsPanel", false);
+			// oEvent.getSource().setProperty("src", "sap-icon://decline");
+			// oEvent.getSource().setAggregation("tooltip", "Close Attachments");
+			/*} else if (oIcon.includes("decline")) {
+				this.onPressBack();
+				oEvent.getSource().setProperty("src", "sap-icon://grid");
+				oEvent.getSource().setAggregation("tooltip", "Open Attachments");
+			}*/
 		}
 	});
 });

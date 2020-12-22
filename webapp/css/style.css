@@ -2241,7 +2241,7 @@ background-color: #377295;
     height: 6rem !important;
     width: 100% !important;
     padding: 0.5rem !important;
-    /*background: transparent !important;*/
+    background: #ffffff !important;
     box-shadow: none !important;
 }
 
@@ -2302,7 +2302,8 @@ html.sap-desktop .sapMIBar.sapMFooter-CTX {
     height: 100%;
     position: fixed;
     z-index: 40;
-    right: 0;
+    right: 13px;
+    top: 0;
     /*background-color: #f7f7f7;*/
     /*#Theme*/
     overflow: hidden;
@@ -2414,15 +2415,15 @@ html.sap-desktop .sapMIBar.sapMFooter-CTX {
 }
 
 .iopV2SidePanelRightBorder.sapContrast .sapTntNavLIItemSelected .sapTntNavLIGroup {
-    background-color: #c2c2c4
+    background-color: #142e5e;
 }
 
 .iopV2SidePanelRightBorder.sapContrast .sapTntNavLIItem {
-    background-color: #1b3a75
+    background-color: #1b3a75;
 }
 
 .FracIconSize.iopV2SidePanelRightBorder.sapContrast .sapTntNavLIItem>.sapUiIcon {
-    font-size: large !important
+    font-size: large !important;
 }
 
 .iopV2SidePanelTextIconColor>li>div>span {
@@ -2448,7 +2449,7 @@ html.sap-desktop .sapMIBar.sapMFooter-CTX {
 }
 
 .iopV2SidePanelSelected>li>div[aria-selected=true] {
-    /*border-left: 4px solid #142e5e !important;*/
+    border-left: none !important;
     transition: .3s
 }
 
@@ -2480,11 +2481,12 @@ html.sap-desktop .sapMIBar.sapMFooter-CTX {
 }
 
 .murphySideNavHover .sapTntNavLIItemSelected .sapTntNavLIGroup {
-    border-left: 4px solid #000;
+    border-left: 4px solid #142e5e;
+    background-color: #142e5e !important;
 }
 
 .murphyFooterNavList .sapTntNavLIItem {
-    background: #c2c2c4 !important;
+    background: #142e5e !important;
 }
 
 .murphySideNavHover .murphyFooterNavList .sapUiIcon,
@@ -2518,6 +2520,7 @@ html.sap-desktop .sapMIBar.sapMFooter-CTX {
 
 .headerShadow.sapTntToolHeader.sapMTB {
     box-shadow: 1px -1rem 14px 6px #354a5f;
+    border: none !important;
 }
 
 .textColr {
@@ -2543,4 +2546,11 @@ html.sap-desktop .sapMIBar.sapMFooter-CTX {
 
 .tableColHeader .sapUiTableCHdr .sapUiTableColHdrCnt {
     background-color: white !important;
+}
+
+.NavItemSelect.sapContrast .sapTntNavLIItemSelected.sapTntNavLIItem {
+    background-color: #142e5e !important;
+}
+.attachmentsIconSize {
+    font-size: 1.2rem;
 }
