@@ -528,8 +528,8 @@ sap.ui.define([
 			oFilter.push(new Filter("FunctLoc", "EQ", ""));
 			oFilter.push(new Filter("Plant", "EQ", userPlant));
 			oFilter.push(new Filter({
-				filters: [new Filter("EnterDate", "GE", sCreatedOnStart),
-					new Filter("EnterDate", "LE", sCreatedOnEnd)
+				filters: [new Filter("EnterDate", "GE", formatter.fnDatewithTimezoneoffset(sCreatedOnStart)),
+					new Filter("EnterDate", "LE", formatter.fnDatewithTimezoneoffset(sCreatedOnEnd))
 				],
 				and: true
 			}));

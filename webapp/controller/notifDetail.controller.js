@@ -660,7 +660,7 @@ sap.ui.define([
 
 		////Attachments Completed///
 		//Function to update notification to server
-		onUpdateNotification: function () {
+		onUpdateNotification: function (sVal) {
 			var that = this;
 			this.busy.open();
 			var oPortalNotifOData = this.oPortalNotifOData;
@@ -737,6 +737,9 @@ sap.ui.define([
 					}
 					that.fnFormatDateObjects(sData);
 					oNotificationDataModel.setData(sData);
+					if(sVal==="SaveAndClose"){
+						that.onCloseNotif();
+					}
 					that.busy.close();
 				},
 				error: function (error, oResponse) {
@@ -840,6 +843,20 @@ sap.ui.define([
 			});
 
 		},
+		fnSaveandCloseNotif:function(){
+			var oNotificationDataModel = this.oNotificationDataModel;
+		
+			var oNotifData = oNotificationDataModel.getData();
+			var bVal=formatter.fnBreakDownValidation(oNotifData.Breakdown,oNotifData.Enddate);
+			if(bVal){
+				this.onUpdateNotification("SaveAndClose");
+			}
+			else{
+				
+				MessageBox.error("Please enter valid Malfunction Enddate.");
+			}
+		},
+		
 		onCloseNotif: function () {
 			var that = this;
 			this.busy.open();
@@ -848,10 +865,9 @@ sap.ui.define([
 			var oNotificationDataModel = this.oNotificationDataModel;
 			var oNotificationViewModel = this.oNotificationViewModel;
 			var oNotifData = oNotificationDataModel.getData();
-			var bVal=formatter.fnBreakDownValidation(oNotifData.Breakdown,oNotifData.Enddate);
 			
-			if (bVal) {
-
+			
+			
 				var tempLongText = oNotificationViewModel.getProperty("/Longtext");
 				oNotifData.Longtext = tempLongText;
 
@@ -914,10 +930,7 @@ sap.ui.define([
 						that.busy.close();
 					}
 				});
-			}else{
-				this.busy.close();
-				MessageBox.error("Please enter valid Malfunction Enddate.");
-			}
+			
 
 		},
 		//Function to get damage code values

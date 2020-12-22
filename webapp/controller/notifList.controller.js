@@ -313,8 +313,8 @@ sap.ui.define([
 			var oFilter = [];
 			var userPlant = this.oUserDetailModel.getProperty("/userPlant");
 			oFilter.push(new Filter({
-				filters: [new Filter("CreatedOn", "GE", sCreatedOnStart),
-					new Filter("CreatedOn", "LE", sCreatedOnEnd)
+				filters: [new Filter("CreatedOn", "GE", formatter.fnDatewithTimezoneoffset(sCreatedOnStart)),
+					new Filter("CreatedOn", "LE", formatter.fnDatewithTimezoneoffset(sCreatedOnEnd))
 				],
 				and: true
 			}));
