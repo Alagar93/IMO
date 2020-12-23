@@ -1155,6 +1155,10 @@ sap.ui.define([
 			mLookupModel.setProperty("/sNotifWkCenterFilter", "");
 			mLookupModel.setProperty("/sCreatedOnStart", formatter.GetMonthsBackDate(3));
 			mLookupModel.setProperty("/sCreatedOnEnd", new Date().toLocaleDateString());
+		},
+		notifAdvFilterPanelOpen: function(oEvent){
+			var oNotifWrapPanel = this.byId("filterWrapPanelNotifList");
+			oNotifWrapPanel.setExpanded(!oNotifWrapPanel.getExpanded());
 		}
 	});
 });

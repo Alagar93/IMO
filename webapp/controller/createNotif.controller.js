@@ -908,6 +908,17 @@ sap.ui.define([
 			var y = sDate.getFullYear();
 			var someFormattedDate = y + '/' + mm + '/' + dd;
 			return someFormattedDate;
+		},
+		onPressBackCreateNotif: function () {
+			var mLookupModel = this.mLookupModel;
+			mLookupModel.setProperty("/showTaskManagementPanelCreateNotif", false);
+			mLookupModel.setProperty("/showAttachmentPanelCreateNotif", false);
+
+		},
+		onPressAttachmentsCreateNotif: function (oEvent) {
+			var mLookupModel = this.mLookupModel;
+			mLookupModel.setProperty("/showTaskManagementPanelCreateNotif", true);
+			mLookupModel.setProperty("/showAttachmentPanelCreateNotif", true);
 		}
 
 	});

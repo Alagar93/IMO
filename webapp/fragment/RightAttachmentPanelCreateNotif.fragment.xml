@@ -1,0 +1,9 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:f="sap.f"
+	xmlns:cust="com.sap.incture.IMO_PM.util" xmlns:mic="sap.suite.ui.microchart">
+	<VBox height="100%"
+		visible="{= ${mLookupModel>/showTaskManagementPanelCreateNotif} === true &amp;&amp; ${mLookupModel>/showAttachmentPanelCreateNotif} === true }">
+		<VBox height="100%" class="iopwbBoxStyle">
+			<core:Fragment fragmentName="com.sap.incture.IMO_PM.fragment.commentTimelineDetailCreateNotif" type="XML"/>
+		</VBox>
+	</VBox>
+</core:FragmentDefinition>

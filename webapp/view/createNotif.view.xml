@@ -3,9 +3,14 @@
 	xmlns:l="sap.ui.layout" xmlns:table="sap.ui.table" xmlns:tnt="sap.tnt">
 	<Page showHeader="true" class="sapUiSizeCompact sapMPageBackground" floatingFooter="false" title="{}">
 		<tnt:ToolHeader class="headerBG headerShadow">
-				<Label design="Bold" text="{i18n>tile_crNotif}" wrapping="true" class="sapUiSmallMarginBegin textColr"/>
+			<Label design="Bold" text="{i18n>tile_crNotif}" wrapping="true" class="sapUiSmallMarginBegin textColr"/>
+			<ToolbarSpacer/>
+			<core:Icon src="sap-icon://grid" tooltip="Open Attachments" press="onPressAttachmentsCreateNotif" color="#142e5e" class="attachmentsIconSize"/>
 		</tnt:ToolHeader>
 		<content>
+			<VBox height="{mLookupModel>/notificationPanelHeight}" class="iopRightPanelContainer" width="{= ${mLookupModel>/showTaskManagementPanelCreateNotif} === true ? '20rem' : '0' }">
+				<core:Fragment fragmentName="com.sap.incture.IMO_PM.fragment.RightAttachmentPanelCreateNotif" type="XML" id="idRightAttachmentPanelCreateNotif"></core:Fragment>
+			</VBox>
 			<l:Grid defaultSpan="XL3 L3 M6 S12" class="sapUiSmallMargin gridBG" vSpacing="0">
 				<OverflowToolbar class="createNotifOverflowBorder">
 					<Label design="Bold" text="{i18n>SUBJECT}" wrapping="true"/>
@@ -24,16 +29,18 @@
 				</VBox>
 				<VBox class="gridPadding">
 					<Label text="{i18n>reference_Notif}"/>
-					<Input class="inputRadius" value="{mLookupModel>/sRefnotif}" width="90%" valueLiveUpdate="true" showValueHelp="true" showSuggestion="true" enabled="true"
-						valueHelpRequest="refNotifValueHelp" valueHelpOnly="false"></Input>
+					<Input class="inputRadius" value="{mLookupModel>/sRefnotif}" width="90%" valueLiveUpdate="true" showValueHelp="true" showSuggestion="true"
+						enabled="true" valueHelpRequest="refNotifValueHelp" valueHelpOnly="false"></Input>
 				</VBox>
 				<VBox class="gridPadding">
 					<Label text="{i18n>DESCRIPTION}" required="true"></Label>
-					<Input class="inputRadius" value="{oNotificationDataModel>/ShortText}" width="90%" tooltip="{oNotificationDataModel>/ShortText}" maxLength="40"></Input>
+					<Input class="inputRadius" value="{oNotificationDataModel>/ShortText}" width="90%" tooltip="{oNotificationDataModel>/ShortText}"
+						maxLength="40"></Input>
 				</VBox>
 				<VBox class="gridPadding">
 					<Label text="{i18n>LONG_TEXT}"/>
-					<TextArea class="inputRadius" width="90%" value="{oNotificationDataModel>/Longtext}" tooltip="{oNotificationDataModel>/Longtext}" rows="4" maxLength="2000"/>
+					<TextArea class="inputRadius" width="90%" value="{oNotificationDataModel>/Longtext}" tooltip="{oNotificationDataModel>/Longtext}" rows="4"
+						maxLength="2000"/>
 				</VBox>
 				<OverflowToolbar class="createNotifOverflowBorder">
 					<Label text="{i18n>REFERENCE_OBJECT}" design="Bold" class="sapUiTinyMarginBottom"></Label>
@@ -48,8 +55,8 @@
 				</VBox>
 				<VBox class="gridPadding">
 					<Label text="{i18n>EQUIPMENT}" required="false"></Label>
-					<Input class="inputRadius" width="90%" showValueHelp="true" value="{oNotificationDataModel>/Equipment}" valueHelpRequest="openEquipmentListValueHelp"
-						tooltip="{oNotificationDataModel>/Equipment}" maxLength="18"></Input>
+					<Input class="inputRadius" width="90%" showValueHelp="true" value="{oNotificationDataModel>/Equipment}"
+						valueHelpRequest="openEquipmentListValueHelp" tooltip="{oNotificationDataModel>/Equipment}" maxLength="18"></Input>
 				</VBox>
 				<VBox class="gridPadding">
 					<Label text="{i18n>SUB_ASSEMBLY}"></Label>
@@ -87,8 +94,8 @@
 				</VBox>
 				<VBox class="gridPadding">
 					<Label text="{i18n>notif_PlanningPlant}" required="true"></Label>
-					<Select class="selectRadius" forceSelection="false" width="90%" selectedKey="{oNotificationDataModel>/PlanPlant}"
-						showSecondaryValues="true" enabled="true">
+					<Select class="selectRadius" forceSelection="false" width="90%" selectedKey="{oNotificationDataModel>/PlanPlant}" showSecondaryValues="true"
+						enabled="true">
 						<core:ListItem key="4321" text="4321"/>
 					</Select>
 				</VBox>
@@ -113,8 +120,8 @@
 				</VBox>
 				<VBox class="gridPadding">
 					<Label text="{i18n>REQ_START_DATE}"></Label>
-					<DatePicker class="inputRadius" placeholder="dd-MM-yyyy" dateValue="{oNotificationDataModel>/ReqStartdate}" width="90%" displayFormat="dd-MM-yyyy"
-						enabled="true" change="fnValidateDates">
+					<DatePicker class="inputRadius" placeholder="dd-MM-yyyy" dateValue="{oNotificationDataModel>/ReqStartdate}" width="90%"
+						displayFormat="dd-MM-yyyy" enabled="true" change="fnValidateDates">
 						<customData>
 							<core:CustomData key="dateType" value="ReqStartdate"/>
 						</customData>
@@ -122,8 +129,8 @@
 				</VBox>
 				<VBox class="gridPadding">
 					<Label text="{i18n>REQ_END_DATE}"></Label>
-					<DatePicker class="inputRadius" placeholder="dd-MM-yyyy" dateValue="{oNotificationDataModel>/ReqEnddate}" width="90%" displayFormat="dd-MM-yyyy" enabled="true"
-						change="fnValidateDates">
+					<DatePicker class="inputRadius" placeholder="dd-MM-yyyy" dateValue="{oNotificationDataModel>/ReqEnddate}" width="90%"
+						displayFormat="dd-MM-yyyy" enabled="true" change="fnValidateDates">
 						<customData>
 							<core:CustomData key="dateType" value="ReqEnddate"/>
 						</customData>
@@ -142,14 +149,14 @@
 				</VBox>
 				<VBox class="gridPadding">
 					<Label text="{i18n>BREAK_DOWN_HRS}"></Label>
-					<Input class="inputRadius" value="{oNotificationDataModel>/BreakdownDur}" width="90%" tooltip="{oNotificationDataModel>/BreakdownDur}" maxLength="7"
-						enabled="false"></Input>
+					<Input class="inputRadius" value="{oNotificationDataModel>/BreakdownDur}" width="90%" tooltip="{oNotificationDataModel>/BreakdownDur}"
+						maxLength="7" enabled="false"></Input>
 				</VBox>
 				<VBox class="gridPadding"
 					visible="{path:'oNotificationDataModel>/Breakdown', formatter:'com.sap.incture.IMO_PM.formatter.formatter.formatBooleanBreakDown'}">
 					<Label text="{i18n>MALFUN_START_DATE}"></Label>
-					<DatePicker class="inputRadius" placeholder="dd-MM-yyyy" dateValue="{oNotificationDataModel>/Startdate}" width="90%" displayFormat="dd-MM-yyyy"
-						change="fnValidateMalFunDates">
+					<DatePicker class="inputRadius" placeholder="dd-MM-yyyy" dateValue="{oNotificationDataModel>/Startdate}" width="90%"
+						displayFormat="dd-MM-yyyy" change="fnValidateMalFunDates">
 						<customData>
 							<core:CustomData key="dateType" value="Startdate"/>
 						</customData>
@@ -158,8 +165,8 @@
 				<VBox class="gridPadding"
 					visible="{path:'oNotificationDataModel>/Breakdown', formatter:'com.sap.incture.IMO_PM.formatter.formatter.formatBooleanBreakDown'}">
 					<Label text="{i18n>MALFUN_END_DATE}"></Label>
-					<DatePicker class="inputRadius" placeholder="dd-MM-yyyy" dateValue="{oNotificationDataModel>/Enddate}" width="90%" displayFormat="dd-MM-yyyy"
-						change="fnValidateMalFunDates">
+					<DatePicker class="inputRadius" placeholder="dd-MM-yyyy" dateValue="{oNotificationDataModel>/Enddate}" width="90%"
+						displayFormat="dd-MM-yyyy" change="fnValidateMalFunDates">
 						<customData>
 							<core:CustomData key="dateType" value="Enddate"/>
 						</customData>
@@ -168,8 +175,8 @@
 				<VBox class="gridPadding"
 					visible="{path:'oNotificationDataModel>/Breakdown', formatter:'com.sap.incture.IMO_PM.formatter.formatter.formatBooleanBreakDown'}">
 					<Label text="{i18n>MALFUN_START_TIME}"></Label>
-					<TimePicker class="inputRadius" value="{oNotificationViewModel>/StartTime}" width="90%" valueFormat="HH:mm" displayFormat="HH:mm" placeholder="HH:mm"
-						change="fnValidateMalFunDates">
+					<TimePicker class="inputRadius" value="{oNotificationViewModel>/StartTime}" width="90%" valueFormat="HH:mm" displayFormat="HH:mm"
+						placeholder="HH:mm" change="fnValidateMalFunDates">
 						<customData>
 							<core:CustomData key="dateType" value="StartTime"/>
 						</customData>
@@ -178,8 +185,8 @@
 				<VBox class="gridPadding"
 					visible="{path:'oNotificationDataModel>/Breakdown', formatter:'com.sap.incture.IMO_PM.formatter.formatter.formatBooleanBreakDown'}">
 					<Label text="{i18n>MALFUN_END_TIME}"></Label>
-					<TimePicker class="inputRadius" value="{oNotificationViewModel>/EndTime}" width="90%" valueFormat="HH:mm" displayFormat="HH:mm" placeholder="HH:mm"
-						change="fnValidateMalFunDates">
+					<TimePicker class="inputRadius" value="{oNotificationViewModel>/EndTime}" width="90%" valueFormat="HH:mm" displayFormat="HH:mm"
+						placeholder="HH:mm" change="fnValidateMalFunDates">
 						<customData>
 							<core:CustomData key="dateType" value="EndTime"/>
 						</customData>

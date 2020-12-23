@@ -2556,3 +2556,17 @@ html.sap-desktop .sapMIBar.sapMFooter-CTX {
 .attachmentsIconSize {
     font-size: 1.2rem;
 }
+.filterWrapperPanel header {
+    display: none!important;
+}
+
+.filterWrapperPanel {
+    /*#Theme*/
+    min-height: 0!important;
+}
+.filterWrapperPanel .sapMPanelContent {
+    padding: 0!important;
+    height: auto;
+    max-height: 15rem;
+    overflow: hidden
+}
