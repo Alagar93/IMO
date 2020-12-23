@@ -54,7 +54,7 @@
 		<FlexBox alignItems="End" justifyContent="End">
 			<Button text="Clear" press="onClearNotifFilter" class="sapUiSmallMarginEnd"/>
 			<Button text="{i18n>save}" press="onSaveNotifFilter" class="sapUiSmallMarginEnd"/>
-			<Button text="Apply" press="onApplyFilterNotif" class="sapUiSmallMargin" type="Emphasized"/>
+			<Button text="Apply" press="onApplyFilterNotif" class="sapUiTinyMarginEnd" type="Emphasized"/>
 		</FlexBox>
 	</VBox>
 	<!--</content>-->
