@@ -31,7 +31,7 @@
 			</l:Grid>
 			<FlexBox alignItems="Start" justifyContent="End">
 				<Button width="4rem" text="Clear" press="onClearNotifFilter" type="Transparent"/>
-				<Button width="4rem" text="{i18n>save}"  press="onSaveNotifFilter" class="sapUiSmallMarginEnd sapUiSmallMarginBottom sapUiSmallMarginBottomtableHeadertansparentBtn"/>
+				<Button width="4rem" text="{i18n>save}"  press="onSaveNotifFilter" class="sapUiSmallMarginEnd sapUiSmallMarginBottom tableHeadertansparentBtn"/>
 				<Button width="4rem" text="{i18n>done}" press="onApplyFilterNotif" type="Emphasized" class="sapUiSmallMarginEnd sapUiSmallMarginBottom"/>
 			</FlexBox>
 		<!--</content>
