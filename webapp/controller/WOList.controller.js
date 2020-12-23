@@ -66,7 +66,7 @@ sap.ui.define([
 				}, {
 					"id": "TECO"
 				}],
-				"iSelectedIndices": 0,
+				"iSelectedWOIndices": 0,
 				"sWorkCenterSel": "",
 				"sCreatedOnStart": formatter.GetMonthsBackDate(3), // Date Range for Enter Date
 				"sCreatedOnEnd": new Date().toLocaleDateString()
@@ -338,7 +338,7 @@ sap.ui.define([
 					that.fnGetKPICounts(oKPITilesCount);
 					mLookupModel.setProperty("/bBusyworkcenter", false);
 					mLookupModel.refresh();
-					that.getView().getContent()[0].getContent()[0].getFlexContent().rerender();
+					// that.getView().getContent()[0].getContent()[0].getFlexContent().rerender();
 				},
 				error: function (oData) {
 					mLookupModel.setProperty("/bBusyworkcenter", false);
@@ -353,7 +353,7 @@ sap.ui.define([
 			var rowContext = oEvent.getParameters().rowContext;
 			if (!rowContext) {
 				mLookupModel.setProperty("/selectedWOs", []);
-				mLookupModel.setProperty("/iSelectedIndices", []);
+				mLookupModel.setProperty("/iSelectedWOIndices", []);
 				mLookupModel.refresh(true);
 				return;
 			}
@@ -372,7 +372,7 @@ sap.ui.define([
 				selectedWOs.push(oTempObj);
 			}
 			mLookupModel.setProperty("/selectedWOs", selectedWOs);
-			mLookupModel.setProperty("/iSelectedIndices", selectedWOs.length);
+			mLookupModel.setProperty("/iSelectedWOIndices", selectedWOs.length);
 			mLookupModel.refresh(true);
 		},
 
@@ -388,20 +388,21 @@ sap.ui.define([
 		},
 
 		onNavigatetoDetail: function (oEvent) {
-			var sURL;
-			var sHost = window.location.origin;
 			var mLookupModel = this.mLookupModel;
 			var selectedWOs = mLookupModel.getProperty("/selectedWOs");
+			var woNo = mLookupModel.getProperty(selectedWOs[0].sPath + "/Orderid");
+			this._router.navTo("detailTabWO", {workOrderID: woNo});
+			/*var sURL;
+			var sHost = window.location.origin;
 			var sBSPPath = "/sap/bc/ui5_ui5/sap/ZMYL_WOCREATE/index.html#/detailTabWO/";
 			for (var i = 0; i < selectedWOs.length; i++) {
 				var selWOOrderId = mLookupModel.getProperty(selectedWOs[i].sPath + "/Orderid");
-				// sURL = sHost + sBSPPath + selWOOrderId;
 				sURL = "https://lnvybdvpasstbo1j-imo-imo-pm.cfapps.eu10.hana.ondemand.com/IMO_PM/index.html#/detailTabWO/" + selWOOrderId;
 				sap.m.URLHelper.redirect(sURL, true);
 			}
 			this.getView().byId("idWorkOrderList").clearSelection();
 			mLookupModel.setProperty("/selectedWOs", []);
-			mLookupModel.refresh();
+			mLookupModel.refresh();*/
 		},
 		handleLinkPress: function (oEvent) {
 			//var sURL;
@@ -599,7 +600,7 @@ sap.ui.define([
 			if (nDuration <= 90) {
 				mLookupModel.setProperty("/sWorderIdDesFilter", "");
 				mLookupModel.setProperty("/selectedWOs", []);
-				mLookupModel.setProperty("/iSelectedIndices", 0);
+				mLookupModel.setProperty("/iSelectedWOIndices", 0);
 				this.getView().byId("idWorkOrderList").clearSelection();
 				mLookupModel.refresh();
 				this.fnFetchWOList();
@@ -927,7 +928,7 @@ sap.ui.define([
 			this.getView().byId("idWorkOrderList").clearSelection();
 			var mLookupModel = this.mLookupModel;
 			mLookupModel.setProperty("/selectedWOs", []);
-			mLookupModel.setProperty("/iSelectedIndices", 0);
+			mLookupModel.setProperty("/iSelectedWOIndices", 0);
 			var iSkip = mLookupModel.getProperty("/iSkip") + 50;
 			mLookupModel.setProperty("/iSkip", iSkip);
 			mLookupModel.refresh(true);
@@ -937,7 +938,7 @@ sap.ui.define([
 		onSearchWO: function (oEvent) {
 			var mLookupModel = this.mLookupModel;
 			mLookupModel.setProperty("/selectedWOs", []);
-			mLookupModel.setProperty("/iSelectedIndices", 0);
+			mLookupModel.setProperty("/iSelectedWOIndices", 0);
 			this.getView().byId("idWorkOrderList").clearSelection();
 			mLookupModel.setProperty("/iSkip", 0);
 			mLookupModel.setProperty("/aWorkOrderListSet", []);
@@ -957,6 +958,10 @@ sap.ui.define([
 			mLookupModel.setProperty("/sWorkCenterFilter", "");
 			mLookupModel.setProperty("/sCreatedOnStart", formatter.GetMonthsBackDate(3)); // Date Range for Enter Date
 			mLookupModel.setProperty("/sCreatedOnEnd", new Date().toLocaleDateString());
+		},
+		woListAdvFilterPanelOpen: function(oEvent){
+			var oNotifWrapPanel = this.byId("filterWrapPanelWOList");
+			oNotifWrapPanel.setExpanded(!oNotifWrapPanel.getExpanded());
 		}
 	});
 });

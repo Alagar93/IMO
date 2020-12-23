@@ -6,7 +6,7 @@
 			<Label design="Bold" class="sapUiSmallMarginBegin textColr" text="{i18n>tile_cr/ed_wo}" wrapping="true"/>
 		</tnt:ToolHeader>
 		<content>
-			<Toolbar class="createEditToolbar">
+			<!--<Toolbar class="createEditToolbar">
 				<RadioButtonGroup columns="3" selectedIndex="{mLookupModel>/iSelectedIndex}" select="onCreateOptionChange" class="sapUiSmallMargin"
 					width="60%">
 					<buttons>
@@ -15,293 +15,318 @@
 						<RadioButton text="{i18n>createbyNotif}" class="myClass"/>
 					</buttons>
 				</RadioButtonGroup>
+			</Toolbar>-->
+			<Toolbar class="sapUiTinyMarginTop">
+				<ToolbarSpacer/>
+				<Button width="5rem" type="Emphasized" text="{i18n>create}" press="onCreateWO" visible="{= ${mLookupModel>/iSelectedIndex} === 0 ? false : true}"/>
+				<Button width="5rem" type="Emphasized" text="{i18n>NEXT}" press="onCreateViewWorkOrder" visible="{= ${mLookupModel>/iSelectedIndex} === 0 ? true : false}"/>
 			</Toolbar>
-			<Panel visible="{= ${mLookupModel>/iSelectedIndex} === 0 ? true : false}" width="auto" class="sapUiSmallMargin panelBackgroundClass">
-				<headerToolbar>
-					<Toolbar height="3rem" class="toolbarBorder">
-						<Title text="{i18n>CREATE_WO}" class="styleTitle"/>
-					</Toolbar>
-				</headerToolbar>
-				<content>
-					<l:Grid defaultSpan="L3 M6 S6">
-						<VBox>
-							<Label text="{i18n>oType}" required="true"/>
-							<ComboBox showSecondaryValues="true" items="{path:'mLookupModel>/aOrderTypeSet',sorter:{ path: 'text' }}"
-								selectedKey="{mLookupModel>/sOrderTypeSel}" class="inputRadius" width="90%">
-								<core:ListItem key="{mLookupModel>AUART}" additionalText="{mLookupModel>TXT}" text="{mLookupModel>AUART}"/>
-								<customData>
-									<core:CustomData value="WO_CREATE_ORDER_TYPE"/>
-								</customData>
-							</ComboBox>
-						</VBox>
-						<VBox>
-							<Label text="{i18n>equip}" required="true"/>
-							<Input width="90%" showValueHelp="true" value="{mLookupModel>/sEquip}" valueHelpOnly="true" valueHelpRequest="equipmentValueHelp"
-								class="inputRadius"></Input>
-						</VBox>
-						<VBox>
-							<Label text="{i18n>FunLocation}" required="true"/>
-							<Input width="90%" editable="true" showValueHelp="true" value="{mLookupModel>/sFunLoc}" valueHelpOnly="true"
-								valueHelpRequest="fnLocValueHelp" class="inputRadius"></Input>
-							<!--<Input width="70%" editable="false" value="{mLookupModel>/sFunLoc}" class="inputRadius"></Input>-->
-						</VBox>
-						<VBox>
-							<Label text="{i18n>prior}" required="true"/>
-							<ComboBox items="{ path: 'mLookupModel>/aPrioritySet', sorter: { path: 'text' } }" selectedKey="{mLookupModel>/sPrior}"
-								class="inputRadius" width="90%">
-								<core:Item key="{mLookupModel>PRIOK}" text="{mLookupModel>PRIOKX}"/>
-							</ComboBox>
-						</VBox>
-					</l:Grid>
-				</content>
-			</Panel>
-			<Panel visible="{= ${mLookupModel>/iSelectedIndex} === 0 ? true : false}" width="auto" class="sapUiSmallMargin panelBackgroundClass">
-				<headerToolbar>
-					<Toolbar height="3rem" class="toolbarBorder">
-						<Title text="{i18n>editWO}" class="styleTitle"/>
-					</Toolbar>
-				</headerToolbar>
-				<content>
-					<l:Grid defaultSpan="L3 M6 S6">
-						<VBox>
-							<Label text="{i18n>orderNum}"/>
-							<Input value="{mLookupModel>/editOrderId}" class="inputRadius" width="90%"></Input>
-						</VBox>
-					</l:Grid>
-				</content>
-			</Panel>
-			<table:Table class="sapUiSmallMargin" id="idSearchWOTable" selectionMode="None"
-				visible="{= ${mLookupModel>/iSelectedIndex} === 1 ? true : false}" rows="{mLookupModel>/aWorkOrderListSet}"
-				visibleRowCount="{mLookupModel>/rowCount}" rowHeight="40">
-				<table:extension>
-					<Toolbar class="tableHeaderBG" height="3rem">
-						<content>
-							<Title text="{i18n>WOList}" class="styleTableTitle"/>
-							<ToolbarSpacer/>
-							<Link text="{i18n>advFilter}" press="onHandleAdvFilterWO"/>
-							<SearchField width="25%" value="{mLookupModel>/sWorderIdDesFilter}" search="onSearchWO" placeholder="{i18n>searchbyWorkOrderIdDes}"
-								class="sapSearchFieldBorderClass"/>
-						</content>
-					</Toolbar>
-				</table:extension>
-				<table:columns>
-					<table:Column width="2%">
-						<table:template><RadioButton app:workOrder="{mLookupModel>Orderid}" select="onSelectWordOrder" selected="{mLookupModel>radio}"/></table:template>
-					</table:Column>
-					<table:Column width="6%" sortProperty="Orderid" filterProperty="Orderid" defaultFilterOperator="Contains">
-						<Text wrapping="true" text="{i18n>WONum}" class="tableHeaderText"/>
-						<table:template>
-							<Text text="{mLookupModel>Orderid}" class="tableContentText"></Text>
-						</table:template>
-					</table:Column>
-					<table:Column width="7%" sortProperty="WoDes" filterProperty="WoDes">
-						<Text wrapping="true" text="{i18n>WODes}" class="tableHeaderText"/>
-						<table:template>
-							<Text text="{mLookupModel>WoDes}" class="tableContentText"></Text>
-						</table:template>
-					</table:Column>
-					<table:Column width="7.7%" sortProperty="MnWkCtr" filterProperty="MnWkCtr">
-						<Text wrapping="true" text="{i18n>mainWC}" class="tableHeaderText"/>
-						<table:template>
-							<Text text="{mLookupModel>MnWkCtr}" class="tableContentText"></Text>
-						</table:template>
-					</table:Column>
-					<table:Column sortProperty="OrderType" width="4%" filterProperty="OrderType">
-						<Text wrapping="true" text="{i18n>WOtype}" class="tableHeaderText"/>
-						<table:template>
-							<Text text="{mLookupModel>OrderType}" class="tableContentText"></Text>
-						</table:template>
-					</table:Column>
-					<table:Column sortProperty="Equipment" width="7%" filterProperty="Equipment">
-						<Text wrapping="true" text="{i18n>equip}" class="tableHeaderText"/>
-						<table:template>
-							<Text text="{mLookupModel>Equipment}" class="tableContentText"></Text>
-						</table:template>
-					</table:Column>
-					<table:Column sortProperty="TechId" width="5.8%" filterProperty="TechId">
-						<Text wrapping="true" text="{i18n>techID}" class="tableHeaderText"/>
-						<table:template>
-							<Text text="{mLookupModel>TechId}" class="tableContentText"></Text>
-						</table:template>
-					</table:Column>
-					<table:Column sortProperty="EquipDes" width="8.5%" filterProperty="EquipDes">
-						<Text wrapping="true" text="{i18n>EqDes}" class="tableHeaderText"/>
-						<table:template>
-							<Text text="{mLookupModel>EquipDes}" class="tableContentText"></Text>
-						</table:template>
-					</table:Column>
-					<table:Column width="6.7%" sortProperty="Technicianname" filterProperty="Technicianname">
-						<Text wrapping="true" text="{i18n>assignedTech}" class="tableHeaderText"/>
-						<table:template>
-							<Text text="{mLookupModel>Technicianname}" class="tableContentText"></Text>
-						</table:template>
-					</table:Column>
-					<table:Column sortProperty="SysStatusDes" width="5%" filterProperty="SysStatusDes">
-						<Text wrapping="true" text="{i18n>stat}" class="tableHeaderText"/>
-						<table:template>
-							<Text text="{path:'mLookupModel>SysStatusDes'}" class="tableContentText"></Text>
-						</table:template>
-					</table:Column>
-					<table:Column width="6.7%" sortProperty="StartDateString" filterProperty="StartDateString">
-						<Text wrapping="true" text="{i18n>SDate}" class="tableHeaderText"/>
-						<table:template>
-							<Text text="{path:'mLookupModel>StartDateString'}" class="tableContentText"></Text>
-						</table:template>
-					</table:Column>
-					<table:Column width="6.9%" sortProperty="FinishDateString" filterProperty="FinishDateString">
-						<Text wrapping="true" text="{i18n>EDate}" class="tableHeaderText"/>
-						<table:template>
-							<Text text="{path:'mLookupModel>FinishDateString'}" class="tableContentText"></Text>
-						</table:template>
-					</table:Column>
-					<table:Column sortProperty="Bdflag" width="7.8%" filterProperty="Bdflag">
-						<Text wrapping="true" text="{i18n>BdownFlag}" class="tableHeaderText"/>
-						<table:template>
-							<Text text="{mLookupModel>Bdflag}" class="tableContentText"></Text>
-						</table:template>
-					</table:Column>
-					<table:Column sortProperty="EnterDateString" width="6.8%" filterProperty="EnterDateString">
-						<Text wrapping="true" text="{i18n>createdDate}" class="tableHeaderText"/>
-						<table:template>
-							<Text text="{path:'mLookupModel>EnterDateString'}" class="tableContentText"></Text>
-						</table:template>
-					</table:Column>
-					<table:Column sortProperty="Plan" width="6%" filterProperty="Plan">
-						<Text wrapping="true" text="{i18n>maint_plan}" class="tableHeaderText"/>
-						<table:template>
-							<Text text="{path:'mLookupModel>Plan'}" class="tableContentText"></Text>
-						</table:template>
-					</table:Column>
-					<table:Column sortProperty="Package" width="6.8%" filterProperty="Package">
-						<Text wrapping="true" text="{i18n>package}" class="tableHeaderText"/>
-						<table:template>
-							<Text text="{path:'mLookupModel>Package'}" class="tableContentText"></Text>
-						</table:template>
-					</table:Column>
-					<table:Column sortProperty="EnteredByName" width="7%" filterProperty="EnteredByName">
-						<Text wrapping="true" text="{i18n>createdby}" class="tableHeaderText"/>
-						<table:template>
-							<Text text="{mLookupModel>EnteredByName}" class="tableContentText"></Text>
-						</table:template>
-					</table:Column>
-				</table:columns>
-				<table:footer>
-					<Toolbar>
-						<ToolbarSpacer/>
-						<Button text="{i18n>loadmore}" press="handleLoadMoreRecords"></Button>
-						<Text text="{i18n>totrec}"></Text>
-						<Input width="5rem" value="{mLookupModel>/aWorkOrderListSet/0/Totalrecords}" enabled="false"></Input>
-					</Toolbar>
-				</table:footer>
-			</table:Table>
-			<table:Table class="sapUiSmallMargin" selectionMode="MultiToggle" enableSelectAll="false" id="notifListId"
-				visible="{= ${mLookupModel>/iSelectedIndex} === 2 ? true : false}" rowSelectionChange="onSelectionChange"
-				rows="{mLookupModel>/aNotificationListSet}" visibleRowCount="{mLookupModel>/rowCount}" rowHeight="40">
-				<table:extension>
-					<Toolbar class="tableHeaderBG" height="3rem">
-						<content>
-							<Title text="{i18n>notifList}" class="styleTableTitle"/>
-							<ToolbarSpacer/>
-							<Link text="{i18n>advFilter}" press="onHandleNotifAdvFilter"/>
-							<SearchField width="25%" search="onSearchNotif" value="{mLookupModel>/sNotifIDDesFilter}" placeholder="{i18n>searchNotif}"
-								class="sapSearchFieldBorderClass"/>
-						</content>
-					</Toolbar>
-				</table:extension>
-				<table:columns>
-					<table:Column sortProperty="NotifNo" filterProperty="NotifNo" width="6%">
-						<Text wrapping="true" text="{i18n>notifID}" class="tableHeaderText"/>
-						<table:template>
-							<Text text="{mLookupModel>NotifNo}" class="tableContentText"></Text>
-						</table:template>
-					</table:Column>
-					<table:Column sortProperty="ShortText" filterProperty="ShortText" width="9%">
-						<Text wrapping="true" text="{i18n>notifDes}" class="tableHeaderText"/>
-						<table:template>
-							<Text text="{mLookupModel>ShortText}" class="tableContentText"></Text>
-						</table:template>
-					</table:Column>
-					<table:Column sortProperty="WorkCntr" filterProperty="WorkCntr" width="5.7%">
-						<Text wrapping="true" text="{i18n>mainWC}" class="tableHeaderText"/>
-						<table:template>
-							<Text text="{mLookupModel>WorkCntr}" class="tableContentText"></Text>
-						</table:template>
-					</table:Column>
-					<table:Column sortProperty="Orderid" filterProperty="Orderid" width="5%">
-						<Text wrapping="true" text="{i18n>WONum}" class="tableHeaderText"/>
-						<table:template>
-							<Text text="{mLookupModel>Orderid}" class="tableContentText"></Text>
-						</table:template>
-					</table:Column>
-					<table:Column sortProperty="Equipment" filterProperty="Equipment" width="6%">
-						<Text wrapping="true" text="{i18n>equip}" class="tableHeaderText"/>
-						<table:template>
-							<Text text="{mLookupModel>Equipment}" class="tableContentText"></Text>
-						</table:template>
-					</table:Column>
-					<table:Column sortProperty="TechId" filterProperty="TechId" width="5.8%">
-						<Text wrapping="true" text="{i18n>techID}" class="tableHeaderText"/>
-						<table:template>
-							<Text text="{mLookupModel>TechId}" class="tableContentText"></Text>
-						</table:template>
-					</table:Column>
-					<table:Column sortProperty="Equidescr" filterProperty="Equidescr" width="9%">
-						<Text wrapping="true" text="{i18n>EqDes}" class="tableHeaderText"/>
-						<table:template>
-							<Text text="{mLookupModel>Equidescr}" class="tableContentText"></Text>
-						</table:template>
-					</table:Column>
-					<table:Column sortProperty="SysStatus" filterProperty="SysStatus" width="6.8%">
-						<Text wrapping="true" text="{i18n>notifStatus}" class="tableHeaderText"/>
-						<table:template>
-							<Text text="{mLookupModel>SysStatus}" class="tableContentText"></Text>
-						</table:template>
-					</table:Column>
-					<table:Column sortProperty="ReqstartdateString" filterProperty="ReqstartdateString" width="6.7%">
-						<Text wrapping="true" text="{i18n>reqStart}" class="tableHeaderText"/>
-						<table:template>
-							<Text text="{path:'mLookupModel>ReqstartdateString'}" class="tableContentText"></Text>
-						</table:template>
-					</table:Column>
-					<table:Column sortProperty="ReqenddateString" filterProperty="ReqenddateString" width="6.9%">
-						<Text wrapping="true" text="{i18n>reqFinish}" class="tableHeaderText"/>
-						<table:template>
-							<!--<Text text="{path:'mLookupModel>Reqenddate',formatter:'com.mylan.createWorkOrder.formatter.formatter.fnDateSeperator'}"-->
-							<!--	class="tableContentText"></Text>-->
-							<Text text="{path:'mLookupModel>ReqenddateString'}" class="tableContentText"></Text>
-						</table:template>
-					</table:Column>
-					<table:Column sortProperty="Bdflag" filterProperty="Bdflag" width="6.5%">
-						<Text wrapping="true" text="{i18n>BdownFlag}" class="tableHeaderText"/>
-						<table:template>
-							<Text text="{mLookupModel>Bdflag}" class="tableContentText"></Text>
-						</table:template>
-					</table:Column>
-					<table:Column sortProperty="PriorityDesNotif" width="5%" filterProperty="PriorityDesNotif">
-						<Text wrapping="true" text="{i18n>prior}" class="tableHeaderText"/>
-						<table:template>
-							<Text text="{path:'mLookupModel>PriorityDesNotif',formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnPriorityConversion'}"
-								class="tableContentText"></Text>
-						</table:template>
-					</table:Column>
-					<table:Column sortProperty="CreatedOnString" filterProperty="CreatedOnString" width="6.8%">
-						<Text wrapping="true" text="{i18n>createdDate}" class="tableHeaderText"/>
-						<table:template>
-							<Text text="{path:'mLookupModel>CreatedOnString'}" class="tableContentText"></Text>
-						</table:template>
-					</table:Column>
-				</table:columns>
-				<table:footer>
-					<Toolbar>
-						<ToolbarSpacer/>
-						<Button text="{i18n>loadmore}" press="handleLoadMoreNotif"></Button>
-						<Text text="{i18n>totrec}"></Text>
-						<Input width="5rem" value="{mLookupModel>/aNotificationListSet/0/Totalrecords}" enabled="false"></Input>
-					</Toolbar>
-				</table:footer>
-			</table:Table>
+			<IconTabBar class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom iconTabHeader" select="onCreateWOIconTabSelect">
+				<items>
+					<IconTabFilter text="Create Work Order" key="createWO">
+						<Panel visible="{= ${mLookupModel>/iSelectedIndex} === 0 ? true : false}" width="auto"
+							class="filterWrapperPanel sapUiTinyMargin panelBackgroundClass">
+							<content>
+								<l:Grid defaultSpan="L3 M6 S6">
+									<VBox>
+										<Label text="{i18n>oType}" required="true"/>
+										<ComboBox showSecondaryValues="true" items="{path:'mLookupModel>/aOrderTypeSet',sorter:{ path: 'text' }}"
+											selectedKey="{mLookupModel>/sOrderTypeSel}" class="inputRadius" width="90%">
+											<core:ListItem key="{mLookupModel>AUART}" additionalText="{mLookupModel>TXT}" text="{mLookupModel>AUART}"/>
+											<customData>
+												<core:CustomData value="WO_CREATE_ORDER_TYPE"/>
+											</customData>
+										</ComboBox>
+									</VBox>
+									<VBox>
+										<Label text="{i18n>equip}" required="true"/>
+										<Input width="90%" showValueHelp="true" value="{mLookupModel>/sEquip}" valueHelpOnly="true" valueHelpRequest="equipmentValueHelp"
+											class="inputRadius"></Input>
+									</VBox>
+									<VBox>
+										<Label text="{i18n>FunLocation}" required="true"/>
+										<Input width="90%" editable="true" showValueHelp="true" value="{mLookupModel>/sFunLoc}" valueHelpOnly="true"
+											valueHelpRequest="fnLocValueHelp" class="inputRadius"></Input>
+										<!--<Input width="70%" editable="false" value="{mLookupModel>/sFunLoc}" class="inputRadius"></Input>-->
+									</VBox>
+									<VBox>
+										<Label text="{i18n>prior}" required="true"/>
+										<ComboBox items="{ path: 'mLookupModel>/aPrioritySet', sorter: { path: 'text' } }" selectedKey="{mLookupModel>/sPrior}" class="inputRadius"
+											width="90%">
+											<core:Item key="{mLookupModel>PRIOK}" text="{mLookupModel>PRIOKX}"/>
+										</ComboBox>
+									</VBox>
+								</l:Grid>
+							</content>
+						</Panel>
+						<!--<Panel visible="{= ${mLookupModel>/iSelectedIndex} === 0 ? true : false}" width="auto" class="sapUiSmallMargin panelBackgroundClass">
+							<headerToolbar>
+								<Toolbar height="3rem" class="toolbarBorder">
+									<Title text="{i18n>editWO}" class="styleTitle"/>
+								</Toolbar>
+							</headerToolbar>
+							<content>
+								<l:Grid defaultSpan="L3 M6 S6">
+									<VBox>
+										<Label text="{i18n>orderNum}"/>
+										<Input value="{mLookupModel>/editOrderId}" class="inputRadius" width="90%"></Input>
+									</VBox>
+								</l:Grid>
+							</content>
+						</Panel>-->
+					</IconTabFilter>
+					<IconTabFilter text="Create By Reference" key="createByRef">
+						<table:Table id="idSearchWOTable" selectionMode="None" rows="{mLookupModel>/aWorkOrderListSet}" visibleRowCount="{mLookupModel>/rowCount}"
+							rowHeight="40">
+							<table:extension>
+								<Toolbar class="tableHeaderBG tableMargin" height="2rem">
+									<content>
+										<Title text="{i18n>WOList}" class="styleTableTitle"/>
+										<ToolbarSpacer/>
+										<core:Icon src="sap-icon://filter" press="createByRefAdvFilterPanelOpen" tooltip="Open Filters" color="#142e5e"
+											class="sapUiSmallMarginEnd attachmentsIconSize"/>
+										<!--<Link text="{i18n>advFilter}" press="onHandleAdvFilterWO"/>-->
+										<SearchField width="25%" value="{mLookupModel>/sWorderIdDesFilter}" search="onSearchWO" placeholder="{i18n>searchbyWorkOrderIdDes}"
+											class="sapSearchFieldBorderClass"/>
+									</content>
+								</Toolbar>
+								<Panel class="filterWrapperPanel tableMargin" id="filterWrapPanelCreateByRef" expandAnimation="true" expandable="true" expanded="false">
+									<content>
+										<core:Fragment fragmentName="com.sap.incture.IMO_PM.fragment.advanceFilter" type="XML"></core:Fragment>
+									</content>
+								</Panel>
+							</table:extension>
+							<table:columns>
+								<table:Column width="2%">
+									<table:template><RadioButton app:workOrder="{mLookupModel>Orderid}" select="onSelectWordOrder" selected="{mLookupModel>radio}"/></table:template>
+								</table:Column>
+								<table:Column width="6%" sortProperty="Orderid" filterProperty="Orderid" defaultFilterOperator="Contains">
+									<Text wrapping="true" text="{i18n>WONum}" class="tableHeaderText"/>
+									<table:template>
+										<Text text="{mLookupModel>Orderid}" class="tableContentText"></Text>
+									</table:template>
+								</table:Column>
+								<table:Column width="7%" sortProperty="WoDes" filterProperty="WoDes">
+									<Text wrapping="true" text="{i18n>WODes}" class="tableHeaderText"/>
+									<table:template>
+										<Text text="{mLookupModel>WoDes}" class="tableContentText"></Text>
+									</table:template>
+								</table:Column>
+								<table:Column width="7.7%" sortProperty="MnWkCtr" filterProperty="MnWkCtr">
+									<Text wrapping="true" text="{i18n>mainWC}" class="tableHeaderText"/>
+									<table:template>
+										<Text text="{mLookupModel>MnWkCtr}" class="tableContentText"></Text>
+									</table:template>
+								</table:Column>
+								<table:Column sortProperty="OrderType" width="4%" filterProperty="OrderType">
+									<Text wrapping="true" text="{i18n>WOtype}" class="tableHeaderText"/>
+									<table:template>
+										<Text text="{mLookupModel>OrderType}" class="tableContentText"></Text>
+									</table:template>
+								</table:Column>
+								<table:Column sortProperty="Equipment" width="7%" filterProperty="Equipment">
+									<Text wrapping="true" text="{i18n>equip}" class="tableHeaderText"/>
+									<table:template>
+										<Text text="{mLookupModel>Equipment}" class="tableContentText"></Text>
+									</table:template>
+								</table:Column>
+								<table:Column sortProperty="TechId" width="5.8%" filterProperty="TechId">
+									<Text wrapping="true" text="{i18n>techID}" class="tableHeaderText"/>
+									<table:template>
+										<Text text="{mLookupModel>TechId}" class="tableContentText"></Text>
+									</table:template>
+								</table:Column>
+								<table:Column sortProperty="EquipDes" width="8.5%" filterProperty="EquipDes">
+									<Text wrapping="true" text="{i18n>EqDes}" class="tableHeaderText"/>
+									<table:template>
+										<Text text="{mLookupModel>EquipDes}" class="tableContentText"></Text>
+									</table:template>
+								</table:Column>
+								<table:Column width="6.7%" sortProperty="Technicianname" filterProperty="Technicianname">
+									<Text wrapping="true" text="{i18n>assignedTech}" class="tableHeaderText"/>
+									<table:template>
+										<Text text="{mLookupModel>Technicianname}" class="tableContentText"></Text>
+									</table:template>
+								</table:Column>
+								<table:Column sortProperty="SysStatusDes" width="5%" filterProperty="SysStatusDes">
+									<Text wrapping="true" text="{i18n>stat}" class="tableHeaderText"/>
+									<table:template>
+										<Text text="{path:'mLookupModel>SysStatusDes'}" class="tableContentText"></Text>
+									</table:template>
+								</table:Column>
+								<table:Column width="6.7%" sortProperty="StartDateString" filterProperty="StartDateString">
+									<Text wrapping="true" text="{i18n>SDate}" class="tableHeaderText"/>
+									<table:template>
+										<Text text="{path:'mLookupModel>StartDateString'}" class="tableContentText"></Text>
+									</table:template>
+								</table:Column>
+								<table:Column width="6.9%" sortProperty="FinishDateString" filterProperty="FinishDateString">
+									<Text wrapping="true" text="{i18n>EDate}" class="tableHeaderText"/>
+									<table:template>
+										<Text text="{path:'mLookupModel>FinishDateString'}" class="tableContentText"></Text>
+									</table:template>
+								</table:Column>
+								<table:Column sortProperty="Bdflag" width="7.8%" filterProperty="Bdflag">
+									<Text wrapping="true" text="{i18n>BdownFlag}" class="tableHeaderText"/>
+									<table:template>
+										<Text text="{mLookupModel>Bdflag}" class="tableContentText"></Text>
+									</table:template>
+								</table:Column>
+								<table:Column sortProperty="EnterDateString" width="6.8%" filterProperty="EnterDateString">
+									<Text wrapping="true" text="{i18n>createdDate}" class="tableHeaderText"/>
+									<table:template>
+										<Text text="{path:'mLookupModel>EnterDateString'}" class="tableContentText"></Text>
+									</table:template>
+								</table:Column>
+								<table:Column sortProperty="Plan" width="6%" filterProperty="Plan">
+									<Text wrapping="true" text="{i18n>maint_plan}" class="tableHeaderText"/>
+									<table:template>
+										<Text text="{path:'mLookupModel>Plan'}" class="tableContentText"></Text>
+									</table:template>
+								</table:Column>
+								<table:Column sortProperty="Package" width="6.8%" filterProperty="Package">
+									<Text wrapping="true" text="{i18n>package}" class="tableHeaderText"/>
+									<table:template>
+										<Text text="{path:'mLookupModel>Package'}" class="tableContentText"></Text>
+									</table:template>
+								</table:Column>
+								<table:Column sortProperty="EnteredByName" width="7%" filterProperty="EnteredByName">
+									<Text wrapping="true" text="{i18n>createdby}" class="tableHeaderText"/>
+									<table:template>
+										<Text text="{mLookupModel>EnteredByName}" class="tableContentText"></Text>
+									</table:template>
+								</table:Column>
+							</table:columns>
+							<table:footer>
+								<Toolbar>
+									<ToolbarSpacer/>
+									<Link text="{i18n>loadmore}" press="handleLoadMoreRecords" class="sapUiLargeMarginEnd"/>
+									<!--<Button text="{i18n>loadmore}" press="handleLoadMoreRecords"></Button>-->
+									<Text text="{i18n>totrec}"></Text>
+									<Input width="5rem" value="{mLookupModel>/aWorkOrderListSet/0/Totalrecords}" enabled="false"></Input>
+								</Toolbar>
+							</table:footer>
+						</table:Table>
+					</IconTabFilter>
+					<IconTabFilter text="Create From Notification" key="createFromNotif">
+						<table:Table selectionMode="MultiToggle" enableSelectAll="false" id="notifListId" rowSelectionChange="onSelectionChange"
+							rows="{mLookupModel>/aNotificationListSet}" visibleRowCount="{mLookupModel>/rowCount}" rowHeight="40">
+							<table:extension>
+								<Toolbar class="tableHeaderBG" height="2rem">
+									<content>
+										<Title text="{i18n>notifList}" class="styleTableTitle"/>
+										<ToolbarSpacer/>
+										<core:Icon src="sap-icon://filter" press="createFromNotifAdvFilterPanelOpen" tooltip="Open Filters" color="#142e5e"
+											class="sapUiSmallMarginEnd attachmentsIconSize"/>
+										<!--<Link text="{i18n>advFilter}" press="onHandleNotifAdvFilter"/>-->
+										<SearchField width="25%" search="onSearchNotif" value="{mLookupModel>/sNotifIDDesFilter}" placeholder="{i18n>searchNotif}"
+											class="sapSearchFieldBorderClass"/>
+									</content>
+								</Toolbar>
+								<Panel class="filterWrapperPanel tableMargin" id="filterWrapPanelCreateFromNotif" expandAnimation="true" expandable="true" expanded="false">
+									<content>
+										<core:Fragment fragmentName="com.sap.incture.IMO_PM.fragment.advFilterNotifCreateWO" type="XML"></core:Fragment>
+									</content>
+								</Panel>
+							</table:extension>
+							<table:columns>
+								<table:Column sortProperty="NotifNo" filterProperty="NotifNo" width="6%">
+									<Text wrapping="true" text="{i18n>notifID}" class="tableHeaderText"/>
+									<table:template>
+										<Text text="{mLookupModel>NotifNo}" class="tableContentText"></Text>
+									</table:template>
+								</table:Column>
+								<table:Column sortProperty="ShortText" filterProperty="ShortText" width="9%">
+									<Text wrapping="true" text="{i18n>notifDes}" class="tableHeaderText"/>
+									<table:template>
+										<Text text="{mLookupModel>ShortText}" class="tableContentText"></Text>
+									</table:template>
+								</table:Column>
+								<table:Column sortProperty="WorkCntr" filterProperty="WorkCntr" width="5.7%">
+									<Text wrapping="true" text="{i18n>mainWC}" class="tableHeaderText"/>
+									<table:template>
+										<Text text="{mLookupModel>WorkCntr}" class="tableContentText"></Text>
+									</table:template>
+								</table:Column>
+								<table:Column sortProperty="Orderid" filterProperty="Orderid" width="5%">
+									<Text wrapping="true" text="{i18n>WONum}" class="tableHeaderText"/>
+									<table:template>
+										<Text text="{mLookupModel>Orderid}" class="tableContentText"></Text>
+									</table:template>
+								</table:Column>
+								<table:Column sortProperty="Equipment" filterProperty="Equipment" width="6%">
+									<Text wrapping="true" text="{i18n>equip}" class="tableHeaderText"/>
+									<table:template>
+										<Text text="{mLookupModel>Equipment}" class="tableContentText"></Text>
+									</table:template>
+								</table:Column>
+								<table:Column sortProperty="TechId" filterProperty="TechId" width="5.8%">
+									<Text wrapping="true" text="{i18n>techID}" class="tableHeaderText"/>
+									<table:template>
+										<Text text="{mLookupModel>TechId}" class="tableContentText"></Text>
+									</table:template>
+								</table:Column>
+								<table:Column sortProperty="Equidescr" filterProperty="Equidescr" width="9%">
+									<Text wrapping="true" text="{i18n>EqDes}" class="tableHeaderText"/>
+									<table:template>
+										<Text text="{mLookupModel>Equidescr}" class="tableContentText"></Text>
+									</table:template>
+								</table:Column>
+								<table:Column sortProperty="SysStatus" filterProperty="SysStatus" width="6.8%">
+									<Text wrapping="true" text="{i18n>notifStatus}" class="tableHeaderText"/>
+									<table:template>
+										<Text text="{mLookupModel>SysStatus}" class="tableContentText"></Text>
+									</table:template>
+								</table:Column>
+								<table:Column sortProperty="ReqstartdateString" filterProperty="ReqstartdateString" width="6.7%">
+									<Text wrapping="true" text="{i18n>reqStart}" class="tableHeaderText"/>
+									<table:template>
+										<Text text="{path:'mLookupModel>ReqstartdateString'}" class="tableContentText"></Text>
+									</table:template>
+								</table:Column>
+								<table:Column sortProperty="ReqenddateString" filterProperty="ReqenddateString" width="6.9%">
+									<Text wrapping="true" text="{i18n>reqFinish}" class="tableHeaderText"/>
+									<table:template>
+										<!--<Text text="{path:'mLookupModel>Reqenddate',formatter:'com.mylan.createWorkOrder.formatter.formatter.fnDateSeperator'}"-->
+										<!--	class="tableContentText"></Text>-->
+										<Text text="{path:'mLookupModel>ReqenddateString'}" class="tableContentText"></Text>
+									</table:template>
+								</table:Column>
+								<table:Column sortProperty="Bdflag" filterProperty="Bdflag" width="6.5%">
+									<Text wrapping="true" text="{i18n>BdownFlag}" class="tableHeaderText"/>
+									<table:template>
+										<Text text="{mLookupModel>Bdflag}" class="tableContentText"></Text>
+									</table:template>
+								</table:Column>
+								<table:Column sortProperty="PriorityDesNotif" width="5%" filterProperty="PriorityDesNotif">
+									<Text wrapping="true" text="{i18n>prior}" class="tableHeaderText"/>
+									<table:template>
+										<Text text="{path:'mLookupModel>PriorityDesNotif',formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnPriorityConversion'}"
+											class="tableContentText"></Text>
+									</table:template>
+								</table:Column>
+								<table:Column sortProperty="CreatedOnString" filterProperty="CreatedOnString" width="6.8%">
+									<Text wrapping="true" text="{i18n>createdDate}" class="tableHeaderText"/>
+									<table:template>
+										<Text text="{path:'mLookupModel>CreatedOnString'}" class="tableContentText"></Text>
+									</table:template>
+								</table:Column>
+							</table:columns>
+							<table:footer>
+								<Toolbar>
+									<ToolbarSpacer/>
+									<Link text="{i18n>loadmore}" press="handleLoadMoreNotif" class="sapUiLargeMarginEnd"/>
+									<!--<Button text="{i18n>loadmore}" press="handleLoadMoreNotif"></Button>-->
+									<Text text="{i18n>totrec}"></Text>
+									<Input width="5rem" value="{mLookupModel>/aNotificationListSet/0/Totalrecords}" enabled="false"></Input>
+								</Toolbar>
+							</table:footer>
+						</table:Table>
+					</IconTabFilter>
+				</items>
+			</IconTabBar>
 		</content>
-		<footer>
+		<!--<footer>
 			<Toolbar>
 				<ToolbarSpacer/>
 				<Button text="{i18n>edit}" press="onEditWO" visible="{= ${mLookupModel>/iSelectedIndex} === 0 ? true : false}" class="murphyCreateBtn"/>
@@ -309,6 +334,6 @@
 				<Button text="{i18n>NEXT}" press="onCreateViewWorkOrder" visible="{= ${mLookupModel>/iSelectedIndex} === 0 ? true : false}"
 					class="murphyCreateBtn"/>
 			</Toolbar>
-		</footer>
+		</footer>-->
 	</Page>
 </mvc:View>

@@ -198,7 +198,6 @@ sap.ui.define([
 					oRouter.navTo("notifList");
 					var resultData = oEvent.getSource().getData();
 					if (resultData) {
-						debugger;
 						oMasterModel.setData(resultData);
 						var oSideNavigation = this.getView().byId('idSideNavigation');
 						var oToolPage = this.getView().byId("idToolPage");

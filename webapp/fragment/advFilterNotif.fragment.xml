@@ -8,54 +8,60 @@
 			<VBox class="sapUiTinyMarginTopBottom">
 				<Label text="{i18n>notif_stat}" class="sapUiTinyMarginTop"/>
 				<ComboBox width="100%" items="{ path: 'mLookupModel>/aNotifStatus', sorter: { path: 'text' } }"
-					selectedKey="{mLookupModel>/sNotifStatusFilter}">
+					selectedKey="{mLookupModel>/sNotifStatusFilter}" class="inputRadius">
 					<core:Item key="{mLookupModel>key}" text="{mLookupModel>key}"/>
 				</ComboBox>
 			</VBox>
 			<VBox class="sapUiTinyMarginTopBottom">
 				<Label text="{i18n>notifID}" class="sapUiTinyMarginTop"/>
-				<Input width="100%" value="{mLookupModel>/sNotifIdFilter}"></Input>
+				<Input class="inputRadius" width="100%" value="{mLookupModel>/sNotifIdFilter}"></Input>
 			</VBox>
 			<VBox class="sapUiTinyMarginTopBottom">
 				<Label text="{i18n>equip}" class="sapUiTinyMarginTop"/>
-				<Input width="100%" showValueHelp="true" value="{mLookupModel>/sNotifEquipFilter}" valueHelpRequest="equipmentValueHelp"></Input>
+				<Input class="inputRadius" width="100%" showValueHelp="true" value="{mLookupModel>/sNotifEquipFilter}" valueHelpRequest="equipmentValueHelp"></Input>
 			</VBox>
 			<VBox class="sapUiTinyMarginTopBottom">
 				<Label text="{i18n>breakDown}" class="sapUiTinyMarginTop"/>
-				<ComboBox width="100%" items="{ path: 'mLookupModel>/aBDown'}" selectedKey="{mLookupModel>/sNotifBDFilter}">
+				<ComboBox class="inputRadius" width="100%" items="{ path: 'mLookupModel>/aBDown'}" selectedKey="{mLookupModel>/sNotifBDFilter}">
 					<core:ListItem key="{mLookupModel>des}" text="{mLookupModel>des}"/>
 				</ComboBox>
 			</VBox>
 			<VBox class="sapUiTinyMarginTopBottom">
 				<Label text="{i18n>prior}" class="sapUiTinyMarginTop"/>
-				<ComboBox width="100%" items="{ path: 'mLookupModel>/aPrioritySet', sorter: { path: 'text' } }"
+				<ComboBox class="inputRadius" width="100%" items="{ path: 'mLookupModel>/aPrioritySet', sorter: { path: 'text' } }"
 					selectedKey="{mLookupModel>/sNotifPriorFilter}">
 					<core:Item key="{mLookupModel>PRIOK}" text="{mLookupModel>PRIOKX}"/>
 				</ComboBox>
 			</VBox>
 			<VBox class="sapUiTinyMarginTopBottom">
 				<Label text="{i18n>WORK_CENTER}" class="sapUiTinyMarginTop"></Label>
-				<ComboBox width="100%" showSecondaryValues="true" items="{path:'mLookupModel>/aWorkCenterSet',sorter:{ path: 'text' }}"
+				<ComboBox class="inputRadius" width="100%" showSecondaryValues="true" items="{path:'mLookupModel>/aWorkCenterSet',sorter:{ path: 'text' }}"
 					selectedKey="{mLookupModel>/sNotifWkCenterFilter}">
 					<core:ListItem key="{mLookupModel>WorkcenterId}" additionalText="{mLookupModel>WorkcenterDesc}" text="{mLookupModel>WorkcenterId}"/>
 				</ComboBox>
 			</VBox>
+		</l:Grid>
+		<l:Grid defaultSpan="L2 M2 S6">
 			<VBox class="sapUiTinyMarginTop">
 				<Label text="Created On Start Date" class="sapUiTinyMarginTop"></Label>
-				<DatePicker width="100%" value="{mLookupModel>/sCreatedOnStart}" valueFormat="MM/dd/yyyy" displayFormat="MMM dd,yyyy"
+				<DatePicker class="inputRadius" width="100%" value="{mLookupModel>/sCreatedOnStart}" valueFormat="MM/dd/yyyy" displayFormat="MMM dd,yyyy"
 					maxDate="{path:'mLookupModel>/sCreatedOnEnd',formatter:'com.sap.incture.IMO_PM.formatter.formatter.StartDateValidation'}"></DatePicker>
 			</VBox>
 			<VBox class="sapUiTinyMarginTop">
 				<Label text="Created On End Date" class="sapUiTinyMarginTop"></Label>
-				<DatePicker width="100%" value="{path:'mLookupModel>/sCreatedOnEnd'}" valueFormat="MM/dd/yyyy" displayFormat="MMM dd,yyyy"
+				<DatePicker class="inputRadius" width="100%" value="{path:'mLookupModel>/sCreatedOnEnd'}" valueFormat="MM/dd/yyyy"
+					displayFormat="MMM dd,yyyy"
 					minDate="{path:'mLookupModel>/sCreatedOnStart',formatter:'com.sap.incture.IMO_PM.formatter.formatter.EndDateValidation'}"></DatePicker>
 			</VBox>
+			<Text/>
+			<Text/>
+			<Text/>
+			<HBox class="sapUiMediumMarginTop">
+				<Button text="Clear" press="onClearNotifFilter" class="sapUiSmallMarginEnd" type="Transparent"/>
+				<Button text="{i18n>save}" press="onSaveNotifFilter" class="sapUiSmallMarginEnd"/>
+				<Button text="Apply" press="onApplyFilterNotif" type="Emphasized"/>
+			</HBox>
 		</l:Grid>
-		<FlexBox alignItems="End" justifyContent="End">
-			<Button text="Clear" press="onClearNotifFilter" class="sapUiSmallMarginEnd"/>
-			<Button text="{i18n>save}" press="onSaveNotifFilter" class="sapUiSmallMarginEnd"/>
-			<Button text="Apply" press="onApplyFilterNotif" class="sapUiTinyMarginEnd" type="Emphasized"/>
-		</FlexBox>
 	</VBox>
 	<!--</content>-->
 	<!--<buttons>

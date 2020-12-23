@@ -581,6 +581,10 @@ sap.ui.define([
 		//Function to close statusMessages popup
 		closeSuccesErrPopup: function () {
 			this.successErrorDialog.close();
+		},
+		reviewWOAdvFilterPanelOpen: function(){
+			var oNotifWrapPanel = this.byId("filterWrapPanelReviewWO");
+			oNotifWrapPanel.setExpanded(!oNotifWrapPanel.getExpanded());
 		}
 	});
 });

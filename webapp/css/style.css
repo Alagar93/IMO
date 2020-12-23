@@ -219,8 +219,8 @@
 }*/
 
 .formatKPINumber {
-    color: #4c6a7f;
-    /*font-weight: bold;*/
+    color: #666666;
+    font-weight: 500;
     font-size: 1.5rem;
 }
 
@@ -1183,11 +1183,6 @@ html:not([data-sap-ui-browser^="ie"]):not([data-sap-ui-browser^="ed"]) .sapUiIco
 
 /*}*/
 
-.formatKPINumber {
-    color: #4c6a7f;
-    /*font-weight: bold;*/
-    font-size: 1.5rem;
-}
 
 .sapMITBTextOnly .sapMITBFilterDefault>.sapMITBText {
     color: black;
@@ -2112,13 +2107,13 @@ background-color: #377295;
     font-weight: bold;
 }
 
-.sapMBtn:hover>.sapMBtnHoverable {
+/*.sapMBtn:hover>.sapMBtnHoverable {
     background-color: #346187;
     border: 1px solid #ababab;
     text-shadow: 0 0 0.125rem #ffffff;
     color: #ffffff;
     border-radius: 0.2rem;
-}
+}*/
 
 .cellStyleAmber {
     border-left: 5px solid Orange;
@@ -2238,9 +2233,8 @@ background-color: #377295;
 }
 
 .murphyHdrTileClass {
-    height: 6rem !important;
-    width: 100% !important;
-    padding: 0.5rem !important;
+    height: 5rem !important;
+    width: 18rem !important;
     background: #ffffff !important;
     box-shadow: none !important;
 }
@@ -2250,7 +2244,7 @@ background-color: #377295;
 .murphyHdrTileClass .sapMGTContent {
     padding: 0px;
     margin: 0px;
-    height: 5rem;
+    height: 4rem;
 }
 
 .murphyHdrTileClass .sapMGTHdrContent,
@@ -2542,7 +2536,7 @@ html.sap-desktop .sapMIBar.sapMFooter-CTX {
 }
 
 .tableHeaderBG {
-    background-color: #fafafa !important;
+    background-color: #ffffff !important;
 }
 
 .tableColHeader .sapUiTableCHdr .sapUiTableColHdrCnt {
@@ -2556,17 +2550,57 @@ html.sap-desktop .sapMIBar.sapMFooter-CTX {
 .attachmentsIconSize {
     font-size: 1.2rem;
 }
+
 .filterWrapperPanel header {
-    display: none!important;
+    display: none !important;
 }
 
 .filterWrapperPanel {
     /*#Theme*/
-    min-height: 0!important;
+    min-height: 0 !important;
 }
+
 .filterWrapperPanel .sapMPanelContent {
-    padding: 0!important;
+    padding: 0 !important;
     height: auto;
     max-height: 15rem;
     overflow: hidden
+}
+
+.murphyRedIconFlex {
+    width: 4rem;
+    height: 3rem;
+    background: #e04949;
+}
+
+.murphyAmberIconFlex {
+    width: 4rem;
+    height: 3rem;
+    background: #efa61c;
+}
+
+.murphyBlueIconFlex {
+    width: 4rem;
+    height: 3rem;
+    background: #4d96f8;
+}
+
+.murphyDeepBlueIconFlex {
+    width: 4rem;
+    height: 3rem;
+    background: #2618af;
+}
+
+.tableMargin {
+    margin-bottom: 2px;
+}
+
+.iconTabHeader .sapMITH {
+    box-shadow: none !important;
+    background-color: transparent !important;
+    border-bottom: none !important;
+}
+
+.btnTransparent span {
+    background: transparent !important;
 }

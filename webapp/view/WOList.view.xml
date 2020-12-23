@@ -6,44 +6,72 @@
 			<Label design="Bold" class="sapUiSmallMarginBegin textColr" text="{i18n>tile_woList}" wrapping="true"/>
 		</tnt:ToolHeader>
 		<content>
-			<l:Grid defaultSpan="L2 M2 S12" class="sapUiTinyMargin">
+			<l:Grid defaultSpan="XL3 L3 M3 S12" class="sapUiTinyMargin">
 				<GenericTile press="getKPIsWoList" class="murphyHdrTileClass KPIShadow" ariaLabel="WO_LIST_PM_WORK_DUE">
 					<TileContent>
-						<VBox class="sapUiTinyMargin">
-							<Text class="notificationHeaderText sapUiSmallMarginBottom" wrapping="true" text="{i18n>PMWODue}"/>
-							<Text text="{mLookupModel>/oKPIInfo/WO_due}" class="formatKPINumber"/>
-						</VBox>
+						<HBox alignItems="Center" class="sapUiSmallMargin">
+							<FlexBox class="murphyAmberIconFlex" alignItems="Center" justifyContent="Center">
+								<items>
+									<core:Icon src="sap-icon://pending" color="#ffffff" size="20px"/>
+								</items>
+							</FlexBox>
+							<HBox width="100%" class="sapUiTinyMarginBegin" justifyContent="SpaceBetween" alignItems="Center">
+								<Text class="notificationHeaderText" wrapping="true" text="PM&#10;Work Order Due"/>
+								<Text text="{mLookupModel>/oKPIInfo/WO_due}" class="formatKPINumber"/>
+							</HBox>
+						</HBox>
 					</TileContent>
 				</GenericTile>
 				<GenericTile press="getKPIsWoList" class="murphyHdrTileClass KPIShadow" ariaLabel="WO_LIST_ASSIGEND_TO_ME">
 					<TileContent>
-						<VBox class="sapUiTinyMargin">
-							<Text class="notificationHeaderText sapUiSmallMarginBottom" wrapping="true" text="{i18n>asigned}"/>
-							<Text text="{mLookupModel>/oKPIInfo/Assign_to_me}" class="formatKPINumber"/>
-						</VBox>
+						<HBox alignItems="Center" class="sapUiSmallMargin">
+							<FlexBox class="murphyBlueIconFlex" alignItems="Center" justifyContent="Center">
+								<items>
+									<core:Icon src="sap-icon://activity-2" color="#ffffff" size="20px"/>
+								</items>
+							</FlexBox>
+							<HBox width="100%" class="sapUiTinyMarginBegin" justifyContent="SpaceBetween" alignItems="Center">
+								<Text class="notificationHeaderText" wrapping="true" text="{i18n>asigned}"/>
+								<Text text="{mLookupModel>/oKPIInfo/Assign_to_me}" class="formatKPINumber"/>
+							</HBox>
+						</HBox>
 					</TileContent>
 				</GenericTile>
 				<GenericTile press="getKPIsWoList" class="murphyHdrTileClass KPIShadow" ariaLabel="WO_LIST_SPARE_PART_RESERV">
 					<TileContent>
-						<VBox class="sapUiTinyMargin">
-							<Text class="notificationHeaderText sapUiTinyMarginBottom" wrapping="true" text="{i18n>outstand}"/>
-							<Text text="34" class="formatKPINumber"/>
-						</VBox>
+						<HBox alignItems="Center" class="sapUiSmallMargin">
+							<FlexBox class="murphyDeepBlueIconFlex" alignItems="Center" justifyContent="Center">
+								<items>
+									<core:Icon src="sap-icon://settings" color="#ffffff" size="20px"/>
+								</items>
+							</FlexBox>
+							<HBox width="100%" class="sapUiTinyMarginBegin" justifyContent="SpaceBetween" alignItems="Center">
+								<Text class="notificationHeaderText" wrapping="true" text="Outstanding Spare&#10;Part Reservations"/>
+								<Text text="34" class="formatKPINumber"/>
+							</HBox>
+						</HBox>
 					</TileContent>
 				</GenericTile>
 				<GenericTile press="getKPIsWoList" class="murphyHdrTileClass KPIShadow" ariaLabel="WO_LIST_ASSIGNED_TO_WC">
 					<TileContent>
-						<VBox class="sapUiTinyMargin">
-							<Text class="notificationHeaderText sapUiSmallMarginBottom" wrapping="true" text="{i18n>ASIGN_WORK_CENTER}"/>
-							<Text text="56" class="formatKPINumber"/>
-						</VBox>
+						<HBox alignItems="Center" class="sapUiSmallMargin">
+							<FlexBox class="murphyBlueIconFlex" alignItems="Center" justifyContent="Center">
+								<items>
+									<core:Icon src="sap-icon://activity-2" color="#ffffff" size="20px"/>
+								</items>
+							</FlexBox>
+							<HBox width="100%" class="sapUiTinyMarginBegin" justifyContent="SpaceBetween" alignItems="Center">
+								<Text class="notificationHeaderText" wrapping="true" text="Assigned to&#10;Work Center"/>
+								<Text text="56" class="formatKPINumber"/>
+							</HBox>
+						</HBox>
 					</TileContent>
 				</GenericTile>
-				<ToolbarSpacer/>
+				<!--<ToolbarSpacer/>
 				<ComboBox class="inputRadius" width="90%" showSecondaryValues="true" items="{path:'mLookupModel>/aWorkCenterSet',sorter:{ path: 'text' }}"
 					selectedKey="{mLookupModel>/sWorkCenterSel}" placeholder="{i18n>WorkCenter_KPI}" tooltip="{i18n>SELECT_WORK_CENTER}" change="fnFetchKPIInfo">
 					<core:ListItem key="{mLookupModel>WorkcenterId}" additionalText="{mLookupModel>WorkcenterDesc}" text="{mLookupModel>WorkcenterId}"/>
-				</ComboBox>
+				</ComboBox>-->
 			</l:Grid>
 			<!--<l:FixFlex class="fixFlexVertical">-->
 			<!--<l:fixContent width="100%">
@@ -95,14 +123,28 @@
 				rowHeight="40" selectionMode="MultiToggle" enableSelectAll="false" rows="{mLookupModel>/aWorkOrderListSet}"
 				rowSelectionChange="onSelectionChange" filter="dateFormat">
 				<table:extension>
-					<Toolbar class="tableHeaderBG" height="3rem">
+					<Toolbar class="tableHeaderBG tableMargin" height="3rem">
 						<content>
 							<Title text="{i18n>WOList}" class="styleTableTitle"/>
 							<ToolbarSpacer/>
-							<Link class="sapUiTinyMarginEnd" text="{i18n>advFilter}" press="onHandleAdvFilterWO"/>
-							<SearchField width="25%" value="{mLookupModel>/sWorderIdDesFilter}" class="sapSearchfieldClass" search="onSearchWO"
+							<core:Icon src="sap-icon://filter" press="woListAdvFilterPanelOpen" tooltip="Open Filters" color="#142e5e"
+								class="sapUiSmallMarginEnd attachmentsIconSize"/>
+							<!--<Link class="sapUiTinyMarginEnd" text="{i18n>advFilter}" press="onHandleAdvFilterWO"/>-->
+							<SearchField width="20%" value="{mLookupModel>/sWorderIdDesFilter}" class="sapSearchfieldClass sapUiSmallMarginEnd" search="onSearchWO"
 								placeholder="{i18n>searchbyWorkOrderIdDes}"/>
 						</content>
+					</Toolbar>
+					<Panel class="filterWrapperPanel tableMargin" id="filterWrapPanelWOList" expandAnimation="true" expandable="true" expanded="false">
+						<content>
+							<core:Fragment fragmentName="com.sap.incture.IMO_PM.fragment.advanceFilterWoList" type="XML" id="hierarchyPanel"></core:Fragment>
+						</content>
+					</Panel>
+					<Toolbar class="tableHeaderBG" height="3rem">
+						<ToolbarSpacer/>
+						<Button icon="sap-icon://write-new-document" iconFirst="true" text="{i18n>ASIGN_TECHNICIAN}"
+							visible="{path:'mLookupModel>/userRole', formatter:'com.sap.incture.IMO_PM.formatter.formatter.disableReviewField'}"
+							enabled="{= ${mLookupModel>/iSelectedWOIndices} >= 1 ? true: false}" press="onAssignWO"/>
+						<Button text="{i18n>viewDetails}" enabled="{= ${mLookupModel>/iSelectedWOIndices} === 1 ? true : false}" press="onNavigatetoDetail"/>
 					</Toolbar>
 				</table:extension>
 				<table:columns>
@@ -213,7 +255,8 @@
 				<table:footer>
 					<Toolbar>
 						<ToolbarSpacer/>
-						<Button text="{i18n>LOAD_RECORDS}" press="handleLoadMoreRecords"></Button>
+						<Link class="sapUiSmallMarginEnd" text="{i18n>LOAD_RECORDS}" press="handleLoadMoreRecords"/>
+						<!--<Button text="{i18n>LOAD_RECORDS}" press="handleLoadMoreRecords"></Button>-->
 						<Text text="{i18n>TOTAL_RECORDS}"></Text>
 						<Input width="5rem" value="{mLookupModel>/aWorkOrderListSet/0/Totalrecords}" enabled="false"></Input>
 					</Toolbar>
@@ -223,15 +266,15 @@
 			<!--</l:flexContent>-->
 			<!--</l:FixFlex>-->
 		</content>
-		<footer>
+		<!--<footer>
 			<Toolbar class="footerBG">
 				<ToolbarSpacer/>
 				<Button class="murphyCreateBtn" text="{i18n>ASIGN_TECHNICIAN}"
 					visible="{path:'mLookupModel>/userRole', formatter:'com.sap.incture.IMO_PM.formatter.formatter.disableReviewField'}"
-					enabled="{= ${mLookupModel>/iSelectedIndices} >= 1 ? true: false}" press="onAssignWO"/>
-				<Button class="murphyCreateBtn" text="{i18n>viewDetails}" enabled="{= ${mLookupModel>/iSelectedIndices} >= 1 ? true: false}"
+					enabled="{= ${mLookupModel>/iSelectedWOIndices} >= 1 ? true: false}" press="onAssignWO"/>
+				<Button class="murphyCreateBtn" text="{i18n>viewDetails}" enabled="{= ${mLookupModel>/iSelectedWOIndices} >= 1 ? true: false}"
 					press="onNavigatetoDetail"/>
 			</Toolbar>
-		</footer>
+		</footer>-->
 	</Page>
 </mvc:View>

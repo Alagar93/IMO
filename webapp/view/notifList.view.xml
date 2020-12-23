@@ -6,29 +6,50 @@
 			<Label design="Bold" class="sapUiSmallMarginBegin textColr" text="{i18n>tile_notifList}" wrapping="true"/>
 		</tnt:ToolHeader>
 		<content>
-			<l:Grid defaultSpan="L2 M2 S12" class="sapUiTinyMargin">
+			<l:Grid defaultSpan="XL3 L3 M3 S12" class="sapUiTinyMargin">
 				<GenericTile press="getKPIsNotifList" class="murphyHdrTileClass KPIShadow" ariaLabel="NOTIF_LIST_BREAKDOWNS">
 					<TileContent>
-						<VBox class="sapUiTinyMargin">
-							<Text class="notificationHeaderText sapUiSmallMarginBottom" wrapping="true" text="{i18n>BDNotif}"/>
-							<Text text="{mLookupModel>/breakDownNotificationCount}" class="formatKPINumber"/>
-						</VBox>
+						<HBox alignItems="Center" class="sapUiSmallMargin">
+							<FlexBox class="murphyRedIconFlex" alignItems="Center" justifyContent="Center">
+								<items>
+									<core:Icon src="sap-icon://settings" color="#ffffff" size="20px"/>
+								</items>
+							</FlexBox>
+							<HBox width="100%" class="sapUiTinyMarginBegin" justifyContent="SpaceBetween" alignItems="Center">
+								<Text class="notificationHeaderText" wrapping="true" text="Breakdown&#10;Notifications"/>
+								<Text text="{mLookupModel>/breakDownNotificationCount}" class="formatKPINumber"/>
+							</HBox>
+						</HBox>
 					</TileContent>
 				</GenericTile>
 				<GenericTile press="getKPIsNotifList" class="murphyHdrTileClass KPIShadow" ariaLabel="NOTIF_LIST_NOTIFICATIONS_DUE">
 					<TileContent>
-						<VBox class="sapUiTinyMargin">
-							<Text class="notificationHeaderText sapUiSmallMarginBottom" wrapping="true" text="{i18n>notifDue}"/>
-							<Text text="{mLookupModel>/notificationsDueCount}" class="formatKPINumber"/>
-						</VBox>
+						<HBox alignItems="Center" class="sapUiSmallMargin">
+							<FlexBox class="murphyAmberIconFlex" alignItems="Center" justifyContent="Center">
+								<items>
+									<core:Icon src="sap-icon://pending" color="#ffffff" size="20px"/>
+								</items>
+							</FlexBox>
+							<HBox width="100%" class="sapUiTinyMarginBegin" justifyContent="SpaceBetween" alignItems="Center">
+								<Text class="notificationHeaderText" wrapping="true" text="{i18n>notifDue}"/>
+								<Text text="{mLookupModel>/notificationsDueCount}" class="formatKPINumber"/>
+							</HBox>
+						</HBox>
 					</TileContent>
 				</GenericTile>
 				<GenericTile press="getKPIsNotifList" class="murphyHdrTileClass KPIShadow" ariaLabel="NOTIF_LIST_ASSIGNED_TO_ME">
 					<TileContent>
-						<VBox class="sapUiTinyMargin">
-							<Text class="notificationHeaderText sapUiSmallMarginBottom" wrapping="true" text="Assigned to me"/>
-							<Text text="{mLookupModel>/notificationsDueCount}" class="formatKPINumber"/>
-						</VBox>
+						<HBox alignItems="Center" class="sapUiSmallMargin">
+							<FlexBox class="murphyBlueIconFlex" alignItems="Center" justifyContent="Center">
+								<items>
+									<core:Icon src="sap-icon://activity-2" color="#ffffff" size="20px"/>
+								</items>
+							</FlexBox>
+							<HBox width="100%" class="sapUiTinyMarginBegin" justifyContent="SpaceBetween" alignItems="Center">
+								<Text class="notificationHeaderText" wrapping="true" text="Assigned to me"/>
+								<Text text="{mLookupModel>/notificationsDueCount}" class="formatKPINumber"/>
+							</HBox>
+						</HBox>
 					</TileContent>
 				</GenericTile>
 			</l:Grid>
@@ -69,22 +90,33 @@
 				selectionMode="MultiToggle" rowSelectionChange="onSelectionChange" enableSelectAll="false" id="notifListId"
 				rows="{mLookupModel>/aNotificationListSet}">
 				<table:extension>
-					<Toolbar class="tableHeaderBG" height="3rem">
+					<Toolbar class="tableHeaderBG tableMargin" height="3rem">
 						<content>
 							<Title text="{i18n>notifList}" class="styleTableTitle"/>
 							<ToolbarSpacer/>
 							<!--<Link class="sapUiTinyMarginEnd" text="{i18n>advFilter}" press="onHandleNotifAdvFilter"/>-->
-							<core:Icon src="sap-icon://filter" press="notifAdvFilterPanelOpen" tooltip="Open Filters" color="#142e5e" class="sapUiSmallMarginEnd attachmentsIconSize"/>
-							<SearchField width="25%" search="onSearchNotif" value="{mLookupModel>/sNotifIDDesFilter}" placeholder="{i18n>searchNotif}"
-								class="sapSearchFieldBorderClass"/>
+							<core:Icon src="sap-icon://filter" press="notifAdvFilterPanelOpen" tooltip="Open Filters" color="#142e5e"
+								class="sapUiSmallMarginEnd attachmentsIconSize"/>
+							<SearchField width="20%" search="onSearchNotif" value="{mLookupModel>/sNotifIDDesFilter}" placeholder="{i18n>searchNotif}"
+								class="sapSearchFieldBorderClass sapUiSmallMarginEnd"/>
 						</content>
 					</Toolbar>
-					<Panel class="filterWrapperPanel" id="filterWrapPanelNotifList" expandAnimation="true" expandable="true" expanded="false">
+					<Panel class="filterWrapperPanel tableMargin" id="filterWrapPanelNotifList" expandAnimation="true" expandable="true" expanded="false">
 						<content>
 							<!--<Text text="Panel Test"/>-->
 							<core:Fragment fragmentName="com.sap.incture.IMO_PM.fragment.advFilterNotif" type="XML" id="hierarchyPanel"></core:Fragment>
 						</content>
 					</Panel>
+					<Toolbar class="tableHeaderBG" height="3rem">
+						<ToolbarSpacer/>
+						<Button icon="sap-icon://write-new-document" iconFirst="true" text="{i18n>assign}" press="onAssignWO" tooltip="Create Mass Order"
+								visible="{path:'oUserDetailModel>/userRole', formatter:'com.sap.incture.IMO_PM.formatter.formatter.disableReviewField'}"/>
+						<Button text="{i18n>viewDetail}" enabled="{= ${mLookupModel>/iSelectedIndices} === 1 ? true: false}" press="onNotifDetail"/>
+						<Button text="{i18n>Notif_List_Create_Mass_WO}" press="onPressCreateMassWO"
+								visible="{parts:['mLookupModel>/iSelectedIndices','mLookupModel>/selectedNotifs','mLookupModel>/aNotificationListSet'],formatter:'com.sap.incture.IMO_PM.formatter.formatter.disableMassCreateField'}"/>
+						<Button text="{i18n>Notif_List_Mass_Release}" press="onPressReleaseMassNotif" tooltip="Mass Release"
+								visible="{parts:['mLookupModel>/iSelectedIndices','mLookupModel>/selectedNotifs','mLookupModel>/aNotificationListSet'],formatter:'com.sap.incture.IMO_PM.formatter.formatter.disableReleaseField'}"/>
+					</Toolbar>
 				</table:extension>
 				<table:columns>
 					<table:Column sortProperty="NotifNo" filterProperty="NotifNo" width="7%">
@@ -186,7 +218,7 @@
 				<table:footer>
 					<Toolbar>
 						<ToolbarSpacer/>
-						<Link class="sapUiSmallMarginEnd" text="{i18n>loadmore}" press="handleLoadMoreNotif"/>
+						<Link class="sapUiSmallMarginEnd" text="{i18n>LOAD_RECORDS}" press="handleLoadMoreNotif"/>
 						<!--<Button text="{i18n>loadmore}" press="handleLoadMoreNotif"></Button>-->
 						<Text text="{i18n>totalrec}"></Text>
 						<Input width="5rem" value="{mLookupModel>/aNotificationListSet/0/Totalrecords}" enabled="false"></Input>
@@ -197,7 +229,7 @@
 			<!--</l:flexContent>-->
 			<!--</l:FixFlex>-->
 		</content>
-		<footer>
+		<!--	<footer>
 			<Toolbar class="footerBG">
 				<Button class="murphyCreateBtn" text="{i18n>Notif_List_Mass_Release}" press="onPressReleaseMassNotif" tooltip="Mass Release"
 					visible="{parts:['mLookupModel>/iSelectedIndices','mLookupModel>/selectedNotifs','mLookupModel>/aNotificationListSet'],formatter:'com.sap.incture.IMO_PM.formatter.formatter.disableReleaseField'}"/>
@@ -209,6 +241,6 @@
 				<Button class="murphyCreateBtn" text="{i18n>viewDetail}" enabled="{= ${mLookupModel>/iSelectedIndices} === 1 ? true: false}"
 					press="onNotifDetail"/>
 			</Toolbar>
-		</footer>
+		</footer>-->
 	</Page>
 </mvc:View>

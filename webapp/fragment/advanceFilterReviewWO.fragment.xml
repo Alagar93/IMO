@@ -1,34 +1,39 @@
 <core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:layout="sap.ui.layout"
 	xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form">
-	<Dialog  contentWidth="30%" title="Advance Filter" class="dialogHeader sapUiSizeCompact">
-		<content>
-			<l:Grid class="sapUiSmallMargin" defaultSpan="L6 M4 S6">
-				<VBox class="sapUiTinyMargin">
-					<Label text="Assigned Tech" class="sapUiTinyMarginTop"/>
-					<Input width="100%" value="{mLookupModel>/sAssignTechFilter}"></Input>
-				</VBox>
-				<!--	<Label text="Equipment" class="sapUiTinyMarginTop"/>
+	<!--<Dialog  contentWidth="30%" title="Advance Filter" class="dialogHeader sapUiSizeCompact">
+		<content>-->
+	<l:Grid defaultSpan="XL2 L2 M2 S12">
+		<VBox class="sapUiTinyMargin">
+			<Label text="Assigned Tech" class="sapUiTinyMarginTop"/>
+			<Input class="inputRadius" width="100%" value="{mLookupModel>/sAssignTechFilter}"></Input>
+		</VBox>
+		<!--	<Label text="Equipment" class="sapUiTinyMarginTop"/>
 				<Input showValueHelp="true" value="{mLookupModel>/sEquipFilter}" ></Input>-->
-				<VBox class="sapUiTinyMargin">
-					<Label text="Funct. Location" class="sapUiTinyMarginTop"/>
-					<Input width="100%" value="{mLookupModel>/sfnLocFilter}"></Input>
-				</VBox>
-				<!--<Label text="Funct. Location" class="sapUiTinyMarginTop"/>
+		<VBox class="sapUiTinyMargin">
+			<Label text="Funct. Location" class="sapUiTinyMarginTop"/>
+			<Input class="inputRadius" width="100%" value="{mLookupModel>/sfnLocFilter}"></Input>
+		</VBox>
+		<!--<Label text="Funct. Location" class="sapUiTinyMarginTop"/>
 				<Input showValueHelp="true" value="{mLookupModel>/sEquipFilter}" ></Input>-->
-				<VBox class="sapUiTinyMargin">
-					<Label text="WO Type" class="sapUiTinyMarginTop"/>
-					<Input width="100%" value="{mLookupModel>/sWOTypeFilter}"></Input>
-				</VBox>
-				<VBox class="sapUiTinyMargin">
-					<Label text="Work Center" class="sapUiTinyMarginTop"/>
-					<Input width="100%" value="{mLookupModel>/sWorkCenterFilter}"></Input>
-				</VBox>
-			</l:Grid>
-		</content>
+		<VBox class="sapUiTinyMargin">
+			<Label text="WO Type" class="sapUiTinyMarginTop"/>
+			<Input class="inputRadius" width="100%" value="{mLookupModel>/sWOTypeFilter}"></Input>
+		</VBox>
+		<VBox class="sapUiTinyMargin">
+			<Label text="Work Center" class="sapUiTinyMarginTop"/>
+			<Input class="inputRadius" width="100%" value="{mLookupModel>/sWorkCenterFilter}"></Input>
+		</VBox>
+		<Text/>
+		<HBox class="sapUiMediumMarginTop">
+			<Button text="Clear" press="onCancelDialogWO" type="Transparent" class="sapUiSmallMarginEnd sapUiLargeMarginBegin"/>
+			<Button text="Apply" press="onApplyFilter" type="Emphasized"/>
+		</HBox>
+	</l:Grid>
+	<!--</content>
 		<buttons>
-			<!--<Button text="{i18n>save}" class="positionButLeft" press="onSaveWOFilter"/>-->
-			<Button text="{i18n>cancel}" press="onCancelDialogWO" class="murphyClearBtn"/>
-			<Button text="Apply" press="onApplyFilter" class="murphyDialogBtn"/>
-		</buttons>
-	</Dialog>
+			<Button text="{i18n>save}" class="positionButLeft" press="onSaveWOFilter"/>
+	<Button text="{i18n>cancel}" press="onCancelDialogWO" class="murphyClearBtn"/>
+	<Button text="Apply" press="onApplyFilter" class="murphyDialogBtn"/>
+</buttons>
+</Dialog>-->
 </core:FragmentDefinition >

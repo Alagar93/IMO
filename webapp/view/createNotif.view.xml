@@ -5,17 +5,28 @@
 		<tnt:ToolHeader class="headerBG headerShadow">
 			<Label design="Bold" text="{i18n>tile_crNotif}" wrapping="true" class="sapUiSmallMarginBegin textColr"/>
 			<ToolbarSpacer/>
-			<core:Icon src="sap-icon://grid" tooltip="Open Attachments" press="onPressAttachmentsCreateNotif" color="#142e5e" class="attachmentsIconSize"/>
+			<core:Icon src="sap-icon://grid" tooltip="Open Attachments" press="onPressAttachmentsCreateNotif" color="#142e5e"
+				class="attachmentsIconSize"/>
 		</tnt:ToolHeader>
 		<content>
-			<VBox height="{mLookupModel>/notificationPanelHeight}" class="iopRightPanelContainer" width="{= ${mLookupModel>/showTaskManagementPanelCreateNotif} === true ? '20rem' : '0' }">
-				<core:Fragment fragmentName="com.sap.incture.IMO_PM.fragment.RightAttachmentPanelCreateNotif" type="XML" id="idRightAttachmentPanelCreateNotif"></core:Fragment>
+			<Toolbar class="sapUiSmallMarginTop sapUiSmallMarginEnd">
+				<ToolbarSpacer/>
+				<Button text="{i18n>clear}" press="onClearCreateNotif" type="Reject" class="btnTransparent"/>
+				<Button text="{i18n>create_Wo}" press="onCreateWODialogOpen" class="btnTransparent"/>
+				<Button text="{i18n>CREATE_NOTIFICATION}" type="Emphasized" press="checkMandatoryFields">
+					<customData>
+						<core:CustomData key="dateType" value="CREATE"/>
+					</customData>
+				</Button>
+			</Toolbar>
+			<VBox height="{mLookupModel>/notificationPanelHeight}" class="iopRightPanelContainer"
+				width="{= ${mLookupModel>/showTaskManagementPanelCreateNotif} === true ? '20rem' : '0' }">
+				<core:Fragment fragmentName="com.sap.incture.IMO_PM.fragment.RightAttachmentPanelCreateNotif" type="XML"
+					id="idRightAttachmentPanelCreateNotif"></core:Fragment>
 			</VBox>
-			<l:Grid defaultSpan="XL3 L3 M6 S12" class="sapUiSmallMargin gridBG" vSpacing="0">
+			<l:Grid defaultSpan="XL3 L3 M6 S12" class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom sapUiTinyMarginTop gridBG" vSpacing="0">
 				<OverflowToolbar class="createNotifOverflowBorder">
 					<Label design="Bold" text="{i18n>SUBJECT}" wrapping="true"/>
-					<ToolbarSpacer/>
-					<Button text="{i18n>clear}" press="onClearCreateNotif"/>
 					<layoutData>
 						<l:GridData span="XL12 L12 M12 S12"></l:GridData>
 					</layoutData>
@@ -194,7 +205,7 @@
 				</VBox>
 			</l:Grid>
 		</content>
-		<footer>
+		<!--<footer>
 			<Toolbar class="footerBG">
 				<ToolbarSpacer/>
 				<Button text="{i18n>create_Wo}" type="Default" press="onCreateWODialogOpen" class="murphyCreateBtn"/>
@@ -204,6 +215,6 @@
 					</customData>
 				</Button>
 			</Toolbar>
-		</footer>
+		</footer>-->
 	</Page>
 </mvc:View>

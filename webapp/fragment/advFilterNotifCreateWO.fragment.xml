@@ -1,35 +1,40 @@
 <core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:layout="sap.ui.layout"
 	xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form">
-	<Dialog  contentWidth="40%" title="{i18n>adFilter}" class="dialogHeader sapUiSizeCompact">
-		<content>
-			<l:Grid defaultSpan="L6 M4 S6" class="sapUiSmallMargin">
+	<!--<Dialog  contentWidth="40%" title="{i18n>adFilter}" class="dialogHeader sapUiSizeCompact">
+		<content>-->
+			<l:Grid defaultSpan="XL2 L2 M2 S2">
 				<VBox class="sapUiTinyMargin">
 					<Label text="{i18n>stat}" class="sapUiTinyMarginTop"/>
-					<Input width="100%" value="{mLookupModel>/sNotifStatusFilter}"></Input>
+					<Input class="inputRadius" width="100%" value="{mLookupModel>/sNotifStatusFilter}"></Input>
 				</VBox>
 				<VBox class="sapUiTinyMargin">
 					<Label text="{i18n>notifID}" class="sapUiTinyMarginTop"/>
-					<Input width="100%" value="{mLookupModel>/sNotifIdFilter}"></Input>
+					<Input class="inputRadius" width="100%" value="{mLookupModel>/sNotifIdFilter}"></Input>
 				</VBox>
 				<VBox class="sapUiTinyMargin">
 					<Label text="{i18n>equip}" class="sapUiTinyMarginTop"/>
-					<Input width="100%" showValueHelp="true" value="{mLookupModel>/sNotifEquipFilter}" valueHelpRequest="equipmentValueHelp"></Input>
+					<Input class="inputRadius" width="100%" showValueHelp="true" value="{mLookupModel>/sNotifEquipFilter}" valueHelpRequest="equipmentValueHelp"></Input>
 				</VBox>
 				<VBox class="sapUiTinyMargin">
 					<Label text="{i18n>breakDown}" class="sapUiTinyMarginTop"/>
-					<ComboBox width="100%" items="{ path: 'mLookupModel>/aBDown'}" selectedKey="{mLookupModel>/sNotifBDFilter}">
+					<ComboBox class="inputRadius" width="100%" items="{ path: 'mLookupModel>/aBDown'}" selectedKey="{mLookupModel>/sNotifBDFilter}">
 						<core:ListItem key="{mLookupModel>des}" text="{mLookupModel>des}"/>
 					</ComboBox>
 				</VBox>
 				<VBox class="sapUiTinyMargin">
 					<Label text="{i18n>WORK_CENTER}" class="sapUiTinyMarginTop"></Label>
-					<ComboBox width="100%" showSecondaryValues="true" items="{path:'mLookupModel>/aWorkCenterSet',sorter:{ path: 'text' }}"
+					<ComboBox class="inputRadius" width="100%" showSecondaryValues="true" items="{path:'mLookupModel>/aWorkCenterSet',sorter:{ path: 'text' }}"
 						selectedKey="{mLookupModel>/sNotifWkCenterFilter}">
 						<core:ListItem key="{mLookupModel>WorkcenterId}" additionalText="{mLookupModel>WorkcenterDesc}" text="{mLookupModel>WorkcenterId}"/>
 					</ComboBox>
 				</VBox>
 			</l:Grid>
-		</content>
+			<FlexBox alignItems="Start" justifyContent="End">
+				<Button text="Clear" press="onClearNotifFilter" type="Transparent" class="sapUiSmallMarginEnd sapUiSmallMarginBottom"/>
+				<Button text="{i18n>save}"  press="onSaveNotifFilter" class="sapUiSmallMarginEnd sapUiSmallMarginBottom"/>
+				<Button text="{i18n>done}" press="onApplyFilterNotif" type="Emphasized" class="sapUiSmallMarginEnd sapUiSmallMarginBottom"/>
+			</FlexBox>
+		<!--</content>
 		<buttons>
 			<Button text="{i18n>cancel}" press="onCancelDialogNotif" class="murphyClearBtn"/>
 			<Button text="{i18n>CLEAR}" press="onClearNotifFilter" class="murphyClearBtn"/>
@@ -37,5 +42,5 @@
 			<Button text="{i18n>done}" press="onApplyFilterNotif" class="murphyDialogBtn"/>
 			
 		</buttons>
-	</Dialog>
+	</Dialog>-->
 </core:FragmentDefinition >

@@ -9,13 +9,24 @@
 				enableSelectAll="false" visibleRowCount="{mLookupModel>/rowCount}" visibleRowCountMode="Fixed" ariaLabelledBy="title" fixedColumnCount="2"
 				rowHeight="51rem" toggleOpenState="onExpandCollapse" filter="onFilterColumn">
 				<extension>
-					<m:OverflowToolbar class="tableHeaderBG" height="3rem">
-						<m:Title id="title" text="{i18n>revTable} ({mLookupModel>/aWorkOrderListSet/0/Totalrecords} WO's)" class="titleBold"/>
+					<m:OverflowToolbar class="tableHeaderBG tableMargin" height="3rem">
+						<m:Title id="title" text="{i18n>revTable} ({mLookupModel>/aWorkOrderListSet/0/Totalrecords} WO's)" class="styleTableTitle"/>
 						<m:ToolbarSpacer/>
-						<m:Link text="{i18n>advFilter}" press="onHandleAdvFilterWO"/>
+						<core:Icon src="sap-icon://filter" press="reviewWOAdvFilterPanelOpen" tooltip="Open Filters" color="#142e5e"
+							class="sapUiSmallMarginEnd attachmentsIconSize"/>
+						<!--<m:Link text="{i18n>advFilter}" press="onHandleAdvFilterWO"/>-->
 						<m:SearchField width="25%" value="{mLookupModel>/sWorderIdDesFilter}" class="sapUiSearchBorderCls" search="onSearchWO"
 							placeholder="{i18n>searchbyWorkOrderIdDes}"/>
 					</m:OverflowToolbar>
+					<m:Panel class="filterWrapperPanel tableMargin" id="filterWrapPanelReviewWO" expandAnimation="true" expandable="true" expanded="false">
+						<m:content>
+							<core:Fragment fragmentName="com.sap.incture.IMO_PM.fragment.advanceFilterReviewWO" type="XML"></core:Fragment>
+						</m:content>
+					</m:Panel>
+					<m:Toolbar class="tableHeaderBG" height="3rem">
+						<m:ToolbarSpacer/>
+						<m:Button text="{i18n>TecoWO}" press="onOpenDigitalSignPopup" visible="{path:'mLookupModel>/userRole', formatter:'com.sap.incture.IMO_PM.formatter.formatter.disableReviewField'}"/>
+					</m:Toolbar>
 				</extension>
 				<columns>
 					<Column width="2.5rem">
@@ -174,12 +185,12 @@
 				</columns>
 			</TreeTable>
 		</m:content>
-		<m:footer>
+		<!--<m:footer>
 			<m:Toolbar>
 				<m:ToolbarSpacer/>
 				<m:Button text="{i18n>TecoWO}" press="onOpenDigitalSignPopup" class="murphyCreateBtn"
 					visible="{path:'mLookupModel>/userRole', formatter:'com.sap.incture.IMO_PM.formatter.formatter.disableReviewField'}"/>
 			</m:Toolbar>
-		</m:footer>
+		</m:footer>-->
 	</m:Page>
 </mvc:View>
