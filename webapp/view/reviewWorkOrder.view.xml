@@ -25,7 +25,7 @@
 					</m:Panel>
 					<m:Toolbar class="tableHeaderBG" height="3rem">
 						<m:ToolbarSpacer/>
-						<m:Button text="{i18n>TecoWO}" press="onOpenDigitalSignPopup" visible="{path:'mLookupModel>/userRole', formatter:'com.sap.incture.IMO_PM.formatter.formatter.disableReviewField'}"/>
+						<m:Button class="tableHeadertansparentBtn" text="{i18n>TecoWO}" press="onOpenDigitalSignPopup" visible="{path:'mLookupModel>/userRole', formatter:'com.sap.incture.IMO_PM.formatter.formatter.disableReviewField'}"/>
 					</m:Toolbar>
 				</extension>
 				<columns>

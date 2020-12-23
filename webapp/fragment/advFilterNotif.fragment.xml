@@ -56,10 +56,10 @@
 			<Text/>
 			<Text/>
 			<Text/>
-			<HBox class="sapUiMediumMarginTop">
-				<Button text="Clear" press="onClearNotifFilter" class="sapUiSmallMarginEnd" type="Transparent"/>
-				<Button text="{i18n>save}" press="onSaveNotifFilter" class="sapUiSmallMarginEnd"/>
-				<Button text="Apply" press="onApplyFilterNotif" type="Emphasized"/>
+			<HBox class="sapUiMediumMarginTop" width="100%">
+				<Button width="4rem" text="Clear" press="onClearNotifFilter" type="Transparent"/>
+				<Button width="4rem" text="{i18n>save}" press="onSaveNotifFilter" class="sapUiSmallMarginEnd tableHeadertansparentBtn"/>
+				<Button width="4rem" text="Apply" press="onApplyFilterNotif" type="Emphasized"/>
 			</HBox>
 		</l:Grid>
 	</VBox>

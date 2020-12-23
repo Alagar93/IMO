@@ -61,9 +61,9 @@
 		<Text/>
 		<Text/>
 		<HBox class="sapUiSmallMarginTop">
-			<Button text="Clear" press="onClearWoFilter" class="sapUiSmallMarginEnd" type="Transparent"/>
-			<Button text="{i18n>save}" press="onSaveWOFilter" class="sapUiSmallMarginEnd"/>
-			<Button text="{i18n>done}" press="onApplyFilter" type="Emphasized"/>
+			<Button width="4rem" text="Clear" press="onClearWoFilter" type="Transparent"/>
+			<Button width="4rem" text="{i18n>save}" press="onSaveWOFilter" class="sapUiSmallMarginEnd tableHeadertansparentBtn"/>
+			<Button width="4rem" text="{i18n>done}" press="onApplyFilter" type="Emphasized"/>
 		</HBox>
 	</l:Grid>
 	<!--</content>

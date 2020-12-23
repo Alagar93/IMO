@@ -12,7 +12,7 @@
 			<Toolbar class="sapUiSmallMarginTop sapUiSmallMarginEnd">
 				<ToolbarSpacer/>
 				<Button text="{i18n>clear}" press="onClearCreateNotif" type="Reject" class="btnTransparent"/>
-				<Button text="{i18n>create_Wo}" press="onCreateWODialogOpen" class="btnTransparent"/>
+				<Button text="{i18n>create_Wo}" press="onCreateWODialogOpen" class="tableHeadertansparentBtn"/>
 				<Button text="{i18n>CREATE_NOTIFICATION}" type="Emphasized" press="checkMandatoryFields">
 					<customData>
 						<core:CustomData key="dateType" value="CREATE"/>

@@ -12,17 +12,17 @@
 	},{
 		"tabText": "Work Order List",
 		"tabKey": "WOList",
-		"icon": "sap-icon://activity-2",
+		"icon": "sap-icon://multiselect-none",
 		"isVis": true
 	}, {
 		"tabText": "Create/Edit WO",
 		"tabKey": "createWO",
-		"icon": "sap-icon://request",
+		"icon": "sap-icon://write-new",
 		"isVis": true
 	},  {
 		"tabText": "Review Work Order and TECO",
 		"tabKey": "reviewWO",
-		"icon": "sap-icon://inspection",
+		"icon": "sap-icon://search",
 		"isVis": true
 	}]
 }

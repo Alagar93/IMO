@@ -141,10 +141,10 @@
 					</Panel>
 					<Toolbar class="tableHeaderBG" height="3rem">
 						<ToolbarSpacer/>
-						<Button icon="sap-icon://write-new-document" iconFirst="true" text="{i18n>ASIGN_TECHNICIAN}"
+						<Button class="tableHeadertansparentBtn" icon="sap-icon://write-new-document" iconFirst="true" text="{i18n>ASIGN_TECHNICIAN}"
 							visible="{path:'mLookupModel>/userRole', formatter:'com.sap.incture.IMO_PM.formatter.formatter.disableReviewField'}"
 							enabled="{= ${mLookupModel>/iSelectedWOIndices} >= 1 ? true: false}" press="onAssignWO"/>
-						<Button text="{i18n>viewDetails}" enabled="{= ${mLookupModel>/iSelectedWOIndices} === 1 ? true : false}" press="onNavigatetoDetail"/>
+						<Button class="tableHeadertansparentBtn" text="{i18n>viewDetails}" enabled="{= ${mLookupModel>/iSelectedWOIndices} === 1 ? true : false}" press="onNavigatetoDetail"/>
 					</Toolbar>
 				</table:extension>
 				<table:columns>

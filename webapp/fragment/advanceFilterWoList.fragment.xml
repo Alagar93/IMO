@@ -71,9 +71,9 @@
 		</VBox>
 		<Text/>
 		<HBox class="sapUiMediumMarginTop">
-			<Button text="Clear" press="onClearWoFilter" class="sapUiSmallMarginEnd" type="Transparent"/>
-			<Button text="{i18n>save}" class="sapUiSmallMarginEnd" press="onSaveWOFilter"/>
-			<Button text="{i18n>APPLY}" press="onApplyFilter" type="Emphasized"/>
+			<Button width="4rem" text="Clear" press="onClearWoFilter" type="Transparent"/>
+			<Button width="4rem" text="{i18n>save}" class="sapUiSmallMarginEnd tableHeadertansparentBtn" press="onSaveWOFilter"/>
+			<Button width="4rem" text="{i18n>APPLY}" press="onApplyFilter" type="Emphasized"/>
 		</HBox>
 	</l:Grid>
 	<!--</content>

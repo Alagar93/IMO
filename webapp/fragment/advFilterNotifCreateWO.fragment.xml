@@ -30,9 +30,9 @@
 				</VBox>
 			</l:Grid>
 			<FlexBox alignItems="Start" justifyContent="End">
-				<Button text="Clear" press="onClearNotifFilter" type="Transparent" class="sapUiSmallMarginEnd sapUiSmallMarginBottom"/>
-				<Button text="{i18n>save}"  press="onSaveNotifFilter" class="sapUiSmallMarginEnd sapUiSmallMarginBottom"/>
-				<Button text="{i18n>done}" press="onApplyFilterNotif" type="Emphasized" class="sapUiSmallMarginEnd sapUiSmallMarginBottom"/>
+				<Button width="4rem" text="Clear" press="onClearNotifFilter" type="Transparent"/>
+				<Button width="4rem" text="{i18n>save}"  press="onSaveNotifFilter" class="sapUiSmallMarginEnd sapUiSmallMarginBottom sapUiSmallMarginBottomtableHeadertansparentBtn"/>
+				<Button width="4rem" text="{i18n>done}" press="onApplyFilterNotif" type="Emphasized" class="sapUiSmallMarginEnd sapUiSmallMarginBottom"/>
 			</FlexBox>
 		<!--</content>
 		<buttons>

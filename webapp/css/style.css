@@ -2604,3 +2604,9 @@ html.sap-desktop .sapMIBar.sapMFooter-CTX {
 .btnTransparent span {
     background: transparent !important;
 }
+
+.tableHeadertansparentBtn span {
+    background: transparent !important;
+    border-color: #3770b1;
+    color: #3770b1;
+}
