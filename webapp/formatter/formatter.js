@@ -559,6 +559,23 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 			return false;
 		}
 	},
+	//Function to disable material Desc in Detail WO
+	fnDisaleMatrialDesc: function (sSAPId) {
+		var bFlag = false;
+		if (sSAPId === "" || sSAPId === undefined) {
+			bFlag = true;
+		}
+		return bFlag;
+	},
+	//function to validate Material before PR
+	MaterialPRVAlidation: function (oMaterial) {
+			var bFlag = true;
+			if ((oMaterial.MatlDesc === "" || oMaterial.MatlDesc === undefined) && (oMaterial.RequirementQuantity === "" || oMaterial.RequirementQuantity ===
+					undefined) && (oMaterial.RequirementQuantityUnit === "" || oMaterial.RequirementQuantityUnit === undefined)) {
+				bFlag = false;
+			}
+			return bFlag;
+		},
 	//Function to add logged in user name in Report by field
 	setReportByUser: function (userName, woData) {
 		if (woData) {
@@ -640,6 +657,14 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 		} else {
 			return true;
 		}
+	},
+	//Function to open Material and BOM Table in Spare Parts 
+	setMatBOMTable: function (sSelectedKey) {
+		var bFlag = false;
+		if (sSelectedKey === "BOM") {
+			bFlag = true;
+		}
+		return bFlag;
 	},
 
 	//  Function to Generate months back Date

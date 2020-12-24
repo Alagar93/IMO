@@ -167,14 +167,14 @@
 									</Select>
 								</ui:template>
 							</ui:Column>
-							<ui:Column width="8rem" hAlign="Center" tooltip="{i18n>SAP_ID}">
+							<ui:Column width="12rem" hAlign="Center" tooltip="{i18n>SAP_ID}">
 								<Label text="{i18n>SAP_ID}" class="tableHeaderText"/>
 								<ui:template>
 									<!--<Text text="{path:'oWorkOrderDetailModel>Material', formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnCheckSafetyStock'}"/>-->
 									<Input value="{path:'oWorkOrderDetailModel>Material', formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnCheckSafetyStock'}"
 										class="sapInputBorderClass" showSuggestion="true" suggestionItems="{oWorkOrderDetailViewModel>/aMaterialsList}" change="oSelectMatSparePart" editable="{path:'oWorkOrderDetailModel>CompCode',formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnCheckSavedSpareParts'}">
 										<suggestionItems>
-											<core:ListItem text="{oWorkOrderDetailViewModel>Material}" additionalText="{oWorkOrderDetailViewModel>MatlDesc}"/>
+											<core:ListItem  text="{oWorkOrderDetailViewModel>Material}" additionalText="{oWorkOrderDetailViewModel>MaterialDesc}"/>
 										</suggestionItems>
 									</Input>
 								</ui:template>
@@ -184,10 +184,8 @@
 								<ui:template>
 									<!--<Text text="{oWorkOrderDetailModel>MatlDesc}"/>-->
 									<Input value="{path:'oWorkOrderDetailModel>MatlDesc'}"
-										class="sapInputBorderClass" showSuggestion="true" suggestionItems="{oWorkOrderDetailViewModel>/aMaterialsList}">
-										<suggestionItems>
-											<core:ListItem text="{oWorkOrderDetailViewModel>MatlDesc}" additionalText="{oWorkOrderDetailViewModel>Material}"/>
-										</suggestionItems>
+										class="sapInputBorderClass" enabled="{path:'oWorkOrderDetailModel>Material',formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnDisaleMatrialDesc'}">
+										
 									</Input>
 								</ui:template>
 							</ui:Column>
@@ -216,7 +214,7 @@
 							<ui:Column width="8rem" hAlign="Center">
 								<Label text="{i18n>itemCategory}" class="tableHeaderText"/>
 								<ui:template>
-									<ComboBox selectedKey="{oWorkOrderDetailModel>ItemCat}">
+									<ComboBox selectedKey="{oWorkOrderDetailModel>ItemCat}" selectionChange="onItemCatChange">
 										<core:Item key="L" text="L"/>
 										<core:Item key="N" text="N"/>
 									</ComboBox>

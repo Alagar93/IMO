@@ -685,7 +685,8 @@ sap.ui.define([
 						oWorkOrderDetailViewModel.setProperty("/aFrequentlyUsedList", aMaterialsList);
 					} else if (!isFrequent && equipId) {
 						oWorkOrderDetailViewModel.setProperty("/prevEquipId", equipId);
-						oWorkOrderDetailViewModel.setProperty("/aBOMsList", aMaterialsList);
+						//oWorkOrderDetailViewModel.setProperty("/aBOMsList", aMaterialsList);
+						
 					} else {
 						oWorkOrderDetailViewModel.setProperty("/aSearchMatList", aMaterialsList);
 					}
@@ -703,6 +704,44 @@ sap.ui.define([
 				}
 			});
 		},
+		//Function to Get BOM Table Material in Spare Parts 
+		getBOMTableList:function(){
+			var that = this;
+			this.busy.open();
+			var sUrl = "/EquipBOMSet";
+			var oPortalDataModel = this.oPortalDataModel;
+			var oWorkOrderDetailViewModel = this.oWorkOrderDetailViewModel;
+			var oWorkOrderDetailModel=this.oWorkOrderDetailModel;
+			var userPlant = this.oUserDetailModel.getProperty("/userPlant");
+			var sEquipId = oWorkOrderDetailModel.getProperty("/Equipment");
+			var oSearchTbl=sap.ui.getCore().byId("MYLAN_MATERIALS_SEARCH_TBL");
+			var oFilter=[];
+			oFilter.push(new Filter("plant", "EQ", userPlant));
+			oFilter.push(new Filter("equipId","EQ",sEquipId));
+			oFilter.push(new Filter("bomCategory","EQ","E"));
+			oPortalDataModel.read(sUrl, {
+				filters: oFilter,
+				success: function (oData) {
+					var aMaterialsList = oData.results;
+					
+						oWorkOrderDetailViewModel.setProperty("/prevEquipId", sEquipId);
+						oWorkOrderDetailViewModel.setProperty("/aBOMsList", aMaterialsList);
+						
+					
+					if(oSearchTbl){
+					sap.ui.getCore().byId("MYLAN_MATERIALS_SEARCH_TBL").clearSelection();
+					}
+					oWorkOrderDetailViewModel.refresh();
+					that.busy.close();
+				},
+				error: function (oData) {
+					oWorkOrderDetailViewModel.setProperty("/aBOMsList", []);
+					oWorkOrderDetailViewModel.refresh();
+					that.busy.close();
+				}
+			});
+		},
+		
 
 		//Function to get Equipment list based
 		getEquipmentList: function () {
@@ -895,6 +934,7 @@ sap.ui.define([
 						operationList = that.updateOperationList(operationList, prevOperations);
 
 					}
+					//oWorkOrderDetailViewModel.setProperty("/SavedOperations",operationList);//to get only saved operations for operations lookup.
 
 					var notifications = oData.HEADERTONOTIFNAV.results;
 					if (!notifications) {
@@ -949,6 +989,7 @@ sap.ui.define([
 					that.fnGetWOOperationsComments(Orderid);
 					that.fnGetWOAttachmentLinks(Orderid);
 					that.getOperationIdLookup();
+					//that.getSavedOperationIdLookup();//Saved Operations only Lookup.
 
 					var partNav = jQuery.extend(true, [], partner);
 					oWorkOrderDetailViewModel.setProperty("/HEADERTOPARTNERNAV", partNav);

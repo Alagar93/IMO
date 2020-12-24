@@ -1,9 +1,9 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:ui="sap.ui.table">
 	<Dialog title="{i18n>DETAIL_DIALOG_TITLE_ADD_SPARE_PART}" class="sapUiSizeCompact">
 		<content>
-			<IconTabBar expandable="false" select="getSelectedIconTab">
+			<IconTabBar expandable="false" select="getSelectedIconTab" selectedKey="{oWorkOrderDetailViewModel>/SPSelectedKey}">
 				<items>
-					<IconTabFilter text="{i18n>BOM}" key="BOM"/>
+					<IconTabFilter text="{i18n>BOM}" key="BOM"></IconTabFilter>
 					<IconTabFilter text="{i18n>SEARCH_SPARE_PARTS}" key="SEARCH"/>
 					<IconTabFilter text="{i18n>FREQUENTLY_USED}" key="FREQ_USED"/>
 				</items>
@@ -72,7 +72,7 @@
 			</l:Grid>
 			<ui:Table rows="{oWorkOrderDetailViewModel>/aMaterialsList}" selectionMode="MultiToggle" id="MYLAN_MATERIALS_SEARCH_TBL"
 				class="sapUITableColumn sapUiTinyMarginTop" enableSelectAll="false" rowSelectionChange="onSelectMaterials"
-				visibleRowCount="{mLookupModel>/spRowCount}" rowHeight="40">
+				visibleRowCount="{mLookupModel>/spRowCount}" rowHeight="40" >
 				<ui:columns>
 					<ui:Column width="14%" hAlign="Center">
 						<Text text="{i18n>DETAIL_SPARE_PART_SAP_ID}" class="sapUITableColumnLabelClass" wrapping="true"/>

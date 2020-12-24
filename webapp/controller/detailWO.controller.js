@@ -50,6 +50,7 @@ sap.ui.define([
 					this.fnFilterCNFOperations(true);
 					var workCenter = oWorkOrderDetailModel.getProperty("/MnWkCtr");
 					this.setOrderTypeOperation(oWorkOrderDetailModel, oWorkOrderDetailViewModel, [], workCenter);
+					this.SetinitialOperation();
 					this.getOperationIdLookup();
 				} else if (viewType === "CREATE_REF_WO") {
 					this.fnCreateUpdateBtnTxt("CREATE_ORDER");
@@ -87,13 +88,61 @@ sap.ui.define([
 			var oFileUploader = this.getView().byId("MYLAN_CREATE_WO_FILEUPLOADER");
 			oFileUploader.setUploadUrl(sericeUrl);
 		},
+		//Sunanda---Function to Set initial operation.
+		SetinitialOperation: function () {
+			var oWorkOrderDetailModel = this.oWorkOrderDetailModel;
+			var operations = oWorkOrderDetailModel.getProperty("/HEADERTOOPERATIONSNAV");
+			var workCenter = oWorkOrderDetailModel.getProperty("/MnWkCtr");
+			var userPlant = this.oUserDetailModel.getProperty("/userPlant");
+			var ShortText = oWorkOrderDetailModel.getProperty("/ShortText");
+			var bVal = this.addOperationMandatoryValidation();
+			if (!bVal) {
+				return;
+			}
+			if (operations.length === 0) {
+				operations = [];
+				var newOperationId = this.generateOperationId(operations);
+				var oTempobj = {
+					"Activity": newOperationId,
+					"WorkCntr": workCenter,
+					"LongText": "",
+					"Plant": userPlant,
+					"Description": "",
+					"Systcond": "",
+					"MyWork": "",
+					"TWork": "",
+					"T": "",
+					"CompletedOn": new Date(),
+					"SubActivity": "",
+					"ControlKey": "PM01",
+					"VendorNo": "",
+					"PurchOrg": "",
+					"PurGroup": "",
+					"MatlGroup": "",
+					"CalcKey": "",
+					"Acttype": "",
+					"Assembly": "",
+					"Equipment": "",
+					"BusArea": "",
+					"WbsElem": "",
+					"ProfitCtr": "",
+					"OperCode": "C",
+					"systemstatustext": ""
+				};
+				operations.push(oTempobj);
+			}
+			oWorkOrderDetailModel.setProperty("/HEADERTOOPERATIONSNAV", operations);
+			oWorkOrderDetailModel.refresh();
+			this.getOperationIdLookup();
+		},
+
 		//nischal -- function to open CloseNotificationsPop-up 
 		onOpenCloseNotifPopUp: function () {
 			if (!this.closeNotifPopUp) {
 				this.closeNotifPopUp = sap.ui.xmlfragment("com.sap.incture.IMO_PM.fragment.closeNotifPopUpWO", this);
 				this.getView().addDependent(this.closeNotifPopUp);
 			}
-			
+
 			this.closeNotifPopUp.open();
 		},
 		onSaveCloseNotifPopUp: function () {
@@ -132,12 +181,75 @@ sap.ui.define([
 			var sPath = oWorkOrderDetailViewModel.getProperty("/sPathControlKey");
 			var oData = oWorkOrderDetailViewModel.getProperty("/oControlkeyOperation");
 			oWorkOrderDetailModel.setProperty(sPath, oData);
-			this.onCancelControlKeyDialog();
-		},
-		onCancelControlKeyDialog: function (oEvent) {
 			this.controlKeyDialog.close();
 			this.controlKeyDialog.destroy();
 			this.controlKeyDialog = null;
+		},
+		onCancelControlKeyDialog: function (oEvent) {
+			var oWorkOrderDetailModel = this.oWorkOrderDetailModel;
+			var oWorkOrderDetailViewModel = this.oWorkOrderDetailViewModel;
+			var sPath = oWorkOrderDetailViewModel.getProperty("/sPathControlKey");
+			oWorkOrderDetailModel.setProperty(sPath + "/ControlKey", "PM01");
+			oWorkOrderDetailViewModel.setProperty("/sPathControlKey", "");
+			oWorkOrderDetailViewModel.setProperty("/oControlkeyOperation", null);
+			this.controlKeyDialog.close();
+			this.controlKeyDialog.destroy();
+			this.controlKeyDialog = null;
+		},
+		//Sunanda -- Function to open ControlKey popup if Item Category is N
+		onItemCatChange: function (oEvent) {
+			var oWorkOrderDetailModel = this.oWorkOrderDetailModel;
+			var oWorkOrderDetailViewModel = this.oWorkOrderDetailViewModel;
+			var sKey = oEvent.getSource().getSelectedKey();
+			var oSource = oEvent.getSource();
+			var sPath = oSource.getBindingContext("oWorkOrderDetailModel").getPath();
+			if (sKey === "N") {
+
+				oWorkOrderDetailViewModel.setProperty("/sPathItemCat", sPath);
+				var oComponentDetails = oWorkOrderDetailModel.getProperty(sPath);
+				var bMatVal = formatter.MaterialPRVAlidation(oComponentDetails);
+				if (bMatVal) {
+					oWorkOrderDetailViewModel.setProperty("/oComponentDetails", oComponentDetails);
+					if (!this.oItemCatDialog) {
+						this.oItemCatDialog = sap.ui.xmlfragment("com.sap.incture.IMO_PM.fragment.ItemCatPRPopup", this);
+						this.getView().addDependent(this.oItemCatDialog);
+					}
+					this.oItemCatDialog.open();
+				} else {
+					MessageBox.error("Please enter valid component details", {
+
+						onClose: function (sAction) {
+							oWorkOrderDetailModel.setProperty(sPath + "/ItemCat", "L");
+							oWorkOrderDetailViewModel.setProperty("/sPathItemCat", "");
+							oWorkOrderDetailViewModel.setProperty("/oComponentDetails", null);
+						}
+					});
+
+				}
+
+			}
+		},
+
+		onSaveItemCatPR: function () {
+			var oWorkOrderDetailModel = this.oWorkOrderDetailModel;
+			var oWorkOrderDetailViewModel = this.oWorkOrderDetailViewModel;
+			var sPath = oWorkOrderDetailViewModel.getProperty("/sPathItemCat");
+			var oData = oWorkOrderDetailViewModel.getProperty("/oComponentDetails");
+			oWorkOrderDetailModel.setProperty(sPath, oData);
+			this.oItemCatDialog.close();
+			this.oItemCatDialog.destroy();
+			this.oItemCatDialog = null;
+		},
+		onCancelItemCatPR: function () {
+			var oWorkOrderDetailModel = this.oWorkOrderDetailModel;
+			var oWorkOrderDetailViewModel = this.oWorkOrderDetailViewModel;
+			var sPath = oWorkOrderDetailViewModel.getProperty("/sPathItemCat");
+			oWorkOrderDetailModel.setProperty(sPath + "/ItemCat", "L");
+			oWorkOrderDetailViewModel.setProperty("/sPathItemCat", "");
+			oWorkOrderDetailViewModel.setProperty("/oComponentDetails", null);
+			this.oItemCatDialog.close();
+			this.oItemCatDialog.destroy();
+			this.oItemCatDialog = null;
 		},
 
 		//nischal -- function to set Required Start Date and End Date based on priority
@@ -1007,6 +1119,24 @@ sap.ui.define([
 			this.oWorkOrderDetailViewModel.setProperty("/operationsLookup", oArray);
 			oWorkOrderDetailModel.refresh();
 		},
+		//Function to get Operation Id of saved operations only
+		/*getSavedOperationIdLookup: function () {
+			var oArray = [];
+			var oWorkOrderDetailViewModel = this.oWorkOrderDetailViewModel;
+			var aSavedOperations = oWorkOrderDetailViewModel.getProperty("/SavedOperations");
+			if (!aSavedOperations) {
+				return;
+			}
+			for (var i = 0; i < aSavedOperations.length; i++) {
+				var oTempObj = {
+					id: aSavedOperations[i].Activity,
+					text: aSavedOperations[i].Activity
+				};
+				oArray.push(oTempObj);
+			}
+			this.oWorkOrderDetailViewModel.setProperty("/SavedoperationsLookup", oArray);
+			oWorkOrderDetailViewModel.refresh();
+		},*/
 
 		//Function to add Operations for a Work Order
 		onAddWOOperations: function () {
@@ -1396,6 +1526,7 @@ sap.ui.define([
 				oWorkOrderDetailViewModel.setProperty("/setSearchLayVisible", false);
 				var equipId = this.oWorkOrderDetailModel.getProperty("/Equipment");
 				var prevEquipId = oWorkOrderDetailViewModel.getProperty("/prevEquipId");
+
 				var aBOMsList = oWorkOrderDetailViewModel.getProperty("/aBOMsList");
 				if (equipId) {
 					if (equipId !== prevEquipId) {
@@ -1404,6 +1535,9 @@ sap.ui.define([
 						oWorkOrderDetailViewModel.setProperty("/aMaterialsList", aBOMsList);
 					}
 				}
+				this.getBOMTableList();
+				/*var aBOMist=oWorkOrderDetailViewModel.getProperty("/aBOMsList");
+				oWorkOrderDetailViewModel.setProperty("/aMaterialsList", aBOMsList);*/
 				oWorkOrderDetailViewModel.setProperty("/selectedMaterials", []);
 				sap.ui.getCore().byId("MYLAN_MATERIALS_SEARCH_TBL").clearSelection();
 				break;
@@ -1450,6 +1584,7 @@ sap.ui.define([
 				this.getView().addDependent(this.adSparePartsDialog);
 			}
 			this.oWorkOrderDetailViewModel.setProperty("/selectedMaterials", []);
+			this.oWorkOrderDetailViewModel.setProperty("/SPSelectedKey", "BOM");
 			this.adSparePartsDialog.getContent()[0].setSelectedKey("BOM");
 			this.getSelectedIconTab("BOM");
 			this.adSparePartsDialog.open();
@@ -1483,6 +1618,12 @@ sap.ui.define([
 		onAddEmptySparePart: function () {
 			var oWorkOrderDetailModel = this.oWorkOrderDetailModel;
 			var oWorkOrderDetailViewModel = this.oWorkOrderDetailViewModel;
+
+			var operations = oWorkOrderDetailModel.getProperty("/HEADERTOOPERATIONSNAV");
+			if (!operations || operations.length === 0) {
+				this.showMessage(this.oResourceModel.getText("plsaddanoprntoaddspart"));
+				return;
+			}
 			var spareParts = oWorkOrderDetailModel.getProperty("/HEADERTOCOMPONENTNAV");
 			var userPlant = this.oUserDetailModel.getProperty("/userPlant");
 			var sEquipId = oWorkOrderDetailModel.getProperty("/Equipment");
