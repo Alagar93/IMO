@@ -1,75 +1,9 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" class="sapUiSizeCompact" xmlns:l="sap.ui.layout" xmlns:f="sap.f"
 	xmlns:u="sap.ui.unified">
-	<!--<IconTabBar expandable="false" class="sapMIconTabBarHeight">
-		<items>
-			<IconTabFilter text="{i18n>ALL_COMMENTS}" visible = "false">
-				<SegmentedButton selectedKey="WORK_ORDER_CMTS" class="sapUiTinyMarginBottom" width="100%" select="setCommentsVisibleLayout"
-					visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setVisibleCommentsView'}">
-					<items>
-						<SegmentedButtonItem text="{i18n>WORK_ORDER}" key="WORK_ORDER_CMTS"/>
-						<SegmentedButtonItem text="{i18n>OPERATIONS}" key="OPERATIONS_CMTS"/>
-					</items>
-				</SegmentedButton>
-				<ScrollContainer height="100%" width="100%" vertical="true" focusable="true">
-					<VBox visible="{oWorkOrderDetailViewModel>/isOperationsCommentVisible}" items="{oWorkOrderDetailViewModel>/operationCommentDto}"
-						class="sapUiTinyMarginTop" id="WO_DETAIL_OPS_COMMENTS_LAY">
-						<FlexBox class="sapUiTinyMarginTop sapUiSmallMarginBottom">
-							<VBox width="100%">
-								<Text
-									text="{path:'oWorkOrderDetailViewModel>operationCreatedDateObj', formatter: 'com.sap.incture.IMO_PM.formatter.formatter.formatJavaDateTime'}"
-									class="sapMCommentFontSize sapUiTinyMarginBegin"/>
-								<FlexBox>
-									<layoutData>
-										<FlexItemData growFactor="1" shrinkFactor="0"/></layoutData>
-									<HBox class="userNameBlueCircle">
-										<Text text="{path:'oWorkOrderDetailViewModel>userName', formatter: 'com.sap.incture.IMO_PM.formatter.formatter.formatTwoLetterUserName'}"/>
-									</HBox>
-									<HBox class="sapUiTinyMarginTop" width="100%">
-										<VBox class="sapUiLargeMarginEnd">
-											<Label text="{oWorkOrderDetailViewModel>userName}" class="sapMLabelTxtFontWeight"/>
-											<Label
-												text="{parts:['oWorkOrderDetailViewModel>operationCreatedDateObj', 'oWorkOrderDetailViewModel>operationId'], formatter: 'com.sap.incture.IMO_PM.formatter.formatter.formatJavaDateTime'}"
-												class="sapMCommentFontSize"/>
-										</VBox>
-										<VBox class="sapUiLargeMarginBegin sapUiSmallMarginEnd" width="100%">
-											<Label text="Operation Id" textAlign="End" class="sapMCommentFontSize" width="100%"/>
-											<FlexBox direction="RowReverse" alignItems="Start">
-												<items>
-													<Label text="{oWorkOrderDetailViewModel>operationId}" class="sapMLabelTxtFontWeight"/>
-												</items>
-											</FlexBox>
-										</VBox>
-									</HBox>
-								</FlexBox>
-								<HBox fitContainer="true" class="sapUiCommentsBorderClass sapUiMediumMarginBegin sapUiSmallMarginEnd">
-									<Text wrapping="true" class="sapUiTinyMargin" text="{oWorkOrderDetailViewModel>operationComments}"/>
-								</HBox>
-							</VBox>
-						</FlexBox>
-					</VBox>
-				</ScrollContainer>
-				<VBox visible="{oWorkOrderDetailViewModel>/isWordOrderCommentVisible}">
-					<Text text="{i18n>ADD_WO_COMMENT}" class="sapMTextFontSize"/>
-					<VBox>
-						<TextArea value="{oWorkOrderDetailModel>/LongText}" enabled="{oWODetailFieldsModel>/workOrderComments}" rows="12" width="100%"
-							maxLength="2000" class="sapAddWOCmtClass">
-							<customData>
-								<core:CustomData key="target" value="HYPER_LINK"/>
-							</customData>
-						</TextArea>
-						<Toolbar height="2rem">
-							<ToolbarSpacer/>
-							<Button icon="sap-icon://full-screen" tooltip="{i18n>COMMENT_FULLSCREEN}" type="Transparent" press="showWorkOrderCommentDialog"/>
-						</Toolbar>
-					</VBox>
-				</VBox>
-			</IconTabFilter>-->
-	<!--<IconTabFilter text="{i18n>ATTACHMENTS}"
-				visible="{parts:['oWorkOrderDetailModel>/OrderStatus','oWorkOrderDetailModel>/Orderid'] , formatter:'com.sap.incture.IMO_PM.formatter.formatter.setAttachmentsTabVisible'}">-->
 	<OverflowToolbar class="createNotifOverflowBorder sapUiTinyMarginBottom">
 		<Label design="Bold" text="Attachments" wrapping="true"/>
 		<ToolbarSpacer/>
-		<core:Icon src="sap-icon://decline" tooltip="Close Attachments" press="onPressBackWO" color="#142e5e"
+		<core:Icon src="sap-icon://decline" tooltip="Close Attachments" press="onPressBackCreateNotif" color="#142e5e"
 			class="attachmentsIconSize sapUiSmallMarginEnd"/>
 		<layoutData>
 			<l:GridData span="XL12 L12 M12 S12"></l:GridData>
@@ -126,7 +60,4 @@
 			<l:GridData span="L12 M12 S12"/>
 		</layoutData>
 	</VBox>
-	<!--</IconTabFilter>
-		</items>
-	</IconTabBar>-->
 </core:FragmentDefinition>

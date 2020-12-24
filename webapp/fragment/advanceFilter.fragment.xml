@@ -1,60 +1,72 @@
 <core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:layout="sap.ui.layout"
 	xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form">
-	<Dialog contentWidth="30%" title="{i18n>ADVANCE_FILTER}" class="dialogHeader sapUiSizeCompact">
-		<content>
-			<l:Grid class="sapUiSmallMargin" defaultSpan="L6 M4 S6">
-				<VBox class="sapUiTinyMargin">
-					<Label text="{i18n>WOtype}" class="sapUiTinyMargiinTop"/>
-					<ComboBox width="100%" items="{ path: 'mLookupModel>/aOrderTypeSet', sorter: { path: 'text' } }" showSecondaryValues="true"
-						selectedKey="{mLookupModel>/sOrderTypeSelFilter}">
-						<core:ListItem key="{mLookupModel>AUART}" text="{mLookupModel>TXT}" additionalText="{mLookupModel>AUART}"/>
-					</ComboBox>
-				</VBox>
-				<VBox class="sapUiTinyMargin">
-					<Label text="{i18n>STATUS}" class=" sapUiTinyMargiinTop"/>
-					<ComboBox width="100%" items="{ path: 'mLookupModel>/aStatus'}" selectedKey="{mLookupModel>/sStatusSelFilter}">
-						<core:ListItem key="{mLookupModel>id}" text="{mLookupModel>id}"/>
-					</ComboBox>
-				</VBox>
-				<VBox class="sapUiTinyMargin">
-					<Label text="{i18n>prior}" class="sapUiTinyMargiinTop"/>
-					<ComboBox width="100%" items="{ path: 'mLookupModel>/aPrioritySet', sorter: { path: 'text' } }" selectedKey="{mLookupModel>/sPriorSelFilter}">
-						<core:Item key="{mLookupModel>PRIOK}" text="{mLookupModel>PRIOKX}"/>
-					</ComboBox>
-				</VBox>
-				<VBox class="sapUiTinyMargin">
-					<Label text="{i18n>WONum}" class="sapUiTinyMargiinTop"/>
-					<Input width="100%" value="{mLookupModel>/iWONumFilter}"></Input>
-				</VBox>
-				<VBox class="sapUiTinyMargin">
-					<Label text="{i18n>equip}" class="sapUiTinyMargiinTop"/>
-					<Input width="100%" showValueHelp="true" value="{mLookupModel>/sEquipFilter}" valueHelpRequest="equipmentValueHelp"></Input>
-				</VBox>
-				<VBox class="sapUiTinyMargin">
-					<Label text="{i18n>createdby}" class="sapUiTinyMargiinTop"/>
-					<Input width="100%" showSuggestion="true" suggest="onSearchUser" suggestionItems="{mLookupModel>/aUsers}" value="{mLookupModel>/sCreatedBy}">
-						<suggestionItems>
-							<core:ListItem text="{mLookupModel>Bname}" additionalText="{mLookupModel>NameTextc}" key="{mLookupModel>Bname}"/>
-						</suggestionItems>
-					</Input>
-				</VBox>
-				<VBox class="sapUiTinyMargin">
-					<Label text="{i18n>ASSIGNED_TO}" class="sapUiTinyMargiinTop"/>
-					<Input width="100%" showSuggestion="true" suggest="onSearchUser" suggestionItems="{mLookupModel>/aUsers}" value="{mLookupModel>/sAssignedTo}">
-						<suggestionItems>
-							<core:ListItem text="{mLookupModel>Bname}" additionalText="{mLookupModel>NameTextc}" key="{mLookupModel>Bname}"/>
-						</suggestionItems>
-					</Input>
-				</VBox>
-				<VBox class="sapUiTinyMargin">
-					<Label text="{i18n>WORK_CENTER}" class="sapUiTinyMargiinTop"></Label>
-					<ComboBox width="100%" showSecondaryValues="true" items="{path:'mLookupModel>/aWorkCenterSet',sorter:{ path: 'text' }}"
-						selectedKey="{mLookupModel>/sWorkCenterFilter}">
-						<core:ListItem key="{mLookupModel>WorkcenterId}" additionalText="{mLookupModel>WorkcenterDesc}" text="{mLookupModel>WorkcenterId}"/>
-					</ComboBox>
-				</VBox>
-			</l:Grid>
-		</content>
+	<!--	<Dialog contentWidth="30%" title="{i18n>ADVANCE_FILTER}" class="dialogHeader sapUiSizeCompact">
+		<content>-->
+	<l:Grid defaultSpan="XL2 L2 M2 S12">
+		<VBox class="sapUiTinyMargin">
+			<Label text="{i18n>WOtype}" class="sapUiTinyMargiinTop"/>
+			<ComboBox class="inputRadius" width="100%" items="{ path: 'mLookupModel>/aOrderTypeSet', sorter: { path: 'text' } }" showSecondaryValues="true"
+				selectedKey="{mLookupModel>/sOrderTypeSelFilter}">
+				<core:ListItem key="{mLookupModel>AUART}" text="{mLookupModel>TXT}" additionalText="{mLookupModel>AUART}"/>
+			</ComboBox>
+		</VBox>
+		<VBox class="sapUiTinyMargin">
+			<Label text="{i18n>STATUS}" class=" sapUiTinyMargiinTop"/>
+			<ComboBox class="inputRadius" width="100%" items="{ path: 'mLookupModel>/aStatus'}" selectedKey="{mLookupModel>/sStatusSelFilter}">
+				<core:ListItem key="{mLookupModel>id}" text="{mLookupModel>id}"/>
+			</ComboBox>
+		</VBox>
+		<VBox class="sapUiTinyMargin">
+			<Label text="{i18n>prior}" class="sapUiTinyMargiinTop"/>
+			<ComboBox class="inputRadius" width="100%" items="{ path: 'mLookupModel>/aPrioritySet', sorter: { path: 'text' } }"
+				selectedKey="{mLookupModel>/sPriorSelFilter}">
+				<core:Item key="{mLookupModel>PRIOK}" text="{mLookupModel>PRIOKX}"/>
+			</ComboBox>
+		</VBox>
+		<VBox class="sapUiTinyMargin">
+			<Label text="{i18n>WONum}" class="sapUiTinyMargiinTop"/>
+			<Input class="inputRadius" width="100%" value="{mLookupModel>/iWONumFilter}"></Input>
+		</VBox>
+		<VBox class="sapUiTinyMargin">
+			<Label text="{i18n>equip}" class="sapUiTinyMargiinTop"/>
+			<Input class="inputRadius" width="100%" showValueHelp="true" value="{mLookupModel>/sEquipFilter}" valueHelpRequest="equipmentValueHelp"></Input>
+		</VBox>
+		<VBox class="sapUiTinyMargin">
+			<Label text="{i18n>createdby}" class="sapUiTinyMargiinTop"/>
+			<Input class="inputRadius" width="100%" showSuggestion="true" suggest="onSearchUser" suggestionItems="{mLookupModel>/aUsers}" value="{mLookupModel>/sCreatedBy}">
+				<suggestionItems>
+					<core:ListItem text="{mLookupModel>Bname}" additionalText="{mLookupModel>NameTextc}" key="{mLookupModel>Bname}"/>
+				</suggestionItems>
+			</Input>
+		</VBox>
+	</l:Grid>
+	<l:Grid defaultSpan="XL2 L2 M2 S12">
+		<VBox class="sapUiTinyMargin">
+			<Label text="{i18n>ASSIGNED_TO}" class="sapUiTinyMargiinTop"/>
+			<Input class="inputRadius" width="100%" showSuggestion="true" suggest="onSearchUser" suggestionItems="{mLookupModel>/aUsers}"
+				value="{mLookupModel>/sAssignedTo}">
+				<suggestionItems>
+					<core:ListItem text="{mLookupModel>Bname}" additionalText="{mLookupModel>NameTextc}" key="{mLookupModel>Bname}"/>
+				</suggestionItems>
+			</Input>
+		</VBox>
+		<VBox class="sapUiTinyMargin">
+			<Label text="{i18n>WORK_CENTER}" class="sapUiTinyMargiinTop"></Label>
+			<ComboBox class="inputRadius" width="100%" showSecondaryValues="true" items="{path:'mLookupModel>/aWorkCenterSet',sorter:{ path: 'text' }}"
+				selectedKey="{mLookupModel>/sWorkCenterFilter}">
+				<core:ListItem key="{mLookupModel>WorkcenterId}" additionalText="{mLookupModel>WorkcenterDesc}" text="{mLookupModel>WorkcenterId}"/>
+			</ComboBox>
+		</VBox>
+		<Text/>
+		<Text/>
+		<Text/>
+		<HBox class="sapUiSmallMarginTop">
+			<Button width="4rem" text="Clear" press="onClearWoFilter" type="Transparent"/>
+			<Button width="4rem" text="{i18n>save}" press="onSaveWOFilter" class="sapUiSmallMarginEnd tableHeadertansparentBtn"/>
+			<Button width="4rem" text="{i18n>done}" press="onApplyFilter" type="Emphasized"/>
+		</HBox>
+	</l:Grid>
+	<!--</content>
 		<buttons>
 			<Button text="{i18n>cancel}" press="onCancelDialogWO" class="murphyClearBtn"/>
 			<Button text="{i18n>CLEAR}" press="onClearWoFilter" class="murphyClearBtn"/>
@@ -62,5 +74,5 @@
 			<Button text="{i18n>done}" press="onApplyFilter" class="murphyDialogBtn"/>
 			
 		</buttons>
-	</Dialog>
+	</Dialog>-->
 </core:FragmentDefinition >

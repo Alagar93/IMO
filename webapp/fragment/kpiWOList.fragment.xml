@@ -1,7 +1,7 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:ui="sap.ui.table">
 	<Dialog title="{mLookupModel>/kpiWOHeader}" class="sapUiSizeCompact dialogHeader" contentWidth="60%">
 		<content>
-			<ui:Table rows="{mLookupModel>/kpiWOlist}" selectionMode="MultiToggle" rowSelectionChange="getSelectedKPIsWOs" visibleRowCount="8"
+			<ui:Table rows="{mLookupModel>/kpiWOlist}" selectionMode="Single" selectionBehavior="RowOnly" rowSelectionChange="getSelectedKPIsWOs" visibleRowCount="8"
 				class="sapUiTinyMargin" enableSelectAll="false" id="WO_KPI_LIST_TBL">
 				<ui:columns>
 					<ui:Column hAlign="Begin" filterProperty="Number" sortProperty="Number" defaultFilterOperator="Contains">
@@ -21,7 +21,7 @@
 		</content>
 		<buttons>
 			<Button text="{i18n>CANCEL}" press="closeKPIWOListPopover" class="murphyDialogBtn"></Button>
-			<Button text="{i18n>viewDetails}" press="viewKPIWODetails" class="murphyDialogBtn"></Button>
+			<!--<Button text="{i18n>viewDetails}" press="viewKPIWODetails" class="murphyDialogBtn"></Button>-->
 		</buttons>
 	</Dialog>
 </core:FragmentDefinition>

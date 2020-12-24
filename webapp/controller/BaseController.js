@@ -165,7 +165,13 @@ sap.ui.define([
 				return;
 			}
 			var oSelectedRow = rowContext.getPath();
-			var selectedWOs = mLookupModel.getProperty("/selectedKPIWOs");
+			var selectedObj = mLookupModel.getProperty(oSelectedRow);
+			var oWoNo = selectedObj.Number;
+			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+			oRouter.navTo("detailTabWO", {
+				workOrderID: oWoNo
+			});
+			/*var selectedWOs = mLookupModel.getProperty("/selectedKPIWOs");
 			if (!selectedWOs) {
 				selectedWOs = [];
 			}
@@ -179,7 +185,7 @@ sap.ui.define([
 				selectedWOs.push(oTempObj);
 			}
 			mLookupModel.setProperty("/selectedKPIWOs", selectedWOs);
-			mLookupModel.refresh(true);
+			mLookupModel.refresh(true);*/
 		},
 
 		//Function to view KPIs WOs detail in new tab

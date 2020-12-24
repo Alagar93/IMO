@@ -495,9 +495,9 @@ sap.ui.define([
 				oReqEndDate = new Date(someFormattedDate);
 				oReqStartDate = new Date();
 			}
-			oWorkOrderDetailViewModel.setProperty("/oRequiredStartDate",oReqStartDate);
-			oWorkOrderDetailViewModel.setProperty("/oRequiredEndDate",oReqEndDate);
-			
+			oWorkOrderDetailViewModel.setProperty("/oRequiredStartDate", oReqStartDate);
+			oWorkOrderDetailViewModel.setProperty("/oRequiredEndDate", oReqEndDate);
+
 		},
 		getFormattedDate: function (sDate) {
 			var dd = sDate.getDate();
@@ -1236,6 +1236,27 @@ sap.ui.define([
 			mLookupModel.setProperty("/sFunLoc", iFunLoc);
 			this.getEquipsAssmebly(iEqId);
 			this.equipmentsListDialog.close();
+		},
+		onCreateWOIconTabSelect: function (oEvent) {
+			var selKey = oEvent.getSource().getSelectedKey();
+			var mLookupModel = this.mLookupModel;
+
+			if (selKey === "createWO") {
+				mLookupModel.setProperty("/iSelectedIndex", 0);
+			} else if (selKey === "createByRef") {
+				mLookupModel.setProperty("/iSelectedIndex", 1);
+			} else if (selKey === "createByRef") {
+				mLookupModel.setProperty("/iSelectedIndex", 2);
+			}
+			this.onCreateOptionChange();
+		},
+		createByRefAdvFilterPanelOpen: function(){
+			var oNotifWrapPanel = this.byId("filterWrapPanelCreateByRef");
+			oNotifWrapPanel.setExpanded(!oNotifWrapPanel.getExpanded());
+		},
+		createFromNotifAdvFilterPanelOpen: function(){
+			var oNotifWrapPanel = this.byId("filterWrapPanelCreateFromNotif");
+			oNotifWrapPanel.setExpanded(!oNotifWrapPanel.getExpanded());
 		}
 	});
 });

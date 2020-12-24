@@ -85,7 +85,8 @@ sap.ui.define([
 			var oPortalDataModel = this.oPortalDataModel;
 			var sericeUrl = oPortalDataModel.sServiceUrl;
 			sericeUrl = sericeUrl + "/AttachmentSet";
-			var oFileUploader = this.getView().byId("MYLAN_CREATE_WO_FILEUPLOADER");
+			var rightPanel = this.getView().createId("idRightAttachmentPanelWO"); //SH: Right Panel for Attachments
+			var oFileUploader = sap.ui.core.Fragment.byId(rightPanel,"MYLAN_CREATE_WO_FILEUPLOADER");
 			oFileUploader.setUploadUrl(sericeUrl);
 		},
 		//Sunanda---Function to Set initial operation.
@@ -3209,16 +3210,28 @@ sap.ui.define([
 
 		//Function to view Superior WO detail
 		onViewSuperiorWO: function (oEvent) {
-				var oSource = oEvent.getSource();
-				var supOrderId = oSource.getCustomData()[0].getValue();
-				if (supOrderId) {
-					var sHost = window.location.origin;
-					var sBSPPath = "/sap/bc/ui5_ui5/sap/ZMYL_WOCREATE/index.html#/detailTabWO/";
-					var sURL = sHost + sBSPPath + supOrderId;
-					sap.m.URLHelper.redirect(sURL, true);
-				}
+			var oSource = oEvent.getSource();
+			var supOrderId = oSource.getCustomData()[0].getValue();
+			if (supOrderId) {
+				var sHost = window.location.origin;
+				var sBSPPath = "/sap/bc/ui5_ui5/sap/ZMYL_WOCREATE/index.html#/detailTabWO/";
+				var sURL = sHost + sBSPPath + supOrderId;
+				sap.m.URLHelper.redirect(sURL, true);
 			}
-			/**
+		},
+		onPressBackWO: function () {
+			var mLookupModel = this.mLookupModel;
+			mLookupModel.setProperty("/showTaskManagementPanelWO", false);
+			mLookupModel.setProperty("/showAttachmentPanelWO", false);
+
+		},
+		onPressAttachmentsWO: function (oEvent) {
+			var mLookupModel = this.mLookupModel;
+			mLookupModel.setProperty("/showTaskManagementPanelWO", true);
+			mLookupModel.setProperty("/showAttachmentPanelWO", true);
+			mLookupModel.refresh(true);
+		}
+					/**
 			 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered
 			 * (NOT before the first rendering! onInit() is used for that one!).
 			 * @memberOf com.mylan.createWorkOrder.CreateWorkOrder
@@ -3242,6 +3255,7 @@ sap.ui.define([
 		//	onExit: function() {
 		//
 		//	}
+		
 
 	});
 });
