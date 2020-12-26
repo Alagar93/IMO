@@ -561,9 +561,10 @@ com.sap.incture.IMO_PM.util.util = {
 			"Message": ""
 		}];
 		mLookupModel.setProperty("/assignedToHardCode", "John Smith"); //nischal  ---  Hard Coded value for demo
-		/*oSelectedRow.Downtime = parseFloat(oSelectedRow.Downtime);
-		oSelectedRow.Downtime = oSelectedRow.Downtime.toString();*/
-		
+		if (oSelectedRow.Downtime !== "" || oSelectedRow.DownTime !== undefined) {
+			oSelectedRow.Downtime = parseFloat(oSelectedRow.Downtime);
+			oSelectedRow.Downtime = oSelectedRow.Downtime.toString();
+		}
 
 		//Validation to pre-populate if dates are empty or recieved as 00000000
 		var ReqStartdate = oSelectedRow.Reqstartdate;
@@ -643,7 +644,7 @@ com.sap.incture.IMO_PM.util.util = {
 		} else {
 			strmlfntime = hours + ":" + minutes;
 		}
-		
+
 		// If the malfunction end date is not present
 		var endmlfntime = oSelectedRow.Endmlfntime.ms;
 		if (endmlfntime !== 0) {
@@ -661,9 +662,8 @@ com.sap.incture.IMO_PM.util.util = {
 			} else {
 				endmlfntime = hours + ":" + minutes;
 			}
-		}
-		else{
-			endmlfntime="";
+		} else {
+			endmlfntime = "";
 		}
 
 		if (oSelectedRow.Breakdown) {
@@ -671,7 +671,6 @@ com.sap.incture.IMO_PM.util.util = {
 		} else {
 			oNotificationViewModel.setProperty("/enableBreakDur", false);
 		}
-		
 
 		var longTextHistory = oNotificationDataModel.getProperty("/Longtext");
 		longTextHistory = longTextHistory.split("* ----------------------------------------*");
@@ -1861,7 +1860,7 @@ com.sap.incture.IMO_PM.util.util = {
 		if (typeof (oDate) === "string") {
 			return oDate;
 		}
-		
+
 		var dd = oDate.getDate();
 		var MM = oDate.getMonth() + 1;
 		var yy = oDate.getFullYear();
@@ -1917,9 +1916,9 @@ com.sap.incture.IMO_PM.util.util = {
 		var sWorkCenter = sData.WorkCenter;
 		var sOrderType = mLookupModel.getProperty("/sOrderTypeSel");
 		var sStartdate = this.formatDateobjToString(oNotifData.Startdate, true);
-		
+
 		var sEnddate = oNotifData.Enddate;
-		if(sEnddate){
+		if (sEnddate) {
 			sEnddate = this.formatDateobjToString(oNotifData.Enddate, true);
 		}
 		var sReqStartdate = this.formatDateobjToString(oNotifData.ReqStartdate);

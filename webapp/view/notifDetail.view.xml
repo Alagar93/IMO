@@ -179,7 +179,7 @@
 				</VBox>
 				<VBox class="gridPadding">
 					<Label text="{i18n>BDownDuration}"></Label>
-					<Input value="{oNotificationDataModel>/BreakdownDur}" width="90%" tooltip="{oNotificationDataModel>/BreakdownDur}" maxLength="7"
+					<Input value="{path:'oNotificationDataModel>/BreakdownDur' " width="90%" tooltip="{oNotificationDataModel>/BreakdownDur}" maxLength="7"
 						enabled="false" class="inputRadius"></Input>
 				</VBox>
 				<VBox class="gridPadding" visible="{path:'oNotificationDataModel>/Breakdown', formatter:'com.sap.incture.IMO_PM.formatter.formatter.formatBooleanBreakDown'}">

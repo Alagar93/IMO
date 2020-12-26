@@ -567,6 +567,7 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 		}
 		return bFlag;
 	},
+	
 	//function to validate Material before PR
 	MaterialPRVAlidation: function (oMaterial) {
 			var bFlag = true;

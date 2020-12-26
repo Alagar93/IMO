@@ -86,7 +86,7 @@ sap.ui.define([
 			var sericeUrl = oPortalDataModel.sServiceUrl;
 			sericeUrl = sericeUrl + "/AttachmentSet";
 			var rightPanel = this.getView().createId("idRightAttachmentPanelWO"); //SH: Right Panel for Attachments
-			var oFileUploader = sap.ui.core.Fragment.byId(rightPanel,"MYLAN_CREATE_WO_FILEUPLOADER");
+			var oFileUploader = sap.ui.core.Fragment.byId(rightPanel, "MYLAN_CREATE_WO_FILEUPLOADER");
 			oFileUploader.setUploadUrl(sericeUrl);
 		},
 		//Sunanda---Function to Set initial operation.
@@ -757,6 +757,7 @@ sap.ui.define([
 		//Function to Create/Update and Work Order
 		onCreateUpdateWO: function (woCreateNavType) {
 			var that = this;
+			var oObj;
 			this.busy.open();
 			var oConfirmTexts = "";
 			var oResourceModel = this.oResourceModel;
@@ -892,17 +893,48 @@ sap.ui.define([
 								var aResults = oData.results;
 								console.log(aResults);
 								if (aResults.length > 0) {
-									for (var i = 0; i < aResults.length; i++) {
+									/*for (var i = 0; i < aResults.length; i++) {
 										var pr = aResults[i].PurchaseReq;
 										var resItem = aResults[i].ResItem;
-										var oObj = {
-											"Message": "Purchase Request Number :" + pr + " for ResItem :" + resItem,
+										var ResvNo = aResults[i].ResevNo;
+										if (pr === "") {
+											oObj = {
+												"Message": "Reservation Number:" + ResvNo + " for ResItem :" + resItem,
+												"Status": "S"
+											};
+
+										} else {
+											oObj = {
+												"Message": "PR Number :" + pr + " for ResItem :" + resItem,
+												"Status": "S"
+											};
+										}
+										messages.push(oObj);
+									}*/
+									var pr = aResults[0].PurchaseReq;
+
+									var ResvNo = aResults[0].ResevNo;
+									if (pr === "" && ResvNo !== "") {
+										oObj = {
+											"Message": "Reservation Number:" + ResvNo,
 											"Status": "S"
 										};
-										messages.push(oObj);
+									} else if (pr !== "" && ResvNo === "") {
+										oObj = {
+											"Message": "PR Number :" + pr,
+											"Status": "S"
+										};
+									} else {
+										oObj = {
+											"Message": "PR Number :" + pr + " and reservation num :" + ResvNo,
+											"Status": "S"
+										};
 									}
 
+									messages.push(oObj);
+
 								}
+
 							},
 							error: function (oData) {
 								console.log(oData);
@@ -3226,12 +3258,12 @@ sap.ui.define([
 
 		},
 		onPressAttachmentsWO: function (oEvent) {
-			var mLookupModel = this.mLookupModel;
-			mLookupModel.setProperty("/showTaskManagementPanelWO", true);
-			mLookupModel.setProperty("/showAttachmentPanelWO", true);
-			mLookupModel.refresh(true);
-		}
-					/**
+				var mLookupModel = this.mLookupModel;
+				mLookupModel.setProperty("/showTaskManagementPanelWO", true);
+				mLookupModel.setProperty("/showAttachmentPanelWO", true);
+				mLookupModel.refresh(true);
+			}
+			/**
 			 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered
 			 * (NOT before the first rendering! onInit() is used for that one!).
 			 * @memberOf com.mylan.createWorkOrder.CreateWorkOrder
@@ -3255,7 +3287,6 @@ sap.ui.define([
 		//	onExit: function() {
 		//
 		//	}
-		
 
 	});
 });

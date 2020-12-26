@@ -92,7 +92,7 @@ sap.ui.define([
 			var oNotificationDataModel = this.oNotificationDataModel;
 			util.resetCreateNotificationFieldsNotifList(oNotificationDataModel, oNotificationViewModel, mLookupModel, notifData, this);
 			var notifid = this.oNotificationDataModel.getProperty("/Notifid");
-			this.fnsetBreakdownDur();
+			//this.fnsetBreakdownDur();
 			this.fnGetNotifAttachmentLinks(notifid);
 		},
 		//function to set Breakdown Dur from Ui side
