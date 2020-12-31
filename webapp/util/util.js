@@ -112,7 +112,8 @@ com.sap.incture.IMO_PM.util.util = {
 		oWorkOrderDetailModel.setProperty("/HEADERTOOPERATIONSNAV", []);
 		oWorkOrderDetailModel.setProperty("/HEADERTOPARTNERNAV", headerPartner);
 		oWorkOrderDetailModel.setProperty("/HEADERTOMESSAGENAV", headerMessage);
-
+		
+		oWorkOrderDetailViewModel.setProperty("/withNotificationCheck", false);
 		oWorkOrderDetailViewModel.setProperty("/Activity", "");
 		oWorkOrderDetailViewModel.setProperty("/MalFunStartTime", oCurrentTime);
 		oWorkOrderDetailViewModel.setProperty("/operationComment", "");

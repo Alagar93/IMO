@@ -6,30 +6,42 @@
 			<core:CustomData key="panelType" value="HEADER_DETAILS"/>
 		</customData>
 		<headerToolbar>
-			<Toolbar>
-				<Text text="{i18n>HEADER_DETAILS}" class="leftMargin"></Text>
-			</Toolbar>
-		</headerToolbar>
-		<content>
-			<Toolbar class="statusBarClass">
-				<Text text="{i18n>STATUS} :" class="sapUiSmallMarginBegin"/>
-				<Text
+			<OverflowToolbar>
+				<Text text="{i18n>HEADER_DETAILS}" class="leftMargin panelTextColor"></Text>
+				<ToolbarSpacer/>
+				<Text text="{i18n>STATUS} :" class="sapUiSmallMarginBegin panelTextColor1"/>
+				<Text class="panelTextColor"
 					text="{parts:['oWorkOrderDetailModel>/OrderStatus', 'oUserDetailModel>/userRole', 'oUserDetailModel>/woStatus'], formatter:'com.sap.incture.IMO_PM.formatter.formatter.formatWOStatusTxt'}"></Text>
-				<Text text="User Status :" class="sapUiSmallMarginBegin"/>
+				<Text text="User Status :" class="sapUiSmallMarginBegin panelTextColor1"/>
 				<!--<Text text = "{oWorkOrderDetailModel>/UserStatus}"/>-->
-				<ComboBox showSecondaryValues="true" selectedKey="{oWorkOrderDetailModel>/UserStatus}" class="sapInputBorderClass" width="20%">
+				<ComboBox showSecondaryValues="true" selectedKey="{oWorkOrderDetailModel>/UserStatus}" class="sapInputBorderClass inputRadius" width="10%">
 					<core:ListItem key="INIT" additionalText="Initial" text="INIT"/>
 					<core:ListItem key="INPN" additionalText="In Processing" text="INPN"/>
 					<core:ListItem key="HOLD" additionalText="Initial" text="HOLD"/>
 					<core:ListItem key="COMP" additionalText="Completed" text="COMP"/>
 				</ComboBox>
-			</Toolbar>
-			<l:Grid class="sapUiSmallMarginTop" defaultSpan="XL6 L6 M6 S6">
+			</OverflowToolbar>
+		</headerToolbar>
+		<content>
+			<!--<Toolbar class="statusBarClass">-->
+			<!--	<Text text="{i18n>STATUS} :" class="sapUiSmallMarginBegin"/>-->
+			<!--	<Text-->
+			<!--		text="{parts:['oWorkOrderDetailModel>/OrderStatus', 'oUserDetailModel>/userRole', 'oUserDetailModel>/woStatus'], formatter:'com.sap.incture.IMO_PM.formatter.formatter.formatWOStatusTxt'}"></Text>-->
+			<!--	<Text text="User Status :" class="sapUiSmallMarginBegin"/>-->
+			<!--<Text text = "{oWorkOrderDetailModel>/UserStatus}"/>-->
+			<!--	<ComboBox showSecondaryValues="true" selectedKey="{oWorkOrderDetailModel>/UserStatus}" class="sapInputBorderClass" width="20%">-->
+			<!--		<core:ListItem key="INIT" additionalText="Initial" text="INIT"/>-->
+			<!--		<core:ListItem key="INPN" additionalText="In Processing" text="INPN"/>-->
+			<!--		<core:ListItem key="HOLD" additionalText="Initial" text="HOLD"/>-->
+			<!--		<core:ListItem key="COMP" additionalText="Completed" text="COMP"/>-->
+			<!--	</ComboBox>-->
+			<!--</Toolbar>-->
+			<l:Grid class="sapUiSmallMarginTop" defaultSpan="XL3 L3 M4 S6">
 				<l:content>
-					<VBox>
+					<VBox class="sapUiTinyMarginTop">
 						<Label text="{i18n>ORDER_TYPE}" required="false"></Label>
 						<ComboBox showSecondaryValues="true" items="{path:'mLookupModel>/aOrderTypeSet',sorter:{ path: 'text' }}"
-							selectedKey="{oWorkOrderDetailModel>/OrderType}" class="sapInputBorderClass" tooltip="{oWorkOrderDetailModel>/OrderType}"
+							selectedKey="{oWorkOrderDetailModel>/OrderType}" class="inputRadius" tooltip="{oWorkOrderDetailModel>/OrderType}"
 							enabled="{oWODetailFieldsModel>/orderType}" change="getOrderTypeTasks" width="100%">
 							<core:ListItem key="{mLookupModel>AUART}" additionalText="{mLookupModel>TXT}" text="{mLookupModel>AUART}"/>
 							<customData>
@@ -37,15 +49,14 @@
 							</customData>
 						</ComboBox>
 						<layoutData>
-							<l:GridData span="XL6 L6 M6 S6"/>
+							<l:GridData span="XL2 L2 M4 S6"/>
 						</layoutData>
 					</VBox>
-					<VBox>
+					<VBox class="sapUiTinyMarginTop">
 						<Label text="{i18n>WO_NUMBER}"></Label>
-						<Input value="{oWorkOrderDetailModel>/Orderid}" enabled="false" maxLength="12" tooltip="{oWorkOrderDetailModel>Orderid}"
-							class="sapInputBorderClass"></Input>
+						<Input value="{oWorkOrderDetailModel>/Orderid}" enabled="false" maxLength="12" tooltip="{oWorkOrderDetailModel>Orderid}" class="inputRadius"></Input>
 						<layoutData>
-							<l:GridData span="XL6 L6 M6 S6"/>
+							<l:GridData span="XL2 L2 M4 S6"/>
 						</layoutData>
 					</VBox>
 					<VBox class="sapUiTinyMarginTop">
@@ -54,100 +65,99 @@
 							tooltip="{oWorkOrderDetailModel>/ShortText}"  class="sapInputBorderClass"></Input>-->
 						<Input value="{oWorkOrderDetailModel>/ShortText}" maxLength="40"
 							enabled="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setEnableWOStext'}"
-							tooltip="{oWorkOrderDetailModel>/ShortText}" class="sapInputBorderClass"></Input>
+							tooltip="{oWorkOrderDetailModel>/ShortText}" class="inputRadius"></Input>
 						<layoutData>
-							<l:GridData span="XL12 L12 M12 S12"/>
+							<l:GridData span="XL2 L2 M4 S6"/>
 						</layoutData>
 					</VBox>
 					<VBox class="sapUiTinyMarginTop">
 						<Label text="{i18n>EQUIPMENT}" required="false"></Label>
 						<Input value="{oWorkOrderDetailModel>/Equipment}" maxLength="18" tooltip="{oWorkOrderDetailModel>/Equipment}" valueHelpOnly="true"
-							enabled="{oWODetailFieldsModel>/equipment}" valueHelpRequest="equipmentValueHelp" showValueHelp="true" class="sapInputBorderClass"></Input>
+							enabled="{oWODetailFieldsModel>/equipment}" valueHelpRequest="equipmentValueHelp" showValueHelp="true" class="inputRadius"></Input>
 						<layoutData>
-							<l:GridData span="XL6 L6 M6 S6"/>
+							<l:GridData span="XL2 L2 M4 S6"/>
 						</layoutData>
 					</VBox>
 					<VBox class="sapUiTinyMarginTop">
 						<Label text="{i18n>ASSEMBLY}"></Label>
 						<ComboBox showSecondaryValues="true" items="{mLookupModel>/aEquipAssemblyList}" selectedKey="{oWorkOrderDetailModel>/Assembly}"
-							class="sapInputBorderClass" tooltip="{oWorkOrderDetailModel>/Assembly}" enabled="{oWODetailFieldsModel>/assembly}" width="100%">
+							class="inputRadius" tooltip="{oWorkOrderDetailModel>/Assembly}" enabled="{oWODetailFieldsModel>/assembly}" width="100%">
 							<core:ListItem key="{mLookupModel>Idnrk}" text="{mLookupModel>Idnrk} - {mLookupModel>MAKTX}"/>
 						</ComboBox>
 						<layoutData>
-							<l:GridData span="XL6 L6 M6 S6"/>
+							<l:GridData span="XL2 L2 M4 S6"/>
 						</layoutData>
 					</VBox>
 					<VBox class="sapUiTinyMarginTop">
 						<Label text="{i18n>EQUIP_DESC}"></Label>
-						<Input value="{oWorkOrderDetailModel>/EquipDesc}" enabled="false" tooltip="{oWorkOrderDetailModel>/EquipDesc}" class="sapInputBorderClass"></Input>
+						<Input value="{oWorkOrderDetailModel>/EquipDesc}" enabled="false" tooltip="{oWorkOrderDetailModel>/EquipDesc}" class="inputRadius"></Input>
 						<layoutData>
-							<l:GridData span="XL12 L12 M12 S12"/>
+							<l:GridData span="XL2 L2 M4 S6"/>
 						</layoutData>
 					</VBox>
 					<VBox class="sapUiTinyMarginTop">
 						<Label text="{i18n>FUNCTIONAL_LOCATION}" required="false"></Label>
 						<Input value="{oWorkOrderDetailModel>/FunctLoc}" enabled="false" maxLength="40" tooltip="{oWorkOrderDetailModel>/FunctLoc}"
-							class="sapInputBorderClass"></Input>
+							class="inputRadius"></Input>
 						<layoutData>
-							<l:GridData span="XL6 L6 M6 S6"/>
+							<l:GridData span="XL2 L2 M4 S6"/>
 						</layoutData>
 					</VBox>
 					<VBox class="sapUiTinyMarginTop">
 						<Label text="{i18n>ASSET_ID}"></Label>
 						<!--{oWODetailFieldsModel>/assetId}-->
-						<Input value="{oWorkOrderDetailViewModel>/AssetId}" enabled="false" tooltip="{oWorkOrderDetailViewModel>/AssetId}"
-							class="sapInputBorderClass"></Input>
+						<Input value="{oWorkOrderDetailViewModel>/AssetId}" enabled="false" tooltip="{oWorkOrderDetailViewModel>/AssetId}" class="inputRadius"></Input>
 						<layoutData>
-							<l:GridData span="XL6 L6 M6 S6"/>
+							<l:GridData span="XL2 L2 M4 S6"/>
 						</layoutData>
 					</VBox>
 					<VBox class="sapUiTinyMarginTop">
 						<Label text="{i18n>DATE_CREATED}"></Label>
 						<DatePicker minDate="{oWorkOrderDetailViewModel>/currentDate1}" placeholder="dd-MM-yyyy" dateValue="{oWorkOrderDetailModel>/DateCreated}"
-							displayFormat="dd-MM-yyyy" valueFormat="yyyy-MM-ddTHH:mm:ss" enabled="false" class="sapInputBorderClass" width="100%">
+							displayFormat="dd-MM-yyyy" valueFormat="yyyy-MM-ddTHH:mm:ss" enabled="false" class="inputRadius" width="100%">
 							<customData>
 								<core:CustomData key="dateType" value="DateCreated"/>
 							</customData>
 						</DatePicker>
 						<layoutData>
-							<l:GridData span="XL6 L6 M6 S6"/>
+							<l:GridData span="XL2 L2 M4 S6"/>
 						</layoutData>
 					</VBox>
 					<VBox class="sapUiTinyMarginTop">
 						<Label text="{i18n>WORK_CENTER}" required="false"></Label>
 						<ComboBox showSecondaryValues="true" items="{path:'mLookupModel>/aWorkCenterSet',sorter:{ path: 'text' }}"
-							selectedKey="{oWorkOrderDetailModel>/MnWkCtr}" class="sapInputBorderClass" tooltip="{oWorkOrderDetailModel>/MnWkCtr}"
+							selectedKey="{oWorkOrderDetailModel>/MnWkCtr}" class="inputRadius" tooltip="{oWorkOrderDetailModel>/MnWkCtr}"
 							enabled="{oWODetailFieldsModel>/workCenter}" width="100%">
 							<core:ListItem key="{mLookupModel>WorkcenterId}" additionalText="{mLookupModel>WorkcenterDesc}" text="{mLookupModel>WorkcenterId}"/>
 						</ComboBox>
 						<layoutData>
-							<l:GridData span="XL6 L6 M6 S6"/>
+							<l:GridData span="XL2 L2 M4 S6"/>
 						</layoutData>
 					</VBox>
 					<VBox class="sapUiTinyMarginTop">
 						<Label text="{i18n>REQUIRED_STARTDATE}"></Label>
 						<DatePicker minDate="{oWorkOrderDetailViewModel>/currentDate1}" placeholder="dd-MM-yyyy" dateValue="{oWorkOrderDetailModel>/PlanStartDate}"
 							displayFormat="dd-MM-yyyy" valueFormat="yyyy-MM-ddTHH:mm:ss" enabled="{oWODetailFieldsModel>/planStartDate}" change="fnValidateDates"
-							class="sapInputBorderClass" width="100%">
+							class="inputRadius" width="100%">
 							<customData>
 								<core:CustomData key="dateType" value="PlanStartDate"/>
 							</customData>
 						</DatePicker>
 						<layoutData>
-							<l:GridData span="XL6 L6 M6 S6" linebreak="true"/>
+							<l:GridData span="XL2 L2 M4 S6"/>
 						</layoutData>
 					</VBox>
 					<VBox class="sapUiTinyMarginTop">
 						<Label text="{i18n>REQUIRED_ENDDATE}"></Label>
 						<DatePicker minDate="{oWorkOrderDetailViewModel>/currentDate1}" placeholder="dd-MM-yyyy" dateValue="{oWorkOrderDetailModel>/PlanEndDate}"
 							displayFormat="dd-MM-yyyy" valueFormat="yyyy-MM-ddTHH:mm:ss" enabled="{oWODetailFieldsModel>/planEndDate}" change="fnValidateDates"
-							class="sapInputBorderClass" width="100%">
+							class="inputRadius" width="100%">
 							<customData>
 								<core:CustomData key="dateType" value="PlanEndDate"/>
 							</customData>
 						</DatePicker>
 						<layoutData>
-							<l:GridData span="XL6 L6 M6 S6"/>
+							<l:GridData span="XL2 L2 M4 S6"/>
 						</layoutData>
 					</VBox>
 					<VBox class="sapUiTinyMarginTop">
@@ -155,23 +165,23 @@
 						<Input
 							value="{path:'oWorkOrderDetailViewModel>/HEADERTOPARTNERNAV/0/AssignedTo',formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnGetNamefromUserid'}"
 							showValueHelp="true" valueHelpRequest="handleValueHelp" tooltip="{oWorkOrderDetailViewModel>/HEADERTOPARTNERNAV/0/AssignedTo}"
-							enabled="{oWODetailFieldsModel>/assignedTo}" change="onUpdateAssignedTo" valueHelpOnly="true" class="sapInputBorderClass">
+							enabled="{oWODetailFieldsModel>/assignedTo}" change="onUpdateAssignedTo" valueHelpOnly="true" class="inputRadius">
 							<customData>
 								<core:CustomData value="/HEADERTOPARTNERNAV/0/AssignedTo"/>
 							</customData>
 						</Input>
 						<layoutData>
-							<l:GridData span="XL6 L6 M6 S6"/>
+							<l:GridData span="XL2 L2 M4 S6"/>
 						</layoutData>
 					</VBox>
 					<VBox class="sapUiTinyMarginTop">
 						<Label text="{i18n>PRIORITY}" required="false"></Label>
-						<ComboBox class="sapInputBorderClass" items="{mLookupModel>/aPrioritySet}" selectedKey="{oWorkOrderDetailModel>/Priority}"
+						<ComboBox class="inputRadius" items="{mLookupModel>/aPrioritySet}" selectedKey="{oWorkOrderDetailModel>/Priority}"
 							enabled="{oWODetailFieldsModel>/priority}" width="100%" change="onChangePriority">
 							<core:ListItem key="{mLookupModel>PRIOK}" text="{mLookupModel>PRIOKX}" tooltip="{oWorkOrderDetailModel>/Priority}"/>
 						</ComboBox>
 						<layoutData>
-							<l:GridData span="XL6 L6 M6 S6"/>
+							<l:GridData span="XL2 L2 M4 S6"/>
 						</layoutData>
 					</VBox>
 					<VBox class="sapUiTinyMarginTop">
@@ -179,29 +189,59 @@
 						<!--	<Input value="{path:'oWorkOrderDetailViewModel>/HEADERTOPARTNERNAV/0/AssignedTo',formatter:'com.mylan.createWorkOrder.formatter.formatter.fnGetNamefromUserid'}" 
 							enabled="false" class="sapInputBorderClass">
 						</Input>-->
-						<Input value="{mLookupModel>/AssigedTechName}" enabled="false" class="sapInputBorderClass"></Input>
+						<Input value="{mLookupModel>/AssigedTechName}" enabled="false" class="inputRadius"></Input>
 						<layoutData>
-							<l:GridData span="XL12 L12 M12 S12"/>
+							<l:GridData span="XL2 L2 M4 S6"/>
 						</layoutData>
 					</VBox>
 					<VBox class="sapUiTinyMarginTop">
+						<HBox>
+							<Label text="{i18n>SUPERIOR_WO}"></Label>
+							<Link text="View WO" press="onViewSuperiorWO" class = "sapUiSmallMarginBegin" 
+							enabled="{path:'oWorkOrderDetailModel>/SuperOrder', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setSuperiorWOEnabled'}"/>
+						</HBox>
+						<Input value="{oWorkOrderDetailModel>/SuperOrder}" change="validateIntegerValues" class="inputRadius"
+							enabled="{oWODetailFieldsModel>/priority}" width="100%">
+							<customData>
+								<core:CustomData value="INTEGER"/>
+							</customData>
+						</Input>
+						<!--<HBox fitContainer="true" justifyContent="Start" alignContent="Start">-->
+						<!--	<Input value="{oWorkOrderDetailModel>/SuperOrder}" change="validateIntegerValues" class="inputRadius"-->
+						<!--		enabled="{oWODetailFieldsModel>/priority}" width="100%">-->
+						<!--		<customData>-->
+						<!--			<core:CustomData value="INTEGER"/>-->
+						<!--		</customData>-->
+						<!--	</Input>-->
+						<!--<Button text="View WO" press="onViewSuperiorWO" class="sapUiTinyMarginBegin"-->
+						<!--	enabled="{path:'oWorkOrderDetailModel>/SuperOrder', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setSuperiorWOEnabled'}">-->
+						<!--	<customData>-->
+						<!--		<core:CustomData value="{oWorkOrderDetailModel>/SuperOrder}"/>-->
+						<!--	</customData>-->
+						<!--</Button>-->
+						<!--</HBox>-->
+						<layoutData>
+							<l:GridData span="XL2 L2 M4 S6"/>
+						</layoutData>
+					</VBox>
+					<VBox class="sapUiTinyMarginTop" visible = "{oWorkOrderDetailViewModel>/withNotificationCheck}">
 						<Label text="{i18n>BREAKDOWN}"></Label>
 						<Switch state="{path:'oWorkOrderDetailModel>/Breakdown', formatter:'com.sap.incture.IMO_PM.formatter.formatter.formatBooleanBreakDown'}"
 							enabled="{oWODetailFieldsModel>/breakdown}" change="fnUpdateBreakDownStatus"/>
 						<layoutData>
-							<l:GridData span="XL4 L4 M4 S4" linebreak="true"/>
+							<l:GridData span="XL2 L2 M4 S6"/>
 						</layoutData>
 					</VBox>
-					<VBox class="sapUiTinyMarginTop">
+					<VBox class="sapUiTinyMarginTop" visible = "{oWorkOrderDetailViewModel>/withNotificationCheck}">
 						<Label text="{i18n>BREAKDOWN_DURATION}"></Label>
-						<Input value="{oWorkOrderDetailModel>/Downtime}" change="validateFloatValues" class="sapInputBorderClass"
+						<Input value="{oWorkOrderDetailModel>/Downtime}" change="validateFloatValues" class="inputRadius"
 							enabled="{parts:['oWorkOrderDetailModel>/Breakdown', 'oWorkOrderDetailModel>/OrderStatus'], formatter:'com.sap.incture.IMO_PM.formatter.formatter.enableBreakDownFields'}">
 							<customData>
 								<core:CustomData value="FLOAT"/>
 							</customData>
 						</Input>
 						<layoutData>
-							<l:GridData span="XL8 L8 M8 S8"/>
+							<l:GridData span="XL2 L2 M4 S6"/>
 						</layoutData>
 					</VBox>
 					<!--<VBox class="sapUiTinyMarginTop">-->
@@ -226,26 +266,6 @@
 					<!--		<l:GridData span="XL6 L6 M6 S6"/>-->
 					<!--	</layoutData>-->
 					<!--</VBox>-->
-					<VBox class="sapUiTinyMarginTop">
-						<Label text="{i18n>SUPERIOR_WO}"></Label>
-						<HBox fitContainer="true" justifyContent="Start" alignContent="Start">
-							<Input value="{oWorkOrderDetailModel>/SuperOrder}" change="validateIntegerValues" class="sapInputBorderClass"
-								enabled="{oWODetailFieldsModel>/priority}" width="100%">
-								<customData>
-									<core:CustomData value="INTEGER"/>
-								</customData>
-							</Input>
-							<Button text="View WO" press="onViewSuperiorWO" class="sapUiTinyMarginBegin"
-								enabled="{path:'oWorkOrderDetailModel>/SuperOrder', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setSuperiorWOEnabled'}">
-								<customData>
-									<core:CustomData value="{oWorkOrderDetailModel>/SuperOrder}"/>
-								</customData>
-							</Button>
-						</HBox>
-						<layoutData>
-							<l:GridData span="XL12 L12 M12 S12"/>
-						</layoutData>
-					</VBox>
 				</l:content>
 			</l:Grid>
 		</content>
@@ -257,7 +277,7 @@
 		</customData>
 		<headerToolbar>
 			<Toolbar>
-				<Text text="{i18n>ADDITIONAL_DETAILS}" class="leftMargin"></Text>
+				<Text text="{i18n>ADDITIONAL_DETAILS}" class="leftMargin panelTextColor"></Text>
 			</Toolbar>
 		</headerToolbar>
 		<content>
@@ -265,66 +285,65 @@
 				<l:content>
 					<VBox>
 						<Label text="{i18n>PLANNER_GROUP}"></Label>
-						<Select class="sapInputBorderClass" forceSelection="false" selectedKey="{oWorkOrderDetailModel>/Plangroup}"
-							items="{mLookupModel>/aPlannerGroupSet}" showSecondaryValues="true" enabled="{oWODetailFieldsModel>/plannerGrp}"
-							tooltip="{oWorkOrderDetailModel>/Plangroup}" width="100%">
+						<Select class="inputRadius" forceSelection="false" selectedKey="{oWorkOrderDetailModel>/Plangroup}" items="{mLookupModel>/aPlannerGroupSet}"
+							showSecondaryValues="true" enabled="{oWODetailFieldsModel>/plannerGrp}" tooltip="{oWorkOrderDetailModel>/Plangroup}" width="100%">
 							<core:ListItem key="{mLookupModel>VAGRP}" additionalText="{mLookupModel>VAGRP}" text="{mLookupModel>TXT}"/>
 						</Select>
 						<layoutData>
-							<l:GridData span="XL6 L6 M6 S6"/>
+							<l:GridData span="XL2 L2 M4 S6"/>
 						</layoutData>
 					</VBox>
 					<VBox>
 						<Label text="{i18n>PLANNER_PLANT}"></Label>
 						<Input value="{oWorkOrderDetailModel>/Planplant}" maxLength="4" enabled="false" tooltip="{oWorkOrderDetailModel>/Planplant}"
-							class="sapInputBorderClass"></Input>
+							class="inputRadius"></Input>
 						<layoutData>
-							<l:GridData span="XL6 L6 M6 S6"/>
+							<l:GridData span="XL2 L2 M4 S6"/>
 						</layoutData>
 					</VBox>
-					<VBox class="sapUiTinyMarginTop">
-						<Label text="{i18n>MALFUNCTION_STARTDATE}"></Label>
-						<DatePicker minDate="{oWorkOrderDetailViewModel>/currentDate1}" placeholder="dd-MM-yyyy" width="100%"
-							dateValue="{oWorkOrderDetailModel>/MalFunStartDate}" displayFormat="dd-MM-yyyy" valueFormat="yyyy-MM-ddTHH:mm:ss"
-							enabled="{oWODetailFieldsModel>/malFnStartDate}" change="fnSetMalfunctionDateTime" class="sapInputBorderClass">
-							<customData>
-								<core:CustomData key="dateType" value="MalFunStartDate"/>
-							</customData>
-						</DatePicker>
-						<layoutData>
-							<l:GridData span="XL6 L6 M6 S6"/>
-						</layoutData>
-					</VBox>
-					<VBox class="sapUiTinyMarginTop">
-						<Label text="{i18n>TIME}"></Label>
-						<TimePicker value="{oWorkOrderDetailModel>/MalFunStartTime}" valueFormat="HH:mm" displayFormat="HH:mm" placeholder="HH:mm"
-							enabled="{oWODetailFieldsModel>/malFnStartTime}" class="sapInputBorderClass" width="100%">
-							<customData>
-								<core:CustomData key="dateType" value="MalFunStartTime"/>
-							</customData>
-						</TimePicker>
-						<layoutData>
-							<l:GridData span="XL6 L6 M6 S6"/>
-						</layoutData>
-					</VBox>
-					<VBox class="sapUiTinyMarginTop">
+					<VBox>
 						<Label text="{i18n>REPORTED_BY}"></Label>
 						<Input value="{path:'oWorkOrderDetailModel>/ReportedBy',formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnGetReportedByName'}"
-							showValueHelp="true" valueHelpRequest="handleValueHelp" class="sapInputBorderClass" tooltip="{oWorkOrderDetailModel>/ReportedBy}"
+							showValueHelp="true" valueHelpRequest="handleValueHelp" class="inputRadius" tooltip="{oWorkOrderDetailModel>/ReportedBy}"
 							enabled="{oWODetailFieldsModel>/assignedTo}" valueHelpOnly="true">
 							<customData>
 								<core:CustomData value="/ReportedBy"/>
 							</customData>
 						</Input>
 						<layoutData>
-							<l:GridData span="XL6 L6 M6 S6"/>
+							<l:GridData span="XL2 L2 M4 S6"/>
 						</layoutData>
 					</VBox>
-					<VBox class="sapUiTinyMarginTop">
+					<VBox>
 						<Label text="{i18n>REPORTED_BY_NAME}"></Label>
-						<Input value="{mLookupModel>/ReportedByName}" enabled="false" class="sapInputBorderClass"></Input>
+						<Input value="{mLookupModel>/ReportedByName}" enabled="false" class="inputRadius"></Input>
 						<layoutData>
-							<l:GridData span="XL12 L12 M12 S12"/>
+							<l:GridData span="XL2 L2 M4 S6"/>
+						</layoutData>
+					</VBox>
+					<VBox visible = "{oWorkOrderDetailViewModel>/withNotificationCheck}">
+						<Label text="{i18n>MALFUNCTION_STARTDATE}"></Label>
+						<DatePicker minDate="{oWorkOrderDetailViewModel>/currentDate1}" placeholder="dd-MM-yyyy" width="100%"
+							dateValue="{oWorkOrderDetailModel>/MalFunStartDate}" displayFormat="dd-MM-yyyy" valueFormat="yyyy-MM-ddTHH:mm:ss"
+							enabled="{oWODetailFieldsModel>/malFnStartDate}" change="fnSetMalfunctionDateTime" class="inputRadius">
+							<customData>
+								<core:CustomData key="dateType" value="MalFunStartDate"/>
+							</customData>
+						</DatePicker>
+						<layoutData>
+							<l:GridData span="XL2 L2 M4 S6"/>
+						</layoutData>
+					</VBox>
+					<VBox visible = "{oWorkOrderDetailViewModel>/withNotificationCheck}">
+						<Label text="{i18n>TIME}"></Label>
+						<TimePicker value="{oWorkOrderDetailModel>/MalFunStartTime}" valueFormat="HH:mm" displayFormat="HH:mm" placeholder="HH:mm"
+							enabled="{oWODetailFieldsModel>/malFnStartTime}" class="inputRadius" width="100%">
+							<customData>
+								<core:CustomData key="dateType" value="MalFunStartTime"/>
+							</customData>
+						</TimePicker>
+						<layoutData>
+							<l:GridData span="XL2 L2 M4 S6"/>
 						</layoutData>
 					</VBox>
 				</l:content>
@@ -337,9 +356,14 @@
 			<core:CustomData key="panelType" value="NOTIFICATIONS_DETAILS"/>
 		</customData>
 		<headerToolbar>
-			<Toolbar>
-				<Text text="{path:'oWorkOrderDetailModel>/HEADERTONOTIFNAV', formatter:'.formatter.formatNotificationCount'}" class="leftMargin"></Text>
-			</Toolbar>
+			<OverflowToolbar>
+				<Text text="{path:'oWorkOrderDetailModel>/HEADERTONOTIFNAV', formatter:'.formatter.formatNotificationCount'}"
+					class="leftMargin panelTextColor"></Text>
+				<ToolbarSpacer/>
+				<Button text="{i18n>DETAIL_ADD_NOTIFICATION}" icon="sap-icon://add" iconFirst="true" class="sapUiSmallMarginBeginEnd"
+					press="onOpenNotificationPopup" type="Transparent"
+					visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnSetTaskNotifBtnVisible'}"/>
+			</OverflowToolbar>
 		</headerToolbar>
 		<content>
 			<VBox items="{oWorkOrderDetailModel>/HEADERTONOTIFNAV}">
@@ -351,37 +375,37 @@
 								<Input value="{oWorkOrderDetailModel>NotifNo}" maxLength="10" enabled="false" tooltip="{oWorkOrderDetailModel>Qmnum}"
 									class="sapInputBorderClass"></Input>
 								<layoutData>
-									<l:GridData span="XL12 L12 M12 S12"/>
+									<l:GridData span="XL2 L2 M4 S6"/>
 								</layoutData>
 							</VBox>
-							<VBox class="sapUiTinyMarginTop">
+							<VBox>
 								<Label text="{i18n>START_DATE}"></Label>
 								<DatePicker minDate="" placeholder="dd MM yyyy" dateValue="{oWorkOrderDetailModel>Desstdate}" displayFormat="dd-MM-yyyy" enabled="false"
 									class="sapInputBorderClass" width="100%"/>
 								<layoutData>
-									<l:GridData span="XL6 L6 M6 S6"/>
+									<l:GridData span="XL2 L2 M4 S6"/>
 								</layoutData>
 							</VBox>
-							<VBox class="sapUiTinyMarginTop">
+							<VBox>
 								<Label text="{i18n>END_DATE}"></Label>
 								<DatePicker minDate="" placeholder="dd MM yyyy" dateValue="{oWorkOrderDetailModel>Desenddate}" displayFormat="dd-MM-yyyy" enabled="false"
 									class="sapInputBorderClass" width="100%"/>
 								<layoutData>
-									<l:GridData span="XL6 L6 M6 S6"/>
+									<l:GridData span="XL2 L2 M4 S6"/>
 								</layoutData>
 							</VBox>
-							<VBox class="sapUiTinyMarginTop">
+							<VBox>
 								<Label text="{i18n>REPORTED_BY}"></Label>
 								<Input value="{oWorkOrderDetailModel>Reportedby}" enabled="false" tooltip="{oWorkOrderDetailModel>Reportedby}" class="sapInputBorderClass"></Input>
 								<layoutData>
-									<l:GridData span="XL12 L12 M12 S12"/>
+									<l:GridData span="XL2 L2 M4 S6"/>
 								</layoutData>
 							</VBox>
-							<VBox class="sapUiTinyMarginTop">
+							<VBox>
 								<Label text="{i18n>SHORT_DESCRIPTION}"></Label>
 								<Input value="{oWorkOrderDetailModel>ShortText}" enabled="false" tooltip="{oWorkOrderDetailModel>ShortText}" class="sapInputBorderClass"></Input>
 								<layoutData>
-									<l:GridData span="XL12 L12 M12 S12"/>
+									<l:GridData span="XL2 L2 M4 S6"/>
 								</layoutData>
 							</VBox>
 							<VBox>

@@ -4,30 +4,30 @@
 			<items>
 				<IconTabFilter text="{i18n>operation}">
 					<OverflowToolbar class="sapMToolBarBottomBorderClass">
-						<Button text="{i18n>MASS_UPDATE}" class="sapMBtnBlueColor" press="onOpenMassUpdatePopup"
-							visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setWOReleaseFieldsVisible'}"></Button>
+						<Button text="{i18n>ADD_OP}" press="onAddWOOperations" type="Emphasized" icon="sap-icon://add" iconFirst="true"
+							visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setAddRemoveVisible'}"></Button>
+						<Button text="{i18n>FINAL_CONFIRMATION}" type="Accept" icon="sap-icon://sys-enter" iconFirst="true" press="fnFullyConfirmOperation"
+							visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setWOReleaseFieldsVisible'}">
+							<customData>
+								<core:CustomData key="dateType" value="WO_DETAIL_OPERATION_FINAL_CONFIRM"/>
+							</customData>
+						</Button>
+						<Button text="{i18n>CONFIRMATION}" press="fnConfirmOperation" icon="sap-icon://sys-enter" iconFirst="true"
+							visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setWOReleaseFieldsVisible'}">
+							<customData>
+								<core:CustomData key="dateType" value="WO_DETAIL_OPERATION_CONFIRM"/>
+							</customData>
+						</Button>
+						<Button text="{i18n>REMOVE}" type="Reject" press="onDeleteSelectedOperations"
+							visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setAddRemoveVisible'}"></Button>
 						<CheckBox text="{oWorkOrderDetailViewModel>/switchTooltip}" select="fnFilterCNFOperations"
 							selected="{oWorkOrderDetailViewModel>/isOperationsFiltered}"
 							visible="{parts:['oWorkOrderDetailModel>/OrderStatus','oWorkOrderDetailModel>/Orderid'] , formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnSetFilterOpsCBVisible'}"/>
 						<!--sapCBItalicFont-->
 						<ToolbarSpacer class="sapUiSmallMarginBegin"/>
 						<!--enabled="{path:'oWorkOrderDetailModel>/HEADERTOOPERATIONSNAV', formatter:'.formatter.enableDisableRemoveBtn'}"-->
-						<Button text="{i18n>REMOVE}" type="Reject" press="onDeleteSelectedOperations"
-							visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setAddRemoveVisible'}"></Button>
-						<Button text="{i18n>ADD_OP}" press="onAddWOOperations" class="sapMBtnBlueColor"
-							visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setAddRemoveVisible'}"></Button>
-						<Button text="{i18n>CONFIRMATION}" class="sapMBtnGreenColor" press="fnConfirmOperation"
-							visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setWOReleaseFieldsVisible'}">
-							<customData>
-								<core:CustomData key="dateType" value="WO_DETAIL_OPERATION_CONFIRM"/>
-							</customData>
-						</Button>
-						<Button text="{i18n>FINAL_CONFIRMATION}" class="sapMBtnGreenColor" press="fnFullyConfirmOperation"
-							visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setWOReleaseFieldsVisible'}">
-							<customData>
-								<core:CustomData key="dateType" value="WO_DETAIL_OPERATION_FINAL_CONFIRM"/>
-							</customData>
-						</Button>
+						<Button text="{i18n>MASS_UPDATE}" class="sapMBtnBlueColor" press="onOpenMassUpdatePopup"
+							visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setWOReleaseFieldsVisible'}"></Button>
 					</OverflowToolbar>
 					<ui:Table rows="{oWorkOrderDetailModel>/HEADERTOOPERATIONSNAV}" enableSelectAll="true" selectionMode="MultiToggle" selectionBehavior="Row"
 						visibleRowCount="8" class="sapUITableColumn" rowSelectionChange="onSelectOperation" id="MYLAN_OPERATIONS_TABLE">
@@ -172,9 +172,10 @@
 								<ui:template>
 									<!--<Text text="{path:'oWorkOrderDetailModel>Material', formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnCheckSafetyStock'}"/>-->
 									<Input value="{path:'oWorkOrderDetailModel>Material', formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnCheckSafetyStock'}"
-										class="sapInputBorderClass" showSuggestion="true" suggestionItems="{oWorkOrderDetailViewModel>/aMaterialsList}" change="oSelectMatSparePart" editable="{path:'oWorkOrderDetailModel>CompCode',formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnCheckSavedSpareParts'}">
+										class="sapInputBorderClass" showSuggestion="true" suggestionItems="{oWorkOrderDetailViewModel>/aMaterialsList}" change="oSelectMatSparePart"
+										editable="{path:'oWorkOrderDetailModel>CompCode',formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnCheckSavedSpareParts'}">
 										<suggestionItems>
-											<core:ListItem  text="{oWorkOrderDetailViewModel>Material}" additionalText="{oWorkOrderDetailViewModel>MaterialDesc}"/>
+											<core:ListItem text="{oWorkOrderDetailViewModel>Material}" additionalText="{oWorkOrderDetailViewModel>MaterialDesc}"/>
 										</suggestionItems>
 									</Input>
 								</ui:template>
@@ -183,10 +184,8 @@
 								<Label text="{i18n>DESCRIPTION}" class="tableHeaderText"/>
 								<ui:template>
 									<!--<Text text="{oWorkOrderDetailModel>MatlDesc}"/>-->
-									<Input value="{path:'oWorkOrderDetailModel>MatlDesc'}"
-										class="sapInputBorderClass" enabled="{path:'oWorkOrderDetailModel>Material',formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnDisaleMatrialDesc'}">
-										
-									</Input>
+									<Input value="{path:'oWorkOrderDetailModel>MatlDesc'}" class="sapInputBorderClass"
+										enabled="{path:'oWorkOrderDetailModel>Material',formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnDisaleMatrialDesc'}"></Input>
 								</ui:template>
 							</ui:Column>
 							<ui:Column width="8rem" hAlign="Center" tooltip="{i18n>REQ_QUANTITY}">
@@ -203,7 +202,7 @@
 							<ui:Column width="8rem" hAlign="Center" tooltip="{i18n>UOM_SP}">
 								<Label text="{i18n>UOM_SP}" class="tableHeaderText"/>
 								<ui:template>
-									<Input value="{oWorkOrderDetailModel>RequirementQuantityUnit}"   class="sapInputBorderClass"
+									<Input value="{oWorkOrderDetailModel>RequirementQuantityUnit}" class="sapInputBorderClass"
 										enabled="{parts:['oWorkOrderDetailModel>Movement', 'oUserDetailModel>/userRole'], formatter:'com.sap.incture.IMO_PM.formatter.formatter.setSpareFieldsEnabled'}">
 										<customData>
 											<core:CustomData value="FLOAT"/>
