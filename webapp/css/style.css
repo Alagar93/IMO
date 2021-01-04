@@ -2692,3 +2692,6 @@ html.sap-desktop .sapMIBar.sapMFooter-CTX {
 .partialConfirmBtn .sapMBtnIcon {
 	color: #FFBF00;
 }
+.transparentBtn span{
+	background-color: transparent;
+}

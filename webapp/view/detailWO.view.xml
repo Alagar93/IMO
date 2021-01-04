@@ -45,7 +45,7 @@
 				<!--	</customData>-->
 				<!--</Button>-->
 				<Button text="{i18n>DETAIL_WO_RELEASE}" icon="sap-icon://flag" iconFirst="true" press="onCreateUpdateAndExitWO"
-					class="sapUiSmallMarginBegin murphyWOBtn" enabled="true" visible="{oWODetailFieldsModel>/releaseBtnVisible}">
+					class="sapUiSmallMarginBegin murphyWOBtn transparentBtn" enabled="true" visible="{oWODetailFieldsModel>/releaseBtnVisible}">
 					<customData>
 						<core:CustomData key="dateType" value="WO_DETAIL_RELEASE"/>
 					</customData>
@@ -57,7 +57,7 @@
 						<core:CustomData key="dateType" value="WO_DETAIL_TECHO"/>
 					</customData>
 				</Button>
-				<Button text="{i18n>DETAIL_ADD_TASKS}" icon="sap-icon://add" iconFirst="true" class="sapUiSmallMarginBegin murphyWOBtn"
+				<Button text="{i18n>DETAIL_ADD_TASKS}" icon="sap-icon://add" iconFirst="true" class="sapUiSmallMarginBegin murphyWOBtn transparentBtn"
 					press="fnOpenTaskListPopup"
 					visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnSetTaskNotifBtnVisible'}"/>
 				<CheckBox text="{i18n>CREATE_WO_NOTIF}" class="checkBoxText" selected="{oWorkOrderDetailViewModel>/withNotificationCheck}"

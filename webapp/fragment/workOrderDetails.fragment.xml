@@ -6,19 +6,19 @@
 					<OverflowToolbar class="sapMToolBarBottomBorderClass sapUiTinyMarginBottom">
 						<Button text="{i18n>ADD_OP}" press="onAddWOOperations" type="Emphasized" icon="sap-icon://add" iconFirst="true"
 							visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setAddRemoveVisible'}"></Button>
-						<Button text="{i18n>FINAL_CONFIRMATION}" type="Accept" icon="sap-icon://sys-enter" iconFirst="true" press="fnFullyConfirmOperation"
+						<Button text="{i18n>FINAL_CONFIRMATION}" type="Accept" icon="sap-icon://sys-enter" iconFirst="true" press="fnFullyConfirmOperation" class="transparentBtn"
 							visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setWOReleaseFieldsVisible'}">
 							<customData>
 								<core:CustomData key="dateType" value="WO_DETAIL_OPERATION_FINAL_CONFIRM"/>
 							</customData>
 						</Button>
-						<Button text="{i18n>CONFIRMATION}" press="fnConfirmOperation" icon="sap-icon://sys-enter" iconFirst="true" class="partialConfirmBtn"
+						<Button text="{i18n>CONFIRMATION}" press="fnConfirmOperation" icon="sap-icon://sys-enter" iconFirst="true" class="partialConfirmBtn transparentBtn"
 							visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setWOReleaseFieldsVisible'}">
 							<customData>
 								<core:CustomData key="dateType" value="WO_DETAIL_OPERATION_CONFIRM"/>
 							</customData>
 						</Button>
-						<Button text="{i18n>REMOVE}" type="Reject" press="onDeleteSelectedOperations" icon="sap-icon://delete" iconFirst="true"
+						<Button text="{i18n>REMOVE}" type="Reject" press="onDeleteSelectedOperations" icon="sap-icon://delete" iconFirst="true" class="transparentBtn"
 							visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setAddRemoveVisible'}"></Button>
 						<CheckBox text="{oWorkOrderDetailViewModel>/switchTooltip}" select="fnFilterCNFOperations"
 							selected="{oWorkOrderDetailViewModel>/isOperationsFiltered}"
@@ -134,7 +134,7 @@
 						<ToolbarSpacer/>
 						<Button text="{i18n>ADD_EMP_PART}" press="onAddEmptySparePart" class="sapMBtnBlueColor" tooltip="{i18n>ADD_EMP_SP}" type="Emphasized" icon="sap-icon://add" iconFirst="true"
 							visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setAddRemoveVisible'}"/>
-						<Button text="{i18n>REMOVE}" type="Reject" press="onDeleteSpareParts" icon="sap-icon://delete" iconFirst="true"
+						<Button text="{i18n>REMOVE}" type="Reject" press="onDeleteSpareParts" icon="sap-icon://delete" iconFirst="true" class="transparentBtn"
 							enabled="{path:'oWorkOrderDetailModel>/HEADERTOCOMPONENTNAV', formatter:'.formatter.enableDisableRemoveBtn'}"
 							visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setAddRemoveVisible'}"/>
 						<Button text="{i18n>ADD_PART}" press="openSparePartDialog" class="tableHeadertansparentBtn" tooltip="{i18n>ADD_SP}"
