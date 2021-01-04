@@ -15,7 +15,7 @@
 			</FlexBox>
 		</content>
 		<buttons>
-			<Button text="{i18n>CANCEL}" press="onCloseDigitalSignPopUp" class="btnTransparent createNotifClearBtn" icon="sap-icon://decline" iconFirst="true"></Button>
+			<Button text="{i18n>CANCEL}" press="onCloseDigitalSignPopUp" class="transparentBtn createNotifClearBtn" icon="sap-icon://decline" iconFirst="true"></Button>
 			<Button text="{i18n>OK}" press="fnValidateLoggedInUser" type="Emphasized"></Button>
 		</buttons>
 	</Dialog>

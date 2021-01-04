@@ -90,7 +90,7 @@
 			</content>
 			<footer>
 				<Toolbar>
-					<Button class="btnTransparent createNotifClearBtn" icon="sap-icon://decline" iconFirst="true" text="Cancel" press="onCancelItemCatPR"/>
+					<Button class="transparentBtn createNotifClearBtn" icon="sap-icon://decline" iconFirst="true" text="Cancel" press="onCancelItemCatPR"/>
 					<ToolbarSpacer/>
 					<Button type="Emphasized" text="Save" press="onSaveItemCatPR">
 						<customData>

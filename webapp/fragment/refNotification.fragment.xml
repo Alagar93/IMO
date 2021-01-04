@@ -41,7 +41,7 @@
 			<footer>
 				<Toolbar>
 					<ToolbarSpacer/>
-					<Button text="Cancel" press="onCloseRefNotif" class="btnTransparent createNotifClearBtn" icon="sap-icon://decline" iconFirst="true"/>
+					<Button text="Cancel" press="onCloseRefNotif" class="transparentBtn createNotifClearBtn" icon="sap-icon://decline" iconFirst="true"/>
 					<Button text="Apply" press="onNotifSearch" type="Emphasized"/>
 				</Toolbar>
 			</footer>

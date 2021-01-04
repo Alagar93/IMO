@@ -31,7 +31,7 @@
 			<footer>
 				<Toolbar>
 					<ToolbarSpacer/>
-					<Button text="Cancel" press="onCancelWoDialog" class="btnTransparent createNotifClearBtn" icon="sap-icon://decline" iconFirst="true"/>
+					<Button text="Cancel" press="onCancelWoDialog" class="transparentBtn createNotifClearBtn" icon="sap-icon://decline" iconFirst="true"/>
 					<Button text="Create" press="checkMandatoryFields" type="Emphasized">
 						<customData>
 							<core:CustomData key="dateType" value="CREATE_ORDER"/>

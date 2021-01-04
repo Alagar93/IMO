@@ -10,7 +10,7 @@
 			</content>
 			<footer>
 				<Toolbar>
-					<Button text="Cancel" press="onCloseNotifPopUpClose" class="btnTransparent createNotifClearBtn" icon="sap-icon://decline" iconFirst="true"/>
+					<Button text="Cancel" press="onCloseNotifPopUpClose" class="transparentBtn createNotifClearBtn" icon="sap-icon://decline" iconFirst="true"/>
 					<ToolbarSpacer/>
 					<Button type="Emphasized" text="Save" press="onSaveCloseNotifPopUp"/>
 				</Toolbar>

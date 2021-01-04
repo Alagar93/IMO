@@ -20,7 +20,7 @@
 			</ui:Table>
 		</content>
 		<buttons>
-			<Button text="{i18n>CANCEL}" press="closeKPIWOListPopover" class="btnTransparent createNotifClearBtn" icon="sap-icon://decline" iconFirst="true"></Button>
+			<Button text="{i18n>CANCEL}" press="closeKPIWOListPopover" class="transparentBtn createNotifClearBtn" icon="sap-icon://decline" iconFirst="true"></Button>
 			<!--<Button text="{i18n>viewDetails}" press="viewKPIWODetails" class="murphyDialogBtn"></Button>-->
 		</buttons>
 	</Dialog>

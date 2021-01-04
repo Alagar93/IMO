@@ -43,7 +43,7 @@
 			<footer>
 				<Toolbar>
 					<ToolbarSpacer/>
-					<Button text="Cancel" press="onCancelWoNotifDetailDialog" class="btnTransparent createNotifClearBtn" icon="sap-icon://decline" iconFirst="true"/>
+					<Button text="Cancel" press="onCancelWoNotifDetailDialog" class="transparentBtn createNotifClearBtn" icon="sap-icon://decline" iconFirst="true"/>
 					<Button text="Create" press="onCreateWO" type="Emphasized">
 						<customData>
 							<core:CustomData key="dateType" value="NOTIF_DETAIL"/>

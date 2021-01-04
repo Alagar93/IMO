@@ -22,7 +22,7 @@
 			</Table>
 		</content>
 		<buttons>
-			<Button text="{i18n>cancel}" press="onCancelDialogAssignUser" class="btnTransparent createNotifClearBtn" icon="sap-icon://decline" iconFirst="true"/>
+			<Button text="{i18n>cancel}" press="onCancelDialogAssignUser" class="transparentBtn createNotifClearBtn" icon="sap-icon://decline" iconFirst="true"/>
 		</buttons>
 	</Dialog>
 </core:FragmentDefinition >

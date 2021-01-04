@@ -40,7 +40,7 @@
 			</ScrollContainer>
 		</content>
 		<beginButton>
-			<Button text="Close" press="onCloseWOOprnsComments" class="btnTransparent createNotifClearBtn" icon="sap-icon://decline" iconFirst="true"/>
+			<Button text="Close" press="onCloseWOOprnsComments" class="transparentBtn createNotifClearBtn" icon="sap-icon://decline" iconFirst="true"/>
 		</beginButton>
 	</Dialog>
 </core:FragmentDefinition>

@@ -20,7 +20,7 @@
 			</ui:Table>
 		</content>
 		<buttons>
-			<Button text="{i18n>CANCEL}" press="closeKPINotifListPopover" class="btnTransparent createNotifClearBtn" icon="sap-icon://decline" iconFirst="true"></Button>
+			<Button text="{i18n>CANCEL}" press="closeKPINotifListPopover" class="transparentBtn createNotifClearBtn" icon="sap-icon://decline" iconFirst="true"></Button>
 		</buttons>
 	</Dialog>
 </core:FragmentDefinition>

@@ -90,7 +90,7 @@
 			</content>
 			<footer>
 				<Toolbar>
-					<Button text="Cancel" press="onCancelControlKeyDialog" class="btnTransparent createNotifClearBtn" icon="sap-icon://decline" iconFirst="true"/>
+					<Button text="Cancel" press="onCancelControlKeyDialog" class="transparentBtn createNotifClearBtn" icon="sap-icon://decline" iconFirst="true"/>
 					<ToolbarSpacer/>
 					<Button type="Emphasized" text="Save" press="onSaveControlKey">
 						<customData>
