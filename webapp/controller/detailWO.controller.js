@@ -1295,18 +1295,20 @@ sap.ui.define([
 			}
 			var oWorkOrderDetailViewModel = this.oWorkOrderDetailViewModel;
 			var rowContext = oEvent.getParameters().rowContext;
-			if (!isSelectAll && !rowContext) {
+			var selectedIndices=oEvent.getSource().getSelectedIndices();
+			
+			if (!isSelectAll && selectedIndices.length===0) {
 				oWorkOrderDetailViewModel.setProperty("/selectedOps", []);
 				oWorkOrderDetailViewModel.setProperty("/Activity", "");
 				oWorkOrderDetailViewModel.setProperty("/operationLongTxt", "");
 				oWorkOrderDetailViewModel.setProperty("/enableOperationComment", false);
 				oWorkOrderDetailViewModel.setProperty("/enableOpCnfmLongText", false);
 				oWorkOrderDetailViewModel.setProperty("/confirmationLongText", "");
-				this.fnFilterSlectedOperationComment();
+				//this.fnFilterSlectedOperationComment(); //Sunanda- Comments section is removed
 				oWorkOrderDetailViewModel.refresh();
 				return;
 			}
-			if (!rowContext) {
+			if (selectedIndices.length===0) {
 				return;
 			}
 			var oSelectedRow = rowContext.getPath();
@@ -1361,12 +1363,12 @@ sap.ui.define([
 				oWorkOrderDetailViewModel.setProperty("/confirmationLongText", "");
 			}
 			oWorkOrderDetailViewModel.setProperty("/selectedOps", selectedOps);
-			this.fnFilterSlectedOperationComment();
+			//this.fnFilterSlectedOperationComment(); //Sunanda- Comments section is removed
 			oWorkOrderDetailViewModel.refresh();
 		},
 
 		//Function to show selected operations comments
-		fnFilterSlectedOperationComment: function () {
+		/*fnFilterSlectedOperationComment: function () {
 			var aFilters = [];
 			var oWorkOrderDetailModel = this.oWorkOrderDetailModel;
 			var oWorkOrderDetailViewModel = this.oWorkOrderDetailViewModel;
@@ -1381,7 +1383,7 @@ sap.ui.define([
 			var oVbox = this.getView().byId("WO_DETAIL_OPS_COMMENTS_LAY");
 			var binding = oVbox.getBinding("items");
 			binding.filter(aFilters, "Application");
-		},
+		},*/
 
 		//Function to update Operation ling text
 		updateOperationLongTxt: function () {
