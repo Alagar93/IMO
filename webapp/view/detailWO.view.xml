@@ -11,18 +11,76 @@
 				width="{= ${mLookupModel>/showTaskManagementPanelWO} === true ? '20rem' : '0' }">
 				<core:Fragment fragmentName="com.sap.incture.IMO_PM.fragment.RightAttachmentPanelWO" type="XML" id="idRightAttachmentPanelWO"></core:Fragment>
 			</VBox>
+			<Toolbar class="toolBarHeaderBG" height="3rem">
+				<Button text="{i18n>CREATE_NOTIFICATION_WO}" press="onCreateUpdateAndExitWO" icon="sap-icon://write-new" iconFirst="true"
+					class="sapUiSmallMarginBegin murphyWOBtn" visible="{oWorkOrderDetailViewModel>/createVisible}">
+					<customData>
+						<core:CustomData key="dateType" value="WO_DETAIL_CREATE_NOTIF"/>
+					</customData>
+				</Button>
+				<!--<Button text="{i18n>DETAIL_ADD_NOTIFICATION}" class="murphyCreateBtn" press="onOpenNotificationPopup"-->
+				<!--	visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnSetTaskNotifBtnVisible'}"/>-->
+				<Button text="{i18n>DETAIL_CREATE_WO}" press="onCreateUpdateAndExitWO" icon="sap-icon://write-new" iconFirst="true"
+					class="sapUiSmallMarginBegin murphyWOBtn" visible="{oWorkOrderDetailViewModel>/createVisible}">
+					<customData>
+						<core:CustomData key="dateType" value="WO_DETAIL_CREATE"/>
+					</customData>
+				</Button>
+				<!--<Button text="{i18n>DETAIL_CREATE_EXIT}" press="onCreateUpdateAndExitWO" class="murphyCreateBtn" enabled="true"-->
+				<!--	visible="{oWorkOrderDetailViewModel>/createExitVisible}">-->
+				<!--	<customData>-->
+				<!--		<core:CustomData key="dateType" value="WO_DETAIL_CREATE_EXIT"/>-->
+				<!--	</customData>-->
+				<!--</Button>-->
+				<Button text="{i18n>DETAIL_UPDATE_WO}" icon="sap-icon://synchronize" iconFirst="true" press="onCreateUpdateAndExitWO" class="sapUiSmallMarginBegin"
+					type="Emphasized" enabled="true" visible="{oWorkOrderDetailViewModel>/updateVisible}">
+					<customData>
+						<core:CustomData key="dateType" value="WO_DETAIL_UPDATE"/>
+					</customData>
+				</Button>
+				<!--<Button text="{i18n>DETAIL_UPDATE_EXIT}" press="onCreateUpdateAndExitWO" class="murphyCreateBtn" enabled="true"-->
+				<!--	visible="{oWorkOrderDetailViewModel>/updateExitVisible}">-->
+				<!--	<customData>-->
+				<!--		<core:CustomData key="dateType" value="WO_DETAIL_UPDATE_EXIT"/>-->
+				<!--	</customData>-->
+				<!--</Button>-->
+				<Button text="{i18n>DETAIL_WO_RELEASE}" icon="sap-icon://flag" iconFirst="true" press="onCreateUpdateAndExitWO"
+					class="sapUiSmallMarginBegin murphyWOBtn" enabled="true" visible="{oWODetailFieldsModel>/releaseBtnVisible}">
+					<customData>
+						<core:CustomData key="dateType" value="WO_DETAIL_RELEASE"/>
+					</customData>
+				</Button>
+				<Button text="{i18n>DETAIL_WO_TECO}" icon="sap-icon://sys-enter" iconFirst="true" press="onCreateUpdateAndExitWO"
+					class="sapUiSmallMarginBegin murphyWOBtn"
+					visible="{parts:['oWorkOrderDetailModel>/HEADERTOOPERATIONSNAV', 'oUserDetailModel>/userRole'], formatter:'.formatter.enableTECOButton'}">
+					<customData>
+						<core:CustomData key="dateType" value="WO_DETAIL_TECHO"/>
+					</customData>
+				</Button>
+				<Button text="{i18n>DETAIL_ADD_TASKS}" icon="sap-icon://add" iconFirst="true" class="sapUiSmallMarginBegin murphyWOBtn"
+					press="fnOpenTaskListPopup"
+					visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnSetTaskNotifBtnVisible'}"/>
+				<CheckBox text="{i18n>CREATE_WO_NOTIF}" class="checkBoxText" selected="{oWorkOrderDetailViewModel>/withNotificationCheck}"
+					enabled="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnSetCheckBoxVisible'}"/>
+			</Toolbar>
+			<OverflowToolbar class="sapUiTinyMarginTop">
+				<Label text="{i18n>WO_DETAILS}" class="sapUiSmallMarginBegin" wrapping="true"/>
+				<core:Icon src="sap-icon://navigation-right-arrow" class="sapUiTinyMarginBegin iconSize1" color="#96999b"></core:Icon>
+				<Label text="{i18n>WO_NUMBER1}" class="sapUiTinyMarginBegin murphyLabelColor"/>
+				<Text text="{oWorkOrderDetailModel>/Orderid}" class="murphyLabelColor"/>
+			</OverflowToolbar>
 			<l:Grid class="sapUiSmallMarginTop">
 				<l:content>
-					<VBox class="sapMParentGridBroder">
+					<VBox class="sapMParentGridBroder sapUiTinyMarginBeginEnd">
 						<core:Fragment fragmentName="com.sap.incture.IMO_PM.fragment.headerDetails" type="XML"/>
 						<layoutData>
-							<l:GridData span="XL3 L3 M12 S12"/>
+							<l:GridData span="XL12 L12 M12 S12"/>
 						</layoutData>
 					</VBox>
-					<VBox class="sapMParentGridBroder">
+					<VBox class="sapMParentGridBroder sapUiTinyMarginBeginEnd sapUiMediumMarginTop">
 						<core:Fragment fragmentName="com.sap.incture.IMO_PM.fragment.workOrderDetails" type="XML"/>
 						<layoutData>
-							<l:GridData span="XL6 L6 M12 S12"/>
+							<l:GridData span="XL12 L12 M12 S12"/>
 						</layoutData>
 					</VBox>
 					<!--<VBox class="sapMParentGridBroder">
@@ -34,56 +92,56 @@
 				</l:content>
 			</l:Grid>
 		</content>
-		<footer>
-			<Toolbar>
-				<Button text="{i18n>CREATE_NOTIFICATION_WO}" press="onCreateUpdateAndExitWO" class="murphyCreateBtn"
-					visible="{oWorkOrderDetailViewModel>/createVisible}">
-					<customData>
-						<core:CustomData key="dateType" value="WO_DETAIL_CREATE_NOTIF"/>
-					</customData>
-				</Button>
-				<ToolbarSpacer/>
-				<Button text="{i18n>DETAIL_ADD_TASKS}" class="murphyCreateBtn" press="fnOpenTaskListPopup"
-					visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnSetTaskNotifBtnVisible'}"/>
-				<Button text="{i18n>DETAIL_ADD_NOTIFICATION}" class="murphyCreateBtn" press="onOpenNotificationPopup"
-					visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnSetTaskNotifBtnVisible'}"/>
-				<Button text="{i18n>DETAIL_CREATE_WO}" press="onCreateUpdateAndExitWO" class="murphyCreateBtn"
-					visible="{oWorkOrderDetailViewModel>/createVisible}">
-					<customData>
-						<core:CustomData key="dateType" value="WO_DETAIL_CREATE"/>
-					</customData>
-				</Button>
-				<Button text="{i18n>DETAIL_CREATE_EXIT}" press="onCreateUpdateAndExitWO" class="murphyCreateBtn" enabled="true"
-					visible="{oWorkOrderDetailViewModel>/createExitVisible}">
-					<customData>
-						<core:CustomData key="dateType" value="WO_DETAIL_CREATE_EXIT"/>
-					</customData>
-				</Button>
-				<Button text="{i18n>DETAIL_UPDATE_WO}" press="onCreateUpdateAndExitWO" class="murphyCreateBtn" enabled="true"
-					visible="{oWorkOrderDetailViewModel>/updateVisible}">
-					<customData>
-						<core:CustomData key="dateType" value="WO_DETAIL_UPDATE"/>
-					</customData>
-				</Button>
-				<Button text="{i18n>DETAIL_UPDATE_EXIT}" press="onCreateUpdateAndExitWO" class="murphyCreateBtn" enabled="true"
-					visible="{oWorkOrderDetailViewModel>/updateExitVisible}">
-					<customData>
-						<core:CustomData key="dateType" value="WO_DETAIL_UPDATE_EXIT"/>
-					</customData>
-				</Button>
-				<Button text="{i18n>DETAIL_WO_RELEASE}" press="onCreateUpdateAndExitWO" class="murphyCreateBtn" enabled="true"
-					visible="{oWODetailFieldsModel>/releaseBtnVisible}">
-					<customData>
-						<core:CustomData key="dateType" value="WO_DETAIL_RELEASE"/>
-					</customData>
-				</Button>
-				<Button text="{i18n>DETAIL_WO_TECO}" press="onCreateUpdateAndExitWO" class="murphyCreateBtn"
-					visible="{parts:['oWorkOrderDetailModel>/HEADERTOOPERATIONSNAV', 'oUserDetailModel>/userRole'], formatter:'.formatter.enableTECOButton'}">
-					<customData>
-						<core:CustomData key="dateType" value="WO_DETAIL_TECHO"/>
-					</customData>
-				</Button>
-			</Toolbar>
-		</footer>
+		<!--<footer>-->
+		<!--	<Toolbar>-->
+		<!--		<Button text="{i18n>CREATE_NOTIFICATION_WO}" press="onCreateUpdateAndExitWO" class="murphyCreateBtn"-->
+		<!--			visible="{oWorkOrderDetailViewModel>/createVisible}">-->
+		<!--			<customData>-->
+		<!--				<core:CustomData key="dateType" value="WO_DETAIL_CREATE_NOTIF"/>-->
+		<!--			</customData>-->
+		<!--		</Button>-->
+		<!--		<ToolbarSpacer/>-->
+		<!--		<Button text="{i18n>DETAIL_ADD_TASKS}" class="murphyCreateBtn" press="fnOpenTaskListPopup"-->
+		<!--			visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnSetTaskNotifBtnVisible'}"/>-->
+		<!--		<Button text="{i18n>DETAIL_ADD_NOTIFICATION}" class="murphyCreateBtn" press="onOpenNotificationPopup"-->
+		<!--			visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnSetTaskNotifBtnVisible'}"/>-->
+		<!--		<Button text="{i18n>DETAIL_CREATE_WO}" press="onCreateUpdateAndExitWO" class="murphyCreateBtn"-->
+		<!--			visible="{oWorkOrderDetailViewModel>/createVisible}">-->
+		<!--			<customData>-->
+		<!--				<core:CustomData key="dateType" value="WO_DETAIL_CREATE"/>-->
+		<!--			</customData>-->
+		<!--		</Button>-->
+		<!--		<Button text="{i18n>DETAIL_CREATE_EXIT}" press="onCreateUpdateAndExitWO" class="murphyCreateBtn" enabled="true"-->
+		<!--			visible="{oWorkOrderDetailViewModel>/createExitVisible}">-->
+		<!--			<customData>-->
+		<!--				<core:CustomData key="dateType" value="WO_DETAIL_CREATE_EXIT"/>-->
+		<!--			</customData>-->
+		<!--		</Button>-->
+		<!--		<Button text="{i18n>DETAIL_UPDATE_WO}" press="onCreateUpdateAndExitWO" class="murphyCreateBtn" enabled="true"-->
+		<!--			visible="{oWorkOrderDetailViewModel>/updateVisible}">-->
+		<!--			<customData>-->
+		<!--				<core:CustomData key="dateType" value="WO_DETAIL_UPDATE"/>-->
+		<!--			</customData>-->
+		<!--		</Button>-->
+		<!--		<Button text="{i18n>DETAIL_UPDATE_EXIT}" press="onCreateUpdateAndExitWO" class="murphyCreateBtn" enabled="true"-->
+		<!--			visible="{oWorkOrderDetailViewModel>/updateExitVisible}">-->
+		<!--			<customData>-->
+		<!--				<core:CustomData key="dateType" value="WO_DETAIL_UPDATE_EXIT"/>-->
+		<!--			</customData>-->
+		<!--		</Button>-->
+		<!--		<Button text="{i18n>DETAIL_WO_RELEASE}" press="onCreateUpdateAndExitWO" class="murphyCreateBtn" enabled="true"-->
+		<!--			visible="{oWODetailFieldsModel>/releaseBtnVisible}">-->
+		<!--			<customData>-->
+		<!--				<core:CustomData key="dateType" value="WO_DETAIL_RELEASE"/>-->
+		<!--			</customData>-->
+		<!--		</Button>-->
+		<!--		<Button text="{i18n>DETAIL_WO_TECO}" press="onCreateUpdateAndExitWO" class="murphyCreateBtn"-->
+		<!--			visible="{parts:['oWorkOrderDetailModel>/HEADERTOOPERATIONSNAV', 'oUserDetailModel>/userRole'], formatter:'.formatter.enableTECOButton'}">-->
+		<!--			<customData>-->
+		<!--				<core:CustomData key="dateType" value="WO_DETAIL_TECHO"/>-->
+		<!--			</customData>-->
+		<!--		</Button>-->
+		<!--	</Toolbar>-->
+		<!--</footer>-->
 	</Page>
 </core:View>

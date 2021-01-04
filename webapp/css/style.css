@@ -677,20 +677,12 @@ html:not([data-sap-ui-browser^="ie"]):not([data-sap-ui-browser^="ed"]) .sapUiIco
     margin: 0 0.5rem;
 }
 
-.sapMParentGridBroder {
-    border: 1px solid #D3D3D3;
-}
-
-
 
 /*.sapMGridContentSeparator {
     border-right: 1px solid #D3D3D3;
 }*/
 
-.sapMPanelWOHeader {
-    background: #377295;
-    border-radius: 1px;
-}
+
 
 .sapMPanelWOHeader .sapMPanelBGTranslucent {
     background-color: #ffffff;
@@ -2610,3 +2602,78 @@ html.sap-desktop .sapMIBar.sapMFooter-CTX {
     border-color: #3770b1;
     color: #3770b1;
 }
+
+/*nischal -- WODetail screen -- Starts*/
+.toolBarHeaderBG {
+    background-color: #ffffff !important;
+    margin-top: 2px;
+}
+
+.murphyWOBtn .sapMBtnInner {
+    border: 1px solid #0a6ed1 !important;
+    color: #0a6ed1;
+    width: auto;
+}
+
+.checkBoxText .sapMLabel {
+    color: #000000 !important;
+    font-weight: bold !important;
+}
+
+.iconSize1 {
+    font-size: 0.7rem;
+}
+
+.murphyLabelColor {
+    color: #0a6ed1;
+}
+
+.sapMParentGridBroder {
+    border: 1px solid #ebedef;
+    border-radius: 4px;
+}
+
+/*.sapMParentGridBroder1 {*/
+/*    border: 1px solid #ebedef;*/
+/*    border-radius: 4px;*/
+/*    margin-top:30px;*/
+/*}*/
+
+.sapMPanelWOHeader {
+    background: #ffffff;
+    border-radius: 4px;
+    padding: 0.625rem !important;
+}
+
+.panelTextColor {
+    color: #000 !important;
+    text-shadow: 0 0px 0 #000 !important;
+}
+
+.sapMBtnTransparent>.sapMBtnIcon,
+:not(.sapMBtnDisabled) .sapMBtnGhost>.sapMBtnIcon {
+    color: #085caf !important;
+}
+
+.sapMPanel {
+    min-height: auto !important;
+}
+
+.panelTextColor1 {
+    color: #6f7275 !important;
+}
+.sapMPanel>.sapMPanelHdr, .sapMPanelWrappingDiv, .sapMPanelWrappingDivTb {
+    border-bottom: 0rem !important;
+}
+.sapUshellShell .sapMITH {
+    box-shadow: none !important;
+    background-color: #ebedef !important;
+}
+.sapMBtnOrangeColor{
+	background-color: #fff;
+    border: 1px solid #FFD700;
+    border-radius: 0.2rem;
+    color: #FFD700;
+    text-shadow: 0 0 0.125rem rgba(0, 0, 0, 0.5);
+}
+/*nischal -- WODetail screen -- Ends*/

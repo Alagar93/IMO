@@ -148,7 +148,7 @@
 					</Toolbar>
 				</table:extension>
 				<table:columns>
-					<table:Column width="8%" sortProperty="Orderid" filterProperty="Orderid" defaultFilterOperator="Contains">
+					<table:Column width="6%" sortProperty="Orderid" filterProperty="Orderid" defaultFilterOperator="Contains">
 						<Text wrapping="true" text="{i18n>WONum}" class="tableHeaderText"/>
 						<table:template>
 							<!--<Text text="{mLookupModel>Orderid}" class="tableContentText"></Text>-->
@@ -161,7 +161,7 @@
 							<Text text="{mLookupModel>WoDes}" class="tableContentText"></Text>
 						</table:template>
 					</table:Column>
-					<table:Column width="6.7%" sortProperty="MnWkCtr" filterProperty="MnWkCtr">
+					<table:Column width="7%" sortProperty="MnWkCtr" filterProperty="MnWkCtr">
 						<Text wrapping="true" text="{i18n>mainWC}" class="tableHeaderText"/>
 						<table:template>
 							<Text text="{mLookupModel>MnWkCtr}" class="tableContentText"></Text>
@@ -173,7 +173,7 @@
 							<Text text="{mLookupModel>OrderType}" class="tableContentText"></Text>
 						</table:template>
 					</table:Column>
-					<table:Column sortProperty="Equipment" width="6%" filterProperty="Equipment">
+					<table:Column sortProperty="Equipment" width="6.4%" filterProperty="Equipment">
 						<Text wrapping="true" text="{i18n>EQUIPMENT}" class="tableHeaderText"/>
 						<table:template>
 							<Text text="{mLookupModel>Equipment}" class="tableContentText"></Text>
@@ -191,7 +191,7 @@
 							<Text text="{mLookupModel>EquipDes}" class="tableContentText"></Text>
 						</table:template>
 					</table:Column>
-					<table:Column width="8rem" sortProperty="Technicianname" filterProperty="Technicianname">
+					<table:Column width="6rem" sortProperty="Technicianname" filterProperty="Technicianname">
 						<Text wrapping="true" text="{i18n>assignedTech}" class="tableHeaderText"/>
 						<table:template>
 							<Text text="{mLookupModel>Technicianname}" class="tableContentText"></Text>

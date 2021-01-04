@@ -25,6 +25,14 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 		return condn;
 
 	},
+	//nischal -- function to enable or disable Checkbox in WoDetail view based on OrderStatus
+	fnSetCheckBoxVisible : function(sValue){
+		if(sValue === "CRTD"){
+			return true;
+		}else{
+			return false;
+		}
+	},
 	//nischal -- Notification Detail's CreateWO button Visibility function
 	setBtnVisibleCreateOrder: function (sValue) {
 		if (sValue == "NOPR") {
