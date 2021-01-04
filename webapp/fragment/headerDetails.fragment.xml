@@ -185,7 +185,7 @@
 						</layoutData>
 					</VBox>
 					<VBox class="sapUiTinyMarginTop">
-						<Label text="{i18n>AssignedTechName}"></Label>
+						<Label text="{i18n>ASSIGNED_TECH_NAME}"></Label>
 						<!--	<Input value="{path:'oWorkOrderDetailViewModel>/HEADERTOPARTNERNAV/0/AssignedTo',formatter:'com.mylan.createWorkOrder.formatter.formatter.fnGetNamefromUserid'}" 
 							enabled="false" class="sapInputBorderClass">
 						</Input>-->
