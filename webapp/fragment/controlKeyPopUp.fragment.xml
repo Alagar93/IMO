@@ -90,9 +90,9 @@
 			</content>
 			<footer>
 				<Toolbar>
-					<Button type="Reject" text="Cancel" press="onCancelControlKeyDialog"/>
+					<Button text="Cancel" press="onCancelControlKeyDialog" class="btnTransparent createNotifClearBtn" icon="sap-icon://decline" iconFirst="true"/>
 					<ToolbarSpacer/>
-					<Button type="Accept" text="Save" press="onSaveControlKey">
+					<Button type="Emphasized" text="Save" press="onSaveControlKey">
 						<customData>
 							<core:CustomData key="dateType" value="CREATE_ORDER"/>
 						</customData>

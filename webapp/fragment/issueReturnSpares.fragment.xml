@@ -54,7 +54,7 @@
 			</ui:Table>
 		</content>
 		<buttons>
-			<Button text="{i18n>CANCEL}" press="onCloseIssueReturnSparesPopUp"></Button>
+			<Button text="{i18n>CANCEL}" press="onCloseIssueReturnSparesPopUp" class="btnTransparent createNotifClearBtn" icon="sap-icon://decline" iconFirst="true"></Button>
 			<Button text="{i18n>ISSUE_PARTS}" press="onIssueReturnSpareParts" type="Emphasized" visible="{oWorkOrderDetailViewModel>/issueBtnVisible}">
 				<customData>
 					<core:CustomData value="ISSUE_PART"/>

@@ -71,7 +71,7 @@
 			</Panel>
 		</content>
 		<beginButton>
-			<Button text="{i18n>CANCEL}" press="onCancelDialogBOM"/>
+			<Button text="{i18n>CANCEL}" press="onCancelDialogBOM" class="btnTransparent createNotifClearBtn" icon="sap-icon://decline" iconFirst="true"/>
 		</beginButton>
 		<endButton>
 			<Button text="{i18n>OK}" press="onSearchWOFilter" type="Emphasized"/>

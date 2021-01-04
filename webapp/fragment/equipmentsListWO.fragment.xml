@@ -60,7 +60,7 @@
 								<Text text="{mLookupModel>/sFunLoc}"/>
 							</HBox>
 							<Table mode="SingleSelectLeft" selectionChange="onEquipSelect" growing="false" items="{path: 'mLookupModel>/aEqListOfFunLoc'}"
-								id="idEqListOfFunLoc">
+								id="idEqListOfFunLoc2">
 								<columns>
 									<Column width="{= ${device>/system/tablet} === true ? '6rem' : 'auto' }">
 										<Text text="{i18n>EQUIPMENT_ID}"/>
@@ -127,10 +127,10 @@
 			</IconTabBar>
 		</content>
 		<beginButton>
-			<Button text="{i18n>CANCEL}" press="onCancelDialogEquip" class="murphyDialogBtn"/>
+			<Button text="{i18n>CANCEL}" press="onCancelDialogEquip" class="btnTransparent createNotifClearBtn" icon="sap-icon://decline" iconFirst="true"/>
 		</beginButton>
 		<endButton>
-			<Button text="{i18n>SEARCH}" press="onSearchWOFilter" class="murphyDialogBtn"/>
+			<Button text="{i18n>SEARCH}" press="onSearchWOFilter" type="Emphasized"/>
 		</endButton>
 	</Dialog>
 </core:FragmentDefinition >

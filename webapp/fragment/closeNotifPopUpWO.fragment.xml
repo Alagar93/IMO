@@ -10,9 +10,9 @@
 			</content>
 			<footer>
 				<Toolbar>
-					<Button type="Accept" text="Cancel" press="onCloseNotifPopUpClose"/>
+					<Button text="Cancel" press="onCloseNotifPopUpClose" class="btnTransparent createNotifClearBtn" icon="sap-icon://decline" iconFirst="true"/>
 					<ToolbarSpacer/>
-					<Button type="Accept" text="Save" press="onSaveCloseNotifPopUp"/>
+					<Button type="Emphasized" text="Save" press="onSaveCloseNotifPopUp"/>
 				</Toolbar>
 			</footer>
 		</Page>

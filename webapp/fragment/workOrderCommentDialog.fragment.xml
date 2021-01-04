@@ -13,7 +13,7 @@
 			</VBox>
 		</content>
 		<buttons>
-			<Button text="{i18n>CLOSE}" press="closeWordOrderCommentPopup" type="Emphasized"/>
+			<Button text="{i18n>CLOSE}" press="closeWordOrderCommentPopup" class="btnTransparent createNotifClearBtn" icon="sap-icon://decline" iconFirst="true"/>
 		</buttons>
 	</Dialog>
 </core:FragmentDefinition>

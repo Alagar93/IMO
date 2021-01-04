@@ -1,9 +1,9 @@
 <core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:layout="sap.ui.layout"
 	xmlns:l="sap.ui.layout" class="sapUiSizeCompact dialogHeader">
-	<Dialog title="{i18n>ASSIGN}" contentHeight="50%" contentWidth="30%" verticalScrolling="false" class="sapUiSizeCompact sapTitleClass">
+	<Dialog title="{i18n>ASSIGN}" contentWidth="40%" verticalScrolling="false" class="sapUiSizeCompact dialogHeader">
 		<content>
-			<SearchField search="onSearchWorkOrders" width="98%" placeholder="{i18n>searchWO}" class="sapSearchFieldBorderClass"/>
-			<ScrollContainer height="15rem" vertical="true" focusable="false">
+			<SearchField search="onSearchWorkOrders" width="98%" placeholder="{i18n>searchWO}" class="sapSearchFieldBorderClass sapUiTinyMargin"/>
+			<ScrollContainer height="15rem" vertical="true" horizontal="false" focusable="false" class="sapUiTinyMargin">
 				<Table mode="SingleSelectLeft" items="{mLookupModel>/aWorkOrders}" id="NOTIF_ASSIGN_WO">
 					<columns>
 						<Column><Text text="{i18n>WONum}"/></Column>

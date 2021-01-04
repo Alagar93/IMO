@@ -97,7 +97,7 @@
 			</IconTabBar>
 		</content>
 		<beginButton>
-			<Button text="{i18n>cancel}" press="onCancelDialogEquip"/>
+			<Button text="{i18n>cancel}" press="onCancelDialogEquip" class="btnTransparent createNotifClearBtn" icon="sap-icon://decline" iconFirst="true"/>
 		</beginButton>
 		<endButton>
 			<Button text="{i18n>SEARCH}" press="onSearchEquipments" type="Emphasized"/>

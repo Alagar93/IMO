@@ -1,7 +1,7 @@
 <core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:layout="sap.ui.layout"
 	xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" class="sapUiSizeCompact">
-	<Dialog title="{}" contentWidth="40%" contentHeight="38%" showHeader="false" verticalScrolling="false" class="sapUiSizeCompact">
-		<Page title="{i18n>CREATE_ORDER}" showHeader="true" titleAlignment="Center">
+	<Dialog title="{}" contentWidth="40%" contentHeight="38%" showHeader="false" verticalScrolling="false" class="dialogHeader sapUiSizeCompact">
+		<Page title="{i18n>CREATE_ORDER}" showHeader="true" class="whiteBG">
 			<content>
 				<l:Grid defaultSpan="XL6 L6 M6 S12" class="gridBG sapUiSmallMargin">
 					<VBox class="sapUiSmallMarginTop">
@@ -31,8 +31,8 @@
 			<footer>
 				<Toolbar>
 					<ToolbarSpacer/>
-					<Button text="Cancel" press="onCancelWoDialog" class="murphyDialogBtn"/>
-					<Button text="Create" press="checkMandatoryFields" class="murphyDialogBtn">
+					<Button text="Cancel" press="onCancelWoDialog" class="btnTransparent createNotifClearBtn" icon="sap-icon://decline" iconFirst="true"/>
+					<Button text="Create" press="checkMandatoryFields" type="Emphasized">
 						<customData>
 							<core:CustomData key="dateType" value="CREATE_ORDER"/>
 						</customData>

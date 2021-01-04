@@ -52,13 +52,13 @@
 							<l:GridData span="XL2 L2 M4 S6"/>
 						</layoutData>
 					</VBox>
-					<VBox class="sapUiTinyMarginTop">
+					<!--<VBox class="sapUiTinyMarginTop">
 						<Label text="{i18n>WO_NUMBER}"></Label>
 						<Input value="{oWorkOrderDetailModel>/Orderid}" enabled="false" maxLength="12" tooltip="{oWorkOrderDetailModel>Orderid}" class="inputRadius"></Input>
 						<layoutData>
 							<l:GridData span="XL2 L2 M4 S6"/>
 						</layoutData>
-					</VBox>
+					</VBox>-->
 					<VBox class="sapUiTinyMarginTop">
 						<Label text="{i18n>ORDER_SHORT_DESCRIPTION}"></Label>
 						<!--	<Input value="{oWorkOrderDetailModel>/ShortText}" maxLength="40" enabled="{oWODetailFieldsModel>/orderShortDesc}"
@@ -268,9 +268,76 @@
 					<!--</VBox>-->
 				</l:content>
 			</l:Grid>
+			<l:Grid class="sapUiSmallMarginTop">
+				<l:content>
+					<VBox>
+						<Label text="{i18n>PLANNER_GROUP}"></Label>
+						<Select class="selectRadius" forceSelection="false" selectedKey="{oWorkOrderDetailModel>/Plangroup}" items="{mLookupModel>/aPlannerGroupSet}"
+							showSecondaryValues="true" enabled="{oWODetailFieldsModel>/plannerGrp}" tooltip="{oWorkOrderDetailModel>/Plangroup}" width="100%">
+							<core:ListItem key="{mLookupModel>VAGRP}" additionalText="{mLookupModel>VAGRP}" text="{mLookupModel>TXT}"/>
+						</Select>
+						<layoutData>
+							<l:GridData span="XL2 L2 M4 S6"/>
+						</layoutData>
+					</VBox>
+					<VBox>
+						<Label text="{i18n>PLANNER_PLANT}"></Label>
+						<Input value="{oWorkOrderDetailModel>/Planplant}" maxLength="4" enabled="false" tooltip="{oWorkOrderDetailModel>/Planplant}"
+							class="inputRadius"></Input>
+						<layoutData>
+							<l:GridData span="XL2 L2 M4 S6"/>
+						</layoutData>
+					</VBox>
+					<VBox>
+						<Label text="{i18n>REPORTED_BY}"></Label>
+						<Input value="{path:'oWorkOrderDetailModel>/ReportedBy',formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnGetReportedByName'}"
+							showValueHelp="true" valueHelpRequest="handleValueHelp" class="inputRadius" tooltip="{oWorkOrderDetailModel>/ReportedBy}"
+							enabled="{oWODetailFieldsModel>/assignedTo}" valueHelpOnly="true">
+							<customData>
+								<core:CustomData value="/ReportedBy"/>
+							</customData>
+						</Input>
+						<layoutData>
+							<l:GridData span="XL2 L2 M4 S6"/>
+						</layoutData>
+					</VBox>
+					<VBox>
+						<Label text="{i18n>REPORTED_BY_NAME}"></Label>
+						<Input value="{mLookupModel>/ReportedByName}" enabled="false" class="inputRadius"></Input>
+						<layoutData>
+							<l:GridData span="XL2 L2 M4 S6"/>
+						</layoutData>
+					</VBox>
+					<VBox visible = "{oWorkOrderDetailViewModel>/withNotificationCheck}">
+						<Label text="{i18n>MALFUNCTION_STARTDATE}"></Label>
+						<DatePicker minDate="{oWorkOrderDetailViewModel>/currentDate1}" placeholder="dd-MM-yyyy" width="100%"
+							dateValue="{oWorkOrderDetailModel>/MalFunStartDate}" displayFormat="dd-MM-yyyy" valueFormat="yyyy-MM-ddTHH:mm:ss"
+							enabled="{oWODetailFieldsModel>/malFnStartDate}" change="fnSetMalfunctionDateTime" class="inputRadius">
+							<customData>
+								<core:CustomData key="dateType" value="MalFunStartDate"/>
+							</customData>
+						</DatePicker>
+						<layoutData>
+							<l:GridData span="XL2 L2 M4 S6"/>
+						</layoutData>
+					</VBox>
+					<VBox visible = "{oWorkOrderDetailViewModel>/withNotificationCheck}">
+						<Label text="{i18n>TIME}"></Label>
+						<TimePicker value="{oWorkOrderDetailModel>/MalFunStartTime}" valueFormat="HH:mm" displayFormat="HH:mm" placeholder="HH:mm"
+							enabled="{oWODetailFieldsModel>/malFnStartTime}" class="inputRadius" width="100%">
+							<customData>
+								<core:CustomData key="dateType" value="MalFunStartTime"/>
+							</customData>
+						</TimePicker>
+						<layoutData>
+							<l:GridData span="XL2 L2 M4 S6"/>
+						</layoutData>
+					</VBox>
+				</l:content>
+			</l:Grid>
 		</content>
 	</Panel>
-	<Panel expanded="{oWorkOrderDetailViewModel>/additionalDetails}" expandable="true" class="sapMPanelWOHeader sapUiTinyMarginBottom"
+	<!--<Panel expanded="{oWorkOrderDetailViewModel>/additionalDetails}" expandable="true" class="sapMPanelWOHeader sapUiTinyMarginBottom"
 		expand="onOpenHideHeaderSections">
 		<customData>
 			<core:CustomData key="panelType" value="ADDITIONAL_DETAILS"/>
@@ -349,7 +416,7 @@
 				</l:content>
 			</l:Grid>
 		</content>
-	</Panel>
+	</Panel>-->
 	<Panel expanded="{oWorkOrderDetailViewModel>/notificationDetails}" expandable="true" class="sapMPanelWOHeader"
 		expand="onOpenHideHeaderSections">
 		<customData>
