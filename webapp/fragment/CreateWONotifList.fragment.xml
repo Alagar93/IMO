@@ -42,9 +42,9 @@
 			</content>
 			<footer>
 				<Toolbar>
-					<Button type="Reject" text="Cancel" press="onCancelWoNotifDetailDialog"/>
 					<ToolbarSpacer/>
-					<Button type="Accept" text="Create" press="onCreateWO">
+					<Button text="Cancel" press="onCancelWoNotifDetailDialog" class="murphyDialogBtn"/>
+					<Button text="Create" press="onCreateWO" class="murphyDialogBtn">
 						<customData>
 							<core:CustomData key="dateType" value="NOTIF_DETAIL"/>
 						</customData>

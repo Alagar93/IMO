@@ -1,6 +1,6 @@
 <core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:layout="sap.ui.layout"
 	xmlns:l="sap.ui.layout" class="sapUiSizeCompact">
-	<Dialog contentHeight="50%" contentWidth="30%" title="{i18n>assignto}" verticalScrolling="false">
+	<Dialog contentHeight="50%" contentWidth="30%" title="{i18n>assignto}" verticalScrolling="false" class="dialogHeader">
 		<content>
 			<SearchField search="onSearchUser" width="100%" placeholder="{i18n>searchuser}"/>
 			<ScrollContainer height="100%" vertical="true" focusable="false">
@@ -21,10 +21,10 @@
 			</ScrollContainer>
 		</content>
 		<beginButton>
-			<Button text="{i18n>CANCEL/EXIT}" press="onCancelDialogAssign"/>
+			<Button text="Cancel" press="onCancelDialogAssign" class="murphyDialogBtn"/>
 		</beginButton>
 		<endButton>
-			<Button text="{i18n>ASSIGN}" press="onOpenDigitalSignPopup" type="Emphasized"/>
+			<Button text="{i18n>ASSIGN}" press="onOpenDigitalSignPopup" class="murphyDialogBtn"/>
 		</endButton>
 	</Dialog>
 </core:FragmentDefinition >

@@ -2253,8 +2253,8 @@ background-color: #377295;
 }
 
 html.sap-desktop .sapMIBar.sapMFooter-CTX {
-    background-color: #2f3c48 !important;
-    border-top: 1px solid #475b6d !important;
+    background-color: #ffffff !important;
+    border-top: none !important;
 }
 
 .murphyClearBtn .sapMBtnInner {
@@ -2677,3 +2677,18 @@ html.sap-desktop .sapMIBar.sapMFooter-CTX {
     text-shadow: 0 0 0.125rem rgba(0, 0, 0, 0.5);
 }
 /*nischal -- WODetail screen -- Ends*/
+
+.createNotifClearBtn span{
+	border-color: #778899 !important;
+    color: #778899;
+}
+.createNotifClearBtn .sapMBtnIcon {
+	color: #778899;
+}
+.partialConfirmBtn span{
+	border-color: #FFBF00 !important;
+    color: #FFBF00;
+}
+.partialConfirmBtn .sapMBtnIcon {
+	color: #FFBF00;
+}
