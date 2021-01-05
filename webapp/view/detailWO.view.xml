@@ -13,7 +13,7 @@
 			</VBox>
 			<Toolbar class="toolBarHeaderBG" height="3rem">
 				<Button text="{i18n>CREATE_NOTIFICATION_WO}" press="onCreateUpdateAndExitWO" icon="sap-icon://write-new" iconFirst="true"
-					class="sapUiSmallMarginBegin murphyWOBtn" visible="{oWorkOrderDetailViewModel>/createVisible}">
+					class="sapUiSmallMarginBegin murphyWOBtn" visible="false">
 					<customData>
 						<core:CustomData key="dateType" value="WO_DETAIL_CREATE_NOTIF"/>
 					</customData>

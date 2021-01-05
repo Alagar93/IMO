@@ -98,7 +98,7 @@ com.sap.incture.IMO_PM.util.util = {
 		oWorkOrderDetailModel.setProperty("/PlanEndDate", oReqEndDate);
 		oWorkOrderDetailModel.setProperty("/MalFunStartDate", new Date());
 		oWorkOrderDetailModel.setProperty("/MalFunStartTime", oCurrentTime);
-		oWorkOrderDetailModel.setProperty("/OrderStatus", "CRTD");
+		oWorkOrderDetailModel.setProperty("/OrderStatus", "");
 		oWorkOrderDetailModel.setProperty("/UserStatus", "INIT"); //nischal -- User Status is added
 		oWorkOrderDetailModel.setProperty("/SetOrderStatus", "");
 		oWorkOrderDetailModel.setProperty("/Breakdown", false);
@@ -1779,10 +1779,13 @@ com.sap.incture.IMO_PM.util.util = {
 	fnSetPayLoadForCreateNotif: function (oWorkOrderDetailModel, oWorkOrderDetailViewModel, oController) {
 		var sAssembly = oWorkOrderDetailModel.getProperty("/Assembly");
 		var sBreakdown = oWorkOrderDetailModel.getProperty("/Breakdown");
+		var sNotifType;
 		if (sBreakdown == true) {
 			sBreakdown = "X";
+			sNotifType = "M2";
 		} else {
 			sBreakdown = " ";
+			sNotifType = "M1";
 		}
 		var sBreakdownDur = oWorkOrderDetailModel.getProperty("/Downtime");
 		// var sCauseCode = oWorkOrderDetailModel.getProperty("/");
@@ -1835,7 +1838,7 @@ com.sap.incture.IMO_PM.util.util = {
 			"ItemKey": "0001",
 			"ItemSortNo": "0001",
 			"Longtext": sShortText,
-			"NotifType": "M1",
+			"NotifType": sNotifType,
 			"Notif_date": sNotifDate,
 			"Notifid": "",
 			"Notify": [{

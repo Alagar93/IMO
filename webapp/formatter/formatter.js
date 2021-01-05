@@ -25,9 +25,21 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 		return condn;
 
 	},
+	//nischal -- function to show breakdown duration fields Malfunction Start date and time
+	fnNotifRelatedFieldsVisible : function(sVal1,sVal2){
+		if(sVal2 === true){
+			if(sVal1){
+				return true;
+			}else{
+				return false;
+			}
+		}else{
+			return false;
+		}
+	},
 	//nischal -- function to enable or disable Checkbox in WoDetail view based on OrderStatus
 	fnSetCheckBoxVisible : function(sValue){
-		if(sValue === "CRTD"){
+		if(sValue === ""){
 			return true;
 		}else{
 			return false;
