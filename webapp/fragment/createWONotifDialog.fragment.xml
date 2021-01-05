@@ -1,50 +1,38 @@
 <core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:layout="sap.ui.layout"
 	xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" class="sapUiSizeCompact">
-	<Dialog title="{}" contentWidth="40%" contentHeight="40%" showHeader="false" verticalScrolling="false" class="sapUiSizeCompact">
-		<Page title="{i18n>CREATE_ORDER}" showHeader="true" titleAlignment="Center">
+	<Dialog title="{}" contentWidth="40%" contentHeight="38%" showHeader="false" verticalScrolling="false" class="dialogHeader sapUiSizeCompact">
+		<Page title="{i18n>CREATE_ORDER}" showHeader="true" class="whiteBG">
 			<content>
-				<l:Grid >
+				<l:Grid defaultSpan="XL6 L6 M6 S12" class="gridBG sapUiSmallMargin">
 					<VBox class="sapUiSmallMarginTop">
 						<Label text="{i18n>orderType}" required="true"></Label>
 						<ComboBox showSecondaryValues="true" items="{path:'mLookupModel>/aOrderTypeSet',sorter:{ path: 'text' }}"
 							selectedKey="{mLookupModel>/sOrderTypeSel}" class="sapInputBorderClass" width="100%">
 							<core:ListItem key="{mLookupModel>AUART}" additionalText="{mLookupModel>TXT}" text="{mLookupModel>AUART}"/>
 						</ComboBox>
-						<layoutData>
-							<l:GridData span="XL6 L6 M6 S6"/>
-						</layoutData>
 					</VBox>
 					<VBox class="sapUiSmallMarginTop">
 						<Label text="{i18n>planningPlant}"></Label>
-						<Input value="{oNotificationDataModel>/PlanPlant}" width="100%" valueLiveUpdate="true" showValueHelp="true" showSuggestion="true"
+						<Input class="inputRadius" value="{oNotificationDataModel>/PlanPlant}" width="100%" valueLiveUpdate="true" showValueHelp="true" showSuggestion="true"
 							enabled="false" valueHelpRequest="refNotifValueHelp" valueHelpOnly="false"></Input>
-						<layoutData>
-							<l:GridData span="XL6 L6 M6 S6"/>
-						</layoutData>
 					</VBox>
 					<VBox class="sapUiSmallMarginTop">
 						<Label text="{i18n>businessArea}"></Label>
-						<Input value="" width="100%" valueLiveUpdate="true" showValueHelp="true" showSuggestion="true" enabled="false"
+						<Input class="inputRadius" value="" width="100%" valueLiveUpdate="true" showValueHelp="true" showSuggestion="true" enabled="false"
 							valueHelpRequest="refNotifValueHelp" valueHelpOnly="false"></Input>
-						<layoutData>
-							<l:GridData span="XL6 L6 M6 S6"/>
-						</layoutData>
 					</VBox>
 					<VBox class="sapUiSmallMarginTop">
 						<Label text="{i18n>mainWrkCtr}"></Label>
-						<Input value="{oNotificationDataModel>/WorkCenter}" width="100%" valueLiveUpdate="true" showValueHelp="true" showSuggestion="true"
+						<Input class="inputRadius" value="{oNotificationDataModel>/WorkCenter}" width="100%" valueLiveUpdate="true" showValueHelp="true" showSuggestion="true"
 							enabled="false" valueHelpRequest="refNotifValueHelp" valueHelpOnly="false"></Input>
-						<layoutData>
-							<l:GridData span="XL6 L6 M6 S6"/>
-						</layoutData>
 					</VBox>
 				</l:Grid>
 			</content>
 			<footer>
 				<Toolbar>
-					<Button type="Reject" text="Cancel" press="onCancelWoDialog"/>
 					<ToolbarSpacer/>
-					<Button type="Accept" text="Create" press="checkMandatoryFields">
+					<Button text="Cancel" press="onCancelWoDialog" class="transparentBtn createNotifClearBtn" icon="sap-icon://decline" iconFirst="true"/>
+					<Button text="Create" press="checkMandatoryFields" type="Emphasized">
 						<customData>
 							<core:CustomData key="dateType" value="CREATE_ORDER"/>
 						</customData>

@@ -1,8 +1,8 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:ui="sap.ui.table">
-	<Dialog class="sapUiSizeCompact"
+	<Dialog class="sapUiSizeCompact dialogHeader"
 		title="{path:'oWorkOrderDetailViewModel>/selectedOps', formatter:'com.sap.incture.IMO_PM.formatter.formatter.formatMassUpdateHeader'}">
 		<content>
-			<l:Grid class="sapUiSmallMarginTop">
+			<l:Grid class="sapUiTinyMargin">
 				<l:content>
 					<VBox>
 						<Label text="{i18n>TOTAL_LABOUR_HRS}" required="false"></Label>
@@ -52,7 +52,7 @@
 			</l:Grid>
 		</content>
 		<buttons>
-			<Button text="{i18n>CANCEL}" press="onCloseMassUpdatePopup"></Button>
+			<Button text="{i18n>CANCEL}" press="onCloseMassUpdatePopup" class="transparentBtn createNotifClearBtn" icon="sap-icon://decline" iconFirst="true"></Button>
 			<Button text="{i18n>UPDATE}" press="onMassUpdateOperations" type="Emphasized"></Button>
 		</buttons>
 	</Dialog>

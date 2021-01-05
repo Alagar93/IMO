@@ -9,15 +9,15 @@
 				class="attachmentsIconSize"/>
 		</tnt:ToolHeader>
 		<content>
-			<Toolbar class="sapUiSmallMarginTop sapUiSmallMarginEnd">
-				<ToolbarSpacer/>
-				<Button text="{i18n>clear}" press="onClearCreateNotif" type="Reject" class="btnTransparent"/>
-				<Button text="{i18n>create_Wo}" press="onCreateWODialogOpen" class="tableHeadertansparentBtn"/>
-				<Button text="{i18n>CREATE_NOTIFICATION}" type="Emphasized" press="checkMandatoryFields">
+			<Toolbar class="sapUiTinyMarginTop tableHeaderBG" height="3rem">
+				<Button class="sapUiSmallMarginBegin" text="{i18n>CREATE_NOTIFICATION}" type="Emphasized" press="checkMandatoryFields" icon="sap-icon://edit" iconFirst="true">
 					<customData>
 						<core:CustomData key="dateType" value="CREATE"/>
 					</customData>
 				</Button>
+				<Button text="{i18n>create_Wo}" press="onCreateWODialogOpen" class="tableHeadertansparentBtn" icon="sap-icon://edit" iconFirst="true"/>
+				<Button text="Clear" press="onClearCreateNotif" class="btnTransparent createNotifClearBtn" icon="sap-icon://decline" iconFirst="true"/>
+				<!--<ToolbarSpacer/>-->
 			</Toolbar>
 			<VBox height="{mLookupModel>/notificationPanelHeight}" class="iopRightPanelContainer"
 				width="{= ${mLookupModel>/showTaskManagementPanelCreateNotif} === true ? '20rem' : '0' }">

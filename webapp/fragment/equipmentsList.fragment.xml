@@ -5,33 +5,23 @@
 			<IconTabBar select="handleEquipIconTabSelect" class="equipmentIconTabBar">
 				<items>
 					<IconTabFilter text="{i18n>searchEq}" key="idSearchEq">
-						<l:Grid defaultSpan="L12 M12 S12">
-							<Label text="{i18n>TECH_ID}" class="styleTextBlue sapUiTinyMarginTop">
-								<layoutData>
-									<l:GridData span="L4 M8 S12"/>
-								</layoutData>
-							</Label>
-							<Input placeholder="{i18n>searchTechId}" submit="onSearchEquipments" value="{mLookupModel>/TechId}" width="100%">
-								<customData>
-									<core:CustomData value="INTEGER"/>
-								</customData>
-								<layoutData>
-									<l:GridData span="L8 M8 S12"/>
-								</layoutData>
-							</Input>
-							<Label text="{i18n>equip}" class="styleTextBlue sapUiTinyMarginTop">
-								<layoutData>
-									<l:GridData span="L4 M8 S12"/>
-								</layoutData>
-							</Label>
-							<Input placeholder="{i18n>searchbyIDDes}" submit="onSearchEquipments" value="{mLookupModel>/EqIdDes}" width="100%">
-								<customData>
-									<core:CustomData value="INTEGER"/>
-								</customData>
-								<layoutData>
-									<l:GridData span="L8 M8 S12"/>
-								</layoutData>
-							</Input>
+						<l:Grid defaultSpan="L6 M6 S12">
+							<VBox>
+								<Label text="{i18n>TECH_ID}" class="sapUiTinyMarginTop"></Label>
+								<Input placeholder="{i18n>searchTechId}" submit="onSearchEquipments" value="{mLookupModel>/TechId}" width="100%">
+									<customData>
+										<core:CustomData value="INTEGER"/>
+									</customData>
+								</Input>
+							</VBox>
+							<VBox>
+								<Label text="{i18n>equip}" class="sapUiTinyMarginTop"></Label>
+								<Input placeholder="{i18n>searchbyIDDes}" submit="onSearchEquipments" value="{mLookupModel>/EqIdDes}" width="100%">
+									<customData>
+										<core:CustomData value="INTEGER"/>
+									</customData>
+								</Input>
+							</VBox>
 						</l:Grid>
 						<ScrollContainer height="20rem" vertical="true" focusable="false">
 							<Table mode="SingleSelectLeft" selectionChange="onEquipSelect" growing="false" items="{path: 'mLookupModel>/aEquipmentsList'}">
@@ -137,7 +127,8 @@
 			</IconTabBar>
 		</content>
 		<beginButton>
-			<Button text="{i18n>CANCEL}" press="onCancelDialogEquip"/>
+			<Button text="{i18n>CANCEL}" press="onCancelDialogEquip" class="transparentBtn createNotifClearBtn" icon="sap-icon://decline"
+				iconFirst="true"/>
 		</beginButton>
 		<endButton>
 			<Button text="{i18n>SEARCH}" press="onSearchWOFilter" type="Emphasized"/>

@@ -22,7 +22,7 @@
 			</l:Grid>
 		</content>
 		<buttons>
-			<Button text="{i18n>CANCEL}" press="onCloseAttachLinkPopup"></Button>
+			<Button text="{i18n>CANCEL}" press="onCloseAttachLinkPopup" class="transparentBtn createNotifClearBtn" icon="sap-icon://decline" iconFirst="true"></Button>
 			<Button text="{i18n>ADD}" press="onAttachWOLink" type="Emphasized"></Button>
 		</buttons>
 	</Dialog>

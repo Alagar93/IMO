@@ -52,10 +52,10 @@
 			</Table>
 	</content>
 	<beginButton>
-		<Button text="{i18n>cancel}" press="onCancelDialogOperns"/>
+		<Button text="{i18n>cancel}" press="onCancelDialogOperns" class="transparentBtn createNotifClearBtn" icon="sap-icon://decline" iconFirst="true"/>
 	</beginButton>
 	<endButton>
-		<Button text="{i18n>Update}" press="onUpdate"/>
+		<Button text="{i18n>Update}" press="onUpdate" type="Emphasized"/>
 	</endButton>
 </Dialog>
 </core:FragmentDefinition >

@@ -90,9 +90,9 @@
 			</content>
 			<footer>
 				<Toolbar>
-					<Button type="Reject" text="Cancel" press="onCancelItemCatPR"/>
+					<Button class="transparentBtn createNotifClearBtn" icon="sap-icon://decline" iconFirst="true" text="Cancel" press="onCancelItemCatPR"/>
 					<ToolbarSpacer/>
-					<Button type="Accept" text="Save" press="onSaveItemCatPR">
+					<Button type="Emphasized" text="Save" press="onSaveItemCatPR">
 						<customData>
 							<core:CustomData key="dateType" value="CREATE_ORDER"/>
 						</customData>

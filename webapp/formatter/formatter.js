@@ -737,6 +737,21 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 		}
 		return bStatus;
 	},
+	//function to disable assignWO button for NOCO notifs
+	disableAssignWOField:function(selectedIndices, selectedPaths, NotifList){
+		var bStatus = true;
+		if (!selectedIndices || selectedIndices < 1) {
+			return false;
+		}
+		for (var i = 0; i < selectedPaths.length; i++) {
+			var SelectedIndex = selectedPaths[i].sPath.split("/")[2];
+			var SysStatus = NotifList[SelectedIndex].SysStatus;
+			if (SysStatus === "NOCO"||SysStatus === "NOCO ORAS") {
+				bStatus = false;
+			}
+		}
+		return bStatus;
+	},
 
 	fnWOStatusConversion: function (status) {
 

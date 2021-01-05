@@ -114,7 +114,7 @@
 			</ui:Table>
 		</content>
 		<buttons>
-			<Button text="{i18n>CANCEL}" press="onCloseSpareParts"></Button>
+			<Button text="{i18n>CANCEL}" press="onCloseSpareParts" class="transparentBtn createNotifClearBtn" icon="sap-icon://decline" iconFirst="true"></Button>
 			<Button text="{i18n>ADD}" press="addMaterialstoSpareParts" type="Emphasized"></Button>
 		</buttons>
 	</Dialog>
