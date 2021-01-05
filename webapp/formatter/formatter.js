@@ -734,7 +734,7 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 		for (var i = 0; i < selectedPaths.length; i++) {
 			var SelectedIndex = selectedPaths[i].sPath.split("/")[2];
 			var SysStatus = NotifList[SelectedIndex].SysStatus;
-			if (SysStatus === "NOCO"||SysStatus === "NOCO ORAS") {
+			if (SysStatus !== "OSNO") {
 				bStatus = false;
 			}
 		}

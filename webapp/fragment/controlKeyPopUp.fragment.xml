@@ -25,7 +25,7 @@
 						<Label text="Price"></Label>
 						<HBox>
 							<Input value="{oWorkOrderDetailViewModel>/oControlkeyOperation/Price}" width="100%"></Input>
-							<Input value="USD" width="100%"></Input>
+							<Input value="{oWorkOrderDetailViewModel>/oControlkeyOperation/Currency}" width="100%"></Input>
 						</HBox>
 						<layoutData>
 							<l:GridData span="XL6 L6 M6 S6"/>

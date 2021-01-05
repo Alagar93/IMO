@@ -992,7 +992,7 @@ sap.ui.define([
 					oWorkOrderDetailModel.setProperty("/", oData);
 					that.sortOperations();
 					oWorkOrderDetailModel.refresh(true);
-					that.fnGetWOOperationsComments(Orderid);
+					//that.fnGetWOOperationsComments(Orderid);//There is no comments section
 					that.fnGetWOAttachmentLinks(Orderid);
 					that.getOperationIdLookup();
 					//that.getSavedOperationIdLookup();//Saved Operations only Lookup.
@@ -2032,7 +2032,7 @@ sap.ui.define([
 			oWorkOrderDetailViewModel.setProperty("/enableOpCnfmLongText", false);
 			oWorkOrderDetailViewModel.setProperty("/confirmationLongText", "");
 			oWorkOrderDetailViewModel.refresh();
-			this.fnFilterSlectedOperationComment();
+			//this.fnFilterSlectedOperationComment();//No comment section is present.
 		},
 
 		//Function to open Digital signaure pop-up

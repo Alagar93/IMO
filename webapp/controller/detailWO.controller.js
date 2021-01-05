@@ -167,6 +167,15 @@ sap.ui.define([
 			if (sKey === "PM03") {
 				oWorkOrderDetailViewModel.setProperty("/sPathControlKey", sPath);
 				var oOpertionDetails = jQuery.extend(true, {}, oWorkOrderDetailModel.getProperty(sPath));
+				oOpertionDetails.Quantity="1";
+				oOpertionDetails.Price = "0";
+				oOpertionDetails.Currency = "EUR";
+				oOpertionDetails.MatlGroup = "01";
+				oOpertionDetails.PriceUnit = "1";
+				oOpertionDetails.PurGroup = "001";
+				//oOpertionDetails.PurchOrg = "0001";
+				oOpertionDetails.Recipient = "Vijay";
+				oOpertionDetails.Requisitioner = "Vijay";
 				oWorkOrderDetailViewModel.setProperty("/oControlkeyOperation", oOpertionDetails);
 				if (!this.controlKeyDialog) {
 					this.controlKeyDialog = sap.ui.xmlfragment("com.sap.incture.IMO_PM.fragment.controlKeyPopUp", this);
@@ -210,6 +219,14 @@ sap.ui.define([
 				var oComponentDetails = oWorkOrderDetailModel.getProperty(sPath);
 				var bMatVal = formatter.MaterialPRVAlidation(oComponentDetails);
 				if (bMatVal) {
+					oComponentDetails.Price = "0";
+					oComponentDetails.Currency = "EUR";
+					oComponentDetails.MaterialGroup = "01";
+					oComponentDetails.PriceUnit = "1";
+					oComponentDetails.PurchGrp = "001";
+					oComponentDetails.PurchOrg = "0001";
+					oComponentDetails.Recipient = "Vijay";
+					oComponentDetails.Requisitioner = "Vijay";
 					oWorkOrderDetailViewModel.setProperty("/oComponentDetails", oComponentDetails);
 					if (!this.oItemCatDialog) {
 						this.oItemCatDialog = sap.ui.xmlfragment("com.sap.incture.IMO_PM.fragment.ItemCatPRPopup", this);
@@ -1295,9 +1312,9 @@ sap.ui.define([
 			}
 			var oWorkOrderDetailViewModel = this.oWorkOrderDetailViewModel;
 			var rowContext = oEvent.getParameters().rowContext;
-			var selectedIndices=oEvent.getSource().getSelectedIndices();
-			
-			if (!isSelectAll && selectedIndices.length===0) {
+			var selectedIndices = oEvent.getSource().getSelectedIndices();
+
+			if (!isSelectAll && selectedIndices.length === 0) {
 				oWorkOrderDetailViewModel.setProperty("/selectedOps", []);
 				oWorkOrderDetailViewModel.setProperty("/Activity", "");
 				oWorkOrderDetailViewModel.setProperty("/operationLongTxt", "");
@@ -1308,7 +1325,7 @@ sap.ui.define([
 				oWorkOrderDetailViewModel.refresh();
 				return;
 			}
-			if (selectedIndices.length===0) {
+			if (selectedIndices.length === 0) {
 				return;
 			}
 			var oSelectedRow = rowContext.getPath();
@@ -2575,6 +2592,8 @@ sap.ui.define([
 					var material = oWorkOrderDetailModel.getProperty(sPath + "/Material");
 					var storageLogic = oWorkOrderDetailModel.getProperty(sPath + "/StgeLoc");
 					var requiredQty = oWorkOrderDetailModel.getProperty(sPath + "/RequirementQuantity");
+					var ResItem = oWorkOrderDetailModel.getProperty(sPath + "/ResItem");
+					var ReservNo = oWorkOrderDetailModel.getProperty(sPath + "/ReservNo");
 					var userPlant = this.oUserDetailModel.getProperty("/userPlant");
 					var obj = {
 						"Plant": userPlant,
@@ -2582,7 +2601,9 @@ sap.ui.define([
 						"Material": material,
 						"StgeLoc": storageLogic,
 						"EntryQnt": requiredQty,
-						"Quantity": requiredQty
+						"Quantity": requiredQty,
+						"ReservNo":ReservNo,
+						"ResItem":ResItem
 					};
 					materialQuantities.push(obj);
 				}
@@ -2704,14 +2725,15 @@ sap.ui.define([
 			});
 			oPortalNotifOData.create(sUrl, issuedSparePart, {
 				success: function (oData, reponse) {
-					var message = JSON.parse(reponse.headers["sap-message"]).message;
-					if (message === "") {
+					/*var message = JSON.parse(reponse.headers["sap-message"]).message;*/
+					var message;
+					/*if (message === "") {*/
 						if (btnType === "ISSUE_PART") {
 							message = oResourceModel.getText("SP_ISSUED_SUSSCESSFULLY");
 						} else if (btnType === "RETURN_PART") {
 							message = oResourceModel.getText("SP_RETURNED_SUCCESSFULLY");
 						}
-					}
+					/*}*/
 					that.fnGetWOHeaderDetailsCreateWO(orderid);
 					that.fnClearTblSelection();
 					that.onCloseIssueReturnSparesPopUp();
