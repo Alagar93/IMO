@@ -19,7 +19,7 @@
 			</ui:Table>
 		</content>
 		<buttons>
-			<Button text="{i18n>OK}" press="closeSuccesErrPopup"></Button>
+			<Button text="{i18n>OK}" press="closeSuccesErrPopup" type="Emphasized"></Button>
 		</buttons>
 	</Dialog>
 </core:FragmentDefinition>

@@ -2,7 +2,7 @@
 	xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" class="sapUiSizeCompact">
 	<Dialog title="{}" contentWidth="40%" contentHeight="80%" showHeader="false" verticalScrolling="false" class="sapUiSizeCompact">
 		<content>
-			<IconTabBar select="handleEquipIconTabSelect" class="equipmentIconTabBar">
+			<IconTabBar select="handleEquipIconTabSelect" class="iconTabHeader">
 				<items>
 					<IconTabFilter text="{i18n>favEq}" key="idFav">
 						<SearchField liveChange="onSearchFavEqips" width="100%" class="sapUiSmallMarginBottom" placeholder="{i18n>searchbyIDDes}"/>

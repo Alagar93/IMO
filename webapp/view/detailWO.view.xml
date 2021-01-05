@@ -32,7 +32,7 @@
 				<!--		<core:CustomData key="dateType" value="WO_DETAIL_CREATE_EXIT"/>-->
 				<!--	</customData>-->
 				<!--</Button>-->
-				<Button text="{i18n>DETAIL_UPDATE_WO}" icon="sap-icon://synchronize" iconFirst="true" press="onCreateUpdateAndExitWO" class="sapUiSmallMarginBegin"
+				<Button text="{i18n>DETAIL_UPDATE_WO}" icon="sap-icon://synchronize" iconFirst="true" press="onCreateUpdateAndExitWO" class="sapUiSmallMarginBegin transparentBtn"
 					type="Emphasized" enabled="true" visible="{oWorkOrderDetailViewModel>/updateVisible}">
 					<customData>
 						<core:CustomData key="dateType" value="WO_DETAIL_UPDATE"/>
@@ -51,7 +51,7 @@
 					</customData>
 				</Button>
 				<Button text="{i18n>DETAIL_WO_TECO}" icon="sap-icon://sys-enter" iconFirst="true" press="onCreateUpdateAndExitWO"
-					class="sapUiSmallMarginBegin murphyWOBtn"
+					class="sapUiSmallMarginBegin murphyWOBtn transparentBtn"
 					visible="{parts:['oWorkOrderDetailModel>/HEADERTOOPERATIONSNAV', 'oUserDetailModel>/userRole'], formatter:'.formatter.enableTECOButton'}">
 					<customData>
 						<core:CustomData key="dateType" value="WO_DETAIL_TECHO"/>
