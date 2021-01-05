@@ -1,9 +1,9 @@
 <core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:layout="sap.ui.layout"
 	xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" class="sapUiSizeCompact">
-	<Dialog title="{i18n>Dialog_title_funLoc}" contentWidth="30%" verticalScrolling="false" class="dialogHeader sapUiSizeCompact">
+	<Dialog title="{i18n>Dialog_title_funLoc}" contentWidth="35%" verticalScrolling="false" class="dialogHeader sapUiSizeCompact">
 		<content>
-			<SearchField liveChange="onSearchFnLocs" width="100%" class="sapUiTinyMarginBottom"/>
-			<ScrollContainer height="20rem" vertical="true" focusable="false">
+			<SearchField liveChange="onSearchFnLocs" width="90%" class="sapUiTinyMargin"/>
+			<ScrollContainer height="20rem" vertical="true" horizontal="false" focusable="false" class="sapUiTinyMargin">
 				<Table sticky="ColumnHeaders" mode="SingleSelectLeft" selectionChange="onFnLocSelect" growing="false" id ="idFunLocListTable" items="{path: 'mLookupModel>/aFnLocsList'}">
 					<columns>
 						<Column>
@@ -21,7 +21,7 @@
 			</ScrollContainer>
 		</content>
 		<beginButton>
-			<Button text="{i18n>CANCEL}" press="onCancelDialogFunLoc" class="murphyDialogBtn"/>
+			<Button text="{i18n>CANCEL}" press="onCancelDialogFunLoc" class="transparentBtn createNotifClearBtn" icon="sap-icon://decline" iconFirst="true"/>
 		</beginButton>
 		<!--<endButton>-->
 		<!--	<Button text="{i18n>SEARCH}" press="onSearchWOFilter" type="Emphasized"/>-->

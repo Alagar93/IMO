@@ -987,7 +987,17 @@ sap.ui.define([
 						that.getEquipsAssmebly(oData.Equipment);
 						that.onSearchEquipments(oData.Equipment, true);
 					}
-
+					//nischal -- starts -- downtime was embedded with additional empty strings
+					if(oData.Downtime){
+					var downTime = parseInt(oData.Downtime,10);
+					oData.Downtime = downTime.toString();
+					}
+					if(oData.Breakdown === true){
+						oWorkOrderDetailViewModel.setProperty("/withNotificationCheck",true);
+					}else{
+						oWorkOrderDetailViewModel.setProperty("/withNotificationCheck",false);
+					}
+					//nischal -- ends
 					oData.MalFunStartTime = formatter.getMalfunctionStTime(oData.MalFunStartTime.ms);
 					oWorkOrderDetailModel.setProperty("/", oData);
 					that.sortOperations();

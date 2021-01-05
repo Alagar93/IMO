@@ -2014,9 +2014,9 @@ html:not([data-sap-ui-browser^="ie"]):not([data-sap-ui-browser^="ed"]) .sapUiIco
 
 /*Assign WO Dialog classes*/
 
-.sapTitleClass.sapMDialog>header.sapMDialogTitle .sapMTitle {
+/*.sapTitleClass.sapMDialog>header.sapMDialogTitle .sapMTitle {
     color: #377295;
-}
+}*/
 
 /*.sapUiTblHeaderColClass .sapUiTableColHdrTr .sapUiTableCol{
     color: #ffffff;
@@ -2219,8 +2219,8 @@ background-color: #377295;
 }
 
 .murphyCreateBtn .sapMBtnInner {
-    border: 1px solid #a0b2c1 !important;
-    color: #cae4fb;
+    border: 1px solid #3770b1 !important;
+    color: #3770b1;
     width: 10rem;
 }
 
@@ -2253,8 +2253,8 @@ background-color: #377295;
 }
 
 html.sap-desktop .sapMIBar.sapMFooter-CTX {
-    background-color: #2f3c48 !important;
-    border-top: 1px solid #475b6d !important;
+    background-color: #ffffff !important;
+    border-top: none !important;
 }
 
 .murphyClearBtn .sapMBtnInner {
@@ -2677,3 +2677,25 @@ html.sap-desktop .sapMIBar.sapMFooter-CTX {
     text-shadow: 0 0 0.125rem rgba(0, 0, 0, 0.5);
 }
 /*nischal -- WODetail screen -- Ends*/
+
+.createNotifClearBtn span{
+	border-color: #778899 !important;
+    color: #778899;
+}
+.createNotifClearBtn .sapMBtnIcon {
+	color: #778899;
+}
+.partialConfirmBtn span{
+	border-color: #FFBF00 !important;
+    color: #FFBF00;
+}
+.partialConfirmBtn .sapMBtnIcon {
+	color: #FFBF00;
+}
+.transparentBtn span{
+	background-color: transparent !important;
+	text-shadow: none !important;
+}
+.whiteBG {
+	background: white !important;
+}

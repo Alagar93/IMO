@@ -20,7 +20,7 @@
 			</ScrollContainer>
 		</content>
 		<beginButton>
-			<Button text="{i18n>close}" press="onCancel"/>
+			<Button text="{i18n>close}" press="onCancel" class="transparentBtn createNotifClearBtn" icon="sap-icon://decline" iconFirst="true"/>
 		</beginButton>
 	</Dialog>
 </core:FragmentDefinition >

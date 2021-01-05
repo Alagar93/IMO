@@ -80,6 +80,12 @@ sap.ui.define([
 				util.resetDetailWOFields(oUserDetailModel, oWorkOrderDetailModel, oWorkOrderDetailViewModel, "VIEW_WO");
 				this.fnCreateUpdateBtnTxt("UPDATE_ORDER");
 				this.getWODetails(oViewType);
+				// var sBreakDown = oWorkOrderDetailModel.getProperty("/Breakdown");
+				// if(sBreakDown === true){
+				// 	oWorkOrderDetailViewModel.setProperty("/withNotificationCheck",true);
+				// }else{
+				// 	oWorkOrderDetailViewModel.setProperty("/withNotificationCheck",false);
+				// }
 			}
 
 			var oPortalDataModel = this.oPortalDataModel;
@@ -559,13 +565,19 @@ sap.ui.define([
 			case "WO_DETAIL_CREATE":
 				var oWorkOrderDetailModel = this.oWorkOrderDetailModel;
 				var oWorkOrderDetailViewModel = this.oWorkOrderDetailViewModel;
+				var bCheckBoxNotif = oWorkOrderDetailViewModel.getProperty("/withNotificationCheck");
 				var headerNotifnav = oWorkOrderDetailModel.getProperty("/HEADERTONOTIFNAV");
 				if (headerNotifnav.length === 0) {
 					oWorkOrderDetailViewModel.setProperty("/isNotifCreated", true);
 				} else {
 					oWorkOrderDetailViewModel.setProperty("/isNotifCreated", false);
 				}
-				this.fnMandateUiFields("WO_DETAIL_CREATE");
+				if (bCheckBoxNotif === true) {
+					this.fnMandateUiFields("WO_DETAIL_CREATE_NOTIF");
+				} else {
+					this.fnMandateUiFields("WO_DETAIL_CREATE");
+				}
+
 				break;
 			case "WO_DETAIL_CREATE_EXIT":
 				this.fnMandateUiFields("WO_DETAIL_CREATE_EXIT");
@@ -856,6 +868,7 @@ sap.ui.define([
 					} else {
 						orderId = "";
 					}
+
 					sData.Orderid = orderId;
 					var messages = sData.HEADERTOMESSAGENAV.results;
 					if (messages[0].Status === "S" && messages[0].Message === "Success") {
@@ -901,6 +914,28 @@ sap.ui.define([
 							break;
 						}
 						messages[0].Message = successErrMsg;
+						if (sData.HEADERTONOTIFNAV && woCreateNavType === "WO_DETAIL_CREATE") {
+							var sNotifNo = sData.HEADERTONOTIFNAV.results[0].NotifNo;
+							var oNotifMessage = {
+								"Message": "Notification Created Successfully with Notification ID " + sNotifNo,
+								"Status": "S"
+							};
+							messages.push(oNotifMessage);
+						}
+						if (sData.HEADERTONOTIFNAV && woCreateNavType === "WO_DETAIL_TECHO") {
+							var bCheckBoxValue = oWorkOrderDetailViewModel.getProperty("/closenotifFlag");
+							if (bCheckBoxValue) {
+								for (var i = 0; i < sData.HEADERTONOTIFNAV.results.length; i++) {
+									var sNotifNo = sData.HEADERTONOTIFNAV.results[i].NotifNo;
+									var oNotifMessage = {
+										"Message": "Notification Closed Successfully for Notification ID " + sNotifNo,
+										"Status": "S"
+									};
+									messages.push(oNotifMessage);
+								}
+
+							}
+						}
 						var oFilter = [];
 						oFilter.push(new Filter("OrderNo", "EQ", orderId));
 						oWorkOrderOData.read("/purchaseReqSet", {

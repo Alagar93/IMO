@@ -1,27 +1,27 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:ui="sap.ui.table">
-	<Dialog title="{i18n>ADD_TASKS}" class="sapUiSizeCompact">
+	<Dialog title="{i18n>ADD_TASKS}" class="sapUiSizeCompact dialogHeader" contentWidth="50%">
 		<content>
 			<ui:Table rows="{oWorkOrderDetailViewModel>/operHeaderSet}" selectionMode="Single" selectionBehavior="Row" visibleRowCount="8"
-				class="sapUITableColumn sapUiTinyMarginTop" enableSelectAll="false" rowSelectionChange="onSelectTaskHeader">
+				class="sapUiSmallMargin" enableSelectAll="false" rowSelectionChange="onSelectTaskHeader">
 				<ui:columns>
-					<ui:Column hAlign="Center" filterProperty="Plnnr" sortProperty="Plnnr" defaultFilterOperator="Contains">
-						<Label text="{i18n>taskgrp}" class="sapUITableColumnLabelClass"/>
+					<ui:Column filterProperty="Plnnr" sortProperty="Plnnr" defaultFilterOperator="Contains">
+						<Label text="{i18n>taskgrp}" class="tableHeaderText"/>
 						<ui:template>
-							<Text text="{oWorkOrderDetailViewModel>Plnnr}"/>
+							<Text text="{oWorkOrderDetailViewModel>Plnnr}" class="tableContentText"/>
 						</ui:template>
 					</ui:Column>
-					<ui:Column hAlign="Center" filterProperty="Ktext" sortProperty="Ktext" defaultFilterOperator="Contains">
-						<Label text="{i18n>taskdes}" class="sapUITableColumnLabelClass"/>
+					<ui:Column filterProperty="Ktext" sortProperty="Ktext" defaultFilterOperator="Contains">
+						<Label text="{i18n>taskdes}" class="tableHeaderText"/>
 						<ui:template>
-							<Text text="{oWorkOrderDetailViewModel>Ktext}"/>
+							<Text text="{oWorkOrderDetailViewModel>Ktext}" class="tableContentText"/>
 						</ui:template>
 					</ui:Column>
 				</ui:columns>
 			</ui:Table>
 		</content>
 		<buttons>
-			<Button text="{i18n>CANCEL}" press="onCloseTaskListPopup"></Button>
-			<Button text="{i18n>ADD}" press="onAddOperationTaskList" type="Emphasized"></Button>
+			<Button text="{i18n>CANCEL}" press="onCloseTaskListPopup" class="transparentBtn createNotifClearBtn" icon="sap-icon://decline" iconFirst="true"></Button>
+			<Button text="{i18n>ADD}" press="onAddOperationTaskList" type="Emphasized" icon="sap-icon://add" iconFirst="true" width="6rem"></Button>
 		</buttons>
 	</Dialog>
 </core:FragmentDefinition>

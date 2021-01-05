@@ -68,10 +68,10 @@
 			</table:Table>
 		</content>
 		<beginButton>
-			<Button text="{i18n>CANCEL}" press="onCancelDialogOperns"/>
+			<Button text="{i18n>CANCEL}" press="onCancelDialogOperns" class="transparentBtn createNotifClearBtn" icon="sap-icon://decline" iconFirst="true"/>
 		</beginButton>
 		<endButton>
-			<Button text="{i18n>select}" press="onSelectWOFilter"/>
+			<Button text="{i18n>select}" press="onSelectWOFilter" type="Emphasized"/>
 		</endButton>
 	</Dialog>
 </core:FragmentDefinition >

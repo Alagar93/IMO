@@ -3,22 +3,22 @@
 		<IconTabBar class="sapMIconTabBorderBottom sapMIconTabBarHeight" select="setVisibleOperationComment">
 			<items>
 				<IconTabFilter text="{i18n>operation}">
-					<OverflowToolbar class="sapMToolBarBottomBorderClass">
+					<OverflowToolbar class="sapMToolBarBottomBorderClass sapUiTinyMarginBottom">
 						<Button text="{i18n>ADD_OP}" press="onAddWOOperations" type="Emphasized" icon="sap-icon://add" iconFirst="true"
 							visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setAddRemoveVisible'}"></Button>
-						<Button text="{i18n>FINAL_CONFIRMATION}" type="Accept" icon="sap-icon://sys-enter" iconFirst="true" press="fnFullyConfirmOperation"
+						<Button text="{i18n>FINAL_CONFIRMATION}" type="Accept" icon="sap-icon://sys-enter" iconFirst="true" press="fnFullyConfirmOperation" class="transparentBtn"
 							visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setWOReleaseFieldsVisible'}">
 							<customData>
 								<core:CustomData key="dateType" value="WO_DETAIL_OPERATION_FINAL_CONFIRM"/>
 							</customData>
 						</Button>
-						<Button text="{i18n>CONFIRMATION}" press="fnConfirmOperation" icon="sap-icon://sys-enter" iconFirst="true"
+						<Button text="{i18n>CONFIRMATION}" press="fnConfirmOperation" icon="sap-icon://sys-enter" iconFirst="true" class="partialConfirmBtn transparentBtn"
 							visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setWOReleaseFieldsVisible'}">
 							<customData>
 								<core:CustomData key="dateType" value="WO_DETAIL_OPERATION_CONFIRM"/>
 							</customData>
 						</Button>
-						<Button text="{i18n>REMOVE}" type="Reject" press="onDeleteSelectedOperations"
+						<Button text="{i18n>REMOVE}" type="Reject" press="onDeleteSelectedOperations" icon="sap-icon://delete" iconFirst="true" class="transparentBtn"
 							visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setAddRemoveVisible'}"></Button>
 						<CheckBox text="{oWorkOrderDetailViewModel>/switchTooltip}" select="fnFilterCNFOperations"
 							selected="{oWorkOrderDetailViewModel>/isOperationsFiltered}"
@@ -26,7 +26,7 @@
 						<!--sapCBItalicFont-->
 						<ToolbarSpacer class="sapUiSmallMarginBegin"/>
 						<!--enabled="{path:'oWorkOrderDetailModel>/HEADERTOOPERATIONSNAV', formatter:'.formatter.enableDisableRemoveBtn'}"-->
-						<Button text="{i18n>MASS_UPDATE}" class="sapMBtnBlueColor" press="onOpenMassUpdatePopup"
+						<Button text="{i18n>MASS_UPDATE}" type="Emphasized" press="onOpenMassUpdatePopup"
 							visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setWOReleaseFieldsVisible'}"></Button>
 					</OverflowToolbar>
 					<ui:Table rows="{oWorkOrderDetailModel>/HEADERTOOPERATIONSNAV}" enableSelectAll="true" selectionMode="MultiToggle" selectionBehavior="Row"
@@ -35,14 +35,14 @@
 							<ui:Column width="6rem" hAlign="Center" tooltip="{i18n>operation}">
 								<Label text="{i18n>operation}" class="tableHeaderText"/>
 								<ui:template>
-									<Input value="{oWorkOrderDetailModel>Activity}" maxLength="4" change="sortOperations" class="sapInputBorderClass"
+									<Input value="{oWorkOrderDetailModel>Activity}" maxLength="4" change="sortOperations" class="inputRadius"
 										enabled="{parts:['oWorkOrderDetailModel>OperCode', 'oWorkOrderDetailModel>/OrderStatus'], formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnSetWOUpdateStatusFields'}"/>
 								</ui:template>
 							</ui:Column>
 							<ui:Column width="8rem" hAlign="Center">
 								<Label text="{i18n>control_Key}" class="tableHeaderText"/>
 								<ui:template>
-									<ComboBox selectedKey="{oWorkOrderDetailModel>ControlKey}" change="onControlKeyChange">
+									<ComboBox selectedKey="{oWorkOrderDetailModel>ControlKey}" change="onControlKeyChange" class="inputRadius">
 										<core:Item key="PM01" text="PM01"/>
 										<core:Item key="PM02" text="PM02"/>
 										<core:Item key="PM03" text="PM03"/>
@@ -65,7 +65,7 @@
 							<ui:Column width="12rem" hAlign="Center" tooltip="{i18n>SHORT_TEXT}">
 								<Label text="{i18n>SHORT_TEXT}" class="tableHeaderText"/>
 								<ui:template>
-									<Input value="{oWorkOrderDetailModel>Description}" maxLength="40" change="fnOperationUpdateStatus" class="sapInputBorderClass"
+									<Input value="{oWorkOrderDetailModel>Description}" maxLength="40" change="fnOperationUpdateStatus" class="inputRadius"
 										enabled="{parts:['oWorkOrderDetailModel>OperCode', 'oWorkOrderDetailModel>/OrderStatus', 'oWorkOrderDetailModel>systemstatustext', 'oWorkOrderDetailModel>Systcond'], formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnSetWOUpdateStatusFields'}"/>
 								</ui:template>
 							</ui:Column>
@@ -84,7 +84,7 @@
 							<ui:Column width="9rem" hAlign="Center" tooltip="{i18n>MY_WORK}">
 								<Label text="{i18n>MY_WORK}" class="tableHeaderText"/>
 								<ui:template>
-									<Input value="{oWorkOrderDetailModel>MyWork}" change="validateFloatValues" class="sapInputBorderClass"
+									<Input value="{oWorkOrderDetailModel>MyWork}" change="validateFloatValues" class="inputRadius"
 										enabled="{parts:['oWorkOrderDetailModel>systemstatustext', 'oWorkOrderDetailModel>/OrderStatus', 'oWorkOrderDetailModel>OperCode'], formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnSetWOReleaseStatusFields'}">
 										<customData>
 											<core:CustomData value="FLOAT"/>
@@ -101,7 +101,7 @@
 							<ui:Column width="8rem" hAlign="Center" tooltip="{i18n>syscondtn}">
 								<Label text="{i18n>SC}" class="tableHeaderText"/>
 								<ui:template>
-									<Select class="sapInputBorderClass" items="{mLookupModel>/aSystemCondition}" showSecondaryValues="true"
+									<Select class="selectRadius" items="{mLookupModel>/aSystemCondition}" showSecondaryValues="true"
 										selectedKey="{oWorkOrderDetailModel>Systcond}" forceSelection="false" change="fnUpdateSystcondShortTxt"
 										enabled="{parts:['oWorkOrderDetailModel>systemstatustext', 'oWorkOrderDetailModel>/OrderStatus', 'oWorkOrderDetailModel>OperCode'], formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnSetWOReleaseStatusFields'}">
 										<core:ListItem key="{mLookupModel>Anlzu}" text="{mLookupModel>Anlzux}" additionalText="{mLookupModel>Anlzu}"/>
@@ -112,13 +112,13 @@
 								<Label text="{i18n>COMPLETED_ON}" class="tableHeaderText"/>
 								<!--	<ui:template>
 									<DatePicker minDate="{oWorkOrderDetailViewModel>/currentDate1}" placeholder="dd-MM-yyyy" dateValue="{oWorkOrderDetailModel>CompletedOn}"
-										displayFormat="dd-MM-yyyy" valueFormat="yyyy-MM-ddTHH:mm:ss" class="sapInputBorderClass"
+										displayFormat="dd-MM-yyyy" valueFormat="yyyy-MM-ddTHH:mm:ss" class="inputRadius"
 										enabled="{parts:['oWorkOrderDetailModel>systemstatustext', 'oWorkOrderDetailModel>/OrderStatus', 'oWorkOrderDetailModel>OperCode'], formatter:'com.mylan.createWorkOrder.formatter.formatter.fnSetWOReleaseStatusFields'}"/>
 								</ui:template>-->
 								<ui:template>
 									<DateTimePicker minDate="{oWorkOrderDetailViewModel>/currentDate1}" placeholder="dd-MM-yyyy, HH:mm"
 										dateValue="{oWorkOrderDetailModel>CompletedOn}" displayFormat="dd-MM-yyyy, HH:mm" valueFormat="yyyy-MM-ddTHH:mm:ss"
-										class="sapInputBorderClass"
+										class="inputRadius"
 										enabled="{parts:['oWorkOrderDetailModel>systemstatustext', 'oWorkOrderDetailModel>/OrderStatus', 'oWorkOrderDetailModel>OperCode'], formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnSetWOReleaseStatusFields'}"/>
 								</ui:template>
 							</ui:Column>
@@ -126,28 +126,28 @@
 					</ui:Table>
 				</IconTabFilter>
 				<IconTabFilter text="{i18n>SPARE_PARTS}">
-					<OverflowToolbar class="sapMToolBarBottomBorderClass">
+					<OverflowToolbar class="sapMToolBarBottomBorderClass sapUiTinyMarginBottom">
 						<HBox>
 							<CheckBox editable="false" class="sapMReorderChkBox"/>
 							<Text text="{i18n>RECORDS_NEEDED}" class="sapUiTinyMarginTop"/>
 						</HBox>
 						<ToolbarSpacer/>
-						<Button text="{i18n>ADD_EMP_PART}" press="onAddEmptySparePart" class="sapMBtnBlueColor" tooltip="{i18n>ADD_EMP_SP}"
+						<Button text="{i18n>ADD_EMP_PART}" press="onAddEmptySparePart" class="sapMBtnBlueColor" tooltip="{i18n>ADD_EMP_SP}" type="Emphasized" icon="sap-icon://add" iconFirst="true"
 							visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setAddRemoveVisible'}"/>
-						<Button text="{i18n>REMOVE}" type="Reject" press="onDeleteSpareParts"
+						<Button text="{i18n>REMOVE}" type="Reject" press="onDeleteSpareParts" icon="sap-icon://delete" iconFirst="true" class="transparentBtn"
 							enabled="{path:'oWorkOrderDetailModel>/HEADERTOCOMPONENTNAV', formatter:'.formatter.enableDisableRemoveBtn'}"
 							visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setAddRemoveVisible'}"/>
-						<Button text="{i18n>ADD_PART}" press="openSparePartDialog" class="sapMBtnBlueColor" tooltip="{i18n>ADD_SP}"
+						<Button text="{i18n>ADD_PART}" press="openSparePartDialog" class="tableHeadertansparentBtn" tooltip="{i18n>ADD_SP}"
 							visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setAddRemoveVisible'}"/>
 						<!--{oWorkOrderDetailViewModel>/enableIssuePartBtn}-->
-						<Button text="{i18n>ISSUE_PARTS}" class="sapMBtnBlueColor" press="onIssueReturnSparesPopup" enabled="true"
+						<Button text="{i18n>ISSUE_PARTS}" class="tableHeadertansparentBtn" press="onIssueReturnSparesPopup" enabled="true"
 							visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setWOReleaseFieldsVisible'}">
 							<customData>
 								<core:CustomData value="ISSUE_PART"/>
 							</customData>
 						</Button>
 						<!--{oWorkOrderDetailViewModel>/enableReturnPartBtn}-->
-						<Button text="{i18n>RETURN_PARTS}" class="sapMBtnBlueColor" press="onIssueReturnSparesPopup" enabled="true"
+						<Button text="{i18n>RETURN_PARTS}" class="tableHeadertansparentBtn" press="onIssueReturnSparesPopup" enabled="true"
 							visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setWOReleaseFieldsVisible'}">
 							<customData>
 								<core:CustomData value="RETURN_PART"/>
@@ -160,7 +160,7 @@
 							<ui:Column width="8rem" hAlign="Center" tooltip="{i18n>operation}">
 								<Label text="{i18n>operation}" class="tableHeaderText"/>
 								<ui:template>
-									<Select class="sapInputBorderClass" items="{oWorkOrderDetailViewModel>/operationsLookup}"
+									<Select class="selectRadius" items="{oWorkOrderDetailViewModel>/operationsLookup}"
 										enabled="{parts:['oWorkOrderDetailModel>Movement', 'oUserDetailModel>/userRole'], formatter:'com.sap.incture.IMO_PM.formatter.formatter.setSpareFieldsEnabled'}"
 										selectedKey="{oWorkOrderDetailModel>ActivityOperation}" forceSelection="false" change="onUpdateSpareCount">
 										<core:ListItem key="{oWorkOrderDetailViewModel>id}" text="{oWorkOrderDetailViewModel>text}"/>
@@ -172,7 +172,7 @@
 								<ui:template>
 									<!--<Text text="{path:'oWorkOrderDetailModel>Material', formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnCheckSafetyStock'}"/>-->
 									<Input value="{path:'oWorkOrderDetailModel>Material', formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnCheckSafetyStock'}"
-										class="sapInputBorderClass" showSuggestion="true" suggestionItems="{oWorkOrderDetailViewModel>/aMaterialsList}" change="oSelectMatSparePart"
+										class="inputRadius" showSuggestion="true" suggestionItems="{oWorkOrderDetailViewModel>/aMaterialsList}" change="oSelectMatSparePart"
 										editable="{path:'oWorkOrderDetailModel>CompCode',formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnCheckSavedSpareParts'}">
 										<suggestionItems>
 											<core:ListItem text="{oWorkOrderDetailViewModel>Material}" additionalText="{oWorkOrderDetailViewModel>MaterialDesc}"/>
@@ -184,14 +184,14 @@
 								<Label text="{i18n>DESCRIPTION}" class="tableHeaderText"/>
 								<ui:template>
 									<!--<Text text="{oWorkOrderDetailModel>MatlDesc}"/>-->
-									<Input value="{path:'oWorkOrderDetailModel>MatlDesc'}" class="sapInputBorderClass"
+									<Input value="{path:'oWorkOrderDetailModel>MatlDesc'}" class="inputRadius"
 										enabled="{path:'oWorkOrderDetailModel>Material',formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnDisaleMatrialDesc'}"></Input>
 								</ui:template>
 							</ui:Column>
 							<ui:Column width="8rem" hAlign="Center" tooltip="{i18n>REQ_QUANTITY}">
 								<Label text="{i18n>REQ_QUANTITY}" class="tableHeaderText"/>
 								<ui:template>
-									<Input value="{oWorkOrderDetailModel>RequirementQuantity}" maxLength="7" change="fnComponentUpdateStatus" class="sapInputBorderClass"
+									<Input value="{oWorkOrderDetailModel>RequirementQuantity}" maxLength="7" change="fnComponentUpdateStatus" class="inputRadius"
 										enabled="{parts:['oWorkOrderDetailModel>Movement', 'oUserDetailModel>/userRole'], formatter:'com.sap.incture.IMO_PM.formatter.formatter.setSpareFieldsEnabled'}">
 										<customData>
 											<core:CustomData value="FLOAT"/>
@@ -202,7 +202,7 @@
 							<ui:Column width="8rem" hAlign="Center" tooltip="{i18n>UOM_SP}">
 								<Label text="{i18n>UOM_SP}" class="tableHeaderText"/>
 								<ui:template>
-									<Input value="{oWorkOrderDetailModel>RequirementQuantityUnit}" class="sapInputBorderClass"
+									<Input value="{oWorkOrderDetailModel>RequirementQuantityUnit}" class="inputRadius"
 										enabled="{parts:['oWorkOrderDetailModel>Movement', 'oUserDetailModel>/userRole'], formatter:'com.sap.incture.IMO_PM.formatter.formatter.setSpareFieldsEnabled'}">
 										<customData>
 											<core:CustomData value="FLOAT"/>
@@ -213,7 +213,7 @@
 							<ui:Column width="8rem" hAlign="Center">
 								<Label text="{i18n>itemCategory}" class="tableHeaderText"/>
 								<ui:template>
-									<ComboBox selectedKey="{oWorkOrderDetailModel>ItemCat}" selectionChange="onItemCatChange">
+									<ComboBox selectedKey="{oWorkOrderDetailModel>ItemCat}" selectionChange="onItemCatChange" class="inputRadius">
 										<core:Item key="L" text="L"/>
 										<core:Item key="N" text="N"/>
 									</ComboBox>
@@ -273,7 +273,7 @@
 				</Toolbar>
 			</headerToolbar>
 			<content>
-				<TextArea value="{oWorkOrderDetailViewModel>/operationLongTxt}" width="100%" class="sapMLongTextClass sapAddWOCmtClass"
+				<TextArea value="{oWorkOrderDetailViewModel>/operationLongTxt}" width="100%" class="sapMLongTextClass sapAddWOCmtClass inputRadius" 
 					change="updateOperationLongTxt" enabled="{oWorkOrderDetailViewModel>/enableOperationComment}" maxLength="2000" rows="4"></TextArea>
 			</content>
 		</Panel>
@@ -285,7 +285,7 @@
 				</Toolbar>
 			</headerToolbar>
 			<content>
-				<TextArea value="{oWorkOrderDetailViewModel>/confirmationLongText}" width="100%" class="sapMLongTextClass sapAddWOCmtClass" rows="4"
+				<TextArea value="{oWorkOrderDetailViewModel>/confirmationLongText}" width="100%" class="sapMLongTextClass sapAddWOCmtClass inputRadius" rows="4"
 					change="updateOperationCnfrmLongTxt" enabled="{oWorkOrderDetailViewModel>/enableOpCnfmLongText}" maxLength="2000"></TextArea>
 			</content>
 		</Panel>
