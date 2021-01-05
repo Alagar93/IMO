@@ -14,8 +14,8 @@
 			uploadComplete="onUploadComplete" buttonText="{i18n>WORDK_DETAIL_ADD_DOCUMENT}" sendXHR="true" multiple="false"
 			fileType="jpg,pdf,jpeg,xlsx,xls,png,docx" maximumFilenameLength="50" typeMissmatch="fnHandleFileType" sameFilenameAllowed="true"
 			enabled="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.disableUploadAttachment'}"
-			class="sapMBtnBlueColor" tooltip="{i18n>UPLOAD_DOCS}" uploadOnChange="false" filenameLengthExceed="fnFilenameLengthExceed"/>
-		<Button text="{i18n>WORK_ORDER_ADD_LINK}" class="sapMBtnBlueColor" press="onOpenAttchWOlinkPopup" tooltip="{i18n>ADD_LINKS}"
+			class="tableHeadertansparentBtn" tooltip="{i18n>UPLOAD_DOCS}" uploadOnChange="false" filenameLengthExceed="fnFilenameLengthExceed"/>
+		<Button text="{i18n>WORK_ORDER_ADD_LINK}" class="tableHeadertansparentBtn" press="onOpenAttchWOlinkPopup" tooltip="{i18n>ADD_LINKS}"
 			enabled="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.disableUploadAttachment'}"/>
 	</FlexBox>
 	<VBox items="{oWorkOrderDetailViewModel>/attachments}" class="sapUiTinyMarginTop">

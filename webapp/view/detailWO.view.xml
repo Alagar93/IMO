@@ -32,7 +32,7 @@
 				<!--		<core:CustomData key="dateType" value="WO_DETAIL_CREATE_EXIT"/>-->
 				<!--	</customData>-->
 				<!--</Button>-->
-				<Button text="{i18n>DETAIL_UPDATE_WO}" icon="sap-icon://synchronize" iconFirst="true" press="onCreateUpdateAndExitWO" class="sapUiSmallMarginBegin transparentBtn"
+				<Button text="{i18n>DETAIL_UPDATE_WO}" icon="sap-icon://synchronize" iconFirst="true" press="onCreateUpdateAndExitWO" class="sapUiSmallMarginBegin"
 					type="Emphasized" enabled="true" visible="{oWorkOrderDetailViewModel>/updateVisible}">
 					<customData>
 						<core:CustomData key="dateType" value="WO_DETAIL_UPDATE"/>

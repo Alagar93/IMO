@@ -15,8 +15,8 @@
 		<u:FileUploader id="MYLAN_CREATE_Notif_FILEUPLOADER" buttonOnly="true" change="onUploadNotifAttachment" useMultipart="false"
 			uploadComplete="onUploadNotifComplete" buttonText="{i18n>WORDK_DETAIL_ADD_DOCUMENT}" sendXHR="true" multiple="false"
 			fileType="jpg,pdf,jpeg,xlsx,xls,png,docx" maximumFilenameLength="50" typeMissmatch="fnHandleFileType" sameFilenameAllowed="true"
-			enabled="true" class="sapMBtnBlueColor" tooltip="{i18n>UPLOAD_DOCS}" uploadOnChange="false" filenameLengthExceed="fnFilenameLengthExceed"/>
-		<Button text="{i18n>WORK_ORDER_ADD_LINK}" class="sapMBtnBlueColor" press="onOpenAttchNotiflinkPopup" tooltip="{i18n>ADD_LINKS}"
+			enabled="true" class="tableHeadertansparentBtn" tooltip="{i18n>UPLOAD_DOCS}" uploadOnChange="false" filenameLengthExceed="fnFilenameLengthExceed"/>
+		<Button text="{i18n>WORK_ORDER_ADD_LINK}" class="tableHeadertansparentBtn" press="onOpenAttchNotiflinkPopup" tooltip="{i18n>ADD_LINKS}"
 			enabled="true"/>
 	</FlexBox>
 	<VBox items="{oNotificationViewModel>/attachments}" class="sapUiTinyMarginTop">

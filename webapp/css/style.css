@@ -2250,6 +2250,7 @@ background-color: #377295;
 
 .dialogHeader .sapMBarTitleStart .sapMBarPH {
     justify-content: center;
+    background-color: #ffffff !important;
 }
 
 html.sap-desktop .sapMIBar.sapMFooter-CTX {
@@ -2286,7 +2287,7 @@ html.sap-desktop .sapMIBar.sapMFooter-CTX {
 
 /* ______________________RIGHT PANEL CSS Begin________________________________*/
 .iopRightPanelContainer {
-    height: 100%;
+    height: 100% !important;
     position: fixed;
     z-index: 40;
     right: 13px;
@@ -2709,8 +2710,4 @@ html.sap-desktop .sapMIBar.sapMFooter-CTX {
 
 .whiteBG {
     background: white !important;
-}
-
-.headerWhite .sapMPopup-CTX .sapMIBar.sapMHeader-CTX {
-    background-color: #ffffff;
 }

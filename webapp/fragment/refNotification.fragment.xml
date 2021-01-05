@@ -1,7 +1,7 @@
 <core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:layout="sap.ui.layout"
 	xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" class="sapUiSizeCompact">
 	<Dialog title="{}" contentWidth="50%" contentHeight="70%" showHeader="false" verticalScrolling="false" class="dialogHeader sapUiSizeCompact">
-		<Page title="Select Notification" showHeader="true" class="whiteBG headerWhite">
+		<Page title="Select Notification" showHeader="true" class="whiteBG">
 			<content>
 				<!--<Label text="Notification Id :"/>-->
 				<SearchField search="onSearchNotifData" width="96%" class="sapUiTinyMargin sapSearchFieldBorderClass" placeholder="{i18n>searchNotifNum}">
