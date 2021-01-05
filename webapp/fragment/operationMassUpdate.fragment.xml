@@ -6,7 +6,7 @@
 				<l:content>
 					<VBox>
 						<Label text="{i18n>TOTAL_LABOUR_HRS}" required="false"></Label>
-						<Input value="{oWorkOrderDetailViewModel>/totalLabourHrs}" class="sapInputBorderClass" change="validateFloatValues">
+						<Input value="{oWorkOrderDetailViewModel>/totalLabourHrs}" class="inputRadius" change="validateFloatValues" width="100%">
 							<customData>
 								<core:CustomData value="FLOAT"/>
 							</customData>
@@ -19,15 +19,15 @@
 						<Label text="{i18n>COMPLITION_ON}" required="false"></Label>
 					<!--	<DatePicker placeholder="dd-MM-yyyy" dateValue="{oWorkOrderDetailViewModel>/currentDate}" displayFormat="dd-MM-yyyy"
 							valueFormat="yyyy-MM-ddTHH:mm:ss" enabled="true" class="sapInputBorderClass"/>-->
-						<DateTimePicker minDate="{oWorkOrderDetailViewModel>/currentDate1}" placeholder="dd-MM-yyyy, HH:mm" dateValue="{oWorkOrderDetailViewModel>/currentDate}" displayFormat="dd-MM-yyyy, HH:mm"
-							valueFormat="yyyy-MM-ddTHH:mm:ss" class="sapInputBorderClass" enabled="true"/>
+						<DateTimePicker width="100%" minDate="{oWorkOrderDetailViewModel>/currentDate1}" placeholder="dd-MM-yyyy, HH:mm" dateValue="{oWorkOrderDetailViewModel>/currentDate}" displayFormat="dd-MM-yyyy, HH:mm"
+							valueFormat="yyyy-MM-ddTHH:mm:ss" class="inputRadius" enabled="true"/>
 						<layoutData>
 							<l:GridData span="XL4 L4 M4 S4"/>
 						</layoutData>
 					</VBox>
 					<VBox>
 						<Label text="{i18n>SYSTEM_CONDITION}" required="false"></Label>
-						<Select class="sapInputBorderClass" items="{mLookupModel>/aSystemCondition}" showSecondaryValues="true"
+						<Select class="selectRadius" items="{mLookupModel>/aSystemCondition}" showSecondaryValues="true" width="100%"
 							selectedKey="{oWorkOrderDetailViewModel>/systCondition}" forceSelection="false">
 							<core:ListItem key="{mLookupModel>Anlzu}" text="{mLookupModel>Anlzux}" additionalText="{mLookupModel>Anlzu}"/>
 						</Select>
@@ -37,7 +37,7 @@
 					</VBox>
 					<VBox class="sapUiSmallMarginTopBottom">
 						<Label text="{i18n>CONFIRMATION_LONG_TEXT}" required="false"></Label>
-						<TextArea value="{oWorkOrderDetailViewModel>/updateOperationLongTxt}" width="100%" class="sapMLongTextClass" enabled="true" maxLength="2000"></TextArea>
+						<TextArea value="{oWorkOrderDetailViewModel>/updateOperationLongTxt}" width="100%" class="inputRadius" enabled="true" maxLength="2000"></TextArea>
 						<layoutData>
 							<l:GridData span="XL12 L12 M12 S12"/>
 						</layoutData>

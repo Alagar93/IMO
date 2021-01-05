@@ -2711,3 +2711,7 @@ html.sap-desktop .sapMIBar.sapMFooter-CTX {
 .whiteBG {
     background: white !important;
 }
+
+.hideContent .sapMITBContent {
+    visibility: hidden;
+}

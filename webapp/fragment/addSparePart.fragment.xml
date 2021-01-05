@@ -1,7 +1,7 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:ui="sap.ui.table">
-	<Dialog title="{i18n>DETAIL_DIALOG_TITLE_ADD_SPARE_PART}" class="sapUiSizeCompact">
+	<Dialog title="{i18n>DETAIL_DIALOG_TITLE_ADD_SPARE_PART}" class="sapUiSizeCompact dialogHeader">
 		<content>
-			<IconTabBar expandable="false" select="getSelectedIconTab" selectedKey="{oWorkOrderDetailViewModel>/SPSelectedKey}">
+			<IconTabBar expandable="false" select="getSelectedIconTab" selectedKey="{oWorkOrderDetailViewModel>/SPSelectedKey}" class="iconTabHeader hideContent">
 				<items>
 					<IconTabFilter text="{i18n>BOM}" key="BOM"></IconTabFilter>
 					<IconTabFilter text="{i18n>SEARCH_SPARE_PARTS}" key="SEARCH"/>
@@ -12,7 +12,7 @@
 				<l:content>
 					<VBox>
 						<Label text="{i18n>DETAIL_SPARE_PART_SAP_ID}"></Label>
-						<Input value="{oWorkOrderDetailViewModel>/sapId}" enabled="true" submit="getMaterialsList" maxLength="10">
+						<Input value="{oWorkOrderDetailViewModel>/sapId}" enabled="true" submit="getMaterialsList" maxLength="10" class="inputRadius">
 							<customData>
 								<core:CustomData key="target" value="INTEGER"/>
 							</customData>
@@ -23,7 +23,7 @@
 					</VBox>
 					<VBox>
 						<Label text="{i18n>DETAIL_SPARE_PART_SUPPLIER}"></Label>
-						<Input value="{oWorkOrderDetailViewModel>/supplier}" submit="getMaterialsList" enabled="true">
+						<Input value="{oWorkOrderDetailViewModel>/supplier}" submit="getMaterialsList" enabled="true" class="inputRadius">
 							<customData>
 								<core:CustomData key="target" value="INTEGER"/>
 							</customData>
@@ -34,14 +34,14 @@
 					</VBox>
 					<VBox>
 						<Label text="{i18n>DETAIL_SPARE_PART_SUPPLIER_PART}"></Label>
-						<Input value="{oWorkOrderDetailViewModel>/supplierPartno}" submit="getMaterialsList" enabled="true" maxLength="18"></Input>
+						<Input class="inputRadius" value="{oWorkOrderDetailViewModel>/supplierPartno}" submit="getMaterialsList" enabled="true" maxLength="18"></Input>
 						<layoutData>
 							<l:GridData span="XL4 L4 M4 S4"/>
 						</layoutData>
 					</VBox>
 					<VBox>
 						<Label text="{i18n>DETAIL_SPARE_PART_MFG_PART_ID}"></Label>
-						<Input value="{oWorkOrderDetailViewModel>/mfgPartNo}" submit="getMaterialsList" enabled="true">
+						<Input class="inputRadius" value="{oWorkOrderDetailViewModel>/mfgPartNo}" submit="getMaterialsList" enabled="true">
 							<customData>
 								<core:CustomData key="target" value="INTEGER"/>
 							</customData>
@@ -52,7 +52,7 @@
 					</VBox>
 					<VBox>
 						<Label text="{i18n>DETAIL_SPARE_PART_MFG_PART_DESC}"></Label>
-						<Input value="{oWorkOrderDetailViewModel>/mfgPartDesc}" submit="getMaterialsList" enabled="true">
+						<Input class="inputRadius" value="{oWorkOrderDetailViewModel>/mfgPartDesc}" submit="getMaterialsList" enabled="true">
 							<customData>
 								<core:CustomData key="target" value="INTEGER"/>
 							</customData>
@@ -71,41 +71,41 @@
 				</l:content>
 			</l:Grid>
 			<ui:Table rows="{oWorkOrderDetailViewModel>/aMaterialsList}" selectionMode="MultiToggle" id="MYLAN_MATERIALS_SEARCH_TBL"
-				class="sapUITableColumn sapUiTinyMarginTop" enableSelectAll="false" rowSelectionChange="onSelectMaterials"
+				class="sapUiTinyMarginTop" enableSelectAll="false" rowSelectionChange="onSelectMaterials"
 				visibleRowCount="{mLookupModel>/spRowCount}" rowHeight="40" >
 				<ui:columns>
-					<ui:Column width="14%" hAlign="Center">
-						<Text text="{i18n>DETAIL_SPARE_PART_SAP_ID}" class="sapUITableColumnLabelClass" wrapping="true"/>
+					<ui:Column width="14%">
+						<Text text="{i18n>DETAIL_SPARE_PART_SAP_ID}" class="tableHeaderText" wrapping="true"/>
 						<ui:template>
 							<Text text="{oWorkOrderDetailViewModel>Material}"/>
 						</ui:template>
 					</ui:Column>
-					<ui:Column width="28%" hAlign="Center">
-						<Text text="{i18n>DESCRIPTION}" class="sapUITableColumnLabelClass" wrapping="true"/>
+					<ui:Column width="28%">
+						<Text text="{i18n>DESCRIPTION}" class="tableHeaderText" wrapping="true"/>
 						<ui:template>
 							<Text text="{oWorkOrderDetailViewModel>MaterialDesc}"/>
 						</ui:template>
 					</ui:Column>
-					<ui:Column width="18%" hAlign="Center">
-						<Text text="{i18n>DETAIL_SPARE_PART_SUPPLIER}" class="sapUITableColumnLabelClass" wrapping="true"/>
+					<ui:Column width="18%">
+						<Text text="{i18n>DETAIL_SPARE_PART_SUPPLIER}" class="tableHeaderText" wrapping="true"/>
 						<ui:template>
 							<Text text="{oWorkOrderDetailViewModel>SupplierName}"/>
 						</ui:template>
 					</ui:Column>
-					<ui:Column width="20%" hAlign="Center">
-						<Text text="{i18n>DETAIL_SPARE_PART_SUPPLIER_PART}" class="sapUITableColumnLabelClass" wrapping="true"/>
+					<ui:Column width="20%">
+						<Text text="{i18n>DETAIL_SPARE_PART_SUPPLIER_PART}" class="tableHeaderText" wrapping="true"/>
 						<ui:template>
 							<Text text="{oWorkOrderDetailViewModel>SupplierPartNo}"/>
 						</ui:template>
 					</ui:Column>
-					<ui:Column width="30%" hAlign="Center">
-						<Text text="{i18n>DETAIL_SPARE_PART_MFG_PART_ID}" class="sapUITableColumnLabelClass" wrapping="true"/>
+					<ui:Column width="30%">
+						<Text text="{i18n>DETAIL_SPARE_PART_MFG_PART_ID}" class="tableHeaderText" wrapping="true"/>
 						<ui:template>
 							<Text text="{oWorkOrderDetailViewModel>MfgPartNo}"/>
 						</ui:template>
 					</ui:Column>
-					<ui:Column width="12%" hAlign="Center">
-						<Text text="{i18n>STOCK_AVAIL}" class="sapUITableColumnLabelClass"/>
+					<ui:Column width="12%">
+						<Text text="{i18n>STOCK_AVAIL}" class="tableHeaderText"/>
 						<ui:template>
 							<Text text="{oWorkOrderDetailViewModel>CurrentStock}"/>
 						</ui:template>
