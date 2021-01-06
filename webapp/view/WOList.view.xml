@@ -47,7 +47,7 @@
 							</FlexBox>
 							<HBox width="100%" class="sapUiTinyMarginBegin" justifyContent="SpaceBetween" alignItems="Center">
 								<Text class="notificationHeaderText" wrapping="true" text="Outstanding Spare&#10;Part Reservations"/>
-								<Text text="34" class="formatKPINumber"/>
+								<Text text="{mLookupModel>/oKPIInfo/Otstndng_spare_prt}" class="formatKPINumber"/>
 							</HBox>
 						</HBox>
 					</TileContent>
@@ -62,7 +62,7 @@
 							</FlexBox>
 							<HBox width="100%" class="sapUiTinyMarginBegin" justifyContent="SpaceBetween" alignItems="Center">
 								<Text class="notificationHeaderText" wrapping="true" text="Assigned to&#10;Work Center"/>
-								<Text text="56" class="formatKPINumber"/>
+								<Text text="{mLookupModel>/oKPIInfo/Open_br_dn_order}" class="formatKPINumber"/>
 							</HBox>
 						</HBox>
 					</TileContent>

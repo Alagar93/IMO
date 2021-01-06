@@ -2468,7 +2468,9 @@ sap.ui.define([
 			mLookupModel.setProperty("/bBusyworkcenter", true);
 			var userPlant = this.oUserDetailModel.getProperty("/userPlant");
 			var sWorkCenterSel = mLookupModel.getProperty("/sWorkCenterSel");
-
+			if(sWorkCenterSel === null) {
+				sWorkCenterSel = "";
+			}
 			var oFilter = [];
 			oFilter.push(new Filter("Plant", "EQ", userPlant));
 			oFilter.push(new Filter("WorkCenter", "EQ", sWorkCenterSel));

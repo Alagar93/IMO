@@ -153,6 +153,7 @@ sap.ui.define([
 				var userPlant = this.oUserDetailModel.getProperty("/userPlant");
 				if (userPlant) {
 					this.fnFetchNotifList();
+					this.getNotificationKPICount();
 				}
 			}
 		},
@@ -260,7 +261,12 @@ sap.ui.define([
 			var aNotificationListSet = mLookupModel.getProperty("/aNotificationListSet");
 			var iTopNotif = mLookupModel.getProperty("/iTopNotif");
 			var iSkipNotif = mLookupModel.getProperty("/iSkipNotif");
-
+			if(iTopNotif === undefined || iTopNotif === null){
+				iTopNotif = 50;
+			}
+			if(iSkipNotif === undefined || iSkipNotif === null){
+				iSkipNotif = 0;
+			}
 			this.busy.open();
 			var sUrl = "/NotificationListSet";
 			var oPortalDataModel = this.oPortalDataModel;
@@ -1019,7 +1025,7 @@ sap.ui.define([
 		getKPIsNotifList: function (oEvent) {
 			var headerText = "";
 			var serviceType = "";
-			var oVbox = oEvent.srcControl;
+			// var oVbox = oEvent.srcControl;
 			// var selVBox = oVbox.getCustomData()[0].getValue();
 			var selVBox = oEvent.getSource().getAriaLabel();
 			switch (selVBox) {
@@ -1052,7 +1058,9 @@ sap.ui.define([
 			var oPortalDataModel = this.oPortalDataModel;
 			var userPlant = this.oUserDetailModel.getProperty("/userPlant");
 			var sWorkCenterSel = mLookupModel.getProperty("/sWorkCenterSel");
-
+			if(sWorkCenterSel === null || sWorkCenterSel === undefined){
+				sWorkCenterSel = "";
+			}
 			var oFilter = [];
 			oFilter.push(new Filter("Plant", "EQ", userPlant));
 			if (serviceType === "WC_ORDERS") {
