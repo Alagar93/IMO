@@ -87,6 +87,8 @@ sap.ui.define([
 				// 	oWorkOrderDetailViewModel.setProperty("/withNotificationCheck",false);
 				// }
 			}
+			var userName = this.oUserDetailModel.getProperty("/userName");
+			oWorkOrderDetailModel.setProperty("/ReportedBy",userName);
 
 			var oPortalDataModel = this.oPortalDataModel;
 			var sericeUrl = oPortalDataModel.sServiceUrl;
@@ -173,8 +175,8 @@ sap.ui.define([
 			if (sKey === "PM03") {
 				oWorkOrderDetailViewModel.setProperty("/sPathControlKey", sPath);
 				var oOpertionDetails = jQuery.extend(true, {}, oWorkOrderDetailModel.getProperty(sPath));
-				oOpertionDetails.Quantity="1";
-				oOpertionDetails.Price = "0";
+				oOpertionDetails.Quantity = "1";
+				oOpertionDetails.Price = "1000";
 				oOpertionDetails.Currency = "EUR";
 				oOpertionDetails.MatlGroup = "01";
 				oOpertionDetails.PriceUnit = "1";
@@ -212,6 +214,27 @@ sap.ui.define([
 			this.controlKeyDialog.destroy();
 			this.controlKeyDialog = null;
 		},
+		//Sunanda--Function to View Control key details
+		onPressOperDetails: function (oEvent) {
+			var oWorkOrderDetailModel = this.oWorkOrderDetailModel;
+			var oWorkOrderDetailViewModel = this.oWorkOrderDetailViewModel;
+
+			var oSource = oEvent.getSource();
+			var sPath = oSource.getBindingContext("oWorkOrderDetailModel").getPath();
+
+			var sKey = oWorkOrderDetailModel.getProperty(sPath).ControlKey;
+			if (sKey === "PM03") {
+				oWorkOrderDetailViewModel.setProperty("/sPathControlKey", sPath);
+				var oOpertionDetails = jQuery.extend(true, {}, oWorkOrderDetailModel.getProperty(sPath));
+
+				oWorkOrderDetailViewModel.setProperty("/oControlkeyOperation", oOpertionDetails);
+				if (!this.controlKeyDialog) {
+					this.controlKeyDialog = sap.ui.xmlfragment("com.sap.incture.IMO_PM.fragment.controlKeyPopUp", this);
+					this.getView().addDependent(this.controlKeyDialog);
+				}
+				this.controlKeyDialog.open();
+			}
+		},
 		//Sunanda -- Function to open ControlKey popup if Item Category is N
 		onItemCatChange: function (oEvent) {
 			var oWorkOrderDetailModel = this.oWorkOrderDetailModel;
@@ -219,13 +242,17 @@ sap.ui.define([
 			var sKey = oEvent.getSource().getSelectedKey();
 			var oSource = oEvent.getSource();
 			var sPath = oSource.getBindingContext("oWorkOrderDetailModel").getPath();
-			if (sKey === "N") {
+			var oComponentDetails = oWorkOrderDetailModel.getProperty(sPath);
+			var StockAvail = formatter.fnStrtoInt(oComponentDetails.StockAvail);
+			var ReqQuantity = formatter.fnStrtoInt(oComponentDetails.RequirementQuantity);
+
+			if (sKey === "N" && StockAvail<ReqQuantity) {
 
 				oWorkOrderDetailViewModel.setProperty("/sPathItemCat", sPath);
-				var oComponentDetails = oWorkOrderDetailModel.getProperty(sPath);
+
 				var bMatVal = formatter.MaterialPRVAlidation(oComponentDetails);
 				if (bMatVal) {
-					oComponentDetails.Price = "0";
+					oComponentDetails.Price = "1000";
 					oComponentDetails.Currency = "EUR";
 					oComponentDetails.MaterialGroup = "01";
 					oComponentDetails.PriceUnit = "1";
@@ -251,6 +278,15 @@ sap.ui.define([
 
 				}
 
+			} else if(sKey === "N" && StockAvail>=ReqQuantity) {
+				MessageBox.error("Required Qunatity is available as Stock", {
+
+						onClose: function (sAction) {
+							oWorkOrderDetailModel.setProperty(sPath + "/ItemCat", "L");
+							oWorkOrderDetailViewModel.setProperty("/sPathItemCat", "");
+							oWorkOrderDetailViewModel.setProperty("/oComponentDetails", null);
+						}
+					});
 			}
 		},
 
@@ -274,6 +310,86 @@ sap.ui.define([
 			this.oItemCatDialog.close();
 			this.oItemCatDialog.destroy();
 			this.oItemCatDialog = null;
+		},
+		//function to get purchase details
+		fnGetPurDetails: function () {
+			var oWorkOrderOData = this.oWorkOrderOData;
+			var oWorkOrderDetailViewModel = this.oWorkOrderDetailViewModel;
+			var orderId = this.oWorkOrderDetailModel.getProperty("/Orderid");
+			var oFilter = [];
+			oFilter.push(new Filter("OrderNo", "EQ", orderId));
+			oWorkOrderOData.read("/purchaseReqSet", {
+				async: false,
+				filters: oFilter,
+				success: function (oData) {
+					var aResults = oData.results;
+					oWorkOrderDetailViewModel.setProperty("/PurchaseDetails", aResults[aResults.length - 1]);
+
+				},
+				error: function (oData) {
+					console.log(oData);
+				}
+			});
+		},
+		//Sunanda-- function to show General purpose data of Spare part
+		onPressSPDetails: function (oEvent) {
+			var oWorkOrderDetailModel = this.oWorkOrderDetailModel;
+			var oWorkOrderDetailViewModel = this.oWorkOrderDetailViewModel;
+			this.fnGetPurDetails();
+			var oSource = oEvent.getSource().getParent();
+			var sPath = oSource.getBindingContext("oWorkOrderDetailModel").getPath();
+			var sKey = oWorkOrderDetailModel.getProperty(sPath).ItemCat;
+			oWorkOrderDetailViewModel.setProperty("/sPathItemCat", sPath);
+			if (sKey === "N") {
+
+				var oComponentDetails = oWorkOrderDetailModel.getProperty(sPath);
+				var PurchaseReq = oWorkOrderDetailViewModel.getProperty("/PurchaseDetails/PurchaseReq");
+				oWorkOrderDetailViewModel.setProperty("/oComponentDetails", oComponentDetails);
+				oWorkOrderDetailViewModel.setProperty("/ItemPRNo",PurchaseReq);
+				if (!this.oPurDataDialog) {
+					this.oPurDataDialog = sap.ui.xmlfragment("com.sap.incture.IMO_PM.fragment.PurchaseData", this);
+					this.getView().addDependent(this.oPurDataDialog);
+				}
+				this.oPurDataDialog.open();
+			} else {
+				var oComponentDetails = oWorkOrderDetailModel.getProperty(sPath);
+				
+				oWorkOrderDetailViewModel.setProperty("/oComponentDetails", oComponentDetails);
+				if (!this.oGenDataDialog) {
+					this.oGenDataDialog = sap.ui.xmlfragment("com.sap.incture.IMO_PM.fragment.GeneralData", this);
+					this.getView().addDependent(this.oGenDataDialog);
+				}
+				this.oGenDataDialog.open();
+			}
+
+		},
+		onSaveGenData:function(){
+			var oWorkOrderDetailModel = this.oWorkOrderDetailModel;
+			var oWorkOrderDetailViewModel = this.oWorkOrderDetailViewModel;
+			var oComponentDetails=oWorkOrderDetailViewModel.getProperty("/oComponentDetails");
+			var sPath=oWorkOrderDetailViewModel.getProperty("sPathItemCat");
+			oWorkOrderDetailModel.setProperty(sPath,oComponentDetails);
+			this.onCloseGenData();
+		},
+		onSavePurData:function(){
+			var oWorkOrderDetailModel = this.oWorkOrderDetailModel;
+			var oWorkOrderDetailViewModel = this.oWorkOrderDetailViewModel;
+			var oComponentDetails=oWorkOrderDetailViewModel.getProperty("/oComponentDetails");
+			var sPath=oWorkOrderDetailViewModel.getProperty("sPathItemCat");
+			oWorkOrderDetailModel.setProperty(sPath,oComponentDetails);
+			this.onCloseGenData();
+		},
+		onClosePurData: function () {
+			this.oPurDataDialog.close();
+			this.oPurDataDialog.destroy();
+			this.oPurDataDialog = null;
+		},
+		onCloseGenData: function () {
+			this.oGenDataDialog.close();
+			this.oGenDataDialog.destroy();
+			this.oGenDataDialog = null;
+			this.oWorkOrderDetailViewModel.setProperty("/sPathItemCat", "");
+			this.oWorkOrderDetailViewModel.setProperty("/oComponentDetails", null);
 		},
 
 		//nischal -- function to set Required Start Date and End Date based on priority
@@ -683,6 +799,8 @@ sap.ui.define([
 			var oPortalNotifOData = this.oPortalNotifOData;
 			var oWorkOrderDetailModel = this.oWorkOrderDetailModel;
 			var oWorkOrderDetailViewModel = this.oWorkOrderDetailViewModel;
+			var userName=this.oUserDetailModel.getProperty("/userName");
+			oWorkOrderDetailModel.setProperty("/ReportedBy",userName);
 			var bVal = util.fnMandateDetailWOFields(oWorkOrderDetailModel, this, woCreateNavType);
 			if (bVal[0] === true) {
 				if (bVal[1]) {
@@ -793,6 +911,8 @@ sap.ui.define([
 			var oWorkOrderOData = this.oWorkOrderOData;
 			var oWorkOrderDetailModel = this.oWorkOrderDetailModel;
 			var oWorkOrderDetailViewModel = this.oWorkOrderDetailViewModel;
+			var userName=this.oUserDetailModel.getProperty("/userName");
+			oWorkOrderDetailModel.setProperty("/ReportedBy",userName);
 			var oWorkOrderData = oWorkOrderDetailModel.getData();
 
 			if (woCreateNavType === "WO_DETAIL_OPERATION_CONFIRM" || woCreateNavType === "WO_DETAIL_OPERATION_FINAL_CONFIRM") {
@@ -945,35 +1065,13 @@ sap.ui.define([
 								var aResults = oData.results;
 								console.log(aResults);
 								if (aResults.length > 0) {
-									/*for (var i = 0; i < aResults.length; i++) {
-										var pr = aResults[i].PurchaseReq;
-										var resItem = aResults[i].ResItem;
-										var ResvNo = aResults[i].ResevNo;
-										if (pr === "") {
-											oObj = {
-												"Message": "Reservation Number:" + ResvNo + " for ResItem :" + resItem,
-												"Status": "S"
-											};
 
-										} else {
-											oObj = {
-												"Message": "PR Number :" + pr + " for ResItem :" + resItem,
-												"Status": "S"
-											};
-										}
-										messages.push(oObj);
-									}*/
-									var pr = aResults[0].PurchaseReq;
+									var pr = aResults[aResults.length - 1].PurchaseReq;
 
-									var ResvNo = aResults[0].ResevNo;
+									var ResvNo = aResults[aResults.length - 1].ResevNo;
 									if (pr === "" && ResvNo !== "") {
 										oObj = {
 											"Message": "Reservation Number:" + ResvNo,
-											"Status": "S"
-										};
-									} else if (pr !== "" && ResvNo === "") {
-										oObj = {
-											"Message": "PR Number :" + pr,
 											"Status": "S"
 										};
 									} else {
@@ -986,6 +1084,7 @@ sap.ui.define([
 									messages.push(oObj);
 
 								}
+								oWorkOrderDetailViewModel.setProperty("/PurchaseDetails", aResults[aResults.length - 1]);
 
 							},
 							error: function (oData) {
@@ -1002,9 +1101,7 @@ sap.ui.define([
 							var notifbVal = notifications.hasOwnProperty("results");
 							if (notifbVal) {
 								notifications = notifications.results;
-								if (notifications.length >= 1) {
-									sData.ReportedBy = notifications[0].Reportedby;
-								}
+								
 							} else {
 								notifications = [];
 							}
@@ -1035,6 +1132,7 @@ sap.ui.define([
 						sData.HEADERTONOTIFNAV = notifications;
 
 						sData.MalFunStartTime = formatter.getMalfunctionStTime(sData.MalFunStartTime.ms);
+						sData.ReportedBy=userName;
 						oWorkOrderDetailModel.setProperty("/", sData);
 						that.sortOperations();
 						oWorkOrderDetailModel.refresh(true);
@@ -2031,6 +2129,8 @@ sap.ui.define([
 			}
 			this.showMessage(message, "W");
 		},
+		//Function to chech matlDesc Validation
+		
 
 		//Function to update Spare part count to Operations table
 		onUpdateSpareCount: function (oEvent) {
@@ -2042,7 +2142,8 @@ sap.ui.define([
 			var selObj = oWorkOrderDetailModel.getProperty(selRow);
 			var operation = selObj.ActivityOperation;
 			var material = selObj.Material;
-			var bVal = this.fnCheckIsMaterialAssignedSameOp(operation, material, index);
+			var MatDesc=selObj.MatlDesc;                  
+			var bVal = this.fnCheckIsMaterialAssignedSameOp(operation, material,MatDesc, index);
 			if (bVal[0] === true) {
 				oWorkOrderDetailModel.setProperty(selRow + "/ActivityOperation", "");
 				this.showMessage(this.oResourceModel.getText("matalreadyasstooprnmsg", [material, operation]));
@@ -2053,14 +2154,14 @@ sap.ui.define([
 		},
 
 		//Function to check if an Operation is set for second time for same material
-		fnCheckIsMaterialAssignedSameOp: function (operation, material, index) {
+		fnCheckIsMaterialAssignedSameOp: function (operation, material,MatDesc, index) {
 			var bVal = false;
 			var oWorkOrderDetailModel = this.oWorkOrderDetailModel;
 			var materials = oWorkOrderDetailModel.getProperty("/HEADERTOCOMPONENTNAV");
 			for (var i = 0; i < materials.length; i++) {
 				if (index !== i) {
 					var cMaterial = materials[i];
-					if (cMaterial.ActivityOperation === operation && cMaterial.Material === material) {
+					if (cMaterial.ActivityOperation === operation && cMaterial.Material === material&&cMaterial.MatlDesc===MatDesc) {
 						bVal = [true, i];
 						break;
 					}
@@ -2637,8 +2738,8 @@ sap.ui.define([
 						"StgeLoc": storageLogic,
 						"EntryQnt": requiredQty,
 						"Quantity": requiredQty,
-						"ReservNo":ReservNo,
-						"ResItem":ResItem
+						"ReservNo": ReservNo,
+						"ResItem": ResItem
 					};
 					materialQuantities.push(obj);
 				}
@@ -2763,11 +2864,11 @@ sap.ui.define([
 					/*var message = JSON.parse(reponse.headers["sap-message"]).message;*/
 					var message;
 					/*if (message === "") {*/
-						if (btnType === "ISSUE_PART") {
-							message = oResourceModel.getText("SP_ISSUED_SUSSCESSFULLY");
-						} else if (btnType === "RETURN_PART") {
-							message = oResourceModel.getText("SP_RETURNED_SUCCESSFULLY");
-						}
+					if (btnType === "ISSUE_PART") {
+						message = oResourceModel.getText("SP_ISSUED_SUSSCESSFULLY");
+					} else if (btnType === "RETURN_PART") {
+						message = oResourceModel.getText("SP_RETURNED_SUCCESSFULLY");
+					}
 					/*}*/
 					that.fnGetWOHeaderDetailsCreateWO(orderid);
 					that.fnClearTblSelection();
