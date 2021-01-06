@@ -2715,3 +2715,11 @@ html.sap-desktop .sapMIBar.sapMFooter-CTX {
 .hideContent .sapMITBContent {
     visibility: hidden;
 }
+
+.successCircle {
+    color: #00ff00 !important
+}
+
+.errorCircle {
+    color: #ff0000 !important
+}

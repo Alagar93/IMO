@@ -6,7 +6,11 @@
 					<ui:Column hAlign="Center" width="10rem">
 						<Label text="{i18n>STATUS}"/>
 						<ui:template>
-							<Text text="{mLookupModel>Status}"/>
+							<!--<Text text="{mLookupModel>Status}"/>-->
+							<HBox justifyContent="Center">
+								<core:Icon src="sap-icon://circle-task-2" class="successCircle" visible="{= ${mLookupModel>Status} === 'S'}" tooltip="Success"/>
+								<core:Icon src="sap-icon://circle-task-2" class="errorCircle" visible="{= ${mLookupModel>Status} !== 'S'}" tooltip="Error"/>
+							</HBox>
 						</ui:template>
 					</ui:Column>
 					<ui:Column hAlign="Center">
