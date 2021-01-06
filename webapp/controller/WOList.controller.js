@@ -8,7 +8,7 @@ sap.ui.define([
 	"com/sap/incture/IMO_PM/formatter/formatter",
 	"com/sap/incture/IMO_PM/util/util",
 	"sap/m/MessageBox"
-], function (BaseController, Controller, JSONModel, Filter, FilterOperator, BusyDialog, formatter, util,MessageBox) {
+], function (BaseController, Controller, JSONModel, Filter, FilterOperator, BusyDialog, formatter, util, MessageBox) {
 	"use strict";
 
 	return BaseController.extend("com.sap.incture.IMO_PM.controller.WOList", {
@@ -74,6 +74,11 @@ sap.ui.define([
 			this.mLookupModel.setProperty("/", oViewSetting);
 			this.busy = new BusyDialog();
 			this.getLoggedInUser();
+			var that = this;
+			this.router = sap.ui.core.UIComponent.getRouterFor(this);
+			this.router.attachRoutePatternMatched(function (oEvent) {
+				that.routePatternMatched(oEvent);
+			});
 		},
 
 		//Function to initialize WO list view
@@ -326,6 +331,9 @@ sap.ui.define([
 			var sWorkCenterSel = mLookupModel.getProperty("/sWorkCenterSel");
 			var userPlant = mLookupModel.getProperty("/userPlant");
 			mLookupModel.setProperty("/bBusyworkcenter", true);
+			if (sWorkCenterSel === undefined) {
+				sWorkCenterSel = "";
+			}
 
 			var oFilter = [];
 			oFilter.push(new Filter("Plant", "EQ", userPlant));
@@ -391,7 +399,9 @@ sap.ui.define([
 			var mLookupModel = this.mLookupModel;
 			var selectedWOs = mLookupModel.getProperty("/selectedWOs");
 			var woNo = mLookupModel.getProperty(selectedWOs[0].sPath + "/Orderid");
-			this._router.navTo("detailTabWO", {workOrderID: woNo});
+			this._router.navTo("detailTabWO", {
+				workOrderID: woNo
+			});
 			/*var sURL;
 			var sHost = window.location.origin;
 			var sBSPPath = "/sap/bc/ui5_ui5/sap/ZMYL_WOCREATE/index.html#/detailTabWO/";
@@ -407,10 +417,12 @@ sap.ui.define([
 		handleLinkPress: function (oEvent) {
 			//var sURL;
 			var sNotifID = oEvent.getSource().getText();
-			this._router.navTo("detailTabWO", {workOrderID: sNotifID});
+			this._router.navTo("detailTabWO", {
+				workOrderID: sNotifID
+			});
 			// sURL = "https://lnvybdvpasstbo1j-imo-imo-pm.cfapps.eu10.hana.ondemand.com/IMO_PM/index.html#/detailTabWO/" + sNotifID;
 			// sap.m.URLHelper.redirect(sURL, true);
-			
+
 			/*var navUrl = "#/detailTabWO/" + sNotifID;
             var url = window.location.href.split('#')[0] + navUrl;
             window.open(url, '_blank');*/
@@ -517,15 +529,32 @@ sap.ui.define([
 			var sUrl = "/WorkOrderListSet";
 			var oPortalDataModel = this.oPortalDataModel;
 			var oFilter = [];
-			oFilter.push(new Filter("Orderid", "EQ", mLookupModel.getProperty("/iWONumFilter")));
-			oFilter.push(new Filter("OrderType", "EQ", mLookupModel.getProperty("/sOrderTypeSelFilter")));
-			oFilter.push(new Filter("SysStatus", "EQ", mLookupModel.getProperty("/sStatusSelFilter")));
-			oFilter.push(new Filter("WoDes", "EQ", mLookupModel.getProperty("/sWorderIdDesFilter")));
-			oFilter.push(new Filter("EnteredByName", "EQ", mLookupModel.getProperty("/sCreatedBy")));
-			oFilter.push(new Filter("Priority", "EQ", mLookupModel.getProperty("/sPriorSelFilter")));
-			oFilter.push(new Filter("AssignedTech", "EQ", mLookupModel.getProperty("/sAssignedTo")));
-			oFilter.push(new Filter("Equipment", "EQ", mLookupModel.getProperty("/sEquipFilter")));
-			oFilter.push(new Filter("MnWkCtr", "EQ", mLookupModel.getProperty("/sWorkCenterFilter")));
+			oFilter.push(new Filter("Orderid", "EQ", mLookupModel.getProperty("/iWONumFilter") === null || mLookupModel.getProperty(
+				"/iWONumFilter") === undefined ? "" : mLookupModel.getProperty("/iWONumFilter")));
+
+			oFilter.push(new Filter("OrderType", "EQ", mLookupModel.getProperty("/sOrderTypeSelFilter") === null || mLookupModel.getProperty(
+				"/sOrderTypeSelFilter") === undefined ? "" : mLookupModel.getProperty("/sOrderTypeSelFilter")));
+
+			oFilter.push(new Filter("SysStatus", "EQ", mLookupModel.getProperty("/sStatusSelFilter") === null || mLookupModel.getProperty(
+				"/sStatusSelFilter") === undefined ? "" : mLookupModel.getProperty("/sStatusSelFilter")));
+
+			oFilter.push(new Filter("WoDes", "EQ", mLookupModel.getProperty("/sWorderIdDesFilter") === null || mLookupModel.getProperty(
+				"/sWorderIdDesFilter") === undefined ? "" : mLookupModel.getProperty("/sWorderIdDesFilter")));
+
+			oFilter.push(new Filter("EnteredByName", "EQ", mLookupModel.getProperty("/sCreatedBy") === null || mLookupModel.getProperty(
+				"/sCreatedBy") === undefined ? "" : mLookupModel.getProperty("/sCreatedBy")));
+
+			oFilter.push(new Filter("Priority", "EQ", mLookupModel.getProperty("/sPriorSelFilter") === null || mLookupModel.getProperty(
+				"/sPriorSelFilter") === undefined ? "" : mLookupModel.getProperty("/sPriorSelFilter")));
+
+			oFilter.push(new Filter("AssignedTech", "EQ", mLookupModel.getProperty("/sAssignedTo") === null || mLookupModel.getProperty(
+				"/sAssignedTo") === undefined ? "" : mLookupModel.getProperty("/sAssignedTo")));
+
+			oFilter.push(new Filter("Equipment", "EQ", mLookupModel.getProperty("/sEquipFilter") === null || mLookupModel.getProperty(
+				"/sEquipFilter") === undefined ? "" : mLookupModel.getProperty("/sEquipFilter")));
+
+			oFilter.push(new Filter("MnWkCtr", "EQ", mLookupModel.getProperty("/sWorkCenterFilter") === null || mLookupModel.getProperty(
+				"/sWorkCenterFilter") === undefined ? "" : mLookupModel.getProperty("/sWorkCenterFilter")));
 			oFilter.push(new Filter("FunctLoc", "EQ", ""));
 			oFilter.push(new Filter("Plant", "EQ", userPlant));
 			oFilter.push(new Filter({
@@ -605,7 +634,7 @@ sap.ui.define([
 				mLookupModel.refresh();
 				this.fnFetchWOList();
 				this._oDialogWO.close();
-			}else{
+			} else {
 				MessageBox.error("Please select Created on Date range within 90 days. ", {
 					actions: [MessageBox.Action.OK],
 					emphasizedAction: MessageBox.Action.OK
@@ -959,9 +988,14 @@ sap.ui.define([
 			mLookupModel.setProperty("/sCreatedOnStart", formatter.GetMonthsBackDate(3)); // Date Range for Enter Date
 			mLookupModel.setProperty("/sCreatedOnEnd", new Date().toLocaleDateString());
 		},
-		woListAdvFilterPanelOpen: function(oEvent){
+		woListAdvFilterPanelOpen: function (oEvent) {
 			var oNotifWrapPanel = this.byId("filterWrapPanelWOList");
 			oNotifWrapPanel.setExpanded(!oNotifWrapPanel.getExpanded());
+		},
+		routePatternMatched: function (oEvent) {
+			if (oEvent.getParameter("name") === "WOList") {
+				this.getLoggedInUser();
+			}
 		}
 	});
 });

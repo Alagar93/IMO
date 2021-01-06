@@ -2,10 +2,11 @@
 	xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" class="sapUiSizeCompact">
 	<Dialog title="{}" contentWidth="40%" contentHeight="80%" showHeader="false" verticalScrolling="false" class="sapUiSizeCompact">
 		<content>
-			<IconTabBar select="handleEquipIconTabSelect" class="equipmentIconTabBar">
+			<IconTabBar select="handleEquipIconTabSelect" class="iconTabHeader">
 				<items>
 					<IconTabFilter text="{i18n>favEq}" key="idFav">
-						<SearchField liveChange="onSearchFavEqips" width="100%" class="sapUiSmallMarginBottom" placeholder="{i18n>searchbyIDDes}"/>
+						<SearchField liveChange="onSearchFavEqips" width="100%" class="sapUiSmallMarginBottom sapSearchFieldBorderClass"
+							placeholder="{i18n>searchbyIDDes}"/>
 						<ScrollContainer height="20rem" vertical="true" focusable="false">
 							<Table mode="SingleSelectLeft" selectionChange="onEquipSelect" items="{path: 'mLookupModel>/aFavEquipList'}">
 								<columns>
@@ -33,27 +34,15 @@
 						</ScrollContainer>
 					</IconTabFilter>
 					<IconTabFilter text="{i18n>searchEq}" key="idSearchEq">
-						<l:Grid defaultSpan="L12 M12 S12">
-							<Label text="{i18n>TECHNICAL_ID}" class="styleTextBlue sapUiTinyMarginTop">
-								<layoutData>
-									<l:GridData span="L4 M8 S12"/>
-								</layoutData>
-							</Label>
-							<Input placeholder="{i18n>searchTechId}" value="{mLookupModel>/TechId}" width="100%">
-								<layoutData>
-									<l:GridData span="L8 M8 S12"/>
-								</layoutData>
-							</Input>
-							<Label text="{i18n>EQUIPMENT}" class="styleTextBlue sapUiTinyMarginTop">
-								<layoutData>
-									<l:GridData span="L4 M8 S12"/>
-								</layoutData>
-							</Label>
-							<Input placeholder="{i18n>searchbyIDDes}" value="{mLookupModel>/EqIdDes}">
-								<layoutData>
-									<l:GridData span="L8 M8 S12"/>
-								</layoutData>
-							</Input>
+						<l:Grid defaultSpan="XL6 L6 M6 S12">
+							<VBox>
+								<Label text="{i18n>TECHNICAL_ID}" class="sapUiTinyMarginTop"></Label>
+								<Input class="inputRadius" placeholder="{i18n>searchTechId}" value="{mLookupModel>/TechId}" width="100%"></Input>
+							</VBox>
+							<VBox>
+								<Label text="{i18n>EQUIPMENT}" class="sapUiTinyMarginTop"></Label>
+								<Input class="inputRadius" placeholder="{i18n>searchbyIDDes}" value="{mLookupModel>/EqIdDes}"></Input>
+							</VBox>
 						</l:Grid>
 						<ScrollContainer height="20rem" vertical="true" focusable="false">
 							<Table mode="SingleSelectLeft" selectionChange="onEquipSelect" growing="false" items="{path: 'mLookupModel>/aEquipmentsList'}">
@@ -88,7 +77,8 @@
 			</IconTabBar>
 		</content>
 		<beginButton>
-			<Button text="{i18n>CANCEL}" press="onCancelDialogEquip" class="transparentBtn createNotifClearBtn" icon="sap-icon://decline" iconFirst="true"/>
+			<Button text="{i18n>CANCEL}" press="onCancelDialogEquip" class="transparentBtn createNotifClearBtn" icon="sap-icon://decline"
+				iconFirst="true"/>
 		</beginButton>
 		<endButton>
 			<Button text="{i18n>SEARCH}" press="onSearchWOFilter" type="Emphasized"/>

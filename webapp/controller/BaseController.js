@@ -1002,7 +1002,7 @@ sap.ui.define([
 					oWorkOrderDetailModel.setProperty("/", oData);
 					that.sortOperations();
 					oWorkOrderDetailModel.refresh(true);
-					that.fnGetWOOperationsComments(Orderid);
+					//that.fnGetWOOperationsComments(Orderid);//There is no comments section
 					that.fnGetWOAttachmentLinks(Orderid);
 					that.getOperationIdLookup();
 					//that.getSavedOperationIdLookup();//Saved Operations only Lookup.
@@ -2042,7 +2042,7 @@ sap.ui.define([
 			oWorkOrderDetailViewModel.setProperty("/enableOpCnfmLongText", false);
 			oWorkOrderDetailViewModel.setProperty("/confirmationLongText", "");
 			oWorkOrderDetailViewModel.refresh();
-			this.fnFilterSlectedOperationComment();
+			//this.fnFilterSlectedOperationComment();//No comment section is present.
 		},
 
 		//Function to open Digital signaure pop-up
@@ -2468,7 +2468,9 @@ sap.ui.define([
 			mLookupModel.setProperty("/bBusyworkcenter", true);
 			var userPlant = this.oUserDetailModel.getProperty("/userPlant");
 			var sWorkCenterSel = mLookupModel.getProperty("/sWorkCenterSel");
-
+			if(sWorkCenterSel === null) {
+				sWorkCenterSel = "";
+			}
 			var oFilter = [];
 			oFilter.push(new Filter("Plant", "EQ", userPlant));
 			oFilter.push(new Filter("WorkCenter", "EQ", sWorkCenterSel));

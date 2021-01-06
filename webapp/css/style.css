@@ -2250,6 +2250,7 @@ background-color: #377295;
 
 .dialogHeader .sapMBarTitleStart .sapMBarPH {
     justify-content: center;
+    background-color: #ffffff !important;
 }
 
 html.sap-desktop .sapMIBar.sapMFooter-CTX {
@@ -2286,7 +2287,7 @@ html.sap-desktop .sapMIBar.sapMFooter-CTX {
 
 /* ______________________RIGHT PANEL CSS Begin________________________________*/
 .iopRightPanelContainer {
-    height: 100%;
+    height: 100% !important;
     position: fixed;
     z-index: 40;
     right: 13px;
@@ -2662,40 +2663,63 @@ html.sap-desktop .sapMIBar.sapMFooter-CTX {
 .panelTextColor1 {
     color: #6f7275 !important;
 }
-.sapMPanel>.sapMPanelHdr, .sapMPanelWrappingDiv, .sapMPanelWrappingDivTb {
+
+.sapMPanel>.sapMPanelHdr,
+.sapMPanelWrappingDiv,
+.sapMPanelWrappingDivTb {
     border-bottom: 0rem !important;
 }
+
 .sapUshellShell .sapMITH {
     box-shadow: none !important;
     background-color: #ebedef !important;
 }
-.sapMBtnOrangeColor{
-	background-color: #fff;
+
+.sapMBtnOrangeColor {
+    background-color: #fff;
     border: 1px solid #FFD700;
     border-radius: 0.2rem;
     color: #FFD700;
     text-shadow: 0 0 0.125rem rgba(0, 0, 0, 0.5);
 }
+
 /*nischal -- WODetail screen -- Ends*/
 
-.createNotifClearBtn span{
-	border-color: #778899 !important;
+.createNotifClearBtn span {
+    border-color: #778899 !important;
     color: #778899;
 }
+
 .createNotifClearBtn .sapMBtnIcon {
-	color: #778899;
+    color: #778899;
 }
-.partialConfirmBtn span{
-	border-color: #FFBF00 !important;
+
+.partialConfirmBtn span {
+    border-color: #FFBF00 !important;
     color: #FFBF00;
 }
+
 .partialConfirmBtn .sapMBtnIcon {
-	color: #FFBF00;
+    color: #FFBF00;
 }
-.transparentBtn span{
-	background-color: transparent !important;
-	text-shadow: none !important;
+
+.transparentBtn span {
+    background-color: transparent !important;
+    text-shadow: none !important;
 }
+
 .whiteBG {
-	background: white !important;
+    background: white !important;
+}
+
+.hideContent .sapMITBContent {
+    visibility: hidden;
+}
+
+.successCircle {
+    color: #00ff00 !important
+}
+
+.errorCircle {
+    color: #ff0000 !important
 }
