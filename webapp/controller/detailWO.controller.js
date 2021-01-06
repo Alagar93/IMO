@@ -586,6 +586,28 @@ sap.ui.define([
 			}
 			oWorkOrderDetailModel.setProperty("/MalFunStartDate", dateValue);
 			oWorkOrderDetailModel.refresh();
+			this.fnValidateMalfunctionDateTime();
+		},
+		fnValidateMalfunctionDateTime: function () {
+			var oWorkOrderDetailModel = this.oWorkOrderDetailModel;
+			var oDate1 = oWorkOrderDetailModel.getProperty("/MalFunStartDate");
+			var sTime = oWorkOrderDetailModel.getProperty("/MalFunStartTime");
+			var dd = oDate1.getDate();
+			var MM = oDate1.getMonth() + 1;
+			var yy = oDate1.getFullYear();
+			var newDate = yy + "/" + MM + "/" + dd;
+			newDate = newDate + " " + sTime;
+			var oDateObj1 = new Date(newDate);
+			var oDateObj2 = new Date();
+			if (oDateObj1 > oDateObj2) {
+				MessageBox.warning("Malfunction Date entered is in future", {
+					actions: [MessageBox.Action.OK],
+					emphasizedAction: MessageBox.Action.OK,
+					onClose: function (sAction) {
+
+					}
+				});
+			}
 		},
 
 		/////////////////////////////////Header Details/////////////////////////////////
@@ -2937,6 +2959,8 @@ sap.ui.define([
 
 		onCancelDialogEquip: function (oEvent) {
 			this.woEquipmentsList.close();
+			this.woEquipmentsList.destroy();
+			this.woEquipmentsList = null;
 		},
 
 		//Function to select a Equipment and auto-populate Functional location
@@ -2960,10 +2984,11 @@ sap.ui.define([
 			mLookupModel.setProperty("/sCatelogProf", sCatelogProf);
 			var workCenterId = this.setEquipWorkCenter(sWorkCenterSel, mLookupModel);
 			oWorkOrderDetailModel.setProperty("/MnWkCtr", workCenterId);
-			this.fnFilterSlectedDamageGroup();
-			this.fnFilterSlectedCauseGroup();
-			this.woEquipmentsList.close();
+			// this.fnFilterSlectedDamageGroup();
+			// this.fnFilterSlectedCauseGroup();
+			// this.woEquipmentsList.close();
 			this.getEquipsAssmebly(iEqId);
+			this.onCancelDialogEquip();
 		},
 
 		//Function to search Fav equipments
@@ -3351,6 +3376,27 @@ sap.ui.define([
 		//Function to validate user entered Float values
 		validateFloatValues: function (oEvent) {
 			util.validateInputDataType(oEvent, this);
+		},
+		//Function to validate BreakDown duration is float type
+		validateBreakDownValue : function(oEvent){
+			util.validateInputDataType(oEvent, this);
+			var oWorkOrderDetailModel = this.oWorkOrderDetailModel;
+			var oWorkOrderDetailViewModel = this.oWorkOrderDetailViewModel;
+			var oDate = oWorkOrderDetailModel.getProperty("/MalFunStartDate");
+			var oTime = oWorkOrderDetailModel.getProperty("/MalFunStartTime");
+			var sDiffDate = util.validateBreakDownDate(oDate, oTime);
+			var fDiffDate = parseFloat(sDiffDate).toFixed(2);
+			var sBreakDownDur = oWorkOrderDetailModel.getProperty("/Downtime");
+			var fBreakDownDur = parseFloat(sBreakDownDur).toFixed(2);
+			if (parseFloat(fBreakDownDur) > parseFloat(fDiffDate)) {
+				MessageBox.warning("BreakDown duration entered is in future", {
+					actions: [MessageBox.Action.OK],
+					emphasizedAction: MessageBox.Action.OK,
+					onClose: function (sAction) {
+
+					}
+				});
+			}
 		},
 
 		//Function to validate user entered Integer values

@@ -989,7 +989,7 @@ sap.ui.define([
 					}
 					//nischal -- starts -- downtime was embedded with additional empty strings
 					if(oData.Downtime){
-					var downTime = parseInt(oData.Downtime,10);
+					var downTime = parseFloat(oData.Downtime).toFixed(2);
 					oData.Downtime = downTime.toString();
 					}
 					if(oData.Breakdown === true){
@@ -2468,7 +2468,9 @@ sap.ui.define([
 			mLookupModel.setProperty("/bBusyworkcenter", true);
 			var userPlant = this.oUserDetailModel.getProperty("/userPlant");
 			var sWorkCenterSel = mLookupModel.getProperty("/sWorkCenterSel");
-
+			if(sWorkCenterSel === null) {
+				sWorkCenterSel = "";
+			}
 			var oFilter = [];
 			oFilter.push(new Filter("Plant", "EQ", userPlant));
 			oFilter.push(new Filter("WorkCenter", "EQ", sWorkCenterSel));

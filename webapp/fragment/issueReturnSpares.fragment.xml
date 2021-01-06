@@ -1,7 +1,30 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:ui="sap.ui.table">
-	<Dialog title="{oWorkOrderDetailViewModel>/issueReturnDialogHeader}" class="sapUiSizeCompact">
+	<Dialog title="{oWorkOrderDetailViewModel>/issueReturnDialogHeader}" class="sapUiSizeCompact dialogHeader" contentWidth="50%">
 		<content>
-			<FlexBox alignItems="Start" justifyContent="Start" class="sapUiTinyMarginTopBottom sapUiTinyMarginEnd">
+			<l:Grid defaultSpan="XL6 L6 M4 S12" class="sapUiTinyMargin">
+				<VBox>
+					<Label text="{i18n>DOC_DATE}" class="sapUiTinyMarginBegin">
+					</Label>
+					<DatePicker class="inputRadius" placeholder="dd-MM-yyyy" dateValue="{oWorkOrderDetailViewModel>/DocDate}" displayFormat="dd-MM-yyyy"
+						valueFormat="yyyy-MM-ddTHH:mm:ss" width="100%">
+						<customData>
+							<core:CustomData key="dateType" value="DocDate"/>
+						</customData>
+					</DatePicker>
+				</VBox>
+				<VBox>
+					<Label text="{i18n>POSTING_DATE}" class="sapUiTinyMarginBegin">
+					</Label>
+					<DatePicker placeholder="dd-MM-yyyy" dateValue="{oWorkOrderDetailViewModel>/PstngDate}" displayFormat="dd-MM-yyyy"
+						valueFormat="yyyy-MM-ddTHH:mm:ss" width="100%" class="inputRadius">
+						<customData>
+							<core:CustomData key="dateType" value="PstngDate"/>
+						</customData>
+					</DatePicker>
+					
+				</VBox>
+			</l:Grid>
+			<!--<FlexBox alignItems="Start" justifyContent="Start" class="sapUiTinyMarginTopBottom sapUiTinyMarginEnd">
 				<items>
 					<Label text="{i18n>DOC_DATE}" class="sapUiTinyMarginBegin">
 						<layoutData>
@@ -30,20 +53,20 @@
 						</customData>
 					</DatePicker>
 				</items>
-			</FlexBox>
+			</FlexBox>-->
 			<ui:Table rows="{oWorkOrderDetailViewModel>/materialQuantities}" selectionMode="None" visibleRowCount="8"
-				class="sapUITableColumn sapUiTinyMarginTop sapUiTinyMarginBeginEnd" enableSelectAll="false">
+				class="sapUITableColumn sapUiTinyMargin" enableSelectAll="false">
 				<ui:columns>
-					<ui:Column hAlign="Center">
-						<Label text="{i18n>SAP_ID}" class="sapUITableColumnLabelClass"/>
+					<ui:Column>
+						<Label text="{i18n>SAP_ID}" class="tableHeaderText"/>
 						<ui:template>
 							<Text text="{oWorkOrderDetailViewModel>Material}"/>
 						</ui:template>
 					</ui:Column>
-					<ui:Column hAlign="Center">
-						<Label text="{i18n>REQ_QTY}" class="sapUITableColumnLabelClass"/>
+					<ui:Column>
+						<Label text="{i18n>REQ_QTY}" class="tableHeaderText"/>
 						<ui:template>
-							<Input value="{oWorkOrderDetailViewModel>Quantity}" maxLength="4" width="100%" change="validateFloatValues">
+							<Input class="inputRadius" value="{oWorkOrderDetailViewModel>Quantity}" maxLength="4" width="100%" change="validateFloatValues">
 								<customData>
 									<core:CustomData value="FLOAT"/>
 								</customData>

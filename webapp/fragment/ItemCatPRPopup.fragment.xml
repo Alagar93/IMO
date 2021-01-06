@@ -1,12 +1,12 @@
 <core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:layout="sap.ui.layout"
 	xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" class="sapUiSizeCompact">
-	<Dialog title="{}" contentWidth="40%" contentHeight="60%" showHeader="false" verticalScrolling="false" class="sapUiSizeCompact">
-		<Page title="Change Corrective Maintenance Order" showHeader="true" titleAlignment="Center">
+	<Dialog title="{}" contentWidth="40%" contentHeight="70%" showHeader="false" verticalScrolling="false" class="sapUiSizeCompact dialogHeader">
+		<Page title="Change Corrective Maintenance Order" showHeader="true" class="whiteBG">
 			<content>
-				<l:Grid >
+				<l:Grid class="sapUiSmallMargin">
 					<VBox class="sapUiSmallMarginTop">
 						<Label text="{i18n>MAT_DESC}"></Label>
-						<Input value="{oWorkOrderDetailViewModel>/oComponentDetails/MatlDesc}"></Input>
+						<Input class="inputRadius" value="{oWorkOrderDetailViewModel>/oComponentDetails/MatlDesc}"></Input>
 						<layoutData>
 							<l:GridData span="XL6 L12 M12 S6"/>
 						</layoutData>
@@ -14,18 +14,8 @@
 					<VBox class="sapUiSmallMarginTop">
 						<Label text="{i18n>MAT_REQ_QTY}"></Label>
 						<HBox>
-							<Input value="{oWorkOrderDetailViewModel>/oComponentDetails/RequirementQuantity}" width="100%"></Input>
-							<Input value="{oWorkOrderDetailViewModel>/oComponentDetails/RequirementQuantityUnit}" width="100%"></Input>
-						</HBox>
-						<layoutData>
-							<l:GridData span="XL6 L6 M6 S6"/>
-						</layoutData>
-					</VBox>
-					<VBox class="sapUiSmallMarginTop">
-						<Label text="Price"></Label>
-						<HBox>
-							<Input value="{oWorkOrderDetailViewModel>/oComponentDetails/Price}" width="100%"></Input>
-							<Input value="{oWorkOrderDetailViewModel>/oComponentDetails/Currency}" width="100%"></Input>
+							<Input class="inputRadius" value="{oWorkOrderDetailViewModel>/oComponentDetails/RequirementQuantity}" width="100%"></Input>
+							<Input class="inputRadius sapUiTinyMarginBegin" value="{oWorkOrderDetailViewModel>/oComponentDetails/RequirementQuantityUnit}" width="100%"></Input>
 						</HBox>
 						<layoutData>
 							<l:GridData span="XL6 L6 M6 S6"/>
@@ -33,14 +23,24 @@
 					</VBox>
 					<VBox class="sapUiSmallMarginTop">
 						<Label text="Per"></Label>
-						<Input value="{oWorkOrderDetailViewModel>/oComponentDetails/PriceUnit}"></Input>
+						<Input class="inputRadius" value="{oWorkOrderDetailViewModel>/oComponentDetails/PriceUnit}"></Input>
+						<layoutData>
+							<l:GridData span="XL6 L6 M6 S6"/>
+						</layoutData>
+					</VBox>
+					<VBox class="sapUiSmallMarginTop">
+						<Label text="Price"></Label>
+						<HBox>
+							<Input class="inputRadius" value="{oWorkOrderDetailViewModel>/oComponentDetails/Price}" width="100%"></Input>
+							<Input class="inputRadius sapUiTinyMarginBegin" value="{oWorkOrderDetailViewModel>/oComponentDetails/Currency}" width="100%"></Input>
+						</HBox>
 						<layoutData>
 							<l:GridData span="XL6 L6 M6 S6"/>
 						</layoutData>
 					</VBox>
 					<VBox class="sapUiSmallMarginTop">
 						<Label text="Material Group"></Label>
-						<Input value="{oWorkOrderDetailViewModel>/oComponentDetails/MaterialGroup}"></Input>
+						<Input class="inputRadius" value="{oWorkOrderDetailViewModel>/oComponentDetails/MaterialGroup}"></Input>
 						<layoutData>
 							<l:GridData span="XL6 L6 M6 S6"/>
 						</layoutData>
@@ -48,8 +48,8 @@
 					<VBox class="sapUiSmallMarginTop">
 						<Label text="Purch. Group"></Label>
 						<HBox>
-							<Input value="{oWorkOrderDetailViewModel>/oComponentDetails/PurchGrp}" width="100%"></Input>
-							<Input value="{oWorkOrderDetailViewModel>/oComponentDetails/PurchOrg}" width="100%"></Input>
+							<Input class="inputRadius" value="{oWorkOrderDetailViewModel>/oComponentDetails/PurchGrp}" width="100%"></Input>
+							<Input class="inputRadius sapUiTinyMarginBegin" value="{oWorkOrderDetailViewModel>/oComponentDetails/PurchOrg}" width="100%"></Input>
 						</HBox>
 						<layoutData>
 							<l:GridData span="XL6 L6 M6 S6"/>
@@ -57,7 +57,7 @@
 					</VBox>
 					<VBox class="sapUiSmallMarginTop">
 						<Label text="Vendor"></Label>
-						<Input value="{oWorkOrderDetailViewModel>/oComponentDetails/VendorNo}"></Input>
+						<Input class="inputRadius" value="{oWorkOrderDetailViewModel>/oComponentDetails/VendorNo}"></Input>
 						<layoutData>
 							<l:GridData span="XL6 L6 M6 S6"/>
 						</layoutData>
@@ -65,8 +65,8 @@
 					<VBox class="sapUiSmallMarginTop">
 						<Label text="Agreement"></Label>
 						<HBox>
-							<Input value="{oWorkOrderDetailViewModel>/oComponentDetails/Agreement}" width="100%"></Input>
-							<Input value="{oWorkOrderDetailViewModel>/oComponentDetails/AgmntItem}" width="100%"></Input>
+							<Input class="inputRadius" value="{oWorkOrderDetailViewModel>/oComponentDetails/Agreement}" width="100%"></Input>
+							<Input class="inputRadius sapUiTinyMarginBegin" value="{oWorkOrderDetailViewModel>/oComponentDetails/AgmntItem}" width="100%"></Input>
 						</HBox>
 						<layoutData>
 							<l:GridData span="XL6 L6 M6 S6"/>
@@ -74,14 +74,14 @@
 					</VBox>
 					<VBox class="sapUiSmallMarginTop">
 						<Label text="Recipient"></Label>
-						<Input value="{oWorkOrderDetailViewModel>/oComponentDetails/Recipient}"></Input>
+						<Input class="inputRadius" value="{oWorkOrderDetailViewModel>/oComponentDetails/Recipient}" width="100%"></Input>
 						<layoutData>
 							<l:GridData span="XL6 L6 M6 S6"/>
 						</layoutData>
 					</VBox>
 					<VBox class="sapUiSmallMarginTop">
 						<Label text="Requisitioner"></Label>
-						<Input value="{oWorkOrderDetailViewModel>/oComponentDetails/Requisitioner}"></Input>
+						<Input class="inputRadius" value="{oWorkOrderDetailViewModel>/oComponentDetails/Requisitioner}" width="100%"></Input>
 						<layoutData>
 							<l:GridData span="XL6 L6 M6 S6"/>
 						</layoutData>
@@ -90,8 +90,8 @@
 			</content>
 			<footer>
 				<Toolbar>
-					<Button class="transparentBtn createNotifClearBtn" icon="sap-icon://decline" iconFirst="true" text="Cancel" press="onCancelItemCatPR"/>
 					<ToolbarSpacer/>
+					<Button class="transparentBtn createNotifClearBtn" icon="sap-icon://decline" iconFirst="true" text="Cancel" press="onCancelItemCatPR"/>
 					<Button type="Emphasized" text="Save" press="onSaveItemCatPR">
 						<customData>
 							<core:CustomData key="dateType" value="CREATE_ORDER"/>
