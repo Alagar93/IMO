@@ -989,7 +989,7 @@ sap.ui.define([
 					}
 					//nischal -- starts -- downtime was embedded with additional empty strings
 					if(oData.Downtime){
-					var downTime = parseInt(oData.Downtime,10);
+					var downTime = parseFloat(oData.Downtime).toFixed(2);
 					oData.Downtime = downTime.toString();
 					}
 					if(oData.Breakdown === true){

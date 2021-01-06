@@ -234,7 +234,7 @@
 					</VBox>
 					<VBox class="sapUiTinyMarginTop" visible = "{parts:['oWorkOrderDetailModel>/Breakdown', 'oWorkOrderDetailViewModel>/withNotificationCheck'], formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnNotifRelatedFieldsVisible'}">
 						<Label text="{i18n>BREAKDOWN_DURATION}"></Label>
-						<Input value="{oWorkOrderDetailModel>/Downtime}" change="validateFloatValues" class="inputRadius"
+						<Input value="{oWorkOrderDetailModel>/Downtime}" change="validateBreakDownValue" class="inputRadius"
 							enabled="{parts:['oWorkOrderDetailModel>/Breakdown', 'oWorkOrderDetailModel>/OrderStatus'], formatter:'com.sap.incture.IMO_PM.formatter.formatter.enableBreakDownFields'}">
 							<customData>
 								<core:CustomData value="FLOAT"/>
@@ -324,7 +324,7 @@
 					<VBox visible = "{parts:['oWorkOrderDetailModel>/Breakdown', 'oWorkOrderDetailViewModel>/withNotificationCheck'], formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnNotifRelatedFieldsVisible'}">
 						<Label text="{i18n>TIME}"></Label>
 						<TimePicker value="{oWorkOrderDetailModel>/MalFunStartTime}" valueFormat="HH:mm" displayFormat="HH:mm" placeholder="HH:mm"
-							enabled="{oWODetailFieldsModel>/malFnStartTime}" class="inputRadius" width="100%">
+							enabled="{oWODetailFieldsModel>/malFnStartTime}" class="inputRadius" width="100%" change = "fnValidateMalfunctionDateTime">
 							<customData>
 								<core:CustomData key="dateType" value="MalFunStartTime"/>
 							</customData>
