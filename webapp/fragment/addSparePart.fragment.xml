@@ -8,7 +8,7 @@
 					<IconTabFilter text="{i18n>FREQUENTLY_USED}" key="FREQ_USED"/>
 				</items>
 			</IconTabBar>
-			<l:Grid visible="{oWorkOrderDetailViewModel>/setSearchLayVisible}">
+			<l:Grid visible="{oWorkOrderDetailViewModel>/setSearchLayVisible}" class="sapUiTinyMarginBottom sapUiSmallMarginBeginEnd">
 				<l:content>
 					<VBox>
 						<Label text="{i18n>DETAIL_SPARE_PART_SAP_ID}"></Label>
@@ -71,7 +71,7 @@
 				</l:content>
 			</l:Grid>
 			<ui:Table rows="{oWorkOrderDetailViewModel>/aMaterialsList}" selectionMode="MultiToggle" id="MYLAN_MATERIALS_SEARCH_TBL"
-				class="sapUiTinyMarginTop" enableSelectAll="false" rowSelectionChange="onSelectMaterials"
+				class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom" enableSelectAll="false" rowSelectionChange="onSelectMaterials"
 				visibleRowCount="{mLookupModel>/spRowCount}" rowHeight="40" >
 				<ui:columns>
 					<ui:Column width="14%">

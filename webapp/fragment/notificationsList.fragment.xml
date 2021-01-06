@@ -2,11 +2,11 @@
 	<Dialog title="{i18n>NOTIFICATION_LIST}" class="sapUiSizeCompact dialogHeader">
 		<content>
 			<!--<HBox class="sapUiTinyMargin">-->
-				<SearchField search="onSearchNotif" value="{oWorkOrderDetailViewModel>/notifSearchVal}" class="sapSearchFieldBorderClass sapUiTinyMargin"
+				<SearchField search="onSearchNotif" value="{oWorkOrderDetailViewModel>/notifSearchVal}" class="sapSearchFieldBorderClass sapUiSmallMargin"
 					placeholder="{i18n>NOTI_ID_OR_DESC}" tooltip="{i18n>NOTI_ID_OR_DESC}" width="15rem"/>
 			<!--</HBox>-->
 			<ui:Table rows="{oWorkOrderDetailViewModel>/aNotificationsSet}" selectionMode="MultiToggle" visibleRowCount="8" id="WO_DETAIL_NOTIF_TBL"
-				class="sapUITableColumn sapUiTinyMargin" enableSelectAll="false" rowSelectionChange="onSelectNotifications">
+				class="sapUITableColumn sapUiSmallMargin" enableSelectAll="false" rowSelectionChange="onSelectNotifications">
 				<ui:columns>
 					<ui:Column width="8rem">
 						<Label text="{i18n>NOTIFICATION}" class="tableHeaderText"/>
