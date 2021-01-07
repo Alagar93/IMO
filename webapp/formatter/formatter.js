@@ -26,22 +26,22 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 
 	},
 	//nischal -- function to show breakdown duration fields Malfunction Start date and time
-	fnNotifRelatedFieldsVisible : function(sVal1,sVal2){
-		if(sVal2 === true){
-			if(sVal1){
+	fnNotifRelatedFieldsVisible: function (sVal1, sVal2) {
+		if (sVal2 === true) {
+			if (sVal1) {
 				return true;
-			}else{
+			} else {
 				return false;
 			}
-		}else{
+		} else {
 			return false;
 		}
 	},
 	//nischal -- function to enable or disable Checkbox in WoDetail view based on OrderStatus
-	fnSetCheckBoxVisible : function(sValue){
-		if(sValue === ""){
+	fnSetCheckBoxVisible: function (sValue) {
+		if (sValue === "") {
 			return true;
-		}else{
+		} else {
 			return false;
 		}
 	},
@@ -587,16 +587,17 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 		}
 		return bFlag;
 	},
-	
+
 	//function to validate Material before PR
 	MaterialPRVAlidation: function (oMaterial) {
-			var bFlag = true;
-			if ((oMaterial.MatlDesc === "" || oMaterial.MatlDesc === undefined) && (oMaterial.RequirementQuantity === "" || oMaterial.RequirementQuantity ===
-					undefined) && (oMaterial.RequirementQuantityUnit === "" || oMaterial.RequirementQuantityUnit === undefined)) {
-				bFlag = false;
-			}
-			return bFlag;
-		},
+		var bFlag = true;
+
+		if ((oMaterial.MatlDesc === "" || oMaterial.MatlDesc === undefined) && (oMaterial.RequirementQuantity === "" || oMaterial.RequirementQuantity ===
+				undefined) && (oMaterial.RequirementQuantityUnit === "" || oMaterial.RequirementQuantityUnit === undefined)) {
+			bFlag = false;
+		}
+		return bFlag;
+	},
 	//Function to add logged in user name in Report by field
 	setReportByUser: function (userName, woData) {
 		if (woData) {
@@ -667,6 +668,20 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 		nDurHrs = nDuration / (1000 * 60 * 60);
 		return parseInt(nDurHrs, 10).toString();
 	},
+	//Function to Convert Str to Int
+	fnStrtoInt: function (Str) {
+		var iNum;
+		if (typeof (Str) === "string") {
+			if (Str !== "") {
+				iNum = parseInt(Str, 10);
+			} else {
+				iNum = 0;
+			}
+		} else {
+			iNum = Str;
+		}
+		return iNum;
+	},
 	//Function to perform Breakdown Validation While closing notification
 	fnBreakDownValidation: function (bBreakdown, sEnddate) {
 		if (bBreakdown) {
@@ -678,6 +693,14 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 		} else {
 			return true;
 		}
+	},
+	//Function to show view Oper purchse details if PM03
+	fnShowOperViewButton: function (sKey) {
+		var bFlag = false;
+		if (sKey === "PM03") {
+			bFlag = true;
+		}
+		return bFlag;
 	},
 	//Function to open Material and BOM Table in Spare Parts 
 	setMatBOMTable: function (sSelectedKey) {
@@ -738,7 +761,7 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 		return bStatus;
 	},
 	//function to disable assignWO button for NOCO notifs
-	disableAssignWOField:function(selectedIndices, selectedPaths, NotifList){
+	disableAssignWOField: function (selectedIndices, selectedPaths, NotifList) {
 		var bStatus = true;
 		if (!selectedIndices || selectedIndices < 1) {
 			return false;
@@ -1345,10 +1368,18 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 		return userid;
 
 	},
+	setReportedBy:function(userId){
+		var oWorkOrderDetailModel=this.getModel("oWorkOrderDetailModel");
+		if(userId&&oWorkOrderDetailModel){
+			oWorkOrderDetailModel.setProperty("/ReportedBy",userId);
+		}
+		return userId;
+	},
 	fnGetReportedByName: function (userid) {
 
 		var oModel = this.getModel("oPortalDataModel");
 		var mLookupModel = this.getModel("mLookupModel");
+
 		if (userid && oModel && mLookupModel) {
 			var oFilter = [];
 			oFilter.push(new sap.ui.model.Filter("Bname", "EQ", userid));
@@ -1356,6 +1387,7 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 				filters: oFilter,
 				async: false,
 				success: function (oData, oResponse) {
+
 					mLookupModel.setProperty("/ReportedByName", oData.results[0].NameTextc);
 					mLookupModel.refresh();
 				},

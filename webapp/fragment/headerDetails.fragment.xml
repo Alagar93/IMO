@@ -135,6 +135,16 @@
 						</layoutData>
 					</VBox>
 					<VBox class="sapUiTinyMarginTop">
+						<Label text="{i18n>PRIORITY}" required="false"></Label>
+						<ComboBox class="inputRadius" items="{mLookupModel>/aPrioritySet}" selectedKey="{oWorkOrderDetailModel>/Priority}"
+							enabled="{oWODetailFieldsModel>/priority}" width="100%" change="onChangePriority">
+							<core:ListItem key="{mLookupModel>PRIOK}" text="{mLookupModel>PRIOKX}" tooltip="{oWorkOrderDetailModel>/Priority}"/>
+						</ComboBox>
+						<layoutData>
+							<l:GridData span="XL2 L2 M4 S6"/>
+						</layoutData>
+					</VBox>
+					<VBox class="sapUiTinyMarginTop">
 						<Label text="{i18n>REQUIRED_STARTDATE}"></Label>
 						<DatePicker minDate="{oWorkOrderDetailViewModel>/currentDate1}" placeholder="dd-MM-yyyy" dateValue="{oWorkOrderDetailModel>/PlanStartDate}"
 							displayFormat="dd-MM-yyyy" valueFormat="yyyy-MM-ddTHH:mm:ss" enabled="{oWODetailFieldsModel>/planStartDate}" change="fnValidateDates"
@@ -174,16 +184,7 @@
 							<l:GridData span="XL2 L2 M4 S6"/>
 						</layoutData>
 					</VBox>
-					<VBox class="sapUiTinyMarginTop">
-						<Label text="{i18n>PRIORITY}" required="false"></Label>
-						<ComboBox class="inputRadius" items="{mLookupModel>/aPrioritySet}" selectedKey="{oWorkOrderDetailModel>/Priority}"
-							enabled="{oWODetailFieldsModel>/priority}" width="100%" change="onChangePriority">
-							<core:ListItem key="{mLookupModel>PRIOK}" text="{mLookupModel>PRIOKX}" tooltip="{oWorkOrderDetailModel>/Priority}"/>
-						</ComboBox>
-						<layoutData>
-							<l:GridData span="XL2 L2 M4 S6"/>
-						</layoutData>
-					</VBox>
+					
 					<VBox class="sapUiTinyMarginTop">
 						<Label text="{i18n>ASSIGNED_TECH_NAME}"></Label>
 						<!--	<Input value="{path:'oWorkOrderDetailViewModel>/HEADERTOPARTNERNAV/0/AssignedTo',formatter:'com.mylan.createWorkOrder.formatter.formatter.fnGetNamefromUserid'}" 
@@ -197,8 +198,8 @@
 					<VBox class="sapUiTinyMarginTop">
 						<HBox>
 							<Label text="{i18n>SUPERIOR_WO}"></Label>
-							<Link text="View WO" press="onViewSuperiorWO" class = "sapUiSmallMarginBegin" 
-							enabled="{path:'oWorkOrderDetailModel>/SuperOrder', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setSuperiorWOEnabled'}"/>
+							<Link text="View WO" press="onViewSuperiorWO" class="sapUiSmallMarginBegin"
+								enabled="{path:'oWorkOrderDetailModel>/SuperOrder', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setSuperiorWOEnabled'}"/>
 						</HBox>
 						<Input value="{oWorkOrderDetailModel>/SuperOrder}" change="validateIntegerValues" class="inputRadius"
 							enabled="{oWODetailFieldsModel>/priority}" width="100%">
@@ -224,7 +225,7 @@
 							<l:GridData span="XL2 L2 M4 S6"/>
 						</layoutData>
 					</VBox>
-					<VBox class="sapUiTinyMarginTop" visible = "{oWorkOrderDetailViewModel>/withNotificationCheck}">
+					<VBox class="sapUiTinyMarginTop" visible="{oWorkOrderDetailViewModel>/withNotificationCheck}">
 						<Label text="{i18n>BREAKDOWN}"></Label>
 						<Switch state="{path:'oWorkOrderDetailModel>/Breakdown', formatter:'com.sap.incture.IMO_PM.formatter.formatter.formatBooleanBreakDown'}"
 							enabled="{oWODetailFieldsModel>/breakdown}" change="fnUpdateBreakDownStatus"/>
@@ -232,9 +233,10 @@
 							<l:GridData span="XL2 L2 M4 S6"/>
 						</layoutData>
 					</VBox>
-					<VBox class="sapUiTinyMarginTop" visible = "{parts:['oWorkOrderDetailModel>/Breakdown', 'oWorkOrderDetailViewModel>/withNotificationCheck'], formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnNotifRelatedFieldsVisible'}">
+					<VBox class="sapUiTinyMarginTop"
+						visible="{parts:['oWorkOrderDetailModel>/Breakdown', 'oWorkOrderDetailViewModel>/withNotificationCheck'], formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnNotifRelatedFieldsVisible'}">
 						<Label text="{i18n>BREAKDOWN_DURATION}"></Label>
-						<Input value="{oWorkOrderDetailModel>/Downtime}" change="validateFloatValues" class="inputRadius"
+						<Input value="{oWorkOrderDetailModel>/Downtime}" change="validateBreakDownValue" class="inputRadius"
 							enabled="{parts:['oWorkOrderDetailModel>/Breakdown', 'oWorkOrderDetailModel>/OrderStatus'], formatter:'com.sap.incture.IMO_PM.formatter.formatter.enableBreakDownFields'}">
 							<customData>
 								<core:CustomData value="FLOAT"/>
@@ -272,8 +274,9 @@
 				<l:content>
 					<VBox>
 						<Label text="{i18n>PLANNER_GROUP}"></Label>
-						<Select class="selectRadius" forceSelection="false" selectedKey="{oWorkOrderDetailModel>/Plangroup}" items="{mLookupModel>/aPlannerGroupSet}"
-							showSecondaryValues="true" enabled="{oWODetailFieldsModel>/plannerGrp}" tooltip="{oWorkOrderDetailModel>/Plangroup}" width="100%">
+						<Select class="selectRadius" forceSelection="false" selectedKey="{oWorkOrderDetailModel>/Plangroup}"
+							items="{mLookupModel>/aPlannerGroupSet}" showSecondaryValues="true" enabled="{oWODetailFieldsModel>/plannerGrp}"
+							tooltip="{oWorkOrderDetailModel>/Plangroup}" width="100%">
 							<core:ListItem key="{mLookupModel>VAGRP}" additionalText="{mLookupModel>VAGRP}" text="{mLookupModel>TXT}"/>
 						</Select>
 						<layoutData>
@@ -290,25 +293,27 @@
 					</VBox>
 					<VBox>
 						<Label text="{i18n>REPORTED_BY}"></Label>
-						<Input value="{path:'oWorkOrderDetailModel>/ReportedBy',formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnGetReportedByName'}"
-							showValueHelp="true" valueHelpRequest="handleValueHelp" class="inputRadius" tooltip="{oWorkOrderDetailModel>/ReportedBy}"
-							enabled="{oWODetailFieldsModel>/assignedTo}" valueHelpOnly="true">
+						<Input value="{path:'oUserDetailModel>/userName',formatter:'com.sap.incture.IMO_PM.formatter.formatter.setReportedBy'}"
+							 class="inputRadius" 
+							enabled="false" >
 							<customData>
 								<core:CustomData value="/ReportedBy"/>
 							</customData>
 						</Input>
+						
 						<layoutData>
 							<l:GridData span="XL2 L2 M4 S6"/>
 						</layoutData>
 					</VBox>
 					<VBox>
 						<Label text="{i18n>REPORTED_BY_NAME}"></Label>
-						<Input value="{mLookupModel>/ReportedByName}" enabled="false" class="inputRadius"></Input>
+						<Input value="{oUserDetailModel>/fullName}" enabled="false" class="inputRadius"></Input>
 						<layoutData>
 							<l:GridData span="XL2 L2 M4 S6"/>
 						</layoutData>
 					</VBox>
-					<VBox visible = "{parts:['oWorkOrderDetailModel>/Breakdown', 'oWorkOrderDetailViewModel>/withNotificationCheck'], formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnNotifRelatedFieldsVisible'}">
+					<VBox
+						visible="{parts:['oWorkOrderDetailModel>/Breakdown', 'oWorkOrderDetailViewModel>/withNotificationCheck'], formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnNotifRelatedFieldsVisible'}">
 						<Label text="{i18n>MALFUNCTION_STARTDATE}"></Label>
 						<DatePicker minDate="{oWorkOrderDetailViewModel>/currentDate1}" placeholder="dd-MM-yyyy" width="100%"
 							dateValue="{oWorkOrderDetailModel>/MalFunStartDate}" displayFormat="dd-MM-yyyy" valueFormat="yyyy-MM-ddTHH:mm:ss"
@@ -321,10 +326,11 @@
 							<l:GridData span="XL2 L2 M4 S6"/>
 						</layoutData>
 					</VBox>
-					<VBox visible = "{parts:['oWorkOrderDetailModel>/Breakdown', 'oWorkOrderDetailViewModel>/withNotificationCheck'], formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnNotifRelatedFieldsVisible'}">
+					<VBox
+						visible="{parts:['oWorkOrderDetailModel>/Breakdown', 'oWorkOrderDetailViewModel>/withNotificationCheck'], formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnNotifRelatedFieldsVisible'}">
 						<Label text="{i18n>TIME}"></Label>
 						<TimePicker value="{oWorkOrderDetailModel>/MalFunStartTime}" valueFormat="HH:mm" displayFormat="HH:mm" placeholder="HH:mm"
-							enabled="{oWODetailFieldsModel>/malFnStartTime}" class="inputRadius" width="100%">
+							enabled="{oWODetailFieldsModel>/malFnStartTime}" class="inputRadius" width="100%" change = "fnValidateMalfunctionDateTime">
 							<customData>
 								<core:CustomData key="dateType" value="MalFunStartTime"/>
 							</customData>
@@ -439,8 +445,7 @@
 						<l:content>
 							<VBox>
 								<Label text="{i18n>NOTIFICATION}"></Label>
-								<Input value="{oWorkOrderDetailModel>NotifNo}" maxLength="10" enabled="false" tooltip="{oWorkOrderDetailModel>Qmnum}"
-									class="inputRadius"></Input>
+								<Input value="{oWorkOrderDetailModel>NotifNo}" maxLength="10" enabled="false" tooltip="{oWorkOrderDetailModel>Qmnum}" class="inputRadius"></Input>
 								<layoutData>
 									<l:GridData span="XL2 L2 M4 S6"/>
 								</layoutData>

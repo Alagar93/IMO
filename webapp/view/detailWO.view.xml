@@ -20,7 +20,7 @@
 				</Button>
 				<!--<Button text="{i18n>DETAIL_ADD_NOTIFICATION}" class="murphyCreateBtn" press="onOpenNotificationPopup"-->
 				<!--	visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnSetTaskNotifBtnVisible'}"/>-->
-				<Button text="{i18n>DETAIL_CREATE_WO}" press="onCreateUpdateAndExitWO" icon="sap-icon://write-new" iconFirst="true"
+				<Button text="{i18n>DETAIL_CREATE_WO}" press="onCreateUpdateAndExitWO" icon="sap-icon://document" iconFirst="true"
 					class="sapUiSmallMarginBegin murphyWOBtn" visible="{oWorkOrderDetailViewModel>/createVisible}">
 					<customData>
 						<core:CustomData key="dateType" value="WO_DETAIL_CREATE"/>

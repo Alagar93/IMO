@@ -64,6 +64,37 @@ com.sap.incture.IMO_PM.util.util = {
 			}
 		}
 	},
+	//nischal-- function to validate BreakDown Duration is Greater than or Equal to Syatem Date so that Pop-up would be shown
+	validateBreakDownDate: function (oDate, oTime) {
+		var dd = oDate.getDate();
+		var MM = oDate.getMonth() + 1;
+		var yy = oDate.getFullYear();
+		var sTemp = oTime.split(":");
+		// var hh = sTemp[0];
+		// var mm = sTemp[1];
+		var newDate = yy + "/" + MM + "/" + dd;
+		newDate = newDate + " " + oTime;
+		var oDateObj1 = new Date(newDate);
+		var oDateObj2 = new Date();
+		var diffDate = this.timeDiffCalc(oDateObj2,oDateObj1);
+		return diffDate;
+	},
+	timeDiffCalc: function (dateFuture, dateNow) {
+		var diffInSeconds = Math.abs(dateFuture - dateNow) / 1000;
+		var days = Math.floor(diffInSeconds / 60 / 60 / 24);
+		var hours = Math.floor(diffInSeconds / 60 / 60 % 24);
+		var minutes = Math.floor(diffInSeconds / 60 % 60);
+		// var seconds = Math.floor(diffInSeconds % 60);
+		// var milliseconds = Math.round((diffInSeconds - Math.floor(diffInSeconds)) * 1000);
+		var s = days * 24;
+		s = s + hours;
+		if(minutes < 10){
+			minutes = "0" + minutes;
+		}
+		var p = s.toString() + "." + minutes.toString();
+		return p;
+	},
+
 	//Function to initalize WO detail fields
 	initializeWODetailFields: function (oWorkOrderDetailModel, oWorkOrderDetailViewModel) {
 		oWorkOrderDetailModel.setData({});
@@ -112,7 +143,7 @@ com.sap.incture.IMO_PM.util.util = {
 		oWorkOrderDetailModel.setProperty("/HEADERTOOPERATIONSNAV", []);
 		oWorkOrderDetailModel.setProperty("/HEADERTOPARTNERNAV", headerPartner);
 		oWorkOrderDetailModel.setProperty("/HEADERTOMESSAGENAV", headerMessage);
-		
+
 		oWorkOrderDetailViewModel.setProperty("/withNotificationCheck", false);
 		oWorkOrderDetailViewModel.setProperty("/Activity", "");
 		oWorkOrderDetailViewModel.setProperty("/MalFunStartTime", oCurrentTime);
