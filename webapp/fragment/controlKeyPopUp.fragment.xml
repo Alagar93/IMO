@@ -87,6 +87,20 @@
 						</layoutData>
 					</VBox>
 				</l:Grid>
+				<l:Grid defaultSpan="XL6 L6 M8 S12">
+					<VBox>
+						<Label text="{i18n>SP_PurchaseReq}"/>
+						<HBox>
+							<Input value="{oWorkOrderDetailViewModel>/oControlkeyOperation/PurchaseReq}" editable="false"
+								tooltip="{oWorkOrderDetailViewModel>/oControlkeyOperation/PurchaseReq}" class="inputRadius"></Input>
+							<Input value="{oWorkOrderDetailViewModel>/oControlkeyOperation/ResItem}" editable="false"
+								tooltip="{oWorkOrderDetailViewModel>/oControlkeyOperation/ResItem}" class="inputRadius"></Input>
+						</HBox>
+						<layoutData>
+							<l:GridData span="XL12 L12 M12 S12"></l:GridData>
+						</layoutData>
+					</VBox>
+				</l:Grid>
 			</content>
 			<footer>
 				<Toolbar>

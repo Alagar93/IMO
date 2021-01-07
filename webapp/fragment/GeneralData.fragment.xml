@@ -1,0 +1,119 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" class="sapUiSizeCompact" xmlns:l="sap.ui.layout" xmlns:ui="sap.ui.table">
+	<Dialog title="{}" contentWidth="40%" contentHeight="60%" showHeader="false" verticalScrolling="false" class="sapUiSizeCompact">
+		<Page title="{i18n>SP_Gen_Data}" showHeader="true" titleAlignment="Center">
+			<content>
+				<Panel expanded="true" expandable="true" class="sapMTextPanelClass">
+					<headerToolbar>
+						<Toolbar>
+							<Text text="{i18n>SPARE_Part}" class="sapUiMediumMarginBegin sapMCommonBlueColor"></Text>
+						</Toolbar>
+					</headerToolbar>
+					<content>
+						<l:Grid defaultSpan="XL6 L6 M8 S12" vSpacing="2">
+							<VBox>
+								<Label text="{i18n>PLANNER_PLANT}"/>
+								<Input value="{oWorkOrderDetailModel>/Planplant}" maxLength="4" editable="false" tooltip="{oWorkOrderDetailModel>/Planplant}"
+									class="inputRadius"></Input>
+							</VBox>
+							<VBox>
+								<Label text="{i18n>STORAGE_LOCATION}"/>
+								<Input value="{oWorkOrderDetailViewModel>/oComponentDetails/StgeLoc}" 
+									tooltip="{oWorkOrderDetailViewModel>/oComponentDetails/StgeLoc}" class="inputRadius"></Input>
+							</VBox>
+							<VBox>
+								<Label text="{i18n>Spare_Part_Batch}"/>
+								<Input value="{oWorkOrderDetailViewModel>/oComponentDetails/Batch}" 
+									tooltip="{oWorkOrderDetailViewModel>/oComponentDetails/Batch}" class="inputRadius"></Input>
+							</VBox>
+							<VBox>
+								<Label text="{i18n>SP_Sort_String}"/>
+								<Input value="{oWorkOrderDetailViewModel>/oComponentDetails/SortStr}" 
+									tooltip="{oWorkOrderDetailViewModel>/oComponentDetails/SortStr}" class="inputRadius"></Input>
+							</VBox>
+							<VBox>
+								<Label text="{i18n>SP_GOODS_Recipient}"/>
+								<Input value="{oWorkOrderDetailViewModel>/oComponentDetails/Recipient}" 
+									tooltip="{oWorkOrderDetailViewModel>/oComponentDetails/Recipient}" class="inputRadius"></Input>
+							</VBox>
+							<VBox>
+								<Label text="{i18n>SP_Unloading_PT}"/>
+								<Input value="{oWorkOrderDetailViewModel>/oComponentDetails/unloadpt}" 
+									tooltip="{oWorkOrderDetailViewModel>/oComponentDetails/unloadpt}" class="inputRadius"></Input>
+							</VBox>
+							<VBox>
+								<Label text="{i18n>SP_REQ_Date}"/>
+								<Input value="{oWorkOrderDetailViewModel>/oComponentDetails/ReqDate}" 
+									tooltip="{oWorkOrderDetailViewModel>/oComponentDetails/ReqDate}" class="inputRadius"></Input>
+							</VBox>
+							<VBox>
+								<Label text="{i18n>SP_Offset}"/>
+								<Input value="{oWorkOrderDetailViewModel>/oComponentDetails/offset}" 
+									tooltip="{oWorkOrderDetailViewModel>/oComponentDetails/offset}" class="inputRadius"></Input>
+							</VBox>
+							<VBox>
+								<Label text="{i18n>SP_RESERV_No}"/>
+								<HBox>
+									<Input value="{oWorkOrderDetailViewModel>/oComponentDetails/ReservNo}" editable="false"
+										tooltip="{oWorkOrderDetailViewModel>/oComponentDetails/ReservNo}" class="inputRadius"></Input>
+									<Input value="{oWorkOrderDetailViewModel>/oComponentDetails/ResItem}" editable="false"
+										tooltip="{oWorkOrderDetailViewModel>/oComponentDetails/ResItem}" class="inputRadius"></Input>
+								</HBox>
+							</VBox>
+							<VBox>
+								<!--<Label text="{i18n>SP_Mov_Type}"/>
+								<Input value="{oWorkOrderDetailViewModel>/oComponentDetails/Movement}" enabled="false"
+									tooltip="{oWorkOrderDetailViewModel>/oComponentDetails/Movement}" class="inputRadius"></Input>-->
+							</VBox>
+						</l:Grid>
+					</content>
+				</Panel>
+				<Panel expanded="true" expandable="true" class="sapMTextPanelClass">
+					<headerToolbar>
+						<Toolbar>
+							<Text text="{i18n>SP_Quantities}" class="sapUiMediumMarginBegin sapMCommonBlueColor"></Text>
+						</Toolbar>
+					</headerToolbar>
+					<content>
+						<l:Grid defaultSpan="XL6 L6 M8 S12">
+							<VBox>
+								<Label text="{i18n>SP_Req_Quant}"/>
+								<Input value="{oWorkOrderDetailViewModel>/oComponentDetails/RequirementQuantity}" editable="false"
+									tooltip="{oWorkOrderDetailViewModel>/oComponentDetails/RequirementQuantity}" class="inputRadius"></Input>
+							</VBox>
+							<VBox>
+								<Label text="{i18n>SP_UOM}"/>
+								<Input value="{oWorkOrderDetailViewModel>/oComponentDetails/RequirementQuantityUnit}" editable="false"
+									tooltip="{oWorkOrderDetailViewModel>/oComponentDetails/RequirementQuantityUnit}" class="inputRadius"></Input>
+							</VBox>
+							<VBox>
+								<Label text="{i18n>SP_Commit_Qty}"/>
+								<Input value="{oWorkOrderDetailViewModel>/oComponentDetails/Planplant}" editable="false"
+									tooltip="{oWorkOrderDetailViewModel>/oComponentDetails/Planplant}" class="inputRadius"></Input>
+								<layoutData>
+									<l:GridData span="XL6 L6 M12 S12"/>
+								</layoutData>
+							</VBox>
+							<VBox>
+								<Label text="{i18n>SP_Withdrawn_Qty}"/>
+								<Input value="{oWorkOrderDetailViewModel>/oComponentDetails/IssueQty}" editable="false"
+									tooltip="{oWorkOrderDetailViewModel>/oComponentDetails/IssueQty}" class="inputRadius"></Input>
+							</VBox>
+							<!--<VBox>
+								<Label text="{i18n>SP_Final_Issue}"/>
+								<Input value="{oWorkOrderDetailViewModel>/oComponentDetails/Planplant}" enabled="false"
+									tooltip="{oWorkOrderDetailViewModel>/oComponentDetails/Planplant}" class="inputRadius"></Input>
+							</VBox>-->
+						</l:Grid>
+					</content>
+				</Panel>
+			</content>
+			<footer>
+				<Toolbar>
+					<ToolbarSpacer/>
+					<Button class="transparentBtn createNotifClearBtn"  text="Save" press="onSaveGenData"/>
+					<Button class="transparentBtn createNotifClearBtn" icon="sap-icon://decline" iconFirst="true" text="Cancel" press="onCloseGenData"/>
+				</Toolbar>
+			</footer>
+		</Page>
+	</Dialog>
+</core:FragmentDefinition>
