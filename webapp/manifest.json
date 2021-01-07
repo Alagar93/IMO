@@ -288,6 +288,10 @@
 					"name": "shiftReport",
 					"pattern": "shiftReport",
 					"target": "shiftReport"
+				},{
+					"name": "dashboard",
+					"pattern": "dashboard",
+					"target": "Dashboard"
 				}
 			],
 			"targets": {
@@ -344,6 +348,10 @@
 					"transition": "slide",
 					"clearControlAggregation": false,
 					"viewName": "shiftReport"
+				},
+				"Dashboard": {
+					"viewType": "XML",
+					"viewName": "Dashboard"
 				}
 			}
 		}

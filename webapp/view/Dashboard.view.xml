@@ -1,0 +1,77 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="com.sap.incture.IMO_PM.controller.Dashboard"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:l="sap.ui.layout">
+	<Page showHeader="false">
+		<content>
+			<l:Grid defaultSpan="XL6 L6 M6 S12" class="sapUiTinyMargin">
+				<l:content>
+					<VBox class="sapUiTinyMarginTop dashboardGrphBxClass">
+						<items>
+							<Toolbar class="graphsToolbar" height="3rem">
+								<Label text="Maintenance Cost" class="crtGrphBxTitleClass sapUiSmallMarginBegin" design="Bold"></Label>
+								<ToolbarSpacer/>
+								<ComboBox class="inputRadius sapUiSmallMarginEnd" width="15%" selectedKey="2021">
+									<core:Item key="2021" text="2021"/>
+									<core:Item key="2020" text="2020"/>
+								</ComboBox>
+							</Toolbar>
+							<!--	<VBox visible="{oPlotModel>noDataTxtVis}" justifyContent="Center" alignItems="Center" class="crtGrphNoDataTxtBxClass">
+									<items>
+										<core:Icon src="sap-icon://warning" class="crtGrphWarnIcoClass" size="26px"></core:Icon>
+										<Text text="{oPlotModel>noDataTxt}" class="crtGrphNoDataTxtClass"></Text>
+									</items>
+								</VBox>-->
+							<!--<HBox class="sapUiTinyMarginBegin dashboardErrorText" visible="{oPlotModel>errorVis}" justifyContent="Center"><Text text="{oPlotModel>errorMsg}"/></HBox>-->
+						</items>
+					</VBox>
+					<VBox class="sapUiTinyMarginTop dashboardGrphBxClass">
+						<items>
+							<Toolbar class="graphsToolbar" height="3rem">
+								<Label text="Plant Capacity v/s WO Actual Hours" class="crtGrphBxTitleClass sapUiSmallMarginBegin" design="Bold"></Label>
+								<ToolbarSpacer/>
+								<ComboBox class="inputRadius sapUiSmallMarginEnd" width="15%">
+									<core:Item key="yearly" text="Yearly"/>
+									<core:Item key="monthly" text="Monthly"/>
+								</ComboBox>
+							</Toolbar>
+							<!--<HBox class="sapUiTinyMarginBegin dashboardErrorText" visible="{oPlotModel>errorVis}" justifyContent="Center"><Text text="{oPlotModel>errorMsg}"/></HBox>-->
+						</items>
+					</VBox>
+					<VBox class="sapUiTinyMarginTop dashboardGrphBxClass">
+						<items>
+							<Toolbar class="graphsToolbar" height="3rem">
+								<Label text="Notification" class="crtGrphBxTitleClass sapUiSmallMarginBegin" design="Bold"></Label>
+								<ToolbarSpacer/>
+								<ComboBox class="inputRadius" width="15%">
+									<core:Item key="2021" text="2021"/>
+									<core:Item key="2020" text="2020"/>
+								</ComboBox>
+								<ComboBox class="inputRadius sapUiSmallMarginEnd" width="15%">
+									<core:Item key="yearly" text="Yearly"/>
+									<core:Item key="monthly" text="Monthly"/>
+								</ComboBox>
+							</Toolbar>
+							<!--<HBox class="sapUiTinyMarginBegin dashboardErrorText" visible="{oPlotModel>errorVis}" justifyContent="Center"><Text text="{oPlotModel>errorMsg}"/></HBox>-->
+						</items>
+					</VBox>
+					<VBox class="sapUiTinyMarginTop dashboardGrphBxClass">
+						<items>
+							<Toolbar class="graphsToolbar" height="3rem">
+								<Label text="Work Order" class="crtGrphBxTitleClass sapUiSmallMarginBegin" design="Bold"></Label>
+								<ToolbarSpacer/>
+								<ComboBox class="inputRadius" width="15%">
+									<core:Item key="2021" text="2021"/>
+									<core:Item key="2020" text="2020"/>
+								</ComboBox>
+								<ComboBox class="inputRadius sapUiSmallMarginEnd" width="15%">
+									<core:Item key="yearly" text="Yearly"/>
+									<core:Item key="monthly" text="Monthly"/>
+								</ComboBox>
+							</Toolbar>
+							<!--<HBox class="sapUiTinyMarginBegin dashboardErrorText" visible="{oPlotModel>errorVis}" justifyContent="Center"><Text text="{oPlotModel>errorMsg}"/></HBox>-->
+						</items>
+					</VBox>
+				</l:content>
+			</l:Grid>
+		</content>
+	</Page>
+</mvc:View>
