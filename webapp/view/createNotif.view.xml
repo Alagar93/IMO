@@ -10,12 +10,12 @@
 		</tnt:ToolHeader>
 		<content>
 			<Toolbar class="sapUiTinyMarginTop tableHeaderBG" height="3rem">
-				<Button class="sapUiSmallMarginBegin" text="{i18n>CREATE_NOTIFICATION}" type="Emphasized" press="checkMandatoryFields" icon="sap-icon://edit" iconFirst="true">
+				<Button class="sapUiSmallMarginBegin" text="{i18n>CREATE_NOTIFICATION}" type="Emphasized" press="checkMandatoryFields" icon="sap-icon://document" iconFirst="true">
 					<customData>
 						<core:CustomData key="dateType" value="CREATE"/>
 					</customData>
 				</Button>
-				<Button text="{i18n>create_Wo}" press="onCreateWODialogOpen" class="tableHeadertansparentBtn" icon="sap-icon://edit" iconFirst="true"/>
+				<Button text="{i18n>create_Wo}" press="onCreateWODialogOpen" class="tableHeadertansparentBtn" icon="sap-icon://document" iconFirst="true"/>
 				<Button text="Clear" press="onClearCreateNotif" class="btnTransparent createNotifClearBtn" icon="sap-icon://decline" iconFirst="true"/>
 				<!--<ToolbarSpacer/>-->
 			</Toolbar>
