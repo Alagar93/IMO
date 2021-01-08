@@ -2723,6 +2723,7 @@ html.sap-desktop .sapMIBar.sapMFooter-CTX {
 .errorCircle {
     color: #ff0000 !important
 }
+<<<<<<< HEAD
 /*nischal -- css for Print Button Html -- starts*/
 .murphyLogo{
 	height: 90px;
@@ -2788,3 +2789,22 @@ html.sap-desktop .sapMIBar.sapMFooter-CTX {
 }
 /* Header Details css - ends*/
 /*nischal -- css for Print Button Html -- Ends*/
+=======
+
+.dashboardGrphBxClass {
+    box-shadow: 0 0.3rem 10px rgba(0, 0, 0, .15);
+    /*padding-bottom: 10px;*/
+    height: 400px;
+    /*margin: 10px;*/
+    /*border-radius: 5px;*/
+    background: #fff;
+}
+.graphsToolbar {
+   background: #fff;
+   border-bottom: 1px solid #cccccc;
+}
+.crtGrphBxTitleClass {
+    font-size: 14px;
+    color: #000000;
+}
+>>>>>>> refs/heads/IMO_Neo
