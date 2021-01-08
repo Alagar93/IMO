@@ -992,10 +992,10 @@ sap.ui.define([
 					var downTime = parseFloat(oData.Downtime).toFixed(2);
 					oData.Downtime = downTime.toString();
 					}
-					if(oData.Breakdown === true){
-						oWorkOrderDetailViewModel.setProperty("/withNotificationCheck",true);
-					}else{
+					if(notifications.length === 0){
 						oWorkOrderDetailViewModel.setProperty("/withNotificationCheck",false);
+					}else{
+						oWorkOrderDetailViewModel.setProperty("/withNotificationCheck",true);
 					}
 					//nischal -- ends
 					oData.MalFunStartTime = formatter.getMalfunctionStTime(oData.MalFunStartTime.ms);
