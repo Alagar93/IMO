@@ -1,72 +1,180 @@
 <mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="com.sap.incture.IMO_PM.controller.Dashboard"
-	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:l="sap.ui.layout">
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:l="sap.ui.layout" xmlns:viz="sap.viz.ui5.controls"
+	xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds" xmlns:viz.data="sap.viz.ui5.data">
 	<Page showHeader="false">
 		<content>
-			<l:Grid defaultSpan="XL6 L6 M6 S12" class="sapUiTinyMargin">
+			<l:Grid defaultSpan="XL6 L6 M6 S12" class="sapUiSmallMarginTop sapUiTinyMarginBeginEnd sapUiTinyMarginBottom">
 				<l:content>
-					<VBox class="sapUiTinyMarginTop dashboardGrphBxClass">
+					<VBox class="dashboardGrphBxClass">
 						<items>
 							<Toolbar class="graphsToolbar" height="3rem">
 								<Label text="Maintenance Cost" class="crtGrphBxTitleClass sapUiSmallMarginBegin" design="Bold"></Label>
 								<ToolbarSpacer/>
-								<ComboBox class="inputRadius sapUiSmallMarginEnd" width="15%" selectedKey="2021">
+								<ComboBox class="inputRadius sapUiSmallMarginEnd" width="15%" selectedKey="2020">
 									<core:Item key="2021" text="2021"/>
 									<core:Item key="2020" text="2020"/>
 								</ComboBox>
 							</Toolbar>
-							<!--	<VBox visible="{oPlotModel>noDataTxtVis}" justifyContent="Center" alignItems="Center" class="crtGrphNoDataTxtBxClass">
-									<items>
-										<core:Icon src="sap-icon://warning" class="crtGrphWarnIcoClass" size="26px"></core:Icon>
-										<Text text="{oPlotModel>noDataTxt}" class="crtGrphNoDataTxtClass"></Text>
-									</items>
-								</VBox>-->
-							<!--<HBox class="sapUiTinyMarginBegin dashboardErrorText" visible="{oPlotModel>errorVis}" justifyContent="Center"><Text text="{oPlotModel>errorMsg}"/></HBox>-->
+							<viz:Popover id="PopOverMaintenanceCost"></viz:Popover>
+							<viz:VizFrame id="vizFrameMaintenanceCost" class="vizFrameHeight" vizType="column" width="100%"
+								vizProperties="{ title: {text : 'Maintenance Cost', visible : false}}" legendVisible="false">
+								<viz:dataset>
+									<viz.data:FlattenedDataset data="{oDashboardGraphsModel>/dummyMainCostData}">
+										<viz.data:dimensions>
+											<viz.data:DimensionDefinition name="Name" value="{oDashboardGraphsModel>Name}"/>
+										</viz.data:dimensions>
+										<viz.data:measures>
+											<viz.data:MeasureDefinition name="Cost" value="{oDashboardGraphsModel>Cost}"/>
+											<!--<viz.data:MeasureDefinition name="v2" value="{oDashboardGraphsModel>V2}"/>-->
+											<!--<viz.data:MeasureDefinition name="v3" value="{oDashboardGraphsModel>V3}"/>-->
+										</viz.data:measures>
+									</viz.data:FlattenedDataset>
+								</viz:dataset>
+								<viz:feeds>
+									<viz.feeds:FeedItem id="Cost" uid="valueAxis" type="Measure" values="Cost"/>
+									<!--<viz.feeds:FeedItem id="v2" uid="valueAxis" type="Measure" values="v2"/>-->
+									<!--<viz.feeds:FeedItem id="v3" uid="valueAxis" type="Measure" values="v3"/>-->
+									<viz.feeds:FeedItem id="Name" uid="categoryAxis" type="Dimension" values="Name"/>
+								</viz:feeds>
+							</viz:VizFrame>
 						</items>
 					</VBox>
-					<VBox class="sapUiTinyMarginTop dashboardGrphBxClass">
+					<VBox class="dashboardGrphBxClass">
 						<items>
 							<Toolbar class="graphsToolbar" height="3rem">
 								<Label text="Plant Capacity v/s WO Actual Hours" class="crtGrphBxTitleClass sapUiSmallMarginBegin" design="Bold"></Label>
 								<ToolbarSpacer/>
-								<ComboBox class="inputRadius sapUiSmallMarginEnd" width="15%">
+								<ComboBox class="inputRadius sapUiSmallMarginEnd" width="15%" selectedKey="yearly">
 									<core:Item key="yearly" text="Yearly"/>
 									<core:Item key="monthly" text="Monthly"/>
 								</ComboBox>
 							</Toolbar>
+							<HBox>
+								<VBox justifyContent="Center" width="10rem" class="VBoxRightBorder" height="98%">
+									<VBox alignItems="Center" justifyContent="Center" height="100%" class="VBoxBottomBorder">
+										<Label text="Plant Capacity" class="labelMedium"/>
+										<Label text="370" class="labelXL blueFontColr"/>
+									</VBox>
+									<VBox alignItems="Center" justifyContent="Center" height="100%">
+										<Label text="WO Actual Hours" class="labelMedium"/>
+										<Label text="235" class="labelXL orangeFontColr"/>
+									</VBox>
+								</VBox>
+								<viz:Popover id="idPopOverPlantCap"></viz:Popover>
+								<viz:VizFrame id="idVizFramePlantCap" class="vizFrameHeight vizFrameWidth" vizType='radar' legendVisible="false"
+									vizProperties="{ title: {text : 'Plant Capacity', visible : false}}">
+									<viz:dataset>
+										<viz.data:FlattenedDataset data="{oDashboardGraphsModel>/graphDummy}">
+											<viz.data:dimensions>
+												<viz.data:DimensionDefinition name="Month" value="{oDashboardGraphsModel>month}"/>
+											</viz.data:dimensions>
+											<viz.data:measures>
+												<viz.data:MeasureDefinition name="PlantCapacity" value="{oDashboardGraphsModel>plantCapacity}"/>
+												<viz.data:MeasureDefinition name="WOActualHours" value="{oDashboardGraphsModel>woActualHours}"/>
+											</viz.data:measures>
+										</viz.data:FlattenedDataset>
+									</viz:dataset>
+									<viz:feeds>
+										<viz.feeds:FeedItem id='PlantCapacity' uid="valueAxis" type="Measure" values="PlantCapacity"/>
+										<viz.feeds:FeedItem id='WOActualHours' uid="valueAxis" type="Measure" values="WOActualHours"/>
+										<viz.feeds:FeedItem id="Month" uid="categoryAxis" type="Dimension" values="Month"/>
+									</viz:feeds>
+								</viz:VizFrame>
+							</HBox>
 							<!--<HBox class="sapUiTinyMarginBegin dashboardErrorText" visible="{oPlotModel>errorVis}" justifyContent="Center"><Text text="{oPlotModel>errorMsg}"/></HBox>-->
 						</items>
 					</VBox>
-					<VBox class="sapUiTinyMarginTop dashboardGrphBxClass">
+					<VBox class="dashboardGrphBxClass sapUiSmallMarginTop sapUiTinyMarginBottom">
 						<items>
 							<Toolbar class="graphsToolbar" height="3rem">
 								<Label text="Notification" class="crtGrphBxTitleClass sapUiSmallMarginBegin" design="Bold"></Label>
 								<ToolbarSpacer/>
-								<ComboBox class="inputRadius" width="15%">
+								<ComboBox class="inputRadius" width="15%" selectedKey="2020">
 									<core:Item key="2021" text="2021"/>
 									<core:Item key="2020" text="2020"/>
 								</ComboBox>
-								<ComboBox class="inputRadius sapUiSmallMarginEnd" width="15%">
+								<ComboBox class="inputRadius sapUiSmallMarginEnd" width="15%" selectedKey="yearly">
 									<core:Item key="yearly" text="Yearly"/>
 									<core:Item key="monthly" text="Monthly"/>
 								</ComboBox>
 							</Toolbar>
+							<HBox>
+								<VBox justifyContent="Center" width="10rem" class="VBoxRightBorder" height="98%">
+									<VBox alignItems="Center" justifyContent="Center" height="100%" class="VBoxBottomBorder">
+										<Text text="Total&#xD;Notifications" class="labelMedium" textAlign="Center"/>
+										<Label text="{oDashboardGraphsModel>/totalNotif}" class="labelXL blueFontColr"/>
+									</VBox>
+									<VBox alignItems="Center" justifyContent="Center" height="100%">
+										<Text text="Average Norification&#xD;Per Year" class="labelMedium" textAlign="Center"/>
+										<Label text="{oDashboardGraphsModel>/averageNotif}" class="labelXL greenFontColr"/>
+									</VBox>
+								</VBox>
+								<viz:Popover id="idPopOverNotification"></viz:Popover>
+								<viz:VizFrame id="idVizFrameNotification" vizType='line' class="vizFrameHeight vizFrameWidth" legendVisible="false"
+									vizProperties="{ title: {text : 'Notification', visible : false}}">
+									<viz:dataset>
+										<viz.data:FlattenedDataset data="{oDashboardGraphsModel>/dummyNotif}">
+											<viz.data:dimensions>
+												<viz.data:DimensionDefinition name="MonthNotif" value="{oDashboardGraphsModel>month}"/>
+											</viz.data:dimensions>
+											<viz.data:measures>
+												<viz.data:MeasureDefinition name="NotificationCount" value="{oDashboardGraphsModel>notifCount}"/>
+											</viz.data:measures>
+										</viz.data:FlattenedDataset>
+									</viz:dataset>
+									<viz:feeds>
+										<viz.feeds:FeedItem id='NotificationCount' uid="valueAxis" type="Measure" values="NotificationCount"/>
+										<viz.feeds:FeedItem id='MonthNotif' uid="categoryAxis" type="Dimension" values="MonthNotif"/>
+									</viz:feeds>
+								</viz:VizFrame>
+							</HBox>
 							<!--<HBox class="sapUiTinyMarginBegin dashboardErrorText" visible="{oPlotModel>errorVis}" justifyContent="Center"><Text text="{oPlotModel>errorMsg}"/></HBox>-->
 						</items>
 					</VBox>
-					<VBox class="sapUiTinyMarginTop dashboardGrphBxClass">
+					<VBox class="dashboardGrphBxClass sapUiSmallMarginTop sapUiTinyMarginBottom">
 						<items>
 							<Toolbar class="graphsToolbar" height="3rem">
 								<Label text="Work Order" class="crtGrphBxTitleClass sapUiSmallMarginBegin" design="Bold"></Label>
 								<ToolbarSpacer/>
-								<ComboBox class="inputRadius" width="15%">
+								<ComboBox class="inputRadius" width="15%" selectedKey="2020">
 									<core:Item key="2021" text="2021"/>
 									<core:Item key="2020" text="2020"/>
 								</ComboBox>
-								<ComboBox class="inputRadius sapUiSmallMarginEnd" width="15%">
+								<ComboBox class="inputRadius sapUiSmallMarginEnd" width="15%" selectedKey="yearly">
 									<core:Item key="yearly" text="Yearly"/>
 									<core:Item key="monthly" text="Monthly"/>
 								</ComboBox>
 							</Toolbar>
+							<HBox>
+								<VBox justifyContent="Center" width="10rem" class="VBoxRightBorder" height="98%">
+									<VBox alignItems="Center" justifyContent="Center" height="100%" class="VBoxBottomBorder">
+										<Text text="Total&#xD;Work Orders" class="labelMedium" textAlign="Center"/>
+										<Label text="{oDashboardGraphsModel>/totalWO}" class="labelXL orangeFontColr" textAlign="Center"/>
+									</VBox>
+									<VBox alignItems="Center" justifyContent="Center" height="100%">
+										<Text text="Average WO&#xD;Per Year" class="labelMedium" textAlign="Center"/>
+										<Label text="{oDashboardGraphsModel>/averageWO}" class="labelXL greenFontColr" textAlign="Center"/>
+									</VBox>
+								</VBox>
+								<viz:Popover id="idPopOverWorkOrder"></viz:Popover>
+								<viz:VizFrame id="idVizFrameWorkOrder" vizType='line' class="vizFrameHeight vizFrameWidth" legendVisible="false"
+									vizProperties="{ title: {text : 'Notification', visible : false}}">
+									<viz:dataset>
+										<viz.data:FlattenedDataset data="{oDashboardGraphsModel>/dummyWO}">
+											<viz.data:dimensions>
+												<viz.data:DimensionDefinition name="MonthWO" value="{oDashboardGraphsModel>month}"/>
+											</viz.data:dimensions>
+											<viz.data:measures>
+												<viz.data:MeasureDefinition name="WOCount" value="{oDashboardGraphsModel>woCount}"/>
+											</viz.data:measures>
+										</viz.data:FlattenedDataset>
+									</viz:dataset>
+									<viz:feeds>
+										<viz.feeds:FeedItem id='WOCount' uid="valueAxis" type="Measure" values="WOCount"/>
+										<viz.feeds:FeedItem id='MonthWO' uid="categoryAxis" type="Dimension" values="MonthWO"/>
+									</viz:feeds>
+								</viz:VizFrame>
+							</HBox>
 							<!--<HBox class="sapUiTinyMarginBegin dashboardErrorText" visible="{oPlotModel>errorVis}" justifyContent="Center"><Text text="{oPlotModel>errorMsg}"/></HBox>-->
 						</items>
 					</VBox>

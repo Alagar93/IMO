@@ -2724,6 +2724,7 @@ html.sap-desktop .sapMIBar.sapMFooter-CTX {
     color: #ff0000 !important
 }
 
+/*SH: Dashboard Graphs CSS Begin*/
 .dashboardGrphBxClass {
     box-shadow: 0 0.3rem 10px rgba(0, 0, 0, .15);
     /*padding-bottom: 10px;*/
@@ -2732,11 +2733,57 @@ html.sap-desktop .sapMIBar.sapMFooter-CTX {
     /*border-radius: 5px;*/
     background: #fff;
 }
+
 .graphsToolbar {
-   background: #fff;
-   border-bottom: 1px solid #cccccc;
+    background: #fff;
+    border-bottom: 1px solid #cccccc;
 }
+
 .crtGrphBxTitleClass {
     font-size: 14px;
     color: #000000;
 }
+
+.mCostVizFrame {
+    height: 100% !important;
+}
+
+.vizFrameHeight {
+    height: 360px !important;
+}
+
+.vizFrameWidth {
+    width: 550px !important;
+}
+
+.VBoxBottomBorder {
+    border-bottom: 1px solid #cccccc;
+}
+
+.VBoxRightBorder {
+    border-right: 1px solid #cccccc;
+}
+
+.labelMedium {
+    font-size: medium;
+    padding: 1rem;
+    color: #6a6d70;
+}
+
+.labelXL {
+    font-size: xx-large;
+}
+
+.blueFontColr {
+    color: #5899da;
+}
+
+.greenFontColr {
+    color: #4cba6b;
+}
+
+.orangeFontColr {
+    color: #e8743b;
+}
+
+/*Dashboard Graphs CSS End*/
