@@ -64,6 +64,23 @@ com.sap.incture.IMO_PM.util.util = {
 			}
 		}
 	},
+	//nischal-- function to fetch workcenter desc from workcenter array
+	fetchWorkCtrDesc : function(mLookupModel,oWorkOrderDetailModel,key){
+			var arr = mLookupModel.getData().aWorkCenterSet;
+			for(var i = 0;i < arr.length ; i++){
+				if(arr[i].WorkcenterId === key){
+					return arr[i].WorkcenterDesc;
+				}
+			}
+	},
+	fetchAssemblyDesc : function(mLookupModel,key){
+			var arr = mLookupModel.getData().aEquipAssemblyList;
+			for(var i = 0;i < arr.length ; i++){
+				if(arr[i].Idnrk === key){
+					return arr[i].MAKTX;
+				}
+			}
+	},
 	//nischal-- function to validate BreakDown Duration is Greater than or Equal to Syatem Date so that Pop-up would be shown
 	validateBreakDownDate: function (oDate, oTime) {
 		var dd = oDate.getDate();

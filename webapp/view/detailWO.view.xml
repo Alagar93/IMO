@@ -32,8 +32,8 @@
 				<!--		<core:CustomData key="dateType" value="WO_DETAIL_CREATE_EXIT"/>-->
 				<!--	</customData>-->
 				<!--</Button>-->
-				<Button text="{i18n>DETAIL_UPDATE_WO}" icon="sap-icon://synchronize" iconFirst="true" press="onCreateUpdateAndExitWO" class="sapUiSmallMarginBegin"
-					type="Emphasized" enabled="true" visible="{oWorkOrderDetailViewModel>/updateVisible}">
+				<Button text="{i18n>DETAIL_UPDATE_WO}" icon="sap-icon://synchronize" iconFirst="true" press="onCreateUpdateAndExitWO"
+					class="sapUiSmallMarginBegin" type="Emphasized" enabled="true" visible="{oWorkOrderDetailViewModel>/updateVisible}">
 					<customData>
 						<core:CustomData key="dateType" value="WO_DETAIL_UPDATE"/>
 					</customData>
@@ -62,6 +62,9 @@
 					visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnSetTaskNotifBtnVisible'}"/>
 				<CheckBox text="{i18n>CREATE_WO_NOTIF}" class="checkBoxText" selected="{oWorkOrderDetailViewModel>/withNotificationCheck}"
 					enabled="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnSetCheckBoxVisible'}"/>
+				<ToolbarSpacer/>
+				<Button text="Print" type="Emphasized" press="onPrint"
+					visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnSetPrintBtnVisible'}"></Button>
 			</Toolbar>
 			<OverflowToolbar class="sapUiTinyMarginTop">
 				<Label text="{i18n>WO_DETAILS}" class="sapUiSmallMarginBegin" wrapping="true"/>
