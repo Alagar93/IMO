@@ -1,12 +1,12 @@
 <mvc:View controllerName="com.sap.incture.IMO_PM.controller.notifList" xmlns:mvc="sap.ui.core.mvc" xmlns:html="http://www.w3.org/1999/xhtml"
 	xmlns="sap.m" xmlns:fb="sap.ui.comp.filterbar" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" height="100%" xmlns:table="sap.ui.table"
 	xmlns:tnt="sap.tnt">
-	<Page showHeader="false" class="sapUiSizeCompact sapMPageBackground">
+	<Page showHeader="false" class="sapUiSizeCompact sapMPageBackground" enableScrolling="false">
 		<tnt:ToolHeader class="headerBG headerShadow">
 			<Label design="Bold" class="sapUiSmallMarginBegin textColr" text="{i18n>tile_notifList}" wrapping="true"/>
 		</tnt:ToolHeader>
 		<content>
-			<l:Grid defaultSpan="XL3 L3 M3 S12" class="sapUiTinyMargin">
+			<l:Grid defaultSpan="XL4 L4 M4 S12" class="sapUiTinyMarginBeginEnd sapUiTinyMarginBottom sapUiSmallMarginTop">
 				<GenericTile press="getKPIsNotifList" class="murphyHdrTileClass KPIShadow" ariaLabel="NOTIF_LIST_BREAKDOWNS">
 					<TileContent>
 						<HBox alignItems="Center" class="sapUiSmallMargin">
@@ -86,7 +86,7 @@
 				</l:fixContent>-->
 			<!--<l:flexContent>-->
 			<!--<VBox height="100%" class="sapUiSmallMarginTop sapUiTinyMarginBeginEnd">-->
-			<table:Table class="sapUiSmallMargin" visibleRowCountMode="Fixed" visibleRowCount="{mLookupModel>/rowCount}" rowHeight="40"
+			<table:Table class="sapUiSmallMargin tableCellNoBorder" visibleRowCountMode="Fixed" visibleRowCount="{mLookupModel>/rowCount}" rowHeight="33"
 				selectionMode="MultiToggle" rowSelectionChange="onSelectionChange" enableSelectAll="false" id="notifListId"
 				rows="{mLookupModel>/aNotificationListSet}">
 				<table:extension>
@@ -108,7 +108,7 @@
 						</content>
 					</Panel>
 					<Toolbar class="tableHeaderBG" height="3rem">
-						<ToolbarSpacer/>
+						<!--<ToolbarSpacer/>-->
 						<Button class="tableHeadertansparentBtn" icon="sap-icon://write-new-document" iconFirst="true" text="{i18n>assign}" press="onAssignWO" tooltip="Create Mass Order"
 								visible="{path:'oUserDetailModel>/userRole', formatter:'com.sap.incture.IMO_PM.formatter.formatter.disableReviewField'}" 
 								enabled="{parts:['mLookupModel>/iSelectedIndices','mLookupModel>/selectedNotifs','mLookupModel>/aNotificationListSet'],formatter:'com.sap.incture.IMO_PM.formatter.formatter.disableAssignWOField'}"/>
@@ -119,6 +119,9 @@
 								visible="{parts:['mLookupModel>/iSelectedIndices','mLookupModel>/selectedNotifs','mLookupModel>/aNotificationListSet'],formatter:'com.sap.incture.IMO_PM.formatter.formatter.disableReleaseField'}"/>
 					</Toolbar>
 				</table:extension>
+				<table:rowSettingsTemplate>
+    				<table:RowSettings highlight="{path:'mLookupModel>PriorityDesNotif', formatter:'com.sap.incture.IMO_PM.formatter.formatter.handleRowHighlight'}"/>
+				 </table:rowSettingsTemplate>
 				<table:columns>
 					<table:Column sortProperty="NotifNo" filterProperty="NotifNo" width="6rem">
 						<Text wrapping="true" text="{i18n>notifID}" class="tableHeaderText"/>
@@ -151,13 +154,13 @@
 							<Text text="{mLookupModel>Equipment}" class="tableContentText"></Text>
 						</table:template>
 					</table:Column>
-					<table:Column sortProperty="TechId" filterProperty="TechId" width="5rem">
+					<table:Column sortProperty="TechId" filterProperty="TechId">
 						<Text wrapping="true" text="{i18n>techID}" class="tableHeaderText"/>
 						<table:template>
 							<Text text="{mLookupModel>TechId}" class="tableContentText"></Text>
 						</table:template>
 					</table:Column>
-					<table:Column sortProperty="Equidescr" filterProperty="Equidescr" width="6rem">
+					<table:Column sortProperty="Equidescr" filterProperty="Equidescr">
 						<Text wrapping="true" text="{i18n>EqDes}" class="tableHeaderText"/>
 						<table:template>
 							<Text text="{mLookupModel>Equidescr}" class="tableContentText"></Text>
@@ -208,10 +211,10 @@
 					<table:Column width="6rem">
 						<Text wrapping="true" text="{i18n>Action}" class="tableHeaderText"/>
 						<table:template>
-							<HBox>
-								<Button icon="sap-icon://flag" press="onPressReleaseRowNotif" tooltip="Release" visible="{=${mLookupModel>SysStatus}==='OSNO'?true:false}"/>
+							<HBox justifyContent="Center">
+								<Button icon="sap-icon://flag" press="onPressReleaseRowNotif" tooltip="Release" visible="{=${mLookupModel>SysStatus}==='OSNO'?true:false}" type="Transparent"/>
 								<Button icon="sap-icon://SAP-icons-TNT/data" press="onPressCreateRowNotif" tooltip="Create Order"
-									visible="{=${mLookupModel>SysStatus}==='NOPR'?true:false}"/>
+									visible="{=${mLookupModel>SysStatus}==='NOPR'?true:false}" type="Transparent"/>
 							</HBox>
 						</table:template>
 					</table:Column>

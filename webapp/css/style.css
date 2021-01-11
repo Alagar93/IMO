@@ -2226,7 +2226,7 @@ background-color: #377295;
 
 .murphyHdrTileClass {
     height: 5rem !important;
-    width: 18rem !important;
+    width: 100% !important;
     background: #ffffff !important;
     box-shadow: none !important;
 }
@@ -2855,3 +2855,19 @@ html.sap-desktop .sapMIBar.sapMFooter-CTX {
 
 /*Dashboard Graphs CSS End*/
 
+.tableCellNoBorder .sapUiTableCell{
+	border: none !important;
+}
+/*
+.HighLightColorRed .sapUiTableRowHighlight {
+	background-color: #ff0012 !important;
+}
+.HighlightColorRedGradeOut {
+    background: #fff2f2;
+}
+.HighLightColorGreen .sapUiTableRowHighlight {
+	background-color: #019a01 !important;
+}
+.HighlightColorGreenGradeOut {
+    background: rgba(171, 212, 164, .52) !important;
+}*/
