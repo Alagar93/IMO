@@ -1554,7 +1554,7 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 		this.removeStyleClass("HighlightColorRedGradeOut");
 		this.removeStyleClass("HighLightColorRed");
 		this.removeStyleClass("HighlightColorRedGradeOut");*/
-		if (priority !== null) {
+		if (priority !== null && priority !== undefined) {
 			switch (priority.toUpperCase()) {
 			case "CRITICAL":
 				return 'Error';
