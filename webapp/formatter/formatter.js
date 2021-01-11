@@ -26,19 +26,19 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 
 	},
 	//nischal -- function to current date 
-	fnGetDate : function(){
+	fnGetDate: function () {
 		var oDate = new Date();
 		var dd = oDate.getDate();
 		var mm = oDate.getMonth() + 1;
 		var yy = oDate.getFullYear();
-		var sDate = dd+"."+mm+"."+yy;
+		var sDate = dd + "." + mm + "." + yy;
 		return sDate;
 	},
 	//nischal -- function to show print button after Release of WO
-	fnSetPrintBtnVisible : function(sVal1){
-		if(sVal1 === "CRTD" || sVal1 === ""){
+	fnSetPrintBtnVisible: function (sVal1) {
+		if (sVal1 === "CRTD" || sVal1 === "") {
 			return false;
-		}else{
+		} else {
 			return true;
 		}
 	},
@@ -1385,10 +1385,10 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 		return userid;
 
 	},
-	setReportedBy:function(userId){
-		var oWorkOrderDetailModel=this.getModel("oWorkOrderDetailModel");
-		if(userId&&oWorkOrderDetailModel){
-			oWorkOrderDetailModel.setProperty("/ReportedBy",userId);
+	setReportedBy: function (userId) {
+		var oWorkOrderDetailModel = this.getModel("oWorkOrderDetailModel");
+		if (userId && oWorkOrderDetailModel) {
+			oWorkOrderDetailModel.setProperty("/ReportedBy", userId);
 		}
 		return userId;
 	},
@@ -1520,6 +1520,27 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 		} else {
 			return false;
 		}
+	},
+	handleRowHighlight: function (priority) {
+		/*this.removeStyleClass("HighLightColorRed");
+		this.removeStyleClass("HighlightColorRedGradeOut");
+		this.removeStyleClass("HighLightColorRed");
+		this.removeStyleClass("HighlightColorRedGradeOut");*/
+		if (priority !== null) {
+			switch (priority.toUpperCase()) {
+			case "CRITICAL":
+				return 'Error';
+			case "HIGH":
+				return 'Error';
+			case "MEDIUM":
+				return 'Warning';
+			case "LOW":
+				return 'Success';
+			default:
+				return 'None';
+			}
+		}
+		return 'None';
 	}
 
 };

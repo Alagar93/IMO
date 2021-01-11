@@ -1,12 +1,12 @@
 <mvc:View controllerName="com.sap.incture.IMO_PM.controller.WOList" xmlns:mvc="sap.ui.core.mvc" xmlns:html="http://www.w3.org/1999/xhtml"
 	xmlns="sap.m" xmlns:fb="sap.ui.comp.filterbar" height="100%" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:table="sap.ui.table"
 	xmlns:tnt="sap.tnt">
-	<Page showHeader="false" class="sapUiSizeCompact sapMPageBackground">
+	<Page showHeader="false" class="sapUiSizeCompact sapMPageBackground" enableScrolling="false">
 		<tnt:ToolHeader class="headerBG headerShadow">
 			<Label design="Bold" class="sapUiSmallMarginBegin textColr" text="{i18n>tile_woList}" wrapping="true"/>
 		</tnt:ToolHeader>
 		<content>
-			<l:Grid defaultSpan="XL3 L3 M3 S12" class="sapUiTinyMargin">
+			<l:Grid defaultSpan="XL3 L3 M3 S12" class="sapUiTinyMarginBeginEnd sapUiTinyMarginBottom sapUiSmallMarginTop">
 				<GenericTile press="getKPIsWoList" class="murphyHdrTileClass KPIShadow" ariaLabel="WO_LIST_PM_WORK_DUE">
 					<TileContent>
 						<HBox alignItems="Center" class="sapUiSmallMargin">
@@ -119,8 +119,8 @@
 				</l:fixContent>-->
 			<!--<l:flexContent>-->
 			<!--<VBox height="100%" class="sapUiTinyMarginBeginEnd sapUiSmallMarginTop">-->
-			<table:Table id="idWorkOrderList" class="sapUiSmallMargin" visibleRowCountMode="Fixed" visibleRowCount="{mLookupModel>/rowCount}"
-				rowHeight="40" selectionMode="MultiToggle" enableSelectAll="false" rows="{mLookupModel>/aWorkOrderListSet}"
+			<table:Table id="idWorkOrderList" class="sapUiSmallMargin tableCellNoBorder" visibleRowCountMode="Fixed" visibleRowCount="{mLookupModel>/rowCount}"
+				rowHeight="28" selectionMode="MultiToggle" enableSelectAll="false" rows="{mLookupModel>/aWorkOrderListSet}"
 				rowSelectionChange="onSelectionChange" filter="dateFormat">
 				<table:extension>
 					<Toolbar class="tableHeaderBG tableMargin" height="3rem">
@@ -140,7 +140,7 @@
 						</content>
 					</Panel>
 					<Toolbar class="tableHeaderBG" height="3rem">
-						<ToolbarSpacer/>
+						<!--<ToolbarSpacer/>-->
 						<Button class="tableHeadertansparentBtn" icon="sap-icon://write-new-document" iconFirst="true" text="{i18n>ASIGN_TECHNICIAN}"
 							visible="{path:'mLookupModel>/userRole', formatter:'com.sap.incture.IMO_PM.formatter.formatter.disableReviewField'}"
 							enabled="{= ${mLookupModel>/iSelectedWOIndices} >= 1 ? true: false}" press="onAssignWO"/>
