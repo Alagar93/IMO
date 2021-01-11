@@ -129,6 +129,7 @@ com.sap.incture.IMO_PM.util.util = {
 			"Message": "",
 			"Status": ""
 		}];
+	
 		var oCurrentTime = com.sap.incture.IMO_PM.formatter.formatter.formatCurrentTime(new Date());
 		var userPlant = oUserDetailModel.getProperty("/userPlant");
 		//nischal -- Fetch required Start Date and End Datefrom oWorkOrderDetailViewModel that was set in Create Workorder controller
@@ -188,6 +189,36 @@ com.sap.incture.IMO_PM.util.util = {
 
 		var userName = oUserDetailModel.getProperty("/userName");
 		this.fnSetUserName(userName, oWorkOrderDetailModel, oWorkOrderDetailViewModel);
+	},
+	//Function to setRows For Cost Overview table
+	setRowItemsforCostOverview:function(oWorkOrderDetailViewModel){
+		var CosttblItems=[{
+			"CatDesc":"External Services",
+			"EstCost":"0.00",
+			"PlanCost":"1500.00",
+			"ActCost":"0.00",
+			"Cur":"EUR"
+		},{
+			"CatDesc":"External Procurement",
+			"EstCost":"0.00",
+			"PlanCost":"1500.00",
+			"ActCost":"0.00",
+			"Cur":"EUR"
+		},{
+			"CatDesc":"Internal Activities",
+			"EstCost":"0.00",
+			"PlanCost":"1500.00",
+			"ActCost":"0.00",
+			"Cur":"EUR"
+		},{
+			"CatDesc":"Stock material",
+			"EstCost":"0.00",
+			"PlanCost":"1500.00",
+			"ActCost":"0.00",
+			"Cur":"EUR"
+		}];
+		oWorkOrderDetailViewModel.setProperty("/CostTBl",CosttblItems);
+		
 	},
 	//Function to set visible/enable of comments section [View: WorkOrder Detail]
 	setCommentsVisibleLayout: function (oEvent, oWorkOrderDetailViewModel) {

@@ -44,6 +44,7 @@ sap.ui.define([
 				if (viewType === "CREATE_ORDER") {
 					util.fnEnableCreateWOFields(oWODetailFieldsModel);
 					util.resetDetailWOFields(oUserDetailModel, oWorkOrderDetailModel, oWorkOrderDetailViewModel, "CREATE_ORDER", this.oPortalDataModel);
+					util.setRowItemsforCostOverview(oWorkOrderDetailViewModel);
 					this.fnCreateUpdateBtnTxt("CREATE_ORDER");
 					// this.fnFilterSlectedDamageGroup(); //nischal -- this functionality is removed
 					// this.fnFilterSlectedCauseGroup(); //nischal -- this functionality is removed
@@ -71,6 +72,7 @@ sap.ui.define([
 				} else {
 					util.initializeWODetailFields(oWorkOrderDetailModel, oWorkOrderDetailViewModel);
 					util.resetDetailWOFields(oUserDetailModel, oWorkOrderDetailModel, oWorkOrderDetailViewModel, "VIEW_WO");
+					util.setRowItemsforCostOverview(oWorkOrderDetailViewModel);
 					this.fnCreateUpdateBtnTxt("UPDATE_ORDER");
 					this.getWODetails(viewType);
 				}
@@ -78,6 +80,7 @@ sap.ui.define([
 				var oViewType = oEvent.getParameter("arguments").workOrderID;
 				util.initializeWODetailFields(oWorkOrderDetailModel, oWorkOrderDetailViewModel);
 				util.resetDetailWOFields(oUserDetailModel, oWorkOrderDetailModel, oWorkOrderDetailViewModel, "VIEW_WO");
+				util.setRowItemsforCostOverview(oWorkOrderDetailViewModel);
 				this.fnCreateUpdateBtnTxt("UPDATE_ORDER");
 				this.getWODetails(oViewType);
 				// var sBreakDown = oWorkOrderDetailModel.getProperty("/Breakdown");
