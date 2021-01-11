@@ -195,7 +195,7 @@ sap.ui.define([
 			oModel.attachRequestCompleted(function (oEvent) {
 				if (oEvent.getParameter("success")) {
 					var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-					oRouter.navTo("notifList");
+					oRouter.navTo("dashboard"); //set initial page
 					var resultData = oEvent.getSource().getData();
 					if (resultData) {
 						oMasterModel.setData(resultData);

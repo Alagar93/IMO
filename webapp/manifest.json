@@ -199,6 +199,8 @@
 			"Data": {
 				"type": "sap.ui.model.json.JSONModel",
 				"uri": "model/data.json"
+			},"oDashboardGraphsModel": {
+				"type": "sap.ui.model.json.JSONModel"
 			}
 		},
 		"resources": {
@@ -288,6 +290,10 @@
 					"name": "shiftReport",
 					"pattern": "shiftReport",
 					"target": "shiftReport"
+				},{
+					"name": "dashboard",
+					"pattern": "dashboard",
+					"target": "Dashboard"
 				}
 			],
 			"targets": {
@@ -344,6 +350,10 @@
 					"transition": "slide",
 					"clearControlAggregation": false,
 					"viewName": "shiftReport"
+				},
+				"Dashboard": {
+					"viewType": "XML",
+					"viewName": "Dashboard"
 				}
 			}
 		}

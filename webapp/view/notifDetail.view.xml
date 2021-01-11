@@ -207,7 +207,7 @@
 					visible="{path:'oNotificationDataModel>/Breakdown', formatter:'com.sap.incture.IMO_PM.formatter.formatter.formatBooleanBreakDown'}">
 					<Label text="{i18n>malfnsDate}"></Label>
 					<DatePicker placeholder="dd-MM-yyyy" dateValue="{oNotificationDataModel>/Startdate}" width="90%" displayFormat="dd-MM-yyyy"
-						change="fnValidateMalFunDates" class="inputRadius">
+						change="fnValidateMalFunDates" class="inputRadius" enabled = "{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setEnabledBasedOnStatus'}">
 						<customData>
 							<core:CustomData key="dateType" value="Startdate"/>
 						</customData>
@@ -217,7 +217,7 @@
 					visible="{path:'oNotificationDataModel>/Breakdown', formatter:'com.sap.incture.IMO_PM.formatter.formatter.formatBooleanBreakDown'}">
 					<Label text="{i18n>malfnsTime}"></Label>
 					<TimePicker value="{oNotificationViewModel>/StartTime}" valueFormat="HH:mm" displayFormat="HH:mm" placeholder="HH:mm"
-						change="fnValidateMalFunDates" class="inputRadius" width="90%">
+						change="fnValidateMalFunDates" class="inputRadius" width="90%" enabled = "{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setEnabledBasedOnStatus'}">
 						<customData>
 							<core:CustomData key="dateType" value="StartTime"/>
 						</customData>
@@ -227,7 +227,7 @@
 					visible="{path:'oNotificationDataModel>/Breakdown', formatter:'com.sap.incture.IMO_PM.formatter.formatter.formatBooleanBreakDown'}">
 					<Label text="{i18n>malfnedate}"></Label>
 					<DatePicker placeholder="dd-MM-yyyy" dateValue="{oNotificationDataModel>/Enddate}" width="90%" displayFormat="dd-MM-yyyy"
-						change="fnValidateMalFunDates" class="inputRadius">
+						change="fnValidateMalFunDates" class="inputRadius" enabled = "{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setEnabledBasedOnStatus'}">
 						<customData>
 							<core:CustomData key="dateType" value="Enddate"/>
 						</customData>
@@ -237,7 +237,7 @@
 					visible="{path:'oNotificationDataModel>/Breakdown', formatter:'com.sap.incture.IMO_PM.formatter.formatter.formatBooleanBreakDown'}">
 					<Label text="{i18n>malfnetime}"></Label>
 					<TimePicker value="{oNotificationViewModel>/EndTime}" valueFormat="HH:mm" displayFormat="HH:mm" placeholder="HH:mm"
-						change="fnValidateMalFunDates" class="inputRadius" width="90%">
+						change="fnValidateMalFunDates" class="inputRadius" width="90%" enabled = "{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setEnabledBasedOnStatus'}">
 						<customData>
 							<core:CustomData key="dateType" value="EndTime"/>
 						</customData>

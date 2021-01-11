@@ -257,8 +257,8 @@ sap.ui.define([
 			var oComponentDetails = oWorkOrderDetailModel.getProperty(sPath);
 			var StockAvail = formatter.fnStrtoInt(oComponentDetails.StockAvail);
 			var ReqQuantity = formatter.fnStrtoInt(oComponentDetails.RequirementQuantity);
-
 			oWorkOrderDetailViewModel.setProperty("/sPathItemCat", sPath);
+			if (sKey === "N" && StockAvail < ReqQuantity) {
 
 			var bMatVal = formatter.MaterialPRVAlidation(oComponentDetails);
 			if (bMatVal) {
@@ -310,13 +310,15 @@ sap.ui.define([
 			} else {
 				MessageBox.error("Please enter valid component details", {
 
+			} else if (sKey === "N" && StockAvail >= ReqQuantity) {
+				MessageBox.error("Required Qunatity is available as Stock", {
+
 					onClose: function (sAction) {
 						oWorkOrderDetailModel.setProperty(sPath + "/ItemCat", "L");
 						oWorkOrderDetailViewModel.setProperty("/sPathItemCat", "");
 						oWorkOrderDetailViewModel.setProperty("/oComponentDetails", null);
 					}
 				});
-
 			}
 
 		},
@@ -3517,10 +3519,94 @@ sap.ui.define([
 
 		},
 		onPressAttachmentsWO: function (oEvent) {
+			var mLookupModel = this.mLookupModel;
+			mLookupModel.setProperty("/showTaskManagementPanelWO", true);
+			mLookupModel.setProperty("/showAttachmentPanelWO", true);
+			mLookupModel.refresh(true);
+		},
+		onPrint: function (oEvent) {
+				var oHTML = "";
 				var mLookupModel = this.mLookupModel;
-				mLookupModel.setProperty("/showTaskManagementPanelWO", true);
-				mLookupModel.setProperty("/showAttachmentPanelWO", true);
-				mLookupModel.refresh(true);
+				var oWorkOrderDetailModel = this.oWorkOrderDetailModel;
+				var oWorkOrderDetailViewModel = this.oWorkOrderDetailViewModel;
+				var oData = oWorkOrderDetailModel.getData();
+				var oData1 =oWorkOrderDetailViewModel.getData(); 
+				var sCurrentDate = formatter.fnGetDate();
+				var sWorkCenterDesc = util.fetchWorkCtrDesc(mLookupModel,oWorkOrderDetailModel,oData.MnWkCtr);
+				var sAssemblyDesc = util.fetchAssemblyDesc(mLookupModel,oData.Assembly);
+				var sSrc = jQuery.sap.getModulePath("com.sap.incture.IMO_PM.images", '/Murphy.png');
+				oHTML += "<div><img class = 'murphyLogo' src='" + sSrc + "'>"; //Div-1 Start ; Div enclosing whole PDF
+				oHTML += "<div class = 'container2'>"; //Div-2 Start ; Div containing border, encloses whole content
+				///////////////////////////////////////////////User Details Start's here///////////////////////////////////////////////
+				oHTML += "<div class = 'userDetails1 grid-container'><div class = 'internal-grid'><span class = 'userDetailFontStyle'>" +
+					sCurrentDate + "</span><span class = 'userDetailFontStyle'>" + "PickList" + "</span><span class = 'userDetailFontStyle'>" +
+					"BOPF2" + "</span></div><div><span class = 'userDetailFontStyle'>" + "Original" +
+					"</span></div></div><div class = 'userDetails2 grid-container1'>" + "<div class = 'userDetailFontStyle'>" + "Order" +
+					"</div><div class = 'userDetailFontStyle'>" + oData.Orderid + "</div><div class = 'userDetailFontStyle'>" +
+					oData.ShortText + "</div></div>";
+				///////////////////////////////////////////////User Details End's here ////////////////////////////////////////////////
+				
+				///////////////////////////////////////////////Header Details Starts here/////////////////////////////////////////////
+				oHTML += "<div class = 'headerDetailsContainer'>" //Div-3 Starts ; Header Details Container Div
+				
+				oHTML += "<div class = 'grid-container-header1'><div><span class = 'headerDetailsFontStyle1'>" + "Funct. Location"
+				+ "</span></div><div><span class = 'headerDetailsFontStyle2'>" + oData.FunctLoc +
+				"</span></div><div><span class = 'headerDetailsFontStyle3'>" + "Delta House Electrical Power System" + "</span></div></div>";
+				
+				oHTML += "<div class = 'grid-container-header1'><div><span class = 'headerDetailsFontStyle1'>" + "Equipment"
+				+ "</span></div><div><span class = 'headerDetailsFontStyle2'>" + oData.Equipment +
+				"</span></div><div><span class = 'headerDetailsFontStyle3'>" + oData.EquipDesc + "</span></div></div>";
+				
+				oHTML += "<div class = 'grid-container-header1'><div><span class = 'headerDetailsFontStyle1'>" + "TechIdentNo."
+				+ "</span></div><div><span class = 'headerDetailsFontStyle2'>" + oData1.AssetId +
+				"</span></div><div><span class = 'headerDetailsFontStyle3'>" + "" + "</span></div></div>";
+				
+				oHTML += "<div class = 'grid-container-header1'><div><span class = 'headerDetailsFontStyle1'>" + "Assembly"
+				+ "</span></div><div><span class = 'headerDetailsFontStyle2'>" + oData.Assembly +
+				"</span></div><div><span class = 'headerDetailsFontStyle3'>" + sAssemblyDesc + "</span></div></div>";
+				
+				oHTML +="<div class = 'grid-container-header2'><div><span class = 'headerDetailsFontStyle1'>" + "PM Planner Grp."
+				+ "</div><div><span class = 'headerDetailsFontStyle2'>" + oData.Plangroup + "</span></div><div><span><span class = 'headerDetailsFontStyle3'>"
+				+ "IH-Planner 010" + "</span></span></div><div><span class = 'headerDetailsFontStyle1'>" + "PM Plant" + 
+				"</span></div><div><span class = 'headerDetailsFontStyle2'>" + oData.Plant + "</span></div></div>";
+				
+				oHTML += "<div class = 'grid-container-header1'><div><span class = 'headerDetailsFontStyle1'>" + "Main work cntr"
+				+ "</span></div><div><span class = 'headerDetailsFontStyle2'>" + oData.MnWkCtr +
+				"</span></div><div><span class = 'headerDetailsFontStyle3'>" + sWorkCenterDesc + "</span></div></div>";
+				
+				
+				
+				
+				oHTML += "</div>" //Div-3 Starts ; Header Details Container Div
+				///////////////////////////////////////////////Header Details Ends here/////////////////////////////////////////////
+				oHTML += "</div>" //Div-2 End
+				oHTML += "</div>" //Div-1 End
+				var printCssUrl = jQuery.sap.getModulePath("com.sap.incture.IMO_PM.css", "/style.css");
+				var link = '<link rel="stylesheet" href="' + printCssUrl + '" type="text/css" />';
+				// var sURI = sap.ui.core.IconPool.getIconURI("accept");
+				// var url = sap.ui.require.toUrl(sURI);
+				// link = link + '<link rel="stylesheet" href="' + url + '" />';
+				var hContent = '<html><head>' + link + '</head><body>';
+				var bodyContent = oHTML;
+				var closeContent = "</body></html>";
+				var htmlpage = hContent + bodyContent + closeContent;
+				var win = window.open("", "myWindow");
+				win.document.open();
+				win.document.write(htmlpage);
+				$.each(document.styleSheets, function (index, oStyleSheet) {
+					if (oStyleSheet.href) {
+						var link = document.createElement("link");
+						link.type = oStyleSheet.type;
+						link.rel = "stylesheet";
+						link.href = oStyleSheet.href;
+						win.document.head.appendChild(link);
+					}
+				});
+				setTimeout(function () {
+					win.print();
+					win.document.close();
+					win.close();
+				}, 1000);
 			}
 			/**
 			 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered

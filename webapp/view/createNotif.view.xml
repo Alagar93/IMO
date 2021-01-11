@@ -1,7 +1,7 @@
 <mvc:View controllerName="com.sap.incture.IMO_PM.controller.createNotif" xmlns:mvc="sap.ui.core.mvc"
 	xmlns:html="http://www.w3.org/1999/xhtml" displayBlock="true" xmlns="sap.m" xmlns:fb="sap.ui.comp.filterbar" xmlns:core="sap.ui.core"
 	xmlns:l="sap.ui.layout" xmlns:table="sap.ui.table" xmlns:tnt="sap.tnt">
-	<Page showHeader="true" class="sapUiSizeCompact sapMPageBackground" floatingFooter="false" title="{}">
+	<Page showHeader="true" class="sapUiSizeCompact sapMPageBackground" floatingFooter="false">
 		<tnt:ToolHeader class="headerBG headerShadow">
 			<Label design="Bold" text="{i18n>tile_crNotif}" wrapping="true" class="sapUiSmallMarginBegin textColr"/>
 			<ToolbarSpacer/>
@@ -10,12 +10,12 @@
 		</tnt:ToolHeader>
 		<content>
 			<Toolbar class="sapUiTinyMarginTop tableHeaderBG" height="3rem">
-				<Button class="sapUiSmallMarginBegin" text="{i18n>CREATE_NOTIFICATION}" type="Emphasized" press="checkMandatoryFields" icon="sap-icon://edit" iconFirst="true">
+				<Button class="sapUiSmallMarginBegin" text="{i18n>CREATE_NOTIFICATION}" type="Emphasized" press="checkMandatoryFields" icon="sap-icon://document" iconFirst="true">
 					<customData>
 						<core:CustomData key="dateType" value="CREATE"/>
 					</customData>
 				</Button>
-				<Button text="{i18n>create_Wo}" press="onCreateWODialogOpen" class="tableHeadertansparentBtn" icon="sap-icon://edit" iconFirst="true"/>
+				<Button text="{i18n>create_Wo}" press="onCreateWODialogOpen" class="tableHeadertansparentBtn" icon="sap-icon://document" iconFirst="true"/>
 				<Button text="Clear" press="onClearCreateNotif" class="btnTransparent createNotifClearBtn" icon="sap-icon://decline" iconFirst="true"/>
 				<!--<ToolbarSpacer/>-->
 			</Toolbar>

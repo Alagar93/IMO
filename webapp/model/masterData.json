@@ -1,5 +1,10 @@
 {
 	"tabs": [{
+		"tabText": "Dashboard",
+		"tabKey": "dashboard",
+		"icon": "sap-icon://bbyd-dashboard",
+		"isVis": true
+	},{
 		"tabText": "Notification List",
 		"tabKey": "notifList",
 		"icon": "sap-icon://bell",

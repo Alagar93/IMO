@@ -25,6 +25,23 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 		return condn;
 
 	},
+	//nischal -- function to current date 
+	fnGetDate : function(){
+		var oDate = new Date();
+		var dd = oDate.getDate();
+		var mm = oDate.getMonth() + 1;
+		var yy = oDate.getFullYear();
+		var sDate = dd+"."+mm+"."+yy;
+		return sDate;
+	},
+	//nischal -- function to show print button after Release of WO
+	fnSetPrintBtnVisible : function(sVal1){
+		if(sVal1 === "CRTD" || sVal1 === ""){
+			return false;
+		}else{
+			return true;
+		}
+	},
 	//nischal -- function to show breakdown duration fields Malfunction Start date and time
 	fnNotifRelatedFieldsVisible: function (sVal1, sVal2) {
 		if (sVal2 === true) {
