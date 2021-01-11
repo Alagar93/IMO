@@ -36,7 +36,7 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 	},
 	//nischal -- function to show print button after Release of WO
 	fnSetPrintBtnVisible: function (sVal1) {
-		if (sVal1 === "CRTD" || sVal1 === "") {
+		if (sVal1 === "CRTD" || sVal1 === "" || sVal1 === "TECO") {
 			return false;
 		} else {
 			return true;
