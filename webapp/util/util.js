@@ -2071,6 +2071,25 @@ com.sap.incture.IMO_PM.util.util = {
 		};
 		oNotificationViewModel.setProperty("/oPayLoadWO", oObj);
 
+	},
+	fetchPurchanseReqNo : function(sVal){
+		if(sVal.length > 0){
+			for(var i =0; i< sVal.length ; i++){
+				if(sVal[i].PreqNo){
+					return sVal[i].PreqNo;
+				}
+			}
+			return "";
+		}else{
+			return "";
+		}
+	},
+	fetchReservNo : function(sVal){
+		if(sVal.length > 0){
+			return sVal[0].ReservNo;
+		}else{
+			return "";
+		}
 	}
 
 };
