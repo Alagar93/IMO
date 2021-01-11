@@ -260,65 +260,57 @@ sap.ui.define([
 			oWorkOrderDetailViewModel.setProperty("/sPathItemCat", sPath);
 			if (sKey === "N" && StockAvail < ReqQuantity) {
 
-			var bMatVal = formatter.MaterialPRVAlidation(oComponentDetails);
-			if (bMatVal) {
+				var bMatVal = formatter.MaterialPRVAlidation(oComponentDetails);
+				if (bMatVal) {
 
-				if (sKey === "N" && StockAvail < ReqQuantity) {
+					if (sKey === "N" && StockAvail < ReqQuantity) {
 
-					oComponentDetails.Price = "1000";
-					oComponentDetails.Currency = "EUR";
-					oComponentDetails.MaterialGroup = "01";
-					oComponentDetails.PriceUnit = "1";
-					oComponentDetails.PurchGrp = "001";
-					oComponentDetails.PurchOrg = "0001";
-					oComponentDetails.Recipient = "Vijay";
-					oComponentDetails.Requisitioner = "Vijay";
-					oWorkOrderDetailViewModel.setProperty("/oComponentDetails", oComponentDetails);
-					if (!this.oItemCatDialog) {
-						this.oItemCatDialog = sap.ui.xmlfragment("com.sap.incture.IMO_PM.fragment.ItemCatPRPopup", this);
-						this.getView().addDependent(this.oItemCatDialog);
-					}
-					this.oItemCatDialog.open();
-				} else if (sKey === "N" && StockAvail >= ReqQuantity) {
-					MessageBox.warning("Required Qunatity is available as Stock", {
-						actions: [MessageBox.Action.OK, MessageBox.Action.CANCEL],
-						onClose: function (sAction) {
-							if (sAction === "OK") {
-								oComponentDetails.Price = "1000";
-								oComponentDetails.Currency = "EUR";
-								oComponentDetails.MaterialGroup = "01";
-								oComponentDetails.PriceUnit = "1";
-								oComponentDetails.PurchGrp = "001";
-								oComponentDetails.PurchOrg = "0001";
-								oComponentDetails.Recipient = "Vijay";
-								oComponentDetails.Requisitioner = "Vijay";
-								oWorkOrderDetailViewModel.setProperty("/oComponentDetails", oComponentDetails);
-								if (!that.oItemCatDialog) {
-									that.oItemCatDialog = sap.ui.xmlfragment("com.sap.incture.IMO_PM.fragment.ItemCatPRPopup", that);
-									that.getView().addDependent(that.oItemCatDialog);
-								}
-								that.oItemCatDialog.open();
-							} else {
-								oWorkOrderDetailModel.setProperty(sPath + "/ItemCat", "L");
-								oWorkOrderDetailViewModel.setProperty("/sPathItemCat", "");
-								oWorkOrderDetailViewModel.setProperty("/oComponentDetails", null);
-							}
-
+						oComponentDetails.Price = "1000";
+						oComponentDetails.Currency = "EUR";
+						oComponentDetails.MaterialGroup = "01";
+						oComponentDetails.PriceUnit = "1";
+						oComponentDetails.PurchGrp = "001";
+						oComponentDetails.PurchOrg = "0001";
+						oComponentDetails.Recipient = "Vijay";
+						oComponentDetails.Requisitioner = "Vijay";
+						oWorkOrderDetailViewModel.setProperty("/oComponentDetails", oComponentDetails);
+						if (!this.oItemCatDialog) {
+							this.oItemCatDialog = sap.ui.xmlfragment("com.sap.incture.IMO_PM.fragment.ItemCatPRPopup", this);
+							this.getView().addDependent(this.oItemCatDialog);
 						}
-					});
-				}
-			} else {
-				MessageBox.error("Please enter valid component details", {
+						this.oItemCatDialog.open();
+					} else if (sKey === "N" && StockAvail >= ReqQuantity) {
+						MessageBox.warning("Required Qunatity is available as Stock", {
+							actions: [MessageBox.Action.OK, MessageBox.Action.CANCEL],
+							onClose: function (sAction) {
+								if (sAction === "OK") {
+									oComponentDetails.Price = "1000";
+									oComponentDetails.Currency = "EUR";
+									oComponentDetails.MaterialGroup = "01";
+									oComponentDetails.PriceUnit = "1";
+									oComponentDetails.PurchGrp = "001";
+									oComponentDetails.PurchOrg = "0001";
+									oComponentDetails.Recipient = "Vijay";
+									oComponentDetails.Requisitioner = "Vijay";
+									oWorkOrderDetailViewModel.setProperty("/oComponentDetails", oComponentDetails);
+									if (!that.oItemCatDialog) {
+										that.oItemCatDialog = sap.ui.xmlfragment("com.sap.incture.IMO_PM.fragment.ItemCatPRPopup", that);
+										that.getView().addDependent(that.oItemCatDialog);
+									}
+									that.oItemCatDialog.open();
+								} else {
+									oWorkOrderDetailModel.setProperty(sPath + "/ItemCat", "L");
+									oWorkOrderDetailViewModel.setProperty("/sPathItemCat", "");
+									oWorkOrderDetailViewModel.setProperty("/oComponentDetails", null);
+								}
 
-			} else if (sKey === "N" && StockAvail >= ReqQuantity) {
-				MessageBox.error("Required Qunatity is available as Stock", {
-
-					onClose: function (sAction) {
-						oWorkOrderDetailModel.setProperty(sPath + "/ItemCat", "L");
-						oWorkOrderDetailViewModel.setProperty("/sPathItemCat", "");
-						oWorkOrderDetailViewModel.setProperty("/oComponentDetails", null);
+							}
+						});
 					}
-				});
+				} else {
+					MessageBox.error("Please enter valid component details");
+
+				}
 			}
 
 		},
@@ -1156,13 +1148,13 @@ sap.ui.define([
 							};
 							messages.push(oObj);
 						}
-						if(oMessages[1]!==[]){
-							for(var i=0;i<oMessages[1].length;i++){
+						if (oMessages[1] !== []) {
+							for (var i = 0; i < oMessages[1].length; i++) {
 								oObj = {
-								"Message": "PR Number:" + oMessages[1][i].PreqNo+"for line item:"+  oMessages[1][i].PreqItem,
-								"Status": "S"
-							};
-							messages.push(oObj);
+									"Message": "PR Number:" + oMessages[1][i].PreqNo + "for line item:" + oMessages[1][i].PreqItem,
+									"Status": "S"
+								};
+								messages.push(oObj);
 							}
 						}
 
@@ -3530,10 +3522,10 @@ sap.ui.define([
 				var oWorkOrderDetailModel = this.oWorkOrderDetailModel;
 				var oWorkOrderDetailViewModel = this.oWorkOrderDetailViewModel;
 				var oData = oWorkOrderDetailModel.getData();
-				var oData1 =oWorkOrderDetailViewModel.getData(); 
+				var oData1 = oWorkOrderDetailViewModel.getData();
 				var sCurrentDate = formatter.fnGetDate();
-				var sWorkCenterDesc = util.fetchWorkCtrDesc(mLookupModel,oWorkOrderDetailModel,oData.MnWkCtr);
-				var sAssemblyDesc = util.fetchAssemblyDesc(mLookupModel,oData.Assembly);
+				var sWorkCenterDesc = util.fetchWorkCtrDesc(mLookupModel, oWorkOrderDetailModel, oData.MnWkCtr);
+				var sAssemblyDesc = util.fetchAssemblyDesc(mLookupModel, oData.Assembly);
 				var sSrc = jQuery.sap.getModulePath("com.sap.incture.IMO_PM.images", '/Murphy.png');
 				oHTML += "<div><img class = 'murphyLogo' src='" + sSrc + "'>"; //Div-1 Start ; Div enclosing whole PDF
 				oHTML += "<div class = 'container2'>"; //Div-2 Start ; Div containing border, encloses whole content
@@ -3545,40 +3537,38 @@ sap.ui.define([
 					"</div><div class = 'userDetailFontStyle'>" + oData.Orderid + "</div><div class = 'userDetailFontStyle'>" +
 					oData.ShortText + "</div></div>";
 				///////////////////////////////////////////////User Details End's here ////////////////////////////////////////////////
-				
+
 				///////////////////////////////////////////////Header Details Starts here/////////////////////////////////////////////
 				oHTML += "<div class = 'headerDetailsContainer'>" //Div-3 Starts ; Header Details Container Div
-				
-				oHTML += "<div class = 'grid-container-header1'><div><span class = 'headerDetailsFontStyle1'>" + "Funct. Location"
-				+ "</span></div><div><span class = 'headerDetailsFontStyle2'>" + oData.FunctLoc +
-				"</span></div><div><span class = 'headerDetailsFontStyle3'>" + "Delta House Electrical Power System" + "</span></div></div>";
-				
-				oHTML += "<div class = 'grid-container-header1'><div><span class = 'headerDetailsFontStyle1'>" + "Equipment"
-				+ "</span></div><div><span class = 'headerDetailsFontStyle2'>" + oData.Equipment +
-				"</span></div><div><span class = 'headerDetailsFontStyle3'>" + oData.EquipDesc + "</span></div></div>";
-				
-				oHTML += "<div class = 'grid-container-header1'><div><span class = 'headerDetailsFontStyle1'>" + "TechIdentNo."
-				+ "</span></div><div><span class = 'headerDetailsFontStyle2'>" + oData1.AssetId +
-				"</span></div><div><span class = 'headerDetailsFontStyle3'>" + "" + "</span></div></div>";
-				
-				oHTML += "<div class = 'grid-container-header1'><div><span class = 'headerDetailsFontStyle1'>" + "Assembly"
-				+ "</span></div><div><span class = 'headerDetailsFontStyle2'>" + oData.Assembly +
-				"</span></div><div><span class = 'headerDetailsFontStyle3'>" + sAssemblyDesc + "</span></div></div>";
-				
-				oHTML +="<div class = 'grid-container-header2'><div><span class = 'headerDetailsFontStyle1'>" + "PM Planner Grp."
-				+ "</div><div><span class = 'headerDetailsFontStyle2'>" + oData.Plangroup + "</span></div><div><span><span class = 'headerDetailsFontStyle3'>"
-				+ "IH-Planner 010" + "</span></span></div><div><span class = 'headerDetailsFontStyle1'>" + "PM Plant" + 
-				"</span></div><div><span class = 'headerDetailsFontStyle2'>" + oData.Plant + "</span></div></div>";
-				
-				oHTML += "<div class = 'grid-container-header1'><div><span class = 'headerDetailsFontStyle1'>" + "Main work cntr"
-				+ "</span></div><div><span class = 'headerDetailsFontStyle2'>" + oData.MnWkCtr +
-				"</span></div><div><span class = 'headerDetailsFontStyle3'>" + sWorkCenterDesc + "</span></div></div>";
-				
-				
-				
-				
+
+				oHTML += "<div class = 'grid-container-header1'><div><span class = 'headerDetailsFontStyle1'>" + "Funct. Location" +
+					"</span></div><div><span class = 'headerDetailsFontStyle2'>" + oData.FunctLoc +
+					"</span></div><div><span class = 'headerDetailsFontStyle3'>" + "Delta House Electrical Power System" + "</span></div></div>";
+
+				oHTML += "<div class = 'grid-container-header1'><div><span class = 'headerDetailsFontStyle1'>" + "Equipment" +
+					"</span></div><div><span class = 'headerDetailsFontStyle2'>" + oData.Equipment +
+					"</span></div><div><span class = 'headerDetailsFontStyle3'>" + oData.EquipDesc + "</span></div></div>";
+
+				oHTML += "<div class = 'grid-container-header1'><div><span class = 'headerDetailsFontStyle1'>" + "TechIdentNo." +
+					"</span></div><div><span class = 'headerDetailsFontStyle2'>" + oData1.AssetId +
+					"</span></div><div><span class = 'headerDetailsFontStyle3'>" + "" + "</span></div></div>";
+
+				oHTML += "<div class = 'grid-container-header1'><div><span class = 'headerDetailsFontStyle1'>" + "Assembly" +
+					"</span></div><div><span class = 'headerDetailsFontStyle2'>" + oData.Assembly +
+					"</span></div><div><span class = 'headerDetailsFontStyle3'>" + sAssemblyDesc + "</span></div></div>";
+
+				oHTML += "<div class = 'grid-container-header2'><div><span class = 'headerDetailsFontStyle1'>" + "PM Planner Grp." +
+					"</div><div><span class = 'headerDetailsFontStyle2'>" + oData.Plangroup +
+					"</span></div><div><span><span class = 'headerDetailsFontStyle3'>" + "IH-Planner 010" +
+					"</span></span></div><div><span class = 'headerDetailsFontStyle1'>" + "PM Plant" +
+					"</span></div><div><span class = 'headerDetailsFontStyle2'>" + oData.Plant + "</span></div></div>";
+
+				oHTML += "<div class = 'grid-container-header1'><div><span class = 'headerDetailsFontStyle1'>" + "Main work cntr" +
+					"</span></div><div><span class = 'headerDetailsFontStyle2'>" + oData.MnWkCtr +
+					"</span></div><div><span class = 'headerDetailsFontStyle3'>" + sWorkCenterDesc + "</span></div></div>";
+
 				oHTML += "</div>" //Div-3 Starts ; Header Details Container Div
-				///////////////////////////////////////////////Header Details Ends here/////////////////////////////////////////////
+					///////////////////////////////////////////////Header Details Ends here/////////////////////////////////////////////
 				oHTML += "</div>" //Div-2 End
 				oHTML += "</div>" //Div-1 End
 				var printCssUrl = jQuery.sap.getModulePath("com.sap.incture.IMO_PM.css", "/style.css");
@@ -3624,7 +3614,7 @@ sap.ui.define([
 		 */
 		/*onAfterRendering: function () {
 		
-						}*/
+										}*/
 		/**
 		 * Called when the Controller is destroyed. Use this one to free resources and finalize activities.
 		 * @memberOf com.mylan.createWorkOrder.CreateWorkOrder
