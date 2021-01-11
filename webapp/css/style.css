@@ -2768,6 +2768,7 @@ html.sap-desktop .sapMIBar.sapMFooter-CTX {
 /* Header Details css - starts*/
 .headerDetailsContainer{
 	padding : 10px;
+	border-bottom: 1px solid black;
 }
 .grid-container-header1{
 	display: grid;
@@ -2789,7 +2790,107 @@ html.sap-desktop .sapMIBar.sapMFooter-CTX {
 .headerDetailsFontStyle3{
 	font-size: 14px;
 }
+.headerDetailsFontStyle4{
+	font-weight:bold;
+}
 /* Header Details css - ends*/
+/*Operation Table css- starts*/
+
+.tableHeading{
+	padding-left: 10px;
+    padding-top: 10px;
+    padding-right: 10px;
+	font-weight:900;
+	font-family:sans-serif;
+	font-size:12px;
+	
+}
+
+.tableHeader1{
+	font-style:italic;
+	font-size:13px;
+	width : 15%;
+	text-align: left;
+}
+.tableHeader2{
+	font-style:italic;
+	font-size:13px;
+	width : 40%;
+	text-align: left;
+}
+.operationShortText{
+	
+	font-size:14px;
+	font-family:Times New Roman;
+}
+.tableData1{
+	text-align: left;
+	font-family: courier new;
+	font-family: courier new;
+	font-size: 17px;
+}
+.opeartionTable{
+	padding : 10px;
+	width:100%;
+	
+}
+.operationsContainer{
+	border-bottom: 1px solid black;
+}
+/*Operation Table css- ends*/
+
+/* Material Table css- starts here */
+.materialTable{
+	padding : 10px;
+	width:100%;
+
+}
+.materialsHeader1{
+	font-style:italic;
+	font-size:13px;
+	width : 10%;
+	text-align: left;
+}
+.materialData1{
+	text-align: left;
+	font-family: courier new;
+	font-size: 17px;
+}
+.materialsHeader2{
+	font-style:italic;
+	font-size:13px;
+	width : 5%;
+	text-align: left;
+}
+.materialsHeader3{
+	font-style:italic;
+	font-size:13px;
+	width : 20%;
+	text-align: left;
+}
+.materialsHeader4{
+	font-style:italic;
+	font-size:13px;
+	width : 10%;
+	text-align: left;
+}
+.materialsContainer{
+	border-bottom: 1px solid black;
+}
+/* Material Table css- starts here */
+/* VerifiedConntainer css - starts here*/
+.verifiedContainer{
+	height: 100px;
+    padding: 10px;
+}
+.textContainer{
+	margin-top: 50px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: right;
+    margin-right: 5%;
+}
+/* VerifiedConntainer css - Ends here*/
 /*nischal -- css for Print Button Html -- Ends*/
 
 
