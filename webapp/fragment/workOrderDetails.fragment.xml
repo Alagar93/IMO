@@ -190,7 +190,7 @@
 								<Label text="{i18n>DESCRIPTION}" class="tableHeaderText"/>
 								<ui:template>
 									<!--<Text text="{oWorkOrderDetailModel>MatlDesc}"/>-->
-									<Input value="{path:'oWorkOrderDetailModel>MatlDesc'}" class="inputRadius" change="onUpdateSpareCount"
+									<Input value="{path:'oWorkOrderDetailModel>MatlDesc'}" class="inputRadius" change="onUpdateSpareCount" id="SP_MatlDescfield"
 										enabled="{path:'oWorkOrderDetailModel>Material',formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnDisaleMatrialDesc'}"></Input>
 								</ui:template>
 							</ui:Column>

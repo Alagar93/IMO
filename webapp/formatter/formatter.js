@@ -612,6 +612,34 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 			return userName;
 		},*/
 
+	//Function add Reservation and PR num
+	fnGetPRandRESERVNO: function (aOperations, aMaterials) {
+		var aMessages = [],
+			i;
+
+		if (aMaterials !== undefined) {
+			var ReservNo = aMaterials[0].ReservNo;
+			for (i = 0; i < aMaterials.length; i++) {
+				if (aMaterials[i].PreqNo !== "") {
+					aMessages.push({
+						"PreqNo": aMaterials[i].PreqNo,
+						"PreqItem": aMaterials[i].PreqItem
+					});
+				}
+			}
+		}
+		if (aOperations !== undefined) {
+			for (i = 0; i < aOperations.length; i++) {
+				if (aOperations[i].PreqNo !== "") {
+					aMessages.push({
+						"PreqNo": aOperations[i].PreqNo,
+						"PreqItem": aOperations[i].PreqItem
+					});
+				}
+			}
+		}
+		return [ReservNo, aMessages];
+	},
 	formatName: function (sName) {
 
 		if (sName) {
@@ -712,10 +740,10 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 	},
 
 	//  Function to Generate months back Date
-	GetMonthsBackDate: function (nMonths) {
+	GetMonthsBackDate: function (nDays) {
 		var d = new Date();
-		d.setMonth(d.getMonth() - nMonths);
-		return d.toLocaleDateString();
+		var newTime=d.getTime()-nDays*24*60*60*1000;
+		return new Date(newTime).toLocaleDateString();
 	},
 
 	//Function to disable Review role field
@@ -1368,10 +1396,10 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 		return userid;
 
 	},
-	setReportedBy:function(userId){
-		var oWorkOrderDetailModel=this.getModel("oWorkOrderDetailModel");
-		if(userId&&oWorkOrderDetailModel){
-			oWorkOrderDetailModel.setProperty("/ReportedBy",userId);
+	setReportedBy: function (userId) {
+		var oWorkOrderDetailModel = this.getModel("oWorkOrderDetailModel");
+		if (userId && oWorkOrderDetailModel) {
+			oWorkOrderDetailModel.setProperty("/ReportedBy", userId);
 		}
 		return userId;
 	},

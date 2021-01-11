@@ -88,7 +88,7 @@ sap.ui.define([
 					"key": "OSNO",
 					"text": "Outsranding Notification"
 				}],
-				"sCreatedOnStart": formatter.GetMonthsBackDate(2),
+				"sCreatedOnStart": formatter.GetMonthsBackDate(90),
 				"sCreatedOnEnd": new Date().toLocaleDateString()
 			};
 			this.mLookupModel.setProperty("/", oViewSetting);
@@ -562,8 +562,14 @@ sap.ui.define([
 			this.createWoNotifListDialog = null;
 		},
 		onCreateWO: function (oEvent) {
+			var sOrderType=this.mLookupModel.getProperty("/sOrderTypeSel");
+			if(sOrderType===""||sOrderType===null){
+				MessageBox.error("Enter Work Order type.");
+				return;
+			}
 			this.onCancelWoNotifDetailDialog();
 			this.busy.open();
+			
 			var oNotificationDataModel = this.oNotificationDataModel;
 			var sData = oNotificationDataModel.getData();
 			var btnType = this.mLookupModel.getProperty("/CreationWOType");
@@ -1161,7 +1167,7 @@ sap.ui.define([
 			mLookupModel.setProperty("/sNotifBDFilter", "");
 			mLookupModel.setProperty("/sNotifPriorFilter", "");
 			mLookupModel.setProperty("/sNotifWkCenterFilter", "");
-			mLookupModel.setProperty("/sCreatedOnStart", formatter.GetMonthsBackDate(3));
+			mLookupModel.setProperty("/sCreatedOnStart", formatter.GetMonthsBackDate(90));
 			mLookupModel.setProperty("/sCreatedOnEnd", new Date().toLocaleDateString());
 		},
 		notifAdvFilterPanelOpen: function(oEvent){

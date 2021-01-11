@@ -91,10 +91,10 @@
 					<VBox>
 						<Label text="{i18n>SP_PurchaseReq}"/>
 						<HBox>
-							<Input value="{oWorkOrderDetailViewModel>/oControlkeyOperation/PurchaseReq}" editable="false"
-								tooltip="{oWorkOrderDetailViewModel>/oControlkeyOperation/PurchaseReq}" class="inputRadius"></Input>
-							<Input value="{oWorkOrderDetailViewModel>/oControlkeyOperation/ResItem}" editable="false"
-								tooltip="{oWorkOrderDetailViewModel>/oControlkeyOperation/ResItem}" class="inputRadius"></Input>
+							<Input value="{oWorkOrderDetailViewModel>/oControlkeyOperation/PreqNo}" editable="false"
+								tooltip="{oWorkOrderDetailViewModel>/oControlkeyOperation/PreqNo}" class="inputRadius"></Input>
+							<Input value="{oWorkOrderDetailViewModel>/oControlkeyOperation/PreqItem}" editable="false"
+								tooltip="{oWorkOrderDetailViewModel>/oControlkeyOperation/PreqItem}" class="inputRadius"></Input>
 						</HBox>
 						<layoutData>
 							<l:GridData span="XL12 L12 M12 S12"></l:GridData>
@@ -105,12 +105,14 @@
 			<footer>
 				<Toolbar>
 					<ToolbarSpacer/>
-					<Button text="Cancel" press="onCancelControlKeyDialog" class="transparentBtn createNotifClearBtn" icon="sap-icon://decline" iconFirst="true"/>
+					<Button text="Cancel" press="onCancelControlKeyDialog" class="transparentBtn createNotifClearBtn" icon="sap-icon://decline" iconFirst="true" visible="{=!${oWorkOrderDetailViewModel>/PreqPopupFlag}}"/>
+					
 					<Button type="Emphasized" text="Save" press="onSaveControlKey">
 						<customData>
 							<core:CustomData key="dateType" value="CREATE_ORDER"/>
 						</customData>
 					</Button>
+					<Button text="Close" press="onCloseControlKeyDialog" class="transparentBtn createNotifClearBtn" visible="{oWorkOrderDetailViewModel>/PreqPopupFlag}"/>
 				</Toolbar>
 			</footer>
 		</Page>

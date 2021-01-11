@@ -68,7 +68,7 @@ sap.ui.define([
 				}],
 				"iSelectedWOIndices": 0,
 				"sWorkCenterSel": "",
-				"sCreatedOnStart": formatter.GetMonthsBackDate(3), // Date Range for Enter Date
+				"sCreatedOnStart": formatter.GetMonthsBackDate(90), // Date Range for Enter Date
 				"sCreatedOnEnd": new Date().toLocaleDateString()
 			};
 			this.mLookupModel.setProperty("/", oViewSetting);
@@ -985,7 +985,7 @@ sap.ui.define([
 			mLookupModel.setProperty("/sCreatedBy", "");
 			mLookupModel.setProperty("/sAssignedTo", "");
 			mLookupModel.setProperty("/sWorkCenterFilter", "");
-			mLookupModel.setProperty("/sCreatedOnStart", formatter.GetMonthsBackDate(3)); // Date Range for Enter Date
+			mLookupModel.setProperty("/sCreatedOnStart", formatter.GetMonthsBackDate(90)); // Date Range for Enter Date
 			mLookupModel.setProperty("/sCreatedOnEnd", new Date().toLocaleDateString());
 		},
 		woListAdvFilterPanelOpen: function (oEvent) {

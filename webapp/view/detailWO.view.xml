@@ -78,7 +78,7 @@
 						</layoutData>
 					</VBox>
 					<VBox class="sapMParentGridBroder sapUiTinyMarginBeginEnd sapUiMediumMarginTop">
-						<core:Fragment fragmentName="com.sap.incture.IMO_PM.fragment.workOrderDetails" type="XML"/>
+						<core:Fragment fragmentName="com.sap.incture.IMO_PM.fragment.workOrderDetails" id="idOperationsMaterialPanelWO" type="XML"/>
 						<layoutData>
 							<l:GridData span="XL12 L12 M12 S12"/>
 						</layoutData>

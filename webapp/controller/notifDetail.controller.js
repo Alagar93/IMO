@@ -1260,6 +1260,11 @@ sap.ui.define([
 			this.createWoNotifListDialog = null;
 		},
 		onCreateWO: function (oEvent) {
+			var sOrderType=this.mLookupModel.getProperty("/sOrderTypeSel");
+			if(sOrderType===""||sOrderType===null){
+				MessageBox.error("Enter Work Order type.");
+				return;
+			}
 			this.onCancelWoNotifDetailDialog();
 			this.busy.open();
 			var oNotificationDataModel = this.oNotificationDataModel;
