@@ -3529,6 +3529,8 @@ sap.ui.define([
 				var sCurrentDate = formatter.fnGetDate();
 				var sWorkCenterDesc = util.fetchWorkCtrDesc(mLookupModel, oWorkOrderDetailModel, oData.MnWkCtr);
 				var sAssemblyDesc = util.fetchAssemblyDesc(mLookupModel, oData.Assembly);
+				var sPR = util.fetchPurchanseReqNo(oData.HEADERTOCOMPONENTNAV);
+				var sReservNo = util.fetchReservNo(oData.HEADERTOCOMPONENTNAV);
 				var sSrc = jQuery.sap.getModulePath("com.sap.incture.IMO_PM.images", '/Murphy.png');
 				oHTML += "<div><img class = 'murphyLogo' src='" + sSrc + "'>"; //Div-1 Start ; Div enclosing whole PDF
 				oHTML += "<div class = 'container2'>"; //Div-2 Start ; Div containing border, encloses whole content
@@ -3540,38 +3542,102 @@ sap.ui.define([
 					"</div><div class = 'userDetailFontStyle'>" + oData.Orderid + "</div><div class = 'userDetailFontStyle'>" +
 					oData.ShortText + "</div></div>";
 				///////////////////////////////////////////////User Details End's here ////////////////////////////////////////////////
-
+				
 				///////////////////////////////////////////////Header Details Starts here/////////////////////////////////////////////
 				oHTML += "<div class = 'headerDetailsContainer'>" //Div-3 Starts ; Header Details Container Div
-
-				oHTML += "<div class = 'grid-container-header1'><div><span class = 'headerDetailsFontStyle1'>" + "Funct. Location" +
-					"</span></div><div><span class = 'headerDetailsFontStyle2'>" + oData.FunctLoc +
-					"</span></div><div><span class = 'headerDetailsFontStyle3'>" + "Delta House Electrical Power System" + "</span></div></div>";
-
-				oHTML += "<div class = 'grid-container-header1'><div><span class = 'headerDetailsFontStyle1'>" + "Equipment" +
-					"</span></div><div><span class = 'headerDetailsFontStyle2'>" + oData.Equipment +
-					"</span></div><div><span class = 'headerDetailsFontStyle3'>" + oData.EquipDesc + "</span></div></div>";
-
-				oHTML += "<div class = 'grid-container-header1'><div><span class = 'headerDetailsFontStyle1'>" + "TechIdentNo." +
-					"</span></div><div><span class = 'headerDetailsFontStyle2'>" + oData1.AssetId +
-					"</span></div><div><span class = 'headerDetailsFontStyle3'>" + "" + "</span></div></div>";
-
-				oHTML += "<div class = 'grid-container-header1'><div><span class = 'headerDetailsFontStyle1'>" + "Assembly" +
-					"</span></div><div><span class = 'headerDetailsFontStyle2'>" + oData.Assembly +
-					"</span></div><div><span class = 'headerDetailsFontStyle3'>" + sAssemblyDesc + "</span></div></div>";
-
-				oHTML += "<div class = 'grid-container-header2'><div><span class = 'headerDetailsFontStyle1'>" + "PM Planner Grp." +
-					"</div><div><span class = 'headerDetailsFontStyle2'>" + oData.Plangroup +
-					"</span></div><div><span><span class = 'headerDetailsFontStyle3'>" + "IH-Planner 010" +
-					"</span></span></div><div><span class = 'headerDetailsFontStyle1'>" + "PM Plant" +
-					"</span></div><div><span class = 'headerDetailsFontStyle2'>" + oData.Plant + "</span></div></div>";
-
-				oHTML += "<div class = 'grid-container-header1'><div><span class = 'headerDetailsFontStyle1'>" + "Main work cntr" +
-					"</span></div><div><span class = 'headerDetailsFontStyle2'>" + oData.MnWkCtr +
-					"</span></div><div><span class = 'headerDetailsFontStyle3'>" + sWorkCenterDesc + "</span></div></div>";
-
-				oHTML += "</div>" //Div-3 Starts ; Header Details Container Div
-					///////////////////////////////////////////////Header Details Ends here/////////////////////////////////////////////
+				
+				oHTML += "<div class = 'grid-container-header1'><div><span class = 'headerDetailsFontStyle1'>" + "Funct. Location"
+				+ "</span></div><div><span class = 'headerDetailsFontStyle2'>" + oData.FunctLoc +
+				"</span></div><div><span class = 'headerDetailsFontStyle3'>" + "Delta House Electrical Power System" + "</span></div></div>";
+				
+				oHTML += "<div class = 'grid-container-header1'><div><span class = 'headerDetailsFontStyle1'>" + "Equipment"
+				+ "</span></div><div><span class = 'headerDetailsFontStyle2'>" + oData.Equipment +
+				"</span></div><div><span class = 'headerDetailsFontStyle3'>" + oData.EquipDesc + "</span></div></div>";
+				
+				oHTML += "<div class = 'grid-container-header1'><div><span class = 'headerDetailsFontStyle1'>" + "TechIdentNo."
+				+ "</span></div><div><span class = 'headerDetailsFontStyle2'>" + oData1.AssetId +
+				"</span></div><div><span class = 'headerDetailsFontStyle3'>" + "" + "</span></div></div>";
+				
+				oHTML += "<div class = 'grid-container-header1'><div><span class = 'headerDetailsFontStyle1'>" + "Assembly"
+				+ "</span></div><div><span class = 'headerDetailsFontStyle2'>" + oData.Assembly +
+				"</span></div><div><span class = 'headerDetailsFontStyle3'>" + sAssemblyDesc + "</span></div></div>";
+				
+				oHTML +="<div class = 'grid-container-header2'><div><span class = 'headerDetailsFontStyle1'>" + "PM Planner Grp."
+				+ "</div><div><span class = 'headerDetailsFontStyle2'>" + oData.Plangroup + "</span></div><div><span><span class = 'headerDetailsFontStyle3'>"
+				+ "IH-Planner 010" + "</span></span></div><div><span class = 'headerDetailsFontStyle1'>" + "PM Plant" + 
+				"</span></div><div><span class = 'headerDetailsFontStyle2'>" + oData.Plant + "</span></div></div>";
+				
+				oHTML += "<div class = 'grid-container-header1'><div><span class = 'headerDetailsFontStyle1'>" + "Main work cntr"
+				+ "</span></div><div><span class = 'headerDetailsFontStyle2'>" + oData.MnWkCtr +
+				"</span></div><div><span class = 'headerDetailsFontStyle3'>" + sWorkCenterDesc + "</span></div></div>";
+				
+				oHTML += "<div class = 'grid-container-header1'><div><span class = 'headerDetailsFontStyle1 headerDetailsFontStyle4'>" + "Purchase requisition"
+				+ "</span></div><div><span class = 'headerDetailsFontStyle2'>" + sPR +
+				"</span></div><div><span class = 'headerDetailsFontStyle3'>" + "" + "</span></div></div>";
+				
+				oHTML += "<div class = 'grid-container-header1'><div><span class = 'headerDetailsFontStyle1 headerDetailsFontStyle4'>" + "Reservation number"
+				+ "</span></div><div><span class = 'headerDetailsFontStyle2'>" + sReservNo +
+				"</span></div><div><span class = 'headerDetailsFontStyle3'>" + "" + "</span></div></div>";
+				
+				
+				
+				oHTML += "</div>" //Div-3 Ends ; Header Details Container Div
+				///////////////////////////////////////////////Header Details Ends here/////////////////////////////////////////////
+				//////////////////////////////////////////////Operations Table Starts here//////////////////////////////////////////
+				oHTML += "<div class = 'operationsContainer'>"  ///Div -4 Starts ; Opeartion Table Container Div
+				oHTML += "<div class = 'tableHeading'>"  + "Operations" + "</div>";
+				
+				oHTML += "<table class = 'opeartionTable'>"; //Table Container starts;
+				
+				oHTML += "<tr><th class = 'tableHeader1'>"+ "Operation" + "</th><th class = 'tableHeader1'>" +"Work Ctr" + "</th><th class = 'tableHeader1'>"
+				+ "Plant" +"</th><th class = 'tableHeader1'>" +"Control Key"+ "</th><th class = 'tableHeader1'>" + "Actual Work" + "</th><th class = 'tableHeader2'>"
+				+ "Short Text" + "</th></tr>";
+				
+				for(var i = 0 ; i < oData.HEADERTOOPERATIONSNAV.length ; i++ ){
+					if(oData.HEADERTOOPERATIONSNAV[i].ControlKey === "PM01"){
+						oHTML += "<tr><td class = 'tableData1'>" + oData.HEADERTOOPERATIONSNAV[i].Activity + "</td><td class = 'tableData1'>"  +oData.HEADERTOOPERATIONSNAV[i].WorkCntr
+						+"</td><td class = 'tableData1'>" +oData.HEADERTOOPERATIONSNAV[i].Plant + "</td><td class = 'tableData1'>" +oData.HEADERTOOPERATIONSNAV[i].ControlKey 
+						+"</td><td class = 'tableData1'>" +oData.HEADERTOOPERATIONSNAV[i].TWork+ "</td><td class ='operationShortText'>" +oData.HEADERTOOPERATIONSNAV[i].Description
+						+"</td></tr>";
+					}
+				}
+				
+				oHTML += "</table>";
+				
+				oHTML +="</div>"  ///Div -4 Ends ; Opeartion Table Container Div
+				//////////////////////////////////////////////Operations Table Ends here//////////////////////////////////////////
+				/////////////////////////////////////////////Materials Table Starts here//////////////////////////////////////////
+				
+					oHTML += "<div class ='materialsContainer'>"; // Material Table Container Starts
+					oHTML += "<div class = 'tableHeading'>" + "Materials" + "</div>";
+					
+					oHTML += "<table class = 'materialTable'>"; // Material Table Starts
+					
+					oHTML += "<tr><th class = 'materialsHeader1'>" + "Item" + "</th><th class = 'materialsHeader1'>" + "Component" 
+					+ "</th><th class = 'materialsHeader1'>" + "Req. Quantity" + "</th><th class = 'materialsHeader1'>" + "Plant"
+					+ "</th><th class = 'materialsHeader2'>" +"UM"+ "</th><th class ='materialsHeader2'>" + "IC" 
+					+ "</th><th class = 'materialsHeader4'>" +"SLoc"+ "</th><th class = 'materialsHeader3'>"  +"Description"
+					+  "</th></tr>";
+					
+					for(var i = 0 ; i < oData.HEADERTOCOMPONENTNAV.length ; i++){
+						if( oData.HEADERTOCOMPONENTNAV[i].ItemCat === "L" ){
+							oHTML += "<tr><td class = 'materialData1'>" +oData.HEADERTOCOMPONENTNAV[i].ItemNumber 
+							+ "</td><td class = 'materialData1'>" + oData.HEADERTOCOMPONENTNAV[i].Material + "</td><td class = 'materialData1'>" +oData.HEADERTOCOMPONENTNAV[i].RequirementQuantity 
+							+"</td><td class = 'materialData1'>" + oData.HEADERTOCOMPONENTNAV[i].Plant+ "</td><td class = 'materialData1'>"
+							+  oData.HEADERTOCOMPONENTNAV[i].RequirementQuantityUnit + "</td><td class = 'materialData1'>"
+							+oData.HEADERTOCOMPONENTNAV[i].ItemCat + "</td><td class = 'materialData1'>" +oData.HEADERTOCOMPONENTNAV[i].StgeLoc 
+							+"</td><td class = 'materialData1'>" + oData.HEADERTOCOMPONENTNAV[i].MatlDesc+"</td></tr>";
+						}
+					}
+					
+					oHTML += "</table>";
+					
+					oHTML += "</div>"; // Material Table Container Ends
+			
+				/////////////////////////////////////////////Materials Table Ends here//////////////////////////////////////////
+				/////////////////////////////////////////////VerifiedBy Content Starts here/////////////////////////////////////
+				oHTML += "<div class = 'verifiedContainer'><div class = 'textContainer'>" + "Verified By (Signature)" + "</div></div>";
+				/////////////////////////////////////////////VerifiedBy Content Ends here/////////////////////////////////////
 				oHTML += "</div>" //Div-2 End
 				oHTML += "</div>" //Div-1 End
 				var printCssUrl = jQuery.sap.getModulePath("com.sap.incture.IMO_PM.css", "/style.css");

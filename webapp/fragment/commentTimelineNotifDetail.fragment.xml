@@ -6,24 +6,27 @@
 	<OverflowToolbar class="createNotifOverflowBorder sapUiTinyMarginBottom">
 		<Label design="Bold" text="Attachments" wrapping="true"/>
 		<ToolbarSpacer/>
-		<c:Icon src="sap-icon://decline" tooltip="Close Attachments" press="onPressBack" color="#142e5e" class="attachmentsIconSize sapUiSmallMarginEnd"/>
+		<c:Icon src="sap-icon://decline" tooltip="Close Attachments" press="onPressBack" color="#142e5e"
+			class="attachmentsIconSize sapUiSmallMarginEnd"/>
 		<layoutData>
 			<l:GridData span="XL12 L12 M12 S12"></l:GridData>
 		</layoutData>
 	</OverflowToolbar>
-	<FlexBox alignItems="Start" justifyContent="SpaceBetween">
+	<Toolbar>
 		<u:FileUploader id="MYLAN_CREATE_Notif_FILEUPLOADER" buttonOnly="true" change="onUploadNotifAttachment" useMultipart="false"
 			uploadComplete="onUploadNotifComplete" buttonText="{i18n>WORDK_DETAIL_ADD_DOCUMENT}" sendXHR="true" multiple="false"
 			fileType="jpg,pdf,jpeg,xlsx,xls,png,docx" maximumFilenameLength="50" typeMissmatch="fnHandleFileType" sameFilenameAllowed="true"
-			enabled="true" class="tableHeadertansparentBtn" tooltip="{i18n>UPLOAD_DOCS}" uploadOnChange="false" filenameLengthExceed="fnFilenameLengthExceed"/>
+			enabled="true" class="tableHeadertansparentBtn" tooltip="{i18n>UPLOAD_DOCS}" uploadOnChange="false"
+			filenameLengthExceed="fnFilenameLengthExceed"/>
+		<ToolbarSpacer/>
 		<Button text="{i18n>WORK_ORDER_ADD_LINK}" class="tableHeadertansparentBtn" press="onOpenAttchNotiflinkPopup" tooltip="{i18n>ADD_LINKS}"
 			enabled="true"/>
-	</FlexBox>
+	</Toolbar>
 	<VBox items="{oNotificationViewModel>/attachments}" class="sapUiTinyMarginTop">
-		<VBox class="sapUiTinyMarginBeginEnd">
-			<HBox fitContainer="true" justifyContent="SpaceBetween" alignContent="Start" width="100%">
+		<VBox class="sapUiTinyMargin">
+			<VBox fitContainer="true" alignContent="Start" width="100%">
 				<HBox width="70%">
-					<core:Icon src="{path:'oNotificationViewModel>FileExtension', formatter:'.formatter.setIconForFile'}" tooltip="{}" size="2rem"
+					<core:Icon src="{path:'oNotificationViewModel>FileExtension', formatter:'.formatter.setIconForFile'}" tooltip="{}" size="1.5rem"
 						class="sapMCommonBlueColor"/>
 					<VBox class="sapUiSmallMarginBegin" width="90%">
 						<Link text="{oNotificationViewModel>DocName}" press="getNotifAttachmentIdForDownload" class="sapMAttachmentLink" wrapping="true"
@@ -32,32 +35,61 @@
 							visible="{= ${oNotificationViewModel>AttachmentType} === 'URL' ? true : false}" width="90%"
 							tooltip="{path:'oNotificationViewModel>AttachmentURL', formatter:'.formatter.formatHyperLink'}"
 							href="{path:'oNotificationViewModel>AttachmentURL', formatter:'.formatter.formatHyperLink'}"/>
-						<Text text="{i18n>ATTACHMENTS_UPLOADED_BY} : {oNotificationViewModel>CreatedByName}" class="sapMTextFontSize sapFontItalic"
-							visible="{= ${oNotificationViewModel>AttachmentType} === 'DOC' ? true : false}"/>
-						<Text text="Attached By : {oNotificationViewModel>CreatedByName}" class="sapMTextFontSize sapFontItalic"
-							visible="{= ${oNotificationViewModel>AttachmentType} === 'URL' ? true : false}"/>
-						<Text visible="{= ${oNotificationViewModel>AttachmentType} === 'DOC' ? true : false}"
-							text="{i18n>ATTACHMENTS_UPLOADED_ON} : {path: 'oNotificationViewModel>CreatedDate', type: 'sap.ui.model.type.Date', formatOptions: { source: { pattern: 'yyyy-MM-dd HH:mm:ss' }, pattern: 'dd MMM yyyy' }}"
-							class="sapMTextFontSize sapFontItalic"/>
-						<Text visible="{= ${oNotificationViewModel>AttachmentType} === 'URL' ? true : false}"
-							text="Attached On : {path: 'oNotificationViewModel>CreatedDate', type: 'sap.ui.model.type.Date', formatOptions: { source: { pattern: 'yyyy-MM-dd HH:mm:ss' }, pattern: 'dd MMM yyyy' }}"
-							class="sapMTextFontSize sapFontItalic"/>
 					</VBox>
 				</HBox>
-				<HBox width="20%">
+				<VBox class="sapUiSmallMarginTop">
+					<HBox visible="{= ${oNotificationViewModel>AttachmentType} === 'DOC' ? true : false}">
+						<Text text="{i18n>ATTACHMENTS_UPLOADED_BY}: " class="labelText"/>
+						<Text text="{oNotificationViewModel>CreatedByName}" class="sapUiTinyMarginBegin styleName"/>
+					</HBox>
+					<HBox visible="{= ${oNotificationViewModel>AttachmentType} === 'URL' ? true : false}">
+						<Text text="Attached By: " class="labelText"/>
+						<Text text="{oNotificationViewModel>CreatedByName}" class="sapUiTinyMarginBegin styleName"/>
+					</HBox>
+					<HBox alignItems="Center" justifyContent="SpaceBetween">
+						<VBox>
+							<HBox visible="{= ${oNotificationViewModel>AttachmentType} === 'DOC' ? true : false}">
+								<Text text="{i18n>ATTACHMENTS_UPLOADED_ON}: " class="labelText"/>
+								<Text
+									text="{path: 'oNotificationViewModel>CreatedDate', type: 'sap.ui.model.type.Date', formatOptions: { source: { pattern: 'yyyy-MM-dd HH:mm:ss' }, pattern: 'dd MMM yyyy' }}"
+									class="sapUiTinyMarginBegin styleName"/>
+							</HBox>
+							<HBox visible="{= ${oNotificationViewModel>AttachmentType} === 'URL' ? true : false}">
+								<Text text="Attached On: " class="labelText"/>
+								<Text
+									text="{path: 'oNotificationViewModel>CreatedDate', type: 'sap.ui.model.type.Date', formatOptions: { source: { pattern: 'yyyy-MM-dd HH:mm:ss' }, pattern: 'dd MMM yyyy' }}"
+									class="sapUiTinyMarginBegin styleName"/>
+							</HBox>
+						</VBox>
+						<HBox>
+							<Button icon="sap-icon://download" tooltip="Download" type="Transparent"
+								visible="{= ${oNotificationViewModel>AttachmentType} === 'DOC' ? true : false}" press="getNotifAttachmentIdForDownload">
+								<customData>
+									<core:CustomData value="{oWorkOrderDetailViewModel>AttachmentType}"/>
+								</customData>
+							</Button>
+							<Button icon="sap-icon://delete" tooltip="Delete" type="Transparent" press="fnDeleteNotifAttachmentLink">
+								<customData>
+									<core:CustomData value="{oWorkOrderDetailViewModel>AttachmentType}"/>
+								</customData>
+							</Button>
+						</HBox>
+					</HBox>
+				</VBox>
+				<!--	<HBox width="20%">
 					<Button icon="sap-icon://delete" tooltip="{}" class="sapMDeleteBtnMarginTop sapUiMediumMarginBegin sapUiTinyMarginEnd sapUiSmallMarginTop"
 						press="fnDeleteNotifAttachmentLink">
 						<customData>
 							<core:CustomData value="{oWorkOrderDetailViewModel>AttachmentType}"/>
 						</customData>
 					</Button>
-				</HBox>
-			</HBox>
+				</HBox>-->
+			</VBox>
 			<core:HTML content="&lt;hr&gt;" class="sapUiSmallMarginBottom"/>
 		</VBox>
-		<layoutData>
+		<!--<layoutData>
 			<l:GridData span="L12 M12 S12"/>
-		</layoutData>
+		</layoutData>-->
 	</VBox>
 	<!--	</IconTabFilter>
 			<IconTabFilter></IconTabFilter>
