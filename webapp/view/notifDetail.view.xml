@@ -9,17 +9,18 @@
 		</tnt:ToolHeader>
 		<content>
 			<Toolbar class="sapUiTinyMarginTop tableHeaderBG" height="3rem">
-				<Button text="{i18n>close_notif}" id="idcloseNotif" press="fnSaveandCloseNotif" class="tableHeadertansparentBtn"
-					visible="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setBtnVisibleClose'}"/>
-				<Button text="{i18n>revert_Notif}" id="idrevertNotif" class="tableHeadertansparentBtn" press="onRevertNotif"
-					visible="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setBtnVisibleRevert'}"/>
-				<!--<ToolbarSpacer/>-->
-				<Button text="{i18n>updatenot}" id="updateNotif" class="tableHeadertansparentBtn" press="checkMandatoryFields"
-					visible="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setBtnVisibleUpdate'}">
+				<Button text="{i18n>updatenot}" id="updateNotif" press="checkMandatoryFields" icon="sap-icon://save" iconFirst="true" class="sapUiSmallMarginBegin"
+					visible="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setBtnVisibleUpdate'}" type="Emphasized">
 					<customData>
 						<core:CustomData key="dateType" value="UPDATE"/>
 					</customData>
 				</Button>
+				<Button text="{i18n>close_notif}" id="idcloseNotif" press="fnSaveandCloseNotif" class="tableHeadertansparentBtn"
+					visible="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setBtnVisibleClose'}"
+					icon="sap-icon://decline" iconFirst="true"/>
+				<Button text="{i18n>revert_Notif}" id="idrevertNotif" class="tableHeadertansparentBtn" press="onRevertNotif"
+					visible="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setBtnVisibleRevert'}"/>
+				<!--<ToolbarSpacer/>-->
 				<Button text="{i18n>APPROVE}" id="releaseButton" class="tableHeadertansparentBtn" press="onPressRelease"
 					visible="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setBtnVisibleRelease'}"/>
 				<Button text="{i18n>CREATEORDER}" id="idCreateOrder" class="tableHeadertansparentBtn" press="onCreateWODialogOpen"
@@ -32,6 +33,12 @@
 				width="{= ${mLookupModel>/showTaskManagementPanel} === true ? '20rem' : '0' }">
 				<c:Fragment fragmentName="com.sap.incture.IMO_PM.fragment.RightAttachmentPanel" type="XML" id="idRightAttachmentPanel"></c:Fragment>
 			</VBox>
+			<OverflowToolbar class="sapUiTinyMarginTop">
+				<Label text="Notification List" class="sapUiSmallMarginBegin" wrapping="true"/>
+				<core:Icon src="sap-icon://navigation-right-arrow" class="sapUiTinyMarginBegin iconSize1" color="#96999b"></core:Icon>
+				<Label text="Notification Number: " class="sapUiTinyMarginBegin murphyLabelColor"/>
+				<Text text="{oNotificationDataModel>/Notifid}" class="murphyLabelColor"/>
+			</OverflowToolbar>
 			<l:Grid defaultSpan="XL3 L3 M6 S12" class="sapUiSmallMargin gridBG" vSpacing="0">
 				<OverflowToolbar class="createNotifOverflowBorder">
 					<Label design="Bold" text="{i18n>SUBJECT}" wrapping="true"/>
@@ -50,10 +57,10 @@
 					<Label text="{i18n>workOrder}"></Label>
 					<Input value="{oNotificationDataModel>/Orderid}" class="inputRadius" width="90%" enabled="false"/>
 				</VBox>
-				<VBox class="gridPadding">
+				<!--<VBox class="gridPadding">
 					<Label text="{i18n>NOTIF_ID}"></Label>
 					<Input value="{oNotificationDataModel>/Notifid}" class="inputRadius" width="90%" enabled="false"/>
-				</VBox>
+				</VBox>-->
 				<VBox class="gridPadding">
 					<Label text="{i18n>NOTIF_STATUS}"></Label>
 					<Input value="{mLookupModel>/SysStatus}" class="inputRadius" width="90%" enabled="false"/>
@@ -70,9 +77,12 @@
 				</VBox>
 				<VBox class="gridPadding">
 					<Label text="{i18n>longText}"/>
-					<TextArea width="90%" value="{oNotificationViewModel>/Longtext}" tooltip="{oNotificationViewModel>/Longtext}" rows="4" maxLength="2000"
+					<TextArea width="96%" value="{oNotificationViewModel>/Longtext}" tooltip="{oNotificationViewModel>/Longtext}" rows="1" cols="30" maxLength="2000"
 						class="inputRadius"
 						enabled="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setEnabledBasedOnStatus'}"/>
+					<layoutData>
+						<l:GridData span="XL6 L6 M6 S12"></l:GridData>
+					</layoutData>
 				</VBox>
 				<OverflowToolbar class="createNotifOverflowBorder">
 					<Label design="Bold" text="{i18n>refObject}" wrapping="true"/>
@@ -207,7 +217,8 @@
 					visible="{path:'oNotificationDataModel>/Breakdown', formatter:'com.sap.incture.IMO_PM.formatter.formatter.formatBooleanBreakDown'}">
 					<Label text="{i18n>malfnsDate}"></Label>
 					<DatePicker placeholder="dd-MM-yyyy" dateValue="{oNotificationDataModel>/Startdate}" width="90%" displayFormat="dd-MM-yyyy"
-						change="fnValidateMalFunDates" class="inputRadius" enabled = "{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setEnabledBasedOnStatus'}">
+						change="fnValidateMalFunDates" class="inputRadius"
+						enabled="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setEnabledBasedOnStatus'}">
 						<customData>
 							<core:CustomData key="dateType" value="Startdate"/>
 						</customData>
@@ -217,7 +228,8 @@
 					visible="{path:'oNotificationDataModel>/Breakdown', formatter:'com.sap.incture.IMO_PM.formatter.formatter.formatBooleanBreakDown'}">
 					<Label text="{i18n>malfnsTime}"></Label>
 					<TimePicker value="{oNotificationViewModel>/StartTime}" valueFormat="HH:mm" displayFormat="HH:mm" placeholder="HH:mm"
-						change="fnValidateMalFunDates" class="inputRadius" width="90%" enabled = "{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setEnabledBasedOnStatus'}">
+						change="fnValidateMalFunDates" class="inputRadius" width="90%"
+						enabled="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setEnabledBasedOnStatus'}">
 						<customData>
 							<core:CustomData key="dateType" value="StartTime"/>
 						</customData>
@@ -227,7 +239,8 @@
 					visible="{path:'oNotificationDataModel>/Breakdown', formatter:'com.sap.incture.IMO_PM.formatter.formatter.formatBooleanBreakDown'}">
 					<Label text="{i18n>malfnedate}"></Label>
 					<DatePicker placeholder="dd-MM-yyyy" dateValue="{oNotificationDataModel>/Enddate}" width="90%" displayFormat="dd-MM-yyyy"
-						change="fnValidateMalFunDates" class="inputRadius" enabled = "{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setEnabledBasedOnStatus'}">
+						change="fnValidateMalFunDates" class="inputRadius"
+						enabled="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setEnabledBasedOnStatus'}">
 						<customData>
 							<core:CustomData key="dateType" value="Enddate"/>
 						</customData>
@@ -237,7 +250,8 @@
 					visible="{path:'oNotificationDataModel>/Breakdown', formatter:'com.sap.incture.IMO_PM.formatter.formatter.formatBooleanBreakDown'}">
 					<Label text="{i18n>malfnetime}"></Label>
 					<TimePicker value="{oNotificationViewModel>/EndTime}" valueFormat="HH:mm" displayFormat="HH:mm" placeholder="HH:mm"
-						change="fnValidateMalFunDates" class="inputRadius" width="90%" enabled = "{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setEnabledBasedOnStatus'}">
+						change="fnValidateMalFunDates" class="inputRadius" width="90%"
+						enabled="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setEnabledBasedOnStatus'}">
 						<customData>
 							<core:CustomData key="dateType" value="EndTime"/>
 						</customData>
