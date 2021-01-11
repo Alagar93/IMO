@@ -78,10 +78,10 @@
 							<VBox>
 								<Label text="{i18n>SP_PurchaseReq}"/>
 								<HBox>
-									<Input value="{oWorkOrderDetailViewModel>/ItemPRNo}" editable="false"
-										tooltip="{oWorkOrderDetailViewModel>/ItemPRNo}" class="inputRadius"></Input>
-									<Input value="{oWorkOrderDetailViewModel>/PRItem}" editable="false"
-										tooltip="{oWorkOrderDetailViewModel>/PRItem}" class="inputRadius"></Input>
+									<Input value="{oWorkOrderDetailViewModel>/oComponentDetails/PreqNo}" editable="false"
+										tooltip="{oWorkOrderDetailViewModel>/oComponentDetails/PreqNo}" class="inputRadius"></Input>
+									<Input value="{oWorkOrderDetailViewModel>/oComponentDetails/PreqItem}" editable="false"
+										tooltip="{oWorkOrderDetailViewModel>/oComponentDetails/PreqItem}" class="inputRadius"></Input>
 								</HBox>
 								<layoutData>
 									<l:GridData span="XL12 L12 M12 S12"></l:GridData>

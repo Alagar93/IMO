@@ -93,7 +93,7 @@ com.sap.incture.IMO_PM.util.util = {
 		newDate = newDate + " " + oTime;
 		var oDateObj1 = new Date(newDate);
 		var oDateObj2 = new Date();
-		var diffDate = this.timeDiffCalc(oDateObj2,oDateObj1);
+		var diffDate = this.timeDiffCalc(oDateObj2, oDateObj1);
 		return diffDate;
 	},
 	timeDiffCalc: function (dateFuture, dateNow) {
@@ -105,7 +105,7 @@ com.sap.incture.IMO_PM.util.util = {
 		// var milliseconds = Math.round((diffInSeconds - Math.floor(diffInSeconds)) * 1000);
 		var s = days * 24;
 		s = s + hours;
-		if(minutes < 10){
+		if (minutes < 10) {
 			minutes = "0" + minutes;
 		}
 		var p = s.toString() + "." + minutes.toString();
@@ -209,8 +209,8 @@ com.sap.incture.IMO_PM.util.util = {
 	//Function to set userName on fetching user details
 	fnSetUserName: function (userName, oWorkOrderDetailModel, oWorkOrderDetailViewModel) {
 		oWorkOrderDetailModel.setProperty("/ReportedBy", userName);
-		oWorkOrderDetailModel.setProperty("/HEADERTOPARTNERNAV/0/AssignedTo", userName);
-		oWorkOrderDetailViewModel.setProperty("/HEADERTOPARTNERNAV/0/AssignedTo", userName);
+		//oWorkOrderDetailModel.setProperty("/HEADERTOPARTNERNAV/0/AssignedTo", userName);
+		//oWorkOrderDetailViewModel.setProperty("/HEADERTOPARTNERNAV/0/AssignedTo", userName);
 	},
 
 	//FUnction to validate Header details sections of a WO
@@ -304,9 +304,14 @@ com.sap.incture.IMO_PM.util.util = {
 		var bTVal = this.fnValidateWODetails(oWorkOrderDetailModel, oController, navType);
 		if (bTVal === false) {
 			var operations = oWorkOrderDetailModel.getProperty("/HEADERTOOPERATIONSNAV");
+			var Materials = oWorkOrderDetailModel.getProperty("/HEADERTOCOMPONENTNAV");
+			var bMVal = this.fnValidateMaterials(Materials);
 			if (!operations || operations.length === 0) {
 				oErrorMsg = oResourceModel.getText("ADD_OPERATION_TO_CREATE_WO");
 				// oErrorMsg = "Please add an operation to create a Work Order";
+				return [true, oErrorMsg];
+			} else if (!bMVal) {
+				oErrorMsg = oResourceModel.getText("ADD_SAP_ID_STOCK_MATERIAL");
 				return [true, oErrorMsg];
 			} else {
 				if (navType === "WO_DETAIL_CREATE" || navType !== "WO_DETAIL_CREATE_EXIT" ||
@@ -330,6 +335,18 @@ com.sap.incture.IMO_PM.util.util = {
 		} else {
 			return bTVal;
 		}
+	},
+	//Function to check SAPID if Category is L
+	fnValidateMaterials: function (aMaterials) {
+		var bFlag = true;
+		if (aMaterials!==undefined) {
+			for (var i = 0; i < aMaterials.length; i++) {
+				if (aMaterials[i].Material === "" && aMaterials[i].ItemCat === "L") {
+					bFlag = false;
+				}
+			}
+		}
+		return bFlag;
 	},
 
 	//Function to check if mandatory fields are entered in Operartions table

@@ -184,6 +184,7 @@ sap.ui.define([
 				//oOpertionDetails.PurchOrg = "0001";
 				oOpertionDetails.Recipient = "Vijay";
 				oOpertionDetails.Requisitioner = "Vijay";
+				oWorkOrderDetailViewModel.setProperty("/PreqPopupFlag", false);
 				oWorkOrderDetailViewModel.setProperty("/oControlkeyOperation", oOpertionDetails);
 				if (!this.controlKeyDialog) {
 					this.controlKeyDialog = sap.ui.xmlfragment("com.sap.incture.IMO_PM.fragment.controlKeyPopUp", this);
@@ -214,6 +215,16 @@ sap.ui.define([
 			this.controlKeyDialog.destroy();
 			this.controlKeyDialog = null;
 		},
+		onCloseControlKeyDialog: function (oEvent) {
+
+			var oWorkOrderDetailViewModel = this.oWorkOrderDetailViewModel;
+
+			oWorkOrderDetailViewModel.setProperty("/sPathControlKey", "");
+			oWorkOrderDetailViewModel.setProperty("/oControlkeyOperation", null);
+			this.controlKeyDialog.close();
+			this.controlKeyDialog.destroy();
+			this.controlKeyDialog = null;
+		},
 		//Sunanda--Function to View Control key details
 		onPressOperDetails: function (oEvent) {
 			var oWorkOrderDetailModel = this.oWorkOrderDetailModel;
@@ -226,7 +237,7 @@ sap.ui.define([
 			if (sKey === "PM03") {
 				oWorkOrderDetailViewModel.setProperty("/sPathControlKey", sPath);
 				var oOpertionDetails = jQuery.extend(true, {}, oWorkOrderDetailModel.getProperty(sPath));
-
+				oWorkOrderDetailViewModel.setProperty("/PreqPopupFlag", true);
 				oWorkOrderDetailViewModel.setProperty("/oControlkeyOperation", oOpertionDetails);
 				if (!this.controlKeyDialog) {
 					this.controlKeyDialog = sap.ui.xmlfragment("com.sap.incture.IMO_PM.fragment.controlKeyPopUp", this);
@@ -237,6 +248,7 @@ sap.ui.define([
 		},
 		//Sunanda -- Function to open ControlKey popup if Item Category is N
 		onItemCatChange: function (oEvent) {
+			var that = this;
 			var oWorkOrderDetailModel = this.oWorkOrderDetailModel;
 			var oWorkOrderDetailViewModel = this.oWorkOrderDetailViewModel;
 			var sKey = oEvent.getSource().getSelectedKey();
@@ -245,13 +257,14 @@ sap.ui.define([
 			var oComponentDetails = oWorkOrderDetailModel.getProperty(sPath);
 			var StockAvail = formatter.fnStrtoInt(oComponentDetails.StockAvail);
 			var ReqQuantity = formatter.fnStrtoInt(oComponentDetails.RequirementQuantity);
-
+			oWorkOrderDetailViewModel.setProperty("/sPathItemCat", sPath);
 			if (sKey === "N" && StockAvail < ReqQuantity) {
 
-				oWorkOrderDetailViewModel.setProperty("/sPathItemCat", sPath);
+			var bMatVal = formatter.MaterialPRVAlidation(oComponentDetails);
+			if (bMatVal) {
 
-				var bMatVal = formatter.MaterialPRVAlidation(oComponentDetails);
-				if (bMatVal) {
+				if (sKey === "N" && StockAvail < ReqQuantity) {
+
 					oComponentDetails.Price = "1000";
 					oComponentDetails.Currency = "EUR";
 					oComponentDetails.MaterialGroup = "01";
@@ -266,17 +279,36 @@ sap.ui.define([
 						this.getView().addDependent(this.oItemCatDialog);
 					}
 					this.oItemCatDialog.open();
-				} else {
-					MessageBox.error("Please enter valid component details", {
-
+				} else if (sKey === "N" && StockAvail >= ReqQuantity) {
+					MessageBox.warning("Required Qunatity is available as Stock", {
+						actions: [MessageBox.Action.OK, MessageBox.Action.CANCEL],
 						onClose: function (sAction) {
-							oWorkOrderDetailModel.setProperty(sPath + "/ItemCat", "L");
-							oWorkOrderDetailViewModel.setProperty("/sPathItemCat", "");
-							oWorkOrderDetailViewModel.setProperty("/oComponentDetails", null);
+							if (sAction === "OK") {
+								oComponentDetails.Price = "1000";
+								oComponentDetails.Currency = "EUR";
+								oComponentDetails.MaterialGroup = "01";
+								oComponentDetails.PriceUnit = "1";
+								oComponentDetails.PurchGrp = "001";
+								oComponentDetails.PurchOrg = "0001";
+								oComponentDetails.Recipient = "Vijay";
+								oComponentDetails.Requisitioner = "Vijay";
+								oWorkOrderDetailViewModel.setProperty("/oComponentDetails", oComponentDetails);
+								if (!that.oItemCatDialog) {
+									that.oItemCatDialog = sap.ui.xmlfragment("com.sap.incture.IMO_PM.fragment.ItemCatPRPopup", that);
+									that.getView().addDependent(that.oItemCatDialog);
+								}
+								that.oItemCatDialog.open();
+							} else {
+								oWorkOrderDetailModel.setProperty(sPath + "/ItemCat", "L");
+								oWorkOrderDetailViewModel.setProperty("/sPathItemCat", "");
+								oWorkOrderDetailViewModel.setProperty("/oComponentDetails", null);
+							}
+
 						}
 					});
-
 				}
+			} else {
+				MessageBox.error("Please enter valid component details", {
 
 			} else if (sKey === "N" && StockAvail >= ReqQuantity) {
 				MessageBox.error("Required Qunatity is available as Stock", {
@@ -288,6 +320,7 @@ sap.ui.define([
 					}
 				});
 			}
+
 		},
 
 		onSaveItemCatPR: function () {
@@ -1078,41 +1111,61 @@ sap.ui.define([
 
 							}
 						}
-						var oFilter = [];
-						oFilter.push(new Filter("OrderNo", "EQ", orderId));
-						oWorkOrderOData.read("/purchaseReqSet", {
-							async: false,
-							filters: oFilter,
-							success: function (oData) {
-								var aResults = oData.results;
-								console.log(aResults);
-								if (aResults.length > 0) {
+						//var oFilter = [];
+						// oFilter.push(new Filter("OrderNo", "EQ", orderId));
+						// oWorkOrderOData.read("/purchaseReqSet", {
+						// 	async: false,
+						// 	filters: oFilter,
+						// 	success: function (oData) {
+						// 		var aResults = oData.results;
+						// 		console.log(aResults);
+						// 		if (aResults.length > 0) {
 
-									var pr = aResults[aResults.length - 1].PurchaseReq;
+						// 			var pr = aResults[aResults.length - 1].PurchaseReq;
 
-									var ResvNo = aResults[aResults.length - 1].ResevNo;
-									if (pr === "" && ResvNo !== "") {
-										oObj = {
-											"Message": "Reservation Number:" + ResvNo,
-											"Status": "S"
-										};
-									} else {
-										oObj = {
-											"Message": "PR Number :" + pr + " and reservation num :" + ResvNo,
-											"Status": "S"
-										};
-									}
+						// 			var ResvNo = aResults[aResults.length - 1].ResevNo;
+						// 			if (pr === "" && ResvNo !== "") {
+						// 				oObj = {
+						// 					"Message": "Reservation Number:" + ResvNo,
+						// 					"Status": "S"
+						// 				};
+						// 			} else {
+						// 				oObj = {
+						// 					"Message": "PR Number :" + pr + " and reservation num :" + ResvNo,
+						// 					"Status": "S"
+						// 				};
+						// 			}
 
-									messages.push(oObj);
+						// 			messages.push(oObj);
 
-								}
-								oWorkOrderDetailViewModel.setProperty("/PurchaseDetails", aResults[aResults.length - 1]);
+						// 		}
+						// 		oWorkOrderDetailViewModel.setProperty("/PurchaseDetails", aResults[aResults.length - 1]);
 
-							},
-							error: function (oData) {
-								console.log(oData);
+						// 	},
+						// 	error: function (oData) {
+						// 		console.log(oData);
+						// 	}
+						// });
+						var operations = sData.HEADERTOOPERATIONSNAV.results;
+						var Materials = sData.HEADERTOCOMPONENTNAV.results;
+						var oMessages = formatter.fnGetPRandRESERVNO(operations, Materials);
+						if (oMessages[0] !== "") {
+							oObj = {
+								"Message": "Reservation Number:" + oMessages[0],
+								"Status": "S"
+							};
+							messages.push(oObj);
+						}
+						if(oMessages[1]!==[]){
+							for(var i=0;i<oMessages[1].length;i++){
+								oObj = {
+								"Message": "PR Number:" + oMessages[1][i].PreqNo+"for line item:"+  oMessages[1][i].PreqItem,
+								"Status": "S"
+							};
+							messages.push(oObj);
 							}
-						});
+						}
+
 					} else {
 						sData = that.fnFormatWODateObjects(sData);
 						var operationList = sData.HEADERTOOPERATIONSNAV.results;
@@ -1864,6 +1917,9 @@ sap.ui.define([
 		//Function to Add material with Material/SAPID
 		oSelectMatSparePart: function (oEvent) {
 			var sMaterial = oEvent.getSource().getValue();
+			// if(sMaterial===""){
+			// 	this.getView().byId("SP_MatlDescfield").setEnabled(true);
+			// }
 			var oWorkOrderDetailModel = this.oWorkOrderDetailModel;
 			var oWorkOrderDetailViewModel = this.oWorkOrderDetailViewModel;
 			var aMaterialList = oWorkOrderDetailViewModel.getProperty("/aMaterialsList");
