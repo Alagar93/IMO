@@ -119,7 +119,7 @@
 				</l:fixContent>-->
 			<!--<l:flexContent>-->
 			<!--<VBox height="100%" class="sapUiTinyMarginBeginEnd sapUiSmallMarginTop">-->
-			<table:Table id="idWorkOrderList" class="sapUiSmallMargin tableCellNoBorder" visibleRowCountMode="Fixed" visibleRowCount="{mLookupModel>/rowCount}"
+			<table:Table id="idWorkOrderList" class="sapUiSmallMargin tableCellNoBorder TableHeaderWhiteBG" visibleRowCountMode="Fixed" visibleRowCount="{mLookupModel>/rowCount}"
 				rowHeight="28" selectionMode="MultiToggle" enableSelectAll="false" rows="{mLookupModel>/aWorkOrderListSet}"
 				rowSelectionChange="onSelectionChange" filter="dateFormat">
 				<table:extension>
@@ -147,6 +147,9 @@
 						<Button class="tableHeadertansparentBtn" text="{i18n>viewDetails}" enabled="{= ${mLookupModel>/iSelectedWOIndices} === 1 ? true : false}" press="onNavigatetoDetail"/>
 					</Toolbar>
 				</table:extension>
+					<table:rowSettingsTemplate>
+    				<table:RowSettings highlight="{path:'mLookupModel>PriorityDes', formatter:'com.sap.incture.IMO_PM.formatter.formatter.handleRowHighlight'}"/>
+				 </table:rowSettingsTemplate>
 				<table:columns>
 					<table:Column width="6%" sortProperty="Orderid" filterProperty="Orderid" defaultFilterOperator="Contains">
 						<Text wrapping="true" text="{i18n>WONum}" class="tableHeaderText"/>

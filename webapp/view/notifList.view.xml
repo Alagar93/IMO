@@ -86,7 +86,7 @@
 				</l:fixContent>-->
 			<!--<l:flexContent>-->
 			<!--<VBox height="100%" class="sapUiSmallMarginTop sapUiTinyMarginBeginEnd">-->
-			<table:Table class="sapUiSmallMargin tableCellNoBorder" visibleRowCountMode="Fixed" visibleRowCount="{mLookupModel>/rowCount}" rowHeight="32"
+			<table:Table class="sapUiSmallMargin tableCellNoBorder TableHeaderWhiteBG" visibleRowCountMode="Fixed" visibleRowCount="{mLookupModel>/rowCount}" rowHeight="32"
 				selectionMode="MultiToggle" rowSelectionChange="onSelectionChange" enableSelectAll="false" id="notifListId"
 				rows="{mLookupModel>/aNotificationListSet}">
 				<table:extension>
