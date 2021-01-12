@@ -817,10 +817,10 @@ html:not([data-sap-ui-browser^="ie"]):not([data-sap-ui-browser^="ed"]) .sapUiIco
 /*.sapInputBorderClass {
     border-radius: 0.2rem;
 }*/
-
+/*
 .sapFontItalic {
     font-style: italic;
-}
+}*/
 
 .sapCBItalicFont.sapMCb>label {
     font-style: italic;
@@ -829,10 +829,11 @@ html:not([data-sap-ui-browser^="ie"]):not([data-sap-ui-browser^="ed"]) .sapUiIco
 .sapMAttachmentLink {
     font-size: 1.2rem;
     font-weight: 180;
+    color: #3770b1 !important;
 }
 
 .sapMCommonBlueColor {
-    color: #377295;
+    color: #3770b1;
 }
 
 .sapMDeleteBtnMarginTop {
@@ -2329,7 +2330,8 @@ html.sap-desktop .sapMIBar.sapMFooter-CTX {
 
 .iopwbBoxStyle.sapMVBox {
     overflow-y: auto;
-    padding: 1rem
+    padding: 1rem;
+    background: white;
 }
 
 .iopwbBoxStyle.sapMVBox::-webkit-scrollbar {
@@ -2972,3 +2974,7 @@ html.sap-desktop .sapMIBar.sapMFooter-CTX {
 .HighlightColorGreenGradeOut {
     background: rgba(171, 212, 164, .52) !important;
 }*/
+
+.labelText {
+	color: #757575;
+}

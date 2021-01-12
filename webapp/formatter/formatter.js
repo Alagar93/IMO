@@ -167,18 +167,19 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 
 		if (priority === "1") {
 
-			return "CRITICAL";
+			return "HIGH";
 
 		} else if (priority === "2") {
 			return "MEDIUM";
 		} else if (priority === "3") {
-			return "HIGH";
-		} else if (priority === "4") {
 			return "LOW";
-		} else {
+		} else if (priority === "4") {
+			return "SHUTDOWN";
+		} else if(priority==="E") {
+			return "Emergency";
+		}else{
 			return "";
 		}
-
 	},
 
 	fnDateSeperator: function (date) {
@@ -859,7 +860,7 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 				bVal = true;
 			}
 		} else if (systemStatus === "TECO") {
-			bVal = true;
+			bVal = false;
 		}
 		return bVal;
 	},
@@ -1383,7 +1384,7 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 	//Function to set visible of Unconfirmed Checkbox in Operations table
 	fnSetFilterOpsCBVisible: function (orderStatus, orderId) {
 		var bVal = false;
-		if (orderStatus === "REL" || orderStatus === "PCNF" || orderStatus === "CNF" || orderStatus === "TECO" || orderStatus === "CLSD") {
+		if (orderStatus === "REL" || orderStatus === "PCNF" || orderStatus === "CNF") {
 			if (orderId) {
 				bVal = true;
 			}

@@ -6,19 +6,22 @@
 					<OverflowToolbar class="sapMToolBarBottomBorderClass sapUiTinyMarginBottom">
 						<Button text="{i18n>ADD_OP}" press="onAddWOOperations" type="Emphasized" icon="sap-icon://add" iconFirst="true"
 							visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setAddRemoveVisible'}"></Button>
-						<Button text="{i18n>FINAL_CONFIRMATION}" type="Accept" icon="sap-icon://sys-enter" iconFirst="true" press="fnFullyConfirmOperation" class="transparentBtn"
+						<Button text="{i18n>FINAL_CONFIRMATION}" type="Accept" icon="sap-icon://sys-enter" iconFirst="true" press="fnFullyConfirmOperation"
+							class="transparentBtn"
 							visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setWOReleaseFieldsVisible'}">
 							<customData>
 								<core:CustomData key="dateType" value="WO_DETAIL_OPERATION_FINAL_CONFIRM"/>
 							</customData>
 						</Button>
-						<Button text="{i18n>CONFIRMATION}" press="fnConfirmOperation" icon="sap-icon://sys-enter" iconFirst="true" class="partialConfirmBtn transparentBtn"
+						<Button text="{i18n>CONFIRMATION}" press="fnConfirmOperation" icon="sap-icon://sys-enter" iconFirst="true"
+							class="partialConfirmBtn transparentBtn"
 							visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setWOReleaseFieldsVisible'}">
 							<customData>
 								<core:CustomData key="dateType" value="WO_DETAIL_OPERATION_CONFIRM"/>
 							</customData>
 						</Button>
-						<Button text="{i18n>REMOVE}" type="Reject" press="onDeleteSelectedOperations" icon="sap-icon://delete" iconFirst="true" class="transparentBtn"
+						<Button text="{i18n>REMOVE}" type="Reject" press="onDeleteSelectedOperations" icon="sap-icon://delete" iconFirst="true"
+							class="transparentBtn"
 							visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setAddRemoveVisible'}"></Button>
 						<CheckBox text="{oWorkOrderDetailViewModel>/switchTooltip}" select="fnFilterCNFOperations"
 							selected="{oWorkOrderDetailViewModel>/isOperationsFiltered}"
@@ -117,15 +120,15 @@
 								</ui:template>-->
 								<ui:template>
 									<DateTimePicker minDate="{oWorkOrderDetailViewModel>/currentDate1}" placeholder="dd-MM-yyyy, HH:mm"
-										dateValue="{oWorkOrderDetailModel>CompletedOn}" displayFormat="dd-MM-yyyy, HH:mm" valueFormat="yyyy-MM-ddTHH:mm:ss"
-										class="inputRadius"
+										dateValue="{oWorkOrderDetailModel>CompletedOn}" displayFormat="dd-MM-yyyy, HH:mm" valueFormat="yyyy-MM-ddTHH:mm:ss" class="inputRadius"
 										enabled="{parts:['oWorkOrderDetailModel>systemstatustext', 'oWorkOrderDetailModel>/OrderStatus', 'oWorkOrderDetailModel>OperCode'], formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnSetWOReleaseStatusFields'}"/>
 								</ui:template>
 							</ui:Column>
 							<ui:Column width="8rem" hAlign="Center" tooltip="{i18n>SP_View}">
 								<Label text="{i18n>SP_View}" class="tableHeaderText"/>
 								<ui:template>
-									<Button icon="sap-icon://show" type="Transparent" press="onPressOperDetails" visible="{path:'oWorkOrderDetailModel>ControlKey',formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnShowOperViewButton'}"/>
+									<Button icon="sap-icon://show" type="Transparent" press="onPressOperDetails"
+										visible="{path:'oWorkOrderDetailModel>ControlKey',formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnShowOperViewButton'}"/>
 								</ui:template>
 							</ui:Column>
 						</ui:columns>
@@ -138,7 +141,8 @@
 							<Text text="{i18n>RECORDS_NEEDED}" class="sapUiTinyMarginTop"/>
 						</HBox>
 						<ToolbarSpacer/>
-						<Button text="{i18n>ADD_EMP_PART}" press="onAddEmptySparePart" class="sapMBtnBlueColor" tooltip="{i18n>ADD_EMP_SP}" type="Emphasized" icon="sap-icon://add" iconFirst="true"
+						<Button text="{i18n>ADD_EMP_PART}" press="onAddEmptySparePart" class="sapMBtnBlueColor" tooltip="{i18n>ADD_EMP_SP}" type="Emphasized"
+							icon="sap-icon://add" iconFirst="true"
 							visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setAddRemoveVisible'}"/>
 						<Button text="{i18n>REMOVE}" type="Reject" press="onDeleteSpareParts" icon="sap-icon://delete" iconFirst="true" class="transparentBtn"
 							enabled="{path:'oWorkOrderDetailModel>/HEADERTOCOMPONENTNAV', formatter:'.formatter.enableDisableRemoveBtn'}"
@@ -276,6 +280,46 @@
 						</ui:columns>
 					</ui:Table>
 				</IconTabFilter>
+				<IconTabFilter text="{i18n>COST_OVERVIEW}">
+					<!--<OverflowToolbar class="sapMToolBarBottomBorderClass sapUiTinyMarginBottom">-->
+						
+					<!--</OverflowToolbar>-->
+					<ui:Table rows="{oWorkOrderDetailViewModel>/CostTBl}" enableSelectAll="false" selectionMode="None" visibleRowCount="4"
+						class="tableHeaderBg" id="IMO_COST_OVERVIEWTAB" >
+						<ui:columns>
+							<ui:Column  hAlign="Center" tooltip="{i18n>VAL_CAT_DESC}">
+								<Label text="{i18n>VAL_CAT_DESC}" class="tableHeaderText"/>
+								<ui:template>
+									<Text text="{oWorkOrderDetailViewModel>CatDesc}" />
+								</ui:template>
+							</ui:Column>
+							<ui:Column  hAlign="Center" tooltip="{i18n>MAT_EST_COSTC}">
+								<Label text="{i18n>MAT_EST_COST}" class="tableHeaderText"/>
+								<ui:template>
+									<Text text="{oWorkOrderDetailViewModel>EstCost}" />
+								</ui:template>
+							</ui:Column>
+							<ui:Column  hAlign="Center" tooltip="{i18n>MAT_PLAN_COST}">
+								<Label text="{i18n>MAT_PLAN_COST}" class="tableHeaderText"/>
+								<ui:template>
+									<Text text="{oWorkOrderDetailViewModel>PlanCost}" />
+								</ui:template>
+							</ui:Column>
+							<ui:Column  hAlign="Center" tooltip="{i18n>MAT_ACT_COST}">
+								<Label text="{i18n>MAT_ACT_COST}" class="tableHeaderText"/>
+								<ui:template>
+									<Text text="{oWorkOrderDetailViewModel>ActCost}" />
+								</ui:template>
+							</ui:Column>
+							<ui:Column  hAlign="Center" tooltip="{i18n>MAT_COST_CUR}">
+								<Label text="{i18n>MAT_COST_CUR}" class="tableHeaderText"/>
+								<ui:template>
+									<Text text="{oWorkOrderDetailViewModel>Cur}" />
+								</ui:template>
+							</ui:Column>
+						</ui:columns>
+					</ui:Table>
+				</IconTabFilter>
 			</items>
 		</IconTabBar>
 		<Panel expanded="{oWorkOrderDetailViewModel>/enableOperationComment}" expandable="true" class="sapMTextPanelClass" visible="{oWorkOrderDetailViewModel>/visibleOperationComment}">
@@ -285,7 +329,7 @@
 				</Toolbar>
 			</headerToolbar>
 			<content>
-				<TextArea value="{oWorkOrderDetailViewModel>/operationLongTxt}" width="100%" class="sapMLongTextClass sapAddWOCmtClass inputRadius" 
+				<TextArea value="{oWorkOrderDetailViewModel>/operationLongTxt}" width="100%" class="sapMLongTextClass sapAddWOCmtClass inputRadius"
 					change="updateOperationLongTxt" enabled="{oWorkOrderDetailViewModel>/enableOperationComment}" maxLength="2000" rows="4"></TextArea>
 			</content>
 		</Panel>
@@ -297,8 +341,8 @@
 				</Toolbar>
 			</headerToolbar>
 			<content>
-				<TextArea value="{oWorkOrderDetailViewModel>/confirmationLongText}" width="100%" class="sapMLongTextClass sapAddWOCmtClass inputRadius" rows="4"
-					change="updateOperationCnfrmLongTxt" enabled="{oWorkOrderDetailViewModel>/enableOpCnfmLongText}" maxLength="2000"></TextArea>
+				<TextArea value="{oWorkOrderDetailViewModel>/confirmationLongText}" width="100%" class="sapMLongTextClass sapAddWOCmtClass inputRadius"
+					rows="4" change="updateOperationCnfrmLongTxt" enabled="{oWorkOrderDetailViewModel>/enableOpCnfmLongText}" maxLength="2000"></TextArea>
 			</content>
 		</Panel>
 	</VBox>
