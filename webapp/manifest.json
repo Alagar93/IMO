@@ -199,7 +199,8 @@
 			"Data": {
 				"type": "sap.ui.model.json.JSONModel",
 				"uri": "model/data.json"
-			},"oDashboardGraphsModel": {
+			},
+			"oDashboardGraphsModel": {
 				"type": "sap.ui.model.json.JSONModel"
 			}
 		},
@@ -290,7 +291,8 @@
 					"name": "shiftReport",
 					"pattern": "shiftReport",
 					"target": "shiftReport"
-				},{
+				},
+				{
 					"name": "dashboard",
 					"pattern": "dashboard",
 					"target": "Dashboard"
