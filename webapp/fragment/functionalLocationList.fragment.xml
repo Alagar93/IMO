@@ -2,7 +2,7 @@
 	xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" class="sapUiSizeCompact">
 	<Dialog title="{i18n>Dialog_title_funLoc}" contentWidth="35%" verticalScrolling="false" class="dialogHeader sapUiSizeCompact">
 		<content>
-			<SearchField liveChange="onSearchFnLocs" width="90%" class="sapUiTinyMargin"/>
+			<SearchField liveChange="onSearchFnLocs" width="90%" class="sapUiTinyMargin sapSearchFieldBorderClass"/>
 			<ScrollContainer height="20rem" vertical="true" horizontal="false" focusable="false" class="sapUiTinyMargin">
 				<Table sticky="ColumnHeaders" mode="SingleSelectLeft" selectionChange="onFnLocSelect" growing="false" id ="idFunLocListTable" items="{path: 'mLookupModel>/aFnLocsList'}" class="tableCellNoBorder TableHeaderWhiteBG">
 					<columns>

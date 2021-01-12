@@ -1,7 +1,7 @@
 <core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" class="sapUiSizeCompact">
 	<Dialog contentHeight="50%" contentWidth="40%" title="Search Users" class="dialogHeader">
 		<content>
-			<SearchField search="onSearchUser" width="95%" placeholder="{i18n>searchuser}" class="sapUiSmallMargin"/>
+			<SearchField search="onSearchUser" width="95%" placeholder="{i18n>searchuser}" class="sapUiSmallMargin sapSearchFieldBorderClass"/>
 			<Table sticky="ColumnHeaders" width="95%" mode="SingleSelectLeft" items="{path: 'mLookupModel>/aUsers'}" selectionChange="onSetReportedbyUserNotif" class="sapUiSmallMargin tableCellNoBorder TableHeaderWhiteBG">
 				<columns>
 					<Column>

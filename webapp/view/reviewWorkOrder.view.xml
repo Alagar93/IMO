@@ -1,13 +1,13 @@
 <mvc:View controllerName="com.sap.incture.IMO_PM.controller.reviewWorkOrder" xmlns="sap.ui.table" xmlns:mvc="sap.ui.core.mvc"
 	xmlns:m="sap.m" xmlns:u="sap.ui.unified" xmlns:core="sap.ui.core" xmlns:commons="sap.ui.commons" xmlns:l="sap.ui.layout" xmlns:tnt="sap.tnt">
-	<m:Page showHeader="true" class="sapUiSizeCompact sapMPageBackground">
+	<m:Page showHeader="true" class="sapUiSizeCompact sapMPageBackground" enableScrolling="true">
 		<tnt:ToolHeader class="headerBG headerShadow">
 			<m:Label design="Bold" class="sapUiSmallMarginBegin textColr" text="{i18n>tile_reviewWO}" wrapping="true"/>
 		</tnt:ToolHeader>
 		<m:content>
-			<TreeTable class="sapUiSmallMargin" id="idreviewTreeTable" rows="{path:'/', parameters: {arrayNames:['oprns']}}" selectionMode="None"
+			<TreeTable class="sapUiSmallMargin tableCellNoBorder TableHeaderWhiteBG" id="idreviewTreeTable" rows="{path:'/', parameters: {arrayNames:['oprns']}}" selectionMode="None"
 				enableSelectAll="false" visibleRowCount="{mLookupModel>/rowCount}" visibleRowCountMode="Fixed" ariaLabelledBy="title" fixedColumnCount="2"
-				rowHeight="51rem" toggleOpenState="onExpandCollapse" filter="onFilterColumn">
+				rowHeight="45rem" toggleOpenState="onExpandCollapse" filter="onFilterColumn">
 				<extension>
 					<m:OverflowToolbar class="tableHeaderBG tableMargin" height="3rem">
 						<m:Title id="title" text="{i18n>revTable} ({mLookupModel>/aWorkOrderListSet/0/Totalrecords} WO's)" class="styleTableTitle"/>
@@ -126,7 +126,7 @@
 					<Column width="12rem">
 						<m:Text text="{i18n>oprnLText}" wrapping="true" class="tableHeaderText"/>
 						<template>
-							<m:Button icon="sap-icon://display" class="LTextButton" type="Emphasized" tooltip="show confirmation long text"
+							<m:Button icon="sap-icon://display" class="LTextButton" type="Transparent" tooltip="show confirmation long text"
 								enabled="{parts:['Activity','oprnLText'],formatter:'com.sap.incture.IMO_PM.formatter.formatter.styleCNFLongText'}" press="onLongTextPress"/>
 						</template>
 					</Column>
