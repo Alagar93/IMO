@@ -85,10 +85,10 @@
 			enabled="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.disableUploadAttachment'}"/>
 	</FlexBox>
 	<VBox items="{oWorkOrderDetailViewModel>/attachments}" class="sapUiTinyMarginTop">
-		<VBox class="sapUiTinyMarginBeginEnd">
-			<HBox fitContainer="true" justifyContent="SpaceBetween" alignContent="Start" width="100%">
+		<VBox class="sapUiTinyMargin">
+			<VBox fitContainer="true" alignContent="Start" width="100%">
 				<HBox width="70%">
-					<core:Icon src="{path:'oWorkOrderDetailViewModel>FileExtension', formatter:'.formatter.setIconForFile'}" tooltip="{}" size="2rem"
+					<core:Icon src="{path:'oWorkOrderDetailViewModel>FileExtension', formatter:'.formatter.setIconForFile'}" tooltip="{}" size="1.5rem"
 						class="sapMCommonBlueColor"/>
 					<VBox class="sapUiSmallMarginBegin" width="90%">
 						<Link text="{oWorkOrderDetailViewModel>DocName}" press="getAttachmentIdForDownload" class="sapMAttachmentLink" wrapping="true"
@@ -97,19 +97,51 @@
 							visible="{= ${oWorkOrderDetailViewModel>AttachmentType} === 'URL' ? true : false}" width="90%"
 							tooltip="{path:'oWorkOrderDetailViewModel>AttachmentURL', formatter:'.formatter.formatHyperLink'}"
 							href="{path:'oWorkOrderDetailViewModel>AttachmentURL', formatter:'.formatter.formatHyperLink'}"/>
-						<Text text="{i18n>ATTACHMENTS_UPLOADED_BY} : {oWorkOrderDetailViewModel>CreatedByName}" class="sapMTextFontSize sapFontItalic"
-							visible="{= ${oWorkOrderDetailViewModel>AttachmentType} === 'DOC' ? true : false}"/>
-						<Text text="Attached By : {oWorkOrderDetailViewModel>CreatedByName}" class="sapMTextFontSize sapFontItalic"
-							visible="{= ${oWorkOrderDetailViewModel>AttachmentType} === 'URL' ? true : false}"/>
-						<Text visible="{= ${oWorkOrderDetailViewModel>AttachmentType} === 'DOC' ? true : false}"
-							text="{i18n>ATTACHMENTS_UPLOADED_ON} : {path: 'oWorkOrderDetailViewModel>CreatedDate', type: 'sap.ui.model.type.Date', formatOptions: { source: { pattern: 'yyyy-MM-dd HH:mm:ss' }, pattern: 'dd MMM yyyy' }}"
-							class="sapMTextFontSize sapFontItalic"/>
-						<Text visible="{= ${oWorkOrderDetailViewModel>AttachmentType} === 'URL' ? true : false}"
-							text="Attached On : {path: 'oWorkOrderDetailViewModel>CreatedDate', type: 'sap.ui.model.type.Date', formatOptions: { source: { pattern: 'yyyy-MM-dd HH:mm:ss' }, pattern: 'dd MMM yyyy' }}"
-							class="sapMTextFontSize sapFontItalic"/>
 					</VBox>
 				</HBox>
-				<HBox width="20%">
+				<VBox class="sapUiSmallMarginTop">
+					<HBox visible="{= ${oWorkOrderDetailViewModel>AttachmentType} === 'DOC' ? true : false}">
+						<Text text="{i18n>ATTACHMENTS_UPLOADED_BY}: " class="labelText"/>
+						<Text text="{oWorkOrderDetailViewModel>CreatedByName}" class="sapUiTinyMarginBegin styleName"/>
+					</HBox>
+					<HBox visible="{= ${oWorkOrderDetailViewModel>AttachmentType} === 'URL' ? true : false}">
+						<Text text="Attached By: " class="labelText"/>
+						<Text text="{oWorkOrderDetailViewModel>CreatedByName}" class="sapUiTinyMarginBegin styleName"/>
+					</HBox>
+					<HBox alignItems="Center" justifyContent="SpaceBetween">
+						<VBox>
+							<HBox visible="{= ${oWorkOrderDetailViewModel>AttachmentType} === 'DOC' ? true : false}">
+								<Text text="{i18n>ATTACHMENTS_UPLOADED_ON}: " class="labelText"/>
+								<Text
+									text="{path: 'oWorkOrderDetailViewModel>CreatedDate', type: 'sap.ui.model.type.Date', formatOptions: { source: { pattern: 'yyyy-MM-dd HH:mm:ss' }, pattern: 'dd MMM yyyy' }}"
+									class="sapUiTinyMarginBegin styleName"/>
+							</HBox>
+							<HBox visible="{= ${oWorkOrderDetailViewModel>AttachmentType} === 'URL' ? true : false}">
+								<Text text="Attached On: " class="labelText"/>
+								<Text
+									text="{path: 'oWorkOrderDetailViewModel>CreatedDate', type: 'sap.ui.model.type.Date', formatOptions: { source: { pattern: 'yyyy-MM-dd HH:mm:ss' }, pattern: 'dd MMM yyyy' }}"
+									class="sapUiTinyMarginBegin styleName"/>
+							</HBox>
+						</VBox>
+						<HBox>
+							<Button icon="sap-icon://download" tooltip="Download" type="Transparent"
+								visible="{= ${oWorkOrderDetailViewModel>AttachmentType} === 'DOC' ? true : false}" press="getAttachmentIdForDownload">
+								<customData>
+									<core:CustomData value="{oWorkOrderDetailViewModel>AttachmentType}"/>
+								</customData>
+							</Button>
+							<Button icon="sap-icon://delete" tooltip="Delete" type="Transparent"
+								enabled="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.disableUploadAttachment'}"
+								visible="{parts:['oWorkOrderDetailViewModel>AttachmentType', 'oWorkOrderDetailModel>/OrderStatus'], formatter:'.formatter.setAttachmentDeleteVisible'}"
+								press="fnDeleteWOAttachmentLink">
+								<customData>
+									<core:CustomData value="{oWorkOrderDetailViewModel>AttachmentType}"/>
+								</customData>
+							</Button>
+						</HBox>
+					</HBox>
+				</VBox>
+				<!--<HBox width="20%">
 					<Button icon="sap-icon://delete" tooltip="{}" class="sapMDeleteBtnMarginTop sapUiMediumMarginBegin sapUiTinyMarginEnd sapUiSmallMarginTop"
 						enabled="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.disableUploadAttachment'}"
 						visible="{parts:['oWorkOrderDetailViewModel>AttachmentType', 'oWorkOrderDetailModel>/OrderStatus'], formatter:'.formatter.setAttachmentDeleteVisible'}"
@@ -118,13 +150,13 @@
 							<core:CustomData value="{oWorkOrderDetailViewModel>AttachmentType}"/>
 						</customData>
 					</Button>
-				</HBox>
-			</HBox>
+				</HBox>-->
+			</VBox>
 			<core:HTML content="&lt;hr&gt;" class="sapUiSmallMarginBottom"/>
 		</VBox>
-		<layoutData>
+		<!--<layoutData>
 			<l:GridData span="L12 M12 S12"/>
-		</layoutData>
+		</layoutData>-->
 	</VBox>
 	<!--</IconTabFilter>
 		</items>

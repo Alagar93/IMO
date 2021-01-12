@@ -119,7 +119,7 @@
 				</l:fixContent>-->
 			<!--<l:flexContent>-->
 			<!--<VBox height="100%" class="sapUiTinyMarginBeginEnd sapUiSmallMarginTop">-->
-			<table:Table id="idWorkOrderList" class="sapUiSmallMargin tableCellNoBorder" visibleRowCountMode="Fixed"
+			<table:Table id="idWorkOrderList" class="sapUiSmallMargin tableCellNoBorder TableHeaderWhiteBG" visibleRowCountMode="Fixed"
 				visibleRowCount="{mLookupModel>/rowCount}" rowHeight="28" selectionMode="MultiToggle" enableSelectAll="false"
 				rows="{mLookupModel>/aWorkOrderListSet}" rowSelectionChange="onSelectionChange" filter="dateFormat">
 				<table:extension>
@@ -150,6 +150,9 @@
 							press="onNavigatetoDetail"/>
 					</Toolbar>
 				</table:extension>
+					<table:rowSettingsTemplate>
+    				<table:RowSettings highlight="{path:'mLookupModel>PriorityDes', formatter:'com.sap.incture.IMO_PM.formatter.formatter.handleRowHighlight'}"/>
+				 </table:rowSettingsTemplate>
 				<table:columns>
 					<table:Column sortProperty="OrderType" width="4%" filterProperty="OrderType" visible = "{mLookupModel>/sTWoType}">
 						<Text wrapping="true" text="{i18n>WOtype}" class="tableHeaderText"/>

@@ -827,7 +827,7 @@ html:not([data-sap-ui-browser^="ie"]):not([data-sap-ui-browser^="ed"]) .sapUiIco
 }
 
 .sapMAttachmentLink {
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: 180;
     color: #3770b1 !important;
 }
@@ -2923,7 +2923,7 @@ html.sap-desktop .sapMIBar.sapMFooter-CTX {
 }
 
 .vizFrameWidth {
-    width: 550px !important;
+    width: 515px !important;
 }
 
 .VBoxBottomBorder {
@@ -2977,4 +2977,14 @@ html.sap-desktop .sapMIBar.sapMFooter-CTX {
 
 .labelText {
 	color: #757575;
+}
+.TableHeaderWhiteBG .sapUiTableColHdrCnt{
+	    background-color: #ffffff;
+}
+.TableHeaderWhiteBG .sapUiTableHeaderRow{
+	    background-color: #ffffff;
+}
+.TableHeaderWhiteBG .sapUiTableVSbHeader{
+	    background-color: #ffffff;
+	    border: none;
 }
