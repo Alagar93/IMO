@@ -1,16 +1,16 @@
 <core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:layout="sap.ui.layout"
 	xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" class="sapUiSizeCompact">
-	<Dialog title="{}" contentWidth="50%" contentHeight="70%" showHeader="false" verticalScrolling="false" class="dialogHeader sapUiSizeCompact">
+	<Dialog title="{}" contentWidth="50%" contentHeight="80%" showHeader="false" verticalScrolling="false" class="dialogHeader sapUiSizeCompact">
 		<Page title="Select Notification" showHeader="true" class="whiteBG">
 			<content>
 				<!--<Label text="Notification Id :"/>-->
-				<SearchField search="onSearchNotifData" width="96%" class="sapUiTinyMargin sapSearchFieldBorderClass" placeholder="{i18n>searchNotifNum}">
+				<SearchField search="onSearchNotifData" width="96%" class="sapUiSmallMargin sapSearchFieldBorderClass" placeholder="{i18n>searchNotifNum}">
 					<customData>
 						<core:CustomData value="INTEGER"/>
 					</customData>
 				</SearchField>
-				<ScrollContainer height="21rem" vertical="true" focusable="false" class="sapUiTinyMargin">
-					<Table sticky="ColumnHeaders" mode="SingleSelectLeft" selectionChange="onselectNotif" growing="false" items="{path: 'mLookupModel>/aNotifListSet'}">
+				<ScrollContainer height="calc(100% - 5rem)" vertical="true" focusable="false" class="sapUiSmallMargin">
+					<Table sticky="ColumnHeaders" mode="SingleSelectLeft" selectionChange="onselectNotif" growing="false" items="{path: 'mLookupModel>/aNotifListSet'}" class="tableCellNoBorder TableHeaderWhiteBG">
 						<columns>
 							<Column>
 								<Text text="{i18n>notif_Num}"/>

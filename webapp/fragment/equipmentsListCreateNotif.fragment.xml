@@ -16,11 +16,11 @@
 							</VBox>
 						</l:Grid>
 						<ScrollContainer height="20rem" vertical="true" focusable="false">
-							<Table mode="SingleSelectLeft" selectionChange="onEquipSelect" growing="false" items="{path: 'mLookupModel>/aEquipmentsList'}">
+							<Table sticky="ColumnHeaders" mode="SingleSelectLeft" selectionChange="onEquipSelect" growing="false" items="{path: 'mLookupModel>/aEquipmentsList'}" class=" sapUiSmallMarginTop tableCellNoBorder TableHeaderWhiteBG">
 								<headerToolbar>
-									<OverflowToolbar>
+									<OverflowToolbar height="2rem">
 										<content>
-											<Title text="{i18n>EQUI_LIST}" level="H6"/>
+											<Text text="{i18n>EQUI_LIST}"/>
 										</content>
 									</OverflowToolbar>
 								</headerToolbar>
@@ -55,7 +55,7 @@
 								<Text text="{oNotificationDataModel>/FunctLoc}"/>
 							</HBox>
 							<Table mode="SingleSelectLeft" selectionChange="onEquipSelect" growing="false" items="{path: 'mLookupModel>/aEqListOfFunLoc'}"
-								id="idEqListOfFunLoc1">
+								id="idEqListOfFunLoc1" class="tableCellNoBorder TableHeaderWhiteBG" sticky="ColumnHeaders">
 								<columns>
 									<Column width="{= ${device>/system/tablet} === true ? '6rem' : 'auto' }">
 										<Text text="{i18n>EQUIPMENT_ID}"/>
@@ -86,11 +86,11 @@
 					<IconTabFilter text="{i18n>FAV_EQUIP}" key="idFav">
 						<SearchField liveChange="onSearchFavEqips" width="100%" class="sapUiSmallMarginBottom" placeholder="{i18n>SEARCH_EQUIP_PLACEHOLDER}"/>
 						<ScrollContainer height="20rem" vertical="true" focusable="false">
-							<Table mode="SingleSelectLeft" selectionChange="onEquipSelect" items="{path: 'mLookupModel>/aFavEquipList'}" class="sapUiSizeCompact">
+							<Table sticky="ColumnHeaders" mode="SingleSelectLeft" selectionChange="onEquipSelect" items="{path: 'mLookupModel>/aFavEquipList'}" class="tableCellNoBorder TableHeaderWhiteBG">
 								<headerToolbar>
-									<OverflowToolbar>
+									<OverflowToolbar height="2rem">
 										<content>
-											<Title text="{i18n>EQUI_LIST}" level="H6"/>
+											<Text text="{i18n>EQUI_LIST}"/>
 										</content>
 									</OverflowToolbar>
 								</headerToolbar>

@@ -4,7 +4,7 @@
 		<content>
 			<SearchField liveChange="onSearchFnLocs" width="90%" class="sapUiTinyMargin"/>
 			<ScrollContainer height="20rem" vertical="true" horizontal="false" focusable="false" class="sapUiTinyMargin">
-				<Table sticky="ColumnHeaders" mode="SingleSelectLeft" selectionChange="onFnLocSelect" growing="false" id ="idFunLocListTable" items="{path: 'mLookupModel>/aFnLocsList'}">
+				<Table sticky="ColumnHeaders" mode="SingleSelectLeft" selectionChange="onFnLocSelect" growing="false" id ="idFunLocListTable" items="{path: 'mLookupModel>/aFnLocsList'}" class="tableCellNoBorder TableHeaderWhiteBG">
 					<columns>
 						<Column>
 							<Text text="{i18n>FUN_LOC}"/>
