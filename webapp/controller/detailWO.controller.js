@@ -716,6 +716,8 @@ sap.ui.define([
 			var that = this;
 			var oSource = oEvent.getSource();
 			var oBtnType = oSource.getCustomData()[0].getValue();
+			var AssignedTo=this.oWorkOrderDetailViewModel.getProperty("/HEADERTOPARTNERNAV/0/AssignedTo");
+			this.oWorkOrderDetailModel.setProperty("/HEADERTOPARTNERNAV/0/AssignedTo",AssignedTo);
 			switch (oBtnType) {
 			case "WO_DETAIL_CREATE_NOTIF":
 				var oWorkOrderDetailModel = this.oWorkOrderDetailModel;

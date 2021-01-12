@@ -147,18 +147,18 @@
 						</customData>
 					</DatePicker>
 				</VBox>
-				<OverflowToolbar class="createNotifOverflowBorder">
+				<OverflowToolbar class="createNotifOverflowBorder" visible="{path:'oNotificationDataModel>/NotifType',formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnToggleBreakdownVisibility'}">
 					<Label text="Breakdown" design="Bold" class="sapUiTinyMarginBottom"></Label>
 					<layoutData>
 						<l:GridData span="XL12 L12 M12 S12"></l:GridData>
 					</layoutData>
 				</OverflowToolbar>
-				<VBox class="gridPadding">
+				<VBox class="gridPadding" visible="{path:'oNotificationDataModel>/NotifType',formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnToggleBreakdownVisibility'}">
 					<Label text="{i18n>BREAK_DOWN}"></Label>
 					<Switch state="{path:'oNotificationDataModel>/Breakdown', formatter:'com.sap.incture.IMO_PM.formatter.formatter.formatBooleanBreakDown'}"
 						customTextOn="{i18n>yes}" customTextOff="{i18n>no}" change="fnUpdateBreakDownStatus" id="idBreakDownSwitch" enabled="true"/>
 				</VBox>
-				<VBox class="gridPadding">
+				<VBox class="gridPadding" visible="{path:'oNotificationDataModel>/NotifType',formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnToggleBreakdownVisibility'}">
 					<Label text="{i18n>BREAK_DOWN_HRS}"></Label>
 					<Input class="inputRadius" value="{oNotificationDataModel>/BreakdownDur}" width="90%" tooltip="{oNotificationDataModel>/BreakdownDur}"
 						maxLength="7" enabled="false"></Input>
