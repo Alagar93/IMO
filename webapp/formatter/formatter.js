@@ -167,18 +167,19 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 
 		if (priority === "1") {
 
-			return "CRITICAL";
+			return "HIGH";
 
 		} else if (priority === "2") {
 			return "MEDIUM";
 		} else if (priority === "3") {
-			return "HIGH";
-		} else if (priority === "4") {
 			return "LOW";
+		} else if (priority === "4") {
+			return "SHUTDOWN";
+		} else if (priority === "E") {
+			return "Emergency";
 		} else {
 			return "";
 		}
-
 	},
 
 	fnDateSeperator: function (date) {
@@ -759,7 +760,7 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 	//  Function to Generate months back Date
 	GetMonthsBackDate: function (nDays) {
 		var d = new Date();
-		var newTime=d.getTime()-nDays*24*60*60*1000;
+		var newTime = d.getTime() - nDays * 24 * 60 * 60 * 1000;
 		return new Date(newTime).toLocaleDateString();
 	},
 
@@ -859,7 +860,7 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 				bVal = true;
 			}
 		} else if (systemStatus === "TECO") {
-			bVal = true;
+			bVal = false;
 		}
 		return bVal;
 	},
@@ -1095,6 +1096,14 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 			}
 		}
 		return bVal;
+	},
+	//Function to toggle Breakdown fields based on NotifType
+	fnToggleBreakdownVisibility: function (sNotifType) {
+		var bFlag = false;
+		if (sNotifType === "M2") {
+			bFlag = true;
+		}
+		return bFlag;
 	},
 	//Function to format String value to Boolean value for BreakDown
 	formatBooleanBreakDown: function (stringVal) {
@@ -1383,7 +1392,7 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 	//Function to set visible of Unconfirmed Checkbox in Operations table
 	fnSetFilterOpsCBVisible: function (orderStatus, orderId) {
 		var bVal = false;
-		if (orderStatus === "REL" || orderStatus === "PCNF" || orderStatus === "CNF" || orderStatus === "TECO" || orderStatus === "CLSD") {
+		if (orderStatus === "REL" || orderStatus === "PCNF" || orderStatus === "CNF") {
 			if (orderId) {
 				bVal = true;
 			}

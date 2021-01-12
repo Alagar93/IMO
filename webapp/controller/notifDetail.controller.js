@@ -1262,8 +1262,8 @@ sap.ui.define([
 		onCreateWO: function (oEvent) {
 			var sOrderType=this.mLookupModel.getProperty("/sOrderTypeSel");
 			if(sOrderType===""||sOrderType===null){
-				MessageBox.error("Enter Work Order type.");
-				return;
+				MessageBox.warning("Work Order type is taken as PM02");
+				this.mLookupModel.setProperty("/sOrderTypeSel","PM02");
 			}
 			this.onCancelWoNotifDetailDialog();
 			this.busy.open();
