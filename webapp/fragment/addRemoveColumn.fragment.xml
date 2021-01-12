@@ -1,0 +1,27 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:layout="sap.ui.layout"
+	xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" class="sapUiSizeCompact">
+	<Dialog title="{}" contentWidth="30%" contentHeight="40%" showHeader="false" verticalScrolling="true" class="sapUiSizeCompact dialogHeader">
+		<Page title="Add or Remove Column" showHeader="true" class="whiteBG">
+			<content>
+				<VBox>
+					<CheckBox text="Main Work Center" selected="{mLookupModel>/sTmainWrkCtr}"/>
+					<CheckBox text="WorkOrder Type" selected="{mLookupModel>/sTWoType}"/>
+					<CheckBox text="Tech Id" selected="{mLookupModel>/sTtechId}"/>
+					<CheckBox text="Equipment Description" selected="{mLookupModel>/sTequipDesc}"/>
+					<CheckBox text="Assigned Tech" selected="{mLookupModel>/sTassignedTech}"/>
+					<CheckBox text="WorkOrder Status" selected="{mLookupModel>/sTsysStatus}"/>
+					<CheckBox text="BreakDown Flag" selected="{mLookupModel>/sTbdFlag}"/>
+					<CheckBox text="Priority" selected="{mLookupModel>/sTpriority}"/>
+					<CheckBox text="Created By" selected="{mLookupModel>/sTcreatedBy}"/>
+					<CheckBox text="Created Date" selected="{mLookupModel>/sTCreatedDate}"/>
+				</VBox>
+			</content>
+			<footer>
+				<Toolbar>
+					<ToolbarSpacer/>
+					<Button text="Close" press="onCloseColumnAdd" class="transparentBtn createNotifClearBtn" />
+				</Toolbar>
+			</footer>
+		</Page>
+	</Dialog>
+</core:FragmentDefinition >

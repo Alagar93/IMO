@@ -89,6 +89,7 @@ sap.ui.define([
 			this.getWorkCenters();
 			this.fnFetchWOList();
 			this.fnFetchKPIInfo();
+			this.setTableVisibile(); //nischal -- Certain table columns are set visible initially
 		},
 
 		onAfterRendering: function () {
@@ -996,6 +997,37 @@ sap.ui.define([
 			if (oEvent.getParameter("name") === "WOList") {
 				this.getLoggedInUser();
 			}
+		},
+		//nischal
+		onPressColumnAdd: function (oEvent) {
+			if (!this.addRemoveColumnDialog) {
+				this.addRemoveColumnDialog = sap.ui.xmlfragment("com.sap.incture.IMO_PM.fragment.addRemoveColumn", this);
+				this.getView().addDependent(this.addRemoveColumnDialog);
+			}
+			this.addRemoveColumnDialog.open();
+		},
+		//nischal
+		onCloseColumnAdd: function (oEvent) {
+			this.addRemoveColumnDialog.close();
+			this.addRemoveColumnDialog.destroy();
+			this.addRemoveColumnDialog = null;
+		},
+		//nischal
+		setTableVisibile: function () {
+			var mLookupModel = this.mLookupModel;
+			mLookupModel.setProperty("/sTWoNum", true);
+			mLookupModel.setProperty("/sTWoDesc", true);
+			mLookupModel.setProperty("/sTmainWrkCtr", true);
+			mLookupModel.setProperty("/sTWoType", true);
+			mLookupModel.setProperty("/sTequip", true);
+			mLookupModel.setProperty("/sTtechId", false);
+			mLookupModel.setProperty("/sTequipDesc", false);
+			mLookupModel.setProperty("/sTassignedTech", false);
+			mLookupModel.setProperty("/sTsysStatus", true);
+			mLookupModel.setProperty("/sTbdFlag", false);
+			mLookupModel.setProperty("/sTpriority", true);
+			mLookupModel.setProperty("/sTcreatedBy", true);
+			mLookupModel.setProperty("/sTCreatedDate", true);
 		}
 	});
 });

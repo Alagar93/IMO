@@ -278,7 +278,7 @@
 				</IconTabFilter>
 			</items>
 		</IconTabBar>
-		<Panel expanded="true" expandable="true" class="sapMTextPanelClass" visible="{oWorkOrderDetailViewModel>/visibleOperationComment}">
+		<Panel expanded="{oWorkOrderDetailViewModel>/enableOperationComment}" expandable="true" class="sapMTextPanelClass" visible="{oWorkOrderDetailViewModel>/visibleOperationComment}">
 			<headerToolbar>
 				<Toolbar>
 					<Text text="{i18n>LONG_TEXT}" class="sapUiMediumMarginBegin sapMCommonBlueColor"></Text>
@@ -289,7 +289,7 @@
 					change="updateOperationLongTxt" enabled="{oWorkOrderDetailViewModel>/enableOperationComment}" maxLength="2000" rows="4"></TextArea>
 			</content>
 		</Panel>
-		<Panel expanded="true" expandable="true" class="sapMTextPanelClass"
+		<Panel expanded="{oWorkOrderDetailViewModel>/enableOpCnfmLongText}" expandable="true" class="sapMTextPanelClass"
 			visible="{parts: ['oWorkOrderDetailModel>/OrderStatus', 'oWorkOrderDetailViewModel>/visibleOperationComment'], formatter:'com.sap.incture.IMO_PM.formatter.formatter.setWOReleaseFieldsVisible'}">
 			<headerToolbar>
 				<Toolbar>
