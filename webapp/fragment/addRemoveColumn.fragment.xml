@@ -4,13 +4,16 @@
 		<Page title="Add or Remove Column" showHeader="true" class="whiteBG">
 			<content>
 				<VBox>
+					<CheckBox text="Functional Location" selected="{mLookupModel>/sTFunctLoc}"/>
 					<CheckBox text="Main Work Center" selected="{mLookupModel>/sTmainWrkCtr}"/>
 					<CheckBox text="WorkOrder Type" selected="{mLookupModel>/sTWoType}"/>
 					<CheckBox text="Tech Id" selected="{mLookupModel>/sTtechId}"/>
 					<CheckBox text="Equipment Description" selected="{mLookupModel>/sTequipDesc}"/>
 					<CheckBox text="Assigned Tech" selected="{mLookupModel>/sTassignedTech}"/>
-					<CheckBox text="WorkOrder Status" selected="{mLookupModel>/sTsysStatus}"/>
-					<CheckBox text="BreakDown Flag" selected="{mLookupModel>/sTbdFlag}"/>
+					<CheckBox text="System Status" selected="{mLookupModel>/sTsysStatus}"/>
+					<CheckBox text="User Status" selected="{mLookupModel>/sTuserStatus}"/>
+					<CheckBox text="Plant" selected="{mLookupModel>/sTmaintPlant}"/>
+					<CheckBox text="BD Flag" selected="{mLookupModel>/sTbdFlag}"/>
 					<CheckBox text="Priority" selected="{mLookupModel>/sTpriority}"/>
 					<CheckBox text="Created By" selected="{mLookupModel>/sTcreatedBy}"/>
 					<CheckBox text="Created Date" selected="{mLookupModel>/sTCreatedDate}"/>

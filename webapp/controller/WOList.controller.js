@@ -1017,6 +1017,7 @@ sap.ui.define([
 			var mLookupModel = this.mLookupModel;
 			mLookupModel.setProperty("/sTWoNum", true);
 			mLookupModel.setProperty("/sTWoDesc", true);
+			mLookupModel.setProperty("/sTFunctLoc",true);
 			mLookupModel.setProperty("/sTmainWrkCtr", true);
 			mLookupModel.setProperty("/sTWoType", true);
 			mLookupModel.setProperty("/sTequip", true);
@@ -1024,6 +1025,8 @@ sap.ui.define([
 			mLookupModel.setProperty("/sTequipDesc", false);
 			mLookupModel.setProperty("/sTassignedTech", false);
 			mLookupModel.setProperty("/sTsysStatus", true);
+			mLookupModel.setProperty("/sTuserStatus", false);
+			mLookupModel.setProperty("/sTmaintPlant",false);
 			mLookupModel.setProperty("/sTbdFlag", false);
 			mLookupModel.setProperty("/sTpriority", true);
 			mLookupModel.setProperty("/sTcreatedBy", true);
