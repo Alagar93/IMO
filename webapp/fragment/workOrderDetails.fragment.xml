@@ -213,6 +213,7 @@
 								<Label text="{i18n>UOM_SP}" class="tableHeaderText"/>
 								<ui:template>
 									<Input value="{oWorkOrderDetailModel>RequirementQuantityUnit}" class="inputRadius"
+									editable="{path:'oWorkOrderDetailModel>Material',formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnDisaleMatrialDesc'}"
 										enabled="{parts:['oWorkOrderDetailModel>Movement', 'oUserDetailModel>/userRole'], formatter:'com.sap.incture.IMO_PM.formatter.formatter.setSpareFieldsEnabled'}">
 										<customData>
 											<core:CustomData value="FLOAT"/>
@@ -287,7 +288,7 @@
 					<ui:Table rows="{oWorkOrderDetailViewModel>/CostTBl}" enableSelectAll="false" selectionMode="None" visibleRowCount="4"
 						class="tableHeaderBg" id="IMO_COST_OVERVIEWTAB" >
 						<ui:columns>
-							<ui:Column  hAlign="Center" tooltip="{i18n>VAL_CAT_DESC}">
+							<ui:Column  hAlign="Begin" tooltip="{i18n>VAL_CAT_DESC}">
 								<Label text="{i18n>VAL_CAT_DESC}" class="tableHeaderText"/>
 								<ui:template>
 									<Text text="{oWorkOrderDetailViewModel>CatDesc}" />

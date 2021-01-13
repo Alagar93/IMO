@@ -2142,7 +2142,9 @@ sap.ui.define([
 		onDeleteSpareParts: function () {
 			var oWorkOrderDetailViewModel = this.oWorkOrderDetailViewModel;
 			var oWorkOrderDetailModel = this.oWorkOrderDetailModel;
-			var sparePartTbl = this.getView().byId("MYLAN_OP_SPARE_PART_TBL");
+			var opertionTableFrag=this.getView().createId("idOperationsMaterialPanelWO");
+			var sparePartTbl = sap.ui.core.Fragment.byId(opertionTableFrag, "MYLAN_OP_SPARE_PART_TBL");
+			
 			var selectedSpareParts = oWorkOrderDetailViewModel.getProperty("/selectedSpareParts");
 			var spareParts = oWorkOrderDetailModel.getProperty("/HEADERTOCOMPONENTNAV");
 			var copySpareParts = jQuery.extend(true, [], spareParts);
