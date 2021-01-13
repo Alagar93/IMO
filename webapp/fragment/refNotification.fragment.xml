@@ -1,50 +1,54 @@
 <core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:layout="sap.ui.layout"
 	xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" class="sapUiSizeCompact">
-	<Dialog title="{}" contentWidth="50%" contentHeight="80%" showHeader="false" verticalScrolling="false" class="dialogHeader sapUiSizeCompact">
-		<Page title="Select Notification" showHeader="true" class="whiteBG">
-			<content>
-				<!--<Label text="Notification Id :"/>-->
-				<SearchField search="onSearchNotifData" width="96%" class="sapUiSmallMargin sapSearchFieldBorderClass" placeholder="{i18n>searchNotifNum}">
-					<customData>
-						<core:CustomData value="INTEGER"/>
-					</customData>
-				</SearchField>
-				<ScrollContainer height="calc(100% - 5rem)" vertical="true" focusable="false" class="sapUiSmallMargin">
-					<Table sticky="ColumnHeaders" mode="SingleSelectLeft" selectionChange="onselectNotif" growing="false" items="{path: 'mLookupModel>/aNotifListSet'}" class="tableCellNoBorder TableHeaderWhiteBG">
-						<columns>
-							<Column>
-								<Text text="{i18n>notif_Num}"/>
-							</Column>
-							<Column>
-								<Text text="{i18n>notif_Desc}"/>
-							</Column>
-							<Column>
-								<Text text="{i18n>notif_Equip}"/>
-							</Column>
-							<Column>
-								<Text text="{i18n>func_loc}"/>
-							</Column>
-						</columns>
-						<items>
-							<ColumnListItem>
-								<cells >
-									<Text text="{mLookupModel>NotifNo}"/>
-									<Text text="{mLookupModel>Descriptn}"/>
-									<Text text="{mLookupModel>Equipment}"/>
-									<Text text="{mLookupModel>FunctLoc}"/>
-								</cells>
-							</ColumnListItem>
-						</items>
-					</Table>
-				</ScrollContainer>
-			</content>
-			<footer>
+	<Dialog title="Select Notification" contentWidth="50%" contentHeight="80%" showHeader="false" verticalScrolling="false"
+		class="dialogHeader sapUiSizeCompact">
+		<!--<Page title="Select Notification" showHeader="true" class="whiteBG">-->
+		<content>
+			<!--<Label text="Notification Id :"/>-->
+			<SearchField search="onSearchNotifData" width="96%" class="sapUiSmallMargin sapSearchFieldBorderClass" placeholder="{i18n>searchNotifNum}">
+				<customData>
+					<core:CustomData value="INTEGER"/>
+				</customData>
+			</SearchField>
+			<ScrollContainer height="calc(100% - 5rem)" vertical="true" focusable="false" class="sapUiSmallMargin">
+				<Table sticky="ColumnHeaders" mode="SingleSelectLeft" selectionChange="onselectNotif" growing="false"
+					items="{path: 'mLookupModel>/aNotifListSet'}" class="tableCellNoBorder TableHeaderWhiteBG">
+					<columns>
+						<Column>
+							<Text text="{i18n>notif_Num}"/>
+						</Column>
+						<Column>
+							<Text text="{i18n>notif_Desc}"/>
+						</Column>
+						<Column>
+							<Text text="{i18n>notif_Equip}"/>
+						</Column>
+						<Column>
+							<Text text="{i18n>func_loc}"/>
+						</Column>
+					</columns>
+					<items>
+						<ColumnListItem>
+							<cells >
+								<Text text="{mLookupModel>NotifNo}"/>
+								<Text text="{mLookupModel>Descriptn}"/>
+								<Text text="{mLookupModel>Equipment}"/>
+								<Text text="{mLookupModel>FunctLoc}"/>
+							</cells>
+						</ColumnListItem>
+					</items>
+				</Table>
+			</ScrollContainer>
+		</content>
+		<!--<footer>
 				<Toolbar>
-					<ToolbarSpacer/>
-					<Button text="Cancel" press="onCloseRefNotif" class="transparentBtn createNotifClearBtn" icon="sap-icon://decline" iconFirst="true"/>
-					<Button text="Apply" press="onNotifSearch" type="Emphasized"/>
-				</Toolbar>
+					<ToolbarSpacer/>-->
+		<buttons>
+			<Button text="Cancel" press="onCloseRefNotif" class="transparentBtn createNotifClearBtn" icon="sap-icon://decline" iconFirst="true"/>
+			<Button text="Apply" press="onNotifSearch" type="Emphasized"/>
+		</buttons>
+		<!--	</Toolbar>
 			</footer>
-		</Page>
+		</Page>-->
 	</Dialog>
 </core:FragmentDefinition >

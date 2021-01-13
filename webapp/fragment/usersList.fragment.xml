@@ -2,7 +2,7 @@
 	<Dialog contentHeight="50%" contentWidth="30%" title="Search Users" class="dialogHeader">
 		<content>
 			<SearchField search="onSearchUser" width="95%" placeholder="{i18n>searchuser}" class="sapUiTinyMargin sapSearchFieldBorderClass"/>
-			<Table sticky="ColumnHeaders" class="tableCellNoBorder TableHeaderWhiteBG" width="95%" mode="SingleSelectLeft" items="{path: 'mLookupModel>/aUsers'}" selectionChange="onSetReportedbyUser" class="sapUiTinyMargin">
+			<Table sticky="ColumnHeaders" class="sapUiTinyMargin tableCellNoBorder TableHeaderWhiteBG" width="95%" mode="SingleSelectLeft" items="{path: 'mLookupModel>/aUsers'}" selectionChange="onSetReportedbyUser">
 				<columns>
 					<Column>
 						<Text text="{i18n>M-Id}"/>

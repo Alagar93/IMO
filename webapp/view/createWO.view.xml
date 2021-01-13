@@ -76,7 +76,7 @@
 					</IconTabFilter>
 					<IconTabFilter text="Create By Reference" key="createByRef">
 						<table:Table id="idSearchWOTable" selectionMode="None" rows="{mLookupModel>/aWorkOrderListSet}" visibleRowCount="{mLookupModel>/rowCount}"
-							rowHeight="33" class="tableCellNoBorder TableHeaderWhiteBG" >
+							rowHeight="31" class="tableCellNoBorder TableHeaderWhiteBG" >
 							<table:extension>
 								<Toolbar class="tableHeaderBG tableMargin" height="2rem">
 									<content>

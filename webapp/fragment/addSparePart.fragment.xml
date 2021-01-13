@@ -18,7 +18,7 @@
 							</customData>
 						</Input>
 						<layoutData>
-							<l:GridData span="XL4 L4 M4 S4"/>
+							<l:GridData span="XL2 L2 M2 S2"/>
 						</layoutData>
 					</VBox>
 					<VBox>
@@ -29,14 +29,14 @@
 							</customData>
 						</Input>
 						<layoutData>
-							<l:GridData span="XL4 L4 M4 S4"/>
+							<l:GridData span="XL2 L2 M2 S2"/>
 						</layoutData>
 					</VBox>
 					<VBox>
 						<Label text="{i18n>DETAIL_SPARE_PART_SUPPLIER_PART}"></Label>
 						<Input class="inputRadius" value="{oWorkOrderDetailViewModel>/supplierPartno}" submit="getMaterialsList" enabled="true" maxLength="18"></Input>
 						<layoutData>
-							<l:GridData span="XL4 L4 M4 S4"/>
+							<l:GridData span="XL2 L2 M2 S2"/>
 						</layoutData>
 					</VBox>
 					<VBox>
@@ -47,7 +47,7 @@
 							</customData>
 						</Input>
 						<layoutData>
-							<l:GridData span="XL4 L4 M4 S4"/>
+							<l:GridData span="XL2 L2 M2 S2"/>
 						</layoutData>
 					</VBox>
 					<VBox>
@@ -58,14 +58,14 @@
 							</customData>
 						</Input>
 						<layoutData>
-							<l:GridData span="XL4 L4 M4 S4"/>
+							<l:GridData span="XL2 L2 M2 S2"/>
 						</layoutData>
 					</VBox>
 					<VBox>
 						<Label text=""/>
 						<Button text="{i18n>SEARCH}" press="getMaterialsList"  type="Emphasized"/>
 						<layoutData>
-							<l:GridData span="XL4 L4 M4 S4"/>
+							<l:GridData span="XL2 L2 M2 S2"/>
 						</layoutData>
 					</VBox>
 				</l:content>

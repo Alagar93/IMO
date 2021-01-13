@@ -55,7 +55,7 @@
 				</items>
 			</FlexBox>-->
 			<ui:Table rows="{oWorkOrderDetailViewModel>/materialQuantities}" selectionMode="None" visibleRowCount="8"
-				class="sapUITableColumn sapUiTinyMargin" enableSelectAll="false">
+				class="sapUITableColumn sapUiTinyMargin tableCellNoBorder TableHeaderWhiteBG" enableSelectAll="false">
 				<ui:columns>
 					<ui:Column>
 						<Label text="{i18n>SAP_ID}" class="tableHeaderText"/>

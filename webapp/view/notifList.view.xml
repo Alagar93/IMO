@@ -155,35 +155,35 @@
 						</table:template>
 					</table:Column>
 					
-					<table:Column sortProperty="FunctLoc" filterProperty="FunctLoc" width="10rem" visible = "{mLookupModel>/snFunctLoc}">
+					<table:Column sortProperty="FunctLoc" filterProperty="FunctLoc" width="12rem" visible = "{mLookupModel>/snFunctLoc}">
 						<Text wrapping="true" text="{i18n>functLoc}" class="tableHeaderText"/>
 						<table:template>
 							<Text text="{mLookupModel>FunctLoc}" class="tableContentText"></Text>
 						</table:template>
 					</table:Column>
 					
-					<table:Column sortProperty="Funcldescr" filterProperty="Funcldescr" width="10rem" visible = "{mLookupModel>/snFunct_Desc}">
+					<table:Column sortProperty="Funcldescr" filterProperty="Funcldescr" width="12rem" visible = "{mLookupModel>/snFunct_Desc}">
 						<Text wrapping="true" text="{i18n>funct_Desc}" class="tableHeaderText"/>
 						<table:template>
 							<Text text="{mLookupModel>Funcldescr}" class="tableContentText"></Text>
 						</table:template>
 					</table:Column>
 					
-					<table:Column sortProperty="Equipment" filterProperty="Equipment" width="6rem" visible = "{mLookupModel>/snEquip}">
+					<table:Column sortProperty="Equipment" filterProperty="Equipment" width="7rem" visible = "{mLookupModel>/snEquip}">
 						<Text wrapping="true" text="{i18n>equip}" class="tableHeaderText"/>
 						<table:template>
 							<Text text="{mLookupModel>Equipment}" class="tableContentText"></Text>
 						</table:template>
 					</table:Column>
 					
-					<table:Column sortProperty="Equidescr" filterProperty="Equidescr" width="10rem" visible = "{mLookupModel>/snEquip_Desc}">
+					<table:Column sortProperty="Equidescr" filterProperty="Equidescr" width="12rem" visible = "{mLookupModel>/snEquip_Desc}">
 						<Text wrapping="true" text="{i18n>EqDes}" class="tableHeaderText"/>
 						<table:template>
 							<Text text="{mLookupModel>Equidescr}" class="tableContentText"></Text>
 						</table:template>
 					</table:Column>
 					
-					<table:Column sortProperty="WorkCntr" filterProperty="WorkCntr" width="6rem" visible = "{mLookupModel>/snWrkCtr}">
+					<table:Column sortProperty="WorkCntr" filterProperty="WorkCntr" width="7rem" visible = "{mLookupModel>/snWrkCtr}">
 						<Text wrapping="true" text="{i18n>mainWC}" class="tableHeaderText"/>
 						<table:template>
 							<Text text="{mLookupModel>WorkCntr}" class="tableContentText"></Text>
@@ -266,7 +266,7 @@
 							<Text text="{mLookupModel>CreatedBy}" class="tableContentText"></Text>
 						</table:template>
 					</table:Column>
-					<table:Column width="5rem" visible = "{mLookupModel>/snAction}">
+					<table:Column visible = "{mLookupModel>/snAction}" hAlign="Center">
 						<Text wrapping="true" text="{i18n>Action}" class="tableHeaderText"/>
 						<table:template>
 							<HBox justifyContent="Center">
