@@ -154,6 +154,7 @@ sap.ui.define([
 				if (userPlant) {
 					this.fnFetchNotifList();
 					this.getNotificationKPICount();
+					this.setColumnsVisible();
 				}
 			}
 		},
@@ -261,10 +262,10 @@ sap.ui.define([
 			var aNotificationListSet = mLookupModel.getProperty("/aNotificationListSet");
 			var iTopNotif = mLookupModel.getProperty("/iTopNotif");
 			var iSkipNotif = mLookupModel.getProperty("/iSkipNotif");
-			if(iTopNotif === undefined || iTopNotif === null){
+			if (iTopNotif === undefined || iTopNotif === null) {
 				iTopNotif = 50;
 			}
-			if(iSkipNotif === undefined || iSkipNotif === null){
+			if (iSkipNotif === undefined || iSkipNotif === null) {
 				iSkipNotif = 0;
 			}
 			this.busy.open();
@@ -358,6 +359,12 @@ sap.ui.define([
 						if (value.Reqenddate) {
 							value.ReqenddateString = that.fnDateSeperator(value.Reqenddate);
 						}
+						if (value.Strmlfndate) {
+							value.Strmlfndate = that.fnGetMalfunDate(value.Strmlfndate);
+						}
+						if (value.Endmlfndate) {
+							value.Endmlfndate = that.fnGetMalfunDate(value.Endmlfndate);
+						}
 					});
 					mLookupModel.setProperty("/aNotificationListSet", aNotificationListSet);
 					mLookupModel.setProperty("/iDisplayedNotifCount", aNotificationListSet.length);
@@ -388,8 +395,8 @@ sap.ui.define([
 		onPressReleaseMassNotif: function () {
 			var mLookupModel = this.mLookupModel;
 			var aSelectedpaths = mLookupModel.getProperty("/selectedNotifs");
-			this.mLookupModel.setProperty("/ReleaseStatus","MassNotif");
-			for (var i = aSelectedpaths.length-1; i >= 0; i--) {
+			this.mLookupModel.setProperty("/ReleaseStatus", "MassNotif");
+			for (var i = aSelectedpaths.length - 1; i >= 0; i--) {
 				var notifData = mLookupModel.getProperty(aSelectedpaths[i].sPath);
 				mLookupModel.getProperty("/selectedNotifs").pop();
 				this.fnPressReleaseNotif(notifData);
@@ -401,14 +408,14 @@ sap.ui.define([
 		onPressReleaseRowNotif: function (oEvent) {
 			var notifDataPath = oEvent.getSource().getParent().getParent().getBindingContext("mLookupModel").sPath;
 			var oNotifData = this.mLookupModel.getProperty(notifDataPath);
-			this.mLookupModel.setProperty("/ReleaseStatus","RowNotif");
+			this.mLookupModel.setProperty("/ReleaseStatus", "RowNotif");
 			this.fnPressReleaseNotif(oNotifData);
 		},
 		fnPressReleaseNotif: function (notifData) {
 			var mLookupModel = this.mLookupModel;
 			var oNotificationViewModel = this.oNotificationViewModel;
 			var oNotificationDataModel = this.oNotificationDataModel;
-			var ReleaseStatus=mLookupModel.getProperty("/ReleaseStatus");
+			var ReleaseStatus = mLookupModel.getProperty("/ReleaseStatus");
 			util.resetCreateNotificationFieldsNotifList(oNotificationDataModel, oNotificationViewModel, mLookupModel, notifData, this);
 
 			this.fnReleaseNotif(ReleaseStatus);
@@ -420,21 +427,20 @@ sap.ui.define([
 			var oPortalNotifOData = this.oPortalNotifOData;
 			var oNotificationDataModel = this.oNotificationDataModel;
 			var oNotificationViewModel = this.oNotificationViewModel;
-			var nSelectedNotifs=mLookupModel.getProperty("/selectedNotifs").length;
-			
+			var nSelectedNotifs = mLookupModel.getProperty("/selectedNotifs").length;
+
 			var oNotifData = oNotificationDataModel.getData();
 
 			var tempLongText = oNotificationViewModel.getProperty("/Longtext");
 			oNotifData.Longtext = tempLongText;
 
 			oNotifData.Startdate = formatter.formatDateobjToString(oNotifData.Startdate);
-			if(oNotifData.Enddate){
+			if (oNotifData.Enddate) {
 				oNotifData.Enddate = formatter.formatDateobjToString(oNotifData.Enddate);
+			} else {
+				oNotifData.Enddate = "";
 			}
-			else{
-				oNotifData.Enddate="";
-			}
-			
+
 			oNotifData.Notif_date = formatter.formatDateobjToString(oNotifData.Notif_date);
 			oNotifData.ReqStartdate = formatter.formatDateobjToString(oNotifData.ReqStartdate);
 			oNotifData.ReqEnddate = formatter.formatDateobjToString(oNotifData.ReqEnddate);
@@ -485,7 +491,7 @@ sap.ui.define([
 								}
 							});
 						}
-						if (nSelectedNotifs===0||sVal==="RowNotif") {
+						if (nSelectedNotifs === 0 || sVal === "RowNotif") {
 							MessageBox.success("Notification Released Successfully", {
 
 								actions: [MessageBox.Action.OK],
@@ -500,8 +506,7 @@ sap.ui.define([
 									that.fnRefreshNotifListTable(SkipNotif);
 								}
 							});
-							
-							
+
 						}
 
 					}
@@ -562,14 +567,14 @@ sap.ui.define([
 			this.createWoNotifListDialog = null;
 		},
 		onCreateWO: function (oEvent) {
-			var sOrderType=this.mLookupModel.getProperty("/sOrderTypeSel");
-			if(sOrderType===""||sOrderType===null){
+			var sOrderType = this.mLookupModel.getProperty("/sOrderTypeSel");
+			if (sOrderType === "" || sOrderType === null) {
 				MessageBox.warning("Work Order type is taken as PM02");
-				this.mLookupModel.setProperty("/sOrderTypeSel","PM02");
+				this.mLookupModel.setProperty("/sOrderTypeSel", "PM02");
 			}
 			this.onCancelWoNotifDetailDialog();
 			this.busy.open();
-			
+
 			var oNotificationDataModel = this.oNotificationDataModel;
 			var sData = oNotificationDataModel.getData();
 			var btnType = this.mLookupModel.getProperty("/CreationWOType");
@@ -1064,7 +1069,7 @@ sap.ui.define([
 			var oPortalDataModel = this.oPortalDataModel;
 			var userPlant = this.oUserDetailModel.getProperty("/userPlant");
 			var sWorkCenterSel = mLookupModel.getProperty("/sWorkCenterSel");
-			if(sWorkCenterSel === null || sWorkCenterSel === undefined){
+			if (sWorkCenterSel === null || sWorkCenterSel === undefined) {
 				sWorkCenterSel = "";
 			}
 			var oFilter = [];
@@ -1170,9 +1175,31 @@ sap.ui.define([
 			mLookupModel.setProperty("/sCreatedOnStart", formatter.GetMonthsBackDate(90));
 			mLookupModel.setProperty("/sCreatedOnEnd", new Date().toLocaleDateString());
 		},
-		notifAdvFilterPanelOpen: function(oEvent){
+		notifAdvFilterPanelOpen: function (oEvent) {
 			var oNotifWrapPanel = this.byId("filterWrapPanelNotifList");
 			oNotifWrapPanel.setExpanded(!oNotifWrapPanel.getExpanded());
-		}
+		},
+		fnGetMalfunDate: function (oDate) {
+			var dd = oDate.getDate();
+			var mm = oDate.getMonth() + 1;
+			var yy = oDate.getFullYear();
+			var sDate = dd + "-" + mm + "-"+ yy;
+			return sDate;
+		},
+		//nischal
+		onPressColumnAdd: function (oEvent) {
+			if (!this.addRemoveColumnDialog) {
+				this.addRemoveColumnDialog = sap.ui.xmlfragment("com.sap.incture.IMO_PM.fragment.addRemoveColumnNotif", this);
+				this.getView().addDependent(this.addRemoveColumnDialog);
+			}
+			this.addRemoveColumnDialog.open();
+		},
+		//nischal
+		onCloseColumnAdd: function (oEvent) {
+			this.addRemoveColumnDialog.close();
+			this.addRemoveColumnDialog.destroy();
+			this.addRemoveColumnDialog = null;
+		},
+		//nischal
 	});
 });
