@@ -2727,169 +2727,199 @@ html.sap-desktop .sapMIBar.sapMFooter-CTX {
 }
 
 /*nischal -- css for Print Button Html -- starts*/
-.murphyLogo{
-	height: 90px;
+.murphyLogo {
+    height: 90px;
     width: 200px;
 }
-.container2{
-	margin-top:5px;
-	border: 2px solid black;
+
+.container2 {
+    margin-top: 5px;
+    border: 2px solid black;
 }
-.userDetails1{
-	padding-left:10px;
-	padding-right:10px;
-	padding-top:10px;
+
+.userDetails1 {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
 }
-.userDetails2{
-	padding-left:10px;
-	padding-right:10px;
-	padding-bottom:10px;
-	border-bottom: 1px solid black
+
+.userDetails2 {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid black
 }
-.grid-container{
-	display: grid;
-	grid-template-columns: 50% 50%;
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 50% 50%;
 }
-.internal-grid{
-	display: grid;
-	grid-template-columns: auto auto auto;
+
+.internal-grid {
+    display: grid;
+    grid-template-columns: auto auto auto;
 }
-.userDetailFontStyle{
-	font-weight:900;
-	font-family:sans-serif;
-	font-size:12px;
+
+.userDetailFontStyle {
+    font-weight: 900;
+    font-family: sans-serif;
+    font-size: 12px;
 }
-.grid-container1{
-	display: grid;
-	grid-template-columns: 20% 30% 50% ;
-	margin-top:20px;
-	margin-bottom:10px;
+
+.grid-container1 {
+    display: grid;
+    grid-template-columns: 20% 30% 50%;
+    margin-top: 20px;
+    margin-bottom: 10px;
 }
+
 /* Header Details css - starts*/
-.headerDetailsContainer{
-	padding : 10px;
-	border-bottom: 1px solid black;
+.headerDetailsContainer {
+    padding: 10px;
+    border-bottom: 1px solid black;
 }
-.grid-container-header1{
-	display: grid;
-	grid-template-columns: 20% 30% 50% ;
+
+.grid-container-header1 {
+    display: grid;
+    grid-template-columns: 20% 30% 50%;
 }
-.grid-container-header2{
-	display: grid;
-	grid-template-columns: 20% 30% 20% 10% 10% ;
+
+.grid-container-header2 {
+    display: grid;
+    grid-template-columns: 20% 30% 20% 10% 10%;
 }
-.headerDetailsFontStyle1{
-	font-style:italic;
-	font-size:13px;
-	
+
+.headerDetailsFontStyle1 {
+    font-style: italic;
+    font-size: 13px;
+
 }
-.headerDetailsFontStyle2{
-	font-family: courier new;
-	font-size: 17px;
+
+.headerDetailsFontStyle2 {
+    font-family: courier new;
+    font-size: 17px;
 }
-.headerDetailsFontStyle3{
-	font-size: 14px;
+
+.headerDetailsFontStyle3 {
+    font-size: 14px;
 }
-.headerDetailsFontStyle4{
-	font-weight:bold;
+
+.headerDetailsFontStyle4 {
+    font-weight: bold;
 }
+
 /* Header Details css - ends*/
 /*Operation Table css- starts*/
 
-.tableHeading{
-	padding-left: 10px;
+.tableHeading {
+    padding-left: 10px;
     padding-top: 10px;
     padding-right: 10px;
-	font-weight:900;
-	font-family:sans-serif;
-	font-size:12px;
-	
+    font-weight: 900;
+    font-family: sans-serif;
+    font-size: 12px;
+
 }
 
-.tableHeader1{
-	font-style:italic;
-	font-size:13px;
-	width : 15%;
-	text-align: left;
+.tableHeader1 {
+    font-style: italic;
+    font-size: 13px;
+    width: 15%;
+    text-align: left;
 }
-.tableHeader2{
-	font-style:italic;
-	font-size:13px;
-	width : 40%;
-	text-align: left;
+
+.tableHeader2 {
+    font-style: italic;
+    font-size: 13px;
+    width: 40%;
+    text-align: left;
 }
-.operationShortText{
-	
-	font-size:14px;
-	font-family:Times New Roman;
+
+.operationShortText {
+
+    font-size: 14px;
+    font-family: Times New Roman;
 }
-.tableData1{
-	text-align: left;
-	font-family: courier new;
-	font-family: courier new;
-	font-size: 17px;
+
+.tableData1 {
+    text-align: left;
+    font-family: courier new;
+    font-family: courier new;
+    font-size: 17px;
 }
-.opeartionTable{
-	padding : 10px;
-	width:100%;
-	
+
+.opeartionTable {
+    padding: 10px;
+    width: 100%;
+
 }
-.operationsContainer{
-	border-bottom: 1px solid black;
+
+.operationsContainer {
+    border-bottom: 1px solid black;
 }
+
 /*Operation Table css- ends*/
 
 /* Material Table css- starts here */
-.materialTable{
-	padding : 10px;
-	width:100%;
+.materialTable {
+    padding: 10px;
+    width: 100%;
 
 }
-.materialsHeader1{
-	font-style:italic;
-	font-size:13px;
-	width : 10%;
-	text-align: left;
+
+.materialsHeader1 {
+    font-style: italic;
+    font-size: 13px;
+    width: 10%;
+    text-align: left;
 }
-.materialData1{
-	text-align: left;
-	font-family: courier new;
-	font-size: 17px;
+
+.materialData1 {
+    text-align: left;
+    font-family: courier new;
+    font-size: 17px;
 }
-.materialsHeader2{
-	font-style:italic;
-	font-size:13px;
-	width : 5%;
-	text-align: left;
+
+.materialsHeader2 {
+    font-style: italic;
+    font-size: 13px;
+    width: 5%;
+    text-align: left;
 }
-.materialsHeader3{
-	font-style:italic;
-	font-size:13px;
-	width : 20%;
-	text-align: left;
+
+.materialsHeader3 {
+    font-style: italic;
+    font-size: 13px;
+    width: 20%;
+    text-align: left;
 }
-.materialsHeader4{
-	font-style:italic;
-	font-size:13px;
-	width : 10%;
-	text-align: left;
+
+.materialsHeader4 {
+    font-style: italic;
+    font-size: 13px;
+    width: 10%;
+    text-align: left;
 }
-.materialsContainer{
-	border-bottom: 1px solid black;
+
+.materialsContainer {
+    border-bottom: 1px solid black;
 }
+
 /* Material Table css- starts here */
 /* VerifiedConntainer css - starts here*/
-.verifiedContainer{
-	height: 100px;
+.verifiedContainer {
+    height: 100px;
     padding: 10px;
 }
-.textContainer{
-	margin-top: 50px;
+
+.textContainer {
+    margin-top: 50px;
     font-size: 14px;
     font-weight: bold;
     text-align: right;
     margin-right: 5%;
 }
+
 /* VerifiedConntainer css - Ends here*/
 /*nischal -- css for Print Button Html -- Ends*/
 
@@ -2958,9 +2988,11 @@ html.sap-desktop .sapMIBar.sapMFooter-CTX {
 
 /*Dashboard Graphs CSS End*/
 
-.tableCellNoBorder .sapUiTableCell{
-	border: none !important;
+.tableCellNoBorder .sapUiTableCell {
+    /*border: none !important;*/
+    border-right: none;
 }
+
 /*
 .HighLightColorRed .sapUiTableRowHighlight {
 	background-color: #ff0012 !important;
@@ -2976,15 +3008,27 @@ html.sap-desktop .sapMIBar.sapMFooter-CTX {
 }*/
 
 .labelText {
-	color: #757575;
+    color: #757575;
 }
-.TableHeaderWhiteBG .sapUiTableColHdrCnt{
-	    background-color: #ffffff;
+
+.TableHeaderWhiteBG .sapUiTableColHdrCnt {
+    background-color: #ffffff;
 }
-.TableHeaderWhiteBG .sapUiTableHeaderRow{
-	    background-color: #ffffff;
+
+.TableHeaderWhiteBG .sapUiTableHeaderRow {
+    background-color: #ffffff;
 }
-.TableHeaderWhiteBG .sapUiTableVSbHeader{
-	    background-color: #ffffff;
-	    border: none;
+
+.TableHeaderWhiteBG .sapUiTableVSbHeader {
+    background-color: #ffffff;
+    border: none;
+}
+
+.TableHeaderWhiteBG .sapUiTableVSb {
+    border: none;
+}
+
+.TableHeaderWhiteBG .sapMTableTH {
+    background-color: #ffffff;
+    border-top: 1px solid #e5e5e5;
 }

@@ -71,7 +71,7 @@
 				</l:content>
 			</l:Grid>
 			<ui:Table rows="{oWorkOrderDetailViewModel>/aMaterialsList}" selectionMode="MultiToggle" id="MYLAN_MATERIALS_SEARCH_TBL"
-				class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom" enableSelectAll="false" rowSelectionChange="onSelectMaterials"
+				class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom tableCellNoBorder TableHeaderWhiteBG" enableSelectAll="false" rowSelectionChange="onSelectMaterials"
 				visibleRowCount="{mLookupModel>/spRowCount}" rowHeight="40" >
 				<ui:columns>
 					<ui:Column width="14%">

@@ -2031,9 +2031,10 @@ sap.ui.define([
 		//Function to clear Operation and Spare part table selection
 		fnClearTblSelection: function () {
 			var oWorkOrderDetailViewModel = this.oWorkOrderDetailViewModel;
-			var operationTbl = this.getView().byId("MYLAN_OPERATIONS_TABLE");
-			operationTbl.clearSelection();
-			var componentTbl = this.getView().byId("MYLAN_OP_SPARE_PART_TBL");
+			var opertionTableFrag=this.getView().createId("idOperationsMaterialPanelWO");
+			var opertionTbl=sap.ui.core.Fragment.byId(opertionTableFrag, "MYLAN_OPERATIONS_TABLE");
+			opertionTbl.clearSelection();
+			var componentTbl = sap.ui.core.Fragment.byId(opertionTableFrag, "MYLAN_OP_SPARE_PART_TBL");
 			componentTbl.clearSelection();
 			oWorkOrderDetailViewModel.setProperty("/selectedOps", []);
 			oWorkOrderDetailViewModel.setProperty("/selectedSpareParts", []);

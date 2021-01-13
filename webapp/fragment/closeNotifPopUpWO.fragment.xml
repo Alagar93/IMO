@@ -1,17 +1,17 @@
 <core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:layout="sap.ui.layout"
 	xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" class="sapUiSizeCompact">
 	<Dialog title="{}" contentWidth="30%" contentHeight="20%" showHeader="false" verticalScrolling="false" class="sapUiSizeCompact">
-		<Page title="Warning" showHeader="true" titleAlignment="Center">
+		<Page title="Warning" showHeader="true">
 			<content>
 				<VBox>
 					<!--<Text text=""/>-->
-					<CheckBox text="Do u want to Close Notifications as well ?" valueState ="Information" selected="{oWorkOrderDetailViewModel>/closenotifFlag}"/>
+					<CheckBox text="Do u want to Close Notifications as well ?" valueState="Information" selected="{oWorkOrderDetailViewModel>/closenotifFlag}"/>
 				</VBox>
 			</content>
 			<footer>
 				<Toolbar>
-					<Button text="Cancel" press="onCloseNotifPopUpClose" class="transparentBtn createNotifClearBtn" icon="sap-icon://decline" iconFirst="true"/>
 					<ToolbarSpacer/>
+					<Button text="Cancel" press="onCloseNotifPopUpClose" class="transparentBtn createNotifClearBtn" icon="sap-icon://decline" iconFirst="true"/>
 					<Button type="Emphasized" text="Save" press="onSaveCloseNotifPopUp"/>
 				</Toolbar>
 			</footer>

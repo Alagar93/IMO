@@ -1,12 +1,16 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:ui="sap.ui.table">
 	<Dialog title="{i18n>NOTIFICATION_LIST}" class="sapUiSizeCompact dialogHeader">
 		<content>
-			<!--<HBox class="sapUiTinyMargin">-->
-				<SearchField search="onSearchNotif" value="{oWorkOrderDetailViewModel>/notifSearchVal}" class="sapSearchFieldBorderClass sapUiSmallMargin"
-					placeholder="{i18n>NOTI_ID_OR_DESC}" tooltip="{i18n>NOTI_ID_OR_DESC}" width="15rem"/>
-			<!--</HBox>-->
+			<Toolbar class="sapUiSmallMargin">
+				<content>
+					<ToolbarSpacer/>
+					<SearchField search="onSearchNotif" value="{oWorkOrderDetailViewModel>/notifSearchVal}" class="sapSearchFieldBorderClass"
+						placeholder="{i18n>NOTI_ID_OR_DESC}" tooltip="{i18n>NOTI_ID_OR_DESC}" width="15rem"/>
+				</content>
+			</Toolbar>
 			<ui:Table rows="{oWorkOrderDetailViewModel>/aNotificationsSet}" selectionMode="MultiToggle" visibleRowCount="8" id="WO_DETAIL_NOTIF_TBL"
-				class="sapUITableColumn sapUiSmallMargin" enableSelectAll="false" rowSelectionChange="onSelectNotifications">
+				class="sapUITableColumn sapUiSmallMargin tableCellNoBorder TableHeaderWhiteBG" enableSelectAll="false"
+				rowSelectionChange="onSelectNotifications">
 				<ui:columns>
 					<ui:Column width="8rem">
 						<Label text="{i18n>NOTIFICATION}" class="tableHeaderText"/>
@@ -14,15 +18,16 @@
 							<Text text="{oWorkOrderDetailViewModel>NotifNo}"/>
 						</ui:template>
 					</ui:Column>
-					<ui:Column width="15rem">
+					<ui:Column>
 						<Label text="{i18n>notifType}" class="tableHeaderText"/>
 						<ui:template>
-							<Select class="selectRadius" items="{mLookupModel>/aNotificationTypeSet}" selectedKey="{oWorkOrderDetailViewModel>NotifType}" enabled="false">
+							<Select class="selectRadius" items="{mLookupModel>/aNotificationTypeSet}" selectedKey="{oWorkOrderDetailViewModel>NotifType}"
+								enabled="false">
 								<core:ListItem key="{mLookupModel>Qmart}" text="{mLookupModel>Qmart} - {mLookupModel>qmartx}"/>
 							</Select>
 						</ui:template>
 					</ui:Column>
-					<ui:Column width="15rem">
+					<ui:Column>
 						<Label text="{i18n>DESCRIPTION}" class="tableHeaderText"/>
 						<ui:template>
 							<Text text="{oWorkOrderDetailViewModel>Descriptn}"/>
@@ -51,7 +56,8 @@
 			</ui:Table>
 		</content>
 		<buttons>
-			<Button text="{i18n>CANCEL}" press="onCloseNotificationPopup" class="transparentBtn createNotifClearBtn" icon="sap-icon://decline" iconFirst="true"></Button>
+			<Button text="{i18n>CANCEL}" press="onCloseNotificationPopup" class="transparentBtn createNotifClearBtn" icon="sap-icon://decline"
+				iconFirst="true"></Button>
 			<Button text="{i18n>ADD}" press="onAddNotifications" type="Emphasized"></Button>
 		</buttons>
 	</Dialog>
