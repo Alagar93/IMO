@@ -344,6 +344,7 @@ sap.ui.define([
 			if (viewType === "NOTIF_LIST_VIEW") {
 				this.fnFetchNotifList();
 				this.getNotificationKPICount();
+				this.setColumnsVisible();
 			} else {
 				this.getWOPriorities();
 				this.fnFetchDetailNotifList();
@@ -3339,6 +3340,32 @@ sap.ui.define([
 			this.getOwnerComponent().getModel("mLookupModel").setProperty("/notificationPanelHeight", notificationPanelHeight);
 			this.getOwnerComponent().getModel("mLookupModel").refresh(true);
 		},
+		//nischal--
+		setColumnsVisible : function(){
+			var mLookupModel = this.mLookupModel;
+			mLookupModel.setProperty("/snType",true);
+			mLookupModel.setProperty("/snNumber",true);
+			mLookupModel.setProperty("/snDescription",true);
+			mLookupModel.setProperty("/snOrder",true);
+			mLookupModel.setProperty("/snFunctLoc",true);
+			mLookupModel.setProperty("/snFunct_Desc",false);
+			mLookupModel.setProperty("/snEquip",true);
+			mLookupModel.setProperty("/snEquip_Desc",false);
+			mLookupModel.setProperty("/snWrkCtr",true);
+			mLookupModel.setProperty("/snPlanPlant",false);
+			mLookupModel.setProperty("/snTechId",false);
+			mLookupModel.setProperty("/snSysStatus",true);
+			mLookupModel.setProperty("/snUserStatus",false);
+			mLookupModel.setProperty("/snReqStDate",false);
+			mLookupModel.setProperty("/snReqEndDate",false);
+			mLookupModel.setProperty("/snBdFlag",true);
+			mLookupModel.setProperty("/snMalStDate",false);
+			mLookupModel.setProperty("/snMalEndDate",false);
+			mLookupModel.setProperty("/snPriority",true);
+			mLookupModel.setProperty("/snCreatedDate",false);
+			mLookupModel.setProperty("/snCreatedBy",true);
+			mLookupModel.setProperty("/snAction",true);
+		}
 
 	});
 });

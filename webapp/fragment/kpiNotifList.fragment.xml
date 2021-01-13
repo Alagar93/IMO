@@ -1,8 +1,8 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:ui="sap.ui.table">
-	<Dialog title="{mLookupModel>/kpiNotifHeader}" class="sapUiSizeCompact dialogHeader" contentWidth="60%">
+	<Dialog title="{mLookupModel>/kpiNotifHeader}" class="sapUiSizeCompact dialogHeader" contentWidth="45%">
 		<content>
 			<ui:Table rows="{mLookupModel>/kpiNotiflist}" selectionMode="Single" selectionBehavior="RowOnly" rowSelectionChange="getSelectedKPIsNotifs"
-				visibleRowCount="8" class="sapUiTinyMargin" enableSelectAll="false" id="NOTIF_KPI_LIST_TBL">
+				visibleRowCount="8" class="sapUiSmallMargin tableCellNoBorder TableHeaderWhiteBG" enableSelectAll="false" id="NOTIF_KPI_LIST_TBL">
 				<ui:columns>
 					<ui:Column hAlign="Begin" filterProperty="Number" sortProperty="Number" defaultFilterOperator="Contains">
 						<Label text="{i18n>noitifid}" design="Bold"/>

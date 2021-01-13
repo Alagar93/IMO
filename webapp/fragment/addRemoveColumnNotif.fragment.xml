@@ -1,0 +1,35 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:layout="sap.ui.layout"
+	xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" class="sapUiSizeCompact">
+	<Dialog title="{}" contentWidth="30%" contentHeight="40%" showHeader="false" verticalScrolling="true" class="sapUiSizeCompact dialogHeader">
+		<Page title="Add or Remove Column" showHeader="true" class="whiteBG">
+			<content>
+				<VBox>
+					<CheckBox text="Type" selected="{mLookupModel>/snType}"/>
+					<CheckBox text="Functional Location" selected="{mLookupModel>/snFunctLoc}"/>
+					<CheckBox text="FunctLoc Description" selected="{mLookupModel>/snFunct_Desc}"/>
+					<CheckBox text="Equipment Description" selected="{mLookupModel>/snEquip_Desc}"/>
+					<CheckBox text="WorkCenter" selected="{mLookupModel>/snWrkCtr}"/>
+					<CheckBox text="Plant" selected="{mLookupModel>/snPlanPlant}"/>
+					<CheckBox text="Tech Id" selected="{mLookupModel>/snTechId}"/>
+					<CheckBox text="System Status" selected="{mLookupModel>/snSysStatus}"/>
+					<CheckBox text="User Status" selected="{mLookupModel>/snUserStatus}"/>
+					<CheckBox text="Required Start" selected="{mLookupModel>/snReqStDate}"/>
+					<CheckBox text="Required End" selected="{mLookupModel>/snReqEndDate}"/>
+					<CheckBox text="BD Flag" selected="{mLookupModel>/snBdFlag}"/>
+					<CheckBox text="Malfunction Start" selected="{mLookupModel>/snMalStDate}"/>
+					<CheckBox text="Malfunction End" selected="{mLookupModel>/snMalEndDate}"/>
+					<CheckBox text="Priority" selected="{mLookupModel>/snPriority}"/>
+					<CheckBox text="Created By" selected="{mLookupModel>/snCreatedBy}"/>
+					<CheckBox text="Created Date" selected="{mLookupModel>/snCreatedDate}"/>
+					<CheckBox text="Action" selected="{mLookupModel>/snAction}"/>
+				</VBox>
+			</content>
+			<footer>
+				<Toolbar>
+					<ToolbarSpacer/>
+					<Button text="Close" press="onCloseColumnAdd" class="transparentBtn createNotifClearBtn" />
+				</Toolbar>
+			</footer>
+		</Page>
+	</Dialog>
+</core:FragmentDefinition >

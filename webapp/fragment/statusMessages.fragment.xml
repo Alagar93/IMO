@@ -1,7 +1,7 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:ui="sap.ui.table">
 	<Dialog title="{i18n>SUCCESS_ERROR}" class="sapUiSizeCompact dialogHeader" contentWidth="50%">
 		<content>
-			<ui:Table rows="{mLookupModel>/messages}" selectionMode="None" visibleRowCount="4" class="sapUiTinyMargin" enableSelectAll="false">
+			<ui:Table rows="{mLookupModel>/messages}" selectionMode="None" visibleRowCount="4" class="sapUiSmallMargin tableCellNoBorder TableHeaderWhiteBG" enableSelectAll="false">
 				<ui:columns>
 					<ui:Column hAlign="Center" width="10rem">
 						<Label text="{i18n>STATUS}"/>

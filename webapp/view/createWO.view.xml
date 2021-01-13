@@ -16,10 +16,9 @@
 					</buttons>
 				</RadioButtonGroup>
 			</Toolbar>-->
-			<Toolbar class="sapUiTinyMarginTop">
-				<ToolbarSpacer/>
-				<Button width="5rem" type="Emphasized" text="{i18n>create}" press="onCreateWO" visible="{= ${mLookupModel>/iSelectedIndex} === 0 ? false : true}"/>
-				<Button width="5rem" type="Emphasized" text="{i18n>NEXT}" press="onCreateViewWorkOrder" visible="{= ${mLookupModel>/iSelectedIndex} === 0 ? true : false}"/>
+			<Toolbar class="sapUiTinyMarginTop tableHeaderBG" height="3rem">
+				<Button class="sapUiSmallMarginBegin tableHeadertansparentBtn" width="6rem" text="{i18n>create}" press="onCreateWO" visible="{= ${mLookupModel>/iSelectedIndex} === 0 ? false : true}" icon="sap-icon://document" iconFirst="true" />
+				<Button class="sapUiSmallMarginBegin tableHeadertansparentBtn" width="6rem"  text="{i18n>NEXT}" press="onCreateViewWorkOrder" visible="{= ${mLookupModel>/iSelectedIndex} === 0 ? true : false}" icon="sap-icon://arrow-right" iconFirst="true"/>
 			</Toolbar>
 			<IconTabBar class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom iconTabHeader" select="onCreateWOIconTabSelect">
 				<items>
@@ -77,7 +76,7 @@
 					</IconTabFilter>
 					<IconTabFilter text="Create By Reference" key="createByRef">
 						<table:Table id="idSearchWOTable" selectionMode="None" rows="{mLookupModel>/aWorkOrderListSet}" visibleRowCount="{mLookupModel>/rowCount}"
-							rowHeight="40">
+							rowHeight="31" class="tableCellNoBorder TableHeaderWhiteBG" >
 							<table:extension>
 								<Toolbar class="tableHeaderBG tableMargin" height="2rem">
 									<content>
@@ -97,100 +96,100 @@
 								</Panel>
 							</table:extension>
 							<table:columns>
-								<table:Column width="2%">
+								<table:Column width="3rem">
 									<table:template><RadioButton app:workOrder="{mLookupModel>Orderid}" select="onSelectWordOrder" selected="{mLookupModel>radio}"/></table:template>
 								</table:Column>
-								<table:Column width="6%" sortProperty="Orderid" filterProperty="Orderid" defaultFilterOperator="Contains">
+								<table:Column width="6rem" sortProperty="Orderid" filterProperty="Orderid" defaultFilterOperator="Contains">
 									<Text wrapping="true" text="{i18n>WONum}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{mLookupModel>Orderid}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column width="7%" sortProperty="WoDes" filterProperty="WoDes">
+								<table:Column width="10rem" sortProperty="WoDes" filterProperty="WoDes">
 									<Text wrapping="true" text="{i18n>WODes}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{mLookupModel>WoDes}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column width="7.7%" sortProperty="MnWkCtr" filterProperty="MnWkCtr">
+								<table:Column width="8rem" sortProperty="MnWkCtr" filterProperty="MnWkCtr">
 									<Text wrapping="true" text="{i18n>mainWC}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{mLookupModel>MnWkCtr}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column sortProperty="OrderType" width="4%" filterProperty="OrderType">
+								<table:Column sortProperty="OrderType" width="4rem" filterProperty="OrderType">
 									<Text wrapping="true" text="{i18n>WOtype}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{mLookupModel>OrderType}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column sortProperty="Equipment" width="7%" filterProperty="Equipment">
+								<table:Column sortProperty="Equipment" width="7rem" filterProperty="Equipment">
 									<Text wrapping="true" text="{i18n>equip}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{mLookupModel>Equipment}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column sortProperty="TechId" width="5.8%" filterProperty="TechId">
+								<table:Column sortProperty="TechId" width="10rem" filterProperty="TechId">
 									<Text wrapping="true" text="{i18n>techID}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{mLookupModel>TechId}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column sortProperty="EquipDes" width="8.5%" filterProperty="EquipDes">
+								<table:Column sortProperty="EquipDes" width="14rem" filterProperty="EquipDes">
 									<Text wrapping="true" text="{i18n>EqDes}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{mLookupModel>EquipDes}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column width="6.7%" sortProperty="Technicianname" filterProperty="Technicianname">
+								<table:Column width="8rem" sortProperty="Technicianname" filterProperty="Technicianname">
 									<Text wrapping="true" text="{i18n>assignedTech}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{mLookupModel>Technicianname}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column sortProperty="SysStatusDes" width="5%" filterProperty="SysStatusDes">
+								<table:Column sortProperty="SysStatusDes" width="5rem" filterProperty="SysStatusDes">
 									<Text wrapping="true" text="{i18n>stat}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{path:'mLookupModel>SysStatusDes'}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column width="6.7%" sortProperty="StartDateString" filterProperty="StartDateString">
+								<table:Column width="6.7rem" sortProperty="StartDateString" filterProperty="StartDateString">
 									<Text wrapping="true" text="{i18n>SDate}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{path:'mLookupModel>StartDateString'}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column width="6.9%" sortProperty="FinishDateString" filterProperty="FinishDateString">
+								<table:Column width="6.9rem" sortProperty="FinishDateString" filterProperty="FinishDateString">
 									<Text wrapping="true" text="{i18n>EDate}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{path:'mLookupModel>FinishDateString'}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column sortProperty="Bdflag" width="7.8%" filterProperty="Bdflag">
+								<table:Column sortProperty="Bdflag" width="7.8rem" filterProperty="Bdflag">
 									<Text wrapping="true" text="{i18n>BdownFlag}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{mLookupModel>Bdflag}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column sortProperty="EnterDateString" width="6.8%" filterProperty="EnterDateString">
+								<table:Column sortProperty="EnterDateString" width="6.8rem" filterProperty="EnterDateString">
 									<Text wrapping="true" text="{i18n>createdDate}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{path:'mLookupModel>EnterDateString'}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column sortProperty="Plan" width="6%" filterProperty="Plan">
+								<table:Column sortProperty="Plan" width="6rem" filterProperty="Plan">
 									<Text wrapping="true" text="{i18n>maint_plan}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{path:'mLookupModel>Plan'}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column sortProperty="Package" width="6.8%" filterProperty="Package">
+								<table:Column sortProperty="Package" width="6.8rem" filterProperty="Package">
 									<Text wrapping="true" text="{i18n>package}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{path:'mLookupModel>Package'}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column sortProperty="EnteredByName" width="7%" filterProperty="EnteredByName">
+								<table:Column sortProperty="EnteredByName" width="10rem" filterProperty="EnteredByName">
 									<Text wrapping="true" text="{i18n>createdby}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{mLookupModel>EnteredByName}" class="tableContentText"></Text>
@@ -210,7 +209,7 @@
 					</IconTabFilter>
 					<IconTabFilter text="Create From Notification" key="createFromNotif">
 						<table:Table selectionMode="MultiToggle" enableSelectAll="false" id="notifListId" rowSelectionChange="onSelectionChange"
-							rows="{mLookupModel>/aNotificationListSet}" visibleRowCount="{mLookupModel>/rowCount}" rowHeight="40">
+							rows="{mLookupModel>/aNotificationListSet}" visibleRowCount="{mLookupModel>/rowCount}" rowHeight="40" class="tableCellNoBorder TableHeaderWhiteBG">
 							<table:extension>
 								<Toolbar class="tableHeaderBG" height="2rem">
 									<content>
@@ -230,61 +229,61 @@
 								</Panel>
 							</table:extension>
 							<table:columns>
-								<table:Column sortProperty="NotifNo" filterProperty="NotifNo" width="6%">
+								<table:Column sortProperty="NotifNo" filterProperty="NotifNo" width="6rem">
 									<Text wrapping="true" text="{i18n>notifID}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{mLookupModel>NotifNo}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column sortProperty="ShortText" filterProperty="ShortText" width="9%">
+								<table:Column sortProperty="ShortText" filterProperty="ShortText" width="9rem">
 									<Text wrapping="true" text="{i18n>notifDes}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{mLookupModel>ShortText}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column sortProperty="WorkCntr" filterProperty="WorkCntr" width="5.7%">
+								<table:Column sortProperty="WorkCntr" filterProperty="WorkCntr" width="8rem">
 									<Text wrapping="true" text="{i18n>mainWC}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{mLookupModel>WorkCntr}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column sortProperty="Orderid" filterProperty="Orderid" width="5%">
+								<table:Column sortProperty="Orderid" filterProperty="Orderid" width="5rem">
 									<Text wrapping="true" text="{i18n>WONum}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{mLookupModel>Orderid}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column sortProperty="Equipment" filterProperty="Equipment" width="6%">
+								<table:Column sortProperty="Equipment" filterProperty="Equipment" width="6rem">
 									<Text wrapping="true" text="{i18n>equip}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{mLookupModel>Equipment}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column sortProperty="TechId" filterProperty="TechId" width="5.8%">
+								<table:Column sortProperty="TechId" filterProperty="TechId" width="6rem">
 									<Text wrapping="true" text="{i18n>techID}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{mLookupModel>TechId}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column sortProperty="Equidescr" filterProperty="Equidescr" width="9%">
+								<table:Column sortProperty="Equidescr" filterProperty="Equidescr" width="9rem">
 									<Text wrapping="true" text="{i18n>EqDes}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{mLookupModel>Equidescr}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column sortProperty="SysStatus" filterProperty="SysStatus" width="6.8%">
+								<table:Column sortProperty="SysStatus" filterProperty="SysStatus" width="7rem">
 									<Text wrapping="true" text="{i18n>notifStatus}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{mLookupModel>SysStatus}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column sortProperty="ReqstartdateString" filterProperty="ReqstartdateString" width="6.7%">
+								<table:Column sortProperty="ReqstartdateString" filterProperty="ReqstartdateString" width="7rem">
 									<Text wrapping="true" text="{i18n>reqStart}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{path:'mLookupModel>ReqstartdateString'}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column sortProperty="ReqenddateString" filterProperty="ReqenddateString" width="6.9%">
+								<table:Column sortProperty="ReqenddateString" filterProperty="ReqenddateString" width="7rem">
 									<Text wrapping="true" text="{i18n>reqFinish}" class="tableHeaderText"/>
 									<table:template>
 										<!--<Text text="{path:'mLookupModel>Reqenddate',formatter:'com.mylan.createWorkOrder.formatter.formatter.fnDateSeperator'}"-->
@@ -292,20 +291,20 @@
 										<Text text="{path:'mLookupModel>ReqenddateString'}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column sortProperty="Bdflag" filterProperty="Bdflag" width="6.5%">
+								<table:Column sortProperty="Bdflag" filterProperty="Bdflag" width="6.5rem">
 									<Text wrapping="true" text="{i18n>BdownFlag}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{mLookupModel>Bdflag}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column sortProperty="PriorityDesNotif" width="5%" filterProperty="PriorityDesNotif">
+								<table:Column sortProperty="PriorityDesNotif" width="5rem" filterProperty="PriorityDesNotif">
 									<Text wrapping="true" text="{i18n>prior}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{path:'mLookupModel>PriorityDesNotif',formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnPriorityConversion'}"
 											class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column sortProperty="CreatedOnString" filterProperty="CreatedOnString" width="6.8%">
+								<table:Column sortProperty="CreatedOnString" filterProperty="CreatedOnString" width="6.8rem">
 									<Text wrapping="true" text="{i18n>createdDate}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{path:'mLookupModel>CreatedOnString'}" class="tableContentText"></Text>

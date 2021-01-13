@@ -2,13 +2,13 @@
 	xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" class="sapUiSizeCompact">
 	<Dialog title="{}" contentWidth="40%" contentHeight="80%" showHeader="false" verticalScrolling="false" class="sapUiSizeCompact">
 		<content>
-			<IconTabBar select="handleEquipIconTabSelect" class="equipmentIconTabBar">
+			<IconTabBar select="handleEquipIconTabSelect" class="iconTabHeader">
 				<items>
 					<IconTabFilter text="{i18n>favEq}" key="idFav">
 						<SearchField search="onSearchFavEqips" width="100%" class="sapUiSmallMarginBottom sapSearchFieldBorderClass"
 							placeholder="{i18n>searchbyIDDes}"></SearchField>
 						<ScrollContainer height="20rem" vertical="true" focusable="false">
-							<Table mode="SingleSelectLeft" selectionChange="onEquipSelect" items="{path: 'mLookupModel>/aFavEquipList'}">
+							<Table sticky="ColumnHeaders" class="tableCellNoBorder TableHeaderWhiteBG" mode="SingleSelectLeft" selectionChange="onEquipSelect" items="{path: 'mLookupModel>/aFavEquipList'}">
 								<columns>
 									<Column>
 										<Text text="{i18n>equipId}"/>
@@ -55,8 +55,8 @@
 								</Input>
 							</VBox>
 						</l:Grid>
-						<ScrollContainer height="20rem" vertical="true" focusable="false">
-							<Table mode="SingleSelectLeft" selectionChange="onEquipSelect" growing="false" items="{path: 'mLookupModel>/aEquipmentsList'}">
+						<ScrollContainer height="20rem" vertical="true" focusable="false" class="sapUiTinyMarginTop">
+							<Table sticky="ColumnHeaders" class="tableCellNoBorder TableHeaderWhiteBG" mode="SingleSelectLeft" selectionChange="onEquipSelect" growing="false" items="{path: 'mLookupModel>/aEquipmentsList'}">
 								<columns>
 									<Column>
 										<Text text="{i18n>equipId}"/>
