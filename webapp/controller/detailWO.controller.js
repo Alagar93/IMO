@@ -405,7 +405,7 @@ sap.ui.define([
 			var oComponentDetails = oWorkOrderDetailViewModel.getProperty("/oComponentDetails");
 			var sPath = oWorkOrderDetailViewModel.getProperty("sPathItemCat");
 			oWorkOrderDetailModel.setProperty(sPath, oComponentDetails);
-			this.onCloseGenData();
+			this.onClosePurData();
 		},
 		onClosePurData: function () {
 			this.oPurDataDialog.close();

@@ -856,7 +856,7 @@ sap.ui.define([
 			var sUrl = "/WorkorderHeaderSet('" + Orderid + "')";
 			oWorkOrderOData.read(sUrl, {
 				urlParameters: {
-					"$expand": "HEADERTOOPERATIONSNAV,HEADERTOPARTNERNAV,HEADERTOCOMPONENTNAV,HEADERTONOTIFNAV"
+					"$expand": "HEADERTOOPERATIONSNAV,HEADERTOPARTNERNAV,HEADERTOCOMPONENTNAV,HEADERTONOTIFNAV,HEADERTOCOSTNAV"
 				},
 				success: function (oData) {
 					var operationList = oData.HEADERTOOPERATIONSNAV.results;
@@ -919,7 +919,7 @@ sap.ui.define([
 			var sUrl = "/WorkorderHeaderSet('" + Orderid + "')";
 			oWorkOrderOData.read(sUrl, {
 				urlParameters: {
-					"$expand": "HEADERTOOPERATIONSNAV,HEADERTOPARTNERNAV,HEADERTOCOMPONENTNAV,HEADERTONOTIFNAV"
+					"$expand": "HEADERTOOPERATIONSNAV,HEADERTOPARTNERNAV,HEADERTOCOMPONENTNAV,HEADERTONOTIFNAV,HEADERTOCOSTNAV"
 				},
 				success: function (serviceData) {
 					var oData = serviceData;

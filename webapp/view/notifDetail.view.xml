@@ -1,8 +1,8 @@
 <mvc:View controllerName="com.sap.incture.IMO_PM.controller.notifDetail" xmlns:mvc="sap.ui.core.mvc"
 	xmlns:html="http://www.w3.org/1999/xhtml" displayBlock="true" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout"
 	xmlns:tnt="sap.tnt" xmlns:u="sap.ui.unified" xmlns:c="sap.ui.core">
-	<Page showHeader="true" class="sapUiSizeCompact sapMPageBackground" floatingFooter="false" enableScrolling="true">
-		<tnt:ToolHeader class="headerBG headerShadow">
+	<Page showHeader="true" class="sapUiSizeCompact sapMPageBackground" floatingFooter="false" enableScrolling="true" >
+		<tnt:ToolHeader class="headerBG headerShadow" >
 			<Label design="Bold" class="sapUiSmallMarginBegin textColr" text="{i18n>notifDetails}" wrapping="true"/>
 			<ToolbarSpacer/>
 			<c:Icon src="sap-icon://grid" tooltip="Open Attachments" press="onPressAttachments" color="#142e5e" class="attachmentsIconSize"/>

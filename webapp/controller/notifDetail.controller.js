@@ -1260,16 +1260,27 @@ sap.ui.define([
 			this.createWoNotifListDialog = null;
 		},
 		onCreateWO: function (oEvent) {
-			var sOrderType=this.mLookupModel.getProperty("/sOrderTypeSel");
-			if(sOrderType===""||sOrderType===null){
-				MessageBox.warning("Work Order type is taken as PM02");
-				this.mLookupModel.setProperty("/sOrderTypeSel","PM02");
+			var that = this;
+			var sOrderType = this.mLookupModel.getProperty("/sOrderTypeSel");
+			if (sOrderType === "" || sOrderType === null) {
+				MessageBox.warning("Work Order type is taken as PM02", {
+					onClose: function () {
+						that.mLookupModel.setProperty("/sOrderTypeSel", "PM02");
+						that.onCancelWoNotifDetailDialog();
+						that.busy.open();
+						var oNotificationDataModel = that.oNotificationDataModel;
+						var sData = oNotificationDataModel.getData();
+						that.fnCreateWorkOrderForNotif(sData, "NOTIF_DETAIL");
+					}
+				});
+
+			} else {
+				this.onCancelWoNotifDetailDialog();
+				this.busy.open();
+				var oNotificationDataModel = this.oNotificationDataModel;
+				var sData = oNotificationDataModel.getData();
+				this.fnCreateWorkOrderForNotif(sData, "NOTIF_DETAIL");
 			}
-			this.onCancelWoNotifDetailDialog();
-			this.busy.open();
-			var oNotificationDataModel = this.oNotificationDataModel;
-			var sData = oNotificationDataModel.getData();
-			this.fnCreateWorkOrderForNotif(sData, "NOTIF_DETAIL");
 
 		},
 		onAfterRendering: function () {

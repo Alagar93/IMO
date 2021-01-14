@@ -715,9 +715,9 @@ com.sap.incture.IMO_PM.util.util = {
 		mLookupModel.setProperty("/Userstatus", oSelectedRow.Userstatus); //nischal -- user status was not pesent
 		oNotificationDataModel.refresh();
 		// Malfunction Enddate verification
-		if (oSelectedRow.Endmlfndate.getFullYear() === 9999) {
-			oNotificationDataModel.setProperty("/Enddate", null);
-		}
+		// if (oSelectedRow.Endmlfndate.getFullYear() === 9999) {
+		// 	oNotificationDataModel.setProperty("/Enddate", null);
+		// }
 
 		mLookupModel.setProperty("/sCatelogProf", oSelectedRow.Rbnr);
 		// oController.fnFilterSlectedDamageGroup();

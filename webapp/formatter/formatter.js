@@ -606,6 +606,15 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 		}
 		return bFlag;
 	},
+	//Function to set PreqItem No
+	setPreqItemNo:function(PreqItemNo){
+		var bVal=PreqItemNo;
+		if(PreqItemNo==="00000"){
+			bVal="";
+			return bVal;
+		}
+		return bVal;
+	},
 
 	//function to validate Material before PR
 	MaterialPRVAlidation: function (oMaterial) {

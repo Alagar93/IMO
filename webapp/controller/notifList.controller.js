@@ -567,18 +567,30 @@ sap.ui.define([
 			this.createWoNotifListDialog = null;
 		},
 		onCreateWO: function (oEvent) {
+			var that = this;
 			var sOrderType = this.mLookupModel.getProperty("/sOrderTypeSel");
 			if (sOrderType === "" || sOrderType === null) {
-				MessageBox.warning("Work Order type is taken as PM02");
-				this.mLookupModel.setProperty("/sOrderTypeSel", "PM02");
-			}
-			this.onCancelWoNotifDetailDialog();
-			this.busy.open();
+				MessageBox.warning("Work Order type is taken as PM02", {
+					onClose: function () {
+						that.mLookupModel.setProperty("/sOrderTypeSel", "PM02");
+						that.onCancelWoNotifDetailDialog();
+						that.busy.open();
+						var oNotificationDataModel = that.oNotificationDataModel;
+						var sData = oNotificationDataModel.getData();
+						var btnType = that.mLookupModel.getProperty("/CreationWOType");
+						that.fnCreateWorkOrderForNotif(sData, btnType); //in BaseController
+					}
+				});
 
+			}else{
+				this.onCancelWoNotifDetailDialog();
+			this.busy.open();
 			var oNotificationDataModel = this.oNotificationDataModel;
 			var sData = oNotificationDataModel.getData();
 			var btnType = this.mLookupModel.getProperty("/CreationWOType");
 			this.fnCreateWorkOrderForNotif(sData, btnType); //in BaseController
+			}
+			
 
 		},
 
@@ -1183,7 +1195,7 @@ sap.ui.define([
 			var dd = oDate.getDate();
 			var mm = oDate.getMonth() + 1;
 			var yy = oDate.getFullYear();
-			var sDate = dd + "-" + mm + "-"+ yy;
+			var sDate = dd + "-" + mm + "-" + yy;
 			return sDate;
 		},
 		//nischal
