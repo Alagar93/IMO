@@ -1,6 +1,6 @@
 <core:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:grid="sap.ui.layout.cssgrid"
 	controllerName="com.sap.incture.IMO_PM.controller.detailWO" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:tnt="sap.tnt">
-	<Page showHeader="true" class="sapUiSizeCompact sapMPageBackground" floatingFooter="false" enableScrolling="true">
+	<Page showHeader="true" class="sapUiSizeCompact sapMPageBackground" floatingFooter="false" enableScrolling="false">
 		<tnt:ToolHeader class="headerBG headerShadow">
 			<Label design="Bold" class="sapUiSmallMarginBegin textColr" text="{i18n>WODetail}" wrapping="true"/>
 			<ToolbarSpacer/>
@@ -63,7 +63,7 @@
 				<CheckBox text="{i18n>CREATE_WO_NOTIF}" class="checkBoxText" selected="{oWorkOrderDetailViewModel>/withNotificationCheck}"
 					enabled="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnSetCheckBoxVisible'}"/>
 				<ToolbarSpacer/>
-				<Button text="Print" type="Emphasized" press="onPrint" class = "sapUiSmallMarginEnd"
+				<Button text="Print" type="Emphasized" press="onPrint" class="sapUiSmallMarginEnd"
 					visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnSetPrintBtnVisible'}"></Button>
 			</Toolbar>
 			<OverflowToolbar class="sapUiTinyMarginTop">
@@ -72,28 +72,30 @@
 				<Label text="{i18n>WO_NUMBER1}" class="sapUiTinyMarginBegin murphyLabelColor"/>
 				<Text text="{oWorkOrderDetailModel>/Orderid}" class="murphyLabelColor"/>
 			</OverflowToolbar>
-			<l:Grid class="sapUiSmallMarginTop">
-				<l:content>
-					<VBox class="sapMParentGridBroder sapUiTinyMarginBeginEnd">
-						<core:Fragment fragmentName="com.sap.incture.IMO_PM.fragment.headerDetails" type="XML"/>
-						<layoutData>
-							<l:GridData span="XL12 L12 M12 S12"/>
-						</layoutData>
-					</VBox>
-					<VBox class="sapMParentGridBroder sapUiTinyMarginBeginEnd sapUiMediumMarginTop">
-						<core:Fragment fragmentName="com.sap.incture.IMO_PM.fragment.workOrderDetails" id="idOperationsMaterialPanelWO" type="XML"/>
-						<layoutData>
-							<l:GridData span="XL12 L12 M12 S12"/>
-						</layoutData>
-					</VBox>
-					<!--<VBox class="sapMParentGridBroder">
+			<ScrollContainer height="calc(100vh - 12rem)" vertical="true">
+				<l:Grid class="sapUiSmallMarginTop">
+					<l:content>
+						<VBox class="sapMParentGridBroder sapUiTinyMarginBeginEnd">
+							<core:Fragment fragmentName="com.sap.incture.IMO_PM.fragment.headerDetails" type="XML"/>
+							<layoutData>
+								<l:GridData span="XL12 L12 M12 S12"/>
+							</layoutData>
+						</VBox>
+						<VBox class="sapMParentGridBroder sapUiTinyMarginBeginEnd sapUiMediumMarginTop">
+							<core:Fragment fragmentName="com.sap.incture.IMO_PM.fragment.workOrderDetails" id="idOperationsMaterialPanelWO" type="XML"/>
+							<layoutData>
+								<l:GridData span="XL12 L12 M12 S12"/>
+							</layoutData>
+						</VBox>
+						<!--<VBox class="sapMParentGridBroder">
 						<core:Fragment fragmentName="com.sap.incture.IMO_PM.fragment.commentTimelineDetailWO" type="XML"/>
 						<layoutData>
 							<l:GridData span="XL3 L3 M12 S12"/>
 						</layoutData>
 					</VBox>-->
-				</l:content>
-			</l:Grid>
+					</l:content>
+				</l:Grid>
+			</ScrollContainer>
 		</content>
 		<!--<footer>-->
 		<!--	<Toolbar>-->
