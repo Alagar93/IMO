@@ -539,6 +539,7 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 		}
 		return oType;
 	},
+	
 
 	//Function set delete icon visible/invisible for upload section
 	setDeleteVisible: function (bVal) {

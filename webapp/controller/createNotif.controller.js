@@ -22,7 +22,7 @@ sap.ui.define([
 		},
 
 		routePatternMatched: function () {
-
+			this.resetUIFields();
 		},
 
 		//Function to reset UI fields
@@ -652,7 +652,7 @@ sap.ui.define([
 			// var sURL = sHost + sBSPPath;
 			// sap.m.URLHelper.redirect(sURL);
 			var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-			oRouter.navTo("Launch");
+			oRouter.navTo("createNotif");
 		},
 
 		//Function to format Notification date format fetching from service

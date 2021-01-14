@@ -80,7 +80,7 @@
 								<HBox>
 									<Input value="{oWorkOrderDetailViewModel>/oComponentDetails/PreqNo}" editable="false"
 										tooltip="{oWorkOrderDetailViewModel>/oComponentDetails/PreqNo}" class="inputRadius"></Input>
-									<Input value="{oWorkOrderDetailViewModel>/oComponentDetails/PreqItem}" editable="false"
+									<Input value="{path:'oWorkOrderDetailViewModel>/oComponentDetails/PreqItem'}" editable="false"
 										tooltip="{oWorkOrderDetailViewModel>/oComponentDetails/PreqItem}" class="inputRadius"></Input>
 								</HBox>
 								<layoutData>

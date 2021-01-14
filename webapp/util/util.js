@@ -645,6 +645,7 @@ com.sap.incture.IMO_PM.util.util = {
 		oNotificationViewModel.refresh();
 
 		mLookupModel.setProperty("/aEquipmentsList", []);
+		mLookupModel.setProperty("/assignedToHardCode","");
 		mLookupModel.refresh();
 	},
 	resetCreateNotificationFieldsNotifList: function (oNotificationDataModel, oNotificationViewModel, mLookupModel, oSelectedRow, oController) {
