@@ -140,6 +140,13 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 		return true;
 
 	},
+	fnDisableOperLText:function(orderId){
+		var bFlag=false;
+		if(orderId===""||orderId===undefined){
+			bFlag=true;
+		}
+		return bFlag;
+	},
 
 	fnDateConversion: function (date, gwdate) {
 		if (date) {
