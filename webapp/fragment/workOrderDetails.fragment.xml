@@ -285,7 +285,7 @@
 					<!--<OverflowToolbar class="sapMToolBarBottomBorderClass sapUiTinyMarginBottom">-->
 						
 					<!--</OverflowToolbar>-->
-					<ui:Table rows="{oWorkOrderDetailViewModel>/CostTBl}" enableSelectAll="false" selectionMode="None" visibleRowCount="4"
+					<ui:Table rows="{oWorkOrderDetailViewModel>/CostTBl}" enableSelectAll="false" selectionMode="None" visibleRowCount="5"
 						class="tableHeaderBg tableCellNoBorder TableHeaderWhiteBG" id="IMO_COST_OVERVIEWTAB" >
 						<ui:columns>
 							<ui:Column   hAlign="Begin" tooltip="{i18n>VAL_CAT_DESC}">
