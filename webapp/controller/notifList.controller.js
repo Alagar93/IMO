@@ -8,8 +8,12 @@ sap.ui.define([
 	"sap/ui/core/format/DateFormat",
 	"com/sap/incture/IMO_PM/util/util",
 	"com/sap/incture/IMO_PM/formatter/formatter",
-	"sap/m/MessageBox"
-], function (BaseController, Controller, JSONModel, Filter, FilterOperator, BusyDialog, DateFormat, util, formatter, MessageBox) {
+	"sap/m/MessageBox",
+	'sap/ui/core/util/Export',
+	'sap/ui/core/util/ExportTypeCSV',
+	"sap/ui/export/Spreadsheet"
+], function (BaseController, Controller, JSONModel, Filter, FilterOperator, BusyDialog, DateFormat, util, formatter, MessageBox, Export,
+	ExportTypeCSV, Spreadsheet) {
 	"use strict";
 
 	return BaseController.extend("com.sap.incture.IMO_PM.controller.notifList", {
@@ -567,18 +571,29 @@ sap.ui.define([
 			this.createWoNotifListDialog = null;
 		},
 		onCreateWO: function (oEvent) {
+			var that = this;
 			var sOrderType = this.mLookupModel.getProperty("/sOrderTypeSel");
 			if (sOrderType === "" || sOrderType === null) {
-				MessageBox.warning("Work Order type is taken as PM02");
-				this.mLookupModel.setProperty("/sOrderTypeSel", "PM02");
-			}
-			this.onCancelWoNotifDetailDialog();
-			this.busy.open();
+				MessageBox.warning("Work Order type is taken as PM02", {
+					onClose: function () {
+						that.mLookupModel.setProperty("/sOrderTypeSel", "PM02");
+						that.onCancelWoNotifDetailDialog();
+						that.busy.open();
+						var oNotificationDataModel = that.oNotificationDataModel;
+						var sData = oNotificationDataModel.getData();
+						var btnType = that.mLookupModel.getProperty("/CreationWOType");
+						that.fnCreateWorkOrderForNotif(sData, btnType); //in BaseController
+					}
+				});
 
-			var oNotificationDataModel = this.oNotificationDataModel;
-			var sData = oNotificationDataModel.getData();
-			var btnType = this.mLookupModel.getProperty("/CreationWOType");
-			this.fnCreateWorkOrderForNotif(sData, btnType); //in BaseController
+			} else {
+				this.onCancelWoNotifDetailDialog();
+				this.busy.open();
+				var oNotificationDataModel = this.oNotificationDataModel;
+				var sData = oNotificationDataModel.getData();
+				var btnType = this.mLookupModel.getProperty("/CreationWOType");
+				this.fnCreateWorkOrderForNotif(sData, btnType); //in BaseController
+			}
 
 		},
 
@@ -1183,7 +1198,7 @@ sap.ui.define([
 			var dd = oDate.getDate();
 			var mm = oDate.getMonth() + 1;
 			var yy = oDate.getFullYear();
-			var sDate = dd + "-" + mm + "-"+ yy;
+			var sDate = dd + "-" + mm + "-" + yy;
 			return sDate;
 		},
 		//nischal
@@ -1201,5 +1216,211 @@ sap.ui.define([
 			this.addRemoveColumnDialog = null;
 		},
 		//nischal
+		onExport: function (oEvent) {
+			var mLookupModel = this.mLookupModel;
+			if (!this._oTable) {
+				this._oTable = this.byId('notifListId');
+			}
+			var oTable = this._oTable;
+			var aIndices = oTable.getSelectedIndices();
+			var oRowData = this.getDateSource(oTable, aIndices);
+			var oColumns = this.getColumns(oTable);
+			var oSettings = {
+				workbook: {
+					columns: oColumns
+				},
+				dataSource: oRowData,
+				worker: false,
+				fileName: "Notification_List.xlsx",
+				showProgress: true
+			};
+			if (aIndices.length > 0) {
+				new Spreadsheet(oSettings).build();
+			} else {
+				MessageBox.warning("You have not selected any Notification. Please Select Notification from List.");
+			}
+		},
+		//nischal -- function to form data source
+		getDateSource: function (oTable, aIndices) {
+			var mLookupModel = this.mLookupModel;
+			var oRowData = new Array();
+			var path = oTable.getBinding().sPath;
+			for (var i = 0; i < aIndices.length; i++) {
+				var sPath = path + "/" + aIndices[i];
+				oRowData.push(mLookupModel.getProperty(sPath));
+			}
+			return oRowData;
+		},
+		//nischal
+		getColumns: function (oTable) {
+			var mLookupModel = this.mLookupModel;
+			// var aColumns = oTable.getColumns();
+			// var aItems = oTable.getRows();
+			var aCols = [];
+			if (mLookupModel.getProperty("/snType")) {
+				aCols.push({
+					label: "Type",
+					property: "NotifType"
+				});
+			}
+			if (mLookupModel.getProperty("/snNumber")) {
+				aCols.push({
+					label: "Number",
+					property: "NotifNo"
+				});
+			}
+			if (mLookupModel.getProperty("/snDescription")) {
+				aCols.push({
+					label: "Description",
+					property: "Descriptn",
+					width: 40
+				});
+			}
+			if (mLookupModel.getProperty("/snOrder")) {
+				aCols.push({
+					label: "Order",
+					property: "Orderid"
+				});
+			}
+			if (mLookupModel.getProperty("/snFunctLoc")) {
+				aCols.push({
+					label: "FunctLoc",
+					property: "FunctLoc",
+					width: 30
+				});
+			}
+			if (mLookupModel.getProperty("/snFunct_Desc")) {
+				aCols.push({
+					label: "FunctLoc Description",
+					property: "Funcldescr",
+					width: 30
+				});
+			}
+			if (mLookupModel.getProperty("/snEquip")) {
+				aCols.push({
+					label: "Equipment",
+					property: "Equipment"
+				});
+			}
+			if (mLookupModel.getProperty("/snEquip_Desc")) {
+				aCols.push({
+					label: "Equip Description",
+					property: "Equidescr",
+					width: 30
+				});
+			}
+			if (mLookupModel.getProperty("/snWrkCtr")) {
+				aCols.push({
+					label: "WorkCenter",
+					property: "WorkCntr"
+				});
+			}
+			if (mLookupModel.getProperty("/snPlanPlant")) {
+				aCols.push({
+					label: "Plant",
+					property: "Planplant"
+				});
+			}
+			if (mLookupModel.getProperty("/snTechId")) {
+				aCols.push({
+					label: "Tech ID",
+					property: "TechId",
+					width: 30
+				});
+			}
+			if (mLookupModel.getProperty("/snSysStatus")) {
+				aCols.push({
+					label: "System Status",
+					property: "SysStatus"
+				});
+			}
+			if (mLookupModel.getProperty("/snUserStatus")) {
+				aCols.push({
+					label: "User Status",
+					property: "Userstatus"
+				});
+			}
+			if (mLookupModel.getProperty("/snReqStDate")) {
+				aCols.push({
+					label: "Required Start",
+					property: "ReqstartdateString"
+				});
+			}
+			if (mLookupModel.getProperty("/snReqEndDate")) {
+				aCols.push({
+					label: "Required Finish",
+					property: "ReqenddateString"
+				});
+			}
+			if (mLookupModel.getProperty("/snReqEndDate")) {
+				aCols.push({
+					label: "Required Finish",
+					property: "ReqenddateString"
+				});
+			}
+			if (mLookupModel.getProperty("/snBdFlag")) {
+				aCols.push({
+					label: "BD Flag",
+					property: "Breakdown"
+				});
+			}
+			if (mLookupModel.getProperty("/snMalStDate")) {
+				aCols.push({
+					label: "Malfunction Start",
+					property: "Strmlfndate"
+				});
+			}
+			if (mLookupModel.getProperty("/snMalEndDate")) {
+				aCols.push({
+					label: "Malfunction End",
+					property: "Endmlfndate"
+				});
+			}
+			if (mLookupModel.getProperty("/snPriority")) {
+				aCols.push({
+					label: "Priority",
+					property: "PriorityDesNotif"
+				});
+			}
+			if (mLookupModel.getProperty("/snCreatedDate")) {
+				aCols.push({
+					label: "Created Date",
+					property: "CreatedOnString"
+				});
+			}
+			if (mLookupModel.getProperty("/snCreatedBy")) {
+				aCols.push({
+					label: "Created By",
+					property: "CreatedBy"
+				});
+			}
+			return aCols;
+		},
+		//nischal -- function to select all the checkbox value
+		onSelectAll : function(){
+			var mLookupModel = this.mLookupModel;
+			mLookupModel.setProperty("/snType",true);
+			mLookupModel.setProperty("/snNumber",true);
+			mLookupModel.setProperty("/snDescription",true);
+			mLookupModel.setProperty("/snOrder",true);
+			mLookupModel.setProperty("/snFunctLoc",true);
+			mLookupModel.setProperty("/snFunct_Desc",true);
+			mLookupModel.setProperty("/snEquip",true);
+			mLookupModel.setProperty("/snEquip_Desc",true);
+			mLookupModel.setProperty("/snWrkCtr",true);
+			mLookupModel.setProperty("/snPlanPlant",true);
+			mLookupModel.setProperty("/snTechId",true);
+			mLookupModel.setProperty("/snSysStatus",true);
+			mLookupModel.setProperty("/snUserStatus",true);
+			mLookupModel.setProperty("/snReqStDate",true);
+			mLookupModel.setProperty("/snReqEndDate",true);
+			mLookupModel.setProperty("/snBdFlag",true);
+			mLookupModel.setProperty("/snMalStDate",true);
+			mLookupModel.setProperty("/snMalEndDate",true);
+			mLookupModel.setProperty("/snPriority",true);
+			mLookupModel.setProperty("/snCreatedDate",true);
+			mLookupModel.setProperty("/snCreatedBy",true);
+			mLookupModel.setProperty("/snAction",true);
+		}
 	});
 });

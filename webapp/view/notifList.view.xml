@@ -87,7 +87,7 @@
 			<!--<l:flexContent>-->
 			<!--<VBox height="100%" class="sapUiSmallMarginTop sapUiTinyMarginBeginEnd">-->
 			<table:Table class="sapUiSmallMargin tableCellNoBorder TableHeaderWhiteBG" visibleRowCountMode="Fixed" visibleRowCount="{mLookupModel>/rowCount}" rowHeight="30"
-				selectionMode="MultiToggle" rowSelectionChange="onSelectionChange" enableSelectAll="false" id="notifListId"
+				selectionMode="MultiToggle" rowSelectionChange="onSelectionChange" enableSelectAll="true" id="notifListId"
 				rows="{mLookupModel>/aNotificationListSet}">
 				<table:extension>
 					<Toolbar class="tableHeaderBG tableMargin" height="3rem">
@@ -119,6 +119,9 @@
 								visible="{parts:['mLookupModel>/iSelectedIndices','mLookupModel>/selectedNotifs','mLookupModel>/aNotificationListSet'],formatter:'com.sap.incture.IMO_PM.formatter.formatter.disableMassCreateField'}"/>
 						<Button class="tableHeadertansparentBtn" text="{i18n>Notif_List_Mass_Release}" press="onPressReleaseMassNotif" tooltip="Mass Release"
 								visible="{parts:['mLookupModel>/iSelectedIndices','mLookupModel>/selectedNotifs','mLookupModel>/aNotificationListSet'],formatter:'com.sap.incture.IMO_PM.formatter.formatter.disableReleaseField'}"/>
+						<ToolbarSpacer/>
+						<core:Icon src="sap-icon://excel-attachment" class = "sapUiSmallMarginEnd attachmentsIconSize"  press="onExport" 
+							color="#142e5e" tooltip="Download Xslx"/>
 					</Toolbar>
 				</table:extension>
 				<table:rowSettingsTemplate>
@@ -230,7 +233,7 @@
 							<Text text="{path:'mLookupModel>ReqenddateString'}" class="tableContentText"></Text>
 						</table:template>
 					</table:Column>
-					<table:Column sortProperty="Breakdown" filterProperty="Breakdown" width="6rem" visible = "{mLookupModel>/snBdFlag}">
+					<table:Column sortProperty="Breakdown" filterProperty="Breakdown" width="5.5rem" visible = "{mLookupModel>/snBdFlag}">
 						<Text wrapping="true" text="{i18n>BdownFlag}" class="tableHeaderText"/>
 						<table:template>
 							<Text text="{mLookupModel>Breakdown}" class="tableContentText"></Text>
@@ -248,7 +251,7 @@
 							<Text text="{path:'mLookupModel>Endmlfndate'}" class="tableContentText"></Text>
 						</table:template>
 					</table:Column>
-					<table:Column sortProperty="PriorityDesNotif" width="5.4rem" filterProperty="PriorityDesNotif" visible = "{mLookupModel>/snPriority}">
+					<table:Column sortProperty="PriorityDesNotif" width="5.2rem" filterProperty="PriorityDesNotif" visible = "{mLookupModel>/snPriority}">
 						<Text wrapping="true" text="{i18n>prior}" class="tableHeaderText"/>
 						<table:template>
 							<Text text="{path:'mLookupModel>PriorityDesNotif'}" class="tableContentText"></Text>
@@ -266,7 +269,7 @@
 							<Text text="{mLookupModel>CreatedBy}" class="tableContentText"></Text>
 						</table:template>
 					</table:Column>
-					<table:Column visible = "{mLookupModel>/snAction}" hAlign="Center">
+					<table:Column visible = "{mLookupModel>/snAction}" hAlign="Center" width = "3.8rem">
 						<Text wrapping="true" text="{i18n>Action}" class="tableHeaderText"/>
 						<table:template>
 							<HBox justifyContent="Center">

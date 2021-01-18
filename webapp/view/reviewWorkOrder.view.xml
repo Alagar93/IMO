@@ -127,7 +127,7 @@
 						<m:Text text="{i18n>oprnLText}" wrapping="true" class="tableHeaderText"/>
 						<template>
 							<m:Button icon="sap-icon://display" class="LTextButton" type="Transparent" tooltip="show confirmation long text"
-								enabled="{parts:['Activity','oprnLText'],formatter:'com.sap.incture.IMO_PM.formatter.formatter.styleCNFLongText'}" press="onLongTextPress"/>
+								enabled="{parts:['Activity','oprnLText'],formatter:'com.sap.incture.IMO_PM.formatter.formatter.styleCNFLongText'}" visible="{path:'Orderid',formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnDisableOperLText'}" press="onLongTextPress"/>
 						</template>
 					</Column>
 					<Column width="10rem">

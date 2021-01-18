@@ -799,7 +799,7 @@ sap.ui.define([
 			var sUrl = "/WorkorderHeaderSet('" + Orderid + "')";
 			oWorkOrderOData.read(sUrl, {
 				urlParameters: {
-					"$expand": "HEADERTOOPERATIONSNAV,HEADERTOPARTNERNAV,HEADERTOCOMPONENTNAV,HEADERTONOTIFNAV"
+					"$expand": "HEADERTOOPERATIONSNAV,HEADERTOPARTNERNAV,HEADERTOCOMPONENTNAV,HEADERTONOTIFNAV,HEADERTOCOSTNAV"
 				},
 				success: function (oData) {
 					oData = that.fnFormatWODateObjects(oData);
@@ -856,7 +856,7 @@ sap.ui.define([
 			var sUrl = "/WorkorderHeaderSet('" + Orderid + "')";
 			oWorkOrderOData.read(sUrl, {
 				urlParameters: {
-					"$expand": "HEADERTOOPERATIONSNAV,HEADERTOPARTNERNAV,HEADERTOCOMPONENTNAV,HEADERTONOTIFNAV"
+					"$expand": "HEADERTOOPERATIONSNAV,HEADERTOPARTNERNAV,HEADERTOCOMPONENTNAV,HEADERTONOTIFNAV,HEADERTOCOSTNAV"
 				},
 				success: function (oData) {
 					var operationList = oData.HEADERTOOPERATIONSNAV.results;
@@ -919,7 +919,7 @@ sap.ui.define([
 			var sUrl = "/WorkorderHeaderSet('" + Orderid + "')";
 			oWorkOrderOData.read(sUrl, {
 				urlParameters: {
-					"$expand": "HEADERTOOPERATIONSNAV,HEADERTOPARTNERNAV,HEADERTOCOMPONENTNAV,HEADERTONOTIFNAV"
+					"$expand": "HEADERTOOPERATIONSNAV,HEADERTOPARTNERNAV,HEADERTOCOMPONENTNAV,HEADERTONOTIFNAV,HEADERTOCOSTNAV"
 				},
 				success: function (serviceData) {
 					var oData = serviceData;
@@ -975,11 +975,14 @@ sap.ui.define([
 						oData.ReportedBy = userName;
 						oWorkOrderDetailViewModel.setProperty("/HEADERTOPARTNERNAV/0/AssignedTo", userName);
 					}
+					var CostList=oData.HEADERTOCOSTNAV.results;
+					util.setRowItemsforCostOverview(oWorkOrderDetailViewModel,CostList);
 					oData.HEADERTOOPERATIONSNAV = operationList;
 					oData.HEADERTOCOMPONENTNAV = spareParts;
 					oData.HEADERTOMESSAGENAV = messages;
 					oData.HEADERTOPARTNERNAV = partner;
 					oData.HEADERTONOTIFNAV = notifications;
+					oData.HEADERTOCOSTNAV = CostList;
 
 					if (oData.Assembly !== "") {
 						oData.Assembly = parseInt(oData.Assembly, 10).toString();
@@ -3363,7 +3366,7 @@ sap.ui.define([
 			mLookupModel.setProperty("/snMalEndDate",false);
 			mLookupModel.setProperty("/snPriority",true);
 			mLookupModel.setProperty("/snCreatedDate",false);
-			mLookupModel.setProperty("/snCreatedBy",true);
+			mLookupModel.setProperty("/snCreatedBy",false);
 			mLookupModel.setProperty("/snAction",true);
 		}
 

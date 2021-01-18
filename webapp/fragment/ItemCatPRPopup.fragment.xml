@@ -46,6 +46,13 @@
 					</layoutData>
 				</VBox>
 				<VBox class="sapUiSmallMarginTop">
+					<Label text="{i18n>PR_COST_ELEMENT}"></Label>
+					<Input value=""></Input>
+					<layoutData>
+						<l:GridData span="XL6 L6 M12 S12"/>
+					</layoutData>
+				</VBox>
+				<VBox class="sapUiSmallMarginTop">
 					<Label text="Purch. Group"></Label>
 					<HBox>
 						<Input class="inputRadius" value="{oWorkOrderDetailViewModel>/oComponentDetails/PurchGrp}" width="100%"></Input>
@@ -75,6 +82,11 @@
 				<VBox class="sapUiSmallMarginTop">
 					<Label text="Recipient"></Label>
 					<Input class="inputRadius" value="{oWorkOrderDetailViewModel>/oComponentDetails/Recipient}" width="100%"></Input>
+					<layoutData>
+						<l:GridData span="XL6 L6 M6 S6"/>
+					</layoutData>
+				</VBox>
+				<VBox>
 					<layoutData>
 						<l:GridData span="XL6 L6 M6 S6"/>
 					</layoutData>

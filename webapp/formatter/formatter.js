@@ -140,6 +140,13 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 		return true;
 
 	},
+	fnDisableOperLText:function(orderId){
+		var bFlag=false;
+		if(orderId===""||orderId===undefined){
+			bFlag=true;
+		}
+		return bFlag;
+	},
 
 	fnDateConversion: function (date, gwdate) {
 		if (date) {
@@ -605,6 +612,15 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 			bFlag = true;
 		}
 		return bFlag;
+	},
+	//Function to set PreqItem No
+	setPreqItemNo:function(PreqItemNo){
+		var bVal=PreqItemNo;
+		if(PreqItemNo==="00000"){
+			bVal="";
+			return bVal;
+		}
+		return bVal;
 	},
 
 	//function to validate Material before PR

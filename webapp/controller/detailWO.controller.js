@@ -44,7 +44,7 @@ sap.ui.define([
 				if (viewType === "CREATE_ORDER") {
 					util.fnEnableCreateWOFields(oWODetailFieldsModel);
 					util.resetDetailWOFields(oUserDetailModel, oWorkOrderDetailModel, oWorkOrderDetailViewModel, "CREATE_ORDER", this.oPortalDataModel);
-					util.setRowItemsforCostOverview(oWorkOrderDetailViewModel);
+					//util.setRowItemsforCostOverview(oWorkOrderDetailViewModel);
 					this.fnCreateUpdateBtnTxt("CREATE_ORDER");
 					// this.fnFilterSlectedDamageGroup(); //nischal -- this functionality is removed
 					// this.fnFilterSlectedCauseGroup(); //nischal -- this functionality is removed
@@ -72,7 +72,7 @@ sap.ui.define([
 				} else {
 					util.initializeWODetailFields(oWorkOrderDetailModel, oWorkOrderDetailViewModel);
 					util.resetDetailWOFields(oUserDetailModel, oWorkOrderDetailModel, oWorkOrderDetailViewModel, "VIEW_WO");
-					util.setRowItemsforCostOverview(oWorkOrderDetailViewModel);
+					//util.setRowItemsforCostOverview(oWorkOrderDetailViewModel);
 					this.fnCreateUpdateBtnTxt("UPDATE_ORDER");
 					this.getWODetails(viewType);
 				}
@@ -80,7 +80,7 @@ sap.ui.define([
 				var oViewType = oEvent.getParameter("arguments").workOrderID;
 				util.initializeWODetailFields(oWorkOrderDetailModel, oWorkOrderDetailViewModel);
 				util.resetDetailWOFields(oUserDetailModel, oWorkOrderDetailModel, oWorkOrderDetailViewModel, "VIEW_WO");
-				util.setRowItemsforCostOverview(oWorkOrderDetailViewModel);
+				
 				this.fnCreateUpdateBtnTxt("UPDATE_ORDER");
 				this.getWODetails(oViewType);
 				// var sBreakDown = oWorkOrderDetailModel.getProperty("/Breakdown");
@@ -405,7 +405,7 @@ sap.ui.define([
 			var oComponentDetails = oWorkOrderDetailViewModel.getProperty("/oComponentDetails");
 			var sPath = oWorkOrderDetailViewModel.getProperty("sPathItemCat");
 			oWorkOrderDetailModel.setProperty(sPath, oComponentDetails);
-			this.onCloseGenData();
+			this.onClosePurData();
 		},
 		onClosePurData: function () {
 			this.oPurDataDialog.close();
@@ -645,7 +645,7 @@ sap.ui.define([
 		setVisibleOperationComment: function (oEvent) {
 			var oWorkOrderDetailViewModel = this.oWorkOrderDetailViewModel;
 			var selectedTab = oEvent.getParameters().item.getText();
-			if (selectedTab === "Spare Parts") {
+			if (selectedTab === "Spare Parts"||selectedTab==="Cost Overview") {
 				oWorkOrderDetailViewModel.setProperty("/visibleOperationComment", false);
 			} else {
 				oWorkOrderDetailViewModel.setProperty("/visibleOperationComment", true);
@@ -1745,7 +1745,9 @@ sap.ui.define([
 		onDeleteSelectedOperations: function () {
 			var oWorkOrderDetailModel = this.oWorkOrderDetailModel;
 			var oWorkOrderDetailViewModel = this.oWorkOrderDetailViewModel;
-			var operationsTbl = this.getView().byId("MYLAN_OPERATIONS_TABLE");
+			
+			var opertionTableFrag=this.getView().createId("idOperationsMaterialPanelWO");
+			var operationsTbl = sap.ui.core.Fragment.byId(opertionTableFrag, "MYLAN_OPERATIONS_TABLE");
 			var operations = oWorkOrderDetailModel.getProperty("/HEADERTOOPERATIONSNAV");
 			var selectedOps = oWorkOrderDetailViewModel.getProperty("/selectedOps");
 			if (!selectedOps || selectedOps.length === 0) {

@@ -20,12 +20,22 @@ sap.ui.define([
 		onInit: function () {
 			var that = this;
 			this.fnInitCreateWOApp("WK_CREATE_ORDER");
+			this.resetCreateWOfields();
 			this.router = sap.ui.core.UIComponent.getRouterFor(this);
 
 			this.router.attachRoutePatternMatched(function (oEvent) {
 				that.routePatternMatched(oEvent);
 			});
 
+			
+		},
+
+		routePatternMatched: function (oEvent) {
+			this.resetCreateWOfields();
+		},
+		//Function to reset Create WO fields
+		resetCreateWOfields:function(){
+			
 			var oViewSetting = {
 				"iSelectedIndex": 0, // 0-Create 1-Create by ref 2-Create by notif
 				"sOrderTypeSel": "",
@@ -73,10 +83,6 @@ sap.ui.define([
 				"sUnAssignedWOFlag": false
 			};
 			this.mLookupModel.setProperty("/", oViewSetting);
-		},
-
-		routePatternMatched: function (oEvent) {
-
 		},
 
 		//Function to get Equipment List and show in a pop-up
