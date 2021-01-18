@@ -3366,7 +3366,7 @@ sap.ui.define([
 			mLookupModel.setProperty("/snMalEndDate",false);
 			mLookupModel.setProperty("/snPriority",true);
 			mLookupModel.setProperty("/snCreatedDate",false);
-			mLookupModel.setProperty("/snCreatedBy",true);
+			mLookupModel.setProperty("/snCreatedBy",false);
 			mLookupModel.setProperty("/snAction",true);
 		}
 
