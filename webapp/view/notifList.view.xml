@@ -233,7 +233,7 @@
 							<Text text="{path:'mLookupModel>ReqenddateString'}" class="tableContentText"></Text>
 						</table:template>
 					</table:Column>
-					<table:Column sortProperty="Breakdown" filterProperty="Breakdown" width="6rem" visible = "{mLookupModel>/snBdFlag}">
+					<table:Column sortProperty="Breakdown" filterProperty="Breakdown" width="5.5rem" visible = "{mLookupModel>/snBdFlag}">
 						<Text wrapping="true" text="{i18n>BdownFlag}" class="tableHeaderText"/>
 						<table:template>
 							<Text text="{mLookupModel>Breakdown}" class="tableContentText"></Text>
@@ -251,7 +251,7 @@
 							<Text text="{path:'mLookupModel>Endmlfndate'}" class="tableContentText"></Text>
 						</table:template>
 					</table:Column>
-					<table:Column sortProperty="PriorityDesNotif" width="5.4rem" filterProperty="PriorityDesNotif" visible = "{mLookupModel>/snPriority}">
+					<table:Column sortProperty="PriorityDesNotif" width="5.2rem" filterProperty="PriorityDesNotif" visible = "{mLookupModel>/snPriority}">
 						<Text wrapping="true" text="{i18n>prior}" class="tableHeaderText"/>
 						<table:template>
 							<Text text="{path:'mLookupModel>PriorityDesNotif'}" class="tableContentText"></Text>
@@ -269,7 +269,7 @@
 							<Text text="{mLookupModel>CreatedBy}" class="tableContentText"></Text>
 						</table:template>
 					</table:Column>
-					<table:Column visible = "{mLookupModel>/snAction}" hAlign="Center" width = "4rem">
+					<table:Column visible = "{mLookupModel>/snAction}" hAlign="Center" width = "3.8rem">
 						<Text wrapping="true" text="{i18n>Action}" class="tableHeaderText"/>
 						<table:template>
 							<HBox justifyContent="Center">

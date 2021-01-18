@@ -1395,6 +1395,32 @@ sap.ui.define([
 				});
 			}
 			return aCols;
+		},
+		//nischal -- function to select all the checkbox value
+		onSelectAll : function(){
+			var mLookupModel = this.mLookupModel;
+			mLookupModel.setProperty("/snType",true);
+			mLookupModel.setProperty("/snNumber",true);
+			mLookupModel.setProperty("/snDescription",true);
+			mLookupModel.setProperty("/snOrder",true);
+			mLookupModel.setProperty("/snFunctLoc",true);
+			mLookupModel.setProperty("/snFunct_Desc",true);
+			mLookupModel.setProperty("/snEquip",true);
+			mLookupModel.setProperty("/snEquip_Desc",true);
+			mLookupModel.setProperty("/snWrkCtr",true);
+			mLookupModel.setProperty("/snPlanPlant",true);
+			mLookupModel.setProperty("/snTechId",true);
+			mLookupModel.setProperty("/snSysStatus",true);
+			mLookupModel.setProperty("/snUserStatus",true);
+			mLookupModel.setProperty("/snReqStDate",true);
+			mLookupModel.setProperty("/snReqEndDate",true);
+			mLookupModel.setProperty("/snBdFlag",true);
+			mLookupModel.setProperty("/snMalStDate",true);
+			mLookupModel.setProperty("/snMalEndDate",true);
+			mLookupModel.setProperty("/snPriority",true);
+			mLookupModel.setProperty("/snCreatedDate",true);
+			mLookupModel.setProperty("/snCreatedBy",true);
+			mLookupModel.setProperty("/snAction",true);
 		}
 	});
 });

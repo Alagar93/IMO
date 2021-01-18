@@ -1030,11 +1030,11 @@ sap.ui.define([
 			mLookupModel.setProperty("/sTassignedTech", false);
 			mLookupModel.setProperty("/sTsysStatus", true);
 			mLookupModel.setProperty("/sTuserStatus", false);
-			mLookupModel.setProperty("/sTmaintPlant", false);
+			mLookupModel.setProperty("/sTmaintPlant", true);
 			mLookupModel.setProperty("/sTbdFlag", false);
 			mLookupModel.setProperty("/sTpriority", true);
 			mLookupModel.setProperty("/sTcreatedBy", true);
-			mLookupModel.setProperty("/sTCreatedDate", true);
+			mLookupModel.setProperty("/sTCreatedDate", false);
 		},
 		//nischal --
 		onExport: function (oEvent) {
@@ -1181,6 +1181,26 @@ sap.ui.define([
 			}
 			
 			return aCols;
+		},
+		//nischal -- function to select all the checkbox value
+		onSelectAll : function(){
+			var mLookupModel = this.mLookupModel;
+			mLookupModel.setProperty("/sTWoNum", true);
+			mLookupModel.setProperty("/sTWoDesc", true);
+			mLookupModel.setProperty("/sTFunctLoc", true);
+			mLookupModel.setProperty("/sTmainWrkCtr", true);
+			mLookupModel.setProperty("/sTWoType", true);
+			mLookupModel.setProperty("/sTequip", true);
+			mLookupModel.setProperty("/sTtechId", true);
+			mLookupModel.setProperty("/sTequipDesc", true);
+			mLookupModel.setProperty("/sTassignedTech", true);
+			mLookupModel.setProperty("/sTsysStatus", true);
+			mLookupModel.setProperty("/sTuserStatus", true);
+			mLookupModel.setProperty("/sTmaintPlant", true);
+			mLookupModel.setProperty("/sTbdFlag", true);
+			mLookupModel.setProperty("/sTpriority", true);
+			mLookupModel.setProperty("/sTcreatedBy", true);
+			mLookupModel.setProperty("/sTCreatedDate", true);
 		}
 	});
 });
