@@ -120,15 +120,15 @@
 			<!--<l:flexContent>-->
 			<!--<VBox height="100%" class="sapUiTinyMarginBeginEnd sapUiSmallMarginTop">-->
 			<table:Table id="idWorkOrderList" class="sapUiSmallMargin tableCellNoBorder TableHeaderWhiteBG" visibleRowCountMode="Fixed"
-				visibleRowCount="{mLookupModel>/rowCount}" rowHeight="28" selectionMode="MultiToggle" enableSelectAll="false"
+				visibleRowCount="{mLookupModel>/rowCount}" rowHeight="28" selectionMode="MultiToggle" enableSelectAll="true"
 				rows="{mLookupModel>/aWorkOrderListSet}" rowSelectionChange="onSelectionChange" filter="dateFormat">
 				<table:extension>
 					<Toolbar class="tableHeaderBG tableMargin" height="3rem">
 						<content>
 							<Title text="{i18n>WOList}" class="styleTableTitle"/>
 							<ToolbarSpacer/>
-							<core:Icon src="sap-icon://table-column" tooltip="Add/Remove Column" color="#142e5e" 
-								class="sapUiSmallMarginEnd attachmentsIconSize" press = "onPressColumnAdd"/>
+							<core:Icon src="sap-icon://table-column" tooltip="Add/Remove Column" color="#142e5e" class="sapUiSmallMarginEnd attachmentsIconSize"
+								press="onPressColumnAdd"/>
 							<core:Icon src="sap-icon://filter" press="woListAdvFilterPanelOpen" tooltip="Open Filters" color="#142e5e"
 								class="sapUiSmallMarginEnd attachmentsIconSize"/>
 							<!--<Link class="sapUiTinyMarginEnd" text="{i18n>advFilter}" press="onHandleAdvFilterWO"/>-->
@@ -148,98 +148,94 @@
 							enabled="{= ${mLookupModel>/iSelectedWOIndices} >= 1 ? true: false}" press="onAssignWO"/>
 						<Button class="tableHeadertansparentBtn" text="{i18n>viewDetails}" enabled="{= ${mLookupModel>/iSelectedWOIndices} === 1 ? true : false}"
 							press="onNavigatetoDetail"/>
+						<ToolbarSpacer/>
+						<core:Icon src="sap-icon://excel-attachment" class="sapUiSmallMarginEnd attachmentsIconSize" press="onExport" color="#142e5e"
+							tooltip="Download Xslx"/>
 					</Toolbar>
 				</table:extension>
-					<table:rowSettingsTemplate>
-    				<table:RowSettings highlight="{path:'mLookupModel>PriorityDes', formatter:'com.sap.incture.IMO_PM.formatter.formatter.handleRowHighlight'}"/>
-				 </table:rowSettingsTemplate>
+				<table:rowSettingsTemplate>
+					<table:RowSettings highlight="{path:'mLookupModel>PriorityDes', formatter:'com.sap.incture.IMO_PM.formatter.formatter.handleRowHighlight'}"/>
+				</table:rowSettingsTemplate>
 				<table:columns>
-					<table:Column sortProperty="OrderType" width="{= ${mLookupModel>/sTbdFlag} === true ? '5rem': ''}" filterProperty="OrderType" visible = "{mLookupModel>/sTWoType}">
+					<table:Column sortProperty="OrderType" width="{= ${mLookupModel>/sTbdFlag} === true ? '5rem': ''}" filterProperty="OrderType"
+						visible="{mLookupModel>/sTWoType}">
 						<Text wrapping="true" text="{i18n>WOtype}" class="tableHeaderText"/>
 						<table:template>
 							<Text text="{mLookupModel>OrderType}" class="tableContentText"></Text>
 						</table:template>
 					</table:Column>
-					
-					<table:Column width="5rem" sortProperty="Orderid" filterProperty="Orderid" defaultFilterOperator="Contains" visible = "{mLookupModel>/sTWoNum}">
+					<table:Column width="5rem" sortProperty="Orderid" filterProperty="Orderid" defaultFilterOperator="Contains"
+						visible="{mLookupModel>/sTWoNum}">
 						<Text wrapping="true" text="{i18n>WO_NUM}" class="tableHeaderText"/>
 						<table:template>
 							<!--<Text text="{mLookupModel>Orderid}" class="tableContentText"></Text>-->
 							<Link text="{mLookupModel>Orderid}" press="handleLinkPress"/>
 						</table:template>
 					</table:Column>
-					
-					<table:Column width="10rem" sortProperty="WoDes" filterProperty="WoDes" visible = "{mLookupModel>/sTWoDesc}">
+					<table:Column width="10rem" sortProperty="WoDes" filterProperty="WoDes" visible="{mLookupModel>/sTWoDesc}">
 						<Text wrapping="true" text="{i18n>WO_Desc}" class="tableHeaderText"/>
 						<table:template>
 							<Text text="{mLookupModel>WoDes}" class="tableContentText"></Text>
 						</table:template>
 					</table:Column>
-					
-					<table:Column sortProperty="FunctLoc" width="15rem" filterProperty="FunctLoc" visible = "{mLookupModel>/sTFunctLoc}">
+					<table:Column sortProperty="FunctLoc" width="15rem" filterProperty="FunctLoc" visible="{mLookupModel>/sTFunctLoc}">
 						<Text wrapping="true" text="{i18n>FUNCT_LOC}" class="tableHeaderText"/>
 						<table:template>
 							<Text text="{mLookupModel>FunctLoc}" class="tableContentText"></Text>
 						</table:template>
 					</table:Column>
-					
-					<table:Column sortProperty="Equipment" width="7rem" filterProperty="Equipment" visible = "{mLookupModel>/sTequip}">
+					<table:Column sortProperty="Equipment" width="7rem" filterProperty="Equipment" visible="{mLookupModel>/sTequip}">
 						<Text wrapping="true" text="{i18n>EQUIPMENT}" class="tableHeaderText"/>
 						<table:template>
 							<Text text="{mLookupModel>Equipment}" class="tableContentText"></Text>
 						</table:template>
 					</table:Column>
-					
-					<table:Column sortProperty="EquipDes" width="15rem" filterProperty="EquipDes" visible = "{mLookupModel>/sTequipDesc}">
+					<table:Column sortProperty="EquipDes" width="15rem" filterProperty="EquipDes" visible="{mLookupModel>/sTequipDesc}">
 						<Text wrapping="true" text="{i18n>EqDes}" class="tableHeaderText"/>
 						<table:template>
 							<Text text="{mLookupModel>EquipDes}" class="tableContentText"></Text>
 						</table:template>
 					</table:Column>
-					
-					<table:Column width="7rem" sortProperty="MnWkCtr" filterProperty="MnWkCtr" visible = "{mLookupModel>/sTmainWrkCtr}">
+					<table:Column sortProperty="TechId" width="7.8rem" filterProperty="TechId" visible="{mLookupModel>/sTtechId}">
+						<Text wrapping="true" text="{i18n>techID}" class="tableHeaderText"/>
+						<table:template>
+							<Text text="{mLookupModel>TechId}" class="tableContentText"></Text>
+						</table:template>
+					</table:Column>
+					<table:Column width="7rem" sortProperty="MnWkCtr" filterProperty="MnWkCtr" visible="{mLookupModel>/sTmainWrkCtr}">
 						<Text wrapping="true" text="{i18n>mainWC}" class="tableHeaderText"/>
 						<table:template>
 							<Text text="{mLookupModel>MnWkCtr}" class="tableContentText"></Text>
 						</table:template>
 					</table:Column>
 					
-					
-					<table:Column sortProperty="SysStatusDes" width="6rem" filterProperty="SysStatusDes" visible = "{mLookupModel>/sTsysStatus}">
-						<Text wrapping="false" text="{i18n>stat}" class="tableHeaderText"/>
-						<table:template>
-							<Text text="{path:'mLookupModel>SysStatusDes'}" class="tableContentText" visible = "true"></Text>
-						</table:template>
-					</table:Column>
-					
-					<table:Column sortProperty="Userstatus" width="5rem" filterProperty="Userstatus" visible = "{mLookupModel>/sTuserStatus}">
-						<Text wrapping="false" text="{i18n>User_Status}" class="tableHeaderText"/>
-						<table:template>
-							<Text text="{path:'mLookupModel>Userstatus'}" class="tableContentText" visible = "true"></Text>
-						</table:template>
-					</table:Column>
-					
-					<table:Column sortProperty="Planplant" width="5rem" filterProperty="Planplant" visible = "{mLookupModel>/sTmaintPlant}">
+					<table:Column sortProperty="Planplant" width="5rem" filterProperty="Planplant" visible="{mLookupModel>/sTmaintPlant}">
 						<Text wrapping="false" text="{i18n>plan_Plant}" class="tableHeaderText"/>
 						<table:template>
-							<Text text="{path:'mLookupModel>Planplant'}" class="tableContentText" visible = "true"></Text>
+							<Text text="{path:'mLookupModel>Planplant'}" class="tableContentText" visible="true"></Text>
 						</table:template>
 					</table:Column>
 					
-					<table:Column sortProperty="TechId" width="7.8rem" filterProperty="TechId" visible = "{mLookupModel>/sTtechId}">
-						<Text wrapping="true" text="{i18n>techID}" class="tableHeaderText"/>
+					<table:Column sortProperty="SysStatusDes" width="6rem" filterProperty="SysStatusDes" visible="{mLookupModel>/sTsysStatus}">
+						<Text wrapping="false" text="{i18n>stat}" class="tableHeaderText"/>
 						<table:template>
-							<Text text="{mLookupModel>TechId}" class="tableContentText"></Text>
+							<Text text="{path:'mLookupModel>SysStatusDes'}" class="tableContentText" visible="true"></Text>
+						</table:template>
+					</table:Column>
+					<table:Column sortProperty="Userstatus" width="5rem" filterProperty="Userstatus" visible="{mLookupModel>/sTuserStatus}">
+						<Text wrapping="false" text="{i18n>User_Status}" class="tableHeaderText"/>
+						<table:template>
+							<Text text="{path:'mLookupModel>Userstatus'}" class="tableContentText" visible="true"></Text>
 						</table:template>
 					</table:Column>
 					
-					<table:Column width="9rem" sortProperty="Technicianname" filterProperty="Technicianname" visible = "{mLookupModel>/sTassignedTech}">
+					
+					<table:Column width="9rem" sortProperty="Technicianname" filterProperty="Technicianname" visible="{mLookupModel>/sTassignedTech}">
 						<Text wrapping="true" text="{i18n>assignedTech}" class="tableHeaderText"/>
 						<table:template>
 							<Text text="{mLookupModel>Technicianname}" class="tableContentText"></Text>
 						</table:template>
 					</table:Column>
-					
 					<!--<table:Column width="6.8%" sortProperty="StartDateString" filterProperty="StartDateString">-->
 					<!--	<Text wrapping="true" text="{i18n>SDate}" class="tableHeaderText"/>-->
 					<!--	<table:template>-->
@@ -252,19 +248,19 @@
 					<!--		<Text text="{path:'mLookupModel>FinishDateString'}" class="tableContentText"></Text>-->
 					<!--	</table:template>-->
 					<!--</table:Column>-->
-					<table:Column sortProperty="Bdflag"  filterProperty="Bdflag" visible = "{mLookupModel>/sTbdFlag}">
+					<table:Column sortProperty="Bdflag" filterProperty="Bdflag" visible="{mLookupModel>/sTbdFlag}">
 						<Text wrapping="true" text="{i18n>BdownFlag}" class="tableHeaderText"/>
 						<table:template>
 							<Text text="{mLookupModel>Bdflag}" class="tableContentText"></Text>
 						</table:template>
 					</table:Column>
-					<table:Column sortProperty="PriorityDes" width="5rem" filterProperty="PriorityDes" visible = "{mLookupModel>/sTpriority}">
+					<table:Column sortProperty="PriorityDes" width="5rem" filterProperty="PriorityDes" visible="{mLookupModel>/sTpriority}">
 						<Text wrapping="true" text="{i18n>prior}" class="tableHeaderText"/>
 						<table:template>
 							<Text text="{path:'mLookupModel>PriorityDes'}" class="tableContentText"></Text>
 						</table:template>
 					</table:Column>
-					<table:Column sortProperty="EnteredByName" width="8rem" filterProperty="EnteredByName" visible = "{mLookupModel>/sTcreatedBy}">
+					<table:Column sortProperty="EnteredByName" width="8rem" filterProperty="EnteredByName" visible="{mLookupModel>/sTcreatedBy}">
 						<Text wrapping="true" text="{i18n>createdby}" class="tableHeaderText"/>
 						<table:template>
 							<Text text="{mLookupModel>EnteredByName}" class="tableContentText"></Text>
@@ -282,7 +278,7 @@
 					<!--		<Text text="{path:'mLookupModel>Package'}" class="tableContentText"></Text>-->
 					<!--	</table:template>-->
 					<!--</table:Column>-->
-					<table:Column sortProperty="EnterDateString" width="7rem" filterProperty="EnterDateString" visible = "{mLookupModel>/sTCreatedDate}">
+					<table:Column sortProperty="EnterDateString" width="7rem" filterProperty="EnterDateString" visible="{mLookupModel>/sTCreatedDate}">
 						<Text wrapping="true" text="{i18n>createdDate}" class="tableHeaderText"/>
 						<table:template>
 							<Text text="{path:'mLookupModel>EnterDateString'}" class="tableContentText"></Text>

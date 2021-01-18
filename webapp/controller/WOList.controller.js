@@ -7,8 +7,12 @@ sap.ui.define([
 	"sap/m/BusyDialog",
 	"com/sap/incture/IMO_PM/formatter/formatter",
 	"com/sap/incture/IMO_PM/util/util",
-	"sap/m/MessageBox"
-], function (BaseController, Controller, JSONModel, Filter, FilterOperator, BusyDialog, formatter, util, MessageBox) {
+	"sap/m/MessageBox",
+	"sap/ui/core/util/Export",
+	"sap/ui/core/util/ExportTypeCSV",
+	"sap/ui/export/Spreadsheet"
+], function (BaseController, Controller, JSONModel, Filter, FilterOperator, BusyDialog, formatter, util, MessageBox, Export,
+	ExportTypeCSV, Spreadsheet) {
 	"use strict";
 
 	return BaseController.extend("com.sap.incture.IMO_PM.controller.WOList", {
@@ -1017,7 +1021,7 @@ sap.ui.define([
 			var mLookupModel = this.mLookupModel;
 			mLookupModel.setProperty("/sTWoNum", true);
 			mLookupModel.setProperty("/sTWoDesc", true);
-			mLookupModel.setProperty("/sTFunctLoc",true);
+			mLookupModel.setProperty("/sTFunctLoc", true);
 			mLookupModel.setProperty("/sTmainWrkCtr", true);
 			mLookupModel.setProperty("/sTWoType", true);
 			mLookupModel.setProperty("/sTequip", true);
@@ -1026,11 +1030,157 @@ sap.ui.define([
 			mLookupModel.setProperty("/sTassignedTech", false);
 			mLookupModel.setProperty("/sTsysStatus", true);
 			mLookupModel.setProperty("/sTuserStatus", false);
-			mLookupModel.setProperty("/sTmaintPlant",false);
+			mLookupModel.setProperty("/sTmaintPlant", false);
 			mLookupModel.setProperty("/sTbdFlag", false);
 			mLookupModel.setProperty("/sTpriority", true);
 			mLookupModel.setProperty("/sTcreatedBy", true);
 			mLookupModel.setProperty("/sTCreatedDate", true);
+		},
+		//nischal --
+		onExport: function (oEvent) {
+			var mLookupModel = this.mLookupModel;
+			if (!this._oTable) {
+				this._oTable = this.byId('idWorkOrderList');
+			}
+			var oTable = this._oTable;
+			var aIndices = oTable.getSelectedIndices();
+			var oRowData = this.getDateSource(oTable, aIndices);
+			var oColumns = this.getColumns(oTable);
+			var oSettings = {
+				workbook: {
+					columns: oColumns
+				},
+				dataSource: oRowData,
+				worker: false,
+				fileName: "WorkOrder_List.xlsx",
+				showProgress: true
+			};
+			if (aIndices.length > 0) {
+				new Spreadsheet(oSettings).build();
+			} else {
+				MessageBox.warning("You have not selected any WorkOrder. Please Select WorkOrder from List.");
+			}
+		},
+		//nischal -- function to form data source
+		getDateSource: function (oTable, aIndices) {
+			var mLookupModel = this.mLookupModel;
+			var oRowData = new Array();
+			var path = oTable.getBinding().sPath;
+			for (var i = 0; i < aIndices.length; i++) {
+				var sPath = path + "/" + aIndices[i];
+				oRowData.push(mLookupModel.getProperty(sPath));
+			}
+			return oRowData;
+		},
+		//nischal
+		getColumns: function (oTable) {
+			var mLookupModel = this.mLookupModel;
+			// var aColumns = oTable.getColumns();
+			// var aItems = oTable.getRows();
+			var aCols = [];
+			if (mLookupModel.getProperty("/sTWoType")) {
+				aCols.push({
+					label: "WO Type",
+					property: "OrderType"
+				});
+			}
+			if (mLookupModel.getProperty("/sTWoNum")) {
+				aCols.push({
+					label: "Order",
+					property: "Orderid"
+				});
+			}
+			if (mLookupModel.getProperty("/sTWoDesc")) {
+				aCols.push({
+					label: "Description",
+					property: "WoDes",
+					width: 40
+				});
+			}
+			if (mLookupModel.getProperty("/sTFunctLoc")) {
+				aCols.push({
+					label: "FunctLoc",
+					property: "FunctLoc",
+					width: 30
+				});
+			}
+			if (mLookupModel.getProperty("/sTequip")) {
+				aCols.push({
+					label: "Equipment",
+					property: "Equipment"
+				});
+			}
+			if (mLookupModel.getProperty("/sTequipDesc")) {
+				aCols.push({
+					label: "Equip Description",
+					property: "EquipDes",
+					width: 30
+				});
+			}
+			if (mLookupModel.getProperty("/sTtechId")) {
+				aCols.push({
+					label: "Tech Id",
+					property: "TechId",
+					width: 30
+				});
+			}
+			if (mLookupModel.getProperty("/sTmainWrkCtr")) {
+				aCols.push({
+					label: "WorkCenter",
+					property: "MnWkCtr"
+				});
+			}
+			if (mLookupModel.getProperty("/sTmaintPlant")) {
+				aCols.push({
+					label: "Plant",
+					property: "Planplant"
+				});
+			}
+			
+			if (mLookupModel.getProperty("/sTsysStatus")) {
+				aCols.push({
+					label: "System Status",
+					property: "SysStatusDes"
+				});
+			}
+			if (mLookupModel.getProperty("/sTuserStatus")) {
+				aCols.push({
+					label: "User Status",
+					property: "Userstatus"
+				});
+			}
+			if (mLookupModel.getProperty("/sTassignedTech")) {
+				aCols.push({
+					label: "Assigned Tech",
+					property: "Technicianname"
+				});
+			}
+			if (mLookupModel.getProperty("/sTbdFlag")) {
+				aCols.push({
+					label: "BD Flag",
+					property: "Bdflag"
+				});
+			}
+			if (mLookupModel.getProperty("/sTpriority")) {
+				aCols.push({
+					label: "Priority",
+					property: "PriorityDes"
+				});
+			}
+			if (mLookupModel.getProperty("/sTcreatedBy")) {
+				aCols.push({
+					label: "Created By",
+					property: "EnteredByName"
+				});
+			}
+			if (mLookupModel.getProperty("/sTCreatedDate")) {
+				aCols.push({
+					label: "Created Date",
+					property: "EnterDateString"
+				});
+			}
+			
+			return aCols;
 		}
 	});
 });
