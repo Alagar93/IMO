@@ -191,30 +191,36 @@ com.sap.incture.IMO_PM.util.util = {
 		this.fnSetUserName(userName, oWorkOrderDetailModel, oWorkOrderDetailViewModel);
 	},
 	//Function to setRows For Cost Overview table
-	setRowItemsforCostOverview:function(oWorkOrderDetailViewModel){
+	setRowItemsforCostOverview:function(oWorkOrderDetailViewModel,aCostList){
 		var CosttblItems=[{
 			"CatDesc":"External Services",
-			"EstCost":"0.00",
-			"PlanCost":"1500.00",
-			"ActCost":"0.00",
+			"EstCost":aCostList[0].EstExtSer,
+			"PlanCost":aCostList[0].PlaExtSer,
+			"ActCost":aCostList[0].ActExtSer,
 			"Cur":"EUR"
 		},{
 			"CatDesc":"External Procurement",
-			"EstCost":"0.00",
-			"PlanCost":"1500.00",
-			"ActCost":"0.00",
+			"EstCost":aCostList[0].EstExtPro,
+			"PlanCost":aCostList[0].PlaExtPro,
+			"ActCost":aCostList[0].ActExtPro,
 			"Cur":"EUR"
 		},{
 			"CatDesc":"Internal Activities",
-			"EstCost":"0.00",
-			"PlanCost":"1500.00",
-			"ActCost":"0.00",
+			"EstCost":aCostList[0].EstIntAct,
+			"PlanCost":aCostList[0].PlaIntAct,
+			"ActCost":aCostList[0].ActIntAct,
 			"Cur":"EUR"
 		},{
 			"CatDesc":"Stock material",
-			"EstCost":"0.00",
-			"PlanCost":"1500.00",
-			"ActCost":"0.00",
+			"EstCost":aCostList[0].EstStoMat,
+			"PlanCost":aCostList[0].PlaStoMat,
+			"ActCost":aCostList[0].ActStoMat,
+			"Cur":"EUR"
+		},{
+			"CatDesc":"Total Cost",
+			"EstCost":aCostList[0].TotalEstCost,
+			"PlanCost":aCostList[0].TotalPlanCost,
+			"ActCost":aCostList[0].TotalActCost,
 			"Cur":"EUR"
 		}];
 		oWorkOrderDetailViewModel.setProperty("/CostTBl",CosttblItems);

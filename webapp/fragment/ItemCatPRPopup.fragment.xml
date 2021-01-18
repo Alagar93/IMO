@@ -47,7 +47,7 @@
 				</VBox>
 				<VBox class="sapUiSmallMarginTop">
 					<Label text="{i18n>PR_COST_ELEMENT}"></Label>
-					<Input value="{oWorkOrderDetailViewModel>/oComponentDetails/CostElement}"></Input>
+					<Input value=""></Input>
 					<layoutData>
 						<l:GridData span="XL6 L6 M12 S12"/>
 					</layoutData>
