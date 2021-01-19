@@ -157,7 +157,7 @@
 					<table:RowSettings highlight="{path:'mLookupModel>PriorityDes', formatter:'com.sap.incture.IMO_PM.formatter.formatter.handleRowHighlight'}"/>
 				</table:rowSettingsTemplate>
 				<table:columns>
-					<table:Column sortProperty="OrderType" width="{= ${mLookupModel>/sTbdFlag} === true ? '5rem': ''}" filterProperty="OrderType"
+					<table:Column sortProperty="OrderType" width="{= ${mLookupModel>/sTbdFlag} === true ? '5rem': '5rem'}" filterProperty="OrderType"
 						visible="{mLookupModel>/sTWoType}">
 						<Text wrapping="true" text="{i18n>WOtype}" class="tableHeaderText"/>
 						<table:template>
@@ -172,7 +172,7 @@
 							<Link text="{mLookupModel>Orderid}" press="handleLinkPress"/>
 						</table:template>
 					</table:Column>
-					<table:Column width="10rem" sortProperty="WoDes" filterProperty="WoDes" visible="{mLookupModel>/sTWoDesc}">
+					<table:Column width="14rem" sortProperty="WoDes" filterProperty="WoDes" visible="{mLookupModel>/sTWoDesc}">
 						<Text wrapping="true" text="{i18n>WO_Desc}" class="tableHeaderText"/>
 						<table:template>
 							<Text text="{mLookupModel>WoDes}" class="tableContentText"></Text>
@@ -216,13 +216,13 @@
 						</table:template>
 					</table:Column>
 					
-					<table:Column sortProperty="SysStatusDes" width="6rem" filterProperty="SysStatusDes" visible="{mLookupModel>/sTsysStatus}">
+					<table:Column sortProperty="SysStatusDes" width="7rem" filterProperty="SysStatusDes" visible="{mLookupModel>/sTsysStatus}">
 						<Text wrapping="false" text="{i18n>stat}" class="tableHeaderText"/>
 						<table:template>
 							<Text text="{path:'mLookupModel>SysStatusDes'}" class="tableContentText" visible="true"></Text>
 						</table:template>
 					</table:Column>
-					<table:Column sortProperty="Userstatus" width="5rem" filterProperty="Userstatus" visible="{mLookupModel>/sTuserStatus}">
+					<table:Column sortProperty="Userstatus" width="6rem" filterProperty="Userstatus" visible="{mLookupModel>/sTuserStatus}">
 						<Text wrapping="false" text="{i18n>User_Status}" class="tableHeaderText"/>
 						<table:template>
 							<Text text="{path:'mLookupModel>Userstatus'}" class="tableContentText" visible="true"></Text>
@@ -248,7 +248,7 @@
 					<!--		<Text text="{path:'mLookupModel>FinishDateString'}" class="tableContentText"></Text>-->
 					<!--	</table:template>-->
 					<!--</table:Column>-->
-					<table:Column sortProperty="Bdflag" filterProperty="Bdflag" visible="{mLookupModel>/sTbdFlag}">
+					<table:Column sortProperty="Bdflag" filterProperty="Bdflag" width="5rem" visible="{mLookupModel>/sTbdFlag}">
 						<Text wrapping="true" text="{i18n>BdownFlag}" class="tableHeaderText"/>
 						<table:template>
 							<Text text="{mLookupModel>Bdflag}" class="tableContentText"></Text>
@@ -260,7 +260,7 @@
 							<Text text="{path:'mLookupModel>PriorityDes'}" class="tableContentText"></Text>
 						</table:template>
 					</table:Column>
-					<table:Column sortProperty="EnteredByName" width="8rem" filterProperty="EnteredByName" visible="{mLookupModel>/sTcreatedBy}">
+					<table:Column sortProperty="EnteredByName" width="6.5rem" filterProperty="EnteredByName" visible="{mLookupModel>/sTcreatedBy}">
 						<Text wrapping="true" text="{i18n>createdby}" class="tableHeaderText"/>
 						<table:template>
 							<Text text="{mLookupModel>EnteredByName}" class="tableContentText"></Text>

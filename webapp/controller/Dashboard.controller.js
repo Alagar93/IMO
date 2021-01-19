@@ -106,7 +106,7 @@ sap.ui.define([
 					scale: {
 						fixedRange: true,
 						minValue: 0,
-						maxValue: 100  
+						maxValue: 100
 					}
 				}
 			});
@@ -263,9 +263,26 @@ sap.ui.define([
 				},
 				title: {
 					visible: false
+				},
+				plotArea: {
+					referenceLine: {
+						line: {
+							valueAxis: [{
+								color: "#4cba6b",
+								value: avgNotif,
+								visible: true,
+								size: 1,
+								type: "dotted"
+								/*label: {
+									text: "Average: " + avgNotif,
+									visible: true
+								}*/
+							}]
+						}
+					}
+
 				}
 			});
-
 		},
 		initializeWorkOrderChart: function () {
 			var oViz = this.getView().byId("idVizFrameWorkOrder");
@@ -336,6 +353,21 @@ sap.ui.define([
 								"color": "#e8743b" //demo purpose - set both colors same
 							}
 						}
+					},
+					referenceLine: {
+						line: {
+							valueAxis: [{
+								color: "#4cba6b",
+								value: avgWO,
+								visible: true,
+								size: 1,
+								type: "dotted"
+								/*label: {
+									text: "Average: " + avgNotif,
+									visible: true
+								}*/
+							}]
+						}
 					}
 				},
 				valueAxis: {
@@ -358,5 +390,4 @@ sap.ui.define([
 			});
 		}
 	});
-
 });
