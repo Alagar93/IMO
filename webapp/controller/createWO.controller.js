@@ -30,7 +30,12 @@ sap.ui.define([
 		},
 
 		routePatternMatched: function (oEvent) {
-			this.resetCreateWOfields();
+			var mLookupModel=this.mLookupModel;
+			mLookupModel.setProperty("/sOrderTypeSel","");
+			mLookupModel.setProperty("/sEquip","");
+			mLookupModel.setProperty("/sFunLoc","");
+			mLookupModel.setProperty("/sPrior","");
+			//this.resetCreateWOfields();
 		},
 		//Function to reset Create WO fields
 		resetCreateWOfields: function () {
@@ -819,6 +824,7 @@ sap.ui.define([
 			oWorkOrderDetailModel.setProperty("/EquipDesc", oSelectedWODetails.EquipDes);
 			oWorkOrderDetailModel.setProperty("/Plangroup", oSelectedWODetails.Plangroup);
 			oWorkOrderDetailModel.setProperty("/SuperOrder", oSelectedWODetails.Orderid);
+			
 			// oWorkOrderDetailModel.setProperty("/SysStatusDes", oSelectedWODetails.SysStatusDes);//new 
 			// oWorkOrderDetailModel.setProperty("/systemstatustext", oSelectedWODetails.SysStatusDes);//new 
 			this.mLookupModel.setProperty("/sCatelogProf", oSelectedWODetails.Rbnr);
@@ -828,7 +834,11 @@ sap.ui.define([
 			this.onSearchEquipments(oSelectedWODetails.Equipment, true);
 			this.getEquipsAssmebly(oSelectedWODetails.Equipment);
 			var userPlant = this.oUserDetailModel.getProperty("/userPlant");
-
+			this.fnSetDateBasedOnPriority(oSelectedWODetails.Priority);
+			var PlanStDate=this.oWorkOrderDetailViewModel.getProperty("/oRequiredStartDate");
+			oWorkOrderDetailModel.setProperty("/PlanStartDate", PlanStDate);
+			var PlanEndDate=this.oWorkOrderDetailViewModel.getProperty("/oRequiredEndDate");
+			oWorkOrderDetailModel.setProperty("/PlanEndDate", PlanEndDate);
 			var opsArr = [];
 			for (var i = 0; i < aSelectedOperations.length; i++) {
 				var oTempobj = {

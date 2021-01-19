@@ -25,11 +25,11 @@ sap.ui.define([
 			this.fnInitCreateWOApp("WK_ORDER_DETAIL");
 			this.router = sap.ui.core.UIComponent.getRouterFor(this);
 			this.router.attachRoutePatternMatched(function (oEvent) {
-				that.routePatternMatched(oEvent);
+				that.routePatternMatchedDetailWO(oEvent);
 			});
 		},
 
-		routePatternMatched: function (oEvent) {
+		routePatternMatchedDetailWO: function (oEvent) {
 			var oUserDetailModel = this.oUserDetailModel;
 			var oWODetailFieldsModel = this.oWODetailFieldsModel;
 			var oWorkOrderDetailModel = this.oWorkOrderDetailModel;
@@ -57,7 +57,7 @@ sap.ui.define([
 				} else if (viewType === "CREATE_REF_WO") {
 					this.fnCreateUpdateBtnTxt("CREATE_ORDER");
 					util.fnEnableCreateWOFields(oWODetailFieldsModel);
-					util.resetDetailWOFields(oUserDetailModel, oWorkOrderDetailModel, oWorkOrderDetailViewModel, "CREATE_ORDER", this.oPortalDataModel);
+					//util.resetDetailWOFields(oUserDetailModel, oWorkOrderDetailModel, oWorkOrderDetailViewModel, "CREATE_ORDER", this.oPortalDataModel);
 					this.getOperationIdLookup();
 					//this.fnFilterSlectedDamageGroup();
 					//this.fnFilterSlectedCauseGroup();
