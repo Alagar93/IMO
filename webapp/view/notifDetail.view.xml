@@ -34,7 +34,7 @@
 				width="{= ${mLookupModel>/showTaskManagementPanel} === true ? '20rem' : '0' }">
 				<c:Fragment fragmentName="com.sap.incture.IMO_PM.fragment.RightAttachmentPanel" type="XML" id="idRightAttachmentPanel"></c:Fragment>
 			</VBox>
-			<OverflowToolbar class="sapUiTinyMarginTop">
+			<OverflowToolbar class="sapUiTinyMarginTop sapUiTinyMarginEnd">
 				<Label text="Notification List" class="sapUiSmallMarginBegin" wrapping="true"/>
 				<core:Icon src="sap-icon://navigation-right-arrow" class="sapUiTinyMarginBegin iconSize1" color="#96999b"></core:Icon>
 				<Label text="Notification Number: " class="sapUiTinyMarginBegin murphyLabelColor"/>
@@ -43,7 +43,7 @@
 				<Label text="{i18n>NOTIF_STATUS} :" class="sapUiSmallMarginBegin panelTextColor1"></Label>
 				<Text text="{mLookupModel>/SysStatus}"></Text>
 				<Label text="{i18n>USER_STATUS} :" class="sapUiSmallMarginBegin panelTextColor1"></Label>
-				<Text text="{path:'mLookupModel>/Userstatus',formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnNotifUserStatus'} "></Text>
+				<Text text="{path:'mLookupModel>/Userstatus',formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnNotifUserStatus'}  " class="sapUiSmallMarginEnd"></Text>
 				<!--<VBox class="gridPadding">-->
 				<!--		<Input value="{mLookupModel>/SysStatus}" class="inputRadius" width="90%" enabled="false"/>-->
 				<!--	</VBox>-->

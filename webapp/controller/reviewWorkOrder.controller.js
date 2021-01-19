@@ -54,6 +54,13 @@ sap.ui.define([
 
 			this.mLookupModel.setProperty("/", oViewSetting);
 			this.getLoggedInUser();
+			//nischal -- starts
+			var that = this;
+			this.router = sap.ui.core.UIComponent.getRouterFor(this);
+			this.router.attachRoutePatternMatched(function (oEvent) {
+				that.routePatternMatched(oEvent);
+			});
+			//nischal-- ends
 		},
 
 		onAfterRendering: function () {
@@ -89,6 +96,7 @@ sap.ui.define([
 					mLookupModel.setProperty("/userPlant", oData.UserPlant);
 					mLookupModel.refresh();
 					that.fnFetchWOList();
+					that.setColumnLayout(); //nischal-- Function Call to set Column layout to the screen.
 				},
 				error: function (oData) {
 					mLookupModel.setProperty("/userName", "");
@@ -325,7 +333,7 @@ sap.ui.define([
 						success: function (oData) {
 							oModel.setProperty(rowContext + "/oprns", oData.results);
 							that.busy.close();
-						   // that.fnUpdateOperationComments("oprns", iSelectedWO, oModel, rowContext, oData.results);
+							// that.fnUpdateOperationComments("oprns", iSelectedWO, oModel, rowContext, oData.results);
 						},
 						error: function (oData) {
 							that.busy.close();
@@ -456,8 +464,10 @@ sap.ui.define([
 			var sHost = window.location.origin;
 			var sBSPPath = "/sap/bc/ui5_ui5/sap/ZMYL_WOCREATE/index.html#/detailWO/";
 			// var sURL = sHost + sBSPPath + sWorkOrderSel;
-			
-			this._router.navTo("detailTabWO", {workOrderID: sWorkOrderSel});
+
+			this._router.navTo("detailTabWO", {
+				workOrderID: sWorkOrderSel
+			});
 			/*var sURL = "https://ub2qkdfhxg4ubmgqmta-imo-pm-imo-pm.cfapps.eu10.hana.ondemand.com/IMO_PM/index.html#/detailTabWO/" +
 				sWorkOrderSel;
 			sap.m.URLHelper.redirect(sURL, true);*/
@@ -582,9 +592,93 @@ sap.ui.define([
 		closeSuccesErrPopup: function () {
 			this.successErrorDialog.close();
 		},
-		reviewWOAdvFilterPanelOpen: function(){
+		reviewWOAdvFilterPanelOpen: function () {
 			var oNotifWrapPanel = this.byId("filterWrapPanelReviewWO");
 			oNotifWrapPanel.setExpanded(!oNotifWrapPanel.getExpanded());
+		},
+		//nischal-- starts
+		routePatternMatched: function (oEvent) {
+			if (oEvent.getParameter("name") === "reviewWO") {
+				this.getLoggedInUser();
+			}
+		},
+		//nischal -- ends
+		setColumnLayout: function () {
+			var mLookupModel = this.mLookupModel;
+			var oTempObj = {
+				sDate : true,
+	            sAssTechName : true,
+	            sFunctLoc : true,
+	            sEquip : true,
+	            sAssembly : true,
+	            sMnWkCtr : true,
+	            sPlant : false,
+	            sOrderId : true,
+	            sType : true,
+	            sWoComments : false,
+	            sOprn : true,
+	            sSysCond : false,
+	            sFC : false,
+	            sCompOnTime :false,
+	            sOprnShortText : false,
+	            sOprnLtext :false,
+	            sLText : false,
+	            sBDown : false,
+	            sBDHours :false,
+	            sLabHours : false,
+	            sSpareParts : false,
+	            sSparePartsIss : false,
+	            sSparePartsReturned : false,
+	            sIsAttachment : false
+			};
+			mLookupModel.setProperty("/oReviewTecoColumnVisible",oTempObj);
+			mLookupModel.refresh();
+		},
+		//nischal
+		onPressColumnAdd: function (oEvent) {
+			if (!this.addRemoveColumnDialog) {
+				this.addRemoveColumnDialog = sap.ui.xmlfragment("com.sap.incture.IMO_PM.fragment.addRemoveColReviewTeco", this);
+				this.getView().addDependent(this.addRemoveColumnDialog);
+			}
+			this.addRemoveColumnDialog.open();
+		},
+		//nischal
+		onCloseColumnAdd: function (oEvent) {
+			this.addRemoveColumnDialog.close();
+			this.addRemoveColumnDialog.destroy();
+			this.addRemoveColumnDialog = null;
+		},
+		//nischal --
+		onSelectAll: function(){
+			var mLookupModel = this.mLookupModel;
+			var oTempObj = {
+				sDate : true,
+	            sAssTechName : true,
+	            sFunctLoc : true,
+	            sEquip : true,
+	            sAssembly : true,
+	            sMnWkCtr : true,
+	            sPlant : true,
+	            sOrderId : true,
+	            sType : true,
+	            sWoComments : true,
+	            sOprn : true,
+	            sSysCond : true,
+	            sFC : true,
+	            sCompOnTime :true,
+	            sOprnShortText : true,
+	            sOprnLtext :true,
+	            sLText : true,
+	            sBDown : true,
+	            sBDHours :true,
+	            sLabHours : true,
+	            sSpareParts : true,
+	            sSparePartsIss : true,
+	            sSparePartsReturned : true,
+	            sIsAttachment : true
+			};
+			mLookupModel.setProperty("/oReviewTecoColumnVisible",oTempObj);
+			mLookupModel.refresh();
 		}
 	});
 });
