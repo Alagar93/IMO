@@ -5,13 +5,16 @@
 			<m:Label design="Bold" class="sapUiSmallMarginBegin textColr" text="{i18n>tile_reviewWO}" wrapping="true"/>
 		</tnt:ToolHeader>
 		<m:content>
-			<TreeTable class="sapUiSmallMargin tableCellNoBorder TableHeaderWhiteBG" id="idreviewTreeTable" rows="{path:'/', parameters: {arrayNames:['oprns']}}" selectionMode="None"
-				enableSelectAll="false" visibleRowCount="{mLookupModel>/rowCount}" visibleRowCountMode="Fixed" ariaLabelledBy="title" fixedColumnCount="2"
-				rowHeight="45rem" toggleOpenState="onExpandCollapse" filter="onFilterColumn">
+			<TreeTable class="sapUiSmallMargin tableCellNoBorder TableHeaderWhiteBG" id="idreviewTreeTable"
+				rows="{path:'/', parameters: {arrayNames:['oprns']}}" selectionMode="None" enableSelectAll="false"
+				visibleRowCount="{mLookupModel>/rowCount}" visibleRowCountMode="Fixed" ariaLabelledBy="title" fixedColumnCount="2" rowHeight="45rem"
+				toggleOpenState="onExpandCollapse" filter="onFilterColumn">
 				<extension>
 					<m:OverflowToolbar class="tableHeaderBG tableMargin" height="3rem">
 						<m:Title id="title" text="{i18n>revTable} ({mLookupModel>/aWorkOrderListSet/0/Totalrecords} WO's)" class="styleTableTitle"/>
 						<m:ToolbarSpacer/>
+						<core:Icon src="sap-icon://table-column" tooltip="Add/Remove Column" color="#142e5e" class="sapUiSmallMarginEnd attachmentsIconSize"
+							press="onPressColumnAdd"/>
 						<core:Icon src="sap-icon://filter" press="reviewWOAdvFilterPanelOpen" tooltip="Open Filters" color="#142e5e"
 							class="sapUiSmallMarginEnd attachmentsIconSize"/>
 						<!--<m:Link text="{i18n>advFilter}" press="onHandleAdvFilterWO"/>-->
@@ -25,7 +28,8 @@
 					</m:Panel>
 					<m:Toolbar class="tableHeaderBG" height="3rem">
 						<m:ToolbarSpacer/>
-						<m:Button class="tableHeadertansparentBtn" text="{i18n>TecoWO}" press="onOpenDigitalSignPopup" visible="{path:'mLookupModel>/userRole', formatter:'com.sap.incture.IMO_PM.formatter.formatter.disableReviewField'}"/>
+						<m:Button class="tableHeadertansparentBtn" text="{i18n>TecoWO}" press="onOpenDigitalSignPopup"
+							visible="{path:'mLookupModel>/userRole', formatter:'com.sap.incture.IMO_PM.formatter.formatter.disableReviewField'}"/>
 					</m:Toolbar>
 				</extension>
 				<columns>
@@ -41,141 +45,155 @@
 							<m:CheckBox select="onSelectCheckBox" class="tableContentText" text="" visible="{= ${Activity} ? false:true}" selected="{checked}"/>
 						</template>
 					</Column>
-					<Column width="8rem">
-						<m:Text text="{i18n>date}" wrapping="true" class="tableHeaderText"/>
+					<Column width="6rem" visible="{mLookupModel>/oReviewTecoColumnVisible/sType}">
+						<m:Text text="Type" wrapping="true" class="tableHeaderText"/>
 						<template>
-							<m:Text class="tableContentText" text="{path:'EnterDate',formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnDateConversion'}"
-								wrapping="false"/>
+							<m:Text text="{OrderType}" class="tableContentText" wrapping="false"/>
 						</template>
 					</Column>
-					<Column width="10rem">
-						<m:Text text="{i18n>assTech}" wrapping="true" class="tableHeaderText"/>
+					<Column width="6rem" visible="{mLookupModel>/oReviewTecoColumnVisible/sOrderId}">
+						<m:Text text="Order" wrapping="true" class="tableHeaderText"/>
 						<template>
-							<m:Text text="{Technicianname}" class="tableContentText"/>
+							<m:Link text="{Orderid}" press="onViewWO" class="tableContentText" wrapping="false"/>
 						</template>
 					</Column>
-					<Column width="10rem">
+					<Column width="10rem" visible="{mLookupModel>/oReviewTecoColumnVisible/sFunctLoc}">
 						<m:Text text="{i18n>FunLoc}" wrapping="true" class="tableHeaderText"/>
 						<template>
 							<m:Text text="{FunctLoc}" class="tableContentText" wrapping="false"/>
 						</template>
 					</Column>
-					<Column width="6rem">
+					<Column width="6rem" visible="{mLookupModel>/oReviewTecoColumnVisible/sEquip}">
 						<m:Text text="{i18n>equip}" wrapping="true" class="tableHeaderText"/>
 						<template>
 							<m:Text text="{Equipment}" class="tableContentText" wrapping="false"/>
 						</template>
 					</Column>
-					<Column width="20rem">
+					<Column width="8rem" visible="{mLookupModel>/oReviewTecoColumnVisible/sDate}">
+						<m:Text text="Created Date" wrapping="true" class="tableHeaderText"/>
+						<template>
+							<m:Text class="tableContentText" text="{path:'EnterDate',formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnDateConversion'}"
+								wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="10rem" visible="{mLookupModel>/oReviewTecoColumnVisible/sAssTechName}">
+						<m:Text text="{i18n>assTech}" wrapping="true" class="tableHeaderText"/>
+						<template>
+							<m:Text text="{Technicianname}" class="tableContentText"/>
+						</template>
+					</Column>
+					<Column width="11rem" visible="{mLookupModel>/oReviewTecoColumnVisible/sAssembly}">
 						<m:Text text="{i18n>Assemb}" wrapping="true" class="tableHeaderText"/>
 						<template>
 							<m:Text text="{AssemblyDes}" tooltip="{AssemblyDes}" class="tableContentText" wrapping="false"/>
 						</template>
 					</Column>
-					<Column width="6rem">
-						<m:Text text="{i18n>WO}" wrapping="true" class="tableHeaderText"/>
+					<Column width="6rem" visible="{mLookupModel>/oReviewTecoColumnVisible/sMnWkCtr}">
+						<m:Text text="WorkCenter" wrapping="true" class="tableHeaderText"/>
 						<template>
-							<m:Link text="{Orderid}" press="onViewWO" class="tableContentText" wrapping="false"/>
+							<m:Text text="{MnWkCtr}" class="tableContentText" wrapping="false"/>
 						</template>
 					</Column>
-					<Column width="6rem">
-						<m:Text text="{i18n>WOType}" wrapping="true" class="tableHeaderText"/>
+					<Column width="6rem" visible="{mLookupModel>/oReviewTecoColumnVisible/sPlant}">
+						<m:Text text="Plant" wrapping="true" class="tableHeaderText"/>
 						<template>
-							<m:Text text="{OrderType}" class="tableContentText" wrapping="false"/>
+							<m:Text text="{Planplant}" class="tableContentText" wrapping="false"/>
 						</template>
 					</Column>
-					<Column width="15rem">
-						<m:Text text="{i18n>WOComm}" wrapping="true" class="tableHeaderText"/>
+					<Column width="6rem" visible="{mLookupModel>/oReviewTecoColumnVisible/sBDown}">
+						<m:Text text="{i18n>BDown}" wrapping="true" class="tableHeaderText"/>
 						<template>
-							<m:Text text="{WOLongText}" tooltip="{WOLongText}" class="tableContentText" wrapping="false"/>
+							<m:Text text="{Bdflag}" class="tableContentText" wrapping="false"/>
 						</template>
 					</Column>
-					<Column width="8rem">
+					<Column width="8rem" visible="{mLookupModel>/oReviewTecoColumnVisible/sOprn}">
 						<m:Text text="{i18n>oprn}" wrapping="true" class="tableHeaderText"/>
 						<template>
 							<m:Text text="{Activity}" class="tableContentText" wrapping="false"/>
 						</template>
 					</Column>
-					<Column width="6rem">
+					<Column width="15rem" visible="{mLookupModel>/oReviewTecoColumnVisible/sWoComments}">
+						<m:Text text="{i18n>WOComm}" wrapping="true" class="tableHeaderText"/>
+						<template>
+							<m:Text text="{WOLongText}" tooltip="{WOLongText}" class="tableContentText" wrapping="false"/>
+						</template>
+					</Column>
+					<Column width="6rem" visible="{mLookupModel>/oReviewTecoColumnVisible/sSysCond}">
 						<m:Text text="{i18n>syscond}" wrapping="true" class="tableHeaderText"/>
 						<template>
 							<m:Text class="tableContentText" text="{parts:['Systcond','Activity'],formatter:'com.sap.incture.IMO_PM.formatter.formatter.styleSysCondn'}"
 								wrapping="false"/>
 						</template>
 					</Column>
-					<Column width="4rem">
+					<Column width="4rem" visible="{mLookupModel>/oReviewTecoColumnVisible/sFC}">
 						<m:Text text="{i18n>FC}" wrapping="true" class="tableHeaderText"/>
 						<template>
 							<m:Text class="tableContentText" text="{path:'SystemStatusText',formatter:'com.sap.incture.IMO_PM.formatter.formatter.styleFC'}"
 								wrapping="false"/>
 						</template>
 					</Column>
-					<Column width="5rem">
+					<Column width="5rem" visible="{mLookupModel>/oReviewTecoColumnVisible/sCompOnTime}">
 						<m:Text text="{i18n>compOnTime}" wrapping="true" class="tableHeaderText"/>
 						<template>
 							<m:Text class="tableContentText" text="{path:'ActEndDate',formatter:'com.sap.incture.IMO_PM.formatter.formatter.styleComonTime'}"
 								wrapping="false"/>
 						</template>
 					</Column>
-					<Column width="15rem">
+					<Column width="15rem" visible="{mLookupModel>/oReviewTecoColumnVisible/sOprnShortText}">
 						<m:Text text="{i18n>oprnSText}" tooltip="{i18n>oprnSText}" wrapping="true" class="tableHeaderText"/>
 						<template>
 							<m:Text text="{Description}" class="tableContentText" wrapping="false"/>
 						</template>
 					</Column>
-					<Column width="12rem">
+					<Column width="12rem" visible="{mLookupModel>/oReviewTecoColumnVisible/sOprnLtext}">
 						<m:Text text="{i18n>oprnLText}" wrapping="true" class="tableHeaderText"/>
 						<template>
 							<m:Button icon="sap-icon://display" class="LTextButton" type="Transparent" tooltip="show confirmation long text"
-								enabled="{parts:['Activity','oprnLText'],formatter:'com.sap.incture.IMO_PM.formatter.formatter.styleCNFLongText'}" visible="{path:'Orderid',formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnDisableOperLText'}" press="onLongTextPress"/>
+								enabled="{parts:['Activity','oprnLText'],formatter:'com.sap.incture.IMO_PM.formatter.formatter.styleCNFLongText'}"
+								visible="{path:'Orderid',formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnDisableOperLText'}" press="onLongTextPress"/>
 						</template>
 					</Column>
-					<Column width="10rem">
+					<Column width="10rem" visible="{mLookupModel>/oReviewTecoColumnVisible/sLText}">
 						<m:Text text="{i18n>LText}" wrapping="true" class="tableHeaderText"/>
 						<template>
 							<m:Text text="{OperationLtext}" tooltip="{OperationLtext}" class="tableContentText" wrapping="false"/>
 						</template>
 					</Column>
-					<Column width="6rem">
-						<m:Text text="{i18n>BDown}" wrapping="true" class="tableHeaderText"/>
-						<template>
-							<m:Text text="{Bdflag}" class="tableContentText" wrapping="false"/>
-						</template>
-					</Column>
-					<Column width="6rem">
+					
+					<Column width="6rem" visible="{mLookupModel>/oReviewTecoColumnVisible/sBDHours}">
 						<m:Text text="{i18n>BDownHours}" wrapping="true" class="tableHeaderText"/>
 						<template>
 							<m:Text class="tableContentText"
 								text="{parts:['Activity','Bdflag','BDownHours'],formatter:'com.sap.incture.IMO_PM.formatter.formatter.styleBDownHours'}" wrapping="false"/>
 						</template>
 					</Column>
-					<Column width="6rem">
+					<Column width="6rem" visible="{mLookupModel>/oReviewTecoColumnVisible/sLabHours}">
 						<m:Text text="{i18n>labHours}" wrapping="true" class="tableHeaderText"/>
 						<template>
 							<m:Text class="tableContentText"
 								text="{parts:['WorkActual','Activity'],formatter:'com.sap.incture.IMO_PM.formatter.formatter.styleLabHours'}" wrapping="false"/>
 						</template>
 					</Column>
-					<Column width="6rem">
+					<Column width="6rem" visible="{mLookupModel>/oReviewTecoColumnVisible/sSpareParts}">
 						<m:Text text="{i18n>SPartsReq}" wrapping="true" class="tableHeaderText"/>
 						<template>
 							<m:Text text="{ReqQty}" class="tableContentText" wrapping="false"/>
 						</template>
 					</Column>
-					<Column width="6rem">
+					<Column width="6rem" visible="{mLookupModel>/oReviewTecoColumnVisible/sSparePartsIss}">
 						<m:Text text="{i18n>SPartsIss}" wrapping="true" class="tableHeaderText"/>
 						<template>
 							<m:Text class="tableContentText" text="{parts:['ReqQty','IssuesQty'],formatter:'com.sap.incture.IMO_PM.formatter.formatter.styleSPartsIss'}"
 								wrapping="false"/>
 						</template>
 					</Column>
-					<Column width="6rem">
+					<Column width="6rem" visible="{mLookupModel>/oReviewTecoColumnVisible/sSparePartsReturned}">
 						<m:Text text="{i18n>SPartsRet}" wrapping="true" class="tableHeaderText"/>
 						<template>
 							<m:Text text="{RetQty}" class="tableContentText" wrapping="false"/>
 						</template>
 					</Column>
-					<Column width="6rem">
+					<Column width="6rem" visible="{mLookupModel>/oReviewTecoColumnVisible/sIsAttachment}">
 						<m:Text text="{i18n>isAttach}" wrapping="true" class="tableHeaderText"/>
 						<template>
 							<m:Text text="{parts:['Hasattach','Activity'],formatter:'com.sap.incture.IMO_PM.formatter.formatter.styleAttach'}" class="tableContentText"
