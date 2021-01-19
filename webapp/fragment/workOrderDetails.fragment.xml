@@ -136,10 +136,10 @@
 				</IconTabFilter>
 				<IconTabFilter text="{i18n>SPARE_PARTS}">
 					<OverflowToolbar class="sapMToolBarBottomBorderClass sapUiTinyMarginBottom">
-						<HBox>
-							<CheckBox editable="false" class="sapMReorderChkBox"/>
-							<Text text="{i18n>RECORDS_NEEDED}" class="sapUiTinyMarginTop"/>
-						</HBox>
+						<!--<HBox>-->
+						<!--	<CheckBox editable="false" class="sapMReorderChkBox"/>-->
+						<!--	<Text text="{i18n>RECORDS_NEEDED}" class="sapUiTinyMarginTop"/>-->
+						<!--</HBox>-->
 						<ToolbarSpacer/>
 						<Button text="{i18n>ADD_EMP_PART}" press="onAddEmptySparePart" class="sapMBtnBlueColor" tooltip="{i18n>ADD_EMP_SP}" type="Emphasized"
 							icon="sap-icon://add" iconFirst="true"
@@ -285,37 +285,37 @@
 					<!--<OverflowToolbar class="sapMToolBarBottomBorderClass sapUiTinyMarginBottom">-->
 						
 					<!--</OverflowToolbar>-->
-					<ui:Table rows="{oWorkOrderDetailViewModel>/CostTBl}" enableSelectAll="false" selectionMode="None" visibleRowCount="5"
+					<ui:Table rows="{path:'oWorkOrderDetailViewModel>/CostTBl'}" enableSelectAll="false" selectionMode="None" visibleRowCount="5"
 						class="tableHeaderBg tableCellNoBorder TableHeaderWhiteBG" id="IMO_COST_OVERVIEWTAB" >
 						<ui:columns>
 							<ui:Column   hAlign="Begin" tooltip="{i18n>VAL_CAT_DESC}">
 								<Label text="{i18n>VAL_CAT_DESC}" class="tableHeaderText"/>
 								<ui:template>
-									<Text text="{oWorkOrderDetailViewModel>CatDesc}" />
+									<Text text="{parts:['oWorkOrderDetailViewModel>CatDesc','oWorkOrderDetailViewModel>CatDesc'],formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnTotalCostClass'}" />
 								</ui:template>
 							</ui:Column>
 							<ui:Column tooltip="{i18n>MAT_EST_COSTC}">
 								<Label text="{i18n>MAT_EST_COST}" class="tableHeaderText"/>
 								<ui:template>
-									<Text text="{oWorkOrderDetailViewModel>EstCost}" />
+									<Text text="{parts:['oWorkOrderDetailViewModel>EstCost','oWorkOrderDetailViewModel>CatDesc'],formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnTotalCostClass'}" />
 								</ui:template>
 							</ui:Column>
 							<ui:Column tooltip="{i18n>MAT_PLAN_COST}">
 								<Label text="{i18n>MAT_PLAN_COST}" class="tableHeaderText"/>
 								<ui:template>
-									<Text text="{oWorkOrderDetailViewModel>PlanCost}" />
+									<Text text="{parts:['oWorkOrderDetailViewModel>PlanCost','oWorkOrderDetailViewModel>CatDesc'],formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnTotalCostClass'}" />
 								</ui:template>
 							</ui:Column>
 							<ui:Column tooltip="{i18n>MAT_ACT_COST}">
 								<Label text="{i18n>MAT_ACT_COST}" class="tableHeaderText"/>
 								<ui:template>
-									<Text text="{oWorkOrderDetailViewModel>ActCost}" />
+									<Text text="{parts:['oWorkOrderDetailViewModel>ActCost','oWorkOrderDetailViewModel>CatDesc'],formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnTotalCostClass'}" />
 								</ui:template>
 							</ui:Column>
 							<ui:Column tooltip="{i18n>MAT_COST_CUR}">
 								<Label text="{i18n>MAT_COST_CUR}" class="tableHeaderText"/>
 								<ui:template>
-									<Text text="{oWorkOrderDetailViewModel>Cur}" />
+									<Text text="{parts:['oWorkOrderDetailViewModel>Cur','oWorkOrderDetailViewModel>CatDesc'],formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnTotalCostClass'}" />
 								</ui:template>
 							</ui:Column>
 						</ui:columns>
@@ -323,7 +323,7 @@
 				</IconTabFilter>
 			</items>
 		</IconTabBar>
-		<Panel expanded="{oWorkOrderDetailViewModel>/enableOperationComment}" expandable="true" class="sapMTextPanelClass" visible="{oWorkOrderDetailViewModel>/visibleOperationComment}">
+		<Panel expanded="{oWorkOrderDetailViewModel>/enableOperationComment}" expandable="true" class="sapMTextPanelClass" visible="{parts: ['oWorkOrderDetailModel>/OrderStatus', 'oWorkOrderDetailViewModel>/visibleOperationComment'], formatter:'com.sap.incture.IMO_PM.formatter.formatter.setWOReleaseFieldsVisible'}">
 			<headerToolbar>
 				<Toolbar>
 					<Text text="{i18n>LONG_TEXT}" class="sapUiMediumMarginBegin sapMCommonBlueColor"></Text>

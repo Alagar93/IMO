@@ -71,6 +71,17 @@
 				<core:Icon src="sap-icon://navigation-right-arrow" class="sapUiTinyMarginBegin iconSize1" color="#96999b"></core:Icon>
 				<Label text="{i18n>WO_NUMBER1}" class="sapUiTinyMarginBegin murphyLabelColor"/>
 				<Text text="{oWorkOrderDetailModel>/Orderid}" class="murphyLabelColor"/>
+				<ToolbarSpacer/>
+				<Text text="{i18n>STATUS} :" class="sapUiSmallMarginBegin panelTextColor1"/>
+				<Text class="panelTextColor"
+					text="{parts:['oWorkOrderDetailModel>/OrderStatus', 'oUserDetailModel>/userRole', 'oUserDetailModel>/woStatus'], formatter:'com.sap.incture.IMO_PM.formatter.formatter.formatWOStatusTxt'}"></Text>
+				<Text text="User Status :" class="sapUiSmallMarginBegin panelTextColor1"/>
+				<ComboBox showSecondaryValues="true" selectedKey="{oWorkOrderDetailModel>/UserStatus}" class="inputRadius inputRadius" width="10%">
+					<core:ListItem key="INIT" additionalText="Initial" text="INIT"/>
+					<core:ListItem key="INPN" additionalText="In Processing" text="INPN"/>
+					<core:ListItem key="HOLD" additionalText="Initial" text="HOLD"/>
+					<core:ListItem key="COMP" additionalText="Completed" text="COMP"/>
+				</ComboBox>
 			</OverflowToolbar>
 			<ScrollContainer height="calc(100vh - 12rem)" vertical="true">
 				<l:Grid class="sapUiSmallMarginTop">

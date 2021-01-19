@@ -140,14 +140,29 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 		return true;
 
 	},
-	fnDisableOperLText:function(orderId){
-		var bFlag=false;
-		if(orderId===""||orderId===undefined){
-			bFlag=true;
+	fnDisableOperLText: function (orderId) {
+		var bFlag = false;
+		if (orderId === "" || orderId === undefined) {
+			bFlag = true;
 		}
 		return bFlag;
 	},
-
+	//Function to hide user Status if undefined
+	fnNotifUserStatus: function (userStatus) {
+		var bVal = userStatus;
+		if (userStatus === undefined || userStatus === "" || userStatus === null) {
+			bVal = "	";
+		}
+		return bVal;
+	},
+	//Function to add style Class to Total Cost Row
+	fnTotalCostClass: function (Value, sCat) {
+		if (sCat === "Total Cost") {
+			this.addStyleClass("cellTextRed");
+		}
+		return Value;
+	},
+	
 	fnDateConversion: function (date, gwdate) {
 		if (date) {
 			var iDate = date.getDate();
@@ -546,7 +561,6 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 		}
 		return oType;
 	},
-	
 
 	//Function set delete icon visible/invisible for upload section
 	setDeleteVisible: function (bVal) {
@@ -614,10 +628,10 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 		return bFlag;
 	},
 	//Function to set PreqItem No
-	setPreqItemNo:function(PreqItemNo){
-		var bVal=PreqItemNo;
-		if(PreqItemNo==="00000"){
-			bVal="";
+	setPreqItemNo: function (PreqItemNo) {
+		var bVal = PreqItemNo;
+		if (PreqItemNo === "00000") {
+			bVal = "";
 			return bVal;
 		}
 		return bVal;

@@ -46,29 +46,41 @@ sap.ui.define([
 					util.resetDetailWOFields(oUserDetailModel, oWorkOrderDetailModel, oWorkOrderDetailViewModel, "CREATE_ORDER", this.oPortalDataModel);
 					//util.setRowItemsforCostOverview(oWorkOrderDetailViewModel);
 					this.fnCreateUpdateBtnTxt("CREATE_ORDER");
+					var workCenter = oWorkOrderDetailModel.getProperty("/MnWkCtr");
+					this.setOrderTypeOperation(oWorkOrderDetailModel, oWorkOrderDetailViewModel, [], workCenter);
 					// this.fnFilterSlectedDamageGroup(); //nischal -- this functionality is removed
 					// this.fnFilterSlectedCauseGroup(); //nischal -- this functionality is removed
 					this.fnFilterCNFOperations(true);
-					var workCenter = oWorkOrderDetailModel.getProperty("/MnWkCtr");
-					this.setOrderTypeOperation(oWorkOrderDetailModel, oWorkOrderDetailViewModel, [], workCenter);
+
 					this.SetinitialOperation();
 					this.getOperationIdLookup();
 				} else if (viewType === "CREATE_REF_WO") {
 					this.fnCreateUpdateBtnTxt("CREATE_ORDER");
 					util.fnEnableCreateWOFields(oWODetailFieldsModel);
+					util.resetDetailWOFields(oUserDetailModel, oWorkOrderDetailModel, oWorkOrderDetailViewModel, "CREATE_ORDER", this.oPortalDataModel);
 					this.getOperationIdLookup();
-					this.fnFilterSlectedDamageGroup();
-					this.fnFilterSlectedCauseGroup();
+					//this.fnFilterSlectedDamageGroup();
+					//this.fnFilterSlectedCauseGroup();
+
+					var workCenter = oWorkOrderDetailModel.getProperty("/MnWkCtr");
+					this.setOrderTypeOperation(oWorkOrderDetailModel, oWorkOrderDetailViewModel, [], workCenter);
 					this.fnFilterCNFOperations(true);
+					this.SetinitialOperation();
 					/*	var mLookupModel = this.mLookupModel;
 					var oSelectedWODetails = mLookupModel.getProperty("/oSelectedWODetails");
 					oWorkOrderDetailModel.setProperty("/systemstatustext", oSelectedWODetails.SysStatusDes);//new 
 */
 				} else if (viewType === "CREATE_NOTIF_WO") {
 					this.fnCreateUpdateBtnTxt("CREATE_ORDER");
-					this.fnFilterSlectedDamageGroup();
-					this.fnFilterSlectedCauseGroup();
+
+					//this.fnFilterSlectedDamageGroup();
+					//this.fnFilterSlectedCauseGroup();
+
+					var workCenter = oWorkOrderDetailModel.getProperty("/MnWkCtr");
+					this.setOrderTypeOperation(oWorkOrderDetailModel, oWorkOrderDetailViewModel, [], workCenter);
 					this.fnFilterCNFOperations(true);
+					this.SetinitialOperation();
+					this.getOperationIdLookup();
 				} else {
 					util.initializeWODetailFields(oWorkOrderDetailModel, oWorkOrderDetailViewModel);
 					util.resetDetailWOFields(oUserDetailModel, oWorkOrderDetailModel, oWorkOrderDetailViewModel, "VIEW_WO");
@@ -80,7 +92,7 @@ sap.ui.define([
 				var oViewType = oEvent.getParameter("arguments").workOrderID;
 				util.initializeWODetailFields(oWorkOrderDetailModel, oWorkOrderDetailViewModel);
 				util.resetDetailWOFields(oUserDetailModel, oWorkOrderDetailModel, oWorkOrderDetailViewModel, "VIEW_WO");
-				
+
 				this.fnCreateUpdateBtnTxt("UPDATE_ORDER");
 				this.getWODetails(oViewType);
 				// var sBreakDown = oWorkOrderDetailModel.getProperty("/Breakdown");
@@ -184,6 +196,7 @@ sap.ui.define([
 				oOpertionDetails.MatlGroup = "01";
 				oOpertionDetails.PriceUnit = "1";
 				oOpertionDetails.PurGroup = "001";
+				oOpertionDetails.CostElement = "417000";
 				//oOpertionDetails.PurchOrg = "0001";
 				oOpertionDetails.Recipient = "Vijay";
 				oOpertionDetails.Requisitioner = "Vijay";
@@ -274,6 +287,7 @@ sap.ui.define([
 						oComponentDetails.PriceUnit = "1";
 						oComponentDetails.PurchGrp = "001";
 						oComponentDetails.PurchOrg = "0001";
+						oComponentDetails.GlAccount = "416100";
 						oComponentDetails.Recipient = "Vijay";
 						oComponentDetails.Requisitioner = "Vijay";
 						oWorkOrderDetailViewModel.setProperty("/oComponentDetails", oComponentDetails);
@@ -293,6 +307,7 @@ sap.ui.define([
 									oComponentDetails.PriceUnit = "1";
 									oComponentDetails.PurchGrp = "001";
 									oComponentDetails.PurchOrg = "0001";
+									oComponentDetails.GlAccount = "416100";
 									oComponentDetails.Recipient = "Vijay";
 									oComponentDetails.Requisitioner = "Vijay";
 									oWorkOrderDetailViewModel.setProperty("/oComponentDetails", oComponentDetails);
@@ -645,7 +660,7 @@ sap.ui.define([
 		setVisibleOperationComment: function (oEvent) {
 			var oWorkOrderDetailViewModel = this.oWorkOrderDetailViewModel;
 			var selectedTab = oEvent.getParameters().item.getText();
-			if (selectedTab === "Spare Parts"||selectedTab==="Cost Overview") {
+			if (selectedTab === "Spare Parts" || selectedTab === "Cost Overview") {
 				oWorkOrderDetailViewModel.setProperty("/visibleOperationComment", false);
 			} else {
 				oWorkOrderDetailViewModel.setProperty("/visibleOperationComment", true);
@@ -717,7 +732,7 @@ sap.ui.define([
 			var oSource = oEvent.getSource();
 			var oBtnType = oSource.getCustomData()[0].getValue();
 			var AssignedTo = this.oWorkOrderDetailViewModel.getProperty("/HEADERTOPARTNERNAV/0/AssignedTo");
-			this.oWorkOrderDetailModel.setProperty("/HEADERTOPARTNERNAV/0/AssignedTo", AssignedTo)
+			this.oWorkOrderDetailModel.setProperty("/HEADERTOPARTNERNAV/0/AssignedTo", AssignedTo);
 			switch (oBtnType) {
 			case "WO_DETAIL_CREATE_NOTIF":
 				var oWorkOrderDetailModel = this.oWorkOrderDetailModel;
@@ -890,6 +905,7 @@ sap.ui.define([
 						var sNotifId = oNotificationId.toString();
 						if (oNotificationId) {
 							oNotifDetails[0].NotifNo = sNotifId;
+							oNotifDetails[0].LongText = "";
 							oWorkOrderDetailModel.setProperty("/HEADERTONOTIFNAV", oNotifDetails);
 							woCreateNavType = "WO_DETAIL_CREATE";
 							that.onCreateUpdateWO(woCreateNavType);
@@ -976,6 +992,13 @@ sap.ui.define([
 				delete oWorkOrderData.SetOrderStatus;
 				operations = this.fnDeleteOperationsFields(operations);
 				oWorkOrderData.HEADERTOOPERATIONSNAV = operations;
+				var oNotifs = oWorkOrderData.HEADERTONOTIFNAV;
+				if (oNotifs) {
+					for (var i = 0; i < oNotifs.length; i++) {
+						oNotifs[i].LongText = "";
+					}
+				}
+
 			} else if (woCreateNavType === "WO_DETAIL_UPDATE" || woCreateNavType === "WO_DETAIL_UPDATE_EXIT") {
 				// operations = this.fnDeleteOperationsFields(operations); //nischal--MyWork field should not be deleted 
 				oWorkOrderData.HEADERTOOPERATIONSNAV = operations;
@@ -1745,8 +1768,8 @@ sap.ui.define([
 		onDeleteSelectedOperations: function () {
 			var oWorkOrderDetailModel = this.oWorkOrderDetailModel;
 			var oWorkOrderDetailViewModel = this.oWorkOrderDetailViewModel;
-			
-			var opertionTableFrag=this.getView().createId("idOperationsMaterialPanelWO");
+
+			var opertionTableFrag = this.getView().createId("idOperationsMaterialPanelWO");
 			var operationsTbl = sap.ui.core.Fragment.byId(opertionTableFrag, "MYLAN_OPERATIONS_TABLE");
 			var operations = oWorkOrderDetailModel.getProperty("/HEADERTOOPERATIONSNAV");
 			var selectedOps = oWorkOrderDetailViewModel.getProperty("/selectedOps");
@@ -2144,9 +2167,9 @@ sap.ui.define([
 		onDeleteSpareParts: function () {
 			var oWorkOrderDetailViewModel = this.oWorkOrderDetailViewModel;
 			var oWorkOrderDetailModel = this.oWorkOrderDetailModel;
-			var opertionTableFrag=this.getView().createId("idOperationsMaterialPanelWO");
+			var opertionTableFrag = this.getView().createId("idOperationsMaterialPanelWO");
 			var sparePartTbl = sap.ui.core.Fragment.byId(opertionTableFrag, "MYLAN_OP_SPARE_PART_TBL");
-			
+
 			var selectedSpareParts = oWorkOrderDetailViewModel.getProperty("/selectedSpareParts");
 			var spareParts = oWorkOrderDetailModel.getProperty("/HEADERTOCOMPONENTNAV");
 			var copySpareParts = jQuery.extend(true, [], spareParts);
@@ -2954,6 +2977,10 @@ sap.ui.define([
 					that.fnClearTblSelection();
 					that.onCloseIssueReturnSparesPopUp();
 					that.showMessage(message);
+					//To trigger update on Issue parts
+					var AssignedTo = that.oWorkOrderDetailViewModel.getProperty("/HEADERTOPARTNERNAV/0/AssignedTo");
+					that.oWorkOrderDetailModel.setProperty("/HEADERTOPARTNERNAV/0/AssignedTo", AssignedTo);
+					that.fnMandateUiFields("WO_DETAIL_UPDATE");
 					that.busy.close();
 				},
 				error: function (oData) {
@@ -3498,8 +3525,8 @@ sap.ui.define([
 			}
 
 			// var operationsTable = this.getView().byId("MYLAN_OPERATIONS_TABLE");
-			var opertionTableFrag=this.getView().createId("idOperationsMaterialPanelWO");
-			var opertionTbl=sap.ui.core.Fragment.byId(opertionTableFrag, "MYLAN_OPERATIONS_TABLE");
+			var opertionTableFrag = this.getView().createId("idOperationsMaterialPanelWO");
+			var opertionTbl = sap.ui.core.Fragment.byId(opertionTableFrag, "MYLAN_OPERATIONS_TABLE");
 			var binding = opertionTbl.getBinding("rows");
 			binding.filter(aFilters, "Application");
 			oWorkOrderDetailViewModel.setProperty("/switchTooltip", tooltip);
