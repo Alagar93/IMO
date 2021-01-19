@@ -27,16 +27,15 @@ sap.ui.define([
 				that.routePatternMatched(oEvent);
 			});
 
-			
 		},
 
 		routePatternMatched: function (oEvent) {
 			this.resetCreateWOfields();
 		},
 		//Function to reset Create WO fields
-		resetCreateWOfields:function(){
-			
-			var oViewSetting = {
+		resetCreateWOfields: function () {
+
+			var oViewSettings = {
 				"iSelectedIndex": 0, // 0-Create 1-Create by ref 2-Create by notif
 				"sOrderTypeSel": "",
 				"sEquip": "",
@@ -82,7 +81,12 @@ sap.ui.define([
 				}],
 				"sUnAssignedWOFlag": false
 			};
-			this.mLookupModel.setProperty("/", oViewSetting);
+			
+			
+			this.getWOPriorities();
+			this.getWorkCentersCreateWO();
+			this.getFavEquips();
+			this.mLookupModel.setProperty("/", oViewSettings);
 		},
 
 		//Function to get Equipment List and show in a pop-up
@@ -520,9 +524,25 @@ sap.ui.define([
 			var mLookupModel = this.mLookupModel;
 			var iSelectedIndex = mLookupModel.getProperty("/iSelectedIndex");
 			var iTop = mLookupModel.getProperty("/iTop");
+			if(!iTop){
+				iTop=50;
+				mLookupModel.setProperty("/iTop",iTop);
+			}
 			var iSkip = mLookupModel.getProperty("/iSkip");
+			if(!iSkip){
+				iSkip=0;
+				mLookupModel.setProperty("/iSkip",iSkip);
+			}
 			var iTopNotif = mLookupModel.getProperty("/iTopNotif");
+			if(!iTopNotif){
+				iTopNotif=50;
+				mLookupModel.setProperty("/iTopNotif",iTopNotif);
+			}
 			var iSkipNotif = mLookupModel.getProperty("/iSkipNotif");
+			if(!iSkipNotif){
+				iSkipNotif=0;
+				mLookupModel.setProperty("/iSkipNotif",iSkipNotif);
+			}
 			var oPortalDataModel = this.oPortalDataModel;
 			var userPlant = this.oUserDetailModel.getProperty("/userPlant");
 			var oFilter = [];
@@ -583,6 +603,25 @@ sap.ui.define([
 				var aNotificationListSet = mLookupModel.getProperty("/aNotificationListSet");
 				this.busy.open();
 				sUrl = "/NotificationListSet";
+				var sCreatedOnStart = mLookupModel.getProperty("/sCreatedOnStart");
+				if (!sCreatedOnStart) {
+					sCreatedOnStart = formatter.GetMonthsBackDate(90);
+					sCreatedOnStart = new Date(sCreatedOnStart + " " + new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds());
+				} else {
+					sCreatedOnStart = new Date(sCreatedOnStart + " " + new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds());
+				}
+				var sCreatedOnEnd = mLookupModel.getProperty("/sCreatedOnEnd");
+				if (!sCreatedOnEnd) {
+					sCreatedOnEnd = new Date();
+				} else {
+					sCreatedOnEnd = new Date(sCreatedOnEnd + " " + new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds());
+				}
+				oFilter.push(new Filter({
+					filters: [new Filter("CreatedOn", "GE", formatter.fnDatewithTimezoneoffset(sCreatedOnStart)),
+						new Filter("CreatedOn", "LE", formatter.fnDatewithTimezoneoffset(sCreatedOnEnd))
+					],
+					and: true
+				}));
 				oFilter.push(new Filter("Descriptn", "EQ", mLookupModel.getProperty("/sNotifIDDesFilter")));
 				oFilter.push(new Filter("SysStatus", "EQ", mLookupModel.getProperty("/sNotifStatusFilter")));
 				oFilter.push(new Filter("NotifNo", "EQ", mLookupModel.getProperty("/sNotifIdFilter")));
@@ -590,7 +629,7 @@ sap.ui.define([
 				oFilter.push(new Filter("Bdflag", "EQ", mLookupModel.getProperty("/sNotifBDFilter")));
 				oFilter.push(new Filter("Priority", "EQ", mLookupModel.getProperty("/sNotifPriorFilter")));
 				oFilter.push(new Filter("WorkCntr", "EQ", mLookupModel.getProperty("/sNotifWkCenterFilter")));
-				oFilter.push(new Filter("Userstatus", "EQ", "true")); // using this unused odara property for notifications w/o WO flag
+				oFilter.push(new Filter("Userstatus", "EQ", "")); // using this unused odara property for notifications w/o WO flag
 				oFilter.push(new Filter("plant", "EQ", userPlant));
 
 				oPortalDataModel.read(sUrl, {
@@ -1251,16 +1290,16 @@ sap.ui.define([
 				mLookupModel.setProperty("/iSelectedIndex", 0);
 			} else if (selKey === "createByRef") {
 				mLookupModel.setProperty("/iSelectedIndex", 1);
-			} else if (selKey === "createByRef") {
+			} else if (selKey === "createFromNotif") {
 				mLookupModel.setProperty("/iSelectedIndex", 2);
 			}
 			this.onCreateOptionChange();
 		},
-		createByRefAdvFilterPanelOpen: function(){
+		createByRefAdvFilterPanelOpen: function () {
 			var oNotifWrapPanel = this.byId("filterWrapPanelCreateByRef");
 			oNotifWrapPanel.setExpanded(!oNotifWrapPanel.getExpanded());
 		},
-		createFromNotifAdvFilterPanelOpen: function(){
+		createFromNotifAdvFilterPanelOpen: function () {
 			var oNotifWrapPanel = this.byId("filterWrapPanelCreateFromNotif");
 			oNotifWrapPanel.setExpanded(!oNotifWrapPanel.getExpanded());
 		}

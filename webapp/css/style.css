@@ -5,6 +5,10 @@
 .cellStyleRed {
     border-left: 5px solid red;
 }
+.cellTextRed{
+	color:currentcolor !important;
+	font-weight: bolder !important;
+}
 
 /*.sapUxAPObjectPageLayout-Std-Desktop .sapUxAPObjectPageHeaderContent:only-child {
     padding: 0rem 1rem !important;

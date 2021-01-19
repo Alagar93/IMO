@@ -39,6 +39,17 @@
 				<core:Icon src="sap-icon://navigation-right-arrow" class="sapUiTinyMarginBegin iconSize1" color="#96999b"></core:Icon>
 				<Label text="Notification Number: " class="sapUiTinyMarginBegin murphyLabelColor"/>
 				<Text text="{oNotificationDataModel>/Notifid}" class="murphyLabelColor"/>
+				<ToolbarSpacer/>
+				<Label text="{i18n>NOTIF_STATUS} :" class="sapUiSmallMarginBegin panelTextColor1"></Label>
+				<Text text="{mLookupModel>/SysStatus}"></Text>
+				<Label text="{i18n>USER_STATUS} :" class="sapUiSmallMarginBegin panelTextColor1"></Label>
+				<Text text="{path:'mLookupModel>/Userstatus',formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnNotifUserStatus'}  "></Text>
+				<!--<VBox class="gridPadding">-->
+				<!--		<Input value="{mLookupModel>/SysStatus}" class="inputRadius" width="90%" enabled="false"/>-->
+				<!--	</VBox>-->
+				<!--	<VBox class="gridPadding">-->
+				<!--		<Input value="{mLookupModel>/Userstatus}" class="inputRadius" width="90%" enabled="false"/>-->
+				<!--	</VBox>-->
 			</OverflowToolbar>
 			<ScrollContainer height="calc(100vh - 11.5rem)" vertical="true">
 				<l:Grid defaultSpan="XL3 L3 M6 S12" class="sapUiSmallMargin gridBG" vSpacing="0">
@@ -63,13 +74,10 @@
 					<Label text="{i18n>NOTIF_ID}"></Label>
 					<Input value="{oNotificationDataModel>/Notifid}" class="inputRadius" width="90%" enabled="false"/>
 				</VBox>-->
-					<VBox class="gridPadding">
-						<Label text="{i18n>NOTIF_STATUS}"></Label>
-						<Input value="{mLookupModel>/SysStatus}" class="inputRadius" width="90%" enabled="false"/>
-					</VBox>
-					<VBox class="gridPadding">
-						<Label text="{i18n>USER_STATUS}"></Label>
-						<Input value="{mLookupModel>/Userstatus}" class="inputRadius" width="90%" enabled="false"/>
+					<VBox>
+						<layoutData>
+							<l:GridData span="XL9 L9 M8 S12"/>
+						</layoutData>
 					</VBox>
 					<VBox class="gridPadding">
 						<Label text="{i18n>desc}"></Label>

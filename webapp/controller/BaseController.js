@@ -652,7 +652,7 @@ sap.ui.define([
 			var supplierPartno = oWorkOrderDetailViewModel.getProperty("/supplierPartno");
 			var mfgPartNo = oWorkOrderDetailViewModel.getProperty("/mfgPartNo");
 			var mfgPartDesc = oWorkOrderDetailViewModel.getProperty("/mfgPartDesc");
-			var oSearchTbl=sap.ui.getCore().byId("MYLAN_MATERIALS_SEARCH_TBL");
+			var oSearchTbl = sap.ui.getCore().byId("MYLAN_MATERIALS_SEARCH_TBL");
 			var oFilter = [];
 			if (isFrequent) {
 				oFilter.push(new Filter("IsFrequent", "EQ", "X"));
@@ -693,13 +693,13 @@ sap.ui.define([
 					} else if (!isFrequent && equipId) {
 						oWorkOrderDetailViewModel.setProperty("/prevEquipId", equipId);
 						//oWorkOrderDetailViewModel.setProperty("/aBOMsList", aMaterialsList);
-						
+
 					} else {
 						oWorkOrderDetailViewModel.setProperty("/aSearchMatList", aMaterialsList);
 					}
 					oWorkOrderDetailViewModel.setProperty("/aMaterialsList", aMaterialsList);
-					if(oSearchTbl){
-					sap.ui.getCore().byId("MYLAN_MATERIALS_SEARCH_TBL").clearSelection();
+					if (oSearchTbl) {
+						sap.ui.getCore().byId("MYLAN_MATERIALS_SEARCH_TBL").clearSelection();
 					}
 					oWorkOrderDetailViewModel.refresh();
 					that.busy.close();
@@ -712,31 +712,30 @@ sap.ui.define([
 			});
 		},
 		//Function to Get BOM Table Material in Spare Parts 
-		getBOMTableList:function(){
+		getBOMTableList: function () {
 			var that = this;
 			this.busy.open();
 			var sUrl = "/EquipBOMSet";
 			var oPortalDataModel = this.oPortalDataModel;
 			var oWorkOrderDetailViewModel = this.oWorkOrderDetailViewModel;
-			var oWorkOrderDetailModel=this.oWorkOrderDetailModel;
+			var oWorkOrderDetailModel = this.oWorkOrderDetailModel;
 			var userPlant = this.oUserDetailModel.getProperty("/userPlant");
 			var sEquipId = oWorkOrderDetailModel.getProperty("/Equipment");
-			var oSearchTbl=sap.ui.getCore().byId("MYLAN_MATERIALS_SEARCH_TBL");
-			var oFilter=[];
+			var oSearchTbl = sap.ui.getCore().byId("MYLAN_MATERIALS_SEARCH_TBL");
+			var oFilter = [];
 			oFilter.push(new Filter("plant", "EQ", userPlant));
-			oFilter.push(new Filter("equipId","EQ",sEquipId));
-			oFilter.push(new Filter("bomCategory","EQ","E"));
+			oFilter.push(new Filter("equipId", "EQ", sEquipId));
+			oFilter.push(new Filter("bomCategory", "EQ", "E"));
 			oPortalDataModel.read(sUrl, {
 				filters: oFilter,
 				success: function (oData) {
 					var aMaterialsList = oData.results;
-					
-						oWorkOrderDetailViewModel.setProperty("/prevEquipId", sEquipId);
-						oWorkOrderDetailViewModel.setProperty("/aBOMsList", aMaterialsList);
-						
-					
-					if(oSearchTbl){
-					sap.ui.getCore().byId("MYLAN_MATERIALS_SEARCH_TBL").clearSelection();
+
+					oWorkOrderDetailViewModel.setProperty("/prevEquipId", sEquipId);
+					oWorkOrderDetailViewModel.setProperty("/aBOMsList", aMaterialsList);
+
+					if (oSearchTbl) {
+						sap.ui.getCore().byId("MYLAN_MATERIALS_SEARCH_TBL").clearSelection();
 					}
 					oWorkOrderDetailViewModel.refresh();
 					that.busy.close();
@@ -748,7 +747,6 @@ sap.ui.define([
 				}
 			});
 		},
-		
 
 		//Function to get Equipment list based
 		getEquipmentList: function () {
@@ -975,8 +973,8 @@ sap.ui.define([
 						oData.ReportedBy = userName;
 						oWorkOrderDetailViewModel.setProperty("/HEADERTOPARTNERNAV/0/AssignedTo", userName);
 					}
-					var CostList=oData.HEADERTOCOSTNAV.results;
-					util.setRowItemsforCostOverview(oWorkOrderDetailViewModel,CostList);
+					var CostList = oData.HEADERTOCOSTNAV.results;
+					util.setRowItemsforCostOverview(oWorkOrderDetailViewModel, CostList);
 					oData.HEADERTOOPERATIONSNAV = operationList;
 					oData.HEADERTOCOMPONENTNAV = spareParts;
 					oData.HEADERTOMESSAGENAV = messages;
@@ -992,14 +990,14 @@ sap.ui.define([
 						that.onSearchEquipments(oData.Equipment, true);
 					}
 					//nischal -- starts -- downtime was embedded with additional empty strings
-					if(oData.Downtime){
-					var downTime = parseFloat(oData.Downtime).toFixed(2);
-					oData.Downtime = downTime.toString();
+					if (oData.Downtime) {
+						var downTime = parseFloat(oData.Downtime).toFixed(2);
+						oData.Downtime = downTime.toString();
 					}
-					if(notifications.length === 0){
-						oWorkOrderDetailViewModel.setProperty("/withNotificationCheck",false);
-					}else{
-						oWorkOrderDetailViewModel.setProperty("/withNotificationCheck",true);
+					if (notifications.length === 0) {
+						oWorkOrderDetailViewModel.setProperty("/withNotificationCheck", false);
+					} else {
+						oWorkOrderDetailViewModel.setProperty("/withNotificationCheck", true);
 					}
 					//nischal -- ends
 					oData.MalFunStartTime = formatter.getMalfunctionStTime(oData.MalFunStartTime.ms);
@@ -1184,6 +1182,10 @@ sap.ui.define([
 			this.oPortalUserLoginOData = oPortalUserLoginOData;
 			oPortalUserLoginOData.setSizeLimit(10000);
 			this.getLoggedInUserCreateWO(fromView);
+			this.getOrderType();
+			this.getWOPriorities();
+			this.getWorkCentersCreateWO();
+			this.getFavEquips();
 		},
 		// /*			setAppInitData: function (fromView) {
 		// 			this.getOrderType();
@@ -2034,8 +2036,8 @@ sap.ui.define([
 		//Function to clear Operation and Spare part table selection
 		fnClearTblSelection: function () {
 			var oWorkOrderDetailViewModel = this.oWorkOrderDetailViewModel;
-			var opertionTableFrag=this.getView().createId("idOperationsMaterialPanelWO");
-			var opertionTbl=sap.ui.core.Fragment.byId(opertionTableFrag, "MYLAN_OPERATIONS_TABLE");
+			var opertionTableFrag = this.getView().createId("idOperationsMaterialPanelWO");
+			var opertionTbl = sap.ui.core.Fragment.byId(opertionTableFrag, "MYLAN_OPERATIONS_TABLE");
 			opertionTbl.clearSelection();
 			var componentTbl = sap.ui.core.Fragment.byId(opertionTableFrag, "MYLAN_OP_SPARE_PART_TBL");
 			componentTbl.clearSelection();
@@ -2473,7 +2475,7 @@ sap.ui.define([
 			mLookupModel.setProperty("/bBusyworkcenter", true);
 			var userPlant = this.oUserDetailModel.getProperty("/userPlant");
 			var sWorkCenterSel = mLookupModel.getProperty("/sWorkCenterSel");
-			if(sWorkCenterSel === null) {
+			if (sWorkCenterSel === null) {
 				sWorkCenterSel = "";
 			}
 			var oFilter = [];
@@ -3344,30 +3346,30 @@ sap.ui.define([
 			this.getOwnerComponent().getModel("mLookupModel").refresh(true);
 		},
 		//nischal--
-		setColumnsVisible : function(){
+		setColumnsVisible: function () {
 			var mLookupModel = this.mLookupModel;
-			mLookupModel.setProperty("/snType",true);
-			mLookupModel.setProperty("/snNumber",true);
-			mLookupModel.setProperty("/snDescription",true);
-			mLookupModel.setProperty("/snOrder",true);
-			mLookupModel.setProperty("/snFunctLoc",true);
-			mLookupModel.setProperty("/snFunct_Desc",false);
-			mLookupModel.setProperty("/snEquip",true);
-			mLookupModel.setProperty("/snEquip_Desc",false);
-			mLookupModel.setProperty("/snWrkCtr",true);
-			mLookupModel.setProperty("/snPlanPlant",false);
-			mLookupModel.setProperty("/snTechId",false);
-			mLookupModel.setProperty("/snSysStatus",true);
-			mLookupModel.setProperty("/snUserStatus",false);
-			mLookupModel.setProperty("/snReqStDate",false);
-			mLookupModel.setProperty("/snReqEndDate",false);
-			mLookupModel.setProperty("/snBdFlag",true);
-			mLookupModel.setProperty("/snMalStDate",false);
-			mLookupModel.setProperty("/snMalEndDate",false);
-			mLookupModel.setProperty("/snPriority",true);
-			mLookupModel.setProperty("/snCreatedDate",false);
-			mLookupModel.setProperty("/snCreatedBy",false);
-			mLookupModel.setProperty("/snAction",true);
+			mLookupModel.setProperty("/snType", true);
+			mLookupModel.setProperty("/snNumber", true);
+			mLookupModel.setProperty("/snDescription", true);
+			mLookupModel.setProperty("/snOrder", true);
+			mLookupModel.setProperty("/snFunctLoc", true);
+			mLookupModel.setProperty("/snFunct_Desc", false);
+			mLookupModel.setProperty("/snEquip", true);
+			mLookupModel.setProperty("/snEquip_Desc", false);
+			mLookupModel.setProperty("/snWrkCtr", true);
+			mLookupModel.setProperty("/snPlanPlant", false);
+			mLookupModel.setProperty("/snTechId", false);
+			mLookupModel.setProperty("/snSysStatus", true);
+			mLookupModel.setProperty("/snUserStatus", false);
+			mLookupModel.setProperty("/snReqStDate", false);
+			mLookupModel.setProperty("/snReqEndDate", false);
+			mLookupModel.setProperty("/snBdFlag", true);
+			mLookupModel.setProperty("/snMalStDate", false);
+			mLookupModel.setProperty("/snMalEndDate", false);
+			mLookupModel.setProperty("/snPriority", true);
+			mLookupModel.setProperty("/snCreatedDate", false);
+			mLookupModel.setProperty("/snCreatedBy", false);
+			mLookupModel.setProperty("/snAction", true);
 		}
 
 	});

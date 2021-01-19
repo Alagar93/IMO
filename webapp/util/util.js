@@ -1940,7 +1940,7 @@ com.sap.incture.IMO_PM.util.util = {
 			"FunctLoc": sFunctLoc,
 			"ItemKey": "0001",
 			"ItemSortNo": "0001",
-			"Longtext": sShortText,
+			"Longtext": "",
 			"NotifType": sNotifType,
 			"Notif_date": sNotifDate,
 			"Notifid": "",

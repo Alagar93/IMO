@@ -238,7 +238,7 @@
 								<table:Column sortProperty="ShortText" filterProperty="ShortText" width="9rem">
 									<Text wrapping="true" text="{i18n>notifDes}" class="tableHeaderText"/>
 									<table:template>
-										<Text text="{mLookupModel>ShortText}" class="tableContentText"></Text>
+										<Text text="{mLookupModel>Descriptn}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
 								<table:Column sortProperty="WorkCntr" filterProperty="WorkCntr" width="8rem">
@@ -294,13 +294,13 @@
 								<table:Column sortProperty="Bdflag" filterProperty="Bdflag" width="6.5rem">
 									<Text wrapping="true" text="{i18n>BdownFlag}" class="tableHeaderText"/>
 									<table:template>
-										<Text text="{mLookupModel>Bdflag}" class="tableContentText"></Text>
+										<Text text="{mLookupModel>Breakdown}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
 								<table:Column sortProperty="PriorityDesNotif" width="5rem" filterProperty="PriorityDesNotif">
 									<Text wrapping="true" text="{i18n>prior}" class="tableHeaderText"/>
 									<table:template>
-										<Text text="{path:'mLookupModel>PriorityDesNotif',formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnPriorityConversion'}"
+										<Text text="{path:'mLookupModel>PriorityDesNotif'}"
 											class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
