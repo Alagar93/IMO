@@ -592,6 +592,7 @@ sap.ui.define([
 							if (value.EnterDate) {
 								value.EnterDateString = that.fnDateConversion(value.EnterDate);
 							}
+							
 						});
 						mLookupModel.setProperty("/aWorkOrderListSet", aWorkOrderListSet);
 						mLookupModel.setProperty("/iDisplayedWOCount", aWorkOrderListSet.length);
@@ -659,6 +660,14 @@ sap.ui.define([
 							if (value.Reqenddate) {
 								value.ReqenddateString = that.fnDateSeperator(value.Reqenddate);
 							}
+							//nischal - starts
+							if (value.Strmlfndate) {
+								value.Strmlfndate = that.fnGetMalfunDate(value.Strmlfndate);
+							}
+							if (value.Endmlfndate) {
+								value.Endmlfndate = that.fnGetMalfunDate(value.Endmlfndate);
+							}
+							//nischal -- ends
 						});
 						mLookupModel.setProperty("/aNotificationListSet", aNotificationListSet);
 						mLookupModel.setProperty("/iDisplayedNotifCount", aNotificationListSet.length);
@@ -1345,7 +1354,7 @@ sap.ui.define([
 				sReqStart: false,
 				sReqEnd: false,
 				sBdFlag: false,
-				sPriority : false,
+				sPriority: false,
 				sCreatedDate: false,
 				sPlan: false,
 				sPackage: false,
@@ -1373,7 +1382,7 @@ sap.ui.define([
 				sReqStart: true,
 				sReqEnd: true,
 				sBdFlag: true,
-				sPriority : true,
+				sPriority: true,
 				sCreatedDate: true,
 				sPlan: true,
 				sPackage: true,
@@ -1381,6 +1390,14 @@ sap.ui.define([
 			};
 			mLookupModel.setProperty("/oRefWOColumnVisible", oTempObj);
 			mLookupModel.refresh();
+		},
+		//nischal 
+		fnGetMalfunDate: function (oDate) {
+			var dd = oDate.getDate();
+			var mm = oDate.getMonth() + 1;
+			var yy = oDate.getFullYear();
+			var sDate = dd + "-" + mm + "-" + yy;
+			return sDate;
 		}
 	});
 });

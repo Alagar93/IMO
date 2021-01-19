@@ -265,28 +265,41 @@
 								</Panel>
 							</table:extension>
 							<table:columns>
+								<table:Column sortProperty="NotifType" filterProperty="NotifType" width="3rem">
+									<Text wrapping="true" text="{i18n>notif_Type}" class="tableHeaderText"/>
+									<table:template>
+										<!--<Text text="{mLookupModel>NotifNo}" class="tableContentText"></Text>-->
+										<Text text="{mLookupModel>NotifType}"/>
+									</table:template>
+								</table:Column>
 								<table:Column sortProperty="NotifNo" filterProperty="NotifNo" width="6rem">
-									<Text wrapping="true" text="{i18n>notifID}" class="tableHeaderText"/>
+									<Text wrapping="true" text="{i18n>notif_Number}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{mLookupModel>NotifNo}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column sortProperty="ShortText" filterProperty="ShortText" width="9rem">
-									<Text wrapping="true" text="{i18n>notifDes}" class="tableHeaderText"/>
+								<table:Column sortProperty="ShortText" filterProperty="ShortText" width="14rem">
+									<Text wrapping="true" text="{i18n>notif_Description}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{mLookupModel>Descriptn}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column sortProperty="WorkCntr" filterProperty="WorkCntr" width="8rem">
-									<Text wrapping="true" text="{i18n>mainWC}" class="tableHeaderText"/>
-									<table:template>
-										<Text text="{mLookupModel>WorkCntr}" class="tableContentText"></Text>
-									</table:template>
-								</table:Column>
 								<table:Column sortProperty="Orderid" filterProperty="Orderid" width="5rem">
-									<Text wrapping="true" text="{i18n>WONum}" class="tableHeaderText"/>
+									<Text wrapping="true" text="{i18n>wo_Num}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{mLookupModel>Orderid}" class="tableContentText"></Text>
+									</table:template>
+								</table:Column>
+								<table:Column sortProperty="FunctLoc" filterProperty="FunctLoc" width="12rem">
+									<Text wrapping="true" text="{i18n>functLoc}" class="tableHeaderText"/>
+									<table:template>
+										<Text text="{mLookupModel>FunctLoc}" class="tableContentText"></Text>
+									</table:template>
+								</table:Column>
+								<table:Column sortProperty="Funcldescr" filterProperty="Funcldescr" width="12rem">
+									<Text wrapping="true" text="{i18n>funct_Desc}" class="tableHeaderText"/>
+									<table:template>
+										<Text text="{mLookupModel>Funcldescr}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
 								<table:Column sortProperty="Equipment" filterProperty="Equipment" width="6rem">
@@ -295,31 +308,49 @@
 										<Text text="{mLookupModel>Equipment}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column sortProperty="TechId" filterProperty="TechId" width="6rem">
-									<Text wrapping="true" text="{i18n>techID}" class="tableHeaderText"/>
-									<table:template>
-										<Text text="{mLookupModel>TechId}" class="tableContentText"></Text>
-									</table:template>
-								</table:Column>
 								<table:Column sortProperty="Equidescr" filterProperty="Equidescr" width="9rem">
 									<Text wrapping="true" text="{i18n>EqDes}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{mLookupModel>Equidescr}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
+								<table:Column sortProperty="WorkCntr" filterProperty="WorkCntr" width="8rem">
+									<Text wrapping="true" text="{i18n>mainWC}" class="tableHeaderText"/>
+									<table:template>
+										<Text text="{mLookupModel>WorkCntr}" class="tableContentText"></Text>
+									</table:template>
+								</table:Column>
+								<table:Column sortProperty="Planplant" filterProperty="Planplant" width="6rem">
+									<Text wrapping="true" text="{i18n>plan_plant}" class="tableHeaderText"/>
+									<table:template>
+										<Text text="{mLookupModel>Planplant}" class="tableContentText"></Text>
+									</table:template>
+								</table:Column>
+								<table:Column sortProperty="TechId" filterProperty="TechId" width="6rem">
+									<Text wrapping="true" text="{i18n>techID}" class="tableHeaderText"/>
+									<table:template>
+										<Text text="{mLookupModel>TechId}" class="tableContentText"></Text>
+									</table:template>
+								</table:Column>
 								<table:Column sortProperty="SysStatus" filterProperty="SysStatus" width="7rem">
-									<Text wrapping="true" text="{i18n>notifStatus}" class="tableHeaderText"/>
+									<Text wrapping="true" text="{i18n>sys_status}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{mLookupModel>SysStatus}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column sortProperty="ReqstartdateString" filterProperty="ReqstartdateString" width="7rem">
+								<table:Column sortProperty="Userstatus" filterProperty="Userstatus" width="6rem">
+									<Text wrapping="true" text="{i18n>user_status}" class="tableHeaderText"/>
+									<table:template>
+										<Text text="{mLookupModel>Userstatus}" class="tableContentText"></Text>
+									</table:template>
+								</table:Column>
+								<table:Column sortProperty="ReqstartdateString" filterProperty="ReqstartdateString" width="5rem">
 									<Text wrapping="true" text="{i18n>reqStart}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{path:'mLookupModel>ReqstartdateString'}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column sortProperty="ReqenddateString" filterProperty="ReqenddateString" width="7rem">
+								<table:Column sortProperty="ReqenddateString" filterProperty="ReqenddateString" width="5rem">
 									<Text wrapping="true" text="{i18n>reqFinish}" class="tableHeaderText"/>
 									<table:template>
 										<!--<Text text="{path:'mLookupModel>Reqenddate',formatter:'com.mylan.createWorkOrder.formatter.formatter.fnDateSeperator'}"-->
@@ -333,6 +364,18 @@
 										<Text text="{mLookupModel>Breakdown}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
+								<table:Column width="6rem">
+									<Text wrapping="true" text="{i18n>malfun_Start}" class="tableHeaderText"/>
+									<table:template>
+										<Text text="{path:'mLookupModel>Strmlfndate'}" class="tableContentText"></Text>
+									</table:template>
+								</table:Column>
+								<table:Column width="6rem">
+									<Text wrapping="true" text="{i18n>malfun_end}" class="tableHeaderText"/>
+									<table:template>
+										<Text text="{path:'mLookupModel>Endmlfndate'}" class="tableContentText"></Text>
+									</table:template>
+								</table:Column>
 								<table:Column sortProperty="PriorityDesNotif" width="5rem" filterProperty="PriorityDesNotif">
 									<Text wrapping="true" text="{i18n>prior}" class="tableHeaderText"/>
 									<table:template>
@@ -343,6 +386,12 @@
 									<Text wrapping="true" text="{i18n>createdDate}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{path:'mLookupModel>CreatedOnString'}" class="tableContentText"></Text>
+									</table:template>
+								</table:Column>
+								<table:Column sortProperty="CreatedBy" filterProperty="CreatedBy" width="6rem" visible="{mLookupModel>/snCreatedBy}">
+									<Text wrapping="true" text="{i18n>createdby}" class="tableHeaderText"/>
+									<table:template>
+										<Text text="{mLookupModel>CreatedBy}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
 							</table:columns>
