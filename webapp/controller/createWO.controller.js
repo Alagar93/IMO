@@ -81,12 +81,11 @@ sap.ui.define([
 				}],
 				"sUnAssignedWOFlag": false
 			};
-			
-			
+			this.mLookupModel.setProperty("/", oViewSettings);
+			this.getOrderType();
 			this.getWOPriorities();
 			this.getWorkCentersCreateWO();
 			this.getFavEquips();
-			this.mLookupModel.setProperty("/", oViewSettings);
 		},
 
 		//Function to get Equipment List and show in a pop-up
@@ -524,24 +523,24 @@ sap.ui.define([
 			var mLookupModel = this.mLookupModel;
 			var iSelectedIndex = mLookupModel.getProperty("/iSelectedIndex");
 			var iTop = mLookupModel.getProperty("/iTop");
-			if(!iTop){
-				iTop=50;
-				mLookupModel.setProperty("/iTop",iTop);
+			if (!iTop) {
+				iTop = 50;
+				mLookupModel.setProperty("/iTop", iTop);
 			}
 			var iSkip = mLookupModel.getProperty("/iSkip");
-			if(!iSkip){
-				iSkip=0;
-				mLookupModel.setProperty("/iSkip",iSkip);
+			if (!iSkip) {
+				iSkip = 0;
+				mLookupModel.setProperty("/iSkip", iSkip);
 			}
 			var iTopNotif = mLookupModel.getProperty("/iTopNotif");
-			if(!iTopNotif){
-				iTopNotif=50;
-				mLookupModel.setProperty("/iTopNotif",iTopNotif);
+			if (!iTopNotif) {
+				iTopNotif = 50;
+				mLookupModel.setProperty("/iTopNotif", iTopNotif);
 			}
 			var iSkipNotif = mLookupModel.getProperty("/iSkipNotif");
-			if(!iSkipNotif){
-				iSkipNotif=0;
-				mLookupModel.setProperty("/iSkipNotif",iSkipNotif);
+			if (!iSkipNotif) {
+				iSkipNotif = 0;
+				mLookupModel.setProperty("/iSkipNotif", iSkipNotif);
 			}
 			var oPortalDataModel = this.oPortalDataModel;
 			var userPlant = this.oUserDetailModel.getProperty("/userPlant");
