@@ -27,11 +27,11 @@
     color: black;
     font-weight: bold;
 }
-
+/*
 .styleTextBlue {
     color: #316FA8;
 }
-
+*/
 /*.tableHeaderText {
     font-weight: bold;
     font-size: 13px;
@@ -41,10 +41,10 @@
 .tableContentText {
     font-size: 12px !important;
 }
-
+/*
 .StyleCollapseExpand .sapMBtnContent {
     color: #316FA8;
-}
+}*/
 
 
 /*.sapMIBar .sapMBtnInner {*/
@@ -57,11 +57,11 @@
 
 
 /*}*/
-
+/*
 .cellStyleGreen {
     border-left: 5px solid Green;
 }
-
+*/
 
 /*.styleFCstyleFC {}*/
 
@@ -236,14 +236,14 @@
     color: #666666;
     font-weight: bold;
 }
-
+/*
 .styleTextBlue {
     color: #316FA8;
 }
 
 .styleTextBlue.sapMCb .sapMLabel {
     color: #316FA8;
-}
+}*/
 
 .positionButLeft {
     margin-right: 8rem !important;
@@ -340,7 +340,7 @@ html:not([data-sap-ui-browser^="ie"]):not([data-sap-ui-browser^="ed"]) .sapUiIco
     border: 1px solid #efecec;
     border-bottom: 0;
 }
-
+/*
 .styleTextBlue {
     color: #316FA8;
 }
@@ -348,7 +348,7 @@ html:not([data-sap-ui-browser^="ie"]):not([data-sap-ui-browser^="ed"]) .sapUiIco
 .styleTextBlue.sapMCb .sapMLabel {
     color: #316FA8;
 }
-
+*/
 .woHeaderClass {
     background-color: #377295;
 }
@@ -540,7 +540,7 @@ html:not([data-sap-ui-browser^="ie"]):not([data-sap-ui-browser^="ed"]) .sapUiIco
 .myClass.sapMRbSel .sapMRbBLabel {
     color: #354a5f;
 }
-
+/*
 .styleTextBlue {
     color: #316FA8;
 }
@@ -548,7 +548,7 @@ html:not([data-sap-ui-browser^="ie"]):not([data-sap-ui-browser^="ed"]) .sapUiIco
 .styleTextBlue.sapMCb .sapMLabel {
     color: #316FA8;
 }
-
+*/
 
 /*.styleListTitle .sapMListTbl .sapMText,
 .sapMListTbl .sapMLabel {
@@ -1223,14 +1223,14 @@ html:not([data-sap-ui-browser^="ie"]):not([data-sap-ui-browser^="ed"]) .sapUiIco
 
 
 /*}*/
-
+/*
 .styleTextBlue {
     color: #316FA8;
 }
 
 .styleTextBlue.sapMCb .sapMLabel {
     color: #316FA8;
-}
+}*/
 
 
 /*kavya*/
