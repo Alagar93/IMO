@@ -35,7 +35,8 @@ sap.ui.define([
 			mLookupModel.setProperty("/sEquip", "");
 			mLookupModel.setProperty("/sFunLoc", "");
 			mLookupModel.setProperty("/sPrior", "");
-			this.setColumnLayout(); //nischal --                 
+			this.setColumnLayout(); //nischal -- 
+			this.setColumnLayoutCreateWithNotif(); //nischal --
 			//this.resetCreateWOfields();
 		},
 		//Function to reset Create WO fields
@@ -1398,6 +1399,78 @@ sap.ui.define([
 			var yy = oDate.getFullYear();
 			var sDate = dd + "-" + mm + "-" + yy;
 			return sDate;
+		},
+		//nischal
+		onPressColAdd: function (oEvent) {
+			if (!this.addRemColDialog) {
+				this.addRemColDialog = sap.ui.xmlfragment("com.sap.incture.IMO_PM.fragment.addRemColCreateFromNotif", this);
+				this.getView().addDependent(this.addRemColDialog);
+			}
+			this.addRemColDialog.open();
+		},
+		//nischal
+		onCloseColAdd: function (oEvent) {
+			this.addRemColDialog.close();
+			this.addRemColDialog.destroy();
+			this.addRemColDialog = null;
+		},
+		//nischal
+		setColumnLayoutCreateWithNotif: function(){
+			var mLookupModel = this.mLookupModel;
+			var oTempObj = {
+				sType : true,
+				sNumber : true,
+				sDesc : true,
+				sOrder : true,
+				sFunct : true,
+				sFunctLocDesc : false,
+				sEquip : true,
+				sEquipDesc : false,
+				sWrkCtr : true,
+				sPlant : false,
+				sTechId : false,
+				sSysStatus : true,
+				sUserStatus : true,
+				sReqStart : false,
+				sReqFinish : false,
+				sBdFlag : true,
+				sMalFunSt : false,
+				sMalFunEnd : false,
+				sPriority : true,
+				sCreatedDate : false,
+				sCreatedBy : false
+			};
+			mLookupModel.setProperty("/oCreateFromNotifColVisible", oTempObj);
+			mLookupModel.refresh();
+		},
+		//nischal
+		onSelectAllCrtFromNotif: function(){
+			var mLookupModel = this.mLookupModel;
+			var oTempObj = {
+				sType : true,
+				sNumber : true,
+				sDesc : true,
+				sOrder : true,
+				sFunct : true,
+				sFunctLocDesc : true,
+				sEquip : true,
+				sEquipDesc : true,
+				sWrkCtr : true,
+				sPlant : true,
+				sTechId : true,
+				sSysStatus : true,
+				sUserStatus : true,
+				sReqStart : true,
+				sReqFinish : true,
+				sBdFlag : true,
+				sMalFunSt : true,
+				sMalFunEnd : true,
+				sPriority : true,
+				sCreatedDate : true,
+				sCreatedBy : true
+			};
+			mLookupModel.setProperty("/oCreateFromNotifColVisible", oTempObj);
+			mLookupModel.refresh();
 		}
 	});
 });

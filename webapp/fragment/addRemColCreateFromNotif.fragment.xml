@@ -1,0 +1,37 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:layout="sap.ui.layout"
+	xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" class="sapUiSizeCompact">
+	<Dialog title="{}" contentWidth="30%" contentHeight="40%" showHeader="false" verticalScrolling="true" class="sapUiSizeCompact dialogHeader">
+		<Page title="Add or Remove Column" showHeader="true" class="whiteBG">
+			<content>
+				<VBox>
+					<CheckBox text="Type" selected="{mLookupModel>/oCreateFromNotifColVisible/sType}"/>
+					<CheckBox text="Functional Location" selected="{mLookupModel>/oCreateFromNotifColVisible/sFunct}"/>
+					<CheckBox text="FunctLoc Description" selected="{mLookupModel>/oCreateFromNotifColVisible/sFunctLocDesc}"/>
+					<CheckBox text="Equipment Description" selected="{mLookupModel>/oCreateFromNotifColVisible/sEquipDesc}"/>
+					<CheckBox text="WorkCenter" selected="{mLookupModel>/oCreateFromNotifColVisible/sWrkCtr}"/>
+					<CheckBox text="Plant" selected="{mLookupModel>/oCreateFromNotifColVisible/sPlant}"/>
+					<CheckBox text="Tech Id" selected="{mLookupModel>/oCreateFromNotifColVisible/sTechId}"/>
+					<CheckBox text="System Status" selected="{mLookupModel>/oCreateFromNotifColVisible/sSysStatus}"/>
+					<CheckBox text="User Status" selected="{mLookupModel>/oCreateFromNotifColVisible/sUserStatus}"/>
+					<CheckBox text="Required Start" selected="{mLookupModel>/oCreateFromNotifColVisible/sReqStart}"/>
+					<CheckBox text="Required End" selected="{mLookupModel>/oCreateFromNotifColVisible/sReqFinish}"/>
+					<CheckBox text="BD Flag" selected="{mLookupModel>/oCreateFromNotifColVisible/sBdFlag}"/>
+					<CheckBox text="Malfunction Start" selected="{mLookupModel>/oCreateFromNotifColVisible/sMalFunSt}"/>
+					<CheckBox text="Malfunction End" selected="{mLookupModel>/oCreateFromNotifColVisible/sMalFunEnd}"/>
+					<CheckBox text="Priority" selected="{mLookupModel>/oCreateFromNotifColVisible/sPriority}"/>
+					<CheckBox text="Created Date" selected="{mLookupModel>/oCreateFromNotifColVisible/sCreatedDate}"/>
+					<CheckBox text="Created By" selected="{mLookupModel>/oCreateFromNotifColVisible/sCreatedBy}"/>
+					
+				</VBox>
+			</content>
+			<footer>
+				<Toolbar>
+					<Button text="Select All" press="onSelectAllCrtFromNotif" class="transparentBtn createNotifClearBtn" />
+					<Button text="Reset" press="setColumnLayoutCreateWithNotif" class="transparentBtn createNotifClearBtn" />
+					<ToolbarSpacer/>
+					<Button text="Close" press="onCloseColAdd" class="transparentBtn createNotifClearBtn" />
+				</Toolbar>
+			</footer>
+		</Page>
+	</Dialog>
+</core:FragmentDefinition >
