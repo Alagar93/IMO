@@ -47,7 +47,7 @@
 							</FlexBox>
 							<HBox width="100%" class="sapUiTinyMarginBegin" justifyContent="SpaceBetween" alignItems="Center">
 								<Text class="notificationHeaderText" wrapping="true" text="Assigned to me"/>
-								<Text text="{mLookupModel>/notificationsDueCount}" class="formatKPINumber"/>
+								<Text text="{mLookupModel>/assignedtoMeCount}" class="formatKPINumber"/>
 							</HBox>
 						</HBox>
 					</TileContent>
