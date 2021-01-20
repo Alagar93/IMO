@@ -1,0 +1,37 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:layout="sap.ui.layout"
+	xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" class="sapUiSizeCompact">
+	<Dialog title="{}" contentWidth="30%" contentHeight="40%" showHeader="false" verticalScrolling="true" class="sapUiSizeCompact dialogHeader">
+		<Page title="Add or Remove Column" showHeader="true" class="whiteBG">
+			<content>
+				<VBox>
+					<CheckBox text="Type" selected="{mLookupModel>/oRefWOColumnVisible/sType}"/>
+					<CheckBox text="Functional Location" selected="{mLookupModel>/oRefWOColumnVisible/sFunLoc}"/>
+					<CheckBox text="Equipment Description" selected="{mLookupModel>/oRefWOColumnVisible/sEquipDesc}"/>
+					<CheckBox text="Tech Id" selected="{mLookupModel>/oRefWOColumnVisible/sTechId}"/>
+					<CheckBox text="WorkCenter" selected="{mLookupModel>/oRefWOColumnVisible/sWrkCtr}"/>
+					<CheckBox text="Plant" selected="{mLookupModel>/oRefWOColumnVisible/sPlant}"/>
+					<CheckBox text="Assigned Tech" selected="{mLookupModel>/oRefWOColumnVisible/sAssTech}"/>
+					<CheckBox text="System Status" selected="{mLookupModel>/oRefWOColumnVisible/sSysStatus}"/>
+					<CheckBox text="User Status" selected="{mLookupModel>/oRefWOColumnVisible/sUserStatus}"/>
+					<CheckBox text="Required Start" selected="{mLookupModel>/oRefWOColumnVisible/sReqStart}"/>
+					<CheckBox text="Required End" selected="{mLookupModel>/oRefWOColumnVisible/sReqEnd}"/>
+					<CheckBox text="BD Flag" selected="{mLookupModel>/oRefWOColumnVisible/sBdFlag}"/>
+					<CheckBox text="Priority" selected="{mLookupModel>/oRefWOColumnVisible/sPriority}"/>
+					<CheckBox text="Created Date" selected="{mLookupModel>/oRefWOColumnVisible/sCreatedDate}"/>
+					<CheckBox text="Plan" selected="{mLookupModel>/oRefWOColumnVisible/sPlan}"/>
+					<CheckBox text="Package" selected="{mLookupModel>/oRefWOColumnVisible/sPackage}"/>
+					<CheckBox text="Created By" selected="{mLookupModel>/oRefWOColumnVisible/sCreatedBy}"/>
+					
+				</VBox>
+			</content>
+			<footer>
+				<Toolbar>
+					<Button text="Select All" press="onSelectAll" class="transparentBtn createNotifClearBtn" />
+					<Button text="Reset" press="setColumnLayout" class="transparentBtn createNotifClearBtn" />
+					<ToolbarSpacer/>
+					<Button text="Close" press="onCloseColumnAdd" class="transparentBtn createNotifClearBtn" />
+				</Toolbar>
+			</footer>
+		</Page>
+	</Dialog>
+</core:FragmentDefinition >

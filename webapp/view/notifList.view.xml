@@ -193,7 +193,7 @@
 						</table:template>
 					</table:Column>
 					
-					<table:Column sortProperty="WorkCntr" filterProperty="Planplant" width="6rem" visible = "{mLookupModel>/snPlanPlant}">
+					<table:Column sortProperty="Planplant" filterProperty="Planplant" width="6rem" visible = "{mLookupModel>/snPlanPlant}">
 						<Text wrapping="true" text="{i18n>plan_plant}" class="tableHeaderText"/>
 						<table:template>
 							<Text text="{mLookupModel>Planplant}" class="tableContentText"></Text>
