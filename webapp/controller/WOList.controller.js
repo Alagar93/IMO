@@ -514,8 +514,13 @@ sap.ui.define([
 			var that = this;
 			var mLookupModel = this.mLookupModel;
 			var iTop = mLookupModel.getProperty("/iTop");
-
+			if(iTop === null || iTop === undefined){ 
+				iTop = 50; 
+			}
 			var iSkip = mLookupModel.getProperty("/iSkip");
+			if(iSkip === null || iSkip === undefined){
+				iSkip = 0;
+			}
 			var userPlant = mLookupModel.getProperty("/userPlant");
 			var aWorkOrderListSet = mLookupModel.getProperty("/aWorkOrderListSet");
 			var sCreatedOnStart = mLookupModel.getProperty("/sCreatedOnStart"); // Date Range for Enter Date

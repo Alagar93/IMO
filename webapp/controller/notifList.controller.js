@@ -277,45 +277,45 @@ sap.ui.define([
 			var oPortalDataModel = this.oPortalDataModel;
 
 			var sNotifIDDesFilter = mLookupModel.getProperty("/sNotifIDDesFilter");
-			if (!sNotifIDDesFilter) {
+			if (sNotifIDDesFilter === null || sNotifIDDesFilter === undefined) {
 				sNotifIDDesFilter = "";
 			}
 			var sNotifIdFilter = mLookupModel.getProperty("/sNotifIdFilter");
-			if (!sNotifIdFilter) {
+			if (sNotifIdFilter === null || sNotifIdFilter === undefined) {
 				sNotifIdFilter = "";
 			}
 			var sNotifStatusFilter = mLookupModel.getProperty("/sNotifStatusFilter");
-			if (!sNotifStatusFilter) {
+			if (sNotifStatusFilter === null || sNotifStatusFilter === undefined) {
 				sNotifStatusFilter = "";
 			}
 			var sNotifPriorFilter = mLookupModel.getProperty("/sNotifPriorFilter");
-			if (!sNotifPriorFilter) {
+			if (sNotifPriorFilter === null || sNotifPriorFilter === undefined) {
 				sNotifPriorFilter = "";
 			}
 			var sNotifEquipFilter = mLookupModel.getProperty("/sNotifEquipFilter");
-			if (!sNotifEquipFilter) {
+			if (sNotifEquipFilter === null || sNotifEquipFilter === undefined) {
 				sNotifEquipFilter = "";
 			}
 			var sNotifBDFilter = mLookupModel.getProperty("/sNotifBDFilter");
-			if (!sNotifBDFilter) {
+			if (sNotifBDFilter === null || sNotifBDFilter === undefined) {
 				sNotifBDFilter = "";
 			}
 			var sUnAssignedWOFlag = mLookupModel.getProperty("/sUnAssignedWOFlag");
-			if (!sUnAssignedWOFlag) {
+			if (sUnAssignedWOFlag === null || sUnAssignedWOFlag === undefined) {
 				sUnAssignedWOFlag = "";
 			}
 			var sNotifWkCenterFilter = mLookupModel.getProperty("/sNotifWkCenterFilter");
-			if (!sNotifWkCenterFilter) {
+			if (sNotifWkCenterFilter === null || sNotifWkCenterFilter === undefined) {
 				sNotifWkCenterFilter = "";
 			}
 			var sCreatedOnStart = mLookupModel.getProperty("/sCreatedOnStart");
-			if (!sCreatedOnStart) {
+			if (sCreatedOnStart === null || sCreatedOnStart === undefined) {
 				sCreatedOnStart = new Date(null);
 			} else {
 				sCreatedOnStart = new Date(sCreatedOnStart + " " + new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds());
 			}
 			var sCreatedOnEnd = mLookupModel.getProperty("/sCreatedOnEnd");
-			if (!sCreatedOnEnd) {
+			if (sCreatedOnEnd === null || sCreatedOnEnd === undefined) {
 				sCreatedOnEnd = new Date();
 			} else {
 				sCreatedOnEnd = new Date(sCreatedOnEnd + " " + new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds());
