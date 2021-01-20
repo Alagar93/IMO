@@ -442,8 +442,9 @@ sap.ui.define([
 			this.getWorkCentersCreateWO();
 			this.getFavEquips();
 			this.getFnLocs();
+			this.getPlannerGroups();
 			if (fromView === "WK_ORDER_DETAIL") {
-				this.getPlannerGroups();
+				//this.getPlannerGroups();
 				this.getDamageCode();
 				this.getCauseCode();
 				this.getSystemCondition();
