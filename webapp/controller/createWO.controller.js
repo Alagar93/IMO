@@ -30,11 +30,12 @@ sap.ui.define([
 		},
 
 		routePatternMatched: function (oEvent) {
-			var mLookupModel=this.mLookupModel;
-			mLookupModel.setProperty("/sOrderTypeSel","");
-			mLookupModel.setProperty("/sEquip","");
-			mLookupModel.setProperty("/sFunLoc","");
-			mLookupModel.setProperty("/sPrior","");
+			var mLookupModel = this.mLookupModel;
+			mLookupModel.setProperty("/sOrderTypeSel", "");
+			mLookupModel.setProperty("/sEquip", "");
+			mLookupModel.setProperty("/sFunLoc", "");
+			mLookupModel.setProperty("/sPrior", "");
+			this.setColumnLayout(); //nischal --                 
 			//this.resetCreateWOfields();
 		},
 		//Function to reset Create WO fields
@@ -591,6 +592,7 @@ sap.ui.define([
 							if (value.EnterDate) {
 								value.EnterDateString = that.fnDateConversion(value.EnterDate);
 							}
+							
 						});
 						mLookupModel.setProperty("/aWorkOrderListSet", aWorkOrderListSet);
 						mLookupModel.setProperty("/iDisplayedWOCount", aWorkOrderListSet.length);
@@ -658,6 +660,14 @@ sap.ui.define([
 							if (value.Reqenddate) {
 								value.ReqenddateString = that.fnDateSeperator(value.Reqenddate);
 							}
+							//nischal - starts
+							if (value.Strmlfndate) {
+								value.Strmlfndate = that.fnGetMalfunDate(value.Strmlfndate);
+							}
+							if (value.Endmlfndate) {
+								value.Endmlfndate = that.fnGetMalfunDate(value.Endmlfndate);
+							}
+							//nischal -- ends
 						});
 						mLookupModel.setProperty("/aNotificationListSet", aNotificationListSet);
 						mLookupModel.setProperty("/iDisplayedNotifCount", aNotificationListSet.length);
@@ -824,7 +834,7 @@ sap.ui.define([
 			oWorkOrderDetailModel.setProperty("/EquipDesc", oSelectedWODetails.EquipDes);
 			oWorkOrderDetailModel.setProperty("/Plangroup", oSelectedWODetails.Plangroup);
 			oWorkOrderDetailModel.setProperty("/SuperOrder", oSelectedWODetails.Orderid);
-			
+
 			// oWorkOrderDetailModel.setProperty("/SysStatusDes", oSelectedWODetails.SysStatusDes);//new 
 			// oWorkOrderDetailModel.setProperty("/systemstatustext", oSelectedWODetails.SysStatusDes);//new 
 			this.mLookupModel.setProperty("/sCatelogProf", oSelectedWODetails.Rbnr);
@@ -835,9 +845,9 @@ sap.ui.define([
 			this.getEquipsAssmebly(oSelectedWODetails.Equipment);
 			var userPlant = this.oUserDetailModel.getProperty("/userPlant");
 			this.fnSetDateBasedOnPriority(oSelectedWODetails.Priority);
-			var PlanStDate=this.oWorkOrderDetailViewModel.getProperty("/oRequiredStartDate");
+			var PlanStDate = this.oWorkOrderDetailViewModel.getProperty("/oRequiredStartDate");
 			oWorkOrderDetailModel.setProperty("/PlanStartDate", PlanStDate);
-			var PlanEndDate=this.oWorkOrderDetailViewModel.getProperty("/oRequiredEndDate");
+			var PlanEndDate = this.oWorkOrderDetailViewModel.getProperty("/oRequiredEndDate");
 			oWorkOrderDetailModel.setProperty("/PlanEndDate", PlanEndDate);
 			var opsArr = [];
 			for (var i = 0; i < aSelectedOperations.length; i++) {
@@ -1311,6 +1321,83 @@ sap.ui.define([
 		createFromNotifAdvFilterPanelOpen: function () {
 			var oNotifWrapPanel = this.byId("filterWrapPanelCreateFromNotif");
 			oNotifWrapPanel.setExpanded(!oNotifWrapPanel.getExpanded());
+		},
+		//nischal
+		onPressColumnAdd: function (oEvent) {
+			if (!this.addRemoveColumnDialog) {
+				this.addRemoveColumnDialog = sap.ui.xmlfragment("com.sap.incture.IMO_PM.fragment.addRemoveColRef", this);
+				this.getView().addDependent(this.addRemoveColumnDialog);
+			}
+			this.addRemoveColumnDialog.open();
+		},
+		//nischal
+		onCloseColumnAdd: function (oEvent) {
+			this.addRemoveColumnDialog.close();
+			this.addRemoveColumnDialog.destroy();
+			this.addRemoveColumnDialog = null;
+		},
+		setColumnLayout: function () {
+			var mLookupModel = this.mLookupModel;
+			var oTempObj = {
+				sType: true,
+				sOrder: true,
+				sDesc: true,
+				sFunLoc: true,
+				sEquip: true,
+				sEquipDesc: false,
+				sTechId: false,
+				sWrkCtr: true,
+				sPlant: true,
+				sAssTech: false,
+				sSysStatus: true,
+				sUserStatus: false,
+				sReqStart: false,
+				sReqEnd: false,
+				sBdFlag: false,
+				sPriority: false,
+				sCreatedDate: false,
+				sPlan: false,
+				sPackage: false,
+				sCreatedBy: true,
+			};
+			mLookupModel.setProperty("/oRefWOColumnVisible", oTempObj);
+			mLookupModel.refresh();
+		},
+		//nischal --
+		onSelectAll: function () {
+			var mLookupModel = this.mLookupModel;
+			var oTempObj = {
+				sType: true,
+				sOrder: true,
+				sDesc: true,
+				sFunLoc: true,
+				sEquip: true,
+				sEquipDesc: true,
+				sTechId: true,
+				sWrkCtr: true,
+				sPlant: true,
+				sAssTech: true,
+				sSysStatus: true,
+				sUserStatus: true,
+				sReqStart: true,
+				sReqEnd: true,
+				sBdFlag: true,
+				sPriority: true,
+				sCreatedDate: true,
+				sPlan: true,
+				sPackage: true,
+				sCreatedBy: true,
+			};
+			mLookupModel.setProperty("/oRefWOColumnVisible", oTempObj);
+			mLookupModel.refresh();
+		},
+		//nischal 
+		fnGetMalfunDate: function (oDate) {
+			var dd = oDate.getDate();
+			var mm = oDate.getMonth() + 1;
+			var yy = oDate.getFullYear();
+			var sDate = dd + "-" + mm + "-" + yy;
+			return sDate;
 		}
 	});
 });
