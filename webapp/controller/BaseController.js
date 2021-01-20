@@ -116,6 +116,9 @@ sap.ui.define([
 			var oPortalDataModel = this.oPortalDataModel;
 			var userPlant = mLookupModel.getProperty("/userPlant");
 			var sWorkCenterSel = mLookupModel.getProperty("/sWorkCenterSel");
+			if (sWorkCenterSel === undefined || sWorkCenterSel === null) {
+				sWorkCenterSel = "";
+			}
 
 			var oFilter = [];
 			oFilter.push(new Filter("Plant", "EQ", userPlant));
@@ -2476,7 +2479,7 @@ sap.ui.define([
 			mLookupModel.setProperty("/bBusyworkcenter", true);
 			var userPlant = this.oUserDetailModel.getProperty("/userPlant");
 			var sWorkCenterSel = mLookupModel.getProperty("/sWorkCenterSel");
-			if (sWorkCenterSel === null) {
+			if (sWorkCenterSel === null || sWorkCenterSel === undefined) {
 				sWorkCenterSel = "";
 			}
 			var oFilter = [];

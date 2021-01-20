@@ -1,41 +1,45 @@
 <core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:layout="sap.ui.layout"
 	xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" class="sapUiSizeCompact">
-	<Dialog title="{}" contentWidth="30%" contentHeight="40%" showHeader="false" verticalScrolling="true" class="sapUiSizeCompact dialogHeader">
-		<Page title="Add or Remove Column" showHeader="true" class="whiteBG">
-			<content>
-				<VBox>
-					<CheckBox text="Type" selected="{mLookupModel>/oReviewTecoColumnVisible/sType}"/>
-					<CheckBox text="Order" selected="{mLookupModel>/oReviewTecoColumnVisible/sOrderId}"/>
-					<CheckBox text="Functional Location" selected="{mLookupModel>/oReviewTecoColumnVisible/sFunctLoc}"/>
-					<CheckBox text="Equipment" selected="{mLookupModel>/oReviewTecoColumnVisible/sEquip}"/>
-					<CheckBox text="Date" selected="{mLookupModel>/oReviewTecoColumnVisible/sDate}"/>
-					<CheckBox text="Assigned Tech" selected="{mLookupModel>/oReviewTecoColumnVisible/sAssTechName}"/>
-					<CheckBox text="Assembly" selected="{mLookupModel>/oReviewTecoColumnVisible/sAssembly}"/>
-					<CheckBox text="WorkCenter" selected="{mLookupModel>/oReviewTecoColumnVisible/sMnWkCtr}"/>
-					<CheckBox text="Plant" selected="{mLookupModel>/oReviewTecoColumnVisible/sPlant}"/>
-					<CheckBox text="Operation" selected="{mLookupModel>/oReviewTecoColumnVisible/sOprn}"/>
-					<CheckBox text="WO Comment" selected="{mLookupModel>/oReviewTecoColumnVisible/sWoComments}"/>
-					<CheckBox text="System Condition" selected="{mLookupModel>/oReviewTecoColumnVisible/sSysCond}"/>
-					<CheckBox text="FC" selected="{mLookupModel>/oReviewTecoColumnVisible/sFC}"/>
-					<CheckBox text="Comp. on time" selected="{mLookupModel>/oReviewTecoColumnVisible/sCompOnTime}"/>
-					<CheckBox text="Operation Short Text" selected="{mLookupModel>/oReviewTecoColumnVisible/sOprnShortText}"/>
-					<CheckBox text="Opeartion Confirmation Long Text" selected="{mLookupModel>/oReviewTecoColumnVisible/sOprnLtext}"/>
-					<CheckBox text="Operation Long Text" selected="{mLookupModel>/oReviewTecoColumnVisible/sLText}"/>
-					<CheckBox text="Break Down" selected="{mLookupModel>/oReviewTecoColumnVisible/sBDown}"/>
-					<CheckBox text="Break Down Hours" selected="{mLookupModel>/oReviewTecoColumnVisible/sBDHours}"/>
-					<CheckBox text="Labour Hours" selected="{mLookupModel>/oReviewTecoColumnVisible/sLabHours}"/>
-					<CheckBox text="Spare Parts Requested" selected="{mLookupModel>/oReviewTecoColumnVisible/sSpareParts}"/>
-					<CheckBox text="Spare Parts Issued" selected="{mLookupModel>/oReviewTecoColumnVisible/sSparePartsIss}"/>
-				</VBox>
-			</content>
-			<footer>
-				<Toolbar>
-					<Button text="Select All" press="onSelectAll" class="transparentBtn createNotifClearBtn" />
-					<Button text="Reset" press="setColumnLayout" class="transparentBtn createNotifClearBtn" />
-					<ToolbarSpacer/>
-					<Button text="Close" press="onCloseColumnAdd" class="transparentBtn createNotifClearBtn" />
-				</Toolbar>
+	<Dialog title="Add or Remove Column" contentWidth="40%" class="sapUiSizeCompact dialogHeader">
+		<!--<Page title="Add or Remove Column" showHeader="true" class="whiteBG">-->
+		<content>
+			<!--<VBox>-->
+			<layout:Grid defaultSpan="XL6 L6 M6 S12" class="sapUiTinyMargin">
+				<CheckBox text="Type" selected="{mLookupModel>/oReviewTecoColumnVisible/sType}"/>
+				<CheckBox text="Order" selected="{mLookupModel>/oReviewTecoColumnVisible/sOrderId}"/>
+				<CheckBox text="Functional Location" selected="{mLookupModel>/oReviewTecoColumnVisible/sFunctLoc}"/>
+				<CheckBox text="Equipment" selected="{mLookupModel>/oReviewTecoColumnVisible/sEquip}"/>
+				<CheckBox text="Date" selected="{mLookupModel>/oReviewTecoColumnVisible/sDate}"/>
+				<CheckBox text="Assigned Tech" selected="{mLookupModel>/oReviewTecoColumnVisible/sAssTechName}"/>
+				<CheckBox text="Assembly" selected="{mLookupModel>/oReviewTecoColumnVisible/sAssembly}"/>
+				<CheckBox text="WorkCenter" selected="{mLookupModel>/oReviewTecoColumnVisible/sMnWkCtr}"/>
+				<CheckBox text="Plant" selected="{mLookupModel>/oReviewTecoColumnVisible/sPlant}"/>
+				<CheckBox text="Operation" selected="{mLookupModel>/oReviewTecoColumnVisible/sOprn}"/>
+				<CheckBox text="WO Comment" selected="{mLookupModel>/oReviewTecoColumnVisible/sWoComments}"/>
+				<CheckBox text="System Condition" selected="{mLookupModel>/oReviewTecoColumnVisible/sSysCond}"/>
+				<CheckBox text="FC" selected="{mLookupModel>/oReviewTecoColumnVisible/sFC}"/>
+				<CheckBox text="Comp. on time" selected="{mLookupModel>/oReviewTecoColumnVisible/sCompOnTime}"/>
+				<CheckBox text="Operation Short Text" selected="{mLookupModel>/oReviewTecoColumnVisible/sOprnShortText}"/>
+				<CheckBox text="Opeartion Confirmation Long Text" selected="{mLookupModel>/oReviewTecoColumnVisible/sOprnLtext}"/>
+				<CheckBox text="Operation Long Text" selected="{mLookupModel>/oReviewTecoColumnVisible/sLText}"/>
+				<CheckBox text="Break Down" selected="{mLookupModel>/oReviewTecoColumnVisible/sBDown}"/>
+				<CheckBox text="Break Down Hours" selected="{mLookupModel>/oReviewTecoColumnVisible/sBDHours}"/>
+				<CheckBox text="Labour Hours" selected="{mLookupModel>/oReviewTecoColumnVisible/sLabHours}"/>
+				<CheckBox text="Spare Parts Requested" selected="{mLookupModel>/oReviewTecoColumnVisible/sSpareParts}"/>
+				<CheckBox text="Spare Parts Issued" selected="{mLookupModel>/oReviewTecoColumnVisible/sSparePartsIss}"/>
+			</layout:Grid>
+			<!--</VBox>-->
+		</content>
+		<!--<footer>
+				<Toolbar>-->
+		<buttons>
+			<Button text="Select All" press="onSelectAll" class="tableHeadertansparentBtn" icon="sap-icon://accept" iconFirst="true"/>
+			<Button text="Reset" press="setColumnLayout" class="tableHeadertansparentBtn" icon="sap-icon://reset" iconFirst="true"/>
+			<!--<ToolbarSpacer/>-->
+			<Button text="Close" press="onCloseColumnAdd" class="transparentBtn createNotifClearBtn" icon="sap-icon://decline" iconFirst="true"/>
+		</buttons>
+		<!--	</Toolbar>
 			</footer>
-		</Page>
+		</Page>-->
 	</Dialog>
 </core:FragmentDefinition >

@@ -336,7 +336,7 @@ sap.ui.define([
 			var sWorkCenterSel = mLookupModel.getProperty("/sWorkCenterSel");
 			var userPlant = mLookupModel.getProperty("/userPlant");
 			mLookupModel.setProperty("/bBusyworkcenter", true);
-			if (sWorkCenterSel === undefined) {
+			if (sWorkCenterSel === undefined || sWorkCenterSel === null) {
 				sWorkCenterSel = "";
 			}
 
@@ -514,7 +514,7 @@ sap.ui.define([
 			var that = this;
 			var mLookupModel = this.mLookupModel;
 			var iTop = mLookupModel.getProperty("/iTop");
-			if(iTop === null || iTop === undefined){ 
+			if(iTop === null || iTop === undefined){
 				iTop = 50; 
 			}
 			var iSkip = mLookupModel.getProperty("/iSkip");

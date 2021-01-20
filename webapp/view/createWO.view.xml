@@ -244,7 +244,7 @@
 					</IconTabFilter>
 					<IconTabFilter text="Create From Notification" key="createFromNotif">
 						<table:Table selectionMode="MultiToggle" enableSelectAll="false" id="notifListId" rowSelectionChange="onSelectionChange"
-							rows="{mLookupModel>/aNotificationListSet}" visibleRowCount="{mLookupModel>/rowCount}" rowHeight="40"
+							rows="{mLookupModel>/aNotificationListSet}" visibleRowCount="{mLookupModel>/rowCount}" rowHeight="33"
 							class="tableCellNoBorder TableHeaderWhiteBG">
 							<table:extension>
 								<Toolbar class="tableHeaderBG" height="2rem">
@@ -280,7 +280,7 @@
 										<Text text="{mLookupModel>NotifNo}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column sortProperty="ShortText" filterProperty="ShortText" width="14rem" visible = "{mLookupModel>/oCreateFromNotifColVisible/sDesc}">
+								<table:Column sortProperty="ShortText" filterProperty="ShortText" width="12rem" visible = "{mLookupModel>/oCreateFromNotifColVisible/sDesc}">
 									<Text wrapping="true" text="{i18n>notif_Description}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{mLookupModel>Descriptn}" class="tableContentText"></Text>
@@ -292,7 +292,7 @@
 										<Text text="{mLookupModel>Orderid}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column sortProperty="FunctLoc" filterProperty="FunctLoc" width="12rem" visible = "{mLookupModel>/oCreateFromNotifColVisible/sFunct}">
+								<table:Column sortProperty="FunctLoc" filterProperty="FunctLoc" width="15rem" visible = "{mLookupModel>/oCreateFromNotifColVisible/sFunct}">
 									<Text wrapping="true" text="{i18n>functLoc}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{mLookupModel>FunctLoc}" class="tableContentText"></Text>
@@ -310,7 +310,7 @@
 										<Text text="{mLookupModel>Equipment}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column sortProperty="Equidescr" filterProperty="Equidescr" width="9rem" visible = "{mLookupModel>/oCreateFromNotifColVisible/sEquipDesc}">
+								<table:Column sortProperty="Equidescr" filterProperty="Equidescr" width="12rem" visible = "{mLookupModel>/oCreateFromNotifColVisible/sEquipDesc}">
 									<Text wrapping="true" text="{i18n>EqDes}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{mLookupModel>Equidescr}" class="tableContentText"></Text>
@@ -328,7 +328,7 @@
 										<Text text="{mLookupModel>Planplant}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column sortProperty="TechId" filterProperty="TechId" width="6rem" visible = "{mLookupModel>/oCreateFromNotifColVisible/sTechId}">
+								<table:Column sortProperty="TechId" filterProperty="TechId" width="10rem" visible = "{mLookupModel>/oCreateFromNotifColVisible/sTechId}">
 									<Text wrapping="true" text="{i18n>techID}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{mLookupModel>TechId}" class="tableContentText"></Text>
