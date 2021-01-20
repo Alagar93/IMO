@@ -251,6 +251,8 @@
 									<content>
 										<Title text="{i18n>notifList}" class="styleTableTitle"/>
 										<ToolbarSpacer/>
+										<core:Icon src="sap-icon://table-column" tooltip="Add/Remove Column" color="#142e5e" class="sapUiSmallMarginEnd attachmentsIconSize"
+											press="onPressColAdd"/>
 										<core:Icon src="sap-icon://filter" press="createFromNotifAdvFilterPanelOpen" tooltip="Open Filters" color="#142e5e"
 											class="sapUiSmallMarginEnd attachmentsIconSize"/>
 										<!--<Link text="{i18n>advFilter}" press="onHandleNotifAdvFilter"/>-->
@@ -265,92 +267,92 @@
 								</Panel>
 							</table:extension>
 							<table:columns>
-								<table:Column sortProperty="NotifType" filterProperty="NotifType" width="3rem">
+								<table:Column sortProperty="NotifType" filterProperty="NotifType" width="3rem" visible = "{mLookupModel>/oCreateFromNotifColVisible/sType}">
 									<Text wrapping="true" text="{i18n>notif_Type}" class="tableHeaderText"/>
 									<table:template>
 										<!--<Text text="{mLookupModel>NotifNo}" class="tableContentText"></Text>-->
 										<Text text="{mLookupModel>NotifType}"/>
 									</table:template>
 								</table:Column>
-								<table:Column sortProperty="NotifNo" filterProperty="NotifNo" width="6rem">
+								<table:Column sortProperty="NotifNo" filterProperty="NotifNo" width="6rem" visible = "{mLookupModel>/oCreateFromNotifColVisible/sNumber}">
 									<Text wrapping="true" text="{i18n>notif_Number}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{mLookupModel>NotifNo}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column sortProperty="ShortText" filterProperty="ShortText" width="14rem">
+								<table:Column sortProperty="ShortText" filterProperty="ShortText" width="14rem" visible = "{mLookupModel>/oCreateFromNotifColVisible/sDesc}">
 									<Text wrapping="true" text="{i18n>notif_Description}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{mLookupModel>Descriptn}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column sortProperty="Orderid" filterProperty="Orderid" width="5rem">
+								<table:Column sortProperty="Orderid" filterProperty="Orderid" width="5rem" visible = "{mLookupModel>/oCreateFromNotifColVisible/sOrder}">
 									<Text wrapping="true" text="{i18n>wo_Num}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{mLookupModel>Orderid}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column sortProperty="FunctLoc" filterProperty="FunctLoc" width="12rem">
+								<table:Column sortProperty="FunctLoc" filterProperty="FunctLoc" width="12rem" visible = "{mLookupModel>/oCreateFromNotifColVisible/sFunct}">
 									<Text wrapping="true" text="{i18n>functLoc}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{mLookupModel>FunctLoc}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column sortProperty="Funcldescr" filterProperty="Funcldescr" width="12rem">
+								<table:Column sortProperty="Funcldescr" filterProperty="Funcldescr" width="12rem" visible = "{mLookupModel>/oCreateFromNotifColVisible/sFunctLocDesc}">
 									<Text wrapping="true" text="{i18n>funct_Desc}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{mLookupModel>Funcldescr}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column sortProperty="Equipment" filterProperty="Equipment" width="6rem">
+								<table:Column sortProperty="Equipment" filterProperty="Equipment" width="6rem" visible = "{mLookupModel>/oCreateFromNotifColVisible/sEquip}">
 									<Text wrapping="true" text="{i18n>equip}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{mLookupModel>Equipment}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column sortProperty="Equidescr" filterProperty="Equidescr" width="9rem">
+								<table:Column sortProperty="Equidescr" filterProperty="Equidescr" width="9rem" visible = "{mLookupModel>/oCreateFromNotifColVisible/sEquipDesc}">
 									<Text wrapping="true" text="{i18n>EqDes}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{mLookupModel>Equidescr}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column sortProperty="WorkCntr" filterProperty="WorkCntr" width="8rem">
+								<table:Column sortProperty="WorkCntr" filterProperty="WorkCntr" width="8rem" visible = "{mLookupModel>/oCreateFromNotifColVisible/sWrkCtr}">
 									<Text wrapping="true" text="{i18n>mainWC}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{mLookupModel>WorkCntr}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column sortProperty="Planplant" filterProperty="Planplant" width="6rem">
+								<table:Column sortProperty="Planplant" filterProperty="Planplant" width="6rem" visible = "{mLookupModel>/oCreateFromNotifColVisible/sPlant}">
 									<Text wrapping="true" text="{i18n>plan_plant}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{mLookupModel>Planplant}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column sortProperty="TechId" filterProperty="TechId" width="6rem">
+								<table:Column sortProperty="TechId" filterProperty="TechId" width="6rem" visible = "{mLookupModel>/oCreateFromNotifColVisible/sTechId}">
 									<Text wrapping="true" text="{i18n>techID}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{mLookupModel>TechId}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column sortProperty="SysStatus" filterProperty="SysStatus" width="7rem">
+								<table:Column sortProperty="SysStatus" filterProperty="SysStatus" width="7rem" visible = "{mLookupModel>/oCreateFromNotifColVisible/sSysStatus}">
 									<Text wrapping="true" text="{i18n>sys_status}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{mLookupModel>SysStatus}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column sortProperty="Userstatus" filterProperty="Userstatus" width="6rem">
+								<table:Column sortProperty="Userstatus" filterProperty="Userstatus" width="6rem" visible = "{mLookupModel>/oCreateFromNotifColVisible/sUserStatus}">
 									<Text wrapping="true" text="{i18n>user_status}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{mLookupModel>Userstatus}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column sortProperty="ReqstartdateString" filterProperty="ReqstartdateString" width="5rem">
+								<table:Column sortProperty="ReqstartdateString" filterProperty="ReqstartdateString" width="5rem" visible = "{mLookupModel>/oCreateFromNotifColVisible/sReqStart}">
 									<Text wrapping="true" text="{i18n>reqStart}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{path:'mLookupModel>ReqstartdateString'}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column sortProperty="ReqenddateString" filterProperty="ReqenddateString" width="5rem">
+								<table:Column sortProperty="ReqenddateString" filterProperty="ReqenddateString" width="5rem" visible = "{mLookupModel>/oCreateFromNotifColVisible/sReqFinish}">
 									<Text wrapping="true" text="{i18n>reqFinish}" class="tableHeaderText"/>
 									<table:template>
 										<!--<Text text="{path:'mLookupModel>Reqenddate',formatter:'com.mylan.createWorkOrder.formatter.formatter.fnDateSeperator'}"-->
@@ -358,37 +360,37 @@
 										<Text text="{path:'mLookupModel>ReqenddateString'}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column sortProperty="Bdflag" filterProperty="Bdflag" width="6.5rem">
+								<table:Column sortProperty="Bdflag" filterProperty="Bdflag" width="5.5rem" visible = "{mLookupModel>/oCreateFromNotifColVisible/sBdFlag}">
 									<Text wrapping="true" text="{i18n>BdownFlag}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{mLookupModel>Breakdown}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column width="6rem">
+								<table:Column width="6rem" visible = "{mLookupModel>/oCreateFromNotifColVisible/sMalFunSt}">
 									<Text wrapping="true" text="{i18n>malfun_Start}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{path:'mLookupModel>Strmlfndate'}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column width="6rem">
+								<table:Column width="6rem" visible = "{mLookupModel>/oCreateFromNotifColVisible/sMalFunEnd}">
 									<Text wrapping="true" text="{i18n>malfun_end}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{path:'mLookupModel>Endmlfndate'}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column sortProperty="PriorityDesNotif" width="5rem" filterProperty="PriorityDesNotif">
+								<table:Column sortProperty="PriorityDesNotif" width="5rem" filterProperty="PriorityDesNotif" visible = "{mLookupModel>/oCreateFromNotifColVisible/sPriority}">
 									<Text wrapping="true" text="{i18n>prior}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{path:'mLookupModel>PriorityDesNotif'}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column sortProperty="CreatedOnString" filterProperty="CreatedOnString" width="6.8rem">
+								<table:Column sortProperty="CreatedOnString" filterProperty="CreatedOnString" width="6.8rem" visible = "{mLookupModel>/oCreateFromNotifColVisible/sCreatedDate}">
 									<Text wrapping="true" text="{i18n>createdDate}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{path:'mLookupModel>CreatedOnString'}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column sortProperty="CreatedBy" filterProperty="CreatedBy" width="6rem" visible="{mLookupModel>/snCreatedBy}">
+								<table:Column sortProperty="CreatedBy" filterProperty="CreatedBy" width="6rem" visible = "{mLookupModel>/oCreateFromNotifColVisible/sCreatedBy}">
 									<Text wrapping="true" text="{i18n>createdby}" class="tableHeaderText"/>
 									<table:template>
 										<Text text="{mLookupModel>CreatedBy}" class="tableContentText"></Text>

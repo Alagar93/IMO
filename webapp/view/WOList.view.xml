@@ -157,7 +157,7 @@
 					<table:RowSettings highlight="{path:'mLookupModel>PriorityDes', formatter:'com.sap.incture.IMO_PM.formatter.formatter.handleRowHighlight'}"/>
 				</table:rowSettingsTemplate>
 				<table:columns>
-					<table:Column sortProperty="OrderType" width="{= ${mLookupModel>/sTbdFlag} === true ? '5rem': '5rem'}" filterProperty="OrderType"
+					<table:Column sortProperty="OrderType" width="5rem" filterProperty="OrderType"
 						visible="{mLookupModel>/sTWoType}">
 						<Text wrapping="true" text="{i18n>WOtype}" class="tableHeaderText"/>
 						<table:template>
@@ -260,7 +260,7 @@
 							<Text text="{path:'mLookupModel>PriorityDes'}" class="tableContentText"></Text>
 						</table:template>
 					</table:Column>
-					<table:Column sortProperty="EnteredByName" width="6.5rem" filterProperty="EnteredByName" visible="{mLookupModel>/sTcreatedBy}">
+					<table:Column sortProperty="EnteredByName" width="8rem" filterProperty="EnteredByName" visible="{mLookupModel>/sTcreatedBy}">
 						<Text wrapping="true" text="{i18n>createdby}" class="tableHeaderText"/>
 						<table:template>
 							<Text text="{mLookupModel>EnteredByName}" class="tableContentText"></Text>
