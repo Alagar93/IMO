@@ -3700,7 +3700,7 @@ sap.ui.define([
 					win.print();
 					win.document.close();
 					win.close();
-				}, 1000);
+				}, 2000);
 			}
 			/**
 			 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered
