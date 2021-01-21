@@ -61,12 +61,12 @@
 								<l:GridData span="XL12 L12 M12 S12"/>
 							</layoutData>
 						</VBox>
-						<!--<VBox class="sapMParentGridBroder sapUiTinyMarginBeginEnd sapUiMediumMarginTop">
+						<VBox class="sapMParentGridBroder sapUiTinyMarginBeginEnd sapUiTinyMarginBottom">
 							<core:Fragment fragmentName="com.sap.incture.IMO_PM.fragment.notificationDetails" id="idOperationsMaterialPanelWO" type="XML"/>
 							<layoutData>
 								<l:GridData span="XL12 L12 M12 S12"/>
 							</layoutData>
-						</VBox>-->
+						</VBox>
 					</l:content>
 				</l:Grid>
 			</ScrollContainer>
