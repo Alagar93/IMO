@@ -323,7 +323,7 @@
 				</IconTabFilter>
 			</items>
 		</IconTabBar>
-		<Panel expanded="{oWorkOrderDetailViewModel>/enableOperationComment}" expandable="true" class="sapMTextPanelClass" visible="{oWorkOrderDetailViewModel>/visibleOperationComment}">
+		<Panel expanded="{oWorkOrderDetailViewModel>/isPanelExpandable}" expandable="true" class="sapMTextPanelClass" visible="{oWorkOrderDetailViewModel>/visibleOperationComment}">
 			<headerToolbar>
 				<Toolbar>
 					<Text text="{i18n>LONG_TEXT}" class="sapUiMediumMarginBegin sapMCommonBlueColor"></Text>

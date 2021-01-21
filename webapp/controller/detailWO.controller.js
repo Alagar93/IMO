@@ -1551,6 +1551,7 @@ sap.ui.define([
 				oWorkOrderDetailViewModel.setProperty("/enableOperationComment", false);
 				oWorkOrderDetailViewModel.setProperty("/enableOpCnfmLongText", false);
 				oWorkOrderDetailViewModel.setProperty("/confirmationLongText", "");
+				oWorkOrderDetailViewModel.setProperty("/isPanelExpandable",false);
 				//this.fnFilterSlectedOperationComment(); //Sunanda- Comments section is removed
 				oWorkOrderDetailViewModel.refresh();
 				return;
@@ -1586,8 +1587,10 @@ sap.ui.define([
 				} else if ((operationStatus === "" || operationStatus === "CRTD") && (orderStatus === "CRTD" || orderStatus === "" ||
 						orderStatus === "REL" || orderStatus === "PCNF" || orderStatus === "CNF")) {
 					oWorkOrderDetailViewModel.setProperty("/enableOperationComment", true);
+					oWorkOrderDetailViewModel.setProperty("/isPanelExpandable",true);//nischal
 				} else {
 					oWorkOrderDetailViewModel.setProperty("/enableOperationComment", false);
+					oWorkOrderDetailViewModel.setProperty("/isPanelExpandable",false);//nischal
 				}
 				if (operationStatus === "" || operationStatus === "REL" || operationStatus === "PCNF") {
 					oWorkOrderDetailViewModel.setProperty("/enableOpCnfmLongText", true);
@@ -1598,6 +1601,7 @@ sap.ui.define([
 				if (this.oUserDetailModel.getProperty("/userRole") === "REVIEWER") {
 					oWorkOrderDetailViewModel.setProperty("/enableOperationComment", false);
 					oWorkOrderDetailViewModel.setProperty("/enableOpCnfmLongText", false);
+					oWorkOrderDetailViewModel.setProperty("/isPanelExpandable",false); //nischal
 				}
 				oWorkOrderDetailViewModel.setProperty("/operationLongTxt", longTxt);
 				oWorkOrderDetailViewModel.setProperty("/confirmationLongText", confrmLongText);
@@ -1608,6 +1612,7 @@ sap.ui.define([
 				oWorkOrderDetailViewModel.setProperty("/enableOperationComment", false);
 				oWorkOrderDetailViewModel.setProperty("/enableOpCnfmLongText", false);
 				oWorkOrderDetailViewModel.setProperty("/confirmationLongText", "");
+				oWorkOrderDetailViewModel.setProperty("/isPanelExpandable",false); //nischal
 			}
 			oWorkOrderDetailViewModel.setProperty("/selectedOps", selectedOps);
 			//this.fnFilterSlectedOperationComment(); //Sunanda- Comments section is removed
