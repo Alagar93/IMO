@@ -65,6 +65,13 @@
 									<Text text="{oWorkOrderDetailModel>systemstatustext}"/>
 								</ui:template>
 							</ui:Column>
+							<ui:Column width="12rem"  tooltip="{i18n>SHORT_TEXT_KEY}">
+								<Label text="{i18n>SHORT_TEXT_KEY}" class="tableHeaderText"/>
+								<ui:template>
+									<Input value="{oWorkOrderDetailModel>StText}" maxLength="40"  class="inputRadius"
+										enabled="{parts:['oWorkOrderDetailModel>OperCode', 'oWorkOrderDetailModel>/OrderStatus', 'oWorkOrderDetailModel>systemstatustext', 'oWorkOrderDetailModel>Systcond'], formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnSetWOUpdateStatusFields'}"/>
+								</ui:template>
+							</ui:Column>
 							<ui:Column width="12rem"  tooltip="{i18n>SHORT_TEXT}">
 								<Label text="{i18n>SHORT_TEXT}" class="tableHeaderText"/>
 								<ui:template>

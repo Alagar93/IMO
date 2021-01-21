@@ -348,9 +348,7 @@ sap.ui.define([
 				},
 				success: function (oData) {
 					aNotificationListSet = oData.results;
-					if (iSkipNotif !== 0) {
-						aNotificationListSet = mLookupModel.getProperty("/aNotificationListSet").concat(aNotificationListSet);
-					}
+					
 					$.each(aNotificationListSet, function (index, value) { //AN: #obxSearch
 
 						value.PriorityDesNotif = formatter.fnPriorityConversion(value.Priority);
@@ -364,12 +362,17 @@ sap.ui.define([
 							value.ReqenddateString = that.fnDateSeperator(value.Reqenddate);
 						}
 						if (value.Strmlfndate) {
-							value.Strmlfndate = that.fnGetMalfunDate(value.Strmlfndate);
+							value.Strmlfndate = that.fnDateConversionToSting(value.Strmlfndate);
 						}
 						if (value.Endmlfndate) {
-							value.Endmlfndate = that.fnGetMalfunDate(value.Endmlfndate);
+							value.Endmlfndate = that.fnDateConversionToSting(value.Endmlfndate);
 						}
 					});
+					//nischal 
+					if (iSkipNotif !== 0) {
+						aNotificationListSet = mLookupModel.getProperty("/aNotificationListSet").concat(aNotificationListSet);
+					}
+					//nischal
 					mLookupModel.setProperty("/aNotificationListSet", aNotificationListSet);
 					mLookupModel.setProperty("/iDisplayedNotifCount", aNotificationListSet.length);
 					mLookupModel.refresh();

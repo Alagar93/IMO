@@ -577,9 +577,7 @@ sap.ui.define([
 					success: function (oData) {
 						mLookupModel.setProperty("/iSelectedWO", ""); // clear selected wo
 						aWorkOrderListSet = oData.results;
-						if (iSkip !== 0) {
-							aWorkOrderListSet = aWorkOrderListSet.concat(mLookupModel.getProperty("/aWorkOrderListSet"));
-						}
+						
 						$.each(aWorkOrderListSet, function (index, value) { //AN: #obxSearch
 							value.radio = false; // clear selected radio button
 							value.PriorityDes = formatter.fnPriorityConversion(value.Priority);
@@ -595,6 +593,10 @@ sap.ui.define([
 							}
 							
 						});
+						//nischal --concat after changing date format
+						if (iSkip !== 0) {
+							aWorkOrderListSet = aWorkOrderListSet.concat(mLookupModel.getProperty("/aWorkOrderListSet"));
+						}
 						mLookupModel.setProperty("/aWorkOrderListSet", aWorkOrderListSet);
 						mLookupModel.setProperty("/iDisplayedWOCount", aWorkOrderListSet.length);
 						mLookupModel.refresh();
@@ -647,9 +649,7 @@ sap.ui.define([
 					},
 					success: function (oData) {
 						aNotificationListSet = oData.results;
-						if (iSkipNotif !== 0) {
-							aNotificationListSet = aNotificationListSet.concat(mLookupModel.getProperty("/aNotificationListSet"));
-						}
+						
 						$.each(aNotificationListSet, function (index, value) { //AN: #obxSearch
 							value.PriorityDesNotif = formatter.fnPriorityConversion(value.Priority);
 							if (value.Reqstartdate) {
@@ -663,13 +663,17 @@ sap.ui.define([
 							}
 							//nischal - starts
 							if (value.Strmlfndate) {
-								value.Strmlfndate = that.fnGetMalfunDate(value.Strmlfndate);
+								value.Strmlfndate = that.fnDateConversion(value.Strmlfndate);
 							}
 							if (value.Endmlfndate) {
-								value.Endmlfndate = that.fnGetMalfunDate(value.Endmlfndate);
+								value.Endmlfndate = that.fnDateConversion(value.Endmlfndate);
 							}
 							//nischal -- ends
 						});
+						//nischal -- concat after changing dates of payload
+						if (iSkipNotif !== 0) {
+							aNotificationListSet = aNotificationListSet.concat(mLookupModel.getProperty("/aNotificationListSet"));
+						}
 						mLookupModel.setProperty("/aNotificationListSet", aNotificationListSet);
 						mLookupModel.setProperty("/iDisplayedNotifCount", aNotificationListSet.length);
 						mLookupModel.refresh();
