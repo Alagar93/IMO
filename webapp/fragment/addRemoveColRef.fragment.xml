@@ -28,8 +28,8 @@
 		<!--<footer>
 				<Toolbar>-->
 		<buttons>
-			<Button text="Select All" press="onSelectAll" class="tableHeadertansparentBtn" icon="sap-icon://accept" iconFirst="true"/>
-			<Button text="Reset" press="setColumnLayout" class="tableHeadertansparentBtn" icon="sap-icon://reset" iconFirst="true"/>
+			<Button text="Select All" press="onSelectAll" type="Transparent" icon="sap-icon://accept" iconFirst="true"/>
+			<Button text="Reset" press="setColumnLayout" type="Transparent" icon="sap-icon://reset" iconFirst="true"/>
 			<!--<ToolbarSpacer/>-->
 			<Button text="Close" press="onCloseColumnAdd" class="transparentBtn createNotifClearBtn" icon="sap-icon://decline" iconFirst="true"/>
 		</buttons>
