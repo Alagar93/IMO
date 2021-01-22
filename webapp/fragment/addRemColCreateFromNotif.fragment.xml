@@ -28,8 +28,8 @@
 		<!--<footer>
 				<Toolbar>-->
 		<buttons>
-			<Button text="Select All" press="onSelectAllCrtFromNotif" class="tableHeadertansparentBtn" icon="sap-icon://accept" iconFirst="true"/>
-			<Button text="Reset" press="setColumnLayoutCreateWithNotif" class="tableHeadertansparentBtn" icon="sap-icon://reset" iconFirst="true"/>
+			<Button text="Select All" press="onSelectAllCrtFromNotif" type="Transparent" icon="sap-icon://accept" iconFirst="true"/>
+			<Button text="Reset" press="setColumnLayoutCreateWithNotif" type="Transparent" icon="sap-icon://reset" iconFirst="true"/>
 			<!--<ToolbarSpacer/>-->
 			<Button text="Close" press="onCloseColAdd" class="transparentBtn createNotifClearBtn" icon="sap-icon://decline" iconFirst="true"/>
 		</buttons>

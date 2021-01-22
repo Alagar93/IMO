@@ -183,6 +183,7 @@ com.sap.incture.IMO_PM.util.util = {
 		oWorkOrderDetailViewModel.setProperty("/listOperationCommentsDto", []);
 		oWorkOrderDetailViewModel.setProperty("/materialQuantities", []);
 		oWorkOrderDetailViewModel.setProperty("/isOperationsFiltered", true);
+		oWorkOrderDetailViewModel.setProperty("/isPanelExpandable",false); //nischal -- property to store panel expandabel field
 		var partNav = jQuery.extend(true, [], headerPartner);
 		oWorkOrderDetailViewModel.setProperty("/HEADERTOPARTNERNAV", partNav);
 		this.setCommentsVisibleLayout("WORK_ORDER_CMTS", oWorkOrderDetailViewModel);

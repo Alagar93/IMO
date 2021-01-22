@@ -87,7 +87,14 @@
 									<Text text="{oWorkOrderDetailModel>systemstatustext}"/>
 								</ui:template>
 							</ui:Column>
-							<ui:Column width="12rem" tooltip="{i18n>SHORT_TEXT}">
+							<ui:Column width="12rem"  tooltip="{i18n>SHORT_TEXT_KEY}">
+								<Label text="{i18n>SHORT_TEXT_KEY}" class="tableHeaderText"/>
+								<ui:template>
+									<Input value="{oWorkOrderDetailModel>StText}" maxLength="40"  class="inputRadius"
+										enabled="{parts:['oWorkOrderDetailModel>OperCode', 'oWorkOrderDetailModel>/OrderStatus', 'oWorkOrderDetailModel>systemstatustext', 'oWorkOrderDetailModel>Systcond'], formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnSetWOUpdateStatusFields'}"/>
+								</ui:template>
+							</ui:Column>
+							<ui:Column width="12rem"  tooltip="{i18n>SHORT_TEXT}">
 								<Label text="{i18n>SHORT_TEXT}" class="tableHeaderText"/>
 								<ui:template>
 									<Input value="{oWorkOrderDetailModel>Description}" maxLength="40" change="fnOperationUpdateStatus" class="inputRadius"
@@ -349,8 +356,7 @@
 				</IconTabFilter>
 			</items>
 		</IconTabBar>
-		<Panel expanded="{oWorkOrderDetailViewModel>/enableOperationComment}" expandable="true" class="sapMTextPanelClass"
-			visible="{oWorkOrderDetailViewModel>/visibleOperationComment}">
+		<Panel expanded="{oWorkOrderDetailViewModel>/isPanelExpandable}" expandable="true" class="sapMTextPanelClass" visible="{oWorkOrderDetailViewModel>/visibleOperationComment}">
 			<headerToolbar>
 				<Toolbar>
 					<Text text="{i18n>LONG_TEXT}" class="sapUiMediumMarginBegin sapMCommonBlueColor"></Text>

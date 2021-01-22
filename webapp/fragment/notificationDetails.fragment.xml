@@ -1,0 +1,280 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" class="sapUiSizeCompact" xmlns:l="sap.ui.layout" xmlns:ui="sap.ui.table">
+	<IconTabBar class="sapMIconTabBorderBottom sapMIconTabBarHeight">
+		<items>
+			<IconTabFilter text="Item">
+				<OverflowToolbar class="sapMToolBarBottomBorderClass sapUiTinyMarginBottom">
+					<Button text="{i18n>ADD_OP}" press="onAddItems" type="Emphasized" icon="sap-icon://add" iconFirst="true"></Button>
+					<Button text="{i18n>REMOVE}" type="Reject" press="onDeleteItem" icon="sap-icon://delete" iconFirst="true" class="transparentBtn"></Button>
+				</OverflowToolbar>
+				<ui:Table enableSelectAll="true" selectionMode="MultiToggle" selectionBehavior="Row" visibleRowCount="8"
+					class="sapUITableColumn tableCellNoBorder TableHeaderWhiteBG" rowSelectionChange="onSelectItem" id="NOTIF_ITEM_TABLE">
+					<ui:columns>
+						<ui:Column tooltip="Object Part">
+							<Label text="Object Part" class="tableHeaderText"/>
+							<ui:template>
+								<HBox>
+									<Input class="inputRadius"/>
+									<Input class="inputRadius"/>
+								</HBox>
+							</ui:template>
+						</ui:Column>
+						<ui:Column>
+							<Label text="Damage" class="tableHeaderText"/>
+							<ui:template>
+								<HBox>
+									<Input class="inputRadius"/>
+									<Input class="inputRadius"/>
+								</HBox>
+							</ui:template>
+						</ui:Column>
+						<ui:Column tooltip="Text">
+							<Label text="Text" class="tableHeaderText"/>
+							<ui:template>
+								<Input class="inputRadius"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column tooltip="Cause">
+							<Label text="Cause" class="tableHeaderText"/>
+							<ui:template>
+								<HBox>
+									<Input class="inputRadius"/>
+									<Input class="inputRadius"/>
+								</HBox>
+							</ui:template>
+						</ui:Column>
+						<ui:Column tooltip="Cause Text">
+							<Label text="Cause Text" class="tableHeaderText"/>
+							<ui:template>
+								<Input class="inputRadius"/>
+							</ui:template>
+						</ui:Column>
+					</ui:columns>
+				</ui:Table>
+			</IconTabFilter>
+			<IconTabFilter text="Malfunction/Breakdown">
+				<l:Grid class="sapUiSmallMarginTop" defaultSpan="XL2 L2 M2 S12">
+					<VBox class="sapUiTinyMarginTop">
+						<Label text="{i18n>breakDown}"></Label>
+						<Switch state="{path:'oNotificationDataModel>/Breakdown', formatter:'com.sap.incture.IMO_PM.formatter.formatter.formatBooleanBreakDown'}"
+							customTextOn="{i18n>yes}" customTextOff="{i18n>no}" change="fnUpdateBreakDownStatus" id="idBreakDownSwitch"
+							enabled="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setEnabledBasedOnStatus'}"/>
+					</VBox>
+					<VBox class="sapUiTinyMarginTop">
+						<Label text="{i18n>BDownDuration}"></Label>
+						<Input value="{path:'oNotificationDataModel>/BreakdownDur'} " width="90%" tooltip="{oNotificationDataModel>/BreakdownDur}" maxLength="7"
+							enabled="false" class="inputRadius"></Input>
+					</VBox>
+					<VBox class="sapUiTinyMarginTop"
+						visible="{path:'oNotificationDataModel>/Breakdown', formatter:'com.sap.incture.IMO_PM.formatter.formatter.formatBooleanBreakDown'}">
+						<Label text="{i18n>malfnsDate}"></Label>
+						<DatePicker placeholder="dd-MM-yyyy" dateValue="{oNotificationDataModel>/Startdate}" width="90%" displayFormat="dd-MM-yyyy"
+							change="fnValidateMalFunDates" class="inputRadius"
+							enabled="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setEnabledBasedOnStatus'}">
+							<customData>
+								<core:CustomData key="dateType" value="Startdate"/>
+							</customData>
+						</DatePicker>
+					</VBox>
+					<VBox class="sapUiTinyMarginTop"
+						visible="{path:'oNotificationDataModel>/Breakdown', formatter:'com.sap.incture.IMO_PM.formatter.formatter.formatBooleanBreakDown'}">
+						<Label text="{i18n>malfnsTime}"></Label>
+						<TimePicker value="{oNotificationViewModel>/StartTime}" valueFormat="HH:mm" displayFormat="HH:mm" placeholder="HH:mm"
+							change="fnValidateMalFunDates" class="inputRadius" width="90%"
+							enabled="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setEnabledBasedOnStatus'}">
+							<customData>
+								<core:CustomData key="dateType" value="StartTime"/>
+							</customData>
+						</TimePicker>
+					</VBox>
+					<VBox class="sapUiTinyMarginTop"
+						visible="{path:'oNotificationDataModel>/Breakdown', formatter:'com.sap.incture.IMO_PM.formatter.formatter.formatBooleanBreakDown'}">
+						<Label text="{i18n>malfnedate}"></Label>
+						<DatePicker placeholder="dd-MM-yyyy" dateValue="{oNotificationDataModel>/Enddate}" width="90%" displayFormat="dd-MM-yyyy"
+							change="fnValidateMalFunDates" class="inputRadius"
+							enabled="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setEnabledBasedOnStatus'}">
+							<customData>
+								<core:CustomData key="dateType" value="Enddate"/>
+							</customData>
+						</DatePicker>
+					</VBox>
+					<VBox class="sapUiTinyMarginTop"
+						visible="{path:'oNotificationDataModel>/Breakdown', formatter:'com.sap.incture.IMO_PM.formatter.formatter.formatBooleanBreakDown'}">
+						<Label text="{i18n>malfnetime}"></Label>
+						<TimePicker value="{oNotificationViewModel>/EndTime}" valueFormat="HH:mm" displayFormat="HH:mm" placeholder="HH:mm"
+							change="fnValidateMalFunDates" class="inputRadius" width="90%"
+							enabled="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setEnabledBasedOnStatus'}">
+							<customData>
+								<core:CustomData key="dateType" value="EndTime"/>
+							</customData>
+						</TimePicker>
+					</VBox>
+				</l:Grid>
+			</IconTabFilter>
+			<IconTabFilter text="Task">
+				<OverflowToolbar class="sapMToolBarBottomBorderClass sapUiTinyMarginBottom">
+					<Button text="{i18n>DETAIL_WO_TECO}" icon="sap-icon://sys-enter" iconFirst="true" class="sapUiSmallMarginBegin murphyWOBtn transparentBtn">
+						<customData>
+							<core:CustomData key="dateType" value="WO_DETAIL_TECHO"/>
+						</customData>
+					</Button>
+				</OverflowToolbar>
+				<ui:Table enableSelectAll="false" selectionMode="None" visibleRowCount="5" class="tableHeaderBg tableCellNoBorder TableHeaderWhiteBG"
+					id="NOTIF_TASK_TABLE">
+					<ui:columns>
+						<ui:Column hAlign="Begin" tooltip="No">
+							<Label text="No" class="tableHeaderText"/>
+							<ui:template>
+								<Input class="inputRadius"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column tooltip="Code Group">
+							<Label text="Code Group" class="tableHeaderText"/>
+							<ui:template>
+								<Input class="inputRadius"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column tooltip="Task Code">
+							<Label text="Task Code" class="tableHeaderText"/>
+							<ui:template>
+								<Input class="inputRadius"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column tooltip="Task Code Text">
+							<Label text="Task Code Text" class="tableHeaderText"/>
+							<ui:template>
+								<Input class="inputRadius"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column tooltip="Task Text">
+							<Label text="Task Text" class="tableHeaderText"/>
+							<ui:template>
+								<Input class="inputRadius"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column tooltip="Task Long Text">
+							<Label text="Task Long Text" class="tableHeaderText"/>
+							<ui:template>
+								<Input class="inputRadius"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column tooltip="Task Status">
+							<Label text="Task Status" class="tableHeaderText"/>
+							<ui:template>
+								<Input class="inputRadius"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column tooltip="User Status">
+							<Label text="User Status" class="tableHeaderText"/>
+							<ui:template>
+								<Input class="inputRadius"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column tooltip="Task Processor">
+							<Label text="Task Processor" class="tableHeaderText"/>
+							<ui:template>
+								<Input class="inputRadius"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column tooltip="Responsible">
+							<Label text="Responsible" class="tableHeaderText"/>
+							<ui:template>
+								<Input class="inputRadius"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column tooltip="List Name">
+							<Label text="List Name" class="tableHeaderText"/>
+							<ui:template>
+								<Input class="inputRadius"/>
+							</ui:template>
+						</ui:Column>
+					</ui:columns>
+				</ui:Table>
+			</IconTabFilter>
+			<IconTabFilter text="Activities">
+				<ui:Table enableSelectAll="false" selectionMode="None" visibleRowCount="5" class="tableHeaderBg tableCellNoBorder TableHeaderWhiteBG"
+					id="NOTIF_ACTIVITIES_TABLE">
+					<ui:columns>
+						<ui:Column hAlign="Begin" tooltip="No">
+							<Label text="No" class="tableHeaderText"/>
+							<ui:template>
+								<Input class="inputRadius"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column tooltip="Code Group" width="8rem">
+							<Label text="Code Group" class="tableHeaderText"/>
+							<ui:template>
+								<Input class="inputRadius"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column tooltip="Activity Code" width="8rem">
+							<Label text="Activity Code" class="tableHeaderText"/>
+							<ui:template>
+								<Input class="inputRadius"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column tooltip="Activity Code Text" width="10rem">
+							<Label text="Activity Code Text" class="tableHeaderText"/>
+							<ui:template>
+								<Input class="inputRadius"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column tooltip="Activity Text" width="8rem">
+							<Label text="Activity Text" class="tableHeaderText"/>
+							<ui:template>
+								<Input class="inputRadius"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column tooltip="Activity Long Text" width="10rem">
+							<Label text="Activity Long Text" class="tableHeaderText"/>
+							<ui:template>
+								<Input class="inputRadius"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column tooltip="Quantity Factor" width="8rem">
+							<Label text="Quantity Factor" class="tableHeaderText"/>
+							<ui:template>
+								<Input class="inputRadius"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column tooltip="Start Date" width="8rem">
+							<Label text="Start Date" class="tableHeaderText"/>
+							<ui:template>
+								<Input class="inputRadius"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column tooltip="Start Time" width="8rem">
+							<Label text="Start Time" class="tableHeaderText"/>
+							<ui:template>
+								<Input class="inputRadius"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column tooltip="End Date" width="8rem">
+							<Label text="End Date" class="tableHeaderText"/>
+							<ui:template>
+								<Input class="inputRadius"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column tooltip="End Time" width="8rem">
+							<Label text="End Time" class="tableHeaderText"/>
+							<ui:template>
+								<Input class="inputRadius"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column tooltip="Created By" width="8rem">
+							<Label text="Created By" class="tableHeaderText"/>
+							<ui:template>
+								<Input class="inputRadius"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column tooltip="Created On" width="8rem">
+							<Label text="Created On" class="tableHeaderText"/>
+							<ui:template>
+								<Input class="inputRadius"/>
+							</ui:template>
+						</ui:Column>
+					</ui:columns>
+				</ui:Table>
+			</IconTabFilter>
+		</items>
+	</IconTabBar>
+</core:FragmentDefinition>
