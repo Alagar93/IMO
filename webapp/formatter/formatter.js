@@ -162,7 +162,7 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 		}
 		return Value;
 	},
-	
+
 	fnDateConversion: function (date, gwdate) {
 		if (date) {
 			var iDate = date.getDate();
@@ -666,7 +666,7 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 		var aMessages = [],
 			i;
 
-		if (aMaterials !== undefined) {
+		if (aMaterials !== undefined && aMaterials.length !== 0) {
 			var ReservNo = aMaterials[0].ReservNo;
 			for (i = 0; i < aMaterials.length; i++) {
 				if (aMaterials[i].PreqNo !== "") {
@@ -689,6 +689,60 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 		}
 		return [ReservNo, aMessages];
 	},
+	//Function to live update timer duration
+	fnOperTimerhrs: function (sDate) {
+
+		var v = (sDate / (60 * 1000)) / 60;
+		if (v > parseInt(v, 10)) {
+			v = parseInt(v, 10);
+		}
+
+		return (v < 10) ? '0' + v : v;
+	},
+	fnOperTimerMins: function (sDate) {
+
+		var v = (sDate / (60 * 1000)) % 60;
+		if (v > parseInt(v, 10)) {
+			v = parseInt(v, 10);
+		}
+		return (v < 10) ? '0' + v : v;
+	},
+	fnOperTimerSecs: function (sDate) {
+		var v = (sDate / 1000) % 60;
+		if (v > parseInt(v, 10)) {
+			v = parseInt(v, 10);
+		}
+		return (v < 10) ? '0' + v : v;
+	},
+	fnOperTimerhrsfloat:function(nDur){
+		var v = (nDur / (60 * 1000)) / 60;
+		return parseFloat(v).toFixed(2);
+	},
+	// fnEnableStartTimer:function(aSelectedOps){
+	// 	var bFlag=true;
+	// 	if(aSelectedOps){}
+	// 	return true;
+	// },
+	setWOAutoCnfrmVisible: function (bTimerFlag, bRunFlag, selectedOps) {
+		var bFlag = false;
+
+		if (bTimerFlag || bRunFlag) {
+			bFlag = true;
+		}
+
+		return bFlag;
+	},
+	fnSetMinTimeStop:function(bTimerRn,nTimerDur){
+		var bFlag=false;
+		if(bTimerRn){
+			var timerDurMin=com.sap.incture.IMO_PM.formatter.formatter.fnOperTimerMins(nTimerDur);
+			if(timerDurMin>1){
+				bFlag=true;
+			}
+		}
+		return bFlag;
+	},
+
 	formatName: function (sName) {
 
 		if (sName) {

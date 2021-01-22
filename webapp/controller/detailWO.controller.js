@@ -101,6 +101,7 @@ sap.ui.define([
 				// }else{
 				// 	oWorkOrderDetailViewModel.setProperty("/withNotificationCheck",false);
 				// }
+
 			}
 			var userName = this.oUserDetailModel.getProperty("/userName");
 			oWorkOrderDetailModel.setProperty("/ReportedBy", userName);
@@ -1070,7 +1071,7 @@ sap.ui.define([
 						switch (woCreateNavType) {
 						case "WO_DETAIL_CREATE":
 							successErrMsg = oResourceModel.getText("WO_CREATED_SUCCESFULLY") + orderId;
-							that.onUpdateNotifcationFields(sData);
+							that.onUpdateNotifcationFields(sData, woCreateNavType);
 							break;
 						case "WO_DETAIL_CREATE_EXIT":
 							successErrMsg = oResourceModel.getText("WO_CREATED_SUCCESFULLY") + orderId;
@@ -1078,7 +1079,7 @@ sap.ui.define([
 							break;
 						case "WO_DETAIL_UPDATE":
 							successErrMsg = oResourceModel.getText("WO_UPDATED_SUCCESFULLY") + orderId;
-							that.onUpdateNotifcationFields(sData);
+							that.onUpdateNotifcationFields(sData, woCreateNavType);
 							break;
 						case "WO_DETAIL_UPDATE_EXIT":
 							successErrMsg = oResourceModel.getText("WO_UPDATED_SUCCESFULLY") + orderId;
@@ -1086,7 +1087,7 @@ sap.ui.define([
 							break;
 						case "WO_DETAIL_RELEASE":
 							successErrMsg = oResourceModel.getText("WO_RELEASED_SUCCESFULLY") + orderId;
-							that.onUpdateNotifcationFields(sData);
+							that.onUpdateNotifcationFields(sData, woCreateNavType);
 							break;
 						case "WO_DETAIL_OPERATION_CONFIRM":
 							confirmationTexts = oWorkOrderDetailViewModel.getProperty("/listOperationCommentsDto");
@@ -1166,27 +1167,30 @@ sap.ui.define([
 						// 		console.log(oData);
 						// 	}
 						// });
-						var operations = sData.HEADERTOOPERATIONSNAV.results;
-						if (sData.HEADERTOCOMPONENTNAV) {
-							var Materials = sData.HEADERTOCOMPONENTNAV.results;
-							var oMessages = formatter.fnGetPRandRESERVNO(operations, Materials);
-							if (oMessages[0] !== "") {
-								oObj = {
-									"Message": "Reservation Number:" + oMessages[0],
-									"Status": "S"
-								};
-								messages.push(oObj);
-							}
-							if (oMessages[1] !== []) {
-								for (var i = 0; i < oMessages[1].length; i++) {
-									oObj = {
-										"Message": "PR Number:" + oMessages[1][i].PreqNo + "for line item:" + oMessages[1][i].PreqItem,
-										"Status": "S"
-									};
-									messages.push(oObj);
-								}
-							}
-						}
+						// var operations = sData.HEADERTOOPERATIONSNAV.results;
+						// var Materials=[];
+						// if (sData.HEADERTOCOMPONENTNAV||operations) {
+						// 	if(sData.HEADERTOCOMPONENTNAV){
+						// 		var Materials = sData.HEADERTOCOMPONENTNAV.results;
+						// 	}
+						// 	var oMessages = formatter.fnGetPRandRESERVNO(operations, Materials);
+						// 	if (oMessages[0] !== ""&&oMessages[0]!==undefined) {
+						// 		oObj = {
+						// 			"Message": "Reservation Number:" + oMessages[0],
+						// 			"Status": "S"
+						// 		};
+						// 		messages.push(oObj);
+						// 	}
+						// 	if (oMessages[1] !== []) {
+						// 		for (var i = 0; i < oMessages[1].length; i++) {
+						// 			oObj = {
+						// 				"Message": "PR Number:" + oMessages[1][i].PreqNo + "for line item:" + oMessages[1][i].PreqItem,
+						// 				"Status": "S"
+						// 			};
+						// 			messages.push(oObj);
+						// 		}
+						// 	}
+						// }
 
 					} else {
 						sData = that.fnFormatWODateObjects(sData);
@@ -1237,8 +1241,10 @@ sap.ui.define([
 						that.getDamageGroupCode("", sData.Damagecode);
 						that.getCauseGroupCode("", sData.Causecode);
 						that.busy.close();
+						that.fnShowSuccessErrorMsg(messages);
 					}
-					that.fnShowSuccessErrorMsg(messages);
+					that.mLookupModel.setProperty("/messages", messages);
+					//that.fnShowSuccessErrorMsg(messages);
 					that.fnClearTblSelection();
 				},
 				error: function (error, oResponse) {
@@ -1527,6 +1533,7 @@ sap.ui.define([
 					selectedOps.push(oTempObj);
 				}
 			}
+			this.fnValidateTimersetup(selectedOps);
 			oWorkOrderDetailViewModel.setProperty("/selectedOps", selectedOps);
 			oWorkOrderDetailViewModel.refresh();
 		},
@@ -1554,9 +1561,11 @@ sap.ui.define([
 				oWorkOrderDetailViewModel.setProperty("/isPanelExpandable",false);
 				//this.fnFilterSlectedOperationComment(); //Sunanda- Comments section is removed
 				oWorkOrderDetailViewModel.refresh();
+				this.fnValidateTimersetup(selectedOps);
 				return;
 			}
 			if (selectedIndices.length === 0) {
+				this.fnValidateTimersetup(selectedOps);
 				return;
 			}
 			var oSelectedRow = rowContext.getPath();
@@ -1614,9 +1623,34 @@ sap.ui.define([
 				oWorkOrderDetailViewModel.setProperty("/confirmationLongText", "");
 				oWorkOrderDetailViewModel.setProperty("/isPanelExpandable",false); //nischal
 			}
+			this.fnValidateTimersetup(selectedOps);
 			oWorkOrderDetailViewModel.setProperty("/selectedOps", selectedOps);
 			//this.fnFilterSlectedOperationComment(); //Sunanda- Comments section is removed
 			oWorkOrderDetailViewModel.refresh();
+		},
+		fnValidateTimersetup: function (selectedOps) {
+			if (selectedOps) {
+				if (selectedOps.length !== 0) {
+					var bTimerFlag = true;
+					for (var i = 0; i < selectedOps.length; i++) {
+						var selOperationDetail = this.oWorkOrderDetailModel.getProperty(selectedOps[i].sPath);
+						if (selOperationDetail.ControlKey !== "PM01") {
+							bTimerFlag = false;
+						}
+						if (selOperationDetail.systemstatustext !== "REL" && selOperationDetail.systemstatustext !== "PCNF") {
+							bTimerFlag = false;
+						}
+
+					}
+					this.oWorkOrderDetailViewModel.setProperty("/bTimerStart", bTimerFlag);
+					if (bTimerFlag) {
+						this.fnOperTimerSetup();
+					}
+				}
+
+			} else {
+				this.oWorkOrderDetailViewModel.setProperty("/bTimerStart", false);
+			}
 		},
 
 		//Function to show selected operations comments
