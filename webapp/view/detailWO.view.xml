@@ -11,7 +11,7 @@
 				width="{= ${mLookupModel>/showTaskManagementPanelWO} === true ? '20rem' : '0' }">
 				<core:Fragment fragmentName="com.sap.incture.IMO_PM.fragment.RightAttachmentPanelWO" type="XML" id="idRightAttachmentPanelWO"></core:Fragment>
 			</VBox>
-			<Toolbar class="toolBarHeaderBG" height="3rem">
+			<Toolbar class="toolBarHeaderBG tableHeaderBg" height="3rem">
 				<Button text="{i18n>CREATE_NOTIFICATION_WO}" press="onCreateUpdateAndExitWO" icon="sap-icon://write-new" iconFirst="true"
 					class="sapUiSmallMarginBegin murphyWOBtn transparentBtn" visible="false">
 					<customData>
@@ -66,7 +66,7 @@
 				<Button text="Print" type="Emphasized" press="onPrint" class="sapUiSmallMarginEnd"
 					visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnSetPrintBtnVisible'}"></Button>
 			</Toolbar>
-			<OverflowToolbar class="sapUiTinyMarginTopBottom sapUiTinyMarginEnd">
+			<OverflowToolbar class="sapUiTinyMarginTopBottom sapUiTinyMarginEnd tableHeaderBg">
 				<Label text="{i18n>WO_DETAILS}" class="sapUiSmallMarginBegin" wrapping="true"/>
 				<core:Icon src="sap-icon://navigation-right-arrow" class="sapUiTinyMarginBegin iconSize1" color="#96999b"></core:Icon>
 				<Label text="{i18n>WO_NUMBER1}" class="sapUiTinyMarginBegin murphyLabelColor"/>

@@ -3,7 +3,7 @@
 		<IconTabBar class="sapMIconTabBorderBottom sapMIconTabBarHeight iconTabHeader" select="setVisibleOperationComment">
 			<items>
 				<IconTabFilter text="{i18n>operation}">
-					<OverflowToolbar class="sapMToolBarBottomBorderClass sapUiTinyMarginBottom">
+					<OverflowToolbar class="sapMToolBarBottomBorderClass sapUiTinyMarginBottom tableHeaderBg">
 						<Button text="{i18n>ADD_OP}" press="onAddWOOperations" type="Emphasized" icon="sap-icon://add" iconFirst="true"
 							visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setAddRemoveVisible'}"></Button>
 						<Button text="{i18n>FINAL_CONFIRMATION}" type="Accept" icon="sap-icon://sys-enter" iconFirst="true" press="fnFullyConfirmOperation"
@@ -32,7 +32,7 @@
 						<Button text="{i18n>MASS_UPDATE}" type="Emphasized" press="onOpenMassUpdatePopup"
 							visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setWOReleaseFieldsVisible'}"></Button>
 					</OverflowToolbar>
-					<OverflowToolbar class="sapMToolBarBottomBorderClass sapUiTinyMarginBottom"
+					<OverflowToolbar class="sapMToolBarBottomBorderClass sapUiTinyMarginBottom tableHeaderBg"
 						visible="{parts:['oWorkOrderDetailViewModel>/bTimerStart','oWorkOrderDetailViewModel>/bTimerRn','oWorkOrderDetailViewModel>/selectedOps'],formatter:'com.sap.incture.IMO_PM.formatter.formatter.setWOAutoCnfrmVisible'}">
 						<ToolbarSpacer/>
 						<Button icon="sap-icon://media-play" press="fnStartTimer"
@@ -164,7 +164,7 @@
 					</ui:Table>
 				</IconTabFilter>
 				<IconTabFilter text="{i18n>SPARE_PARTS}">
-					<OverflowToolbar class="sapMToolBarBottomBorderClass sapUiTinyMarginBottom">
+					<OverflowToolbar class="sapMToolBarBottomBorderClass sapUiTinyMarginBottom tableHeaderBg">
 						<!--<HBox>-->
 						<!--	<CheckBox editable="false" class="sapMReorderChkBox"/>-->
 						<!--	<Text text="{i18n>RECORDS_NEEDED}" class="sapUiTinyMarginTop"/>-->
@@ -311,7 +311,7 @@
 					</ui:Table>
 				</IconTabFilter>
 				<IconTabFilter text="{i18n>COST_OVERVIEW}">
-					<!--<OverflowToolbar class="sapMToolBarBottomBorderClass sapUiTinyMarginBottom">-->
+					<!--<OverflowToolbar class="sapMToolBarBottomBorderClass sapUiTinyMarginBottom tableHeaderBg">-->
 					<!--</OverflowToolbar>-->
 					<ui:Table rows="{path:'oWorkOrderDetailViewModel>/CostTBl'}" enableSelectAll="false" selectionMode="None" visibleRowCount="5"
 						class="tableHeaderBg tableCellNoBorder TableHeaderWhiteBG" id="IMO_COST_OVERVIEWTAB">
@@ -356,7 +356,7 @@
 				</IconTabFilter>
 			</items>
 		</IconTabBar>
-		<Panel expanded="{oWorkOrderDetailViewModel>/isPanelExpandable}" expandable="true" class="sapMTextPanelClass" visible="{oWorkOrderDetailViewModel>/visibleOperationComment}">
+		<Panel expanded="{oWorkOrderDetailViewModel>/isPanelExpandable}" expandable="true" class="sapMTextPanelClass panelBackgroundClass" visible="{oWorkOrderDetailViewModel>/visibleOperationComment}">
 			<headerToolbar>
 				<Toolbar>
 					<Text text="{i18n>LONG_TEXT}" class="sapUiMediumMarginBegin sapMCommonBlueColor"></Text>
@@ -367,7 +367,7 @@
 					change="updateOperationLongTxt" enabled="{oWorkOrderDetailViewModel>/enableOperationComment}" maxLength="2000" rows="4"></TextArea>
 			</content>
 		</Panel>
-		<Panel expanded="{oWorkOrderDetailViewModel>/enableOpCnfmLongText}" expandable="true" class="sapMTextPanelClass"
+		<Panel expanded="{oWorkOrderDetailViewModel>/enableOpCnfmLongText}" expandable="true" class="sapMTextPanelClass panelBackgroundClass"
 			visible="{parts: ['oWorkOrderDetailModel>/OrderStatus', 'oWorkOrderDetailViewModel>/visibleOperationComment'], formatter:'com.sap.incture.IMO_PM.formatter.formatter.setWOReleaseFieldsVisible'}">
 			<headerToolbar>
 				<Toolbar>

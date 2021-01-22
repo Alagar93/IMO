@@ -2,7 +2,7 @@
 	<IconTabBar class="sapMIconTabBorderBottom sapMIconTabBarHeight iconTabHeader">
 		<items>
 			<IconTabFilter text="Item">
-				<OverflowToolbar class="sapMToolBarBottomBorderClass sapUiTinyMarginBottom">
+				<OverflowToolbar class="sapMToolBarBottomBorderClass sapUiTinyMarginBottom tableHeaderBg">
 					<Button text="{i18n>ADD_OP}" press="onAddItems" type="Emphasized" icon="sap-icon://add" iconFirst="true"></Button>
 					<Button text="{i18n>REMOVE}" type="Reject" press="onDeleteItem" icon="sap-icon://delete" iconFirst="true" class="transparentBtn"></Button>
 				</OverflowToolbar>
@@ -111,7 +111,7 @@
 				</l:Grid>
 			</IconTabFilter>
 			<IconTabFilter text="Task">
-				<OverflowToolbar class="sapMToolBarBottomBorderClass sapUiTinyMarginBottom">
+				<OverflowToolbar class="sapMToolBarBottomBorderClass sapUiTinyMarginBottom tableHeaderBg">
 					<Button text="{i18n>DETAIL_WO_TECO}" icon="sap-icon://sys-enter" iconFirst="true" class="sapUiSmallMarginBegin murphyWOBtn transparentBtn">
 						<customData>
 							<core:CustomData key="dateType" value="WO_DETAIL_TECHO"/>

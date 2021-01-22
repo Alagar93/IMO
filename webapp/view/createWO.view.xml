@@ -16,7 +16,7 @@
 					</buttons>
 				</RadioButtonGroup>
 			</Toolbar>-->
-			<Toolbar class="sapUiTinyMarginTop tableHeaderBG" height="3rem">
+			<Toolbar class="sapUiTinyMarginTop tableHeaderBg tableHeaderBG" height="3rem">
 				<Button class="sapUiSmallMarginBegin tableHeadertansparentBtn" width="6rem" text="{i18n>create}" press="onCreateWO"
 					visible="{= ${mLookupModel>/iSelectedIndex} === 0 ? false : true}" icon="sap-icon://document" iconFirst="true"/>
 				<Button class="sapUiSmallMarginBegin tableHeadertansparentBtn" width="6rem" text="{i18n>NEXT}" press="onCreateViewWorkOrder"
@@ -80,7 +80,7 @@
 						<table:Table id="idSearchWOTable" selectionMode="None" rows="{mLookupModel>/aWorkOrderListSet}" visibleRowCount="{mLookupModel>/rowCount}"
 							rowHeight="25" class="tableCellNoBorder TableHeaderWhiteBG">
 							<table:extension>
-								<Toolbar class="tableHeaderBG tableMargin" height="2rem">
+								<Toolbar class="tableHeaderBg tableMargin" height="2rem">
 									<content>
 										<Title text="{i18n>WOList}" class="styleTableTitle"/>
 										<ToolbarSpacer/>
@@ -247,7 +247,7 @@
 							rows="{mLookupModel>/aNotificationListSet}" visibleRowCount="{mLookupModel>/rowCount}" rowHeight="33"
 							class="tableCellNoBorder TableHeaderWhiteBG">
 							<table:extension>
-								<Toolbar class="tableHeaderBG" height="2rem">
+								<Toolbar class="tableHeaderBg" height="2rem">
 									<content>
 										<Title text="{i18n>notifList}" class="styleTableTitle"/>
 										<ToolbarSpacer/>
