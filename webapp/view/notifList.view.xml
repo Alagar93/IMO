@@ -6,7 +6,7 @@
 			<Label design="Bold" class="sapUiSmallMarginBegin textColr" text="{i18n>tile_notifList}" wrapping="true"/>
 		</tnt:ToolHeader>
 		<content>
-			<l:Grid defaultSpan="XL4 L4 M4 S12" class="sapUiTinyMarginBeginEnd sapUiTinyMarginBottom sapUiSmallMarginTop">
+			<l:Grid defaultSpan="XL4 L4 M6 S12" class="sapUiTinyMarginBeginEnd sapUiTinyMarginBottom sapUiSmallMarginTop">
 				<GenericTile press="getKPIsNotifList" class="murphyHdrTileClass KPIShadow" ariaLabel="NOTIF_LIST_BREAKDOWNS">
 					<TileContent>
 						<HBox alignItems="Center" class="sapUiSmallMargin">
@@ -128,7 +128,7 @@
     				<table:RowSettings highlight="{path:'mLookupModel>PriorityDesNotif', formatter:'com.sap.incture.IMO_PM.formatter.formatter.handleRowHighlight'}"/>
 				 </table:rowSettingsTemplate>
 				<table:columns>
-					<table:Column sortProperty="NotifType" filterProperty="NotifType" width="3rem" visible = "{mLookupModel>/snType}">
+					<table:Column sortProperty="NotifType" filterProperty="NotifType" visible = "{mLookupModel>/snType}">
 						<Text wrapping="true" text="{i18n>notif_Type}" class="tableHeaderText"/>
 						<table:template>
 							<!--<Text text="{mLookupModel>NotifNo}" class="tableContentText"></Text>-->
@@ -158,7 +158,7 @@
 						</table:template>
 					</table:Column>
 					
-					<table:Column sortProperty="FunctLoc" filterProperty="FunctLoc" width="12rem" visible = "{mLookupModel>/snFunctLoc}">
+					<table:Column sortProperty="FunctLoc" filterProperty="FunctLoc" width="15rem" visible = "{mLookupModel>/snFunctLoc}">
 						<Text wrapping="true" text="{i18n>functLoc}" class="tableHeaderText"/>
 						<table:template>
 							<Text text="{mLookupModel>FunctLoc}" class="tableContentText"></Text>
@@ -179,7 +179,7 @@
 						</table:template>
 					</table:Column>
 					
-					<table:Column sortProperty="Equidescr" filterProperty="Equidescr" width="12rem" visible = "{mLookupModel>/snEquip_Desc}">
+					<table:Column sortProperty="Equidescr" filterProperty="Equidescr" width="15rem" visible = "{mLookupModel>/snEquip_Desc}">
 						<Text wrapping="true" text="{i18n>EqDes}" class="tableHeaderText"/>
 						<table:template>
 							<Text text="{mLookupModel>Equidescr}" class="tableContentText"></Text>
@@ -233,7 +233,7 @@
 							<Text text="{path:'mLookupModel>ReqenddateString'}" class="tableContentText"></Text>
 						</table:template>
 					</table:Column>
-					<table:Column sortProperty="Breakdown" filterProperty="Breakdown" width="5.5rem" visible = "{mLookupModel>/snBdFlag}">
+					<table:Column sortProperty="Breakdown" filterProperty="Breakdown" visible = "{mLookupModel>/snBdFlag}">
 						<Text wrapping="true" text="{i18n>BdownFlag}" class="tableHeaderText"/>
 						<table:template>
 							<Text text="{mLookupModel>Breakdown}" class="tableContentText"></Text>

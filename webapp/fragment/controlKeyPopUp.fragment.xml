@@ -93,21 +93,16 @@
 						<l:GridData span="XL6 L6 M6 S6"/>
 					</layoutData>
 				</VBox>
-				<VBox>
-					<layoutData>
-						<l:GridData span="XL6 L6 M6 S6"/>
-					</layoutData>
-				</VBox>
 				<VBox class="sapUiSmallMarginTop">
 					<Label text="{i18n>SP_PurchaseReq}"/>
 					<HBox>
-						<Input value="{oWorkOrderDetailViewModel>/oControlkeyOperation/PreqNo}" editable="false"
+						<Input value="{oWorkOrderDetailViewModel>/oControlkeyOperation/PreqNo}" editable="false" width="100%"
 							tooltip="{oWorkOrderDetailViewModel>/oControlkeyOperation/PreqNo}" class="inputRadius"></Input>
 						<Input value="{path:'oWorkOrderDetailViewModel>/oControlkeyOperation/PreqItem',formatter:'com.sap.incture.IMO_PM.formatter.formatter.setPreqItemNo'}" editable="false"
-							tooltip="{oWorkOrderDetailViewModel>/oControlkeyOperation/PreqItem}" class="inputRadius"></Input>
+							tooltip="{oWorkOrderDetailViewModel>/oControlkeyOperation/PreqItem}" class="inputRadius" width="100%"></Input>
 					</HBox>
 					<layoutData>
-						<l:GridData span="XL12 L12 M12 S12"/>
+						<l:GridData span="XL6 L6 M6 S6"/>
 					</layoutData>
 				</VBox>
 			</l:Grid>

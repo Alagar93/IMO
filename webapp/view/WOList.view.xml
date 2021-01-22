@@ -6,7 +6,7 @@
 			<Label design="Bold" class="sapUiSmallMarginBegin textColr" text="{i18n>tile_woList}" wrapping="true"/>
 		</tnt:ToolHeader>
 		<content>
-			<l:Grid defaultSpan="XL3 L3 M3 S12" class="sapUiTinyMarginBeginEnd sapUiTinyMarginBottom sapUiSmallMarginTop">
+			<l:Grid defaultSpan="XL3 L3 M6 S12" class="sapUiTinyMarginBeginEnd sapUiTinyMarginBottom sapUiSmallMarginTop">
 				<GenericTile press="getKPIsWoList" class="murphyHdrTileClass KPIShadow" ariaLabel="WO_LIST_PM_WORK_DUE">
 					<TileContent>
 						<HBox alignItems="Center" class="sapUiSmallMargin">
@@ -157,7 +157,7 @@
 					<table:RowSettings highlight="{path:'mLookupModel>PriorityDes', formatter:'com.sap.incture.IMO_PM.formatter.formatter.handleRowHighlight'}"/>
 				</table:rowSettingsTemplate>
 				<table:columns>
-					<table:Column sortProperty="OrderType" width="5rem" filterProperty="OrderType"
+					<table:Column sortProperty="OrderType" filterProperty="OrderType"
 						visible="{mLookupModel>/sTWoType}">
 						<Text wrapping="true" text="{i18n>WOtype}" class="tableHeaderText"/>
 						<table:template>
@@ -209,7 +209,7 @@
 						</table:template>
 					</table:Column>
 					
-					<table:Column sortProperty="Planplant" width="5rem" filterProperty="Planplant" visible="{mLookupModel>/sTmaintPlant}">
+					<table:Column sortProperty="Planplant" filterProperty="Planplant" visible="{mLookupModel>/sTmaintPlant}">
 						<Text wrapping="false" text="{i18n>plan_Plant}" class="tableHeaderText"/>
 						<table:template>
 							<Text text="{path:'mLookupModel>Planplant'}" class="tableContentText" visible="true"></Text>
