@@ -1629,10 +1629,13 @@ sap.ui.define([
 					var bTimerFlag = true;
 					for (var i = 0; i < selectedOps.length; i++) {
 						var selOperationDetail = this.oWorkOrderDetailModel.getProperty(selectedOps[i].sPath);
-						if (selOperationDetail.systemstatustext !== "REL" && selOperationDetail.systemstatustext !== "PCNF" && selOperationDetail.ControlKey !==
-							"PM01") {
+						if (selOperationDetail.ControlKey !== "PM01") {
 							bTimerFlag = false;
 						}
+						if (selOperationDetail.systemstatustext !== "REL" && selOperationDetail.systemstatustext !== "PCNF") {
+							bTimerFlag = false;
+						}
+
 					}
 					this.oWorkOrderDetailViewModel.setProperty("/bTimerStart", bTimerFlag);
 					if (bTimerFlag) {

@@ -37,8 +37,8 @@
 						<ToolbarSpacer/>
 						<Button icon="sap-icon://media-play" press="fnStartTimer"
 							enabled="{=!${oWorkOrderDetailViewModel>/bTimerRn}}"
-							type="Transparent" class="sapUiTinyMargin "/>
-						<Button icon="sap-icon://stop" press="fnStopTimer" enabled="{parts:['oWorkOrderDetailViewModel>/bTimerRn','oWorkOrderDetailViewModel>/nTimerDur'],formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnSetMinTimeStop'}" type="Reject" class="sapUiTinyMargin ">
+							type="Accept" class="sapUiTinyMargin transparentBtn"/>
+						<Button icon="sap-icon://stop" press="fnStopTimer" enabled="{parts:['oWorkOrderDetailViewModel>/bTimerRn','oWorkOrderDetailViewModel>/nTimerDur'],formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnSetMinTimeStop'}" type="Reject" class="sapUiTinyMargin transparentBtn">
 							<customData>
 								<core:CustomData key="dateType" value="WO_DETAIL_OPERATION_FINAL_CONFIRM"/>
 							</customData>
