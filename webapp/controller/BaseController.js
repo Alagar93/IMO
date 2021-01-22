@@ -1026,6 +1026,8 @@ sap.ui.define([
 						that.busy.close();
 						return;
 					}
+					that.fnOperTimerSetup();
+					that.oWorkOrderDetailViewModel.setProperty("/bTimerStart", false);
 
 					var orderStatus = oData.OrderStatus;
 					that.fnUpdateWODetailButton(orderStatus);
@@ -1033,6 +1035,38 @@ sap.ui.define([
 					that.getDamageGroupCode("", oData.Damagecode);
 					that.getCauseGroupCode("", oData.Causecode);
 					oWorkOrderDetailModel.refresh(true);
+					////////TO show PR num////
+
+					if (woCreateNavType && messages[0].Message === "") {
+						messages = that.mLookupModel.getProperty("/messages");
+						var oObj;
+						var operations = oData.HEADERTOOPERATIONSNAV;
+						var Materials = [];
+						if (oData.HEADERTOCOMPONENTNAV || operations) {
+							if (oData.HEADERTOCOMPONENTNAV) {
+								Materials = oData.HEADERTOCOMPONENTNAV;
+							}
+							var oMessages = formatter.fnGetPRandRESERVNO(operations, Materials);
+							if (oMessages[0] !== "" && oMessages[0] !== undefined) {
+								oObj = {
+									"Message": "Reservation Number:" + oMessages[0],
+									"Status": "S"
+								};
+								messages.push(oObj);
+							}
+							if (oMessages[1] !== []) {
+								for (i = 0; i < oMessages[1].length; i++) {
+									oObj = {
+										"Message": "PR Number:" + oMessages[1][i].PreqNo + "for line item:" + oMessages[1][i].PreqItem,
+										"Status": "S"
+									};
+									messages.push(oObj);
+								}
+							}
+						}
+						that.fnShowSuccessErrorMsg(messages);
+					}
+
 					that.busy.close();
 				},
 				error: function (oData) {
@@ -1041,6 +1075,49 @@ sap.ui.define([
 					that.busy.close();
 				}
 			});
+		},
+		///function to start, stop and initiate timer for operation
+		fnOperTimerSetup: function () {
+			var oWorkOrderDetailViewModel = this.oWorkOrderDetailViewModel;
+			var startDate = new Date();
+			var duration = (new Date() - startDate);
+			oWorkOrderDetailViewModel.setProperty("/OperWrkStartTime", startDate);
+			oWorkOrderDetailViewModel.setProperty("/nTimerDur", duration);
+
+		},
+		fnStartTimer: function () {
+			//var duration = 0;
+			var oWorkOrderDetailViewModel = this.oWorkOrderDetailViewModel;
+			//var startDate = oWorkOrderDetailViewModel.getProperty("/OperWrkStartTime");
+			var startDate = new Date();
+			var duration = (new Date() - startDate);
+			oWorkOrderDetailViewModel.setProperty("/OperWrkStartTime", startDate);
+			oWorkOrderDetailViewModel.setProperty("/nTimerDur", duration);
+
+			oWorkOrderDetailViewModel.setProperty("/bTimerRn", true);
+			this.nowTime = setInterval(function () {
+				var nowTime = new Date();
+				duration = (nowTime - startDate);
+				oWorkOrderDetailViewModel.setProperty("/nTimerDur", duration);
+			}, 1000);
+		},
+		fnStopTimer: function (oEvent) {
+			clearInterval(this.nowTime);
+			var nDuration = this.oWorkOrderDetailViewModel.getProperty("/nTimerDur");
+			var nDurationhrs = formatter.fnOperTimerhrsfloat(nDuration);
+			var oWorkOrderDetailViewModel = this.oWorkOrderDetailViewModel;
+			var oWorkOrderDetailModel = this.oWorkOrderDetailModel;
+			var selOps = oWorkOrderDetailViewModel.getProperty("/selectedOps");
+			for (var i = 0; i < selOps.length; i++) {
+				var sOpDetail = oWorkOrderDetailModel.getProperty(selOps[i].sPath);
+				sOpDetail.MyWork = nDurationhrs;
+				sOpDetail.Systcond = "0";
+				oWorkOrderDetailModel.setProperty(selOps[i].sPath, sOpDetail);
+			}
+			this.fnFullyConfirmOperation(oEvent);
+			oWorkOrderDetailViewModel.setProperty("/bTimerRn", false);
+			this.oWorkOrderDetailViewModel.setProperty("/nTimerDur", 0);
+			this.nowTime = null;
 		},
 
 		getFavEquips: function () {
