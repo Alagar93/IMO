@@ -103,7 +103,7 @@
 								class="sapSearchFieldBorderClass sapUiSmallMarginEnd"/>
 						</content>
 					</Toolbar>
-					<Panel class="filterWrapperPanel tableMargin" id="filterWrapPanelNotifList" expandAnimation="true" expandable="true" expanded="false">
+					<Panel class="filterWrapperPanel tableMargin panelBackgroundClass" id="filterWrapPanelNotifList" expandAnimation="true" expandable="true" expanded="false">
 						<content>
 							<!--<Text text="Panel Test"/>-->
 							<core:Fragment fragmentName="com.sap.incture.IMO_PM.fragment.advFilterNotif" type="XML" id="hierarchyPanel"></core:Fragment>
@@ -281,7 +281,7 @@
 					</table:Column>
 				</table:columns>
 				<table:footer>
-					<Toolbar>
+					<Toolbar class="tableHeaderBg">
 						<ToolbarSpacer/>
 						<Link class="sapUiSmallMarginEnd" text="{i18n>LOAD_RECORDS}" press="handleLoadMoreNotif"/>
 						<!--<Button text="{i18n>loadmore}" press="handleLoadMoreNotif"></Button>-->

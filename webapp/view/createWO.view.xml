@@ -22,7 +22,7 @@
 				<Button class="sapUiSmallMarginBegin tableHeadertansparentBtn" width="6rem" text="{i18n>NEXT}" press="onCreateViewWorkOrder"
 					visible="{= ${mLookupModel>/iSelectedIndex} === 0 ? true : false}" icon="sap-icon://arrow-right" iconFirst="true"/>
 			</Toolbar>
-			<IconTabBar class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom iconTabHeader" select="onCreateWOIconTabSelect">
+			<IconTabBar class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom iconTabHeader sapMIconTabBorderBottom" select="onCreateWOIconTabSelect">
 				<items>
 					<IconTabFilter text="Create Work Order" key="createWO">
 						<Panel visible="{= ${mLookupModel>/iSelectedIndex} === 0 ? true : false}" width="auto"
@@ -93,7 +93,7 @@
 											class="sapSearchFieldBorderClass"/>
 									</content>
 								</Toolbar>
-								<Panel class="filterWrapperPanel tableMargin" id="filterWrapPanelCreateByRef" expandAnimation="true" expandable="true" expanded="false">
+								<Panel class="filterWrapperPanel tableMargin panelBackgroundClass" id="filterWrapPanelCreateByRef" expandAnimation="true" expandable="true" expanded="false">
 									<content>
 										<core:Fragment fragmentName="com.sap.incture.IMO_PM.fragment.advanceFilter" type="XML"></core:Fragment>
 									</content>
@@ -232,7 +232,7 @@
 								</table:Column>
 							</table:columns>
 							<table:footer>
-								<Toolbar>
+								<Toolbar class="tableHeaderBg">
 									<ToolbarSpacer/>
 									<Link text="{i18n>loadmore}" press="handleLoadMoreRecords" class="sapUiLargeMarginEnd"/>
 									<!--<Button text="{i18n>loadmore}" press="handleLoadMoreRecords"></Button>-->
@@ -260,7 +260,7 @@
 											class="sapSearchFieldBorderClass"/>
 									</content>
 								</Toolbar>
-								<Panel class="filterWrapperPanel tableMargin" id="filterWrapPanelCreateFromNotif" expandAnimation="true" expandable="true" expanded="false">
+								<Panel class="filterWrapperPanel tableMargin panelBackgroundClass" id="filterWrapPanelCreateFromNotif" expandAnimation="true" expandable="true" expanded="false">
 									<content>
 										<core:Fragment fragmentName="com.sap.incture.IMO_PM.fragment.advFilterNotifCreateWO" type="XML"></core:Fragment>
 									</content>
@@ -398,7 +398,7 @@
 								</table:Column>
 							</table:columns>
 							<table:footer>
-								<Toolbar>
+								<Toolbar class="tableHeaderBg">
 									<ToolbarSpacer/>
 									<Link text="{i18n>loadmore}" press="handleLoadMoreNotif" class="sapUiLargeMarginEnd"/>
 									<!--<Button text="{i18n>loadmore}" press="handleLoadMoreNotif"></Button>-->

@@ -21,13 +21,13 @@
 						<m:SearchField width="25%" value="{mLookupModel>/sWorderIdDesFilter}" class="sapUiSearchBorderCls" search="onSearchWO"
 							placeholder="{i18n>searchbyWorkOrderIdDes}"/>
 					</m:OverflowToolbar>
-					<m:Panel class="filterWrapperPanel tableMargin" id="filterWrapPanelReviewWO" expandAnimation="true" expandable="true" expanded="false">
+					<m:Panel class="filterWrapperPanel tableMargin panelBackgroundClass" id="filterWrapPanelReviewWO" expandAnimation="true" expandable="true" expanded="false">
 						<m:content>
 							<core:Fragment fragmentName="com.sap.incture.IMO_PM.fragment.advanceFilterReviewWO" type="XML"></core:Fragment>
 						</m:content>
 					</m:Panel>
 					<m:Toolbar class="tableHeaderBG" height="3rem">
-						<m:ToolbarSpacer/>
+						<!--<m:ToolbarSpacer/>-->
 						<m:Button class="tableHeadertansparentBtn" text="{i18n>TecoWO}" press="onOpenDigitalSignPopup"
 							visible="{path:'mLookupModel>/userRole', formatter:'com.sap.incture.IMO_PM.formatter.formatter.disableReviewField'}"/>
 					</m:Toolbar>
@@ -204,7 +204,7 @@
 			</TreeTable>
 		</m:content>
 		<!--<m:footer>
-			<m:Toolbar>
+			<m:Toolbar class="tableHeaderBg">
 				<m:ToolbarSpacer/>
 				<m:Button text="{i18n>TecoWO}" press="onOpenDigitalSignPopup" class="murphyCreateBtn"
 					visible="{path:'mLookupModel>/userRole', formatter:'com.sap.incture.IMO_PM.formatter.formatter.disableReviewField'}"/>

@@ -1,6 +1,6 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" class="sapUiSizeCompact sapMPageBackground" xmlns:l="sap.ui.layout"
 	xmlns:layout="sap.ui.layout">
-	<Panel expanded="{oWorkOrderDetailViewModel>/headerDetails}" expandable="true" class="sapMPanelWOHeader sapUiTinyMarginBottom"
+	<Panel expanded="{oWorkOrderDetailViewModel>/headerDetails}" expandable="true" class="sapMPanelWOHeader sapUiTinyMarginBottom panelBackgroundClass"
 		expand="onOpenHideHeaderSections">
 		<customData>
 			<core:CustomData key="panelType" value="HEADER_DETAILS"/>
@@ -12,7 +12,7 @@
 			</OverflowToolbar>
 		</headerToolbar>
 		<content>
-			<!--<Toolbar class="statusBarClass">-->
+			<!--<Toolbar>-->
 			<!--	<Text text="{i18n>STATUS} :" class="sapUiSmallMarginBegin"/>-->
 			<!--	<Text-->
 			<!--		text="{parts:['oWorkOrderDetailModel>/OrderStatus', 'oUserDetailModel>/userRole', 'oUserDetailModel>/woStatus'], formatter:'com.sap.incture.IMO_PM.formatter.formatter.formatWOStatusTxt'}"></Text>-->
@@ -409,7 +409,7 @@
 			</l:Grid>
 		</content>
 	</Panel>-->
-	<Panel expanded="{oWorkOrderDetailViewModel>/notificationDetails}" expandable="true" class="sapMPanelWOHeader"
+	<Panel expanded="{oWorkOrderDetailViewModel>/notificationDetails}" expandable="true" class="sapMPanelWOHeader panelBackgroundClass"
 		expand="onOpenHideHeaderSections">
 		<customData>
 			<core:CustomData key="panelType" value="NOTIFICATIONS_DETAILS"/>

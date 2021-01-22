@@ -1,5 +1,5 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" class="sapUiSizeCompact" xmlns:l="sap.ui.layout" xmlns:ui="sap.ui.table">
-	<IconTabBar class="sapMIconTabBorderBottom sapMIconTabBarHeight">
+	<IconTabBar class="sapMIconTabBorderBottom sapMIconTabBarHeight iconTabHeader">
 		<items>
 			<IconTabFilter text="Item">
 				<OverflowToolbar class="sapMToolBarBottomBorderClass sapUiTinyMarginBottom">
@@ -7,7 +7,7 @@
 					<Button text="{i18n>REMOVE}" type="Reject" press="onDeleteItem" icon="sap-icon://delete" iconFirst="true" class="transparentBtn"></Button>
 				</OverflowToolbar>
 				<ui:Table enableSelectAll="false" selectionMode="MultiToggle" selectionBehavior="Row" visibleRowCount="8"
-					class="sapUITableColumn tableCellNoBorder TableHeaderWhiteBG" rowSelectionChange="onSelectItem" id="NOTIF_ITEM_TABLE">
+					class="tableCellNoBorder TableHeaderWhiteBG" rowSelectionChange="onSelectItem" id="NOTIF_ITEM_TABLE">
 					<ui:columns>
 						<ui:Column tooltip="Object Part">
 							<Label text="Object Part" class="tableHeaderText"/>

@@ -136,7 +136,7 @@
 								placeholder="{i18n>searchbyWorkOrderIdDes}"/>
 						</content>
 					</Toolbar>
-					<Panel class="filterWrapperPanel tableMargin" id="filterWrapPanelWOList" expandAnimation="true" expandable="true" expanded="false">
+					<Panel class="filterWrapperPanel tableMargin panelBackgroundClass" id="filterWrapPanelWOList" expandAnimation="true" expandable="true" expanded="false">
 						<content>
 							<core:Fragment fragmentName="com.sap.incture.IMO_PM.fragment.advanceFilterWoList" type="XML" id="hierarchyPanel"></core:Fragment>
 						</content>
@@ -286,7 +286,7 @@
 					</table:Column>
 				</table:columns>
 				<table:footer>
-					<Toolbar>
+					<Toolbar class="tableHeaderBg">
 						<ToolbarSpacer/>
 						<Link class="sapUiSmallMarginEnd" text="{i18n>LOAD_RECORDS}" press="handleLoadMoreRecords"/>
 						<!--<Button text="{i18n>LOAD_RECORDS}" press="handleLoadMoreRecords"></Button>-->

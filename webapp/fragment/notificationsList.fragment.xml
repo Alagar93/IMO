@@ -9,7 +9,7 @@
 				</content>
 			</Toolbar>
 			<ui:Table rows="{oWorkOrderDetailViewModel>/aNotificationsSet}" selectionMode="MultiToggle" visibleRowCount="8" id="WO_DETAIL_NOTIF_TBL"
-				class="sapUITableColumn sapUiSmallMargin tableCellNoBorder TableHeaderWhiteBG" enableSelectAll="false"
+				class="sapUiSmallMargin tableCellNoBorder TableHeaderWhiteBG" enableSelectAll="false"
 				rowSelectionChange="onSelectNotifications">
 				<ui:columns>
 					<ui:Column width="8rem">

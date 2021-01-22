@@ -1,6 +1,6 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" class="sapUiSizeCompact" xmlns:l="sap.ui.layout" xmlns:ui="sap.ui.table">
 	<VBox height="80%">
-		<IconTabBar class="sapMIconTabBorderBottom sapMIconTabBarHeight" select="setVisibleOperationComment">
+		<IconTabBar class="sapMIconTabBorderBottom sapMIconTabBarHeight iconTabHeader" select="setVisibleOperationComment">
 			<items>
 				<IconTabFilter text="{i18n>operation}">
 					<OverflowToolbar class="sapMToolBarBottomBorderClass sapUiTinyMarginBottom">
@@ -54,7 +54,7 @@
 						
 					</OverflowToolbar>
 					<ui:Table rows="{oWorkOrderDetailModel>/HEADERTOOPERATIONSNAV}" enableSelectAll="true" selectionMode="MultiToggle" selectionBehavior="Row"
-						visibleRowCount="8" class="sapUITableColumn tableCellNoBorder TableHeaderWhiteBG" rowSelectionChange="onSelectOperation"
+						visibleRowCount="8" class="tableCellNoBorder TableHeaderWhiteBG" rowSelectionChange="onSelectOperation"
 						id="MYLAN_OPERATIONS_TABLE">
 						<ui:columns>
 							<ui:Column width="6rem" tooltip="{i18n>operation}">
@@ -170,7 +170,7 @@
 						<!--	<Text text="{i18n>RECORDS_NEEDED}" class="sapUiTinyMarginTop"/>-->
 						<!--</HBox>-->
 						<ToolbarSpacer/>
-						<Button text="{i18n>ADD_EMP_PART}" press="onAddEmptySparePart" class="sapMBtnBlueColor" tooltip="{i18n>ADD_EMP_SP}" type="Emphasized"
+						<Button text="{i18n>ADD_EMP_PART}" press="onAddEmptySparePart"  tooltip="{i18n>ADD_EMP_SP}" type="Emphasized"
 							icon="sap-icon://add" iconFirst="true"
 							visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setAddRemoveVisible'}"/>
 						<Button text="{i18n>REMOVE}" type="Reject" press="onDeleteSpareParts" icon="sap-icon://delete" iconFirst="true" class="transparentBtn"

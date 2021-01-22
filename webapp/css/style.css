@@ -183,7 +183,7 @@
 /* .workOrderGrid.sapUiRespGrid.sapUiRespGridHSpace1>div {
     margin: 0rem;
 } */
-.sapMText {
+/*.sapMText {
     display: inline-block;
     box-sizing: border-box;
     white-space: pre-line;
@@ -193,7 +193,7 @@
     font-family: "72", "72full", Arial, Helvetica, sans-serif;
     line-height: normal;
     color: #32363a;
-}
+}*/
 
 /***************************************WOLIST*****************************************/
 /*.tableHeaderText {
@@ -206,7 +206,7 @@
     font-size: 13px;
     color: black;
 }
-
+/*
 .formatKPIBox1 {
     margin-right: 1rem;
     background: #a4c5ed;
@@ -216,7 +216,7 @@
 .formatKPIBox {
     margin-right: 1rem;
     background: #a4c5ed;
-}
+}*/
 
 /*.tableContentText {
     font-size: 12px;
@@ -227,11 +227,11 @@
     font-weight: 500;
     font-size: 1.5rem;
 }
-
+/*
 .sapMITBTextOnly .sapMITBFilterDefault>.sapMITBText {
     color: black;
 }
-
+*/
 .styleTableTitle {
     color: #666666;
     font-weight: bold;
@@ -254,23 +254,23 @@
     position: relative;
     background-color: #ffffff;
 }
-
+/*
 .sapMPanelBGTranslucent {
     background-color: #ffffff;
 }
-
+*/
 html:not([data-sap-ui-browser^="ie"]):not([data-sap-ui-browser^="ed"]) .sapUiIcon:focus {
     outline-width: 1px;
     outline-style: none;
     outline-offset: -1px;
 }
-
+/*
 .sapMTB {
     height: 3rem;
     border-bottom-width: 0px;
     border-bottom-style: solid;
     border-bottom-color: #cccccc;
-}
+}*/
 
 .sapMBtnHeightClass .sapMBtnInner.sapMBtnText {
     padding-left: 0.4375rem;

@@ -1,6 +1,6 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" class="sapUiSizeCompact sapMPageBackground" xmlns:l="sap.ui.layout"
 	xmlns:layout="sap.ui.layout">
-	<Panel expanded="true" expandable="true" class="sapMPanelWOHeader sapUiTinyMarginBottom">
+	<Panel expanded="true" expandable="true" class="sapMPanelWOHeader sapUiTinyMarginBottom panelBackgroundClass">
 		<customData>
 			<core:CustomData key="panelTypeNotif" value="HEADER_DETAILS"/>
 		</customData>
