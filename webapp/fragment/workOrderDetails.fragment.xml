@@ -35,10 +35,11 @@
 					<OverflowToolbar class="sapMToolBarBottomBorderClass sapUiTinyMarginBottom tableHeaderBg"
 						visible="{parts:['oWorkOrderDetailViewModel>/bTimerStart','oWorkOrderDetailViewModel>/bTimerRn','oWorkOrderDetailViewModel>/selectedOps'],formatter:'com.sap.incture.IMO_PM.formatter.formatter.setWOAutoCnfrmVisible'}">
 						<ToolbarSpacer/>
-						<Button icon="sap-icon://media-play" press="fnStartTimer"
-							enabled="{=!${oWorkOrderDetailViewModel>/bTimerRn}}"
-							type="Accept" class="sapUiTinyMargin transparentBtn"/>
-						<Button icon="sap-icon://stop" press="fnStopTimer" enabled="{parts:['oWorkOrderDetailViewModel>/bTimerRn','oWorkOrderDetailViewModel>/nTimerDur'],formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnSetMinTimeStop'}" type="Reject" class="sapUiTinyMargin transparentBtn">
+						<Button icon="sap-icon://media-play" press="fnStartTimer" enabled="{=!${oWorkOrderDetailViewModel>/bTimerRn}}" type="Accept"
+							class="sapUiTinyMargin transparentBtn"/>
+						<Button icon="sap-icon://stop" press="fnStopTimer"
+							enabled="{parts:['oWorkOrderDetailViewModel>/bTimerRn','oWorkOrderDetailViewModel>/nTimerDur'],formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnSetMinTimeStop'}"
+							type="Reject" class="sapUiTinyMargin transparentBtn">
 							<customData>
 								<core:CustomData key="dateType" value="WO_DETAIL_OPERATION_FINAL_CONFIRM"/>
 							</customData>
@@ -51,11 +52,9 @@
 						<Text text=" : " class="sapUiTinyMargin "/>
 						<Text text="{path:'oWorkOrderDetailViewModel>/nTimerDur',formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnOperTimerSecs'}"
 							class="sapUiTinyMargin"/>
-						
 					</OverflowToolbar>
 					<ui:Table rows="{oWorkOrderDetailModel>/HEADERTOOPERATIONSNAV}" enableSelectAll="true" selectionMode="MultiToggle" selectionBehavior="Row"
-						visibleRowCount="8" class="tableCellNoBorder TableHeaderWhiteBG" rowSelectionChange="onSelectOperation"
-						id="MYLAN_OPERATIONS_TABLE">
+						visibleRowCount="8" class="tableCellNoBorder TableHeaderWhiteBG" rowSelectionChange="onSelectOperation" id="MYLAN_OPERATIONS_TABLE">
 						<ui:columns>
 							<ui:Column width="6rem" tooltip="{i18n>operation}">
 								<Label text="{i18n>operation}" class="tableHeaderText"/>
@@ -80,22 +79,24 @@
 									<Text text="{oWorkOrderDetailModel>WorkCntr}"/>
 								</ui:template>
 							</ui:Column>
-							<ui:Column width="5rem"  tooltip="{i18n>STATUS}">
+							<ui:Column width="5rem" tooltip="{i18n>STATUS}">
 								<Label text="{i18n>STATUS}" class="tableHeaderText"/>
 								<ui:template>
 									<!--<Text text="{oWorkOrderDetailModel>SysStatusDes}"/>-->
 									<Text text="{oWorkOrderDetailModel>systemstatustext}"/>
 								</ui:template>
 							</ui:Column>
-							<ui:Column width="7rem"  tooltip="{i18n>SHORT_TEXT_KEY}">
+							<ui:Column width="7rem" tooltip="{i18n>SHORT_TEXT_KEY}">
 								<Label text="{i18n>SHORT_TEXT_KEY}" class="tableHeaderText"/>
 								<ui:template>
-									<ComboBox items = "{mLookupModel>/aShortTextKey}" selectedKey = "{oWorkOrderDetailModel>StText}" class="inputRadius" width = "85%" change = "onChangeShortTxtKey">
-										<core:ListItem key = "{mLookupModel>StText}" text = "{mLookupModel>StText}"/>
-									</ComboBox>     
+									<ComboBox items="{mLookupModel>/aShortTextKey}" selectedKey="{oWorkOrderDetailModel>StText}" class="inputRadius" width="85%"
+										change="onChangeShortTxtKey"
+										enabled="{parts:['oWorkOrderDetailModel>OperCode', 'oWorkOrderDetailModel>/OrderStatus', 'oWorkOrderDetailModel>systemstatustext', 'oWorkOrderDetailModel>Systcond'], formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnSetWOUpdateStatusFields'}">
+										<core:ListItem key="{mLookupModel>StText}" text="{mLookupModel>StText}"/>
+									</ComboBox>
 								</ui:template>
 							</ui:Column>
-							<ui:Column width="18rem"  tooltip="{i18n>SHORT_TEXT}">
+							<ui:Column width="18rem" tooltip="{i18n>SHORT_TEXT}">
 								<Label text="{i18n>SHORT_TEXT}" class="tableHeaderText"/>
 								<ui:template>
 									<Input width="100%" value="{oWorkOrderDetailModel>Description}" maxLength="40" change="fnOperationUpdateStatus" class="inputRadius"
@@ -141,7 +142,7 @@
 									</Select>
 								</ui:template>
 							</ui:Column>
-							<ui:Column width="11.5rem"  tooltip="{i18n>COMPLETED_ON}">
+							<ui:Column width="11.5rem" tooltip="{i18n>COMPLETED_ON}">
 								<Label text="{i18n>COMPLETED_ON}" class="tableHeaderText"/>
 								<!--	<ui:template>
 									<DatePicker minDate="{oWorkOrderDetailViewModel>/currentDate1}" placeholder="dd-MM-yyyy" dateValue="{oWorkOrderDetailModel>CompletedOn}"
@@ -150,7 +151,8 @@
 								</ui:template>-->
 								<ui:template>
 									<DateTimePicker minDate="{oWorkOrderDetailViewModel>/currentDate1}" placeholder="dd-MM-yyyy, HH:mm"
-										dateValue="{oWorkOrderDetailModel>CompletedOn}" displayFormat="dd-MM-yyyy, HH:mm" valueFormat="yyyy-MM-ddTHH:mm:ss" class="inputRadius" width="100%"
+										dateValue="{oWorkOrderDetailModel>CompletedOn}" displayFormat="dd-MM-yyyy, HH:mm" valueFormat="yyyy-MM-ddTHH:mm:ss" class="inputRadius"
+										width="100%"
 										enabled="{parts:['oWorkOrderDetailModel>systemstatustext', 'oWorkOrderDetailModel>/OrderStatus', 'oWorkOrderDetailModel>OperCode'], formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnSetWOReleaseStatusFields'}"/>
 								</ui:template>
 							</ui:Column>
@@ -171,8 +173,8 @@
 						<!--	<Text text="{i18n>RECORDS_NEEDED}" class="sapUiTinyMarginTop"/>-->
 						<!--</HBox>-->
 						<ToolbarSpacer/>
-						<Button text="{i18n>ADD_EMP_PART}" press="onAddEmptySparePart"  tooltip="{i18n>ADD_EMP_SP}" type="Emphasized"
-							icon="sap-icon://add" iconFirst="true"
+						<Button text="{i18n>ADD_EMP_PART}" press="onAddEmptySparePart" tooltip="{i18n>ADD_EMP_SP}" type="Emphasized" icon="sap-icon://add"
+							iconFirst="true"
 							visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setAddRemoveVisible'}"/>
 						<Button text="{i18n>REMOVE}" type="Reject" press="onDeleteSpareParts" icon="sap-icon://delete" iconFirst="true" class="transparentBtn"
 							enabled="{path:'oWorkOrderDetailModel>/HEADERTOCOMPONENTNAV', formatter:'.formatter.enableDisableRemoveBtn'}"
@@ -197,7 +199,7 @@
 					<ui:Table rows="{oWorkOrderDetailModel>/HEADERTOCOMPONENTNAV}" enableSelectAll="false" selectionMode="MultiToggle" visibleRowCount="8"
 						class="tableHeaderBg tableCellNoBorder TableHeaderWhiteBG" id="MYLAN_OP_SPARE_PART_TBL" rowSelectionChange="onSelectSparePart">
 						<ui:columns>
-							<ui:Column width="7rem"  tooltip="{i18n>operation}">
+							<ui:Column width="7rem" tooltip="{i18n>operation}">
 								<Label text="{i18n>operation}" class="tableHeaderText"/>
 								<ui:template>
 									<Select class="selectRadius" items="{oWorkOrderDetailViewModel>/operationsLookup}" width="65%"
@@ -357,7 +359,8 @@
 				</IconTabFilter>
 			</items>
 		</IconTabBar>
-		<Panel expanded="{oWorkOrderDetailViewModel>/isPanelExpandable}" expandable="true" class="sapMTextPanelClass panelBackgroundClass" visible="{oWorkOrderDetailViewModel>/visibleOperationComment}">
+		<Panel expanded="{oWorkOrderDetailViewModel>/isPanelExpandable}" expandable="true" class="sapMTextPanelClass panelBackgroundClass"
+			visible="{oWorkOrderDetailViewModel>/visibleOperationComment}">
 			<headerToolbar>
 				<Toolbar>
 					<Text text="{i18n>LONG_TEXT}" class="sapUiMediumMarginBegin sapMCommonBlueColor"></Text>
