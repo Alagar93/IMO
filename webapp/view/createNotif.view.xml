@@ -79,7 +79,7 @@
 						</ComboBox>
 					</VBox>
 					<VBox class="gridPadding">
-						<Label text="{i18n>assigned_To}"></Label>
+						<Label text="{i18n>PERSON_RESPONSIBLE}"></Label>
 						<ComboBox showSecondaryValues="true" class="inputRadius" width="90%" selectedKey="{mLookupModel>/assignedToHardCode}">
 							<core:ListItem key="John Smith" text="John Smith"/>
 							<core:ListItem key="Andrew Goal" text="Andrew Goal"/>
