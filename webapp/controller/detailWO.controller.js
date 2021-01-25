@@ -95,6 +95,11 @@ sap.ui.define([
 
 				this.fnCreateUpdateBtnTxt("UPDATE_ORDER");
 				this.getWODetails(oViewType);
+				//mLookupModel to be updated when navigated from review and teco
+				this.getOrderType();
+				this.getWOPriorities();
+				this.getWorkCentersCreateWO();
+				this.getFavEquips();
 				// var sBreakDown = oWorkOrderDetailModel.getProperty("/Breakdown");
 				// if(sBreakDown === true){
 				// 	oWorkOrderDetailViewModel.setProperty("/withNotificationCheck",true);
@@ -258,6 +263,31 @@ sap.ui.define([
 				oWorkOrderDetailViewModel.setProperty("/oControlkeyOperation", oOpertionDetails);
 				if (!this.controlKeyDialog) {
 					this.controlKeyDialog = sap.ui.xmlfragment("com.sap.incture.IMO_PM.fragment.controlKeyPopUp", this);
+					this.getView().addDependent(this.controlKeyDialog);
+				}
+				this.controlKeyDialog.open();
+			}
+			else if(sKey==="PM01"){
+				oWorkOrderDetailViewModel.setProperty("/sPathControlKey", sPath);
+				var oOpertionDetails = jQuery.extend(true, {}, oWorkOrderDetailModel.getProperty(sPath));
+				var sOperWrkCtr=oOpertionDetails.WorkCntr;
+				var aWrkCtrTech=[{
+					"OperTechName":"BOPF2",
+					"TechWrkCtr":sOperWrkCtr
+				},{
+					"OperTechName":"VKUMAR",
+					"TechWrkCtr":sOperWrkCtr
+				}];
+				var assignedTech=[];
+				var assignedTechItem={
+					"OperWrkCtr":sOperWrkCtr,
+					"OperAssignTech":""
+				};
+				assignedTech.push(assignedTechItem);
+				this.mLookupModel.setProperty("/aOperationTechList",assignedTech);
+				this.mLookupModel.setProperty("/aWrkCtrTech",aWrkCtrTech);
+				if (!this.controlKeyDialog) {
+					this.controlKeyDialog = sap.ui.xmlfragment("com.sap.incture.IMO_PM.fragment.OperationAssignTech", this);
 					this.getView().addDependent(this.controlKeyDialog);
 				}
 				this.controlKeyDialog.open();
@@ -3753,7 +3783,7 @@ sap.ui.define([
 			var aHeaderOp = oWorkOrderDetailModel.getProperty(sOpPath);
 			aHeaderOp.Description = aArr[sIndex].StTextDesc;
 			// aHeaderOp.operationLongTxt = aArr[sIndex].LongText;                  
-			oWorkOrderDetailModel.setProperty(sOpPath,aHeaderOp);
+			oWorkOrderDetailModel.setProperty(sOpPath, aHeaderOp);
 			oWorkOrderDetailModel.refresh();
 		},
 		getIndexOFSelectedKey: function (aArr, sKey) {
