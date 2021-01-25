@@ -446,6 +446,7 @@ sap.ui.define([
 			this.getFavEquips();
 			this.getFnLocs();
 			this.getPlannerGroups();
+			this.getShortTextKey();
 			if (fromView === "WK_ORDER_DETAIL") {
 				//this.getPlannerGroups();
 				this.getDamageCode();
@@ -1012,7 +1013,7 @@ sap.ui.define([
 					that.fnGetWOAttachmentLinks(Orderid);
 					that.getOperationIdLookup();
 					//that.getSavedOperationIdLookup();//Saved Operations only Lookup.
-
+					that.getShortTextKey(); //nischal -- function to get Short text key from service
 					var partNav = jQuery.extend(true, [], partner);
 					oWorkOrderDetailViewModel.setProperty("/HEADERTOPARTNERNAV", partNav);
 
@@ -3451,6 +3452,30 @@ sap.ui.define([
 			mLookupModel.setProperty("/snCreatedDate", false);
 			mLookupModel.setProperty("/snCreatedBy", false);
 			mLookupModel.setProperty("/snAction", true);
+		},
+		//nischal --
+		getShortTextKey : function(){
+			var that = this;
+			// this.busy.open();
+			var sUrl = "/StandardTextSet";
+			var mLookupModel = this.mLookupModel;
+			var oLookupDataModel = this.oLookupDataModel;
+			// var userPlant = this.oUserDetailModel.getProperty("/userPlant");
+			// var oFilter = [];
+			// oFilter.push(new Filter("Plant", "EQ", userPlant));
+			oLookupDataModel.read(sUrl, {
+				success: function (oData) {
+					var aShortTextKey = oData.results;
+					mLookupModel.setProperty("/aShortTextKey", aShortTextKey);
+					mLookupModel.refresh();
+					// that.busy.close();
+				},
+				error: function (oData) {
+					mLookupModel.setProperty("/aShortTextKey", []);
+					mLookupModel.refresh();
+					// that.busy.close();
+				}
+			});
 		}
 
 	});
