@@ -3781,10 +3781,17 @@ sap.ui.define([
 			var aArr = mLookupModel.getProperty(sLookUpPath);
 			var sIndex = this.getIndexOFSelectedKey(aArr, sKey);
 			var aHeaderOp = oWorkOrderDetailModel.getProperty(sOpPath);
-			aHeaderOp.Description = aArr[sIndex].StTextDesc;
-			// aHeaderOp.operationLongTxt = aArr[sIndex].LongText;                  
+			if (sKey === "" || sIndex === undefined) {
+				aHeaderOp.Description = "";
+				aHeaderOp.StText = "";
+			} else {
+				aHeaderOp.Description = aArr[sIndex].StTextDesc;
+				// aHeaderOp.operationLongTxt = aArr[sIndex].LongText;   
+			}
+
 			oWorkOrderDetailModel.setProperty(sOpPath, aHeaderOp);
 			oWorkOrderDetailModel.refresh();
+
 		},
 		getIndexOFSelectedKey: function (aArr, sKey) {
 			for (var i = 0; i < aArr.length; i++) {
