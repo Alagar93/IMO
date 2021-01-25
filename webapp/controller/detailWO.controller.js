@@ -100,6 +100,7 @@ sap.ui.define([
 				this.getWOPriorities();
 				this.getWorkCentersCreateWO();
 				this.getFavEquips();
+				this.getPlannerGroups();
 				// var sBreakDown = oWorkOrderDetailModel.getProperty("/Breakdown");
 				// if(sBreakDown === true){
 				// 	oWorkOrderDetailViewModel.setProperty("/withNotificationCheck",true);

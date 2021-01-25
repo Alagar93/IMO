@@ -7,14 +7,16 @@
 						<Button text="{i18n>ADD_OP}" press="onAddWOOperations" type="Emphasized" icon="sap-icon://add" iconFirst="true"
 							visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setAddRemoveVisible'}"></Button>
 						<Button text="{i18n>FINAL_CONFIRMATION}" type="Accept" icon="sap-icon://sys-enter" iconFirst="true" press="fnFullyConfirmOperation"
-							class="transparentBtn" enabled="{parts:['oWorkOrderDetailViewModel>/bTimerStart','oWorkOrderDetailViewModel>/bTimerRn','oWorkOrderDetailViewModel>/selectedOps'],formatter:'com.sap.incture.IMO_PM.formatter.formatter.setWOAutoCnfrmVisible'}"
+							class="transparentBtn"
+							enabled="{parts:['oWorkOrderDetailViewModel>/bTimerStart','oWorkOrderDetailViewModel>/bTimerRn','oWorkOrderDetailViewModel>/selectedOps'],formatter:'com.sap.incture.IMO_PM.formatter.formatter.setWOAutoCnfrmVisible'}"
 							visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setWOReleaseFieldsVisible'}">
 							<customData>
 								<core:CustomData key="dateType" value="WO_DETAIL_OPERATION_FINAL_CONFIRM"/>
 							</customData>
 						</Button>
 						<Button text="{i18n>CONFIRMATION}" press="fnConfirmOperation" icon="sap-icon://sys-enter" iconFirst="true"
-							class="partialConfirmBtn transparentBtn" enabled="{parts:['oWorkOrderDetailViewModel>/bTimerStart','oWorkOrderDetailViewModel>/bTimerRn','oWorkOrderDetailViewModel>/selectedOps'],formatter:'com.sap.incture.IMO_PM.formatter.formatter.setWOAutoCnfrmVisible'}"
+							class="partialConfirmBtn transparentBtn"
+							enabled="{parts:['oWorkOrderDetailViewModel>/bTimerStart','oWorkOrderDetailViewModel>/bTimerRn','oWorkOrderDetailViewModel>/selectedOps'],formatter:'com.sap.incture.IMO_PM.formatter.formatter.setWOAutoCnfrmVisible'}"
 							visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setWOReleaseFieldsVisible'}">
 							<customData>
 								<core:CustomData key="dateType" value="WO_DETAIL_OPERATION_CONFIRM"/>
@@ -90,12 +92,8 @@
 								<Label text="{i18n>SHORT_TEXT_KEY}" class="tableHeaderText"/>
 								<ui:template>
 									<ComboBox items="{mLookupModel>/aShortTextKey}" selectedKey="{oWorkOrderDetailModel>StText}" class="inputRadius" width="85%"
-<<<<<<< HEAD
-										change="onChangeShortTxtKey">
-=======
 										change="onChangeShortTxtKey"
 										enabled="{parts:['oWorkOrderDetailModel>OperCode', 'oWorkOrderDetailModel>/OrderStatus', 'oWorkOrderDetailModel>systemstatustext', 'oWorkOrderDetailModel>Systcond'], formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnSetWOUpdateStatusFields'}">
->>>>>>> refs/heads/IMO_Neo
 										<core:ListItem key="{mLookupModel>StText}" text="{mLookupModel>StText}"/>
 									</ComboBox>
 								</ui:template>
