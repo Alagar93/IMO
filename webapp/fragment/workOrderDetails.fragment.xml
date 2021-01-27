@@ -7,16 +7,14 @@
 						<Button text="{i18n>ADD_OP}" press="onAddWOOperations" type="Emphasized" icon="sap-icon://add" iconFirst="true"
 							visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setAddRemoveVisible'}"></Button>
 						<Button text="{i18n>FINAL_CONFIRMATION}" type="Accept" icon="sap-icon://sys-enter" iconFirst="true" press="fnFullyConfirmOperation"
-							class="transparentBtn"
-							enabled="{parts:['oWorkOrderDetailViewModel>/bTimerStart','oWorkOrderDetailViewModel>/bTimerRn','oWorkOrderDetailViewModel>/selectedOps'],formatter:'com.sap.incture.IMO_PM.formatter.formatter.setWOAutoCnfrmVisible'}"
+							class="transparentBtn" enabled="{oWorkOrderDetailViewModel>/bConfFlag}"
 							visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setWOReleaseFieldsVisible'}">
 							<customData>
 								<core:CustomData key="dateType" value="WO_DETAIL_OPERATION_FINAL_CONFIRM"/>
 							</customData>
 						</Button>
 						<Button text="{i18n>CONFIRMATION}" press="fnConfirmOperation" icon="sap-icon://sys-enter" iconFirst="true"
-							class="partialConfirmBtn transparentBtn"
-							enabled="{parts:['oWorkOrderDetailViewModel>/bTimerStart','oWorkOrderDetailViewModel>/bTimerRn','oWorkOrderDetailViewModel>/selectedOps'],formatter:'com.sap.incture.IMO_PM.formatter.formatter.setWOAutoCnfrmVisible'}"
+							class="partialConfirmBtn transparentBtn" enabled="{oWorkOrderDetailViewModel>/bConfFlag}"
 							visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setWOReleaseFieldsVisible'}">
 							<customData>
 								<core:CustomData key="dateType" value="WO_DETAIL_OPERATION_CONFIRM"/>
@@ -61,8 +59,12 @@
 							<ui:Column width="6rem" tooltip="{i18n>operation}">
 								<Label text="{i18n>operation}" class="tableHeaderText"/>
 								<ui:template>
-									<Input width="65%" value="{oWorkOrderDetailModel>Activity}" maxLength="4" change="sortOperations" class="inputRadius"
-										enabled="{parts:['oWorkOrderDetailModel>OperCode', 'oWorkOrderDetailModel>/OrderStatus'], formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnSetWOUpdateStatusFields'}"/>
+									<HBox class="OperationHboxClass">
+										<Input value="{oWorkOrderDetailModel>Activity}" maxLength="4" change="sortOperations" class="inputRadius"
+											enabled="{parts:['oWorkOrderDetailModel>OperCode', 'oWorkOrderDetailModel>/OrderStatus'], formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnSetWOUpdateStatusFields'}"></Input>
+										<core:Icon src="sap-icon://fob-watch" class="timerStatusClass" color="red"
+											visible="{path:'oWorkOrderDetailModel>systemstatustext',formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnTimericonVisible'}"/>
+									</HBox>
 								</ui:template>
 							</ui:Column>
 							<ui:Column width="8rem">

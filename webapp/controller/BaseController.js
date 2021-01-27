@@ -1038,7 +1038,9 @@ sap.ui.define([
 					oWorkOrderDetailModel.refresh(true);
 					////////TO show PR num////
 
-					if (woCreateNavType && messages[0].Message === "") {
+					if (woCreateNavType && woCreateNavType !== "WO_DETAIL_OPERATION_CONFIRM" && woCreateNavType !==
+						"WO_DETAIL_OPERATION_FINAL_CONFIRM" && messages[0]
+						.Message === "") {
 						messages = that.mLookupModel.getProperty("/messages");
 						var oObj;
 						var operations = oData.HEADERTOOPERATIONSNAV;
@@ -1094,7 +1096,6 @@ sap.ui.define([
 			var duration = (new Date() - startDate);
 			oWorkOrderDetailViewModel.setProperty("/OperWrkStartTime", startDate);
 			oWorkOrderDetailViewModel.setProperty("/nTimerDur", duration);
-
 			oWorkOrderDetailViewModel.setProperty("/bTimerRn", true);
 			this.nowTime = setInterval(function () {
 				var nowTime = new Date();
@@ -3454,7 +3455,7 @@ sap.ui.define([
 			mLookupModel.setProperty("/snAction", true);
 		},
 		//nischal --
-		getShortTextKey : function(){
+		getShortTextKey: function () {
 			var that = this;
 			// this.busy.open();
 			var sUrl = "/StandardTextSet";

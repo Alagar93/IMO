@@ -1662,7 +1662,7 @@ sap.ui.define([
 		fnValidateTimersetup: function (selectedOps) {
 			if (selectedOps) {
 				if (selectedOps.length !== 0) {
-					var bTimerFlag = true;
+					var bTimerFlag = true,bConfFlag=true;
 					for (var i = 0; i < selectedOps.length; i++) {
 						var selOperationDetail = this.oWorkOrderDetailModel.getProperty(selectedOps[i].sPath);
 						if (selOperationDetail.ControlKey !== "PM01") {
@@ -1670,10 +1670,12 @@ sap.ui.define([
 						}
 						if (selOperationDetail.systemstatustext !== "REL" && selOperationDetail.systemstatustext !== "PCNF") {
 							bTimerFlag = false;
+							bConfFlag=false;
 						}
 
 					}
 					this.oWorkOrderDetailViewModel.setProperty("/bTimerStart", bTimerFlag);
+					this.oWorkOrderDetailViewModel.setProperty("/bConfFlag", bConfFlag);
 					if (bTimerFlag) {
 						this.fnOperTimerSetup();
 					}

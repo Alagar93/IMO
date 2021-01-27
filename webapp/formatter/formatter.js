@@ -561,7 +561,14 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 		}
 		return oType;
 	},
-
+	//Function to set timer icon of operation visible
+	fnTimericonVisible:function(operStatus){
+		var bFlag=false;
+		if(operStatus==="REL"||operStatus==="PCNF"){
+			bFlag=true;
+		}
+		return bFlag;
+	},
 	//Function set delete icon visible/invisible for upload section
 	setDeleteVisible: function (bVal) {
 		if (bVal) {
