@@ -1,0 +1,39 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:layout="sap.ui.layout"
+	xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form">
+	<Dialog title="Select ShortText Key" contentWidth="40%" class="sapUiSizeCompact dialogHeader">
+		<!--<Page title="Change Corrective Maintenance Order" showHeader="true" class="whiteBG">-->
+		<content>
+			<ScrollContainer height="20rem" vertical="true" focusable="false" class="sapUiSmallMarginTop">
+				<Table sticky="ColumnHeaders" mode="SingleSelectLeft" selectionChange="onSelectShortTextKey" growing="false"
+					items="{path: 'mLookupModel>/aShortTextKey'}" class="tableCellNoBorder TableHeaderWhiteBG">
+					<columns>
+						<Column>
+							<Text text="Short Text Key"/>
+						</Column>
+						<Column>
+							<Text text="Short Text Description"/>
+						</Column>
+					</columns>
+					<items>
+						<ColumnListItem>
+							<cells>
+								<Text text="{mLookupModel>StText}"/>
+								<Text text="{mLookupModel>StTextDesc}"/>
+							</cells>
+						</ColumnListItem>
+					</items>
+				</Table>
+			</ScrollContainer>
+		</content>
+		<buttons>
+			<!--<Button text="Cancel" press="onCancelControlKeyDialog" class="transparentBtn createNotifClearBtn" icon="sap-icon://decline" iconFirst="true"-->
+			<!--	visible="{=!${oWorkOrderDetailViewModel>/PreqPopupFlag}}"/>-->
+			<!--<Button type="Emphasized" text="Save" press="onSaveControlKey">-->
+			<!--	<customData>-->
+			<!--		<core:CustomData key="dateType" value="CREATE_ORDER"/>-->
+			<!--	</customData>-->
+			<!--</Button>-->
+			<Button text="Close" press="onCloseShortTextDialog" class="transparentBtn createNotifClearBtn"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition >

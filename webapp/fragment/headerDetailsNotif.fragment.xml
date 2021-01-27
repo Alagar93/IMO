@@ -67,7 +67,7 @@
 					</ComboBox>
 				</VBox>
 				<VBox class="sapUiTinyMarginTop">
-					<Label text="{i18n>PERSON_RESPONSIBLE}"></Label>
+					<Label text="{i18n>person_resp}"></Label>
 					<ComboBox showSecondaryValues="true" class="inputRadius" width="90%" selectedKey="{mLookupModel>/assignedToHardCode}"
 						enabled="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setEnabledBasedOnStatus'}">
 						<core:ListItem key="John Smith" text="John Smith"/>

@@ -267,26 +267,25 @@ sap.ui.define([
 					this.getView().addDependent(this.controlKeyDialog);
 				}
 				this.controlKeyDialog.open();
-			}
-			else if(sKey==="PM01"){
+			} else if (sKey === "PM01") {
 				oWorkOrderDetailViewModel.setProperty("/sPathControlKey", sPath);
 				var oOpertionDetails = jQuery.extend(true, {}, oWorkOrderDetailModel.getProperty(sPath));
-				var sOperWrkCtr=oOpertionDetails.WorkCntr;
-				var aWrkCtrTech=[{
-					"OperTechName":"BOPF2",
-					"TechWrkCtr":sOperWrkCtr
-				},{
-					"OperTechName":"VKUMAR",
-					"TechWrkCtr":sOperWrkCtr
+				var sOperWrkCtr = oOpertionDetails.WorkCntr;
+				var aWrkCtrTech = [{
+					"OperTechName": "BOPF2",
+					"TechWrkCtr": sOperWrkCtr
+				}, {
+					"OperTechName": "VKUMAR",
+					"TechWrkCtr": sOperWrkCtr
 				}];
-				var assignedTech=[];
-				var assignedTechItem={
-					"OperWrkCtr":sOperWrkCtr,
-					"OperAssignTech":""
+				var assignedTech = [];
+				var assignedTechItem = {
+					"OperWrkCtr": sOperWrkCtr,
+					"OperAssignTech": ""
 				};
 				assignedTech.push(assignedTechItem);
-				this.mLookupModel.setProperty("/aOperationTechList",assignedTech);
-				this.mLookupModel.setProperty("/aWrkCtrTech",aWrkCtrTech);
+				this.mLookupModel.setProperty("/aOperationTechList", assignedTech);
+				this.mLookupModel.setProperty("/aWrkCtrTech", aWrkCtrTech);
 				if (!this.controlKeyDialog) {
 					this.controlKeyDialog = sap.ui.xmlfragment("com.sap.incture.IMO_PM.fragment.OperationAssignTech", this);
 					this.getView().addDependent(this.controlKeyDialog);
@@ -3774,33 +3773,169 @@ sap.ui.define([
 				win.close();
 			}, 2000);
 		},
-		onChangeShortTxtKey: function (oEvent) {
-			var oWorkOrderDetailModel = this.oWorkOrderDetailModel;
-			var mLookupModel = this.mLookupModel;
-			var sOpPath = oEvent.getSource().getParent().getBindingContext("oWorkOrderDetailModel").getPath();
-			var sModelName = oEvent.getSource().getBindingInfo("items").model;
-			var sLookUpPath = oEvent.getSource().getBindingInfo("items").path;
-			var sKey = oEvent.getParameters().newValue;
-			var aArr = mLookupModel.getProperty(sLookUpPath);
-			var sIndex = this.getIndexOFSelectedKey(aArr, sKey);
-			var aHeaderOp = oWorkOrderDetailModel.getProperty(sOpPath);
-			if (sKey === "" || sIndex === undefined) {
-				aHeaderOp.Description = "";
-				aHeaderOp.StText = "";
-			} else {
-				aHeaderOp.Description = aArr[sIndex].StTextDesc;
-				// aHeaderOp.operationLongTxt = aArr[sIndex].LongText;   
-			}
+		// onChangeShortTxtKey: function (oEvent) {
+		// 	var that = this;
+		// 	var oWorkOrderDetailModel = this.oWorkOrderDetailModel;
+		// 	var oWorkOrderDetailViewModel = this.oWorkOrderDetailViewModel;
+		// 	var mLookupModel = this.mLookupModel;
+		// 	var oLookupDataModel = this.oLookupDataModel;
+		// 	var sUrl = "/StandardTextSet";
+		// 	var sOpPath = oEvent.getSource().getParent().getBindingContext("oWorkOrderDetailModel").getPath();
+		// 	var sModelName = oEvent.getSource().getBindingInfo("items").model;
+		// 	var sLookUpPath = oEvent.getSource().getBindingInfo("items").path;
+		// 	var sKey = oEvent.getParameters().newValue;
+		// 	var aArr = mLookupModel.getProperty(sLookUpPath);
+		// 	var sIndex = this.getIndexOFSelectedKey(aArr, sKey);
+		// 	var aHeaderOp = oWorkOrderDetailModel.getProperty(sOpPath);
+		// 	if (sKey === "" || sIndex === undefined) {
+		// 		aHeaderOp.StText = "";
+		// 		aHeaderOp.Description = "";
+		// 		aHeaderOp.LongText = "";
+		// 		oWorkOrderDetailViewModel.setProperty("/operationLongTxt", "");
+		// 		oWorkOrderDetailModel.setProperty(sOpPath, aHeaderOp);
+		// 		oWorkOrderDetailModel.refresh();
+		// 	} else {
+		// 		this.busy.open();
+		// 		var oFilter = [];
+		// 		oFilter.push(new Filter("StText", "EQ", sKey));
+		// 		oLookupDataModel.read(sUrl, {
+		// 			filters: oFilter,
+		// 			success: function (oData) {
+		// 				var oTempData = oData.results[0];
+		// 				aHeaderOp.Description = oTempData.ShortText;
+		// 				aHeaderOp.LongText = oTempData.LongText;
+		// 				oWorkOrderDetailViewModel.setProperty("/operationLongTxt", oTempData.LongText);
+		// 				oWorkOrderDetailModel.setProperty(sOpPath, aHeaderOp);
+		// 				oWorkOrderDetailModel.refresh();
+		// 				that.busy.close();
+		// 			},
+		// 			error: function (oData) {
+		// 				that.busy.close();
+		// 			}
+		// 		});
+		// 		// aHeaderOp.Description = aArr[sIndex].StTextDesc;
+		// 		// aHeaderOp.operationLongTxt = aArr[sIndex].LongText;   
+		// 	}
 
-			oWorkOrderDetailModel.setProperty(sOpPath, aHeaderOp);
-			oWorkOrderDetailModel.refresh();
+		// 	// this.getShortLongText(sKey);
+		// 	// var aArr = mLookupModel.getProperty(sLookUpPath);
+		// 	// var sIndex = this.getIndexOFSelectedKey(aArr, sKey);
+		// 	// var aHeaderOp = oWorkOrderDetailModel.getProperty(sOpPath);
+		// 	// if (sKey === "" || sIndex === undefined) {
+		// 	// 	aHeaderOp.Description = "";
+		// 	// 	aHeaderOp.StText = "";
+		// 	// } else {
+		// 	// 	aHeaderOp.Description = aArr[sIndex].StTextDesc;
+		// 	//  aHeaderOp.operationLongTxt = aArr[sIndex].LongText;   
+		// 	// }
 
-		},
+		// 	// oWorkOrderDetailModel.setProperty(sOpPath, aHeaderOp);
+		// 	// oWorkOrderDetailModel.refresh();
+
+		// },
+		// // Function to get Short Text and Long Text based on Shorttext key seleted
+		// getShortLongText: function (key) {
+		// 	var that = this;
+		// 	this.busy.open();
+		// 	var sUrl = "/StandardTextSet";
+		// 	var mLookupModel = this.mLookupModel;
+		// 	var oLookupDataModel = this.oLookupDataModel;
+		// 	// var userPlant = this.oUserDetailModel.getProperty("/userPlant");
+		// 	var oFilter = [];
+		// 	debugger;
+		// 	oFilter.push(new Filter("StText", "EQ", key));
+		// 	oLookupDataModel.read(sUrl, {
+		// 		filters: oFilter,
+		// 		success: function (oData) {
+		// 			debugger;
+		// 			var aShortTextKey = oData.results;
+		// 			that.busy.close();
+		// 		},
+		// 		error: function (oData) {
+		// 			debugger;
+		// 			that.busy.close();
+		// 		}
+		// 	});
+		// },
 		getIndexOFSelectedKey: function (aArr, sKey) {
 			for (var i = 0; i < aArr.length; i++) {
 				if (sKey === aArr[i].StText) {
 					return i;
 				}
+			}
+		},
+		ShortTextValueHelp: function (oEvent) {
+			var oWorkOrderDetailViewModel = this.oWorkOrderDetailViewModel;
+			var sPath = oEvent.getSource().getBindingContext("oWorkOrderDetailModel").getPath();
+			oWorkOrderDetailViewModel.setProperty("/sOpPath", sPath);
+			if (!this.shortTextDialog) {
+				this.shortTextDialog = sap.ui.xmlfragment("com.sap.incture.IMO_PM.fragment.shortTextTable", this);
+				this.getView().addDependent(this.shortTextDialog);
+			}
+
+			this.shortTextDialog.open();
+		},
+		onCloseShortTextDialog: function () {
+			this.shortTextDialog.close();
+			this.shortTextDialog.destroy();
+			this.shortTextDialog = null;
+		},
+		onSelectShortTextKey: function (oEvent) {
+			var mLookupModel = this.mLookupModel;
+			var oSource = oEvent.getParameter("listItem");
+			var sPath = oSource.getBindingContextPath();
+			var sKey = mLookupModel.getProperty(sPath + "/StText");
+			this.onCloseShortTextDialog();
+			this.fnGetShortLongText(sKey);
+		},
+		onChangeStKey: function (oEvent) {
+			var oWorkOrderDetailViewModel = this.oWorkOrderDetailViewModel;
+			var sPath = oEvent.getSource().getBindingContext("oWorkOrderDetailModel").getPath();
+			oWorkOrderDetailViewModel.setProperty("/sOpPath", sPath);
+			var sKey = oEvent.getParameters().newValue;
+			this.fnGetShortLongText(sKey);
+		},
+		fnGetShortLongText: function (sKey) {
+			var that = this;
+			var oWorkOrderDetailModel = this.oWorkOrderDetailModel;
+			var oWorkOrderDetailViewModel = this.oWorkOrderDetailViewModel;
+			var mLookupModel = this.mLookupModel;
+			var oLookupDataModel = this.oLookupDataModel;
+			var sUrl = "/StandardTextSet";
+			var sOpPath = oWorkOrderDetailViewModel.getProperty("/sOpPath");
+			var aArr = mLookupModel.getProperty("/aShortTextKey");
+			var sIndex = this.getIndexOFSelectedKey(aArr, sKey);
+			var aHeaderOp = oWorkOrderDetailModel.getProperty(sOpPath);
+			debugger;
+			if (sKey === "" || sIndex === undefined) {
+				aHeaderOp.StText = "";
+				// aHeaderOp.Description = "";
+				// aHeaderOp.LongText = "";
+				// oWorkOrderDetailViewModel.setProperty("/operationLongTxt", "");
+				oWorkOrderDetailModel.setProperty(sOpPath, aHeaderOp);
+				oWorkOrderDetailModel.refresh();
+			} else {
+				this.busy.open();
+				var oFilter = [];
+				oFilter.push(new Filter("StText", "EQ", sKey));
+				oLookupDataModel.read(sUrl, {
+					filters: oFilter,
+					success: function (oData) {
+						var oTempData = oData.results[0];
+						aHeaderOp.StText =oTempData.StText;
+						aHeaderOp.Description = oTempData.ShortText;
+						aHeaderOp.LongText = oTempData.LongText;
+						oWorkOrderDetailViewModel.setProperty("/operationLongTxt", oTempData.LongText);
+						oWorkOrderDetailModel.setProperty(sOpPath, aHeaderOp);
+						oWorkOrderDetailModel.refresh();
+						that.busy.close();
+					},
+					error: function (oData) {
+						that.busy.close();
+					}
+				});
+				// aHeaderOp.Description = aArr[sIndex].StTextDesc;
+				// aHeaderOp.operationLongTxt = aArr[sIndex].LongText;   
 			}
 		}
 

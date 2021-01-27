@@ -93,11 +93,14 @@
 							<ui:Column width="7rem" tooltip="{i18n>SHORT_TEXT_KEY}">
 								<Label text="{i18n>SHORT_TEXT_KEY}" class="tableHeaderText"/>
 								<ui:template>
-									<ComboBox items="{mLookupModel>/aShortTextKey}" selectedKey="{oWorkOrderDetailModel>StText}" class="inputRadius" width="85%"
-										change="onChangeShortTxtKey"
-										enabled="{parts:['oWorkOrderDetailModel>OperCode', 'oWorkOrderDetailModel>/OrderStatus', 'oWorkOrderDetailModel>systemstatustext', 'oWorkOrderDetailModel>Systcond'], formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnSetWOUpdateStatusFields'}">
-										<core:ListItem key="{mLookupModel>StText}" text="{mLookupModel>StText}"/>
-									</ComboBox>
+									<!--<ComboBox items="{mLookupModel>/aShortTextKey}" selectedKey="{oWorkOrderDetailModel>StText}" class="inputRadius" width="85%"-->
+									<!--	change="onChangeShortTxtKey"-->
+									<!--	enabled="{parts:['oWorkOrderDetailModel>OperCode', 'oWorkOrderDetailModel>/OrderStatus', 'oWorkOrderDetailModel>systemstatustext', 'oWorkOrderDetailModel>Systcond'], formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnSetWOUpdateStatusFields'}">-->
+									<!--	<core:ListItem key="{mLookupModel>StText}" text="{mLookupModel>StText}"/>-->
+									<!--</ComboBox>-->
+									<Input value="{oWorkOrderDetailModel>StText}" maxLength="15" tooltip="{oWorkOrderDetailModel>StText}" valueHelpOnly="false"
+									enabled="{parts:['oWorkOrderDetailModel>OperCode', 'oWorkOrderDetailModel>/OrderStatus', 'oWorkOrderDetailModel>systemstatustext', 'oWorkOrderDetailModel>Systcond'], formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnSetWOUpdateStatusFields'}" 
+									valueHelpRequest="ShortTextValueHelp" showValueHelp="true" class="inputRadius" change = "onChangeStKey"></Input>
 								</ui:template>
 							</ui:Column>
 							<ui:Column width="18rem" tooltip="{i18n>SHORT_TEXT}">
