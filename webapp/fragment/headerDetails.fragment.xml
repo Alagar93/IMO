@@ -160,7 +160,7 @@
 						</layoutData>
 					</VBox>
 					<VBox class="sapUiTinyMarginTop">
-						<Label text="{i18n>PERSON_RESPONSIBLE}"></Label>
+						<Label text="{i18n>PERSON_RESP_ID}"></Label>
 						<Input
 							value="{path:'oWorkOrderDetailViewModel>/HEADERTOPARTNERNAV/0/AssignedTo',formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnGetNamefromUserid'}"
 							showValueHelp="true" valueHelpRequest="handleValueHelp" tooltip="{oWorkOrderDetailViewModel>/HEADERTOPARTNERNAV/0/AssignedTo}"
@@ -174,7 +174,7 @@
 						</layoutData>
 					</VBox>
 					<VBox class="sapUiTinyMarginTop">
-						<Label text="{i18n>ASSIGNED_TECH_NAME}"></Label>
+						<Label text="{i18n>PERSON_RESP_NAME}"></Label>
 						<!--	<Input value="{path:'oWorkOrderDetailViewModel>/HEADERTOPARTNERNAV/0/AssignedTo',formatter:'com.mylan.createWorkOrder.formatter.formatter.fnGetNamefromUserid'}" 
 							enabled="false" class="inputRadius">
 						</Input>-->
