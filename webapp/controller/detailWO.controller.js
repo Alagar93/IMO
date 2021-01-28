@@ -281,7 +281,8 @@ sap.ui.define([
 				var assignedTech = [];
 				var assignedTechItem = {
 					"OperWrkCtr": sOperWrkCtr,
-					"OperAssignTech": ""
+					"OperAssignTech": "",
+					"TechAvailHrs": 8
 				};
 				assignedTech.push(assignedTechItem);
 				this.mLookupModel.setProperty("/aOperationTechList", assignedTech);
@@ -292,6 +293,19 @@ sap.ui.define([
 				}
 				this.controlKeyDialog.open();
 			}
+		},
+		//Function to Add Tech to operation
+		fnAddOperTech: function () {
+			var sOperPath = this.oWorkOrderDetailViewModel.getProperty("/sPathControlKey");
+			var operDetails = jQuery.extend(true, {}, this.oWorkOrderDetailModel.getProperty(sOperPath));
+			var operTechDetails = this.mLookupModel.getProperty("/aOperationTechList");
+			var assignedTechItem = {
+				"OperWrkCtr": operDetails.WorkCntr,
+				"OperAssignTech": "",
+				"TechAvailHrs": 8
+			};
+			operTechDetails.push(assignedTechItem);
+			this.mLookupModel.setProperty("/aOperationTechList",operTechDetails);
 		},
 		//Sunanda -- Function to open ControlKey popup if Item Category is N
 		onItemCatChange: function (oEvent) {
@@ -1661,7 +1675,8 @@ sap.ui.define([
 		fnValidateTimersetup: function (selectedOps) {
 			if (selectedOps) {
 				if (selectedOps.length !== 0) {
-					var bTimerFlag = true,bConfFlag=true;
+					var bTimerFlag = true,
+						bConfFlag = true;
 					for (var i = 0; i < selectedOps.length; i++) {
 						var selOperationDetail = this.oWorkOrderDetailModel.getProperty(selectedOps[i].sPath);
 						if (selOperationDetail.ControlKey !== "PM01") {
@@ -1669,7 +1684,7 @@ sap.ui.define([
 						}
 						if (selOperationDetail.systemstatustext !== "REL" && selOperationDetail.systemstatustext !== "PCNF") {
 							bTimerFlag = false;
-							bConfFlag=false;
+							bConfFlag = false;
 						}
 
 					}
@@ -3922,7 +3937,7 @@ sap.ui.define([
 					filters: oFilter,
 					success: function (oData) {
 						var oTempData = oData.results[0];
-						aHeaderOp.StText =oTempData.StText;
+						aHeaderOp.StText = oTempData.StText;
 						aHeaderOp.Description = oTempData.ShortText;
 						aHeaderOp.LongText = oTempData.LongText;
 						oWorkOrderDetailViewModel.setProperty("/operationLongTxt", oTempData.LongText);

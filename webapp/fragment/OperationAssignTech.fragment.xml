@@ -4,10 +4,10 @@
 		<content>
 			<OverflowToolbar>
 				<ToolbarSpacer/>
-				<Button text="{i18n>Add_Tech}" press="fnAddoperTech" />
-				<Button text="{i18n>Remove_tech}" type="Reject" press="fnRemoveOperTech" />
+				<Button text="{i18n>Add_Tech}" press="fnAddOperTech" />
+				<Button text="{i18n>Remove_tech}" type="Reject" press="c" />
 			</OverflowToolbar>
-			<table:Table selectionMode="MultiToggle" rows="{mLookupModel>/aOperationTechList}" class="sapUiTinyMargin">
+			<table:Table selectionMode="MultiToggle" rows="{mLookupModel>/aOperationTechList}" class="sapUiTinyMargin" id="idIMOOperTechTable">
 				<table:columns>
 					<table:Column defaultFilterOperator="Contains">
 						<Text class="tableHeaderText" text="{i18n>WRK_CTR}"/>
@@ -26,7 +26,7 @@
 					<table:Column>
 						<Text class="tableHeaderText" text="{i18n>Available_hours}"/>
 						<table:template>
-							<Text text="8"></Text>
+							<Text text="{mLookupModel>TechAvailHrs}"></Text>
 						</table:template>
 					</table:Column>
 				</table:columns>
