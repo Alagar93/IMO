@@ -2,7 +2,12 @@
 	xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" class="sapUiSizeCompact" xmlns:table="sap.ui.table">
 	<Dialog contentHeight="50%" contentWidth="50%" title="{i18n>Assign_tech}" class="sapUiSizeCompact dialogHeader">
 		<content>
-			<table:Table selectionMode="None" rows="{mLookupModel>/aOperationTechList}" class="sapUiTinyMargin">
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button text="{i18n>Add_Tech}" press="fnAddOperTech" />
+				<Button text="{i18n>Remove_tech}" type="Reject" press="c" />
+			</OverflowToolbar>
+			<table:Table selectionMode="MultiToggle" rows="{mLookupModel>/aOperationTechList}" class="sapUiTinyMargin" id="idIMOOperTechTable">
 				<table:columns>
 					<table:Column defaultFilterOperator="Contains">
 						<Text class="tableHeaderText" text="{i18n>WRK_CTR}"/>
@@ -16,6 +21,12 @@
 							<ComboBox selectedKey="{mLookupModel>/OperAssignTech}" items="{mLookupModel>/aWrkCtrTech}" class="inputRadius">
 								<core:Item text="{mLookupModel>OperTechName}" key="{mLookupModel>OperTechName}"/>
 							</ComboBox>
+						</table:template>
+					</table:Column>
+					<table:Column>
+						<Text class="tableHeaderText" text="{i18n>Available_hours}"/>
+						<table:template>
+							<Text text="{mLookupModel>TechAvailHrs}"></Text>
 						</table:template>
 					</table:Column>
 				</table:columns>

@@ -9,6 +9,16 @@
 	color:currentcolor !important;
 	font-weight: bolder !important;
 }
+.timerStatusClass{
+	font-size : 12px;
+	vertical-align: sub;
+    margin-top: 100%;
+    padding-top: 65%;
+
+}
+.OperationHboxClass{
+	width:80% !important;
+}
 
 /*.sapUxAPObjectPageLayout-Std-Desktop .sapUxAPObjectPageHeaderContent:only-child {
     padding: 0rem 1rem !important;
