@@ -3542,6 +3542,8 @@ sap.ui.define([
 		//Function to close User search PopUp
 		onCancelDialogAssignUser: function () {
 			this.usersListDialog.close();
+			this.usersListDialog.destroy();
+			this.usersListDialog = null;
 		},
 
 		//Function to validate user entered Float values

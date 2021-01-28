@@ -1492,25 +1492,25 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 		return bVal;
 	},
 	fnGetNamefromUserid: function (userid) {
-
-		var oModel = this.getModel("oPortalDataModel");
-		var mLookupModel = this.getModel("mLookupModel");
-		if (userid && oModel && mLookupModel) {
-			var oFilter = [];
-			oFilter.push(new sap.ui.model.Filter("Bname", "EQ", userid));
-			oModel.read("/UsersListSet", {
-				filters: oFilter,
-				async: false,
-				success: function (oData, oResponse) {
-					mLookupModel.setProperty("/AssigedTechName", oData.results[0].NameTextc);
-					mLookupModel.refresh();
-				},
-				error: function (oResponse) {
-					mLookupModel.setProperty("/AssigedTechName", "");
-					mLookupModel.refresh();
-				}
-			});
-		}
+		//nischal -- UsersListSet service is changed
+		// var oModel = this.getModel("oPortalDataModel");
+		// var mLookupModel = this.getModel("mLookupModel");
+		// if (userid && oModel && mLookupModel) {
+		// 	var oFilter = [];
+		// 	oFilter.push(new sap.ui.model.Filter("Bname", "EQ", userid));
+		// 	oModel.read("/UsersListSet", {
+		// 		filters: oFilter,
+		// 		async: false,
+		// 		success: function (oData, oResponse) {
+		// 			mLookupModel.setProperty("/AssigedTechName", oData.results[0].NameTextc);
+		// 			mLookupModel.refresh();
+		// 		},
+		// 		error: function (oResponse) {
+		// 			mLookupModel.setProperty("/AssigedTechName", "");
+		// 			mLookupModel.refresh();
+		// 		}
+		// 	});
+		// }
 		return userid;
 
 	},

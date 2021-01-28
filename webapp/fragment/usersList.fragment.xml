@@ -1,21 +1,21 @@
 <core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" class="sapUiSizeCompact">
-	<Dialog contentHeight="50%" contentWidth="30%" title="Search Users" class="dialogHeader">
+	<Dialog contentHeight="50%" contentWidth="40%" title="Search Users" class="dialogHeader">
 		<content>
-			<SearchField search="onSearchUser" width="95%" placeholder="{i18n>searchuser}" class="sapUiTinyMargin sapSearchFieldBorderClass"/>
-			<Table sticky="ColumnHeaders" class="sapUiTinyMargin tableCellNoBorder TableHeaderWhiteBG" width="95%" mode="SingleSelectLeft" items="{path: 'mLookupModel>/aUsers'}" selectionChange="onSetReportedbyUser">
+			<SearchField search="onSearchPersonResp" width="95%" placeholder="{i18n>search_Person_Responsible}" class="sapUiTinyMargin sapSearchFieldBorderClass"/>
+			<Table sticky="ColumnHeaders" class="sapUiTinyMargin tableCellNoBorder TableHeaderWhiteBG" width="95%" mode="SingleSelectLeft" items="{path: 'mLookupModel>/aUsers'}" selectionChange="onSelectPersonResponsible">
 				<columns>
 					<Column>
-						<Text text="{i18n>M-Id}"/>
+						<Text text="{i18n>PERSON_RESP_ID}"/>
 					</Column>
 					<Column>
-						<Text text="{i18n>name}"/>
+						<Text text="{i18n>PERSON_RESP_NAME}"/>
 					</Column>
 				</columns>
 				<items>
 					<ColumnListItem>
 						<cells >
-							<Text text="{mLookupModel>Bname}"/>
-							<Text text="{mLookupModel>NameTextc}"/>
+							<Text text="{mLookupModel>Pernr}"/>
+							<Text text="{mLookupModel>Stext}"/>
 						</cells>
 					</ColumnListItem>
 				</items>

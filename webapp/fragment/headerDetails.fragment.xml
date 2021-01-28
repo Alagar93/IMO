@@ -178,7 +178,9 @@
 						<!--	<Input value="{path:'oWorkOrderDetailViewModel>/HEADERTOPARTNERNAV/0/AssignedTo',formatter:'com.mylan.createWorkOrder.formatter.formatter.fnGetNamefromUserid'}" 
 							enabled="false" class="inputRadius">
 						</Input>-->
-						<Input value="{mLookupModel>/AssigedTechName}" enabled="false" class="inputRadius"></Input>
+						<!--nischal Commented this code...binding is changed from mLookupModel to oWorkOrderDetailViewModel-->
+						<!--<Input value="{mLookupModel>/AssigedTechName}" enabled="false" class="inputRadius"></Input>-->
+						<Input value = "{oWorkOrderDetailViewModel>/ReportedByName}" enabled = "false" class = "inputRadius"/>
 						<layoutData>
 							<l:GridData span="XL2 L2 M4 S6"/>
 						</layoutData>

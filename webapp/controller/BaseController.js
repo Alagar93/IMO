@@ -8,8 +8,9 @@ sap.ui.define([
 	"sap/ui/model/FilterOperator",
 	"com/sap/incture/IMO_PM/util/util",
 	"com/sap/incture/IMO_PM/formatter/formatter",
-	"sap/ui/core/routing/History"
-], function (Controller, DateFormat, JSONModel, MessageBox, BusyDialog, Filter, FilterOperator, util, formatter, History) {
+	"sap/ui/core/routing/History",
+	"sap/m/MessageToast"
+], function (Controller, DateFormat, JSONModel, MessageBox, BusyDialog, Filter, FilterOperator, util, formatter, History,MessageToast) {
 
 	"use strict";
 
@@ -3477,7 +3478,62 @@ sap.ui.define([
 					// that.busy.close();
 				}
 			});
-		}
+		},
+		//nischal -- 
+		onSearchPersonResp: function (oEvent) {
+			var that = this;
+			this.busy.open();
 
+			var mLookupModel = this.mLookupModel;
+			var oLookupDataModel = this.oLookupDataModel;
+			var oWorkOrderDetailModel = this.oWorkOrderDetailModel;
+			var oWorkOrderDetailViewModel = this.oWorkOrderDetailViewModel;
+			var sUserId = oEvent.getSource().getValue();
+			sUserId = sUserId.toUpperCase();
+			// if (!sUserId) {
+			// 	MessageToast.show("Please Enter Person Responsible Id");
+			// 	this.busy.close();
+			// 	return;
+			// }
+			var sPlant = "4321";
+			var sPlant1 = "'" + sPlant.replace(/['"]+/g, '') + "'";
+			var sWrkCtr = oWorkOrderDetailModel.getProperty("/MnWkCtr");
+			var sWrkCtr1 = "'" + sWrkCtr.replace(/['"]+/g, '') + "'";
+			// var sUserId1 = "'" + sUserId.replace(/['"]+/g, '') + "'";
+			var oFilter = [];
+			oFilter.push(new Filter("Werks", "EQ", sPlant1.replace(/['"]+/g, '') + "'"));
+			oFilter.push(new Filter("Arbpl", "EQ", sWrkCtr1.replace(/['"]+/g, '') + "'"));
+			// oFilter.push(new Filter("Pernr", "EQ", "00000129"));
+			oLookupDataModel.read("/Pm02Set", {
+				filters: oFilter,
+				success: function (oData, oResponse) {
+					mLookupModel.setProperty("/aUsers", oData.results);
+					that.busy.close();
+				},
+				error: function (oResponse) {
+					mLookupModel.setProperty("/aUsers", []);
+					mLookupModel.refresh(true);
+					that.busy.close();
+				}
+			});
+		},
+		onSelectPersonResponsible: function (oEvent) {
+			var mLookupModel = this.mLookupModel;
+			var oWorkOrderDetailModel = this.oWorkOrderDetailModel;
+			var oWorkOrderDetailViewModel = this.oWorkOrderDetailViewModel;
+			var assignUserFieldType = oWorkOrderDetailViewModel.getProperty("/assignUserFieldType");
+			var sPath = oEvent.getSource().getSelectedContextPaths()[0];
+			var oData = mLookupModel.getProperty(sPath);
+			var selectedObj = oEvent.getSource().getSelectedItem().getCells()[0].getText();
+			if (assignUserFieldType !== "/ReportedBy") {
+				oWorkOrderDetailViewModel.setProperty(assignUserFieldType, selectedObj);
+				oWorkOrderDetailViewModel.setProperty("/ReportedByName", oData.Stext);
+				this.onUpdateAssignedTo();
+			} else {
+				oWorkOrderDetailModel.setProperty(assignUserFieldType, selectedObj);
+
+			}
+			this.onCancelDialogAssignUser();
+		}
 	});
 });
