@@ -3907,6 +3907,10 @@ sap.ui.define([
 			debugger;
 			if (sKey === "" || sIndex === undefined) {
 				aHeaderOp.StText = "";
+				if (aHeaderOp.OperCode === "N") {
+					aHeaderOp.OperCode = "U";
+				}
+
 				// aHeaderOp.Description = "";
 				// aHeaderOp.LongText = "";
 				// oWorkOrderDetailViewModel.setProperty("/operationLongTxt", "");
@@ -3920,9 +3924,12 @@ sap.ui.define([
 					filters: oFilter,
 					success: function (oData) {
 						var oTempData = oData.results[0];
-						aHeaderOp.StText =oTempData.StText;
+						aHeaderOp.StText = oTempData.StText;
 						aHeaderOp.Description = oTempData.ShortText;
 						aHeaderOp.LongText = oTempData.LongText;
+						if (aHeaderOp.OperCode === "N") {
+							aHeaderOp.OperCode = "U";
+						}
 						oWorkOrderDetailViewModel.setProperty("/operationLongTxt", oTempData.LongText);
 						oWorkOrderDetailModel.setProperty(sOpPath, aHeaderOp);
 						oWorkOrderDetailModel.refresh();
