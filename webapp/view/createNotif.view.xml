@@ -1,4 +1,4 @@
-<mvc:View controllerName="com.sap.incture.IMO_PM.controller.createNotif" xmlns:mvc="sap.ui.core.mvc"
+<mvc:View controllerName="com.sap.incture.IMO_PM.controller.createNotif" xmlns:mvc="sap.ui.core.mvc" xmlns:ui="sap.ui.table"
 	xmlns:html="http://www.w3.org/1999/xhtml" displayBlock="true" xmlns="sap.m" xmlns:fb="sap.ui.comp.filterbar" xmlns:core="sap.ui.core"
 	xmlns:l="sap.ui.layout" xmlns:table="sap.ui.table" xmlns:tnt="sap.tnt">
 	<Page showHeader="true" class="sapUiSizeCompact sapMPageBackground" floatingFooter="false" enableScrolling="false">
@@ -18,209 +18,496 @@
 				</Button>
 				<Button text="{i18n>create_Wo}" press="onCreateWODialogOpen" class="tableHeadertansparentBtn" icon="sap-icon://document" iconFirst="true"/>
 				<Button text="Clear" press="onClearCreateNotif" class="btnTransparent createNotifClearBtn" icon="sap-icon://decline" iconFirst="true"/>
-				<!--<ToolbarSpacer/>-->
 			</Toolbar>
 			<VBox height="{mLookupModel>/notificationPanelHeight}" class="iopRightPanelContainer"
 				width="{= ${mLookupModel>/showTaskManagementPanelCreateNotif} === true ? '20rem' : '0' }">
 				<core:Fragment fragmentName="com.sap.incture.IMO_PM.fragment.RightAttachmentPanelCreateNotif" type="XML"
 					id="idRightAttachmentPanelCreateNotif"></core:Fragment>
 			</VBox>
-			<ScrollContainer height="calc(100vh - 9rem)" vertical="true">
-				<l:Grid defaultSpan="XL3 L3 M6 S12" class="sapUiSmallMarginBeginEnd sapUiSmallMarginBottom sapUiTinyMarginTop gridBG" vSpacing="0">
-					<OverflowToolbar class="createNotifOverflowBorder">
-						<Label design="Bold" text="{i18n>SUBJECT}" wrapping="true"/>
-						<layoutData>
-							<l:GridData span="XL12 L12 M12 S12"></l:GridData>
-						</layoutData>
-					</OverflowToolbar>
-					<VBox class="gridPadding">
-						<Label text="{i18n>NOTIF_TYPE}" required="true"/>
-						<ComboBox showSecondaryValues="true" items="{path:'mLookupModel>/aNotificationTypeSet',sorter:{ path: 'text' }}"
-							selectedKey="{oNotificationDataModel>/NotifType}" class="inputRadius" enabled="true" width="90%">
-							<core:ListItem key="{mLookupModel>Qmart}" additionalText="{mLookupModel>qmartx}" text="{mLookupModel>Qmart}"/>
-						</ComboBox>
-					</VBox>
-					<VBox class="gridPadding">
-						<Label text="{i18n>reference_Notif}"/>
-						<Input class="inputRadius" value="{mLookupModel>/sRefnotif}" width="90%" valueLiveUpdate="true" showValueHelp="true" showSuggestion="true"
-							enabled="true" valueHelpRequest="refNotifValueHelp" valueHelpOnly="false"></Input>
-					</VBox>
-					<VBox class="gridPadding">
-						<Label text="{i18n>DESCRIPTION}" required="true"></Label>
-						<Input class="inputRadius" value="{oNotificationDataModel>/ShortText}" width="90%" tooltip="{oNotificationDataModel>/ShortText}"
-							maxLength="40"></Input>
-					</VBox>
-					<VBox class="gridPadding">
-						<Label text="{i18n>LONG_TEXT}"/>
-						<TextArea class="inputRadius" width="90%" value="{oNotificationDataModel>/Longtext}" tooltip="{oNotificationDataModel>/Longtext}" rows="4"
-							maxLength="2000"/>
-					</VBox>
-					<OverflowToolbar class="createNotifOverflowBorder">
-						<Label text="{i18n>REFERENCE_OBJECT}" design="Bold" class="sapUiTinyMarginBottom"></Label>
-						<layoutData>
-							<l:GridData span="XL12 L12 M12 S12"></l:GridData>
-						</layoutData>
-					</OverflowToolbar>
-					<VBox class="gridPadding">
-						<Label required="true" text="{i18n>FUNC_LOCATION}"></Label>
-						<Input width="90%" editable="true" showValueHelp="true" value="{oNotificationDataModel>/FunctLoc}" valueHelpOnly="false"
-							valueHelpRequest="fnLocValueHelp" class="inputRadius"></Input>
-					</VBox>
-					<VBox class="gridPadding">
-						<Label text="{i18n>EQUIPMENT}" required="false"></Label>
-						<Input class="inputRadius" width="90%" showValueHelp="true" value="{oNotificationDataModel>/Equipment}"
-							valueHelpRequest="openEquipmentListValueHelp" tooltip="{oNotificationDataModel>/Equipment}" maxLength="18"></Input>
-					</VBox>
-					<VBox class="gridPadding">
-						<Label text="{i18n>SUB_ASSEMBLY}"></Label>
-						<ComboBox showSecondaryValues="true" items="{mLookupModel>/aEquipAssemblyList}" selectedKey="{oNotificationDataModel>/Assembly}"
-							class="inputRadius" tooltip="{oNotificationDataModel>/Assembly}" width="90%">
-							<core:ListItem key="{mLookupModel>Idnrk}" text="{mLookupModel>Idnrk} - {mLookupModel>MAKTX}"/>
-						</ComboBox>
-					</VBox>
-					<VBox class="gridPadding">
-						<Label text="{i18n>person_resp}"></Label>
-						<ComboBox showSecondaryValues="true" class="inputRadius" width="90%" selectedKey="{mLookupModel>/assignedToHardCode}">
-							<core:ListItem key="John Smith" text="John Smith"/>
-							<core:ListItem key="Andrew Goal" text="Andrew Goal"/>
-						</ComboBox>
-					</VBox>
-					<OverflowToolbar class="createNotifOverflowBorder">
-						<Label text="{i18n>RESPONSIBILITIES}" design="Bold" class="sapUiTinyMarginBottom"></Label>
-						<layoutData>
-							<l:GridData span="XL12 L12 M12 S12"></l:GridData>
-						</layoutData>
-					</OverflowToolbar>
-					<VBox class="gridPadding">
-						<Label text="{i18n>notif_Priority}" required="true"></Label>
-						<ComboBox items="{ path: 'mLookupModel>/aPrioritySet', sorter: { path: 'text' } }" selectedKey="{oNotificationDataModel>/Priority}"
-							class="inputRadius" width="90%" change="onChangePriority">
-							<core:Item key="{mLookupModel>PRIOK}" text="{mLookupModel>PRIOKX}"/>
-						</ComboBox>
-					</VBox>
-					<VBox class="gridPadding">
-						<Label text="{i18n>PLANNER_GRP}" required="true"></Label>
-						<Select class="selectRadius" forceSelection="false" selectedKey="{oNotificationDataModel>/Plangroup}" width="90%"
-							tooltip="{oNotificationDataModel>/Plangroup}" items="{mLookupModel>/aPlannerGroupSet}" showSecondaryValues="true" enabled="true">
-							<core:ListItem key="{mLookupModel>VAGRP}" text="{mLookupModel>VAGRP} - {mLookupModel>TXT}"/>
-						</Select>
-					</VBox>
-					<VBox class="gridPadding">
-						<Label text="{i18n>notif_PlanningPlant}" required="true"></Label>
-						<Select class="selectRadius" forceSelection="false" width="90%" selectedKey="{oNotificationDataModel>/PlanPlant}" showSecondaryValues="true"
-							enabled="true">
-							<core:ListItem key="4321" text="4321"/>
-						</Select>
-					</VBox>
-					<VBox class="gridPadding">
-						<Label text="{i18n>notif_mainWorkCtr}" required="true"></Label>
-						<ComboBox showSecondaryValues="true" items="{path:'mLookupModel>/aWorkCenterSet',sorter:{ path: 'text' }}"
-							selectedKey="{oNotificationDataModel>/WorkCenter}" class="inputRadius" enabled="true" width="90%">
-							<core:ListItem key="{mLookupModel>WorkcenterId}" additionalText="{mLookupModel>WorkcenterDesc}" text="{mLookupModel>WorkcenterId}"/>
-						</ComboBox>
-					</VBox>
-					<VBox class="gridPadding">
-						<Label text="{i18n>notif_plant}" required="true"></Label>
-						<Select class="selectRadius" forceSelection="false" width="90%" showSecondaryValues="true" enabled="true"
-							selectedKey="{oNotificationDataModel>/PlanPlant}">
-							<core:ListItem key="4321" text="4321"/>
-						</Select>
-					</VBox>
-					<VBox class="gridPadding">
-						<Label text="{i18n>REPORTED_BY}"></Label>
-						<Input class="inputRadius" value="{oNotificationDataModel>/Reportedby}" showValueHelp="true" width="90%" valueHelpRequest="handleValueHelp"
-							tooltip="{oNotificationDataModel>/Reportedby}"/>
-					</VBox>
-					<VBox class="gridPadding">
-						<Label text="{i18n>REQ_START_DATE}"></Label>
-						<DatePicker class="inputRadius" placeholder="dd-MM-yyyy" dateValue="{oNotificationDataModel>/ReqStartdate}" width="90%"
-							displayFormat="dd-MM-yyyy" enabled="true" change="fnValidateDates">
-							<customData>
-								<core:CustomData key="dateType" value="ReqStartdate"/>
-							</customData>
-						</DatePicker>
-					</VBox>
-					<VBox class="gridPadding">
-						<Label text="{i18n>REQ_END_DATE}"></Label>
-						<DatePicker class="inputRadius" placeholder="dd-MM-yyyy" dateValue="{oNotificationDataModel>/ReqEnddate}" width="90%"
-							displayFormat="dd-MM-yyyy" enabled="true" change="fnValidateDates">
-							<customData>
-								<core:CustomData key="dateType" value="ReqEnddate"/>
-							</customData>
-						</DatePicker>
-					</VBox>
-					<OverflowToolbar class="createNotifOverflowBorder"
-						visible="{path:'oNotificationDataModel>/NotifType',formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnToggleBreakdownVisibility'}">
-						<Label text="Breakdown" design="Bold" class="sapUiTinyMarginBottom"></Label>
-						<layoutData>
-							<l:GridData span="XL12 L12 M12 S12"></l:GridData>
-						</layoutData>
-					</OverflowToolbar>
-					<VBox class="gridPadding"
-						visible="{path:'oNotificationDataModel>/NotifType',formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnToggleBreakdownVisibility'}">
-						<Label text="{i18n>BREAK_DOWN}"></Label>
-						<Switch state="{path:'oNotificationDataModel>/Breakdown', formatter:'com.sap.incture.IMO_PM.formatter.formatter.formatBooleanBreakDown'}"
-							customTextOn="{i18n>yes}" customTextOff="{i18n>no}" change="fnUpdateBreakDownStatus" id="idBreakDownSwitch" enabled="true"/>
-					</VBox>
-					<VBox class="gridPadding"
-						visible="{path:'oNotificationDataModel>/NotifType',formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnToggleBreakdownVisibility'}">
-						<Label text="{i18n>BREAK_DOWN_HRS}"></Label>
-						<Input class="inputRadius" value="{oNotificationDataModel>/BreakdownDur}" width="90%" tooltip="{oNotificationDataModel>/BreakdownDur}"
-							maxLength="7" enabled="false"></Input>
-					</VBox>
-					<VBox class="gridPadding"
-						visible="{path:'oNotificationDataModel>/Breakdown', formatter:'com.sap.incture.IMO_PM.formatter.formatter.formatBooleanBreakDown'}">
-						<VBox
-							visible="{path:'oNotificationDataModel>/NotifType',formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnToggleBreakdownVisibility'}">
-							<Label text="{i18n>MALFUN_START_DATE}"></Label>
-							<DatePicker class="inputRadius" placeholder="dd-MM-yyyy" dateValue="{oNotificationDataModel>/Startdate}" width="90%"
-								displayFormat="dd-MM-yyyy" change="fnValidateMalFunDates">
-								<customData>
-									<core:CustomData key="dateType" value="Startdate"/>
-								</customData>
-							</DatePicker>
-						</VBox>
-					</VBox>
-					<VBox class="gridPadding"
-						visible="{path:'oNotificationDataModel>/Breakdown', formatter:'com.sap.incture.IMO_PM.formatter.formatter.formatBooleanBreakDown'}">
-						<VBox
-							visible="{path:'oNotificationDataModel>/NotifType',formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnToggleBreakdownVisibility'}">
-							<Label text="{i18n>MALFUN_END_DATE}"></Label>
-							<DatePicker class="inputRadius" placeholder="dd-MM-yyyy" dateValue="{oNotificationDataModel>/Enddate}" width="90%"
-								displayFormat="dd-MM-yyyy" change="fnValidateMalFunDates">
-								<customData>
-									<core:CustomData key="dateType" value="Enddate"/>
-								</customData>
-							</DatePicker>
-						</VBox>
-					</VBox>
-					<VBox class="gridPadding"
-						visible="{path:'oNotificationDataModel>/Breakdown', formatter:'com.sap.incture.IMO_PM.formatter.formatter.formatBooleanBreakDown'}">
-						<VBox
-							visible="{path:'oNotificationDataModel>/NotifType',formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnToggleBreakdownVisibility'}">
-							<Label text="{i18n>MALFUN_START_TIME}"></Label>
-							<TimePicker class="inputRadius" value="{oNotificationViewModel>/StartTime}" width="90%" valueFormat="HH:mm" displayFormat="HH:mm"
-								placeholder="HH:mm" change="fnValidateMalFunDates">
-								<customData>
-									<core:CustomData key="dateType" value="StartTime"/>
-								</customData>
-							</TimePicker>
-						</VBox>
-					</VBox>
-					<VBox class="gridPadding"
-						visible="{path:'oNotificationDataModel>/Breakdown', formatter:'com.sap.incture.IMO_PM.formatter.formatter.formatBooleanBreakDown'}">
-						<VBox
-							visible="{path:'oNotificationDataModel>/NotifType',formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnToggleBreakdownVisibility'}">
-							<Label text="{i18n>MALFUN_END_TIME}"></Label>
-							<TimePicker class="inputRadius" value="{oNotificationViewModel>/EndTime}" width="90%" valueFormat="HH:mm" displayFormat="HH:mm"
-								placeholder="HH:mm" change="fnValidateMalFunDates">
-								<customData>
-									<core:CustomData key="dateType" value="EndTime"/>
-								</customData>
-							</TimePicker>
-						</VBox>
-					</VBox>
-				</l:Grid>
+			<ScrollContainer height="calc(100vh - 10rem)" vertical="true" class="sapUiTinyMarginTop">
+				<VBox class="sapMParentGridBroder sapUiTinyMarginBeginEnd">
+				<Panel expanded="true" expandable="true" class="sapMPanelWOHeader panelBackgroundClass">
+					<customData>
+						<core:CustomData key="panelTypeNotifCreate" value="HEADER_DETAILS_CREATE_NOTIF"/>
+					</customData>
+					<headerToolbar>
+						<OverflowToolbar>
+							<Text text="{i18n>HEADER_DETAILS}" class="leftMargin panelTextColor"></Text>
+							<ToolbarSpacer/>
+						</OverflowToolbar>
+					</headerToolbar>
+					<content>
+						<l:Grid class="sapUiSmallMarginTop" defaultSpan="XL2 L2 M2 S12">
+							<VBox class="sapUiTinyMarginTop">
+								<Label text="{i18n>NOTIF_TYPE}" required="true"/>
+								<ComboBox showSecondaryValues="true" items="{path:'mLookupModel>/aNotificationTypeSet',sorter:{ path: 'text' }}"
+									selectedKey="{oNotificationDataModel>/NotifType}" class="inputRadius" enabled="true" width="90%">
+									<core:ListItem key="{mLookupModel>Qmart}" additionalText="{mLookupModel>qmartx}" text="{mLookupModel>Qmart}"/>
+								</ComboBox>
+							</VBox>
+							<VBox class="sapUiTinyMarginTop">
+								<Label text="{i18n>reference_Notif}"/>
+								<Input class="inputRadius" value="{mLookupModel>/sRefnotif}" width="90%" valueLiveUpdate="true" showValueHelp="true" showSuggestion="true"
+									enabled="true" valueHelpRequest="refNotifValueHelp" valueHelpOnly="false"></Input>
+							</VBox>
+							<VBox class="sapUiTinyMarginTop">
+								<Label text="{i18n>DESCRIPTION}" required="true"></Label>
+								<Input class="inputRadius" value="{oNotificationDataModel>/ShortText}" width="90%" tooltip="{oNotificationDataModel>/ShortText}"
+									maxLength="40"></Input>
+							</VBox>
+							<VBox class="sapUiTinyMarginTop">
+								<Label text="{i18n>LONG_TEXT}"/>
+								<TextArea class="inputRadius" width="96%" value="{oNotificationDataModel>/Longtext}" tooltip="{oNotificationDataModel>/Longtext}" rows="1"
+									cols="30" maxLength="2000"/>
+								<layoutData>
+									<l:GridData span="XL6 L6 M6 S12"></l:GridData>
+								</layoutData>
+							</VBox>
+							<VBox class="sapUiTinyMarginTop">
+								<Label required="true" text="{i18n>FUNC_LOCATION}"></Label>
+								<Input width="90%" editable="true" showValueHelp="true" value="{oNotificationDataModel>/FunctLoc}" valueHelpOnly="false"
+									valueHelpRequest="fnLocValueHelp" class="inputRadius"></Input>
+							</VBox>
+							<VBox class="sapUiTinyMarginTop">
+								<Label text="{i18n>EQUIPMENT}" required="false"></Label>
+								<Input class="inputRadius" width="90%" showValueHelp="true" value="{oNotificationDataModel>/Equipment}"
+									valueHelpRequest="openEquipmentListValueHelp" tooltip="{oNotificationDataModel>/Equipment}" maxLength="18"></Input>
+							</VBox>
+							<VBox class="sapUiTinyMarginTop">
+								<Label text="{i18n>SUB_ASSEMBLY}"></Label>
+								<ComboBox showSecondaryValues="true" items="{mLookupModel>/aEquipAssemblyList}" selectedKey="{oNotificationDataModel>/Assembly}"
+									class="inputRadius" tooltip="{oNotificationDataModel>/Assembly}" width="90%">
+									<core:ListItem key="{mLookupModel>Idnrk}" text="{mLookupModel>Idnrk} - {mLookupModel>MAKTX}"/>
+								</ComboBox>
+							</VBox>
+							<VBox class="sapUiTinyMarginTop">
+								<Label text="{i18n>person_resp}"></Label>
+								<ComboBox showSecondaryValues="true" class="inputRadius" width="90%" selectedKey="{mLookupModel>/assignedToHardCode}">
+									<core:ListItem key="John Smith" text="John Smith"/>
+									<core:ListItem key="Andrew Goal" text="Andrew Goal"/>
+								</ComboBox>
+							</VBox>
+							<VBox class="sapUiTinyMarginTop">
+								<Label text="{i18n>notif_Priority}" required="true"></Label>
+								<ComboBox items="{ path: 'mLookupModel>/aPrioritySet', sorter: { path: 'text' } }" selectedKey="{oNotificationDataModel>/Priority}"
+									class="inputRadius" width="90%" change="onChangePriority">
+									<core:Item key="{mLookupModel>PRIOK}" text="{mLookupModel>PRIOKX}"/>
+								</ComboBox>
+							</VBox>
+							<VBox class="sapUiTinyMarginTop">
+								<Label text="{i18n>PLANNER_GRP}" required="true"></Label>
+								<Select class="selectRadius" forceSelection="false" selectedKey="{oNotificationDataModel>/Plangroup}" width="90%"
+									tooltip="{oNotificationDataModel>/Plangroup}" items="{mLookupModel>/aPlannerGroupSet}" showSecondaryValues="true" enabled="true">
+									<core:ListItem key="{mLookupModel>VAGRP}" text="{mLookupModel>VAGRP} - {mLookupModel>TXT}"/>
+								</Select>
+							</VBox>
+							<VBox class="sapUiTinyMarginTop">
+								<Label text="{i18n>notif_PlanningPlant}" required="true"></Label>
+								<Select class="selectRadius" forceSelection="false" width="90%" selectedKey="{oNotificationDataModel>/PlanPlant}" showSecondaryValues="true"
+									enabled="true">
+									<core:ListItem key="4321" text="4321"/>
+								</Select>
+							</VBox>
+							<VBox class="sapUiTinyMarginTop">
+								<Label text="{i18n>notif_mainWorkCtr}" required="true"></Label>
+								<ComboBox showSecondaryValues="true" items="{path:'mLookupModel>/aWorkCenterSet',sorter:{ path: 'text' }}"
+									selectedKey="{oNotificationDataModel>/WorkCenter}" class="inputRadius" enabled="true" width="90%">
+									<core:ListItem key="{mLookupModel>WorkcenterId}" additionalText="{mLookupModel>WorkcenterDesc}" text="{mLookupModel>WorkcenterId}"/>
+								</ComboBox>
+							</VBox>
+							<VBox class="sapUiTinyMarginTop">
+								<Label text="{i18n>notif_plant}" required="true"></Label>
+								<Select class="selectRadius" forceSelection="false" width="90%" showSecondaryValues="true" enabled="true"
+									selectedKey="{oNotificationDataModel>/PlanPlant}">
+									<core:ListItem key="4321" text="4321"/>
+								</Select>
+							</VBox>
+							<VBox class="sapUiTinyMarginTop">
+								<Label text="{i18n>REPORTED_BY}"></Label>
+								<Input class="inputRadius" value="{oNotificationDataModel>/Reportedby}" showValueHelp="true" width="90%" valueHelpRequest="handleValueHelp"
+									tooltip="{oNotificationDataModel>/Reportedby}"/>
+							</VBox>
+							<VBox class="sapUiTinyMarginTop">
+								<Label text="{i18n>REQ_START_DATE}"></Label>
+								<DatePicker class="inputRadius" placeholder="dd-MM-yyyy" dateValue="{oNotificationDataModel>/ReqStartdate}" width="90%"
+									displayFormat="dd-MM-yyyy" enabled="true" change="fnValidateDates">
+									<customData>
+										<core:CustomData key="dateType" value="ReqStartdate"/>
+									</customData>
+								</DatePicker>
+							</VBox>
+							<VBox class="sapUiTinyMarginTop">
+								<Label text="{i18n>REQ_END_DATE}"></Label>
+								<DatePicker class="inputRadius" placeholder="dd-MM-yyyy" dateValue="{oNotificationDataModel>/ReqEnddate}" width="90%"
+									displayFormat="dd-MM-yyyy" enabled="true" change="fnValidateDates">
+									<customData>
+										<core:CustomData key="dateType" value="ReqEnddate"/>
+									</customData>
+								</DatePicker>
+							</VBox>
+							<VBox class="sapUiTinyMarginTop"
+								visible="{path:'oNotificationDataModel>/NotifType',formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnToggleBreakdownVisibility'}">
+								<Label text="{i18n>BREAK_DOWN}"></Label>
+								<Switch state="{path:'oNotificationDataModel>/Breakdown', formatter:'com.sap.incture.IMO_PM.formatter.formatter.formatBooleanBreakDown'}"
+									customTextOn="{i18n>yes}" customTextOff="{i18n>no}" change="fnUpdateBreakDownStatus" id="idBreakDownSwitch" enabled="true"/>
+							</VBox>
+							<VBox class="sapUiTinyMarginTop"
+								visible="{path:'oNotificationDataModel>/NotifType',formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnToggleBreakdownVisibility'}">
+								<Label text="{i18n>BREAK_DOWN_HRS}"></Label>
+								<Input class="inputRadius" value="{oNotificationDataModel>/BreakdownDur}" width="90%" tooltip="{oNotificationDataModel>/BreakdownDur}"
+									maxLength="7" enabled="false"></Input>
+							</VBox>
+							<VBox class="sapUiTinyMarginTop"
+								visible="{path:'oNotificationDataModel>/Breakdown', formatter:'com.sap.incture.IMO_PM.formatter.formatter.formatBooleanBreakDown'}">
+								<VBox
+									visible="{path:'oNotificationDataModel>/NotifType',formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnToggleBreakdownVisibility'}">
+									<Label text="{i18n>MALFUN_START_DATE}"></Label>
+									<DatePicker class="inputRadius" placeholder="dd-MM-yyyy" dateValue="{oNotificationDataModel>/Startdate}" width="90%"
+										displayFormat="dd-MM-yyyy" change="fnValidateMalFunDates">
+										<customData>
+											<core:CustomData key="dateType" value="Startdate"/>
+										</customData>
+									</DatePicker>
+								</VBox>
+							</VBox>
+							<VBox class="sapUiTinyMarginTop"
+								visible="{path:'oNotificationDataModel>/Breakdown', formatter:'com.sap.incture.IMO_PM.formatter.formatter.formatBooleanBreakDown'}">
+								<VBox
+									visible="{path:'oNotificationDataModel>/NotifType',formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnToggleBreakdownVisibility'}">
+									<Label text="{i18n>MALFUN_END_DATE}"></Label>
+									<DatePicker class="inputRadius" placeholder="dd-MM-yyyy" dateValue="{oNotificationDataModel>/Enddate}" width="90%"
+										displayFormat="dd-MM-yyyy" change="fnValidateMalFunDates">
+										<customData>
+											<core:CustomData key="dateType" value="Enddate"/>
+										</customData>
+									</DatePicker>
+								</VBox>
+							</VBox>
+							<VBox class="sapUiTinyMarginTop"
+								visible="{path:'oNotificationDataModel>/Breakdown', formatter:'com.sap.incture.IMO_PM.formatter.formatter.formatBooleanBreakDown'}">
+								<VBox
+									visible="{path:'oNotificationDataModel>/NotifType',formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnToggleBreakdownVisibility'}">
+									<Label text="{i18n>MALFUN_START_TIME}"></Label>
+									<TimePicker class="inputRadius" value="{oNotificationViewModel>/StartTime}" width="90%" valueFormat="HH:mm" displayFormat="HH:mm"
+										placeholder="HH:mm" change="fnValidateMalFunDates">
+										<customData>
+											<core:CustomData key="dateType" value="StartTime"/>
+										</customData>
+									</TimePicker>
+								</VBox>
+							</VBox>
+							<VBox class="sapUiTinyMarginTop"
+								visible="{path:'oNotificationDataModel>/Breakdown', formatter:'com.sap.incture.IMO_PM.formatter.formatter.formatBooleanBreakDown'}">
+								<VBox
+									visible="{path:'oNotificationDataModel>/NotifType',formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnToggleBreakdownVisibility'}">
+									<Label text="{i18n>MALFUN_END_TIME}"></Label>
+									<TimePicker class="inputRadius" value="{oNotificationViewModel>/EndTime}" width="90%" valueFormat="HH:mm" displayFormat="HH:mm"
+										placeholder="HH:mm" change="fnValidateMalFunDates">
+										<customData>
+											<core:CustomData key="dateType" value="EndTime"/>
+										</customData>
+									</TimePicker>
+								</VBox>
+							</VBox>
+						</l:Grid>
+					</content>
+				</Panel>
+				</VBox>
+				<VBox class="sapMParentGridBroder sapUiTinyMarginBeginEnd sapUiTinyMarginTopBottom">
+				<IconTabBar class="sapMIconTabBorderBottom sapMIconTabBarHeight iconTabHeader">
+					<items>
+						<IconTabFilter text="Item">
+							<OverflowToolbar class="sapMToolBarBottomBorderClass sapUiTinyMarginBottom tableHeaderBg">
+								<Button text="{i18n>ADD_OP}" press="onAddItems" type="Emphasized" icon="sap-icon://add" iconFirst="true"></Button>
+								<Button text="{i18n>REMOVE}" type="Reject" press="onDeleteItem" icon="sap-icon://delete" iconFirst="true" class="transparentBtn"></Button>
+							</OverflowToolbar>
+							<ui:Table enableSelectAll="false" selectionMode="MultiToggle" selectionBehavior="Row" visibleRowCount="8"
+								class="tableCellNoBorder TableHeaderWhiteBG" rowSelectionChange="onSelectItem" id="NOTIF_ITEM_TABLE">
+								<ui:columns>
+									<ui:Column tooltip="Item Number" width="4rem">
+										<Label text="No." class="tableHeaderText"/>
+										<ui:template>
+											<Input class="inputRadius"/>
+										</ui:template>
+									</ui:Column>
+									<ui:Column width="6rem">
+										<Label text="Code Group" class="tableHeaderText"/>
+										<ui:template>
+											<Input class="inputRadius"/>
+										</ui:template>
+									</ui:Column>
+									<ui:Column tooltip="Object Part" width="6rem">
+										<Label text="Object Part" class="tableHeaderText"/>
+										<ui:template>
+											<Input class="inputRadius"/>
+										</ui:template>
+									</ui:Column>
+									<ui:Column tooltip="Object Part Description" width="10rem">
+										<Label text="Object Part Desc" class="tableHeaderText"/>
+										<ui:template>
+											<Input class="inputRadius"/>
+										</ui:template>
+									</ui:Column>
+									<ui:Column tooltip="Text" width="14rem">
+										<Label text="Text" class="tableHeaderText"/>
+										<ui:template>
+											<Input class="inputRadius"/>
+										</ui:template>
+									</ui:Column>
+									<ui:Column tooltip="Code Group" width="6rem">
+										<Label text="Code Group" class="tableHeaderText"/>
+										<ui:template>
+											<Input class="inputRadius"/>
+										</ui:template>
+									</ui:Column>
+									<ui:Column tooltip="Damage">
+										<Label text="Damage" class="tableHeaderText"/>
+										<ui:template>
+											<Input class="inputRadius"/>
+										</ui:template>
+									</ui:Column>
+									<ui:Column tooltip="Damage Description" width="10rem">
+										<Label text="Damage Desc" class="tableHeaderText"/>
+										<ui:template>
+											<Input class="inputRadius"/>
+										</ui:template>
+									</ui:Column>
+									<ui:Column tooltip="Cause Text" width="14rem">
+										<Label text=" Cause Text" class="tableHeaderText"/>
+										<ui:template>
+											<Input class="inputRadius"/>
+										</ui:template>
+									</ui:Column>
+								</ui:columns>
+							</ui:Table>
+						</IconTabFilter>
+						<IconTabFilter text="Malfunction/Breakdown">
+							<l:Grid class="sapUiSmallMarginTop" defaultSpan="XL2 L2 M2 S12">
+								<VBox class="sapUiTinyMarginTop">
+									<Label text="{i18n>breakDown}"></Label>
+									<Switch state="{path:'oNotificationDataModel>/Breakdown', formatter:'com.sap.incture.IMO_PM.formatter.formatter.formatBooleanBreakDown'}"
+										customTextOn="{i18n>yes}" customTextOff="{i18n>no}" change="fnUpdateBreakDownStatus" id="idBreakDownSwitchCreateNotif"
+										enabled="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setEnabledBasedOnStatus'}"/>
+								</VBox>
+								<VBox class="sapUiTinyMarginTop">
+									<Label text="{i18n>BDownDuration}"></Label>
+									<Input value="{path:'oNotificationDataModel>/BreakdownDur'} " width="90%" tooltip="{oNotificationDataModel>/BreakdownDur}" maxLength="7"
+										enabled="false" class="inputRadius"></Input>
+								</VBox>
+								<VBox class="sapUiTinyMarginTop"
+									visible="{path:'oNotificationDataModel>/Breakdown', formatter:'com.sap.incture.IMO_PM.formatter.formatter.formatBooleanBreakDown'}">
+									<Label text="{i18n>malfnsDate}"></Label>
+									<DatePicker placeholder="dd-MM-yyyy" dateValue="{oNotificationDataModel>/Startdate}" width="90%" displayFormat="dd-MM-yyyy"
+										change="fnValidateMalFunDates" class="inputRadius"
+										enabled="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setEnabledBasedOnStatus'}">
+										<customData>
+											<core:CustomData key="dateType" value="Startdate"/>
+										</customData>
+									</DatePicker>
+								</VBox>
+								<VBox class="sapUiTinyMarginTop"
+									visible="{path:'oNotificationDataModel>/Breakdown', formatter:'com.sap.incture.IMO_PM.formatter.formatter.formatBooleanBreakDown'}">
+									<Label text="{i18n>malfnsTime}"></Label>
+									<TimePicker value="{oNotificationViewModel>/StartTime}" valueFormat="HH:mm" displayFormat="HH:mm" placeholder="HH:mm"
+										change="fnValidateMalFunDates" class="inputRadius" width="90%"
+										enabled="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setEnabledBasedOnStatus'}">
+										<customData>
+											<core:CustomData key="dateType" value="StartTime"/>
+										</customData>
+									</TimePicker>
+								</VBox>
+								<VBox class="sapUiTinyMarginTop"
+									visible="{path:'oNotificationDataModel>/Breakdown', formatter:'com.sap.incture.IMO_PM.formatter.formatter.formatBooleanBreakDown'}">
+									<Label text="{i18n>malfnedate}"></Label>
+									<DatePicker placeholder="dd-MM-yyyy" dateValue="{oNotificationDataModel>/Enddate}" width="90%" displayFormat="dd-MM-yyyy"
+										change="fnValidateMalFunDates" class="inputRadius"
+										enabled="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setEnabledBasedOnStatus'}">
+										<customData>
+											<core:CustomData key="dateType" value="Enddate"/>
+										</customData>
+									</DatePicker>
+								</VBox>
+								<VBox class="sapUiTinyMarginTop"
+									visible="{path:'oNotificationDataModel>/Breakdown', formatter:'com.sap.incture.IMO_PM.formatter.formatter.formatBooleanBreakDown'}">
+									<Label text="{i18n>malfnetime}"></Label>
+									<TimePicker value="{oNotificationViewModel>/EndTime}" valueFormat="HH:mm" displayFormat="HH:mm" placeholder="HH:mm"
+										change="fnValidateMalFunDates" class="inputRadius" width="90%"
+										enabled="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setEnabledBasedOnStatus'}">
+										<customData>
+											<core:CustomData key="dateType" value="EndTime"/>
+										</customData>
+									</TimePicker>
+								</VBox>
+							</l:Grid>
+						</IconTabFilter>
+						<IconTabFilter text="Task">
+							<OverflowToolbar class="sapMToolBarBottomBorderClass sapUiTinyMarginBottom tableHeaderBg">
+								<Button text="{i18n>DETAIL_WO_TECO}" icon="sap-icon://sys-enter" iconFirst="true" class="sapUiSmallMarginBegin murphyWOBtn transparentBtn">
+									<customData>
+										<core:CustomData key="dateType" value="WO_DETAIL_TECHO"/>
+									</customData>
+								</Button>
+							</OverflowToolbar>
+							<ui:Table enableSelectAll="false" selectionMode="None" visibleRowCount="5" class="tableHeaderBg tableCellNoBorder TableHeaderWhiteBG"
+								id="NOTIF_TASK_TABLE">
+								<ui:columns>
+									<ui:Column hAlign="Begin" tooltip="No">
+										<Label text="No" class="tableHeaderText"/>
+										<ui:template>
+											<Input class="inputRadius"/>
+										</ui:template>
+									</ui:Column>
+									<ui:Column tooltip="Code Group">
+										<Label text="Code Group" class="tableHeaderText"/>
+										<ui:template>
+											<Input class="inputRadius"/>
+										</ui:template>
+									</ui:Column>
+									<ui:Column tooltip="Task Code">
+										<Label text="Task Code" class="tableHeaderText"/>
+										<ui:template>
+											<Input class="inputRadius"/>
+										</ui:template>
+									</ui:Column>
+									<ui:Column tooltip="Task Code Text">
+										<Label text="Task Code Text" class="tableHeaderText"/>
+										<ui:template>
+											<Input class="inputRadius"/>
+										</ui:template>
+									</ui:Column>
+									<ui:Column tooltip="Task Text">
+										<Label text="Task Text" class="tableHeaderText"/>
+										<ui:template>
+											<Input class="inputRadius"/>
+										</ui:template>
+									</ui:Column>
+									<ui:Column tooltip="Task Long Text">
+										<Label text="Task Long Text" class="tableHeaderText"/>
+										<ui:template>
+											<Input class="inputRadius"/>
+										</ui:template>
+									</ui:Column>
+									<ui:Column tooltip="Task Status">
+										<Label text="Task Status" class="tableHeaderText"/>
+										<ui:template>
+											<Input class="inputRadius"/>
+										</ui:template>
+									</ui:Column>
+									<ui:Column tooltip="User Status">
+										<Label text="User Status" class="tableHeaderText"/>
+										<ui:template>
+											<Input class="inputRadius"/>
+										</ui:template>
+									</ui:Column>
+									<ui:Column tooltip="Task Processor">
+										<Label text="Task Processor" class="tableHeaderText"/>
+										<ui:template>
+											<Input class="inputRadius"/>
+										</ui:template>
+									</ui:Column>
+									<ui:Column tooltip="Responsible">
+										<Label text="Responsible" class="tableHeaderText"/>
+										<ui:template>
+											<Input class="inputRadius"/>
+										</ui:template>
+									</ui:Column>
+									<ui:Column tooltip="List Name">
+										<Label text="List Name" class="tableHeaderText"/>
+										<ui:template>
+											<Input class="inputRadius"/>
+										</ui:template>
+									</ui:Column>
+								</ui:columns>
+							</ui:Table>
+						</IconTabFilter>
+						<IconTabFilter text="Activities">
+							<ui:Table enableSelectAll="false" selectionMode="None" visibleRowCount="5" class="tableHeaderBg tableCellNoBorder TableHeaderWhiteBG"
+								id="NOTIF_ACTIVITIES_TABLE">
+								<ui:columns>
+									<ui:Column hAlign="Begin" tooltip="No">
+										<Label text="No" class="tableHeaderText"/>
+										<ui:template>
+											<Input class="inputRadius"/>
+										</ui:template>
+									</ui:Column>
+									<ui:Column tooltip="Code Group" width="8rem">
+										<Label text="Code Group" class="tableHeaderText"/>
+										<ui:template>
+											<Input class="inputRadius"/>
+										</ui:template>
+									</ui:Column>
+									<ui:Column tooltip="Activity Code" width="8rem">
+										<Label text="Activity Code" class="tableHeaderText"/>
+										<ui:template>
+											<Input class="inputRadius"/>
+										</ui:template>
+									</ui:Column>
+									<ui:Column tooltip="Activity Code Text" width="10rem">
+										<Label text="Activity Code Text" class="tableHeaderText"/>
+										<ui:template>
+											<Input class="inputRadius"/>
+										</ui:template>
+									</ui:Column>
+									<ui:Column tooltip="Activity Text" width="8rem">
+										<Label text="Activity Text" class="tableHeaderText"/>
+										<ui:template>
+											<Input class="inputRadius"/>
+										</ui:template>
+									</ui:Column>
+									<ui:Column tooltip="Activity Long Text" width="10rem">
+										<Label text="Activity Long Text" class="tableHeaderText"/>
+										<ui:template>
+											<Input class="inputRadius"/>
+										</ui:template>
+									</ui:Column>
+									<ui:Column tooltip="Quantity Factor" width="8rem">
+										<Label text="Quantity Factor" class="tableHeaderText"/>
+										<ui:template>
+											<Input class="inputRadius"/>
+										</ui:template>
+									</ui:Column>
+									<ui:Column tooltip="Start Date" width="8rem">
+										<Label text="Start Date" class="tableHeaderText"/>
+										<ui:template>
+											<Input class="inputRadius"/>
+										</ui:template>
+									</ui:Column>
+									<ui:Column tooltip="Start Time" width="8rem">
+										<Label text="Start Time" class="tableHeaderText"/>
+										<ui:template>
+											<Input class="inputRadius"/>
+										</ui:template>
+									</ui:Column>
+									<ui:Column tooltip="End Date" width="8rem">
+										<Label text="End Date" class="tableHeaderText"/>
+										<ui:template>
+											<Input class="inputRadius"/>
+										</ui:template>
+									</ui:Column>
+									<ui:Column tooltip="End Time" width="8rem">
+										<Label text="End Time" class="tableHeaderText"/>
+										<ui:template>
+											<Input class="inputRadius"/>
+										</ui:template>
+									</ui:Column>
+									<ui:Column tooltip="Created By" width="8rem">
+										<Label text="Created By" class="tableHeaderText"/>
+										<ui:template>
+											<Input class="inputRadius"/>
+										</ui:template>
+									</ui:Column>
+									<ui:Column tooltip="Created On" width="8rem">
+										<Label text="Created On" class="tableHeaderText"/>
+										<ui:template>
+											<Input class="inputRadius"/>
+										</ui:template>
+									</ui:Column>
+								</ui:columns>
+							</ui:Table>
+						</IconTabFilter>
+					</items>
+				</IconTabBar>
+				</VBox>
 			</ScrollContainer>
 		</content>
 		<!--<footer>
