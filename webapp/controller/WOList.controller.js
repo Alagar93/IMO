@@ -526,7 +526,7 @@ sap.ui.define([
 			var sCreatedOnStart = mLookupModel.getProperty("/sCreatedOnStart"); // Date Range for Enter Date
 			var sCreatedOnEnd = mLookupModel.getProperty("/sCreatedOnEnd");
 			if (!sCreatedOnStart) {
-				sCreatedOnStart = new Date(null);
+				sCreatedOnStart = formatter.GetMonthsBackDate(90);
 			} else {
 				sCreatedOnStart = new Date(sCreatedOnStart);
 			}
@@ -1006,6 +1006,8 @@ sap.ui.define([
 			if (oEvent.getParameter("name") === "WOList") {
 				this.getLoggedInUser();
 			}
+			this.mLookupModel.setProperty("/sCreatedOnStart", formatter.GetMonthsBackDate(90)); // Date Range for Enter Date
+			this.mLookupModel.setProperty("/sCreatedOnEnd", new Date().toLocaleDateString());
 		},
 		//nischal
 		onPressColumnAdd: function (oEvent) {

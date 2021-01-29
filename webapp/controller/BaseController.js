@@ -10,7 +10,7 @@ sap.ui.define([
 	"com/sap/incture/IMO_PM/formatter/formatter",
 	"sap/ui/core/routing/History",
 	"sap/m/MessageToast"
-], function (Controller, DateFormat, JSONModel, MessageBox, BusyDialog, Filter, FilterOperator, util, formatter, History,MessageToast) {
+], function (Controller, DateFormat, JSONModel, MessageBox, BusyDialog, Filter, FilterOperator, util, formatter, History, MessageToast) {
 
 	"use strict";
 
@@ -1093,10 +1093,13 @@ sap.ui.define([
 			//var duration = 0;
 			var oWorkOrderDetailViewModel = this.oWorkOrderDetailViewModel;
 			//var startDate = oWorkOrderDetailViewModel.getProperty("/OperWrkStartTime");
+			var oOperations = oWorkOrderDetailViewModel.getProperty("/selectedOps");
+			oWorkOrderDetailViewModel.setProperty("/operTimerOn", oOperations);
 			var startDate = new Date();
 			var duration = (new Date() - startDate);
 			oWorkOrderDetailViewModel.setProperty("/OperWrkStartTime", startDate);
 			oWorkOrderDetailViewModel.setProperty("/nTimerDur", duration);
+
 			oWorkOrderDetailViewModel.setProperty("/bTimerRn", true);
 			this.nowTime = setInterval(function () {
 				var nowTime = new Date();
@@ -1104,23 +1107,48 @@ sap.ui.define([
 				oWorkOrderDetailViewModel.setProperty("/nTimerDur", duration);
 			}, 1000);
 		},
-		fnStopTimer: function (oEvent) {
+		fnStopTimer: function (oButEvent) {
 			clearInterval(this.nowTime);
+			var sOpDetail, i;
+			var that = this;
 			var nDuration = this.oWorkOrderDetailViewModel.getProperty("/nTimerDur");
 			var nDurationhrs = formatter.fnOperTimerhrsfloat(nDuration);
 			var oWorkOrderDetailViewModel = this.oWorkOrderDetailViewModel;
 			var oWorkOrderDetailModel = this.oWorkOrderDetailModel;
-			var selOps = oWorkOrderDetailViewModel.getProperty("/selectedOps");
-			for (var i = 0; i < selOps.length; i++) {
-				var sOpDetail = oWorkOrderDetailModel.getProperty(selOps[i].sPath);
-				sOpDetail.MyWork = nDurationhrs;
-				sOpDetail.Systcond = "0";
-				oWorkOrderDetailModel.setProperty(selOps[i].sPath, sOpDetail);
-			}
-			this.fnFullyConfirmOperation(oEvent);
+			var selOps = oWorkOrderDetailViewModel.getProperty("/operTimerOn");
+			// var oSource = oButEvent.getSource();
+			// var oBtnType = oSource.getCustomData()[0].getValue();
+			MessageBox.warning("Would you like confirm the operation?", {
+				actions: [MessageBox.Action.OK, MessageBox.Action.CANCEL],
+				onClose: function (sAction) {
+					if (sAction === "OK") {
+						for (i = 0; i < selOps.length; i++) {
+							sOpDetail = oWorkOrderDetailModel.getProperty(selOps[i].sPath);
+							sOpDetail.MyWork = nDurationhrs;
+							sOpDetail.Systcond = "0";
+							oWorkOrderDetailModel.setProperty(selOps[i].sPath, sOpDetail);
+						}
+						oWorkOrderDetailViewModel.setProperty("/sAutoCnfrmType", "WO_DETAIL_OPERATION_FINAL_CONFIRM");
+						that.fnFullyConfirmOperation(oButEvent);
+					} else {
+						for (i = 0; i < selOps.length; i++) {
+							sOpDetail = oWorkOrderDetailModel.getProperty(selOps[i].sPath);
+							sOpDetail.MyWork = nDurationhrs;
+							sOpDetail.Systcond = "1";
+							oWorkOrderDetailModel.setProperty(selOps[i].sPath, sOpDetail);
+						}
+
+						oWorkOrderDetailViewModel.setProperty("/sAutoCnfrmType", "WO_DETAIL_OPERATION_CONFIRM");
+						that.fnConfirmOperation(oButEvent);
+					}
+				}
+			});
+
 			oWorkOrderDetailViewModel.setProperty("/bTimerRn", false);
 			this.oWorkOrderDetailViewModel.setProperty("/nTimerDur", 0);
+			oWorkOrderDetailViewModel.setProperty("/operTimerOn", []);
 			this.nowTime = null;
+
 		},
 
 		getFavEquips: function () {

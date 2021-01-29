@@ -562,13 +562,41 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 		return oType;
 	},
 	//Function to set timer icon of operation visible
-	fnTimericonVisible:function(operStatus){
-		var bFlag=false;
-		if(operStatus==="REL"||operStatus==="PCNF"){
-			bFlag=true;
+	fnTimericonVisible: function (operStatus, operActivity, TimerSelectOper) {
+		var bFlag = false;
+		if (TimerSelectOper) {
+			for (var i = 0; i < TimerSelectOper.length; i++) {
+				var operDetail=this.getModel("oWorkOrderDetailModel").getProperty(TimerSelectOper[i].sPath);
+				if (operActivity === operDetail.Activity) {
+					bFlag = true;
+				}
+			}
 		}
 		return bFlag;
 	},
+	//Function to compare object on save operation
+	// fnCompareOperation: function (operBefore, operAfter) {
+	// 	var keys1 = Object.keys(operBefore);
+	// 	var keys2 = Object.keys(operAfter);
+
+	// 	if (keys1.length !== keys2.length) {
+	// 		return false;
+	// 	}
+
+	// 	for (var key of keys1) {
+	// 		var val1 = operBefore[key];
+	// 		var val2 = operAfter[key];
+	// 		var areObjects = isObject(val1) && isObject(val2);
+	// 		if (
+	// 			areObjects && !deepEqual(val1, val2) ||
+	// 			!areObjects && val1 !== val2
+	// 		) {
+	// 			return false;
+	// 		}
+	// 	}
+
+	// 	return true;
+	// },
 	//Function set delete icon visible/invisible for upload section
 	setDeleteVisible: function (bVal) {
 		if (bVal) {
@@ -721,7 +749,7 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 		}
 		return (v < 10) ? '0' + v : v;
 	},
-	fnOperTimerhrsfloat:function(nDur){
+	fnOperTimerhrsfloat: function (nDur) {
 		var v = (nDur / (60 * 1000)) / 60;
 		return parseFloat(v).toFixed(2);
 	},
@@ -739,12 +767,12 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 
 		return bFlag;
 	},
-	fnSetMinTimeStop:function(bTimerRn,nTimerDur){
-		var bFlag=false;
-		if(bTimerRn){
-			var timerDurMin=com.sap.incture.IMO_PM.formatter.formatter.fnOperTimerMins(nTimerDur);
-			if(timerDurMin>1){
-				bFlag=true;
+	fnSetMinTimeStop: function (bTimerRn, nTimerDur) {
+		var bFlag = false;
+		if (bTimerRn) {
+			var timerDurMin = com.sap.incture.IMO_PM.formatter.formatter.fnOperTimerMins(nTimerDur);
+			if (timerDurMin > 1) {
+				bFlag = true;
 			}
 		}
 		return bFlag;

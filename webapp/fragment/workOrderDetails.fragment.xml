@@ -63,7 +63,7 @@
 										<Input value="{oWorkOrderDetailModel>Activity}" maxLength="4" change="sortOperations" class="inputRadius"
 											enabled="{parts:['oWorkOrderDetailModel>OperCode', 'oWorkOrderDetailModel>/OrderStatus'], formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnSetWOUpdateStatusFields'}"></Input>
 										<core:Icon src="sap-icon://fob-watch" class="timerStatusClass" color="red"
-											visible="{path:'oWorkOrderDetailModel>systemstatustext',formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnTimericonVisible'}"/>
+											visible="{parts:['oWorkOrderDetailModel>systemstatustext','oWorkOrderDetailModel>Activity','oWorkOrderDetailViewModel>/operTimerOn'],formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnTimericonVisible'}"/>
 									</HBox>
 								</ui:template>
 							</ui:Column>
@@ -99,8 +99,8 @@
 									<!--	<core:ListItem key="{mLookupModel>StText}" text="{mLookupModel>StText}"/>-->
 									<!--</ComboBox>-->
 									<Input value="{oWorkOrderDetailModel>StText}" maxLength="15" tooltip="{oWorkOrderDetailModel>StText}" valueHelpOnly="false"
-									enabled="{parts:['oWorkOrderDetailModel>OperCode', 'oWorkOrderDetailModel>/OrderStatus', 'oWorkOrderDetailModel>systemstatustext', 'oWorkOrderDetailModel>Systcond'], formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnSetWOUpdateStatusFields'}" 
-									valueHelpRequest="ShortTextValueHelp" showValueHelp="true" class="inputRadius" change = "onChangeStKey"></Input>
+										enabled="{parts:['oWorkOrderDetailModel>OperCode', 'oWorkOrderDetailModel>/OrderStatus', 'oWorkOrderDetailModel>systemstatustext', 'oWorkOrderDetailModel>Systcond'], formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnSetWOUpdateStatusFields'}"
+										valueHelpRequest="ShortTextValueHelp" showValueHelp="true" class="inputRadius" change="onChangeStKey"></Input>
 								</ui:template>
 							</ui:Column>
 							<ui:Column width="18rem" tooltip="{i18n>SHORT_TEXT}">
