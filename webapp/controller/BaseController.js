@@ -1128,7 +1128,7 @@ sap.ui.define([
 							sOpDetail.Systcond = "0";
 							oWorkOrderDetailModel.setProperty(selOps[i].sPath, sOpDetail);
 						}
-						oWorkOrderDetailViewModel.setProperty("/sAutoCnfrmType","WO_DETAIL_OPERATION_FINAL_CONFIRM");
+						oWorkOrderDetailViewModel.setProperty("/sAutoCnfrmType", "WO_DETAIL_OPERATION_FINAL_CONFIRM");
 						that.fnFullyConfirmOperation(oButEvent);
 					} else {
 						for (i = 0; i < selOps.length; i++) {
@@ -1137,8 +1137,8 @@ sap.ui.define([
 							sOpDetail.Systcond = "1";
 							oWorkOrderDetailModel.setProperty(selOps[i].sPath, sOpDetail);
 						}
-						
-						oWorkOrderDetailViewModel.setProperty("/sAutoCnfrmType","WO_DETAIL_OPERATION_CONFIRM");
+
+						oWorkOrderDetailViewModel.setProperty("/sAutoCnfrmType", "WO_DETAIL_OPERATION_CONFIRM");
 						that.fnConfirmOperation(oButEvent);
 					}
 				}
@@ -1148,59 +1148,7 @@ sap.ui.define([
 			this.oWorkOrderDetailViewModel.setProperty("/nTimerDur", 0);
 			oWorkOrderDetailViewModel.setProperty("/operTimerOn", []);
 			this.nowTime = null;
-			// if(!this._oWarningDialog){
-			// 	this._oWarningDialog=sap.ui.xmlfragment("com.sap.incture.IMO_PM.fragment.AutoConfirmWarning", this); 
-			// 	this.getView().addDependent(this._oWarningDialog);
-			// }
-			// this._oWarningDialog.open();
-		},
-		onPartConfirmTimer: function (oEvent) {
-			this._oWarningDialog.close();
-			this._oWarningDialog.destroy();
-			this._oWarningDialog=null;
-			var sOpDetail, i;
-			var that = this;
-			var nDuration = this.oWorkOrderDetailViewModel.getProperty("/nTimerDur");
-			var nDurationhrs = formatter.fnOperTimerhrsfloat(nDuration);
-			var oWorkOrderDetailViewModel = this.oWorkOrderDetailViewModel;
-			var oWorkOrderDetailModel = this.oWorkOrderDetailModel;
-			var selOps = oWorkOrderDetailViewModel.getProperty("/operTimerOn");
-			
-			for (i = 0; i < selOps.length; i++) {
-				sOpDetail = oWorkOrderDetailModel.getProperty(selOps[i].sPath);
-				sOpDetail.MyWork = nDurationhrs;
-				sOpDetail.Systcond = "1";
-				oWorkOrderDetailModel.setProperty(selOps[i].sPath, sOpDetail);
-			}
-			
-			that.fnConfirmOperation(oEvent);
-			oWorkOrderDetailViewModel.setProperty("/bTimerRn", false);
-			this.oWorkOrderDetailViewModel.setProperty("/nTimerDur", 0);
-			oWorkOrderDetailViewModel.setProperty("/operTimerOn", []);
-		},
-		onFinalConfirmTimer:function(oEvent){
-			this._oWarningDialog.close();
-			this._oWarningDialog.destroy();
-			this._oWarningDialog=null;
-			var sOpDetail, i;
-			var that = this;
-			var nDuration = this.oWorkOrderDetailViewModel.getProperty("/nTimerDur");
-			var nDurationhrs = formatter.fnOperTimerhrsfloat(nDuration);
-			var oWorkOrderDetailViewModel = this.oWorkOrderDetailViewModel;
-			var oWorkOrderDetailModel = this.oWorkOrderDetailModel;
-			var selOps = oWorkOrderDetailViewModel.getProperty("/operTimerOn");
-			
-			for (i = 0; i < selOps.length; i++) {
-				sOpDetail = oWorkOrderDetailModel.getProperty(selOps[i].sPath);
-				sOpDetail.MyWork = nDurationhrs;
-				sOpDetail.Systcond = "0";
-				oWorkOrderDetailModel.setProperty(selOps[i].sPath, sOpDetail);
-			}
-			
-			that.fnConfirmOperation(oEvent);
-			oWorkOrderDetailViewModel.setProperty("/bTimerRn", false);
-			this.oWorkOrderDetailViewModel.setProperty("/nTimerDur", 0);
-			oWorkOrderDetailViewModel.setProperty("/operTimerOn", []);
+
 		},
 
 		getFavEquips: function () {
