@@ -153,6 +153,8 @@ sap.ui.define([
 				that.fnResetFilers(oNotifTbl, "mLookupModel");
 				mLookupModel.setProperty("/selectedNotifs", []);
 				mLookupModel.setProperty("/iSelectedIndices", 0);
+				mLookupModel.setProperty("/sCreatedOnStart", formatter.GetMonthsBackDate(90));
+				mLookupModel.setProperty("/sCreatedOnEnd", new Date().toLocaleDateString());
 				mLookupModel.refresh(true);
 				var userPlant = this.oUserDetailModel.getProperty("/userPlant");
 				if (userPlant) {
@@ -310,7 +312,7 @@ sap.ui.define([
 			}
 			var sCreatedOnStart = mLookupModel.getProperty("/sCreatedOnStart");
 			if (sCreatedOnStart === null || sCreatedOnStart === undefined) {
-				sCreatedOnStart = new Date(null);
+				sCreatedOnStart = formatter.GetMonthsBackDate(90);
 			} else {
 				sCreatedOnStart = new Date(sCreatedOnStart + " " + new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds());
 			}
@@ -725,7 +727,7 @@ sap.ui.define([
 				mLookupModel.setProperty("/sNotifIDDesFilter", ""); // clearing live search by id or desc
 				mLookupModel.refresh();
 				this.fnFetchNotifList();
-				this._oDialogNotif.close();
+				//this._oDialogNotif.close();
 			} else { //restrict the created date range to 90 days
 				MessageBox.error("Please select Created on Date range within 90 days. ", {
 					actions: [MessageBox.Action.OK],

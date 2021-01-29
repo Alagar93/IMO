@@ -1,0 +1,20 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" class="sapUiSizeCompact">
+	<Dialog title="Warning" class="sapUiSizeCompact dialogHeader">
+		<content>
+			<Text text="Would you like confirm the operation?"/>
+		</content>
+		<Toolbar>
+			<ToolbarSpacer/>
+			<Button text="Cancel" press="onPartConfirmTimer" class="transparentBtn createNotifClearBtn" icon="sap-icon://decline" iconFirst="true">
+				<customData>
+					<core:CustomData key="dateType" value="WO_DETAIL_OPERATION_CONFIRM"/>
+				</customData>
+			</Button>
+			<Button text="Ok" press="onFinalConfirmTimer" type="Emphasized">
+				<customData>
+					<core:CustomData key="dateType" value="WO_DETAIL_OPERATION_FINAL_CONFIRM"/>
+				</customData>
+			</Button>
+		</Toolbar>
+	</Dialog>
+</core:FragmentDefinition >

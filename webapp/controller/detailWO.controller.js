@@ -198,12 +198,13 @@ sap.ui.define([
 				oWorkOrderDetailViewModel.setProperty("/sPathControlKey", sPath);
 				var oOpertionDetails = jQuery.extend(true, {}, oWorkOrderDetailModel.getProperty(sPath));
 				oOpertionDetails.Quantity = "1";
+				oOpertionDetails.QuantityUnit = "EA";
 				oOpertionDetails.Price = "1000";
 				oOpertionDetails.Currency = "EUR";
 				oOpertionDetails.MatlGroup = "01";
 				oOpertionDetails.PriceUnit = "1";
 				oOpertionDetails.PurGroup = "001";
-				oOpertionDetails.CostElement = "417000";
+				//oOpertionDetails.CostElement = "";
 				//oOpertionDetails.PurchOrg = "0001";
 				oOpertionDetails.Recipient = "Vijay";
 				oOpertionDetails.Requisitioner = "Vijay";
@@ -223,6 +224,11 @@ sap.ui.define([
 			var sPath = oWorkOrderDetailViewModel.getProperty("/sPathControlKey");
 			var oData = oWorkOrderDetailViewModel.getProperty("/oControlkeyOperation");
 			oWorkOrderDetailModel.setProperty(sPath, oData);
+			var operCode=oWorkOrderDetailModel.getProperty(sPath+"/OperCode");
+			var Status=oWorkOrderDetailModel.getProperty(sPath+"/systemstatustext");
+			if(operCode==="N"){
+				oWorkOrderDetailModel.setProperty(sPath+"/OperCode","U");
+			}
 			this.controlKeyDialog.close();
 			this.controlKeyDialog.destroy();
 			this.controlKeyDialog = null;
@@ -775,7 +781,13 @@ sap.ui.define([
 		onCreateUpdateAndExitWO: function (oEvent) {
 			var that = this;
 			var oSource = oEvent.getSource();
+			if(oSource.getAggregation("customData")){
 			var oBtnType = oSource.getCustomData()[0].getValue();
+			}
+			else{
+				var oBtnType = this.oWorkOrderDetailViewModel.getProperty("/sAutoCnfrmType");
+				this.oWorkOrderDetailViewModel.setProperty("/sAutoCnfrmType","");
+			}
 			var AssignedTo = this.oWorkOrderDetailViewModel.getProperty("/HEADERTOPARTNERNAV/0/AssignedTo");
 			this.oWorkOrderDetailModel.setProperty("/HEADERTOPARTNERNAV/0/AssignedTo", AssignedTo);
 			switch (oBtnType) {

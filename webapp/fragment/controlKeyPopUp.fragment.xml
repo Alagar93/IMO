@@ -15,7 +15,7 @@
 					<Label text="Operation qty"></Label>
 					<HBox justifyContent="SpaceBetween">
 						<Input class="inputRadius" value="{oWorkOrderDetailViewModel>/oControlkeyOperation/Quantity}" width="100%"></Input>
-						<Input class="inputRadius sapUiTinyMarginBegin" value="AU" width="100%"></Input>
+						<Input class="inputRadius sapUiTinyMarginBegin" value="{oWorkOrderDetailViewModel>/oControlkeyOperation/QuantityUnit}" width="100%"></Input>
 					</HBox>
 					<layoutData>
 						<l:GridData span="XL6 L6 M6 S6"/>
