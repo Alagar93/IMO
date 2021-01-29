@@ -31,7 +31,7 @@ sap.ui.define([
 				that.routePatternMatched(oEvent);
 			});
 
-			var oViewSetting = {
+			/*var oViewSetting = {
 				"iSelectedIndex": 0, // 0-Create 1-Create by ref 2-Create by notif
 				"sOrderTypeSel": "",
 				"sEquip": "",
@@ -96,7 +96,7 @@ sap.ui.define([
 				"sCreatedOnEnd": new Date().toLocaleDateString()
 			};
 			this.mLookupModel.setProperty("/", oViewSetting);
-			this.getWOPriorities();
+			this.getWOPriorities();*/
 		},
 
 		getFavEquips: function () {
@@ -148,6 +148,73 @@ sap.ui.define([
 			var that = this;
 			var viewName = oEvent.getParameter("name");
 			if (viewName === "notifList") {
+				this.fnInitNotificationListApp("NOTIF_LIST_VIEW");
+				var oViewSetting = {
+					"iSelectedIndex": 0, // 0-Create 1-Create by ref 2-Create by notif
+					"sOrderTypeSel": "",
+					"sEquip": "",
+					"sFunLoc": "",
+					"sPriorSel": "",
+					"iProcessOrderNo": "",
+					"iWONum": "",
+					"iTop": 50,
+					"iSkip": 0,
+					"iTopNotif": 50,
+					"iSkipNotif": 0,
+					"iWONumFilter": "",
+					"aStatus": [{
+						"id": "CRTD"
+					}, {
+						"id": "REL"
+					}, {
+						"id": "PCNF"
+					}, {
+						"id": "CNF"
+					}, {
+						"id": "TECO"
+					}],
+					"sOrderTypeSelFilter": "",
+					"sStatusSelFilter": "",
+					"sWorderIdDesFilter": "",
+					"sPriorSelFilter": "",
+					"sAssignedTo": "",
+					"sCreatedBy": "",
+					"sNotifIDDesFilter": "",
+					"sEquipFilter": "",
+					"sNotifStatusFilter": "",
+					"sNotifIdFilter": "",
+					"sNotifEquipFilter": "",
+					"sNotifBDFilter": "",
+					"sNotifPriorFilter": "",
+					"sNotifWkCenterFilter": "",
+					"aBDown": [{
+						"des": "YES"
+					}, {
+						"des": "NO"
+					}],
+					"sUnAssignedWOFlag": false,
+					"sWorkCenterSel": "",
+					"aNotifStatus": [{
+						"key": "NOCO ORAS",
+						"text": "Notification closed,Order Assigned"
+					}, {
+						"key": "NOCO",
+						"text": "Notification closed"
+					}, {
+						"key": "NOPR ORAS",
+						"text": "Notification in Progress, Order Assigned"
+					}, {
+						"key": "NOPR",
+						"text": "Notification in Progress"
+					}, {
+						"key": "OSNO",
+						"text": "Outsranding Notification"
+					}],
+					"sCreatedOnStart": formatter.GetMonthsBackDate(90),
+					"sCreatedOnEnd": new Date().toLocaleDateString()
+				};
+				this.mLookupModel.setProperty("/", oViewSetting);
+				this.getWOPriorities();
 				var mLookupModel = this.mLookupModel;
 				var oNotifTbl = that.getView().byId("notifListId");
 				that.fnResetFilers(oNotifTbl, "mLookupModel");
@@ -350,7 +417,7 @@ sap.ui.define([
 				},
 				success: function (oData) {
 					aNotificationListSet = oData.results;
-					
+
 					$.each(aNotificationListSet, function (index, value) { //AN: #obxSearch
 
 						value.PriorityDesNotif = formatter.fnPriorityConversion(value.Priority);
@@ -1402,30 +1469,30 @@ sap.ui.define([
 			return aCols;
 		},
 		//nischal -- function to select all the checkbox value
-		onSelectAll : function(){
+		onSelectAll: function () {
 			var mLookupModel = this.mLookupModel;
-			mLookupModel.setProperty("/snType",true);
-			mLookupModel.setProperty("/snNumber",true);
-			mLookupModel.setProperty("/snDescription",true);
-			mLookupModel.setProperty("/snOrder",true);
-			mLookupModel.setProperty("/snFunctLoc",true);
-			mLookupModel.setProperty("/snFunct_Desc",true);
-			mLookupModel.setProperty("/snEquip",true);
-			mLookupModel.setProperty("/snEquip_Desc",true);
-			mLookupModel.setProperty("/snWrkCtr",true);
-			mLookupModel.setProperty("/snPlanPlant",true);
-			mLookupModel.setProperty("/snTechId",true);
-			mLookupModel.setProperty("/snSysStatus",true);
-			mLookupModel.setProperty("/snUserStatus",true);
-			mLookupModel.setProperty("/snReqStDate",true);
-			mLookupModel.setProperty("/snReqEndDate",true);
-			mLookupModel.setProperty("/snBdFlag",true);
-			mLookupModel.setProperty("/snMalStDate",true);
-			mLookupModel.setProperty("/snMalEndDate",true);
-			mLookupModel.setProperty("/snPriority",true);
-			mLookupModel.setProperty("/snCreatedDate",true);
-			mLookupModel.setProperty("/snCreatedBy",true);
-			mLookupModel.setProperty("/snAction",true);
+			mLookupModel.setProperty("/snType", true);
+			mLookupModel.setProperty("/snNumber", true);
+			mLookupModel.setProperty("/snDescription", true);
+			mLookupModel.setProperty("/snOrder", true);
+			mLookupModel.setProperty("/snFunctLoc", true);
+			mLookupModel.setProperty("/snFunct_Desc", true);
+			mLookupModel.setProperty("/snEquip", true);
+			mLookupModel.setProperty("/snEquip_Desc", true);
+			mLookupModel.setProperty("/snWrkCtr", true);
+			mLookupModel.setProperty("/snPlanPlant", true);
+			mLookupModel.setProperty("/snTechId", true);
+			mLookupModel.setProperty("/snSysStatus", true);
+			mLookupModel.setProperty("/snUserStatus", true);
+			mLookupModel.setProperty("/snReqStDate", true);
+			mLookupModel.setProperty("/snReqEndDate", true);
+			mLookupModel.setProperty("/snBdFlag", true);
+			mLookupModel.setProperty("/snMalStDate", true);
+			mLookupModel.setProperty("/snMalEndDate", true);
+			mLookupModel.setProperty("/snPriority", true);
+			mLookupModel.setProperty("/snCreatedDate", true);
+			mLookupModel.setProperty("/snCreatedBy", true);
+			mLookupModel.setProperty("/snAction", true);
 		}
 	});
 });
