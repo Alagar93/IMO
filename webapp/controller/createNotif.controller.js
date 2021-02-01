@@ -478,8 +478,6 @@ sap.ui.define([
 			}
 			oNotificationDataModel.refresh();
 		},
-		
-		
 
 		//Function to check Mandaorty fields validation
 		checkMandatoryFields: function (oEvent) {
@@ -512,11 +510,10 @@ sap.ui.define([
 			//oNotifData.Enddate = formatter.formatDateobjToStringNotif(oNotifData.Enddate, false);
 			if (oNotifData.Enddate) {
 				oNotifData.Enddate = formatter.formatDateobjToStringNotif(oNotifData.Enddate, true);
+			} else {
+				oNotifData.Enddate = "";
 			}
-			else{
-				oNotifData.Enddate="";
-			}
-            oNotifData.ReqStartdate = formatter.formatDateobjToStringNotif(oNotifData.ReqStartdate);
+			oNotifData.ReqStartdate = formatter.formatDateobjToStringNotif(oNotifData.ReqStartdate);
 			oNotifData.ReqEnddate = formatter.formatDateobjToStringNotif(oNotifData.ReqEnddate);
 			oNotifData.Notif_date = formatter.formatDateobjToStringNotif(new Date());
 			oNotifData.Type = "CREATE";
@@ -533,7 +530,7 @@ sap.ui.define([
 			if (!endTime) {
 				endTime = "00:00";
 			}
-			if (oNotifData.Enddate!=="") {
+			if (oNotifData.Enddate !== "") {
 				var splitDate2 = oNotifData.Enddate.split("T")[0];
 				oNotifData.Enddate = splitDate2 + "T" + endTime + ":00";
 			}
@@ -549,6 +546,7 @@ sap.ui.define([
 					var isSuccess;
 					var oNotificationId = parseInt(sData.Notifid);
 					this.notifID = oNotificationId;
+					that.createdNotifID = oNotificationId;
 					if (oNotificationId) {
 						that.resetUIFields();
 						var successText = oResourceModel.getText("SUCCSESS_CREATING_NOTIF");
@@ -574,7 +572,11 @@ sap.ui.define([
 							actions: [MessageBox.Action.OK],
 							emphasizedAction: MessageBox.Action.OK,
 							onClose: function (sAction) {
-								that.fnNavLaunchpadHome();
+								// that.fnNavLaunchpadHome();
+								var oRouter = sap.ui.core.UIComponent.getRouterFor(that);
+								oRouter.navTo("notifDetail", {
+									notifID: that.createdNotifID
+								});
 							}
 						});
 
@@ -597,9 +599,8 @@ sap.ui.define([
 			oNotifData.Startdate = formatter.formatDateobjToStringNotif(oNotifData.Startdate, true);
 			if (oNotifData.Enddate) {
 				oNotifData.Enddate = formatter.formatDateobjToStringNotif(oNotifData.Enddate, true);
-			}
-			else{
-				oNotifData.Enddate="";
+			} else {
+				oNotifData.Enddate = "";
 			}
 			oNotifData.ReqStartdate = formatter.formatDateobjToStringNotif(oNotifData.ReqStartdate);
 			oNotifData.ReqEnddate = formatter.formatDateobjToStringNotif(oNotifData.ReqEnddate);
@@ -618,7 +619,7 @@ sap.ui.define([
 			if (!endTime) {
 				endTime = "00:00";
 			}
-			if (oNotifData.Enddate!=="") {
+			if (oNotifData.Enddate !== "") {
 				var splitDate2 = oNotifData.Enddate.split("T")[0];
 				oNotifData.Enddate = splitDate2 + "T" + endTime + ":00";
 			}

@@ -10,12 +10,19 @@
 							<Text text="{oWorkOrderDetailViewModel>Plnnr}" class="tableContentText"/>
 						</ui:template>
 					</ui:Column>
+					<ui:Column filterProperty="groupCounter" sortProperty="groupCounter" defaultFilterOperator="Contains">
+						<Label text="Group Counter" class="tableHeaderText"/>
+						<ui:template>
+							<Text text="{oWorkOrderDetailViewModel>groupCounter}" class="tableContentText"/>
+						</ui:template>
+					</ui:Column>
 					<ui:Column filterProperty="Ktext" sortProperty="Ktext" defaultFilterOperator="Contains">
 						<Label text="{i18n>taskdes}" class="tableHeaderText"/>
 						<ui:template>
 							<Text text="{oWorkOrderDetailViewModel>Ktext}" class="tableContentText"/>
 						</ui:template>
 					</ui:Column>
+					
 				</ui:columns>
 			</ui:Table>
 		</content>

@@ -653,6 +653,7 @@ com.sap.incture.IMO_PM.util.util = {
 
 		mLookupModel.setProperty("/aEquipmentsList", []);
 		mLookupModel.setProperty("/assignedToHardCode","");
+		mLookupModel.setProperty("/sRefnotif",""); //SH: Clear reference notification field
 		mLookupModel.refresh();
 	},
 	resetCreateNotificationFieldsNotifList: function (oNotificationDataModel, oNotificationViewModel, mLookupModel, oSelectedRow, oController) {

@@ -145,7 +145,7 @@
 									</customData>
 								</DatePicker>
 							</VBox>
-							<VBox class="sapUiTinyMarginTop"
+							<!--<VBox class="sapUiTinyMarginTop"
 								visible="{path:'oNotificationDataModel>/NotifType',formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnToggleBreakdownVisibility'}">
 								<Label text="{i18n>BREAK_DOWN}"></Label>
 								<Switch state="{path:'oNotificationDataModel>/Breakdown', formatter:'com.sap.incture.IMO_PM.formatter.formatter.formatBooleanBreakDown'}"
@@ -208,7 +208,7 @@
 										</customData>
 									</TimePicker>
 								</VBox>
-							</VBox>
+							</VBox>-->
 						</l:Grid>
 					</content>
 				</Panel>
