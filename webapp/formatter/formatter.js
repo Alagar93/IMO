@@ -566,7 +566,7 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 		var bFlag = false;
 		if (TimerSelectOper) {
 			for (var i = 0; i < TimerSelectOper.length; i++) {
-				var operDetail=this.getModel("oWorkOrderDetailModel").getProperty(TimerSelectOper[i].sPath);
+				var operDetail = this.getModel("oWorkOrderDetailModel").getProperty(TimerSelectOper[i].sPath);
 				if (operActivity === operDetail.Activity) {
 					bFlag = true;
 				}
@@ -1512,7 +1512,7 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 	//Function to set visible of Unconfirmed Checkbox in Operations table
 	fnSetFilterOpsCBVisible: function (orderStatus, orderId) {
 		var bVal = false;
-		if (orderStatus === "REL" || orderStatus === "PCNF" || orderStatus === "CNF") {
+		if (orderStatus === "REL" || orderStatus === "PCNF" || orderStatus === "CNF" || orderStatus === "TECO") {
 			if (orderId) {
 				bVal = true;
 			}

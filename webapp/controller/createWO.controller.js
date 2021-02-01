@@ -35,9 +35,10 @@ sap.ui.define([
 			mLookupModel.setProperty("/sEquip", "");
 			mLookupModel.setProperty("/sFunLoc", "");
 			mLookupModel.setProperty("/sPrior", "");
+			mLookupModel.setProperty("/iSelectedIndex", 0);
 			this.setColumnLayout(); //nischal -- 
 			this.setColumnLayoutCreateWithNotif(); //nischal --
-			//this.resetCreateWOfields();
+			// this.resetCreateWOfields();
 		},
 		//Function to reset Create WO fields
 		resetCreateWOfields: function () {
@@ -577,7 +578,7 @@ sap.ui.define([
 					success: function (oData) {
 						mLookupModel.setProperty("/iSelectedWO", ""); // clear selected wo
 						aWorkOrderListSet = oData.results;
-						
+
 						$.each(aWorkOrderListSet, function (index, value) { //AN: #obxSearch
 							value.radio = false; // clear selected radio button
 							value.PriorityDes = formatter.fnPriorityConversion(value.Priority);
@@ -591,7 +592,7 @@ sap.ui.define([
 							if (value.EnterDate) {
 								value.EnterDateString = that.fnDateConversion(value.EnterDate);
 							}
-							
+
 						});
 						//nischal --concat after changing date format
 						if (iSkip !== 0) {
@@ -625,19 +626,51 @@ sap.ui.define([
 				} else {
 					sCreatedOnEnd = new Date(sCreatedOnEnd + " " + new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds());
 				}
+				var sNotifIDDesFilter = mLookupModel.getProperty("/sNotifIDDesFilter");
+				if (sNotifIDDesFilter === null || sNotifIDDesFilter === undefined) {
+					sNotifIDDesFilter = "";
+				}
+				var sNotifIdFilter = mLookupModel.getProperty("/sNotifIdFilter");
+				if (sNotifIdFilter === null || sNotifIdFilter === undefined) {
+					sNotifIdFilter = "";
+				}
+				var sNotifStatusFilter = mLookupModel.getProperty("/sNotifStatusFilter");
+				if (sNotifStatusFilter === null || sNotifStatusFilter === undefined) {
+					sNotifStatusFilter = "";
+				}
+				var sNotifPriorFilter = mLookupModel.getProperty("/sNotifPriorFilter");
+				if (sNotifPriorFilter === null || sNotifPriorFilter === undefined) {
+					sNotifPriorFilter = "";
+				}
+				var sNotifEquipFilter = mLookupModel.getProperty("/sNotifEquipFilter");
+				if (sNotifEquipFilter === null || sNotifEquipFilter === undefined) {
+					sNotifEquipFilter = "";
+				}
+				var sNotifBDFilter = mLookupModel.getProperty("/sNotifBDFilter");
+				if (sNotifBDFilter === null || sNotifBDFilter === undefined) {
+					sNotifBDFilter = "";
+				}
+				// var sUnAssignedWOFlag = mLookupModel.getProperty("/sUnAssignedWOFlag");
+				// if (sUnAssignedWOFlag === null || sUnAssignedWOFlag === undefined) {
+				// 	sUnAssignedWOFlag = "";
+				// }
+				var sNotifWkCenterFilter = mLookupModel.getProperty("/sNotifWkCenterFilter");
+				if (sNotifWkCenterFilter === null || sNotifWkCenterFilter === undefined) {
+					sNotifWkCenterFilter = "";
+				}
 				oFilter.push(new Filter({
 					filters: [new Filter("CreatedOn", "GE", formatter.fnDatewithTimezoneoffset(sCreatedOnStart)),
 						new Filter("CreatedOn", "LE", formatter.fnDatewithTimezoneoffset(sCreatedOnEnd))
 					],
 					and: true
 				}));
-				oFilter.push(new Filter("Descriptn", "EQ", mLookupModel.getProperty("/sNotifIDDesFilter")));
-				oFilter.push(new Filter("SysStatus", "EQ", mLookupModel.getProperty("/sNotifStatusFilter")));
-				oFilter.push(new Filter("NotifNo", "EQ", mLookupModel.getProperty("/sNotifIdFilter")));
-				oFilter.push(new Filter("Equipment", "EQ", mLookupModel.getProperty("/sNotifEquipFilter")));
-				oFilter.push(new Filter("Bdflag", "EQ", mLookupModel.getProperty("/sNotifBDFilter")));
-				oFilter.push(new Filter("Priority", "EQ", mLookupModel.getProperty("/sNotifPriorFilter")));
-				oFilter.push(new Filter("WorkCntr", "EQ", mLookupModel.getProperty("/sNotifWkCenterFilter")));
+				oFilter.push(new Filter("Descriptn", "EQ", sNotifIDDesFilter));
+				oFilter.push(new Filter("SysStatus", "EQ", sNotifStatusFilter));
+				oFilter.push(new Filter("NotifNo", "EQ", sNotifIdFilter));
+				oFilter.push(new Filter("Equipment", "EQ", sNotifEquipFilter));
+				oFilter.push(new Filter("Bdflag", "EQ", sNotifBDFilter));
+				oFilter.push(new Filter("Priority", "EQ", sNotifPriorFilter));
+				oFilter.push(new Filter("WorkCntr", "EQ", sNotifWkCenterFilter));
 				oFilter.push(new Filter("Userstatus", "EQ", "")); // using this unused odara property for notifications w/o WO flag
 				oFilter.push(new Filter("plant", "EQ", userPlant));
 
@@ -649,7 +682,7 @@ sap.ui.define([
 					},
 					success: function (oData) {
 						aNotificationListSet = oData.results;
-						
+
 						$.each(aNotificationListSet, function (index, value) { //AN: #obxSearch
 							value.PriorityDesNotif = formatter.fnPriorityConversion(value.Priority);
 							if (value.Reqstartdate) {
@@ -1419,59 +1452,59 @@ sap.ui.define([
 			this.addRemColDialog = null;
 		},
 		//nischal
-		setColumnLayoutCreateWithNotif: function(){
+		setColumnLayoutCreateWithNotif: function () {
 			var mLookupModel = this.mLookupModel;
 			var oTempObj = {
-				sType : true,
-				sNumber : true,
-				sDesc : true,
-				sOrder : true,
-				sFunct : true,
-				sFunctLocDesc : false,
-				sEquip : true,
-				sEquipDesc : false,
-				sWrkCtr : true,
-				sPlant : false,
-				sTechId : false,
-				sSysStatus : true,
-				sUserStatus : true,
-				sReqStart : false,
-				sReqFinish : false,
-				sBdFlag : true,
-				sMalFunSt : false,
-				sMalFunEnd : false,
-				sPriority : true,
-				sCreatedDate : false,
-				sCreatedBy : false
+				sType: true,
+				sNumber: true,
+				sDesc: true,
+				sOrder: true,
+				sFunct: true,
+				sFunctLocDesc: false,
+				sEquip: true,
+				sEquipDesc: false,
+				sWrkCtr: true,
+				sPlant: false,
+				sTechId: false,
+				sSysStatus: true,
+				sUserStatus: true,
+				sReqStart: false,
+				sReqFinish: false,
+				sBdFlag: true,
+				sMalFunSt: false,
+				sMalFunEnd: false,
+				sPriority: true,
+				sCreatedDate: false,
+				sCreatedBy: false
 			};
 			mLookupModel.setProperty("/oCreateFromNotifColVisible", oTempObj);
 			mLookupModel.refresh();
 		},
 		//nischal
-		onSelectAllCrtFromNotif: function(){
+		onSelectAllCrtFromNotif: function () {
 			var mLookupModel = this.mLookupModel;
 			var oTempObj = {
-				sType : true,
-				sNumber : true,
-				sDesc : true,
-				sOrder : true,
-				sFunct : true,
-				sFunctLocDesc : true,
-				sEquip : true,
-				sEquipDesc : true,
-				sWrkCtr : true,
-				sPlant : true,
-				sTechId : true,
-				sSysStatus : true,
-				sUserStatus : true,
-				sReqStart : true,
-				sReqFinish : true,
-				sBdFlag : true,
-				sMalFunSt : true,
-				sMalFunEnd : true,
-				sPriority : true,
-				sCreatedDate : true,
-				sCreatedBy : true
+				sType: true,
+				sNumber: true,
+				sDesc: true,
+				sOrder: true,
+				sFunct: true,
+				sFunctLocDesc: true,
+				sEquip: true,
+				sEquipDesc: true,
+				sWrkCtr: true,
+				sPlant: true,
+				sTechId: true,
+				sSysStatus: true,
+				sUserStatus: true,
+				sReqStart: true,
+				sReqFinish: true,
+				sBdFlag: true,
+				sMalFunSt: true,
+				sMalFunEnd: true,
+				sPriority: true,
+				sCreatedDate: true,
+				sCreatedBy: true
 			};
 			mLookupModel.setProperty("/oCreateFromNotifColVisible", oTempObj);
 			mLookupModel.refresh();
