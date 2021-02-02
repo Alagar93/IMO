@@ -1,16 +1,16 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:ui="sap.ui.table">
-	<Dialog title="{i18n>ADD_TASKS}" class="sapUiSizeCompact dialogHeader" contentWidth="50%">
+	<Dialog title="{i18n>ADD_TASKS}" class="sapUiSizeCompact dialogHeader" contentWidth="40%">
 		<content>
 			<ui:Table rows="{oWorkOrderDetailViewModel>/operHeaderSet}" selectionMode="Single" selectionBehavior="Row" visibleRowCount="8"
 				class="sapUiSmallMargin tableCellNoBorder TableHeaderWhiteBG" enableSelectAll="false" rowSelectionChange="onSelectTaskHeader">
 				<ui:columns>
-					<ui:Column filterProperty="Plnnr" sortProperty="Plnnr" defaultFilterOperator="Contains">
+					<ui:Column filterProperty="Plnnr" sortProperty="Plnnr" defaultFilterOperator="Contains" width="20%">
 						<Label text="{i18n>taskgrp}" class="tableHeaderText"/>
 						<ui:template>
 							<Text text="{oWorkOrderDetailViewModel>Plnnr}" class="tableContentText"/>
 						</ui:template>
 					</ui:Column>
-					<ui:Column filterProperty="Plnal" sortProperty="Plnal" defaultFilterOperator="Contains">
+					<ui:Column filterProperty="Plnal" sortProperty="Plnal" defaultFilterOperator="Contains"  width="25%">
 						<Label text="Group Counter" class="tableHeaderText"/>
 						<ui:template>
 							<Text text="{oWorkOrderDetailViewModel>Plnal}" class="tableContentText"/>
