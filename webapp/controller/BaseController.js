@@ -469,6 +469,7 @@ sap.ui.define([
 			this.getFnLocs();
 			this.getOrderType();
 			this.fnGetObjectPart();
+			this.getItemKeyForCause();
 		},
 		//Function to get fnlocations List
 		getFnLocs: function (oEvent) {
@@ -3669,8 +3670,11 @@ sap.ui.define([
 				"DlCode": "",
 				"TxtProbcd": ""
 			};
-			if (aTempArr.length === 0) {
+			if (aTempArr === null || aTempArr.length === 0) {
 				aTempArr.push(oTempItemObj);
+				if(aTempArr === null){
+					aTempArr = [];
+				}
 				oNotificationDataModel.setProperty("/NavNoticreateToNotiItem", aTempArr);
 				oNotificationDataModel.refresh();
 			} else {
@@ -3692,6 +3696,7 @@ sap.ui.define([
 				oNotificationDataModel.setProperty("/NavNoticreateToNotiItem", aTempArr);
 				oNotificationDataModel.refresh();
 			}
+			this.getItemKeyForCause();
 		},
 		getItemSortNumber: function (key) {
 			var sItemSortNo;
@@ -3732,8 +3737,134 @@ sap.ui.define([
 			}
 			oTable.clearSelection();
 			oTable.rerender();
+			if(this.isItemArrayEmpty(aTempArr)){
+				oNotificationDataModel.setProperty("/NavNoticreateToNotifcause",[]);
+			}
 			oNotificationDataModel.setProperty("/NavNoticreateToNotiItem", aTempArr);
 			oNotificationDataModel.refresh();
+			this.getItemKeyForCause();
+		},
+		causeCodeValueHelp: function (oEvent) {
+			var oNotificationViewModel = this.oNotificationViewModel;
+			var sPath = oEvent.getSource().getBindingContext("oNotificationDataModel").getPath();
+			oNotificationViewModel.setProperty("/sCauseCodePath", sPath);
+			if (!this.causeCodeDialog) {
+				this.causeCodeDialog = sap.ui.xmlfragment("com/sap/incture/IMO_PM.fragment.CauseCodeDialog", this);
+				this.getView().addDependent(this.causeCodeDialog);
+			}
+			this.causeCodeDialog.open();
+		},
+		onCancelDialogCauseCode: function () {
+			this.causeCodeDialog.close();
+			this.causeCodeDialog.destroy();
+			this.causeCodeDialog = null;
+
+		},
+		onSelectCauseCode: function (oEvent) {
+			var mLookupModel = this.mLookupModel;
+			var oNotificationDataModel = this.oNotificationDataModel;
+			var oNotificationViewModel = this.oNotificationViewModel;
+			var sSelectedItemPath = oEvent.getSource().getSelectedContextPaths()[0];
+			var sRowPath = oNotificationViewModel.getProperty("/sCauseCodePath");
+			var oSelectedItemData = mLookupModel.getProperty(sSelectedItemPath);
+			var sCode = oSelectedItemData.Code;
+			var sCodeGroup = oSelectedItemData.Codegruppe;
+			var sCodeText = oSelectedItemData.Codetext;
+			oNotificationDataModel.setProperty(sRowPath + "/CauseCodegrp", sCodeGroup);
+			oNotificationDataModel.setProperty(sRowPath + "/CauseCode", sCode);
+			oNotificationDataModel.setProperty(sRowPath + "/TxtCausecd", sCodeText);
+			this.onCancelDialogCauseCode();
+		},
+		onAddCauses: function () {
+			var oNotificationDataModel = this.oNotificationDataModel;
+			var aTempArr = oNotificationDataModel.getProperty("/NavNoticreateToNotifcause");
+			var oTempCauseObj = {
+				"CauseKey": "0001",
+				"CauseSortNo": "0001",
+				"ItemKey": "",
+				"Causetext": "",
+				"CauseCodegrp": "",
+				"CauseCode": "",
+				"TxtCausecd": ""
+			};
+			if ( aTempArr === null || aTempArr === undefined || aTempArr.length === 0) {
+				if(aTempArr === null || aTempArr === undefined){
+					aTempArr = [];
+				}
+				aTempArr.push(oTempCauseObj);
+				oNotificationDataModel.setProperty("/NavNoticreateToNotifcause", aTempArr);
+				oNotificationDataModel.refresh();
+			} else {
+				var lastCauseKey = aTempArr[aTempArr.length - 1].CauseKey;
+				var currentCauseKey = parseInt(lastCauseKey, 10) + 1;
+				var sCauseSortNo = this.getItemSortNumber(currentCauseKey);
+				var oTempCauseObj1 = {
+					"CauseKey": sCauseSortNo,
+					"CauseSortNo": sCauseSortNo,
+					"ItemKey": "",
+					"Causetext": "",
+					"CauseCodegrp": "",
+					"CauseCode": "",
+					"TxtCausecd": ""
+				};
+				aTempArr.push(oTempCauseObj1);
+				oNotificationDataModel.setProperty("/NavNoticreateToNotifcause", aTempArr);
+				oNotificationDataModel.refresh();
+			}
+		},
+		onDeleteCauses: function(){
+			var oNotificationDataModel = this.oNotificationDataModel;
+			if (!this._oTable) {
+				this._oTable = this.byId("CREATE_NOTIF_CAUSES_TABLE");
+			}
+			var oTable = this._oTable;
+			var aIndices = oTable.getSelectedIndices();
+			if (aIndices.length === 0) {
+				MessageToast.show("Please select the Row to be deleted");
+				return;
+			}
+			var aCauseNo = [];
+			var aTempArr = oNotificationDataModel.getProperty("/NavNoticreateToNotifcause");
+			for (var i = 0; i < aIndices.length; i++) {
+				var temp = aTempArr[aIndices[i]].CauseKey;
+				aCauseNo.push(temp);
+			}
+			for (var q = 0; q < aCauseNo.length; q++) {
+				var sKey = aCauseNo[q];
+				for (var j = 0; j < aTempArr.length; j++) {
+					if (aTempArr[j].CauseKey === sKey) {
+						aTempArr.splice(j, 1);
+						break;
+					}
+				}
+			}
+			oTable.clearSelection();
+			oTable.rerender();
+			oNotificationDataModel.setProperty("/NavNoticreateToNotifcause", aTempArr);
+			oNotificationDataModel.refresh();
+		},
+		getItemKeyForCause: function(){
+			var oNotificationDataModel = this.oNotificationDataModel;
+			// var oNotificationViewModel = this.oNotificationViewModel;
+			var mLookupModel = this.mLookupModel;
+			var aArr = oNotificationDataModel.getProperty("/NavNoticreateToNotiItem");
+			var aItemKey = [];
+			for(var i = 0; i < aArr.length; i++){
+				var temp = aArr[i].ItemSortNo;
+				var oObj = {
+					sItemKey : temp 
+				};
+				aItemKey.push(oObj);
+			}
+			mLookupModel.setProperty("/aItemKeyForCause",aItemKey);
+		},
+		isItemArrayEmpty: function(arr){
+			if(arr.length === 0){
+				return true;
+			}else{
+				return false;
+			}
 		}
+		
 	});
 });

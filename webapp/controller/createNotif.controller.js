@@ -24,6 +24,7 @@ sap.ui.define([
 		routePatternMatched: function () {
 			this.resetUIFields();
 			this.fnGetObjectPart();
+			this.getItemKeyForCause();
 		},
 
 		//Function to reset UI fields
