@@ -31,7 +31,7 @@
 						<Label text="{i18n>ORDER_TYPE}" required="false"></Label>
 						<ComboBox showSecondaryValues="true" items="{path:'mLookupModel>/aOrderTypeSet',sorter:{ path: 'text' }}"
 							selectedKey="{oWorkOrderDetailModel>/OrderType}" class="inputRadius" tooltip="{oWorkOrderDetailModel>/OrderType}"
-							enabled="{oWODetailFieldsModel>/orderType}" change="getOrderTypeTasks" width="100%">
+							enabled="{oWODetailFieldsModel>/orderType}"  width="100%"> <!--change="getOrderTypeTasks"--> 
 							<core:ListItem key="{mLookupModel>AUART}" additionalText="{mLookupModel>TXT}" text="{mLookupModel>AUART}"/>
 							<customData>
 								<core:CustomData value="WO_DETAIL_ORDER_TYPE"/>

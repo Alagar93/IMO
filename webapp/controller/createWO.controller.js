@@ -791,7 +791,7 @@ sap.ui.define([
 			var bVal = this.validateMandatoryFields();
 			if (bVal) {
 				var orderType = mLookupModel.getProperty("/sOrderTypeSel");
-				this.getOrderTypeTasks(orderType);
+				// this.getOrderTypeTasks(orderType); //SH: Commented for now as we are getting a hardcoded result from backend
 				this.setFieldValOnDetailNav();
 				this.router.navTo("detailWO", {
 					workOrderID: "CREATE_ORDER"
@@ -919,7 +919,7 @@ sap.ui.define([
 				opsArr.push(oTempobj);
 			}
 			oWorkOrderDetailModel.setProperty("/HEADERTOOPERATIONSNAV", opsArr);
-			this.getOrderTypeTasks(oSelectedWODetails.OrderType);
+			// this.getOrderTypeTasks(oSelectedWODetails.OrderType); //SH: Commented for now as we are getting a hardcoded result from backend
 
 			this.router.navTo("detailWO", {
 				workOrderID: "CREATE_REF_WO"
