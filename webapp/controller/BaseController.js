@@ -1984,7 +1984,7 @@ sap.ui.define([
 		},
 
 		//Function to get Tasks list for a WO
-		fnGetTaskList: function (operationHeader, orderTypeFld) {
+		fnGetTaskList: function (operationHeader, Plnal, orderTypeFld) {
 			var that = this;
 			this.busy.open();
 			var oFilter = [];
@@ -1994,6 +1994,9 @@ sap.ui.define([
 			var userPlant = this.oUserDetailModel.getProperty("/userPlant");
 			oFilter.push(new Filter("Werks", "EQ", userPlant));
 			oFilter.push(new Filter("Plnnr", "EQ", operationHeader));
+			if (Plnal !== null) { //SH: new filter for Plnal added
+				oFilter.push(new Filter("Plnal", "EQ", Plnal));
+			}
 
 			oPortalDataModel.read("/TaskOperationsSet", {
 				filters: oFilter,
@@ -2136,7 +2139,7 @@ sap.ui.define([
 			var sUrl = "/GetTaskSet(plant='" + userPlant + "',OrderType='" + orderType + "')";
 			oPortalDataModel.read(sUrl, {
 				success: function (oData) {
-					that.fnGetTaskList(oData.Plnnr, orderTypeFld);
+					that.fnGetTaskList(oData.Plnnr, null, orderTypeFld);
 					that.busy.close();
 				},
 				error: function (oData) {

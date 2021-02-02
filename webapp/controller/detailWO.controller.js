@@ -3423,7 +3423,7 @@ sap.ui.define([
 			var oWorkOrderDetailViewModel = this.oWorkOrderDetailViewModel;
 			var sPath = oEvent.getParameters().rowContext.getPath();
 			var selectedTaskHeader = oWorkOrderDetailViewModel.getProperty(sPath);
-			this.fnGetTaskList(selectedTaskHeader.Plnnr);
+			this.fnGetTaskList(selectedTaskHeader.Plnnr, selectedTaskHeader.Plnal);
 		},
 
 		//Function to update WO operations with tasks list
