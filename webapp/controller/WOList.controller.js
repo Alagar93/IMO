@@ -643,7 +643,7 @@ sap.ui.define([
 				this.getView().byId("idWorkOrderList").clearSelection();
 				mLookupModel.refresh();
 				this.fnFetchWOList();
-				this._oDialogWO.close();
+				// this._oDialogWO.close();
 			} else {
 				MessageBox.error("Please select Created on Date range within 90 days. ", {
 					actions: [MessageBox.Action.OK],

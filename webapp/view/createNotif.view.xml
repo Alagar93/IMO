@@ -221,63 +221,64 @@
 								<Button text="{i18n>ADD_OP}" press="onAddItems" type="Emphasized" icon="sap-icon://add" iconFirst="true"></Button>
 								<Button text="{i18n>REMOVE}" type="Reject" press="onDeleteItem" icon="sap-icon://delete" iconFirst="true" class="transparentBtn"></Button>
 							</OverflowToolbar>
-							<ui:Table enableSelectAll="false" selectionMode="MultiToggle" selectionBehavior="Row" visibleRowCount="8"
+							<ui:Table enableSelectAll="false" selectionMode="MultiToggle" selectionBehavior="Row" visibleRowCount="8" rows="{oNotificationDataModel>/NavNoticreateToNotiItem}"
 								class="tableCellNoBorder TableHeaderWhiteBG" rowSelectionChange="onSelectItem" id="NOTIF_ITEM_TABLE">
 								<ui:columns>
 									<ui:Column tooltip="Item Number" width="4rem">
 										<Label text="No." class="tableHeaderText"/>
 										<ui:template>
-											<Input class="inputRadius"/>
+											<!--<Input class="inputRadius" value = "{oNotificationDataModel>ItemKey}"/>-->
+											<Text text = "{oNotificationDataModel>ItemKey}"/>
 										</ui:template>
 									</ui:Column>
 									<ui:Column width="6rem">
 										<Label text="Code Group" class="tableHeaderText"/>
 										<ui:template>
-											<Input class="inputRadius"/>
+											<Input class="inputRadius" value = "{oNotificationDataModel>DlCodegrp}" showValueHelp="true" valueHelpRequest="objectCodeValueHelp" valueHelpOnly="true"/>
 										</ui:template>
 									</ui:Column>
 									<ui:Column tooltip="Object Part" width="6rem">
 										<Label text="Object Part" class="tableHeaderText"/>
 										<ui:template>
-											<Input class="inputRadius"/>
+											<Input class="inputRadius" value = "{oNotificationDataModel>DlCode}" editable = "false"/>
 										</ui:template>
 									</ui:Column>
-									<ui:Column tooltip="Object Part Description" width="10rem">
+									<ui:Column tooltip="Object Part Description" width="14rem">
 										<Label text="Object Part Desc" class="tableHeaderText"/>
 										<ui:template>
-											<Input class="inputRadius"/>
+											<Input class="inputRadius" editable = "false" value = "{oNotificationDataModel>TxtObjptcd}"/>
 										</ui:template>
 									</ui:Column>
-									<ui:Column tooltip="Text" width="14rem">
+									<ui:Column tooltip="Text" width="24rem">
 										<Label text="Text" class="tableHeaderText"/>
 										<ui:template>
-											<Input class="inputRadius"/>
+											<Input class="inputRadius" value = "{oNotificationDataModel>Descript}" maxLength = "40"/>
 										</ui:template>
 									</ui:Column>
 									<ui:Column tooltip="Code Group" width="6rem">
 										<Label text="Code Group" class="tableHeaderText"/>
 										<ui:template>
-											<Input class="inputRadius"/>
+											<Input class="inputRadius" value = "{oNotificationDataModel>DCodegrp}" showValueHelp="true" valueHelpRequest="damageCodeValueHelp" valueHelpOnly="true"/>
 										</ui:template>
 									</ui:Column>
-									<ui:Column tooltip="Damage">
+									<ui:Column tooltip="Damage" width = "6rem">
 										<Label text="Damage" class="tableHeaderText"/>
 										<ui:template>
-											<Input class="inputRadius"/>
+											<Input class="inputRadius" value = "{oNotificationDataModel>DCode}" editable = "false"/>
 										</ui:template>
 									</ui:Column>
-									<ui:Column tooltip="Damage Description" width="10rem">
-										<Label text="Damage Desc" class="tableHeaderText"/>
+									<ui:Column tooltip="Damage Description" width="14rem">
+										<Label text="Damage Desc" class="tableHeaderText" />
 										<ui:template>
-											<Input class="inputRadius"/>
+											<Input class="inputRadius" editable = "false" value = "{oNotificationDataModel>TxtProbcd}"/>
 										</ui:template>
 									</ui:Column>
-									<ui:Column tooltip="Cause Text" width="14rem">
-										<Label text=" Cause Text" class="tableHeaderText"/>
-										<ui:template>
-											<Input class="inputRadius"/>
-										</ui:template>
-									</ui:Column>
+									<!--<ui:Column tooltip="Cause Text" width="14rem">-->
+									<!--	<Label text=" Cause Text" class="tableHeaderText"/>-->
+									<!--	<ui:template>-->
+									<!--		<Input class="inputRadius"/>-->
+									<!--	</ui:template>-->
+									<!--</ui:Column>-->
 								</ui:columns>
 							</ui:Table>
 						</IconTabFilter>

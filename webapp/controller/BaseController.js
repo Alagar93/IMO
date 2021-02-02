@@ -468,6 +468,7 @@ sap.ui.define([
 			this.getWorkCentersCreateWO();
 			this.getFnLocs();
 			this.getOrderType();
+			this.fnGetObjectPart();
 		},
 		//Function to get fnlocations List
 		getFnLocs: function (oEvent) {
@@ -3562,6 +3563,174 @@ sap.ui.define([
 
 			}
 			this.onCancelDialogAssignUser();
+		},
+		//nischal -- Function to get
+		fnGetObjectPart: function () {
+			var that = this;
+			this.busy.open();
+			var sUrl = "/CauseDamageCodesSet";
+			var mLookupModel = this.mLookupModel;
+			var oLookupDataModel = this.oLookupDataModel;
+
+			var oFilter = [];
+			oFilter.push(new Filter("Katalogart", "EQ", "B"));
+			oLookupDataModel.read(sUrl, {
+				filters: oFilter,
+				success: function (oData) {
+					var aObjectCode = oData.results;
+					mLookupModel.setProperty("/aObjectCode", aObjectCode);
+					mLookupModel.refresh();
+					that.busy.close();
+				},
+				error: function (oData) {
+					mLookupModel.setProperty("/aObjectCode", []);
+					mLookupModel.refresh();
+					that.busy.close();
+				}
+			});
+		},
+		objectCodeValueHelp: function (oEvent) {
+			// this.fnGetObjectPart();
+			var oNotificationViewModel = this.oNotificationViewModel;
+			var sPath = oEvent.getSource().getBindingContext("oNotificationDataModel").getPath();
+			oNotificationViewModel.setProperty("/sObjCodePath", sPath);
+			if (!this.objectCodeDialog) {
+				this.objectCodeDialog = sap.ui.xmlfragment("com/sap/incture/IMO_PM.fragment.objectCodeDialog", this);
+				this.getView().addDependent(this.objectCodeDialog);
+			}
+			this.objectCodeDialog.open();
+		},
+		onCancelDialogObjectCode: function () {
+			this.objectCodeDialog.close();
+			this.objectCodeDialog.destroy();
+			this.objectCodeDialog = null;
+
+		},
+		onSelectObjectCode: function (oEvent) {
+			var mLookupModel = this.mLookupModel;
+			var oNotificationDataModel = this.oNotificationDataModel;
+			var oNotificationViewModel = this.oNotificationViewModel;
+			var sSelectedItemPath = oEvent.getSource().getSelectedContextPaths()[0];
+			var sRowPath = oNotificationViewModel.getProperty("/sObjCodePath");
+			var oSelectedItemData = mLookupModel.getProperty(sSelectedItemPath);
+			var sCode = oSelectedItemData.Code;
+			var sCodeGroup = oSelectedItemData.Codegruppe;
+			var sCodeText = oSelectedItemData.Codetext;
+			oNotificationDataModel.setProperty(sRowPath + "/DlCodegrp", sCodeGroup);
+			oNotificationDataModel.setProperty(sRowPath + "/DlCode", sCode);
+			oNotificationDataModel.setProperty(sRowPath + "/TxtObjptcd", sCodeText);
+			this.onCancelDialogObjectCode();
+		},
+		damageCodeValueHelp: function (oEvent) {
+			var oNotificationViewModel = this.oNotificationViewModel;
+			var sPath = oEvent.getSource().getBindingContext("oNotificationDataModel").getPath();
+			oNotificationViewModel.setProperty("/sDamageCodePath", sPath);
+			if (!this.damageCodeDialog) {
+				this.damageCodeDialog = sap.ui.xmlfragment("com/sap/incture/IMO_PM.fragment.damageCodeDialog", this);
+				this.getView().addDependent(this.damageCodeDialog);
+			}
+			this.damageCodeDialog.open();
+		},
+		onCancelDialogDamageCode: function () {
+			this.damageCodeDialog.close();
+			this.damageCodeDialog.destroy();
+			this.damageCodeDialog = null;
+
+		},
+		onSelectDamageCode: function (oEvent) {
+			var mLookupModel = this.mLookupModel;
+			var oNotificationDataModel = this.oNotificationDataModel;
+			var oNotificationViewModel = this.oNotificationViewModel;
+			var sSelectedItemPath = oEvent.getSource().getSelectedContextPaths()[0];
+			var sRowPath = oNotificationViewModel.getProperty("/sDamageCodePath");
+			var oSelectedItemData = mLookupModel.getProperty(sSelectedItemPath);
+			var sCode = oSelectedItemData.Code;
+			var sCodeGroup = oSelectedItemData.Codegruppe;
+			var sCodeText = oSelectedItemData.Codetext;
+			oNotificationDataModel.setProperty(sRowPath + "/DCodegrp", sCodeGroup);
+			oNotificationDataModel.setProperty(sRowPath + "/DCode", sCode);
+			oNotificationDataModel.setProperty(sRowPath + "/TxtProbcd", sCodeText);
+			this.onCancelDialogDamageCode();
+		},
+		onAddItems: function (oEvent) {
+			var oNotificationDataModel = this.oNotificationDataModel;
+			var aTempArr = oNotificationDataModel.getProperty("/NavNoticreateToNotiItem");
+			var oTempItemObj = {
+				"ItemKey": "1",
+				"ItemSortNo": "0001",
+				"Descript": "",
+				"DCodegrp": "",
+				"DCode": "",
+				"TxtObjptcd": "",
+				"DlCodegrp": "",
+				"DlCode": "",
+				"TxtProbcd": ""
+			};
+			if (aTempArr.length === 0) {
+				aTempArr.push(oTempItemObj);
+				oNotificationDataModel.setProperty("/NavNoticreateToNotiItem", aTempArr);
+				oNotificationDataModel.refresh();
+			} else {
+				var lastItemKey = aTempArr[aTempArr.length - 1].ItemKey;
+				var currentItemKey = parseInt(lastItemKey, 10) + 1;
+				var sItemSortNo = this.getItemSortNumber(currentItemKey);
+				var oTempItemObj1 = {
+					"ItemKey": currentItemKey.toString(),
+					"ItemSortNo": sItemSortNo,
+					"Descript": "",
+					"DCodegrp": "",
+					"DCode": "",
+					"TxtObjptcd": "",
+					"DlCodegrp": "",
+					"DlCode": "",
+					"TxtProbcd": ""
+				};
+				aTempArr.push(oTempItemObj1);
+				oNotificationDataModel.setProperty("/NavNoticreateToNotiItem", aTempArr);
+				oNotificationDataModel.refresh();
+			}
+		},
+		getItemSortNumber: function (key) {
+			var sItemSortNo;
+			if (key < 9) {
+				sItemSortNo = "000" + key;
+			} else if (key > 9) {
+				sItemSortNo = "00" + key;
+			} else if (key > 99) {
+				sItemSortNo = "0" + key;
+			}
+			return sItemSortNo;
+		},
+		onDeleteItem: function (oEvent) {
+			var oNotificationDataModel = this.oNotificationDataModel;
+			if (!this._oTable) {
+				this._oTable = this.byId("NOTIF_ITEM_TABLE");
+			}
+			var oTable = this._oTable;
+			var aIndices = oTable.getSelectedIndices();
+			if (aIndices.length === 0) {
+				MessageToast.show("Please select the Item to be deleted");
+				return;
+			}
+			var aItemNo = [];
+			var aTempArr = oNotificationDataModel.getProperty("/NavNoticreateToNotiItem");
+			for (var i = 0; i < aIndices.length; i++) {
+				var temp = aTempArr[aIndices[i]].ItemKey;
+				aItemNo.push(temp);
+			}
+			for(var q = 0; q < aItemNo.length; q++){
+				var sKey = aItemNo[q];
+				for(var j = 0; j < aTempArr.length; j++){
+					if(aTempArr[j].ItemKey === sKey){
+						aTempArr.splice(j,1);
+						break;
+					}
+				}
+			}
+			oTable.clearSelection();
+			oTable.rerender();
+			oNotificationDataModel.setProperty("/NavNoticreateToNotiItem", aTempArr);
+			oNotificationDataModel.refresh();
 		}
 	});
 });

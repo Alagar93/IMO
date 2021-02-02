@@ -23,6 +23,7 @@ sap.ui.define([
 
 		routePatternMatched: function () {
 			this.resetUIFields();
+			this.fnGetObjectPart();
 		},
 
 		//Function to reset UI fields

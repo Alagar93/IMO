@@ -65,21 +65,21 @@ com.sap.incture.IMO_PM.util.util = {
 		}
 	},
 	//nischal-- function to fetch workcenter desc from workcenter array
-	fetchWorkCtrDesc : function(mLookupModel,oWorkOrderDetailModel,key){
-			var arr = mLookupModel.getData().aWorkCenterSet;
-			for(var i = 0;i < arr.length ; i++){
-				if(arr[i].WorkcenterId === key){
-					return arr[i].WorkcenterDesc;
-				}
+	fetchWorkCtrDesc: function (mLookupModel, oWorkOrderDetailModel, key) {
+		var arr = mLookupModel.getData().aWorkCenterSet;
+		for (var i = 0; i < arr.length; i++) {
+			if (arr[i].WorkcenterId === key) {
+				return arr[i].WorkcenterDesc;
 			}
+		}
 	},
-	fetchAssemblyDesc : function(mLookupModel,key){
-			var arr = mLookupModel.getData().aEquipAssemblyList;
-			for(var i = 0;i < arr.length ; i++){
-				if(arr[i].Idnrk === key){
-					return arr[i].MAKTX;
-				}
+	fetchAssemblyDesc: function (mLookupModel, key) {
+		var arr = mLookupModel.getData().aEquipAssemblyList;
+		for (var i = 0; i < arr.length; i++) {
+			if (arr[i].Idnrk === key) {
+				return arr[i].MAKTX;
 			}
+		}
 	},
 	//nischal-- function to validate BreakDown Duration is Greater than or Equal to Syatem Date so that Pop-up would be shown
 	validateBreakDownDate: function (oDate, oTime) {
@@ -129,7 +129,7 @@ com.sap.incture.IMO_PM.util.util = {
 			"Message": "",
 			"Status": ""
 		}];
-	
+
 		var oCurrentTime = com.sap.incture.IMO_PM.formatter.formatter.formatCurrentTime(new Date());
 		var userPlant = oUserDetailModel.getProperty("/userPlant");
 		//nischal -- Fetch required Start Date and End Datefrom oWorkOrderDetailViewModel that was set in Create Workorder controller
@@ -183,7 +183,7 @@ com.sap.incture.IMO_PM.util.util = {
 		oWorkOrderDetailViewModel.setProperty("/listOperationCommentsDto", []);
 		oWorkOrderDetailViewModel.setProperty("/materialQuantities", []);
 		oWorkOrderDetailViewModel.setProperty("/isOperationsFiltered", true);
-		oWorkOrderDetailViewModel.setProperty("/isPanelExpandable",false); //nischal -- property to store panel expandabel field
+		oWorkOrderDetailViewModel.setProperty("/isPanelExpandable", false); //nischal -- property to store panel expandabel field
 		var partNav = jQuery.extend(true, [], headerPartner);
 		oWorkOrderDetailViewModel.setProperty("/HEADERTOPARTNERNAV", partNav);
 		this.setCommentsVisibleLayout("WORK_ORDER_CMTS", oWorkOrderDetailViewModel);
@@ -192,40 +192,40 @@ com.sap.incture.IMO_PM.util.util = {
 		this.fnSetUserName(userName, oWorkOrderDetailModel, oWorkOrderDetailViewModel);
 	},
 	//Function to setRows For Cost Overview table
-	setRowItemsforCostOverview:function(oWorkOrderDetailViewModel,aCostList){
-		var CosttblItems=[{
-			"CatDesc":"External Services",
-			"EstCost":aCostList[0].EstExtSer,
-			"PlanCost":aCostList[0].PlaExtSer,
-			"ActCost":aCostList[0].ActExtSer,
-			"Cur":"EUR"
-		},{
-			"CatDesc":"External Procurement",
-			"EstCost":aCostList[0].EstExtPro,
-			"PlanCost":aCostList[0].PlaExtPro,
-			"ActCost":aCostList[0].ActExtPro,
-			"Cur":"EUR"
-		},{
-			"CatDesc":"Internal Activities",
-			"EstCost":aCostList[0].EstIntAct,
-			"PlanCost":aCostList[0].PlaIntAct,
-			"ActCost":aCostList[0].ActIntAct,
-			"Cur":"EUR"
-		},{
-			"CatDesc":"Stock material",
-			"EstCost":aCostList[0].EstStoMat,
-			"PlanCost":aCostList[0].PlaStoMat,
-			"ActCost":aCostList[0].ActStoMat,
-			"Cur":"EUR"
-		},{
-			"CatDesc":"Total Cost",
-			"EstCost":aCostList[0].TotalEstCost,
-			"PlanCost":aCostList[0].TotalPlanCost,
-			"ActCost":aCostList[0].TotalActCost,
-			"Cur":"EUR"
+	setRowItemsforCostOverview: function (oWorkOrderDetailViewModel, aCostList) {
+		var CosttblItems = [{
+			"CatDesc": "External Services",
+			"EstCost": aCostList[0].EstExtSer,
+			"PlanCost": aCostList[0].PlaExtSer,
+			"ActCost": aCostList[0].ActExtSer,
+			"Cur": "EUR"
+		}, {
+			"CatDesc": "External Procurement",
+			"EstCost": aCostList[0].EstExtPro,
+			"PlanCost": aCostList[0].PlaExtPro,
+			"ActCost": aCostList[0].ActExtPro,
+			"Cur": "EUR"
+		}, {
+			"CatDesc": "Internal Activities",
+			"EstCost": aCostList[0].EstIntAct,
+			"PlanCost": aCostList[0].PlaIntAct,
+			"ActCost": aCostList[0].ActIntAct,
+			"Cur": "EUR"
+		}, {
+			"CatDesc": "Stock material",
+			"EstCost": aCostList[0].EstStoMat,
+			"PlanCost": aCostList[0].PlaStoMat,
+			"ActCost": aCostList[0].ActStoMat,
+			"Cur": "EUR"
+		}, {
+			"CatDesc": "Total Cost",
+			"EstCost": aCostList[0].TotalEstCost,
+			"PlanCost": aCostList[0].TotalPlanCost,
+			"ActCost": aCostList[0].TotalActCost,
+			"Cur": "EUR"
 		}];
-		oWorkOrderDetailViewModel.setProperty("/CostTBl",CosttblItems);
-		
+		oWorkOrderDetailViewModel.setProperty("/CostTBl", CosttblItems);
+
 	},
 	//Function to set visible/enable of comments section [View: WorkOrder Detail]
 	setCommentsVisibleLayout: function (oEvent, oWorkOrderDetailViewModel) {
@@ -377,7 +377,7 @@ com.sap.incture.IMO_PM.util.util = {
 	//Function to check SAPID if Category is L
 	fnValidateMaterials: function (aMaterials) {
 		var bFlag = true;
-		if (aMaterials!==undefined) {
+		if (aMaterials !== undefined) {
 			for (var i = 0; i < aMaterials.length; i++) {
 				if (aMaterials[i].Material === "" && aMaterials[i].ItemCat === "L") {
 					bFlag = false;
@@ -609,7 +609,19 @@ com.sap.incture.IMO_PM.util.util = {
 			"Type": "",
 			"Message": ""
 		}];
-
+		//nischal -- Starts
+		var aItems = [{
+			"ItemKey": "1",
+			"ItemSortNo": "0001",
+			"Descript": "",
+			"DCodegrp": "",
+			"DCode": "",
+			"TxtObjptcd":"",
+			"DlCodegrp": "",
+			"DlCode": "",
+			"TxtProbcd":""
+		}];
+		//nischal -- Ends
 		var userName = oUserDetailModel.getProperty("/userName");
 		var oCurrentTime = com.sap.incture.IMO_PM.formatter.formatter.formatCurrentTime(new Date());
 		var userPlant = oUserDetailModel.getProperty("/userPlant");
@@ -643,6 +655,7 @@ com.sap.incture.IMO_PM.util.util = {
 		oNotificationDataModel.setProperty("/CauseText", "");
 		oNotificationDataModel.setProperty("/Reportedby", userName);
 		oNotificationDataModel.setProperty("/WorkCenter", ""); //nischal - workcenter previously was not there
+		oNotificationDataModel.setProperty("/NavNoticreateToNotiItem", aItems); //nischal - workcenter previously was not there
 		oNotificationDataModel.refresh();
 
 		oNotificationViewModel.setProperty("/StartTime", oCurrentTime);
@@ -652,8 +665,8 @@ com.sap.incture.IMO_PM.util.util = {
 		oNotificationViewModel.refresh();
 
 		mLookupModel.setProperty("/aEquipmentsList", []);
-		mLookupModel.setProperty("/assignedToHardCode","");
-		mLookupModel.setProperty("/sRefnotif",""); //SH: Clear reference notification field
+		mLookupModel.setProperty("/assignedToHardCode", "");
+		mLookupModel.setProperty("/sRefnotif", ""); //SH: Clear reference notification field
 		mLookupModel.refresh();
 	},
 	resetCreateNotificationFieldsNotifList: function (oNotificationDataModel, oNotificationViewModel, mLookupModel, oSelectedRow, oController) {
@@ -2112,22 +2125,22 @@ com.sap.incture.IMO_PM.util.util = {
 		oNotificationViewModel.setProperty("/oPayLoadWO", oObj);
 
 	},
-	fetchPurchanseReqNo : function(sVal){
-		if(sVal.length > 0){
-			for(var i =0; i< sVal.length ; i++){
-				if(sVal[i].PreqNo){
+	fetchPurchanseReqNo: function (sVal) {
+		if (sVal.length > 0) {
+			for (var i = 0; i < sVal.length; i++) {
+				if (sVal[i].PreqNo) {
 					return sVal[i].PreqNo;
 				}
 			}
 			return "";
-		}else{
+		} else {
 			return "";
 		}
 	},
-	fetchReservNo : function(sVal){
-		if(sVal.length > 0){
+	fetchReservNo: function (sVal) {
+		if (sVal.length > 0) {
 			return sVal[0].ReservNo;
-		}else{
+		} else {
 			return "";
 		}
 	}
