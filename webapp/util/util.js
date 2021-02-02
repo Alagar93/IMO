@@ -616,11 +616,21 @@ com.sap.incture.IMO_PM.util.util = {
 			"Descript": "",
 			"DCodegrp": "",
 			"DCode": "",
-			"TxtObjptcd":"",
+			"TxtObjptcd": "",
 			"DlCodegrp": "",
 			"DlCode": "",
-			"TxtProbcd":""
+			"TxtProbcd": ""
 		}];
+
+		// var aCause = [{
+		// 	"CauseKey": "0001",
+		// 	"CauseSortNo": "0001",
+		// 	"ItemKey": "0001",
+		// 	"Causetext": "",
+		// 	"CauseCodegrp": "",
+		// 	"CauseCode": "",
+		// 	"ItemSortNo": "0001"
+		// }];
 		//nischal -- Ends
 		var userName = oUserDetailModel.getProperty("/userName");
 		var oCurrentTime = com.sap.incture.IMO_PM.formatter.formatter.formatCurrentTime(new Date());
@@ -655,7 +665,8 @@ com.sap.incture.IMO_PM.util.util = {
 		oNotificationDataModel.setProperty("/CauseText", "");
 		oNotificationDataModel.setProperty("/Reportedby", userName);
 		oNotificationDataModel.setProperty("/WorkCenter", ""); //nischal - workcenter previously was not there
-		oNotificationDataModel.setProperty("/NavNoticreateToNotiItem", aItems); //nischal - workcenter previously was not there
+		oNotificationDataModel.setProperty("/NavNoticreateToNotiItem", aItems); //nischal - Array to carry Item Objects
+		// oNotificationDataModel.setProperty("/NavNoticreateToNotifcause", aCause); //nischal - Array to carry Cause Objects
 		oNotificationDataModel.refresh();
 
 		oNotificationViewModel.setProperty("/StartTime", oCurrentTime);

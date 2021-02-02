@@ -1,0 +1,31 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" class="sapUiSizeCompact">
+	<Dialog contentHeight="50%" contentWidth="40%" title="Cause Code Help" class="dialogHeader">
+		<content>
+			<Table sticky="ColumnHeaders" class="sapUiTinyMargin tableCellNoBorder TableHeaderWhiteBG" width="95%" mode="SingleSelectLeft" items="{path: 'mLookupModel>/aCauseCode'}" selectionChange="onSelectCauseCode">
+				<columns>
+					<Column>
+						<Text text="Cause Code"/>
+					</Column>
+					<Column>
+						<Text text="Cause Code Group"/>
+					</Column>
+					<Column>
+						<Text text="Cause Code Text"/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem>
+						<cells >
+							<Text text="{mLookupModel>Code}"/>
+							<Text text="{mLookupModel>Codegruppe}"/>
+							<Text text="{mLookupModel>Codetext}"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</content>
+		<buttons>
+			<Button text="{i18n>cancel}" press="onCancelDialogCauseCode" class="transparentBtn createNotifClearBtn" icon="sap-icon://decline" iconFirst="true"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition >
