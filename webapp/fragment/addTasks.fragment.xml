@@ -10,10 +10,10 @@
 							<Text text="{oWorkOrderDetailViewModel>Plnnr}" class="tableContentText"/>
 						</ui:template>
 					</ui:Column>
-					<ui:Column filterProperty="groupCounter" sortProperty="groupCounter" defaultFilterOperator="Contains">
+					<ui:Column filterProperty="Plnal" sortProperty="Plnal" defaultFilterOperator="Contains">
 						<Label text="Group Counter" class="tableHeaderText"/>
 						<ui:template>
-							<Text text="{oWorkOrderDetailViewModel>groupCounter}" class="tableContentText"/>
+							<Text text="{oWorkOrderDetailViewModel>Plnal}" class="tableContentText"/>
 						</ui:template>
 					</ui:Column>
 					<ui:Column filterProperty="Ktext" sortProperty="Ktext" defaultFilterOperator="Contains">

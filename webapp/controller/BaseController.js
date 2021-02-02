@@ -1965,7 +1965,7 @@ sap.ui.define([
 			var oWorkOrderDetailViewModel = this.oWorkOrderDetailViewModel;
 			var userPlant = this.oUserDetailModel.getProperty("/userPlant");
 			oFilter.push(new Filter("Werks", "EQ", userPlant));
-			oFilter.push(new Filter("Vagrp", "EQ", plannerGrp));
+			// oFilter.push(new Filter("Vagrp", "EQ", plannerGrp)); SH: changed as suggested by Gautham
 
 			oPortalDataModel.read("/TaskHeaderSet", {
 				filters: oFilter,

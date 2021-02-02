@@ -66,6 +66,53 @@
 					</ui:columns>
 				</ui:Table>
 			</IconTabFilter>
+			<IconTabFilter text="Causes">
+				<OverflowToolbar class="sapMToolBarBottomBorderClass sapUiTinyMarginBottom tableHeaderBg">
+					<Button text="{i18n>ADD_OP}" press="onAddCauses" type="Emphasized" icon="sap-icon://add" iconFirst="true"></Button>
+					<Button text="{i18n>REMOVE}" type="Reject" press="onDeleteCauses" icon="sap-icon://delete" iconFirst="true" class="transparentBtn"></Button>
+				</OverflowToolbar>
+				<ui:Table enableSelectAll="false" selectionMode="MultiToggle" selectionBehavior="Row" visibleRowCount="8"
+					class="tableCellNoBorder TableHeaderWhiteBG" rowSelectionChange="onSelectItem" id="NOTIF_CAUSES_TABLE">
+					<ui:columns>
+						<ui:Column tooltip="Cause Number" width="4rem">
+							<Label text="No." class="tableHeaderText"/>
+							<ui:template>
+								<Input class="inputRadius"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column width="8rem">
+							<Label text="Code Group" class="tableHeaderText"/>
+							<ui:template>
+								<Input class="inputRadius"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column tooltip="Cause Code" width="9rem">
+							<Label text="Cause Code" class="tableHeaderText"/>
+							<ui:template>
+								<Input class="inputRadius"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column tooltip="Cause Code Text">
+							<Label text="Cause Code Text" class="tableHeaderText"/>
+							<ui:template>
+								<Input class="inputRadius"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column tooltip="Cause Long Text">
+							<Label text="Cause Long Text" class="tableHeaderText"/>
+							<ui:template>
+								<Input class="inputRadius"/>
+							</ui:template>
+						</ui:Column>
+						<ui:Column tooltip="Created By" width = "10rem">
+							<Label text="Created By" class="tableHeaderText"/>
+							<ui:template>
+								<Input class="inputRadius"/>
+							</ui:template>
+						</ui:Column>
+					</ui:columns>
+				</ui:Table>
+			</IconTabFilter>
 			<IconTabFilter text="Malfunction/Breakdown">
 				<l:Grid class="sapUiSmallMarginTop" defaultSpan="XL2 L2 M2 S12">
 					<VBox class="sapUiTinyMarginTop">
