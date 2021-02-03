@@ -3711,10 +3711,11 @@ sap.ui.define([
 		},
 		onDeleteItem: function (oEvent) {
 			var oNotificationDataModel = this.oNotificationDataModel;
-			if (!this._oTable) {
-				this._oTable = this.byId("NOTIF_ITEM_TABLE");
-			}
-			var oTable = this._oTable;
+			// if (!this._oTable) {
+			// 	this._oTable = this.byId("NOTIF_ITEM_TABLE");
+			// }
+			// var oTable = this._oTable;
+			var oTable = this.byId("NOTIF_ITEM_TABLE");
 			var aIndices = oTable.getSelectedIndices();
 			if (aIndices.length === 0) {
 				MessageToast.show("Please select the Item to be deleted");
@@ -3778,6 +3779,7 @@ sap.ui.define([
 		onAddCauses: function () {
 			var oNotificationDataModel = this.oNotificationDataModel;
 			var aTempArr = oNotificationDataModel.getProperty("/NavNoticreateToNotifcause");
+			var aItemArr = oNotificationDataModel.getProperty("/NavNoticreateToNotiItem");
 			var oTempCauseObj = {
 				"CauseKey": "0001",
 				"CauseSortNo": "0001",
@@ -3787,6 +3789,10 @@ sap.ui.define([
 				"CauseCode": "",
 				"TxtCausecd": ""
 			};
+			if(aItemArr === null || aItemArr === undefined || aItemArr.length === 0){
+				MessageToast.show("Please add Items to add Cause");
+				return;
+			}
 			if ( aTempArr === null || aTempArr === undefined || aTempArr.length === 0) {
 				if(aTempArr === null || aTempArr === undefined){
 					aTempArr = [];
@@ -3814,10 +3820,11 @@ sap.ui.define([
 		},
 		onDeleteCauses: function(){
 			var oNotificationDataModel = this.oNotificationDataModel;
-			if (!this._oTable) {
-				this._oTable = this.byId("CREATE_NOTIF_CAUSES_TABLE");
-			}
-			var oTable = this._oTable;
+			// if (!this._oTable) {
+			// 	this._oTable = this.byId("CREATE_NOTIF_CAUSES_TABLE");
+			// }
+			// var oTable = this._oTable;
+			var oTable = this.byId("CREATE_NOTIF_CAUSES_TABLE");
 			var aIndices = oTable.getSelectedIndices();
 			if (aIndices.length === 0) {
 				MessageToast.show("Please select the Row to be deleted");
