@@ -3,8 +3,8 @@
 		<items>
 			<IconTabFilter text="Item">
 				<OverflowToolbar class="sapMToolBarBottomBorderClass sapUiTinyMarginBottom tableHeaderBg">
-					<Button text="{i18n>ADD_OP}" press="onAddItems" type="Emphasized" icon="sap-icon://add" iconFirst="true"></Button>
-					<Button text="{i18n>REMOVE}" type="Reject" press="onDeleteItem" icon="sap-icon://delete" iconFirst="true" class="transparentBtn"></Button>
+					<Button text="{i18n>ADD_OP}"  type="Emphasized" icon="sap-icon://add" iconFirst="true"></Button>
+					<Button text="{i18n>REMOVE}" type="Reject"  icon="sap-icon://delete" iconFirst="true" class="transparentBtn"></Button>
 				</OverflowToolbar>
 				<ui:Table enableSelectAll="false" selectionMode="MultiToggle" selectionBehavior="Row" visibleRowCount="8"
 					class="tableCellNoBorder TableHeaderWhiteBG" rowSelectionChange="onSelectItem" id="NOTIF_ITEM_TABLE">

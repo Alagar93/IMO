@@ -109,6 +109,7 @@ sap.ui.define([
 				// }
 
 			}
+			this.getSystemCondition();
 			var userName = this.oUserDetailModel.getProperty("/userName");
 			oWorkOrderDetailModel.setProperty("/ReportedBy", userName);
 

@@ -3671,10 +3671,11 @@ sap.ui.define([
 				"TxtProbcd": ""
 			};
 			if (aTempArr === null || aTempArr.length === 0) {
-				aTempArr.push(oTempItemObj);
+
 				if (aTempArr === null) {
 					aTempArr = [];
 				}
+				aTempArr.push(oTempItemObj);
 				oNotificationDataModel.setProperty("/NavNoticreateToNotiItem", aTempArr);
 				oNotificationDataModel.refresh();
 			} else {
@@ -3743,6 +3744,7 @@ sap.ui.define([
 			}
 			oNotificationDataModel.setProperty("/NavNoticreateToNotiItem", aTempArr);
 			oNotificationDataModel.refresh();
+			this.onRemoveCauseforItem(aItemNo);
 			this.getItemKeyForCause();
 		},
 		causeCodeValueHelp: function (oEvent) {
@@ -3872,7 +3874,25 @@ sap.ui.define([
 				return false;
 			}
 		},
-		fnGetComponentsList: function (operationHeader, Plnal) {
+		onRemoveCauseforItem: function (itemNo) {
+			var oNotificationDataModel = this.oNotificationDataModel;
+			var aCauseArr = oNotificationDataModel.getProperty("/NavNoticreateToNotifcause");
+			//var aItemArr = oNotificationDataModel.getProperty("/NavNoticreateToNotiItem");
+			if (aCauseArr === null || aCauseArr === undefined || aCauseArr.length === 0) {
+				return;
+			}
+			for (var i = 0; i < itemNo.length; i++) {
+				for (var j = 0; j < aCauseArr.length; j++) {
+					if (parseInt(aCauseArr[j].ItemKey, 10) === parseInt(itemNo[i], 10)) {
+						aCauseArr.splice(j, 1);
+						j = (-1);
+					}
+				}
+			}
+			oNotificationDataModel.setProperty("/NavNoticreateToNotifcause", aCauseArr);
+			oNotificationDataModel.refresh();
+		},
+        fnGetComponentsList: function (operationHeader, Plnal) {
 			var that = this;
 			this.busy.open();
 			var oFilter = [];
@@ -3913,7 +3933,7 @@ sap.ui.define([
 					that.busy.close();
 				}
 			});
-		},
+		}
 
 	});
 });
