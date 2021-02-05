@@ -22,9 +22,10 @@ sap.ui.define([
 		},
 
 		routePatternMatched: function () {
-			this.resetUIFields();
-			this.fnGetObjectPart();
-			this.getItemKeyForCause();
+			this.setAppInitDataCreateNotif("CREATE_NOTIFCATION");
+			// this.resetUIFields();
+			// this.fnGetObjectPart();
+			// this.getItemKeyForCause();
 		},
 
 		//Function to reset UI fields
@@ -519,6 +520,9 @@ sap.ui.define([
 			oNotifData.ReqEnddate = formatter.formatDateobjToStringNotif(oNotifData.ReqEnddate);
 			oNotifData.Notif_date = formatter.formatDateobjToStringNotif(new Date());
 			oNotifData.Type = "CREATE";
+			if (oNotifData.Assembly === "NaN") {
+				oNotifData.Assembly = "";
+			}
 
 			var oNotificationViewModel = this.oNotificationViewModel;
 			var startTime = oNotificationViewModel.getProperty("/StartTime");
@@ -608,6 +612,9 @@ sap.ui.define([
 			oNotifData.ReqEnddate = formatter.formatDateobjToStringNotif(oNotifData.ReqEnddate);
 			oNotifData.Notif_date = formatter.formatDateobjToStringNotif(new Date());
 			oNotifData.Type = "CREATE";
+			if (oNotifData.Assembly === "NaN") {
+				oNotifData.Assembly = "";
+			}
 
 			var oNotificationViewModel = this.oNotificationViewModel;
 			var startTime = oNotificationViewModel.getProperty("/StartTime");

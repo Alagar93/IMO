@@ -682,6 +682,9 @@ sap.ui.define([
 			oNotifData.ReqStartdate = formatter.formatDateobjToString(oNotifData.ReqStartdate);
 			oNotifData.ReqEnddate = formatter.formatDateobjToString(oNotifData.ReqEnddate);
 			oNotifData.Type = "UPDATE";
+			if (oNotifData.Assembly === "NaN") {
+				oNotifData.Assembly = "";
+			}
 			if (oNotifData.Breakdown === true) {
 				oNotifData.Breakdown = "X";
 			} else if (oNotifData.Breakdown === false) {
@@ -777,6 +780,9 @@ sap.ui.define([
 			oNotifData.ReqStartdate = formatter.formatDateobjToString(oNotifData.ReqStartdate);
 			oNotifData.ReqEnddate = formatter.formatDateobjToString(oNotifData.ReqEnddate);
 			oNotifData.Type = "RELEASE";
+			if (oNotifData.Assembly === "NaN") {
+				oNotifData.Assembly = "";
+			}
 			if (oNotifData.Breakdown === true) {
 				oNotifData.Breakdown = "X";
 			} else if (oNotifData.Breakdown === false) {
@@ -879,6 +885,9 @@ sap.ui.define([
 			oNotifData.ReqStartdate = formatter.formatDateobjToString(oNotifData.ReqStartdate);
 			oNotifData.ReqEnddate = formatter.formatDateobjToString(oNotifData.ReqEnddate);
 			oNotifData.Type = "CLOSE";
+			if (oNotifData.Assembly === "NaN") {
+				oNotifData.Assembly = "";
+			}
 			if (oNotifData.Breakdown === true) {
 				oNotifData.Breakdown = "X";
 			} else if (oNotifData.Breakdown === false) {

@@ -3671,10 +3671,11 @@ sap.ui.define([
 				"TxtProbcd": ""
 			};
 			if (aTempArr === null || aTempArr.length === 0) {
-				aTempArr.push(oTempItemObj);
-				if(aTempArr === null){
+
+				if (aTempArr === null) {
 					aTempArr = [];
 				}
+				aTempArr.push(oTempItemObj);
 				oNotificationDataModel.setProperty("/NavNoticreateToNotiItem", aTempArr);
 				oNotificationDataModel.refresh();
 			} else {
@@ -3738,11 +3739,12 @@ sap.ui.define([
 			}
 			oTable.clearSelection();
 			oTable.rerender();
-			if(this.isItemArrayEmpty(aTempArr)){
-				oNotificationDataModel.setProperty("/NavNoticreateToNotifcause",[]);
+			if (this.isItemArrayEmpty(aTempArr)) {
+				oNotificationDataModel.setProperty("/NavNoticreateToNotifcause", []);
 			}
 			oNotificationDataModel.setProperty("/NavNoticreateToNotiItem", aTempArr);
 			oNotificationDataModel.refresh();
+			this.onRemoveCauseforItem(aItemNo);
 			this.getItemKeyForCause();
 		},
 		causeCodeValueHelp: function (oEvent) {
@@ -3789,12 +3791,12 @@ sap.ui.define([
 				"CauseCode": "",
 				"TxtCausecd": ""
 			};
-			if(aItemArr === null || aItemArr === undefined || aItemArr.length === 0){
+			if (aItemArr === null || aItemArr === undefined || aItemArr.length === 0) {
 				MessageToast.show("Please add Items to add Cause");
 				return;
 			}
-			if ( aTempArr === null || aTempArr === undefined || aTempArr.length === 0) {
-				if(aTempArr === null || aTempArr === undefined){
+			if (aTempArr === null || aTempArr === undefined || aTempArr.length === 0) {
+				if (aTempArr === null || aTempArr === undefined) {
 					aTempArr = [];
 				}
 				aTempArr.push(oTempCauseObj);
@@ -3818,7 +3820,7 @@ sap.ui.define([
 				oNotificationDataModel.refresh();
 			}
 		},
-		onDeleteCauses: function(){
+		onDeleteCauses: function () {
 			var oNotificationDataModel = this.oNotificationDataModel;
 			// if (!this._oTable) {
 			// 	this._oTable = this.byId("CREATE_NOTIF_CAUSES_TABLE");
@@ -3850,28 +3852,46 @@ sap.ui.define([
 			oNotificationDataModel.setProperty("/NavNoticreateToNotifcause", aTempArr);
 			oNotificationDataModel.refresh();
 		},
-		getItemKeyForCause: function(){
+		getItemKeyForCause: function () {
 			var oNotificationDataModel = this.oNotificationDataModel;
 			// var oNotificationViewModel = this.oNotificationViewModel;
 			var mLookupModel = this.mLookupModel;
 			var aArr = oNotificationDataModel.getProperty("/NavNoticreateToNotiItem");
 			var aItemKey = [];
-			for(var i = 0; i < aArr.length; i++){
+			for (var i = 0; i < aArr.length; i++) {
 				var temp = aArr[i].ItemSortNo;
 				var oObj = {
-					sItemKey : temp 
+					sItemKey: temp
 				};
 				aItemKey.push(oObj);
 			}
-			mLookupModel.setProperty("/aItemKeyForCause",aItemKey);
+			mLookupModel.setProperty("/aItemKeyForCause", aItemKey);
 		},
-		isItemArrayEmpty: function(arr){
-			if(arr.length === 0){
+		isItemArrayEmpty: function (arr) {
+			if (arr.length === 0) {
 				return true;
-			}else{
+			} else {
 				return false;
 			}
+		},
+		onRemoveCauseforItem: function (itemNo) {
+			var oNotificationDataModel = this.oNotificationDataModel;
+			var aCauseArr = oNotificationDataModel.getProperty("/NavNoticreateToNotifcause");
+			//var aItemArr = oNotificationDataModel.getProperty("/NavNoticreateToNotiItem");
+			if (aCauseArr === null || aCauseArr === undefined || aCauseArr.length === 0) {
+				return;
+			}
+			for (var i = 0; i < itemNo.length; i++) {
+				for (var j = 0; j < aCauseArr.length; j++) {
+					if (parseInt(aCauseArr[j].ItemKey, 10) === parseInt(itemNo[i], 10)) {
+						aCauseArr.splice(j, 1);
+						j = (-1);
+					}
+				}
+			}
+			oNotificationDataModel.setProperty("/NavNoticreateToNotifcause", aCauseArr);
+			oNotificationDataModel.refresh();
 		}
-		
+
 	});
 });
