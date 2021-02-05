@@ -224,10 +224,10 @@ sap.ui.define([
 			var sPath = oWorkOrderDetailViewModel.getProperty("/sPathControlKey");
 			var oData = oWorkOrderDetailViewModel.getProperty("/oControlkeyOperation");
 			oWorkOrderDetailModel.setProperty(sPath, oData);
-			var operCode=oWorkOrderDetailModel.getProperty(sPath+"/OperCode");
-			var Status=oWorkOrderDetailModel.getProperty(sPath+"/systemstatustext");
-			if(operCode==="N"){
-				oWorkOrderDetailModel.setProperty(sPath+"/OperCode","U");
+			var operCode = oWorkOrderDetailModel.getProperty(sPath + "/OperCode");
+			var Status = oWorkOrderDetailModel.getProperty(sPath + "/systemstatustext");
+			if (operCode === "N") {
+				oWorkOrderDetailModel.setProperty(sPath + "/OperCode", "U");
 			}
 			this.controlKeyDialog.close();
 			this.controlKeyDialog.destroy();
@@ -311,7 +311,7 @@ sap.ui.define([
 				"TechAvailHrs": 8
 			};
 			operTechDetails.push(assignedTechItem);
-			this.mLookupModel.setProperty("/aOperationTechList",operTechDetails);
+			this.mLookupModel.setProperty("/aOperationTechList", operTechDetails);
 		},
 		//Sunanda -- Function to open ControlKey popup if Item Category is N
 		onItemCatChange: function (oEvent) {
@@ -781,12 +781,11 @@ sap.ui.define([
 		onCreateUpdateAndExitWO: function (oEvent) {
 			var that = this;
 			var oSource = oEvent.getSource();
-			if(oSource.getAggregation("customData")){
-			var oBtnType = oSource.getCustomData()[0].getValue();
-			}
-			else{
+			if (oSource.getAggregation("customData")) {
+				var oBtnType = oSource.getCustomData()[0].getValue();
+			} else {
 				var oBtnType = this.oWorkOrderDetailViewModel.getProperty("/sAutoCnfrmType");
-				this.oWorkOrderDetailViewModel.setProperty("/sAutoCnfrmType","");
+				this.oWorkOrderDetailViewModel.setProperty("/sAutoCnfrmType", "");
 			}
 			var AssignedTo = this.oWorkOrderDetailViewModel.getProperty("/HEADERTOPARTNERNAV/0/AssignedTo");
 			this.oWorkOrderDetailModel.setProperty("/HEADERTOPARTNERNAV/0/AssignedTo", AssignedTo);
@@ -3424,6 +3423,7 @@ sap.ui.define([
 			var sPath = oEvent.getParameters().rowContext.getPath();
 			var selectedTaskHeader = oWorkOrderDetailViewModel.getProperty(sPath);
 			this.fnGetTaskList(selectedTaskHeader.Plnnr, selectedTaskHeader.Plnal);
+			// this.fnGetComponentsList(selectedTaskHeader.Plnnr, selectedTaskHeader.Plnal); //SH: function to get Components from TaskList
 		},
 
 		//Function to update WO operations with tasks list
@@ -3973,32 +3973,32 @@ sap.ui.define([
 				// aHeaderOp.Description = aArr[sIndex].StTextDesc;
 				// aHeaderOp.operationLongTxt = aArr[sIndex].LongText;   
 			}
-		}
-
-		/**
-		 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered
-		 * (NOT before the first rendering! onInit() is used for that one!).
-		 * @memberOf com.mylan.createWorkOrder.CreateWorkOrder
-		 */
-		//	onBeforeRendering: function() {
-		//
-		//	},
-
-		/**
-		 * Called when the View has been rendered (so its HTML is part of the document). Post-rendering manipulations of the HTML could be done here.
-		 * This hook is the same one that SAPUI5 controls get after being rendered.
-		 * @memberOf com.mylan.createWorkOrder.CreateWorkOrder
-		 */
-		/*onAfterRendering: function () {
-		
-										}*/
-		/**
-		 * Called when the Controller is destroyed. Use this one to free resources and finalize activities.
-		 * @memberOf com.mylan.createWorkOrder.CreateWorkOrder
-		 */
-		//	onExit: function() {
-		//
-		//	}
+		},
+		//Function to update WO spare parts with tasks list
+		formatComponents: function (components, taskList) {
+			for (var i = 0; i < taskList.length; i++) {
+				var oTempobj = {
+					"ActivityOperation": taskList[i].Operation,
+					"CompCode": "",
+					"IssueQty": taskList[i].QtyIssued,
+					"ItemCat": "",
+					"Material": taskList[i].Material,
+					"MatlDesc": taskList[i].MaterialDesc,
+					"MinStockReq":taskList[i].MinSafetyStock ,
+					"OutQtyOrd": taskList[i].OutstandingQty,
+					"Plant": "",
+					"RequirementQuantity": "",
+					"RequirementQuantityUnit": "",
+					"ReservNo": "" ,
+					"StgeLoc": taskList[i].StorageLoc,
+					"StockAvail": "",
+					"bin": taskList[i].BinNo,
+					"returnQty": taskList[i].QtyReturned,
+				};
+				components.push(oTempobj);
+			}
+			return components;
+		},
 
 	});
 });

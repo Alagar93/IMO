@@ -3672,7 +3672,7 @@ sap.ui.define([
 			};
 			if (aTempArr === null || aTempArr.length === 0) {
 				aTempArr.push(oTempItemObj);
-				if(aTempArr === null){
+				if (aTempArr === null) {
 					aTempArr = [];
 				}
 				oNotificationDataModel.setProperty("/NavNoticreateToNotiItem", aTempArr);
@@ -3738,8 +3738,8 @@ sap.ui.define([
 			}
 			oTable.clearSelection();
 			oTable.rerender();
-			if(this.isItemArrayEmpty(aTempArr)){
-				oNotificationDataModel.setProperty("/NavNoticreateToNotifcause",[]);
+			if (this.isItemArrayEmpty(aTempArr)) {
+				oNotificationDataModel.setProperty("/NavNoticreateToNotifcause", []);
 			}
 			oNotificationDataModel.setProperty("/NavNoticreateToNotiItem", aTempArr);
 			oNotificationDataModel.refresh();
@@ -3789,12 +3789,12 @@ sap.ui.define([
 				"CauseCode": "",
 				"TxtCausecd": ""
 			};
-			if(aItemArr === null || aItemArr === undefined || aItemArr.length === 0){
+			if (aItemArr === null || aItemArr === undefined || aItemArr.length === 0) {
 				MessageToast.show("Please add Items to add Cause");
 				return;
 			}
-			if ( aTempArr === null || aTempArr === undefined || aTempArr.length === 0) {
-				if(aTempArr === null || aTempArr === undefined){
+			if (aTempArr === null || aTempArr === undefined || aTempArr.length === 0) {
+				if (aTempArr === null || aTempArr === undefined) {
 					aTempArr = [];
 				}
 				aTempArr.push(oTempCauseObj);
@@ -3818,7 +3818,7 @@ sap.ui.define([
 				oNotificationDataModel.refresh();
 			}
 		},
-		onDeleteCauses: function(){
+		onDeleteCauses: function () {
 			var oNotificationDataModel = this.oNotificationDataModel;
 			// if (!this._oTable) {
 			// 	this._oTable = this.byId("CREATE_NOTIF_CAUSES_TABLE");
@@ -3850,28 +3850,70 @@ sap.ui.define([
 			oNotificationDataModel.setProperty("/NavNoticreateToNotifcause", aTempArr);
 			oNotificationDataModel.refresh();
 		},
-		getItemKeyForCause: function(){
+		getItemKeyForCause: function () {
 			var oNotificationDataModel = this.oNotificationDataModel;
 			// var oNotificationViewModel = this.oNotificationViewModel;
 			var mLookupModel = this.mLookupModel;
 			var aArr = oNotificationDataModel.getProperty("/NavNoticreateToNotiItem");
 			var aItemKey = [];
-			for(var i = 0; i < aArr.length; i++){
+			for (var i = 0; i < aArr.length; i++) {
 				var temp = aArr[i].ItemSortNo;
 				var oObj = {
-					sItemKey : temp 
+					sItemKey: temp
 				};
 				aItemKey.push(oObj);
 			}
-			mLookupModel.setProperty("/aItemKeyForCause",aItemKey);
+			mLookupModel.setProperty("/aItemKeyForCause", aItemKey);
 		},
-		isItemArrayEmpty: function(arr){
-			if(arr.length === 0){
+		isItemArrayEmpty: function (arr) {
+			if (arr.length === 0) {
 				return true;
-			}else{
+			} else {
 				return false;
 			}
-		}
-		
+		},
+		fnGetComponentsList: function (operationHeader, Plnal) {
+			var that = this;
+			this.busy.open();
+			var oFilter = [];
+			var oPortalDataModel = this.oPortalDataModel;
+			var oWorkOrderDetailModel = this.oWorkOrderDetailModel;
+			var oWorkOrderDetailViewModel = this.oWorkOrderDetailViewModel;
+			var userPlant = this.oUserDetailModel.getProperty("/userPlant");
+			oFilter.push(new Filter("Werks", "EQ", userPlant));
+			oFilter.push(new Filter("Plnnr", "EQ", operationHeader));
+			if (Plnal !== null) { //SH: new filter for Plnal added
+				oFilter.push(new Filter("Plnal", "EQ", Plnal));
+			}
+
+			oPortalDataModel.read("/TaskComponentsSet", {
+				filters: oFilter,
+				success: function (oData) {
+					var componentsTaskList = oData.results;
+					oWorkOrderDetailViewModel.setProperty("/componentsTaskList", componentsTaskList);
+					if (componentsTaskList.length === 0) {
+						that.showMessage(that.oResourceModel.getText("No Components Found"));
+					} else {
+						var components = oWorkOrderDetailModel.getProperty("/HEADERTOCOMPONENTNAV");
+						var formattedComponents;
+						if(components.length === 0){
+							formattedComponents = that.formatComponents([], componentsTaskList);
+						}else {
+							formattedComponents = that.formatComponents(components, componentsTaskList);
+						}
+						oWorkOrderDetailModel.setProperty("/HEADERTOCOMPONENTNAV", formattedComponents);
+						oWorkOrderDetailModel.refresh();
+					}
+
+					that.busy.close();
+				},
+				error: function (oData) {
+					oWorkOrderDetailViewModel.setProperty("/componentsTaskList", []);
+					that.showMessage(that.oResourceModel.getText("ERROR_IN_RETRIEVING_TASK_LIST"));
+					that.busy.close();
+				}
+			});
+		},
+
 	});
 });
