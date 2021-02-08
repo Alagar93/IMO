@@ -891,8 +891,18 @@ sap.ui.define([
 		},
 		onSelectionChange: function (oEvent) {
 			var mLookupModel = this.mLookupModel;
+			var isSelectAll = oEvent.getParameters().selectAll;
+			if (isSelectAll) {
+				mLookupModel.setProperty("/selectedNotifs", []);
+				mLookupModel.setProperty("/iSelectedIndices", []);
+				mLookupModel.refresh(true);
+				return;
+			}
 			var rowContext = oEvent.getParameters().rowContext;
 			if (!rowContext) {
+				mLookupModel.setProperty("/selectedNotifs", []);
+				mLookupModel.setProperty("/iSelectedIndices", []);
+				mLookupModel.refresh(true);
 				return;
 			}
 			var oSelectedRow = rowContext.getPath();
