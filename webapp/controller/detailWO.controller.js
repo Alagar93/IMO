@@ -3424,7 +3424,7 @@ sap.ui.define([
 			var sPath = oEvent.getParameters().rowContext.getPath();
 			var selectedTaskHeader = oWorkOrderDetailViewModel.getProperty(sPath);
 			this.fnGetTaskList(selectedTaskHeader.Plnnr, selectedTaskHeader.Plnal);
-			// this.fnGetComponentsList(selectedTaskHeader.Plnnr, selectedTaskHeader.Plnal); //SH: function to get Components from TaskList
+			this.fnGetComponentsList(selectedTaskHeader.Plnnr, selectedTaskHeader.Plnal); //SH: function to get Components from TaskList
 		},
 
 		//Function to update WO operations with tasks list
@@ -3980,19 +3980,19 @@ sap.ui.define([
 			for (var i = 0; i < taskList.length; i++) {
 				var oTempobj = {
 					"ActivityOperation": taskList[i].Operation,
-					"CompCode": "",
+					"CompCode": "C",
 					"IssueQty": taskList[i].QtyIssued,
-					"ItemCat": "",
+					"ItemCat": "L",
 					"Material": taskList[i].Material,
 					"MatlDesc": taskList[i].MaterialDesc,
 					"MinStockReq":taskList[i].MinSafetyStock ,
 					"OutQtyOrd": taskList[i].OutstandingQty,
-					"Plant": "",
-					"RequirementQuantity": "",
-					"RequirementQuantityUnit": "",
+					"Plant": this.oUserDetailModel.getProperty("/userPlant"),
+					"RequirementQuantity": taskList[i].ReqQuantity,
+					"RequirementQuantityUnit": taskList[i].Uom,
 					"ReservNo": "" ,
 					"StgeLoc": taskList[i].StorageLoc,
-					"StockAvail": "",
+					"StockAvail": taskList[i].CurrentStock,
 					"bin": taskList[i].BinNo,
 					"returnQty": taskList[i].QtyReturned,
 				};
