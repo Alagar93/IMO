@@ -2996,6 +2996,27 @@ sap.ui.define([
 				}
 				this.showMessage(msg, "W");
 				bVal = false;
+			}
+			if (issueMats.length > 0) {
+				if (type === "RETURN_PART") {
+					msg = oResourceModel.getText("CHECK_RETURN_QTY")  + " for " + "returning";
+					this.showMessage(msg, "W");
+					bVal = false;
+				} else {
+					bVal = true;
+				}
+				// for (var i = 0; i < returnMats.length; i++) {
+				// 	matId = oWorkOrderDetailModel.getProperty(sPath).Material;
+				// 	var matIssQty = oWorkOrderDetailModel.getProperty(sPath).IssueQty;
+				// 	var matRetqty = oWorkOrderDetailModel.getProperty(sPath).returnQty;
+				// 	if (matRetqty > matIssQty) {
+				// 		msg = oResourceModel.getText("CHECK_RETURN_QTY") + matId + " for " + "returning";
+				// 		this.showMessage(msg, "W");
+				// 		bVal = false;
+				// 		return bVal;
+				// 	}
+				// }
+
 			} else {
 				bVal = true;
 			}
@@ -3018,7 +3039,7 @@ sap.ui.define([
 			var documentDate = oWorkOrderDetailViewModel.getProperty("/DocDate");
 			var postingDate = oWorkOrderDetailViewModel.getProperty("/PstngDate");
 			var selectedSpares = oWorkOrderDetailViewModel.getProperty("/materialQuantities");
-			var bVal = this.fnMandateIssueParts(documentDate, postingDate, selectedSpares);
+			var bVal = this.fnMandateIssueParts(documentDate, postingDate, selectedSpares, btnType);
 
 			if (bVal) {
 				var moveType = "";
@@ -3096,7 +3117,7 @@ sap.ui.define([
 		},
 
 		//Function to validate mandatory fields on Issue parts
-		fnMandateIssueParts: function (documentDate, postingDate, materials) {
+		fnMandateIssueParts: function (documentDate, postingDate, materials, btnType) {
 			var oResourceModel = this.oResourceModel;
 			if (!documentDate) {
 				this.showMessage(oResourceModel.getText("ENTER_DOCU_DATE"));
@@ -3115,6 +3136,12 @@ sap.ui.define([
 				}
 			}
 			if (isQtyMats.length === 0) {
+				if (btnType === "RETURN_PART") {
+					var retVal = this.ValidateReturnPart(materials);
+					if(!retVal){
+						return false;
+					}
+				}
 				return true;
 			} else {
 				var msg = "";
@@ -3129,6 +3156,24 @@ sap.ui.define([
 				this.showMessage(msg, "W");
 				return false;
 			}
+		},
+		ValidateReturnPart: function (materials) {
+			var bretVal = true;
+			var msg = "";
+			var aMaterialList = this.oWorkOrderDetailModel.getProperty("/HEADERTOCOMPONENTNAV");
+			for (var i = 0; i < materials.length; i++) {
+				var sResItem = materials[i].ResItem;
+				var oMaterial = aMaterialList.find(({
+					ResItem
+				}) => ResItem === sResItem);
+				if (materials[i].Quantity > oMaterial.IssueQty) {
+					bretVal = false;
+					msg = this.oResourceModel.getText("RETURN_QTY_GTR_THAN_ISSUE") +" "+ materials[i].Material;
+					this.showMessage(msg, "W");
+					return bretVal;
+				}
+			}
+			return bretVal;
 		},
 
 		//Function to get Equipment List and show in a pop-up
@@ -3303,7 +3348,9 @@ sap.ui.define([
 			} else {
 				this.showMessage(oResourceModel.getText("errinuploadfile"));
 			}
-			var oFileUploader = this.getView().byId("MYLAN_CREATE_WO_FILEUPLOADER");
+			// var oFileUploader = this.getView().byId("MYLAN_CREATE_WO_FILEUPLOADER");
+			var rightPanel = this.getView().createId("idRightAttachmentPanelWO"); //SH: Right Panel for Attachments
+			var oFileUploader = sap.ui.core.Fragment.byId(rightPanel, "MYLAN_CREATE_WO_FILEUPLOADER");
 			oFileUploader.removeAllHeaderParameters();
 			this.busy.close();
 		},
@@ -3985,7 +4032,7 @@ sap.ui.define([
 					"ItemCat": "L",
 					"Material": taskList[i].Material,
 					"MatlDesc": taskList[i].MaterialDesc,
-					"MinStockReq":taskList[i].MinSafetyStock ,
+					"MinStockReq": taskList[i].MinSafetyStock,
 					"OutQtyOrd": taskList[i].OutstandingQty,
 					"Plant": this.oUserDetailModel.getProperty("/userPlant"),
 					"RequirementQuantity": taskList[i].ReqQuantity,
