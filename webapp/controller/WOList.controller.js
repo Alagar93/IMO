@@ -363,6 +363,13 @@ sap.ui.define([
 		//Function to Select/Un-select Work orders
 		onSelectionChange: function (oEvent) {
 			var mLookupModel = this.mLookupModel;
+			var isSelectAll = oEvent.getParameters().selectAll;
+			if (isSelectAll) {
+				mLookupModel.setProperty("/selectedWOs", []);
+				mLookupModel.setProperty("/iSelectedWOIndices", []);
+				mLookupModel.refresh(true);
+				return;
+			}
 			var rowContext = oEvent.getParameters().rowContext;
 			if (!rowContext) {
 				mLookupModel.setProperty("/selectedWOs", []);
@@ -514,11 +521,11 @@ sap.ui.define([
 			var that = this;
 			var mLookupModel = this.mLookupModel;
 			var iTop = mLookupModel.getProperty("/iTop");
-			if(iTop === null || iTop === undefined){
-				iTop = 50; 
+			if (iTop === null || iTop === undefined) {
+				iTop = 50;
 			}
 			var iSkip = mLookupModel.getProperty("/iSkip");
-			if(iSkip === null || iSkip === undefined){
+			if (iSkip === null || iSkip === undefined) {
 				iSkip = 0;
 			}
 			var userPlant = mLookupModel.getProperty("/userPlant");
@@ -1143,7 +1150,7 @@ sap.ui.define([
 					property: "Planplant"
 				});
 			}
-			
+
 			if (mLookupModel.getProperty("/sTsysStatus")) {
 				aCols.push({
 					label: "System Status",
@@ -1186,11 +1193,11 @@ sap.ui.define([
 					property: "EnterDateString"
 				});
 			}
-			
+
 			return aCols;
 		},
 		//nischal -- function to select all the checkbox value
-		onSelectAll : function(){
+		onSelectAll: function () {
 			var mLookupModel = this.mLookupModel;
 			mLookupModel.setProperty("/sTWoNum", true);
 			mLookupModel.setProperty("/sTWoDesc", true);
