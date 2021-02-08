@@ -3049,3 +3049,6 @@ html.sap-desktop .sapMIBar.sapMFooter-CTX {
 .tableHeaderBg.sapMTBStandard {
 	border-bottom: none !important;
 }
+.dropdownArrowColor .sapMInputBaseIconContainer .sapMInputBaseIcon {
+    color: #0854a0;
+}

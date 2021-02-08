@@ -6,7 +6,7 @@
 			<Label design="Bold" class="sapUiSmallMarginBegin textColr" text="{i18n>tile_woList}" wrapping="true"/>
 			<ToolbarSpacer/>
 			<ComboBox showSecondaryValues="true" items="{path:'mLookupModel>/aWorkCenterSet',sorter:{ path: 'text' }}"
-				selectedKey="{mLookupModel>/sWorkCenterSel}" placeholder="{i18n>WorkCenter_KPI}" class="inputRadius sapUiTinyMarginEnd"
+				selectedKey="{mLookupModel>/sWorkCenterSel}" placeholder="{i18n>WorkCenter_KPI}" class="inputRadius dropdownArrowColor sapUiTinyMarginEnd"
 				tooltip="{i18n>SELECT_WORK_CENTER}" change="fnFetchKPIInfo">
 				<core:ListItem key="{mLookupModel>WorkcenterId}" additionalText="{mLookupModel>WorkcenterDesc}" text="{mLookupModel>WorkcenterId}"/>
 			</ComboBox>
