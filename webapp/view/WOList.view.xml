@@ -4,6 +4,12 @@
 	<Page showHeader="false" class="sapUiSizeCompact sapMPageBackground" enableScrolling="true">
 		<tnt:ToolHeader class="headerBG headerShadow">
 			<Label design="Bold" class="sapUiSmallMarginBegin textColr" text="{i18n>tile_woList}" wrapping="true"/>
+			<ToolbarSpacer/>
+			<ComboBox showSecondaryValues="true" items="{path:'mLookupModel>/aWorkCenterSet',sorter:{ path: 'text' }}"
+				selectedKey="{mLookupModel>/sWorkCenterSel}" placeholder="{i18n>WorkCenter_KPI}" class="inputRadius dropdownArrowColor sapUiTinyMarginEnd"
+				tooltip="{i18n>SELECT_WORK_CENTER}" change="fnFetchKPIInfo">
+				<core:ListItem key="{mLookupModel>WorkcenterId}" additionalText="{mLookupModel>WorkcenterDesc}" text="{mLookupModel>WorkcenterId}"/>
+			</ComboBox>
 		</tnt:ToolHeader>
 		<content>
 			<l:Grid defaultSpan="XL3 L3 M6 S12" class="sapUiTinyMarginBeginEnd sapUiTinyMarginBottom sapUiSmallMarginTop">
@@ -62,7 +68,7 @@
 							</FlexBox>
 							<HBox width="100%" class="sapUiTinyMarginBegin" justifyContent="SpaceBetween" alignItems="Center">
 								<Text class="notificationHeaderText" wrapping="true" text="Assigned to&#10;Work Center"/>
-								<Text text="{mLookupModel>/oKPIInfo/Open_br_dn_order}" class="formatKPINumber"/>
+								<Text text="{mLookupModel>/oKPIInfo/Assign_to_WC}" class="formatKPINumber"/>
 							</HBox>
 						</HBox>
 					</TileContent>
@@ -136,7 +142,8 @@
 								placeholder="{i18n>searchbyWorkOrderIdDes}"/>
 						</content>
 					</Toolbar>
-					<Panel class="filterWrapperPanel tableMargin panelBackgroundClass" id="filterWrapPanelWOList" expandAnimation="true" expandable="true" expanded="false">
+					<Panel class="filterWrapperPanel tableMargin panelBackgroundClass" id="filterWrapPanelWOList" expandAnimation="true" expandable="true"
+						expanded="false">
 						<content>
 							<core:Fragment fragmentName="com.sap.incture.IMO_PM.fragment.advanceFilterWoList" type="XML" id="hierarchyPanel"></core:Fragment>
 						</content>
@@ -157,8 +164,7 @@
 					<table:RowSettings highlight="{path:'mLookupModel>PriorityDes', formatter:'com.sap.incture.IMO_PM.formatter.formatter.handleRowHighlight'}"/>
 				</table:rowSettingsTemplate>
 				<table:columns>
-					<table:Column sortProperty="OrderType" filterProperty="OrderType"
-						visible="{mLookupModel>/sTWoType}">
+					<table:Column sortProperty="OrderType" filterProperty="OrderType" visible="{mLookupModel>/sTWoType}">
 						<Text wrapping="true" text="{i18n>WOtype}" class="tableHeaderText"/>
 						<table:template>
 							<Text text="{mLookupModel>OrderType}" class="tableContentText"></Text>
@@ -208,14 +214,12 @@
 							<Text text="{mLookupModel>MnWkCtr}" class="tableContentText"></Text>
 						</table:template>
 					</table:Column>
-					
 					<table:Column sortProperty="Planplant" filterProperty="Planplant" visible="{mLookupModel>/sTmaintPlant}">
 						<Text wrapping="false" text="{i18n>plan_Plant}" class="tableHeaderText"/>
 						<table:template>
 							<Text text="{path:'mLookupModel>Planplant'}" class="tableContentText" visible="true"></Text>
 						</table:template>
 					</table:Column>
-					
 					<table:Column sortProperty="SysStatusDes" width="7rem" filterProperty="SysStatusDes" visible="{mLookupModel>/sTsysStatus}">
 						<Text wrapping="false" text="{i18n>stat}" class="tableHeaderText"/>
 						<table:template>
@@ -228,8 +232,6 @@
 							<Text text="{path:'mLookupModel>Userstatus'}" class="tableContentText" visible="true"></Text>
 						</table:template>
 					</table:Column>
-					
-					
 					<table:Column width="9rem" sortProperty="Technicianname" filterProperty="Technicianname" visible="{mLookupModel>/sTassignedTech}">
 						<Text wrapping="true" text="{i18n>assignedTech}" class="tableHeaderText"/>
 						<table:template>

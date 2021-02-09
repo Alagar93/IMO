@@ -221,6 +221,7 @@ sap.ui.define([
 			if (oKPIInfo === undefined) {
 				oKPIInfo = {};
 			}
+			oKPIInfo.Assign_to_WC = "";
 			for (var i = 0; i < oKPITilesCount.length; i++) {
 				if (oKPITilesCount[i].Description === "BD_ORDERS") {
 					oKPIInfo.Open_br_dn_order = oKPITilesCount[i].Number;
