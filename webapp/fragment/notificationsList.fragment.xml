@@ -9,8 +9,7 @@
 				</content>
 			</Toolbar>
 			<ui:Table rows="{oWorkOrderDetailViewModel>/aNotificationsSet}" selectionMode="MultiToggle" visibleRowCount="8" id="WO_DETAIL_NOTIF_TBL"
-				class="sapUiSmallMargin tableCellNoBorder TableHeaderWhiteBG" enableSelectAll="false"
-				rowSelectionChange="onSelectNotifications">
+				class="sapUiSmallMargin tableCellNoBorder TableHeaderWhiteBG" enableSelectAll="false" rowSelectionChange="onSelectNotifications">
 				<ui:columns>
 					<ui:Column width="8rem">
 						<Label text="{i18n>NOTIFICATION}" class="tableHeaderText"/>
@@ -31,6 +30,12 @@
 						<Label text="{i18n>DESCRIPTION}" class="tableHeaderText"/>
 						<ui:template>
 							<Text text="{oWorkOrderDetailViewModel>Descriptn}"/>
+						</ui:template>
+					</ui:Column>
+					<ui:Column>
+						<Label text="{i18n>Sys_Status}" class="tableHeaderText"/>
+						<ui:template>
+							<Text text="{oWorkOrderDetailViewModel>SysStatus}"/>
 						</ui:template>
 					</ui:Column>
 					<ui:Column width="8rem">

@@ -110,6 +110,7 @@ sap.ui.define([
 
 			}
 			this.getSystemCondition();
+			this.getNotificationType();
 			var userName = this.oUserDetailModel.getProperty("/userName");
 			oWorkOrderDetailModel.setProperty("/ReportedBy", userName);
 
@@ -1598,6 +1599,7 @@ sap.ui.define([
 		onSelectOperation: function (oEvent) {
 			var isSelectAll = oEvent.getParameters().selectAll;
 			if (isSelectAll) {
+				this.oWorkOrderDetailViewModel.setProperty("/isPanelExpandable", false);
 				if (oEvent.getSource().getSelectedIndices().length > 1) {
 					this.onSelectAllOperations(oEvent);
 					return;
@@ -2657,14 +2659,16 @@ sap.ui.define([
 
 		//Function to open Notification list pop-up
 		onOpenNotificationPopup: function () {
+			this.oWorkOrderDetailViewModel.setProperty("/selectedNotifications", []);
+			this.getNotificationList("");
 			if (!this.notificationsList) {
 				this.notificationsList = sap.ui.xmlfragment("com.sap.incture.IMO_PM.fragment.notificationsList", this);
 				this.getView().addDependent(this.notificationsList);
 			}
 			sap.ui.getCore().byId("WO_DETAIL_NOTIF_TBL").clearSelection();
-			this.oWorkOrderDetailViewModel.setProperty("/selectedNotifications", []);
+			// this.oWorkOrderDetailViewModel.setProperty("/selectedNotifications", []);
 			this.notificationsList.open();
-			this.getNotificationList("");
+			//this.getNotificationList("");
 		},
 
 		//Function to close Notification list pop-up
@@ -2999,7 +3003,7 @@ sap.ui.define([
 			}
 			if (issueMats.length > 0) {
 				if (type === "RETURN_PART") {
-					msg = oResourceModel.getText("CHECK_RETURN_QTY")  + " for " + "returning";
+					msg = oResourceModel.getText("CHECK_RETURN_QTY") + " for " + "returning";
 					this.showMessage(msg, "W");
 					bVal = false;
 				} else {
@@ -3138,7 +3142,7 @@ sap.ui.define([
 			if (isQtyMats.length === 0) {
 				if (btnType === "RETURN_PART") {
 					var retVal = this.ValidateReturnPart(materials);
-					if(!retVal){
+					if (!retVal) {
 						return false;
 					}
 				}
@@ -3168,7 +3172,7 @@ sap.ui.define([
 				}) => ResItem === sResItem);
 				if (materials[i].Quantity > oMaterial.IssueQty) {
 					bretVal = false;
-					msg = this.oResourceModel.getText("RETURN_QTY_GTR_THAN_ISSUE") +" "+ materials[i].Material;
+					msg = this.oResourceModel.getText("RETURN_QTY_GTR_THAN_ISSUE") + " " + materials[i].Material;
 					this.showMessage(msg, "W");
 					return bretVal;
 				}
@@ -4037,7 +4041,7 @@ sap.ui.define([
 					"Plant": this.oUserDetailModel.getProperty("/userPlant"),
 					"RequirementQuantity": taskList[i].ReqQuantity,
 					"RequirementQuantityUnit": taskList[i].Uom,
-					"ReservNo": "" ,
+					"ReservNo": "",
 					"StgeLoc": taskList[i].StorLocId,
 					"StockAvail": taskList[i].CurrentStock,
 					"bin": taskList[i].BinNo,

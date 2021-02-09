@@ -36,6 +36,7 @@ sap.ui.define([
 			mLookupModel.setProperty("/sFunLoc", "");
 			mLookupModel.setProperty("/sPrior", "");
 			mLookupModel.setProperty("/iSelectedIndex", 0);
+			mLookupModel.setProperty("/sUnAssignedWOFlag", true);
 			this.setColumnLayout(); //nischal -- 
 			this.setColumnLayoutCreateWithNotif(); //nischal --
 			// this.resetCreateWOfields();
@@ -87,7 +88,7 @@ sap.ui.define([
 				}, {
 					"des": "NO"
 				}],
-				"sUnAssignedWOFlag": false
+				"sUnAssignedWOFlag": true
 			};
 			this.mLookupModel.setProperty("/", oViewSettings);
 			this.getOrderType();
@@ -650,10 +651,10 @@ sap.ui.define([
 				if (sNotifBDFilter === null || sNotifBDFilter === undefined) {
 					sNotifBDFilter = "";
 				}
-				// var sUnAssignedWOFlag = mLookupModel.getProperty("/sUnAssignedWOFlag");
-				// if (sUnAssignedWOFlag === null || sUnAssignedWOFlag === undefined) {
-				// 	sUnAssignedWOFlag = "";
-				// }
+				var sUnAssignedWOFlag = mLookupModel.getProperty("/sUnAssignedWOFlag");
+				if (sUnAssignedWOFlag === null || sUnAssignedWOFlag === undefined) {
+					sUnAssignedWOFlag = "";
+				}
 				var sNotifWkCenterFilter = mLookupModel.getProperty("/sNotifWkCenterFilter");
 				if (sNotifWkCenterFilter === null || sNotifWkCenterFilter === undefined) {
 					sNotifWkCenterFilter = "";
@@ -666,6 +667,7 @@ sap.ui.define([
 				}));
 				oFilter.push(new Filter("Descriptn", "EQ", sNotifIDDesFilter));
 				oFilter.push(new Filter("SysStatus", "EQ", sNotifStatusFilter));
+				oFilter.push(new Filter("Userstatus", "EQ", sUnAssignedWOFlag));
 				oFilter.push(new Filter("NotifNo", "EQ", sNotifIdFilter));
 				oFilter.push(new Filter("Equipment", "EQ", sNotifEquipFilter));
 				oFilter.push(new Filter("Bdflag", "EQ", sNotifBDFilter));
