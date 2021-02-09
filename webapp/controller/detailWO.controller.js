@@ -4038,7 +4038,7 @@ sap.ui.define([
 					"RequirementQuantity": taskList[i].ReqQuantity,
 					"RequirementQuantityUnit": taskList[i].Uom,
 					"ReservNo": "" ,
-					"StgeLoc": taskList[i].StorageLoc,
+					"StgeLoc": taskList[i].StorLocId,
 					"StockAvail": taskList[i].CurrentStock,
 					"bin": taskList[i].BinNo,
 					"returnQty": taskList[i].QtyReturned,
