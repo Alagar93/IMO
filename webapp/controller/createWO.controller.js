@@ -727,7 +727,7 @@ sap.ui.define([
 			mLookupModel.setProperty("/sWorderIdDesFilter", "");
 			mLookupModel.refresh();
 			this.onCreateOptionChange();
-			this._oDialogWO.close();
+			//this._oDialogWO.close();
 		},
 
 		// clearing live search by id or desc
@@ -736,7 +736,7 @@ sap.ui.define([
 			mLookupModel.setProperty("/sNotifIDDesFilter", "");
 			mLookupModel.refresh();
 			this.onCreateOptionChange();
-			this._oDialogNotif.close();
+			//this._oDialogNotif.close();
 		},
 
 		onSelectWordOrder: function (oEvent) {
