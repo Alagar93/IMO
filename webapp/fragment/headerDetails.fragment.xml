@@ -28,7 +28,7 @@
 			<l:Grid class="sapUiSmallMarginTop" defaultSpan="XL3 L3 M4 S6">
 				<l:content>
 					<VBox class="sapUiTinyMarginTop">
-						<Label text="{i18n>ORDER_TYPE}" required="false"></Label>
+						<Label text="{i18n>ORDER_TYPE}" required="true"></Label>
 						<ComboBox showSecondaryValues="true" items="{path:'mLookupModel>/aOrderTypeSet',sorter:{ path: 'text' }}"
 							selectedKey="{oWorkOrderDetailModel>/OrderType}" class="inputRadius" tooltip="{oWorkOrderDetailModel>/OrderType}"
 							enabled="{oWODetailFieldsModel>/orderType}"  width="100%"> <!--change="getOrderTypeTasks"--> 
@@ -49,7 +49,7 @@
 						</layoutData>
 					</VBox>-->
 					<VBox class="sapUiTinyMarginTop">
-						<Label text="{i18n>ORDER_SHORT_DESCRIPTION}"></Label>
+						<Label text="{i18n>ORDER_SHORT_DESCRIPTION}" required="true"></Label>
 						<!--	<Input value="{oWorkOrderDetailModel>/ShortText}" maxLength="40" enabled="{oWODetailFieldsModel>/orderShortDesc}"
 							tooltip="{oWorkOrderDetailModel>/ShortText}"  class="inputRadius"></Input>-->
 						<Input value="{oWorkOrderDetailModel>/ShortText}" maxLength="40"
@@ -60,7 +60,7 @@
 						</layoutData>
 					</VBox>
 					<VBox class="sapUiTinyMarginTop">
-						<Label text="{i18n>EQUIPMENT}" required="false"></Label>
+						<Label text="{i18n>EQUIPMENT}" required="true"></Label>
 						<Input value="{oWorkOrderDetailModel>/Equipment}" maxLength="18" tooltip="{oWorkOrderDetailModel>/Equipment}" valueHelpOnly="true"
 							enabled="{oWODetailFieldsModel>/equipment}" valueHelpRequest="equipmentValueHelp" showValueHelp="true" class="inputRadius"></Input>
 						<layoutData>
@@ -85,7 +85,7 @@
 						</layoutData>
 					</VBox>
 					<VBox class="sapUiTinyMarginTop">
-						<Label text="{i18n>FUNCTIONAL_LOCATION}" required="false"></Label>
+						<Label text="{i18n>FUNCTIONAL_LOCATION}" required="true"></Label>
 						<Input value="{oWorkOrderDetailModel>/FunctLoc}" enabled="false" maxLength="40" tooltip="{oWorkOrderDetailModel>/FunctLoc}"
 							class="inputRadius"></Input>
 						<layoutData>
@@ -113,7 +113,7 @@
 						</layoutData>
 					</VBox>
 					<VBox class="sapUiTinyMarginTop">
-						<Label text="{i18n>WORK_CENTER}" required="false"></Label>
+						<Label text="{i18n>WORK_CENTER}" required="true"></Label>
 						<ComboBox showSecondaryValues="true" items="{path:'mLookupModel>/aWorkCenterSet',sorter:{ path: 'text' }}"
 							selectedKey="{oWorkOrderDetailModel>/MnWkCtr}" class="inputRadius" tooltip="{oWorkOrderDetailModel>/MnWkCtr}"
 							enabled="{oWODetailFieldsModel>/workCenter}" width="100%">
@@ -124,7 +124,7 @@
 						</layoutData>
 					</VBox>
 					<VBox class="sapUiTinyMarginTop">
-						<Label text="{i18n>PRIORITY}" required="false"></Label>
+						<Label text="{i18n>PRIORITY}" required="true"></Label>
 						<ComboBox class="inputRadius" items="{mLookupModel>/aPrioritySet}" selectedKey="{oWorkOrderDetailModel>/Priority}"
 							enabled="{oWODetailFieldsModel>/priority}" width="100%" change="onChangePriority">
 							<core:ListItem key="{mLookupModel>PRIOK}" text="{mLookupModel>PRIOKX}" tooltip="{oWorkOrderDetailModel>/Priority}"/>
@@ -263,7 +263,7 @@
 			<l:Grid class="sapUiSmallMarginTop">
 				<l:content>
 					<VBox>
-						<Label text="{i18n>PLANNER_GROUP}"></Label>
+						<Label text="{i18n>PLANNER_GROUP}" required="true"></Label>
 						<Select class="selectRadius" forceSelection="false" selectedKey="{oWorkOrderDetailModel>/Plangroup}"
 							items="{mLookupModel>/aPlannerGroupSet}" showSecondaryValues="true" enabled="{oWODetailFieldsModel>/plannerGrp}"
 							tooltip="{oWorkOrderDetailModel>/Plangroup}" width="100%">

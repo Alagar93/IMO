@@ -286,12 +286,12 @@
 										<Text text="{mLookupModel>Descriptn}" class="tableContentText"></Text>
 									</table:template>
 								</table:Column>
-								<table:Column sortProperty="Orderid" filterProperty="Orderid" width="5rem" visible = "{mLookupModel>/oCreateFromNotifColVisible/sOrder}">
-									<Text wrapping="true" text="{i18n>wo_Num}" class="tableHeaderText"/>
-									<table:template>
-										<Text text="{mLookupModel>Orderid}" class="tableContentText"></Text>
-									</table:template>
-								</table:Column>
+								<!--<table:Column sortProperty="Orderid" filterProperty="Orderid" width="5rem" visible = "{mLookupModel>/oCreateFromNotifColVisible/sOrder}">-->
+								<!--	<Text wrapping="true" text="{i18n>wo_Num}" class="tableHeaderText"/>-->
+								<!--	<table:template>-->
+								<!--		<Text text="{mLookupModel>Orderid}" class="tableContentText"></Text>-->
+								<!--	</table:template>-->
+								<!--</table:Column>-->
 								<table:Column sortProperty="FunctLoc" filterProperty="FunctLoc" width="15rem" visible = "{mLookupModel>/oCreateFromNotifColVisible/sFunct}">
 									<Text wrapping="true" text="{i18n>functLoc}" class="tableHeaderText"/>
 									<table:template>
