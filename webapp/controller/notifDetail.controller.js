@@ -578,7 +578,9 @@ sap.ui.define([
 			} else {
 				this.showMessage(oResourceModel.getText("errinuploadfile"));
 			}
-			var oFileUploader = sap.ui.core.Fragment.byId("idRightAttachmentPanel", "MYLAN_CREATE_Notif_FILEUPLOADER");
+			// var oFileUploader = sap.ui.core.Fragment.byId("idRightAttachmentPanel", "MYLAN_CREATE_Notif_FILEUPLOADER");
+			var rightPanel = this.getView().createId("idRightAttachmentPanel"); //SH: Right Panel for Attachments
+			var oFileUploader = sap.ui.core.Fragment.byId(rightPanel, "MYLAN_CREATE_Notif_FILEUPLOADER");
 			oFileUploader.removeAllHeaderParameters();
 			this.busy.close();
 		},
