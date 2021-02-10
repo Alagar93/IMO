@@ -182,7 +182,7 @@
 						<!--	<CheckBox editable="false" class="sapMReorderChkBox"/>-->
 						<!--	<Text text="{i18n>RECORDS_NEEDED}" class="sapUiTinyMarginTop"/>-->
 						<!--</HBox>-->
-						<ToolbarSpacer/>
+						<!--<ToolbarSpacer/>-->
 						<Button text="{i18n>ADD_EMP_PART}" press="onAddEmptySparePart" tooltip="{i18n>ADD_EMP_SP}" type="Emphasized" icon="sap-icon://add"
 							iconFirst="true"
 							visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setAddRemoveVisible'}"/>
