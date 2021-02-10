@@ -41,7 +41,7 @@
 					<ui:Column width="8rem">
 						<Label text="{i18n>notifDate}" class="tableHeaderText"/>
 						<ui:template>
-							<DatePicker class="inputRadius" placeholder="dd-MM-yyyy" dateValue="{oWorkOrderDetailViewModel>NotifDate}" displayFormat="dd-MM-yyyy"
+							<DatePicker class="inputRadius" placeholder="dd-MM-yyyy" dateValue="{path:'oWorkOrderDetailViewModel>CreatedOn'}" displayFormat="dd-MM-yyyy"
 								valueFormat="yyyy-MM-ddTHH:mm:ss" enabled="false"/>
 						</ui:template>
 					</ui:Column>

@@ -1698,6 +1698,19 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 			}
 		}
 		return 'None';
+	},
+	setPanelVisible: function (selectedOps, panelExpandable) {
+		var bFlag = false;
+		var oWorkOrderDetailModel = this.getModel("oWorkOrderDetailModel");
+		if (selectedOps && oWorkOrderDetailModel.OrderStatus !== "TECO") {
+			if (selectedOps.length === 1) {
+				var Operation = oWorkOrderDetailModel.getProperty(selectedOps[0].sPath);
+				if (Operation.systemstatustext === "CRTD" || Operation.systemstatustext === "") {
+					bFlag = true;
+				}
+			}
+		}
+		return bFlag;
 	}
 
 };

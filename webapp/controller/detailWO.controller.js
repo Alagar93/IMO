@@ -1651,6 +1651,7 @@ sap.ui.define([
 				var orderStatus = oWorkOrderDetailModel.getProperty("/OrderStatus");
 				if (operationStatus === "CRTD" && systemCondition !== "") {
 					oWorkOrderDetailViewModel.setProperty("/enableOperationComment", false);
+					oWorkOrderDetailViewModel.setProperty("/isPanelExpandable", true);
 				} else if ((operationStatus === "" || operationStatus === "CRTD") && (orderStatus === "CRTD" || orderStatus === "" ||
 						orderStatus === "REL" || orderStatus === "PCNF" || orderStatus === "CNF")) {
 					oWorkOrderDetailViewModel.setProperty("/enableOperationComment", true);

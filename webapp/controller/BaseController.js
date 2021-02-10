@@ -1725,6 +1725,13 @@ sap.ui.define([
 					},
 					success: function (oData) {
 						aNotificationsSet = oData.results;
+						$.each(aNotificationsSet, function (index, value) { //AN: #obxSearch
+
+							if (value.CreatedOn) {
+								value.CreatedOnString = that.fnDateConversionToSting(value.CreatedOn);
+							}
+
+						});
 						oWorkOrderDetailViewModel.setProperty("/aNotificationsSet", aNotificationsSet);
 						oWorkOrderDetailViewModel.refresh();
 						that.busy.close();
@@ -3893,7 +3900,7 @@ sap.ui.define([
 			oNotificationDataModel.setProperty("/NavNoticreateToNotifcause", aCauseArr);
 			oNotificationDataModel.refresh();
 		},
-        fnGetComponentsList: function (operationHeader, Plnal) {
+		fnGetComponentsList: function (operationHeader, Plnal) {
 			var that = this;
 			this.busy.open();
 			var oFilter = [];
@@ -3917,9 +3924,9 @@ sap.ui.define([
 					} else {
 						var components = oWorkOrderDetailModel.getProperty("/HEADERTOCOMPONENTNAV");
 						var formattedComponents;
-						if(components.length === 0){
+						if (components.length === 0) {
 							formattedComponents = that.formatComponents([], componentsTaskList);
-						}else {
+						} else {
 							formattedComponents = that.formatComponents(components, componentsTaskList);
 						}
 						oWorkOrderDetailModel.setProperty("/HEADERTOCOMPONENTNAV", formattedComponents);

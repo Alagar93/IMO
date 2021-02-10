@@ -369,7 +369,7 @@
 				</IconTabFilter>
 			</items>
 		</IconTabBar>
-		<Panel expanded="{oWorkOrderDetailViewModel>/isPanelExpandable}" expandable="true" class="sapMTextPanelClass panelBackgroundClass"
+		<Panel expanded="{parts:['oWorkOrderDetailViewModel>/selectedOps','oWorkOrderDetailViewModel>/isPanelExpandable'],formatter:'com.sap.incture.IMO_PM.formatter.formatter.setPanelVisible'}" expandable="true" class="sapMTextPanelClass panelBackgroundClass"
 			visible="{oWorkOrderDetailViewModel>/visibleOperationComment}">
 			<headerToolbar>
 				<Toolbar>
