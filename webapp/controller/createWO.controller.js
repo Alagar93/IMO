@@ -666,7 +666,17 @@ sap.ui.define([
 					and: true
 				}));
 				oFilter.push(new Filter("Descriptn", "EQ", sNotifIDDesFilter));
-				oFilter.push(new Filter("SysStatus", "EQ", sNotifStatusFilter));
+				//oFilter.push(new Filter("SysStatus", "EQ",sNotifStatusFilter ));
+				if (sNotifStatusFilter === "") {
+					oFilter.push(new Filter({
+						filters: [new Filter("SysStatus", "EQ", "OSNO"),
+							new Filter("SysStatus", "EQ", "NOPR")
+						],
+						and: false
+					}));
+				} else {
+					oFilter.push(new Filter("SysStatus", "EQ", sNotifStatusFilter));
+				}
 				oFilter.push(new Filter("Userstatus", "EQ", sUnAssignedWOFlag));
 				oFilter.push(new Filter("NotifNo", "EQ", sNotifIdFilter));
 				oFilter.push(new Filter("Equipment", "EQ", sNotifEquipFilter));
