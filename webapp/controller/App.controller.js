@@ -129,7 +129,7 @@ sap.ui.define([
 		getNotifTileCount: function () {
 			var oModel = this.getView().getModel("oModel");
 			var mLookupModel = this.mLookupModel;
-			var userPlant = "4321";
+			var userPlant = this.oUserDetailModel.getProperty("/userPlant");
 			var sWorkCenterSel = "";
 			if (sWorkCenterSel === null || sWorkCenterSel === undefined) {
 				sWorkCenterSel = "";

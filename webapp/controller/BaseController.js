@@ -3536,7 +3536,7 @@ sap.ui.define([
 			// 	this.busy.close();
 			// 	return;
 			// }
-			var sPlant = "4321";
+			var sPlant = this.oUserDetailModel.getProperty("/userPlant");
 			var sPlant1 = "'" + sPlant.replace(/['"]+/g, '') + "'";
 			var sWrkCtr = oWorkOrderDetailModel.getProperty("/MnWkCtr");
 			var sWrkCtr1 = "'" + sWrkCtr.replace(/['"]+/g, '') + "'";

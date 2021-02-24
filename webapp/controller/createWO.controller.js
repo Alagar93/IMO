@@ -1322,7 +1322,7 @@ sap.ui.define([
 				oFilter.push(new Filter("Equnr", "EQ", ''));
 				oFilter.push(new Filter("Tidnr", "EQ", ''));
 				oFilter.push(new Filter("Eqktu", "EQ", ''));
-				oFilter.push(new Filter("plant", "EQ", '4321'));
+				oFilter.push(new Filter("plant", "EQ", userPlant));
 				oFilter.push(new Filter("Tplnr ", "EQ", "'" + sFunctionalLocation.replace(/['"]+/g, '') + "'"));
 				oPortalDataModel.read("/EquipmentDetailsSet", {
 					filters: oFilter,

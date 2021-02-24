@@ -105,7 +105,7 @@
 									<Label text="{i18n>notif_PlanningPlant}" required="true"></Label>
 									<Select class="selectRadius" forceSelection="false" width="90%" selectedKey="{oNotificationDataModel>/PlanPlant}" showSecondaryValues="true"
 										enabled="true">
-										<core:ListItem key="4321" text="4321"/>
+										<core:ListItem key="US02" text="US02"/>
 									</Select>
 								</VBox>
 								<VBox class="sapUiTinyMarginTop">
@@ -118,8 +118,8 @@
 								<VBox class="sapUiTinyMarginTop">
 									<Label text="{i18n>notif_plant}" required="true"></Label>
 									<Select class="selectRadius" forceSelection="false" width="90%" showSecondaryValues="true" enabled="true"
-										selectedKey="{oNotificationDataModel>/PlanPlant}">
-										<core:ListItem key="4321" text="4321"/>
+										selectedKey="{oNotificationDataModel>/Maintplant}">
+										<core:ListItem key="US02" text="US02"/>
 									</Select>
 								</VBox>
 								<VBox class="sapUiTinyMarginTop">

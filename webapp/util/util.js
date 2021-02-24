@@ -643,7 +643,8 @@ com.sap.incture.IMO_PM.util.util = {
 		oNotificationDataModel.setProperty("/Equipment", "");
 		oNotificationDataModel.setProperty("/Assembly", "");
 		oNotificationDataModel.setProperty("/FunctLoc", "");
-		oNotificationDataModel.setProperty("/PlanPlant", "");
+		oNotificationDataModel.setProperty("/PlanPlant", userPlant);
+		oNotificationDataModel.setProperty("/Maintplant", userPlant);
 		oNotificationDataModel.setProperty("/Plangroup", "");
 		oNotificationDataModel.setProperty("/Startdate", new Date());
 		oNotificationDataModel.setProperty("/Enddate", new Date());
@@ -2095,7 +2096,7 @@ com.sap.incture.IMO_PM.util.util = {
 				"LongText": "",
 				"MatlGroup": "",
 				"OperCode": "C",
-				"Plant": "4321",
+				"Plant": sPlanPlant,
 				"ProfitCtr": "",
 				"PurGroup": "",
 				"PurchOrg": "",
