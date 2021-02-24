@@ -90,6 +90,7 @@ sap.ui.define([
 			var mLookupModel = this.mLookupModel;
 			var oNotificationViewModel = this.oNotificationViewModel;
 			var oNotificationDataModel = this.oNotificationDataModel;
+			
 			util.resetCreateNotificationFieldsNotifList(oNotificationDataModel, oNotificationViewModel, mLookupModel, notifData, this);
 			var notifid = this.oNotificationDataModel.getProperty("/Notifid");
 			//this.fnsetBreakdownDur();

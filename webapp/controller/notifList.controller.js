@@ -491,6 +491,7 @@ sap.ui.define([
 			var mLookupModel = this.mLookupModel;
 			var oNotificationViewModel = this.oNotificationViewModel;
 			var oNotificationDataModel = this.oNotificationDataModel;
+		
 			var ReleaseStatus = mLookupModel.getProperty("/ReleaseStatus");
 			util.resetCreateNotificationFieldsNotifList(oNotificationDataModel, oNotificationViewModel, mLookupModel, notifData, this);
 
@@ -604,7 +605,7 @@ sap.ui.define([
 			var notifDataPath = oEvent.getSource().getParent().getParent().getBindingContext("mLookupModel").sPath;
 			var oNotifData = this.mLookupModel.getProperty(notifDataPath);
 			var mLookupModel = this.mLookupModel;
-
+			
 			var oNotificationViewModel = this.oNotificationViewModel;
 			var oNotificationDataModel = this.oNotificationDataModel;
 			util.resetCreateNotificationFieldsNotifList(oNotificationDataModel, oNotificationViewModel, mLookupModel, oNotifData, this);
@@ -622,6 +623,7 @@ sap.ui.define([
 			var notifData = mLookupModel.getProperty(aSelectedpaths[0].sPath);
 			var oNotificationViewModel = this.oNotificationViewModel;
 			var oNotificationDataModel = this.oNotificationDataModel;
+			
 			util.resetCreateNotificationFieldsNotifList(oNotificationDataModel, oNotificationViewModel, mLookupModel, notifData, this);
 			//mLookupModel.getProperty("/selectedNotifs").splice(1);
 			mLookupModel.setProperty("/CreationWOType", "NOTIF_LIST_MULTINOTIF");

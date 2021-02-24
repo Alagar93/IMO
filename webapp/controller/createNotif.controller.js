@@ -213,7 +213,8 @@ sap.ui.define([
 			mLookupModel.setProperty("/sCatelogProf", sCatelogProf);
 			oNotificationDataModel.setProperty("/FunctLoc", iFunLoc);
 			oNotificationDataModel.setProperty("/Plangroup", sPlanGrpSel);
-			oNotificationDataModel.setProperty("/PlanPlant", sPlant); //nischal
+			oNotificationDataModel.setProperty("/PlanPlant", sPlant); 
+			oNotificationDataModel.setProperty("/Maintplant", sPlant); //nischal
 			oNotificationDataModel.setProperty("/WorkCenter", sWorkCenterDesc); //nischal
 			this.getEquipsAssmebly(iEqId);
 			// this.equipmentsListDialog.close();

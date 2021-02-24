@@ -1256,11 +1256,12 @@ sap.ui.define([
 		onFnLocSelect: function (oEvent) {
 			this.onFunlocChange();
 			var mLookupModel = this.mLookupModel;
-			// var oNotificationDataModel = this.oNotificationDataModel;
+			//oNotificationDataModel = this.oNotificationDataModel;
 			var oSource = oEvent.getParameter("listItem");
 			var sPath = oSource.getBindingContextPath();
 			var iFunLoc = mLookupModel.getProperty(sPath + "/FuncLoc");
 			mLookupModel.setProperty("/sFunLoc", iFunLoc);
+			
 			// oNotificationDataModel.setProperty("/FunctLoc", iFunLoc);
 			this.onCancelDialogFunLoc();
 		},

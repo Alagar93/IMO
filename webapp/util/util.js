@@ -643,8 +643,8 @@ com.sap.incture.IMO_PM.util.util = {
 		oNotificationDataModel.setProperty("/Equipment", "");
 		oNotificationDataModel.setProperty("/Assembly", "");
 		oNotificationDataModel.setProperty("/FunctLoc", "");
-		oNotificationDataModel.setProperty("/PlanPlant", userPlant);
-		oNotificationDataModel.setProperty("/Maintplant", userPlant);
+		oNotificationDataModel.setProperty("/PlanPlant", "");
+		oNotificationDataModel.setProperty("/Maintplant", "");
 		oNotificationDataModel.setProperty("/Plangroup", "");
 		oNotificationDataModel.setProperty("/Startdate", new Date());
 		oNotificationDataModel.setProperty("/Enddate", new Date());
@@ -677,11 +677,13 @@ com.sap.incture.IMO_PM.util.util = {
 		oNotificationViewModel.refresh();
 
 		mLookupModel.setProperty("/aEquipmentsList", []);
+		mLookupModel.setProperty("/userPlant", userPlant);
 		mLookupModel.setProperty("/assignedToHardCode", "");
 		mLookupModel.setProperty("/sRefnotif", ""); //SH: Clear reference notification field
 		mLookupModel.refresh();
 	},
-	resetCreateNotificationFieldsNotifList: function (oNotificationDataModel, oNotificationViewModel, mLookupModel, oSelectedRow, oController) {
+	resetCreateNotificationFieldsNotifList: function (oNotificationDataModel, oNotificationViewModel, mLookupModel, oSelectedRow, oController,
+		oUserDetailModel) {
 		if (!oSelectedRow) {
 			oNotificationDataModel.setData({});
 			oNotificationDataModel.refresh();
@@ -817,7 +819,8 @@ com.sap.incture.IMO_PM.util.util = {
 		oNotificationViewModel.setProperty("/BreakdownDur", oSelectedRow.Downtime);
 		oNotificationViewModel.setProperty("/attachmentSet", []); //Sunanda for attachments in notifDetail
 		oNotificationViewModel.refresh();
-
+		var userPlant = oController.oUserDetailModel.getProperty("/userPlant");
+		mLookupModel.setProperty("/userPlant", userPlant);
 		mLookupModel.setProperty("/aEquipmentsList", []);
 		mLookupModel.refresh();
 	},

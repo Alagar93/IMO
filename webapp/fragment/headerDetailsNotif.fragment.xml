@@ -86,8 +86,7 @@
 					<Label text="{i18n>notif_PlanningPlant}" required="true"></Label>
 					<ComboBox class="inputRadius" width="90%" selectedKey="{oNotificationDataModel>/PlanPlant}"
 						enabled="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setEnabledBasedOnStatus'}">
-						<core:ListItem key="4321" text="4321"/>
-						<core:Item key="US02" text="US02"/>
+						<core:ListItem key="{mLookupModel>/userPlant}" text="{mLookupModel>/userPlant}"/>
 					</ComboBox>
 				</VBox>
 				<VBox class="sapUiTinyMarginTop">
@@ -102,8 +101,7 @@
 					<Label text="{i18n>notif_plant}" required="true"></Label>
 					<ComboBox class="inputRadius" width="90%" selectedKey="{oNotificationDataModel>/Maintplant}"
 						enabled="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setEnabledBasedOnStatus'}">
-						<core:ListItem key="4321" text="4321"/>
-						<core:Item key="US02" text="US02"/>
+						<core:ListItem key="{mLookupModel>/userPlant}" text="{mLookupModel>/userPlant}"/>
 					</ComboBox>
 				</VBox>
 				<VBox class="sapUiTinyMarginTop">
