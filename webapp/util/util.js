@@ -644,7 +644,7 @@ com.sap.incture.IMO_PM.util.util = {
 		oNotificationDataModel.setProperty("/Assembly", "");
 		oNotificationDataModel.setProperty("/FunctLoc", "");
 		oNotificationDataModel.setProperty("/PlanPlant", "");
-		oNotificationDataModel.setProperty("/Maintplant", "");
+		//oNotificationDataModel.setProperty("/Maintplant", "");
 		oNotificationDataModel.setProperty("/Plangroup", "");
 		oNotificationDataModel.setProperty("/Startdate", new Date());
 		oNotificationDataModel.setProperty("/Enddate", new Date());
@@ -727,7 +727,7 @@ com.sap.incture.IMO_PM.util.util = {
 		oNotificationDataModel.setProperty("/Assembly", sAssembly); // Data type of assembly is changed
 		oNotificationDataModel.setProperty("/FunctLoc", oSelectedRow.FunctLoc);
 		oNotificationDataModel.setProperty("/PlanPlant", oSelectedRow.Planplant);
-		oNotificationDataModel.setProperty("/Maintplant", oSelectedRow.Maintplant);
+		//oNotificationDataModel.setProperty("/Maintplant", oSelectedRow.Maintplant);
 		oNotificationDataModel.setProperty("/Plangroup", oSelectedRow.Plangroup);
 		oNotificationDataModel.setProperty("/Startdate", new Date(oSelectedRow.Strmlfndate));
 		oNotificationDataModel.setProperty("/Enddate", new Date(oSelectedRow.Endmlfndate));

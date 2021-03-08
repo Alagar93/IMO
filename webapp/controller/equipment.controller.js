@@ -52,7 +52,8 @@ sap.ui.define([
 					mLookupModel.setProperty("/secondName", oData.Secondname);
 					mLookupModel.setProperty("/userName", oData.UserName);
 					mLookupModel.setProperty("/userRole", oData.Role);
-					mLookupModel.setProperty("/userPlant", oData.UserPlant);
+					//mLookupModel.setProperty("/userPlant", oData.UserPlant);
+					mLookupModel.setProperty("/userPlant", "US02");
 					that.fnFetchEquipList();
 					mLookupModel.refresh();
 				},

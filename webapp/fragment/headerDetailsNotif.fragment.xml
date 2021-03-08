@@ -99,7 +99,7 @@
 				</VBox>
 				<VBox class="sapUiTinyMarginTop">
 					<Label text="{i18n>notif_plant}" required="true"></Label>
-					<ComboBox class="inputRadius" width="90%" selectedKey="{oNotificationDataModel>/Maintplant}"
+					<ComboBox class="inputRadius" width="90%" selectedKey="{oNotificationDataModel>/PlanPlant}"
 						enabled="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setEnabledBasedOnStatus'}">
 						<core:ListItem key="{mLookupModel>/userPlant}" text="{mLookupModel>/userPlant}"/>
 					</ComboBox>

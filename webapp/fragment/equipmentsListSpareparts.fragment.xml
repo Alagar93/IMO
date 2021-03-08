@@ -8,7 +8,7 @@
 						<SearchField liveChange="onSearchFavEqips" width="100%" class="sapUiSmallMarginBottom sapSearchFieldBorderClass"
 							placeholder="{i18n>searchbyIDDes}"/>
 						<ScrollContainer height="20rem" vertical="true" focusable="false">
-							<Table mode="SingleSelectLeft" selectionChange="onEquipSelect" items="{path: 'mLookupModel>/aFavEquipList'}">
+							<Table mode="SingleSelectLeft" growing="true" growingThreshold = "7" selectionChange="onEquipSelect" items="{path: 'mLookupModel>/aFavEquipList'}">
 								<columns>
 									<Column>
 										<Text text="{i18n>equipId}"/>

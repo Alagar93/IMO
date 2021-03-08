@@ -93,7 +93,8 @@ sap.ui.define([
 				success: function (oData) {
 					mLookupModel.setProperty("/userName", oData.UserName);
 					mLookupModel.setProperty("/userRole", oData.Role);
-					mLookupModel.setProperty("/userPlant", oData.UserPlant);
+					//mLookupModel.setProperty("/userPlant", oData.UserPlant);
+					mLookupModel.setProperty("/userPlant", "US02");
 					mLookupModel.refresh();
 					that.fnFetchWOList();
 					that.setColumnLayout(); //nischal-- Function Call to set Column layout to the screen.

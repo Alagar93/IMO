@@ -1,7 +1,7 @@
 <core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" class="sapUiSizeCompact">
 	<Dialog contentHeight="50%" contentWidth="40%" title="Cause Code Help" class="dialogHeader">
 		<content>
-			<Table sticky="ColumnHeaders" class="sapUiTinyMargin tableCellNoBorder TableHeaderWhiteBG" width="95%" mode="SingleSelectLeft" items="{path: 'mLookupModel>/aCauseCode'}" selectionChange="onSelectCauseCode">
+			<Table sticky="ColumnHeaders" class="sapUiTinyMargin tableCellNoBorder TableHeaderWhiteBG" width="95%" mode="SingleSelectLeft" growing="true" growingThreshold = "7" items="{path: 'mLookupModel>/aCauseCode'}" selectionChange="onSelectCauseCode">
 				<columns>
 					<Column>
 						<Text text="Cause Code"/>

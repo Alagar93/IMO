@@ -332,7 +332,8 @@ sap.ui.define([
 					oUserDetailModel.setProperty("/secondName", oData.Secondname);
 					oUserDetailModel.setProperty("/userName", oData.UserName);
 					oUserDetailModel.setProperty("/userRole", oData.Role);
-					oUserDetailModel.setProperty("/userPlant", oData.UserPlant);
+					//oUserDetailModel.setProperty("/userPlant", oData.UserPlant);
+					oUserDetailModel.setProperty("/userPlant", "US02");
 					oUserDetailModel.refresh();
 					util.fnSetUserName(oData.UserName, that.oWorkOrderDetailModel);
 					that.busy.close();
@@ -400,7 +401,8 @@ sap.ui.define([
 					oUserDetailModel.setProperty("/userName", oData.UserName);
 					mLookupModel.setProperty("/userName", oData.UserName);
 					oUserDetailModel.setProperty("/userRole", oData.Role);
-					oUserDetailModel.setProperty("/userPlant", oData.UserPlant);
+					//oUserDetailModel.setProperty("/userPlant", oData.UserPlant);
+					oUserDetailModel.setProperty("/userPlant", "US02");
 					that.setAppInitDataNotifList(viewType);
 					oUserDetailModel.refresh();
 				},
@@ -425,7 +427,8 @@ sap.ui.define([
 					oUserDetailModel.setProperty("/secondName", oData.Secondname);
 					oUserDetailModel.setProperty("/userName", oData.UserName);
 					oUserDetailModel.setProperty("/userRole", oData.Role);
-					oUserDetailModel.setProperty("/userPlant", oData.UserPlant);
+					//oUserDetailModel.setProperty("/userPlant", oData.UserPlant);
+					oUserDetailModel.setProperty("/userPlant", "US02");
 					mLookupModel.setProperty("/userName", oData.UserName);
 					oUserDetailModel.refresh();
 					that.setAppInitDataCreateWO(fromView);
@@ -512,7 +515,8 @@ sap.ui.define([
 					oUserDetailModel.setProperty("/fullName", oData.Fullname);
 					oUserDetailModel.setProperty("/secondName", oData.Secondname);
 					oUserDetailModel.setProperty("/userName", oData.UserName);
-					oUserDetailModel.setProperty("/userPlant", oData.UserPlant);
+					//oUserDetailModel.setProperty("/userPlant", oData.UserPlant);
+					oUserDetailModel.setProperty("/userPlant", "US02");
 					that.oNotificationDataModel.setProperty("/Reportedby", oData.UserName);
 					that.setAppInitDataCreateNotif("CREATE_NOTIFCATION");
 					oUserDetailModel.refresh();
@@ -540,7 +544,8 @@ sap.ui.define([
 					oUserDetailModel.setProperty("/fullName", oData.Fullname);
 					oUserDetailModel.setProperty("/secondName", oData.Secondname);
 					oUserDetailModel.setProperty("/userName", oData.UserName);
-					oUserDetailModel.setProperty("/userPlant", oData.UserPlant);
+					//oUserDetailModel.setProperty("/userPlant", oData.UserPlant);
+					oUserDetailModel.setProperty("/userPlant", "US02");
 					oUserDetailModel.setProperty("/hasLabHrReport", oData.HasLabHrReport);
 					oUserDetailModel.setProperty("/currency", oData.currency);
 					oUserDetailModel.refresh();
@@ -575,7 +580,8 @@ sap.ui.define([
 			var oPortalDataModel = this.oPortalDataModel;
 			oPortalDataModel.read(sUrl, {
 				success: function (oData) {
-					mLookupModel.setProperty("/sPlantSel", oData.UserPlant);
+					//mLookupModel.setProperty("/sPlantSel", oData.UserPlant);
+					mLookupModel.setProperty("/sPlantSel", "US02");
 					mLookupModel.refresh();
 					that.fnGetPlants();
 					that.getWorkCentersShiftEnd();

@@ -16,7 +16,7 @@
 							</VBox>
 						</l:Grid>
 						<ScrollContainer height="20rem" vertical="true" focusable="false" class="sapUiSmallMarginTop">
-							<Table sticky="ColumnHeaders" mode="SingleSelectLeft" selectionChange="onEquipSelect" growing="false" items="{path: 'mLookupModel>/aEquipmentsList'}" class="tableCellNoBorder TableHeaderWhiteBG">
+							<Table sticky="ColumnHeaders" mode="SingleSelectLeft" selectionChange="onEquipSelect" growing="true" growingThreshold = "7" items="{path: 'mLookupModel>/aEquipmentsList'}" class="tableCellNoBorder TableHeaderWhiteBG">
 								<headerToolbar>
 									<OverflowToolbar height="2rem">
 										<content>

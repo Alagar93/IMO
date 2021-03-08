@@ -205,7 +205,8 @@ sap.ui.define([
 				success: function (oData) {
 					mLookupModel.setProperty("/userName", oData.UserName);
 					mLookupModel.setProperty("/userRole", oData.Role);
-					mLookupModel.setProperty("/userPlant", oData.UserPlant);
+					//mLookupModel.setProperty("/userPlant", oData.UserPlant);
+					mLookupModel.setProperty("/userPlant", "US02");
 					that.fnInitializeWO();
 				},
 				error: function (oData) {
