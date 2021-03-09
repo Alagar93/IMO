@@ -277,12 +277,12 @@ com.sap.incture.IMO_PM.util.util = {
 			// oErrorMsg = "Please enter a Functional Location";
 			return [true, oErrorMsg];
 		}
-		var assignedTo = oWorkOrderDetailModel.getProperty("/HEADERTOPARTNERNAV/0/AssignedTo");
-		if (!assignedTo) {
-			oErrorMsg = oResourceModel.getText("SEL_ASSIGNED_TO");
-			// oErrorMsg = "Please select Assigned To";
-			return [true, oErrorMsg];
-		}
+		// var assignedTo = oWorkOrderDetailModel.getProperty("/HEADERTOPARTNERNAV/0/AssignedTo");
+		// if (!assignedTo) {
+		// 	oErrorMsg = oResourceModel.getText("SEL_ASSIGNED_TO");
+		// 	// oErrorMsg = "Please select Assigned To";
+		// 	return [true, oErrorMsg];
+		// }
 		var priority = oWorkOrderDetailModel.getProperty("/Priority");
 		if (!priority) {
 			oErrorMsg = oResourceModel.getText("SEL_PRIORITY");
@@ -2113,9 +2113,9 @@ com.sap.incture.IMO_PM.util.util = {
 				"systemstatustext": ""
 			}],
 			"HEADERTOPARTNERNAV": [{
-				"AssignedTo": "00000125",
+				"AssignedTo": "",
 				"Orderid": "",
-				"PARTNERNAV": "C",
+				"PARTNERNAV": "",
 				"PARTNEROLD": ""
 			}],
 			"Maintplant": "",

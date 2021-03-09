@@ -56,7 +56,7 @@
 					<Label text="Purch. Group"></Label>
 					<HBox>
 						<Input class="inputRadius" value="{oWorkOrderDetailViewModel>/oControlkeyOperation/PurGroup}" width="100%"></Input>
-						<Input class="inputRadius sapUiTinyMarginBegin" value="US01" width="100%"></Input>
+						<Input class="inputRadius sapUiTinyMarginBegin" value="{oWorkOrderDetailViewModel>/oControlkeyOperation/PurchOrg}" width="100%"></Input>
 					</HBox>
 					<layoutData>
 						<l:GridData span="XL6 L6 M6 S6"/>

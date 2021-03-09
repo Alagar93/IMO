@@ -202,14 +202,15 @@ sap.ui.define([
 				oOpertionDetails.Quantity = "1";
 				oOpertionDetails.QuantityUnit = "EA";
 				oOpertionDetails.Price = "1000";
-				oOpertionDetails.Currency = "EUR";
-				oOpertionDetails.MatlGroup = "01";
+				oOpertionDetails.Currency = "USD";
+				oOpertionDetails.MatlGroup = "S93141808";
 				oOpertionDetails.PriceUnit = "1";
-				oOpertionDetails.PurGroup = "001";
-				//oOpertionDetails.CostElement = "";
-				//oOpertionDetails.PurchOrg = "0001";
-				oOpertionDetails.Recipient = "Vijay";
-				oOpertionDetails.Requisitioner = "Vijay";
+				oOpertionDetails.PurGroup = "U43";
+				oOpertionDetails.CostElement = "60700100";
+				oOpertionDetails.PurchOrg = "US01";
+				oOpertionDetails.Recipient = "";
+				oOpertionDetails.Requisitioner = "6002181";
+				oOpertionDetails.VendorNo = "30001659";
 				oWorkOrderDetailViewModel.setProperty("/PreqPopupFlag", false);
 				oWorkOrderDetailViewModel.setProperty("/oControlkeyOperation", oOpertionDetails);
 				if (!this.controlKeyDialog) {
@@ -327,61 +328,61 @@ sap.ui.define([
 			var StockAvail = formatter.fnStrtoInt(oComponentDetails.StockAvail);
 			var ReqQuantity = formatter.fnStrtoInt(oComponentDetails.RequirementQuantity);
 			oWorkOrderDetailViewModel.setProperty("/sPathItemCat", sPath);
-			if (sKey === "N" && StockAvail < ReqQuantity) {
 
-				var bMatVal = formatter.MaterialPRVAlidation(oComponentDetails);
-				if (bMatVal) {
+			var bMatVal = formatter.MaterialPRVAlidation(oComponentDetails);
+			if (bMatVal) {
 
-					if (sKey === "N" && StockAvail < ReqQuantity) {
+				if (sKey === "N" && StockAvail < ReqQuantity) {
 
-						oComponentDetails.Price = "1000";
-						oComponentDetails.Currency = "EUR";
-						oComponentDetails.MaterialGroup = "01";
-						oComponentDetails.PriceUnit = "1";
-						oComponentDetails.PurchGrp = "001";
-						oComponentDetails.PurchOrg = "0001";
-						oComponentDetails.GlAccount = "416100";
-						oComponentDetails.Recipient = "Vijay";
-						oComponentDetails.Requisitioner = "Vijay";
-						oWorkOrderDetailViewModel.setProperty("/oComponentDetails", oComponentDetails);
-						if (!this.oItemCatDialog) {
-							this.oItemCatDialog = sap.ui.xmlfragment("com.sap.incture.IMO_PM.fragment.ItemCatPRPopup", this);
-							this.getView().addDependent(this.oItemCatDialog);
-						}
-						this.oItemCatDialog.open();
-					} else if (sKey === "N" && StockAvail >= ReqQuantity) {
-						MessageBox.warning("Required Qunatity is available as Stock", {
-							actions: [MessageBox.Action.OK, MessageBox.Action.CANCEL],
-							onClose: function (sAction) {
-								if (sAction === "OK") {
-									oComponentDetails.Price = "1000";
-									oComponentDetails.Currency = "EUR";
-									oComponentDetails.MaterialGroup = "01";
-									oComponentDetails.PriceUnit = "1";
-									oComponentDetails.PurchGrp = "001";
-									oComponentDetails.PurchOrg = "0001";
-									oComponentDetails.GlAccount = "416100";
-									oComponentDetails.Recipient = "Vijay";
-									oComponentDetails.Requisitioner = "Vijay";
-									oWorkOrderDetailViewModel.setProperty("/oComponentDetails", oComponentDetails);
-									if (!that.oItemCatDialog) {
-										that.oItemCatDialog = sap.ui.xmlfragment("com.sap.incture.IMO_PM.fragment.ItemCatPRPopup", that);
-										that.getView().addDependent(that.oItemCatDialog);
-									}
-									that.oItemCatDialog.open();
-								} else {
-									oWorkOrderDetailModel.setProperty(sPath + "/ItemCat", "L");
-									oWorkOrderDetailViewModel.setProperty("/sPathItemCat", "");
-									oWorkOrderDetailViewModel.setProperty("/oComponentDetails", null);
-								}
-
-							}
-						});
+					oComponentDetails.Price = "1000";
+					oComponentDetails.Currency = "USD";
+					oComponentDetails.MaterialGroup = "M31001000";
+					oComponentDetails.PriceUnit = "1";
+					oComponentDetails.PurchGrp = "U43";
+					oComponentDetails.PurchOrg = "US01";
+					oComponentDetails.GlAccount = "61600100";
+					oComponentDetails.Recipient = "";
+					oComponentDetails.Requisitioner = "6001911";
+					oComponentDetails.VendorNo = "33002290"
+					oWorkOrderDetailViewModel.setProperty("/oComponentDetails", oComponentDetails);
+					if (!this.oItemCatDialog) {
+						this.oItemCatDialog = sap.ui.xmlfragment("com.sap.incture.IMO_PM.fragment.ItemCatPRPopup", this);
+						this.getView().addDependent(this.oItemCatDialog);
 					}
-				} else {
-					MessageBox.error("Please enter valid component details");
+					this.oItemCatDialog.open();
+				} else if (sKey === "N" && StockAvail >= ReqQuantity) {
+					MessageBox.warning("Required Qunatity is available as Stock", {
+						actions: [MessageBox.Action.OK, MessageBox.Action.CANCEL],
+						onClose: function (sAction) {
+							if (sAction === "OK") {
+								oComponentDetails.Price = "1000";
+								oComponentDetails.Currency = "USD";
+								oComponentDetails.MaterialGroup = "M31001000";
+								oComponentDetails.PriceUnit = "1";
+								oComponentDetails.PurchGrp = "U43";
+								oComponentDetails.PurchOrg = "US01";
+								oComponentDetails.GlAccount = "61600100";
+								oComponentDetails.Recipient = "";
+								oComponentDetails.Requisitioner = "6001911";
+								oComponentDetails.VendorNo = "33002290"
+								oWorkOrderDetailViewModel.setProperty("/oComponentDetails", oComponentDetails);
+								if (!that.oItemCatDialog) {
+									that.oItemCatDialog = sap.ui.xmlfragment("com.sap.incture.IMO_PM.fragment.ItemCatPRPopup", that);
+									that.getView().addDependent(that.oItemCatDialog);
+								}
+								that.oItemCatDialog.open();
+							} else {
+								oWorkOrderDetailModel.setProperty(sPath + "/ItemCat", "L");
+								oWorkOrderDetailViewModel.setProperty("/sPathItemCat", "");
+								oWorkOrderDetailViewModel.setProperty("/oComponentDetails", null);
+							}
 
+						}
+					});
 				}
+			} else {
+				MessageBox.error("Please enter valid component details");
+
 			}
 
 		},
@@ -997,6 +998,11 @@ sap.ui.define([
 			if (uiAssignedTo !== assignedTo) {
 				if (uiPartnerNav === "N" || uiPartnerNav === "U") {
 					oWorkOrderDetailViewModel.setProperty("/HEADERTOPARTNERNAV/0/PARTNERNAV", "U");
+					oWorkOrderDetailViewModel.setProperty("/HEADERTOPARTNERNAV/0/AssignedTo", uiAssignedTo);
+					oWorkOrderDetailViewModel.setProperty("/HEADERTOPARTNERNAV/0/PARTNEROLD", assignedTo);
+				}
+				if(uiPartnerNav===""){
+					oWorkOrderDetailViewModel.setProperty("/HEADERTOPARTNERNAV/0/PARTNERNAV", "C");
 					oWorkOrderDetailViewModel.setProperty("/HEADERTOPARTNERNAV/0/AssignedTo", uiAssignedTo);
 					oWorkOrderDetailViewModel.setProperty("/HEADERTOPARTNERNAV/0/PARTNEROLD", assignedTo);
 				}

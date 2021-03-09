@@ -1711,6 +1711,18 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 			}
 		}
 		return bFlag;
+	},
+	fnRemoveTimeZoneOffset:function(oDate){
+		var oDupDate=new Date(oDate);
+		var TimeZoneOffset=oDupDate.getTimezoneOffset()*60000;
+		var CstDate=new Date(oDupDate.getTime()+TimeZoneOffset);
+		return CstDate;
+	},
+	fnAddTimeZoneOffset:function(oDate){
+		var oDupDate=new Date(oDate);
+		var TimeZoneOffset=oDupDate.getTimezoneOffset()*60000;
+		var CstDate=new Date(oDupDate.getTime()-TimeZoneOffset);
+		return CstDate;
 	}
 
 };

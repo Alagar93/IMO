@@ -213,7 +213,7 @@ sap.ui.define([
 			mLookupModel.setProperty("/sCatelogProf", sCatelogProf);
 			oNotificationDataModel.setProperty("/FunctLoc", iFunLoc);
 			oNotificationDataModel.setProperty("/Plangroup", sPlanGrpSel);
-			oNotificationDataModel.setProperty("/PlanPlant", sPlant); 
+			oNotificationDataModel.setProperty("/PlanPlant", sPlant);
 			//oNotificationDataModel.setProperty("/Maintplant", sPlant); //nischal
 			oNotificationDataModel.setProperty("/WorkCenter", sWorkCenterDesc); //nischal
 			this.getEquipsAssmebly(iEqId);
@@ -519,7 +519,7 @@ sap.ui.define([
 			}
 			oNotifData.ReqStartdate = formatter.formatDateobjToStringNotif(oNotifData.ReqStartdate);
 			oNotifData.ReqEnddate = formatter.formatDateobjToStringNotif(oNotifData.ReqEnddate);
-			oNotifData.Notif_date = formatter.formatDateobjToStringNotif(new Date());
+			oNotifData.Notif_date = formatter.formatDateobjToStringNotif(formatter.fnRemoveTimeZoneOffset(new Date())); //UTC Conversion
 			oNotifData.Type = "CREATE";
 			if (oNotifData.Assembly === "NaN") {
 				oNotifData.Assembly = "";
@@ -531,7 +531,9 @@ sap.ui.define([
 				startTime = "00:00";
 			}
 			var splitDate1 = oNotifData.Startdate.split("T")[0];
-			oNotifData.Startdate = splitDate1 + "T" + startTime + ":00";
+			var oDupStartDateString = splitDate1 + "T" + startTime + ":00";
+			var oUTCStartDate = formatter.fnRemoveTimeZoneOffset(oDupStartDateString);
+			oNotifData.Startdate = formatter.formatDateobjToStringNotif(oUTCStartDate);
 
 			var endTime = oNotificationViewModel.getProperty("/EndTime");
 			if (!endTime) {
@@ -539,7 +541,10 @@ sap.ui.define([
 			}
 			if (oNotifData.Enddate !== "") {
 				var splitDate2 = oNotifData.Enddate.split("T")[0];
-				oNotifData.Enddate = splitDate2 + "T" + endTime + ":00";
+				var oDupdDateString = splitDate2 + "T" + endTime + ":00";
+				var oUTCEndDate = formatter.fnRemoveTimeZoneOffset(oDupdDateString);
+				oNotifData.Enddate = formatter.formatDateobjToStringNotif(oUTCEndDate);
+
 			}
 
 			oPortalNotifOData.setHeaders({
