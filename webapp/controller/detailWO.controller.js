@@ -1173,7 +1173,7 @@ sap.ui.define([
 							break;
 						}
 						messages[0].Message = successErrMsg;
-						if (sData.HEADERTONOTIFNAV && woCreateNavType === "WO_DETAIL_CREATE") {
+						if (sData.HEADERTONOTIFNAV.length===0 && woCreateNavType === "WO_DETAIL_CREATE") {  //ST:changed due to HEADERTONOTIFNAV
 							var sNotifNo = sData.HEADERTONOTIFNAV.results[0].NotifNo;
 							var oNotifMessage = {
 								"Message": "Notification Created Successfully with Notification ID " + sNotifNo,
@@ -2021,7 +2021,7 @@ sap.ui.define([
 			var spareParts = oWorkOrderDetailModel.getProperty("/HEADERTOCOMPONENTNAV");
 			var userPlant = this.oUserDetailModel.getProperty("/userPlant");
 			var sEquipId = oWorkOrderDetailModel.getProperty("/Equipment");
-			this.getMaterialsList("", sEquipId, true);
+			this.getMaterialsList("", "", true);
 			if (!spareParts) {
 				spareParts = [];
 			}
