@@ -2021,7 +2021,7 @@ sap.ui.define([
 			var spareParts = oWorkOrderDetailModel.getProperty("/HEADERTOCOMPONENTNAV");
 			var userPlant = this.oUserDetailModel.getProperty("/userPlant");
 			var sEquipId = oWorkOrderDetailModel.getProperty("/Equipment");
-			this.getMaterialsList("", "", true);
+			this.getMaterialsList("", "", true);//ST: to fetch all the materials
 			if (!spareParts) {
 				spareParts = [];
 			}

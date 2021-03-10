@@ -64,7 +64,7 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 	},
 	//nischal -- Notification Detail's CreateWO button Visibility function
 	setBtnVisibleCreateOrder: function (sValue) {
-		if (sValue == "NOPR") {
+		if (sValue == "NOPR" || sValue == "APRQ NOPR") {
 			return true;
 		} else {
 			return false;
@@ -72,7 +72,7 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 	},
 	//nischal -- notification Detail Revert button visible
 	setBtnVisibleRevert: function (sValue) {
-		if (sValue == "NOCO" || sValue == "NOCO ORAS") {
+		if (sValue == "NOCO" || sValue == "NOCO ORAS" || sValue == "APRQ NOCO") {
 			return true;
 		} else {
 			return false;
@@ -80,7 +80,7 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 	},
 	//nischal -- set Notification Detail View Enabled/Disabled based on Notification Status
 	setEnabledBasedOnStatus: function (sValue) {
-		if (sValue == "NOCO" || sValue == "NOCO ORAS") {
+		if (sValue == "NOCO" || sValue == "NOCO ORAS" || sValue == "APRQ NOCO") {
 			return false;
 		} else {
 			return true;
@@ -89,7 +89,7 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 
 	//nischal -- notificationDetail Release button visible
 	setBtnVisibleRelease: function (sValue) {
-		if (sValue == "NOPR" || sValue == "NOPR ORAS" || sValue == "NOCO" || sValue == "NOCO ORAS") {
+		if (sValue == "NOPR" || sValue == "NOPR ORAS" || sValue == "NOCO" || sValue == "NOCO ORAS" || sValue == "APRQ NOCO") {
 			return false;
 		} else {
 			return true;
@@ -97,7 +97,7 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 	},
 	//nischal -- notification Update button visible
 	setBtnVisibleUpdate: function (sValue) {
-		if (sValue == "NOCO" || sValue == "NOCO ORAS") {
+		if (sValue == "NOCO" || sValue == "NOCO ORAS" || sValue == "APRQ NOCO") {
 			return false;
 		} else {
 			return true;
@@ -105,7 +105,7 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 	},
 	//nischal -- notification close button visibility
 	setBtnVisibleClose: function (sValue) {
-		if (sValue == "NOCO" || sValue == "NOCO ORAS") {
+		if (sValue == "NOCO" || sValue == "NOCO ORAS" || sValue == "APRQ NOCO") {
 			return false;
 		} else {
 			return true;
@@ -1714,16 +1714,16 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 	},
 	fnRemoveTimeZoneOffset: function (oDate) {
 		var oDupDate = new Date(oDate);
-		var TimeZoneOffset = oDupDate.getTimezoneOffset()*60000;
-		var cstOffset=-6*3600000;
-		var CstDate = new Date(oDupDate.getTime() + TimeZoneOffset+cstOffset);
+		var TimeZoneOffset = oDupDate.getTimezoneOffset() * 60000;
+		var cstOffset = -6 * 3600000;
+		var CstDate = new Date(oDupDate.getTime() + TimeZoneOffset + cstOffset);
 		return CstDate;
 	},
 	fnAddTimeZoneOffset: function (oDate) {
 		var oDupDate = new Date(oDate);
-		var TimeZoneOffset = oDupDate.getTimezoneOffset()*60000;
-		var cstOffset=-6*3600000;
-		var CstDate = new Date(oDupDate.getTime() - TimeZoneOffset-cstOffset);
+		var TimeZoneOffset = oDupDate.getTimezoneOffset() * 60000;
+		var cstOffset = -6 * 3600000;
+		var CstDate = new Date(oDupDate.getTime() - TimeZoneOffset - cstOffset);
 		return CstDate;
 	},
 	fnDateToUTCString: function (oDate) {

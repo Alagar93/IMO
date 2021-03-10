@@ -1941,20 +1941,20 @@ com.sap.incture.IMO_PM.util.util = {
 		var sShortText = oWorkOrderDetailModel.getProperty("/ShortText");
 		var sWorkCenter = oWorkOrderDetailModel.getProperty("/MnWkCtr");
 
-		var oStartDate = new Date();
+		var oStartDate = com.sap.incture.IMO_PM.formatter.formatter.fnRemoveTimeZoneOffset(new Date());
 		var sStartdate = this.formatDateobjToString(oStartDate, true);
 
-		var oEnddate = new Date();
+		var oEnddate = com.sap.incture.IMO_PM.formatter.formatter.fnRemoveTimeZoneOffset(new Date());
 		var sEnddate = this.formatDateobjToString(oEnddate, true);
 
-		var oNotifDate = new Date();
+		var oNotifDate = com.sap.incture.IMO_PM.formatter.formatter.fnRemoveTimeZoneOffset(new Date());
 		var sNotifDate = this.formatDateobjToString(oNotifDate, true);
 
 		var oReqEndDate = oWorkOrderDetailModel.getProperty("/PlanEndDate");
-		var sReqEndDate = this.formatDateobjToString(oReqEndDate, true);
+		var sReqEndDate = this.formatDateobjToString(com.sap.incture.IMO_PM.formatter.formatter.fnRemoveTimeZoneOffset(oReqEndDate), true);
 
 		var oReqStartDate = oWorkOrderDetailModel.getProperty("/PlanStartDate");
-		var sReqStartDate = this.formatDateobjToString(oReqStartDate, true);
+		var sReqStartDate = this.formatDateobjToString(com.sap.incture.IMO_PM.formatter.formatter.fnRemoveTimeZoneOffset(oReqStartDate), true);
 
 		var oObj = {
 			"Assembly": sAssembly,
