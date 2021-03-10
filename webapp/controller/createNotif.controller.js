@@ -517,9 +517,13 @@ sap.ui.define([
 			} else {
 				oNotifData.Enddate = "";
 			}
-			oNotifData.ReqStartdate = formatter.formatDateobjToStringNotif(oNotifData.ReqStartdate);
-			oNotifData.ReqEnddate = formatter.formatDateobjToStringNotif(oNotifData.ReqEnddate);
-			oNotifData.Notif_date = formatter.formatDateobjToStringNotif(formatter.fnRemoveTimeZoneOffset(new Date())); //UTC Conversion
+			// oNotifData.ReqStartdate = formatter.formatDateobjToStringNotif(oNotifData.ReqStartdate);
+			// oNotifData.ReqEnddate = formatter.formatDateobjToStringNotif(oNotifData.ReqEnddate);
+			//oNotifData.Notif_date = formatter.formatDateobjToStringNotif(new Date());
+			//ST:CST Conversion
+			oNotifData.ReqStartdate = formatter.formatDateobjToStringNotif(formatter.fnRemoveTimeZoneOffset(oNotifData.ReqStartdate));
+			oNotifData.ReqEnddate = formatter.formatDateobjToStringNotif(formatter.fnRemoveTimeZoneOffset(oNotifData.ReqEnddate));
+			oNotifData.Notif_date = formatter.formatDateobjToStringNotif(formatter.fnRemoveTimeZoneOffset(new Date())); //ST:CST Conversion
 			oNotifData.Type = "CREATE";
 			if (oNotifData.Assembly === "NaN") {
 				oNotifData.Assembly = "";
@@ -531,7 +535,8 @@ sap.ui.define([
 				startTime = "00:00";
 			}
 			var splitDate1 = oNotifData.Startdate.split("T")[0];
-			var oDupStartDateString = splitDate1 + "T" + startTime + ":00"; //UTC Conversion
+			//oNotifData.Startdate=splitDate1 + "T" + startTime + ":00";
+			var oDupStartDateString = splitDate1 + "T" + startTime + ":00"; //CST Conversion
 			var oUTCStartDate = formatter.fnRemoveTimeZoneOffset(oDupStartDateString);
 			oNotifData.Startdate = formatter.formatDateobjToStringNotif(oUTCStartDate);
 
@@ -541,7 +546,8 @@ sap.ui.define([
 			}
 			if (oNotifData.Enddate !== "") {
 				var splitDate2 = oNotifData.Enddate.split("T")[0];
-				var oDupdDateString = splitDate2 + "T" + endTime + ":00"; //UTC Conversion
+				//oNotifData.Enddate=splitDate2 + "T" + endTime + ":00";
+				var oDupdDateString = splitDate2 + "T" + endTime + ":00"; //CST Conversion
 				var oUTCEndDate = formatter.fnRemoveTimeZoneOffset(oDupdDateString);
 				oNotifData.Enddate = formatter.formatDateobjToStringNotif(oUTCEndDate);
 
@@ -614,10 +620,14 @@ sap.ui.define([
 			} else {
 				oNotifData.Enddate = "";
 			}
-			oNotifData.ReqStartdate = formatter.formatDateobjToStringNotif(oNotifData.ReqStartdate);
-			oNotifData.ReqEnddate = formatter.formatDateobjToStringNotif(oNotifData.ReqEnddate);
+			//
+			// oNotifData.ReqStartdate = formatter.formatDateobjToStringNotif(oNotifData.ReqStartdate);
+			// oNotifData.ReqEnddate = formatter.formatDateobjToStringNotif(oNotifData.ReqEnddate);
 			//oNotifData.Notif_date = formatter.formatDateobjToStringNotif(new Date());
-			oNotifData.Notif_date = formatter.formatDateobjToStringNotif(formatter.fnRemoveTimeZoneOffset(new Date())); //UTC Conversion
+			 //ST:CST Conversion
+			oNotifData.ReqStartdate = formatter.formatDateobjToStringNotif(formatter.fnRemoveTimeZoneOffset(oNotifData.ReqStartdate));
+			oNotifData.ReqEnddate = formatter.formatDateobjToStringNotif(formatter.fnRemoveTimeZoneOffset(oNotifData.ReqEnddate));
+			oNotifData.Notif_date = formatter.formatDateobjToStringNotif(formatter.fnRemoveTimeZoneOffset(new Date()));
 
 			oNotifData.Type = "CREATE";
 			if (oNotifData.Assembly === "NaN") {
@@ -630,7 +640,8 @@ sap.ui.define([
 				startTime = "00:00";
 			}
 			var splitDate1 = oNotifData.Startdate.split("T")[0];
-			var oDupStartDateString = splitDate1 + "T" + startTime + ":00"; //UTC Conversion
+			//oNotifData.Startdate=splitDate1 + "T" + startTime + ":00";
+			var oDupStartDateString = splitDate1 + "T" + startTime + ":00"; //ST:CST Conversion
 			var oUTCStartDate = formatter.fnRemoveTimeZoneOffset(oDupStartDateString);
 			oNotifData.Startdate = formatter.fnDateToUTCString(oUTCStartDate);
 
@@ -640,7 +651,8 @@ sap.ui.define([
 			}
 			if (oNotifData.Enddate !== "") {
 				var splitDate2 = oNotifData.Enddate.split("T")[0];
-				var oDupdDateString = splitDate2 + "T" + endTime + ":00"; //UTC Conversion
+				//oNotifData.Enddate=splitDate2 + "T" + endTime + ":00";
+				var oDupdDateString = splitDate2 + "T" + endTime + ":00"; //ST:CST Conversion
 				var oUTCEndDate = formatter.fnRemoveTimeZoneOffset(oDupdDateString);
 				oNotifData.Enddate = formatter.fnDateToUTCString(oUTCEndDate);
 			}

@@ -1714,14 +1714,16 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 	},
 	fnRemoveTimeZoneOffset: function (oDate) {
 		var oDupDate = new Date(oDate);
-		var TimeZoneOffset = -11.5 * 3600000;
-		var CstDate = new Date(oDupDate.getTime() + TimeZoneOffset);
+		var TimeZoneOffset = oDupDate.getTimezoneOffset()*60000;
+		var cstOffset=-6*3600000;
+		var CstDate = new Date(oDupDate.getTime() + TimeZoneOffset+cstOffset);
 		return CstDate;
 	},
 	fnAddTimeZoneOffset: function (oDate) {
 		var oDupDate = new Date(oDate);
-		var TimeZoneOffset = -11.5*3600000;
-		var CstDate = new Date(oDupDate.getTime() - TimeZoneOffset);
+		var TimeZoneOffset = oDupDate.getTimezoneOffset()*60000;
+		var cstOffset=-6*3600000;
+		var CstDate = new Date(oDupDate.getTime() - TimeZoneOffset-cstOffset);
 		return CstDate;
 	},
 	fnDateToUTCString: function (oDate) {

@@ -1402,8 +1402,11 @@ sap.ui.define([
 
 		//Function to format Work Order data's Date format to string
 		fnFormatWODateObjectsToStr: function (oData) {
-			oData.DateCreated = formatter.formatDateobjToString(oData.DateCreated);
-			oData.MalFunStartDate = formatter.formatDateobjToString(oData.MalFunStartDate);
+			// oData.DateCreated = formatter.formatDateobjToString(oData.DateCreated);
+			// oData.MalFunStartDate = formatter.formatDateobjToString(oData.MalFunStartDate);
+			//ST:CST conversion
+			oData.DateCreated = formatter.formatDateobjToString(formatter.fnRemoveTimeZoneOffset(oData.DateCreated));
+			oData.MalFunStartDate = formatter.formatDateobjToString(formatter.fnRemoveTimeZoneOffset(oData.MalFunStartDate));
 			oData.PlanEndDate = formatter.formatDateobjToString(oData.PlanEndDate);
 			oData.PlanStartDate = formatter.formatDateobjToString(oData.PlanStartDate);
 

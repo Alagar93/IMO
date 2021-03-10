@@ -392,9 +392,16 @@ sap.ui.define([
 
 			var oFilter = [];
 			var userPlant = this.oUserDetailModel.getProperty("/userPlant");
+			// oFilter.push(new Filter({
+			// 	filters: [new Filter("CreatedOn", "GE", formatter.fnDatewithTimezoneoffset(sCreatedOnStart)),
+			// 		new Filter("CreatedOn", "LE", formatter.fnDatewithTimezoneoffset(sCreatedOnEnd))
+			// 	],
+			// 	and: true
+			// }));
+			//ST:CST conversion
 			oFilter.push(new Filter({
-				filters: [new Filter("CreatedOn", "GE", formatter.fnDatewithTimezoneoffset(sCreatedOnStart)),
-					new Filter("CreatedOn", "LE", formatter.fnDatewithTimezoneoffset(sCreatedOnEnd))
+				filters: [new Filter("CreatedOn", "GE", formatter.fnRemoveTimeZoneOffset(formatter.fnDatewithTimezoneoffset(sCreatedOnStart))),
+					new Filter("CreatedOn", "LE", formatter.fnRemoveTimeZoneOffset(formatter.fnDatewithTimezoneoffset(sCreatedOnEnd)))
 				],
 				and: true
 			}));
@@ -406,7 +413,7 @@ sap.ui.define([
 			oFilter.push(new Filter("Equipment", "EQ", sNotifEquipFilter));
 			oFilter.push(new Filter("Bdflag", "EQ", sNotifBDFilter));
 			oFilter.push(new Filter("Userstatus", "EQ", sUnAssignedWOFlag)); // using userstatus unused field for check box filter
-			oFilter.push(new Filter("plant", "EQ", userPlant));
+			oFilter.push(new Filter("plant", "EQ",userPlant));
 			oFilter.push(new Filter("WorkCntr", "EQ", sNotifWkCenterFilter));
 
 			oPortalDataModel.read(sUrl, {
@@ -425,16 +432,22 @@ sap.ui.define([
 							value.ReqstartdateString = that.fnDateSeperator(value.Reqstartdate);
 						}
 						if (value.CreatedOn) {
-							value.CreatedOnString = that.fnDateConversionToSting(value.CreatedOn);
+							//value.CreatedOnString = that.fnDateConversionToSting(value.CreatedOn);
+							//ST:CST TO IST conversion
+							value.CreatedOnString = that.fnDateConversionToSting(formatter.fnAddTimeZoneOffset(value.CreatedOn));
 						}
 						if (value.Reqenddate) {
 							value.ReqenddateString = that.fnDateSeperator(value.Reqenddate);
 						}
 						if (value.Strmlfndate) {
-							value.Strmlfndate = that.fnDateConversionToSting(value.Strmlfndate);
+							//value.Strmlfndate = that.fnDateConversionToSting(value.Strmlfndate);
+							//ST:CST TO IST conversion
+							value.Strmlfndate = that.fnDateConversionToSting(formatter.fnAddTimeZoneOffset(value.Strmlfndate));
 						}
 						if (value.Endmlfndate) {
-							value.Endmlfndate = that.fnDateConversionToSting(value.Endmlfndate);
+							//value.Endmlfndate = that.fnDateConversionToSting(value.Endmlfndate);
+							//ST:CST TO IST conversion
+							value.Endmlfndate = that.fnDateConversionToSting(formatter.fnAddTimeZoneOffset(value.Endmlfndate));
 						}
 					});
 					//nischal 

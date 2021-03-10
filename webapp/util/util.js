@@ -2061,7 +2061,8 @@ com.sap.incture.IMO_PM.util.util = {
 		}
 		var sReqStartdate = this.formatDateobjToString(oNotifData.ReqStartdate);
 		var sReqEnddate = this.formatDateobjToString(oNotifData.ReqEnddate);
-		var sNotif_date = this.formatDateobjToString(com.sap.incture.IMO_PM.formatter.formatter.fnRemoveTimeZoneOffset(new Date()));//UTC conversion
+		//var sNotif_date = this.formatDateobjToString(new Date());
+		var sNotif_date = this.formatDateobjToString(com.sap.incture.IMO_PM.formatter.formatter.fnRemoveTimeZoneOffset(new Date()));//ST:CST conversion
 		var oObj = {
 			"Assembly": sAssembly,
 			"Breakdown": sBreakdown,
@@ -2113,9 +2114,9 @@ com.sap.incture.IMO_PM.util.util = {
 				"systemstatustext": ""
 			}],
 			"HEADERTOPARTNERNAV": [{
-				"AssignedTo": "",
+				"AssignedTo": sReportedby,
 				"Orderid": "",
-				"PARTNERNAV": "",
+				"PARTNERNAV": "C",
 				"PARTNEROLD": ""
 			}],
 			"Maintplant": "",
