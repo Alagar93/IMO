@@ -1712,17 +1712,50 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 		}
 		return bFlag;
 	},
-	fnRemoveTimeZoneOffset:function(oDate){
-		var oDupDate=new Date(oDate);
-		var TimeZoneOffset=oDupDate.getTimezoneOffset()*60000;
-		var CstDate=new Date(oDupDate.getTime()+TimeZoneOffset);
+	fnRemoveTimeZoneOffset: function (oDate) {
+		var oDupDate = new Date(oDate);
+		var TimeZoneOffset = -11.5 * 3600000;
+		var CstDate = new Date(oDupDate.getTime() + TimeZoneOffset);
 		return CstDate;
 	},
-	fnAddTimeZoneOffset:function(oDate){
-		var oDupDate=new Date(oDate);
-		var TimeZoneOffset=oDupDate.getTimezoneOffset()*60000;
-		var CstDate=new Date(oDupDate.getTime()-TimeZoneOffset);
+	fnAddTimeZoneOffset: function (oDate) {
+		var oDupDate = new Date(oDate);
+		var TimeZoneOffset = -11.5*3600000;
+		var CstDate = new Date(oDupDate.getTime() - TimeZoneOffset);
 		return CstDate;
+	},
+	fnDateToUTCString: function (oDate) {
+		var dd = oDate.getDate();
+		var MM = oDate.getMonth() + 1;
+		var yy = oDate.getFullYear();
+		if (dd < 10) {
+			dd = "0" + dd;
+		}
+		if (MM < 10) {
+			MM = "0" + MM;
+		}
+		var newDate = yy + "-" + MM + "-" + dd;
+		var hh = oDate.getHours();
+		/*	if (hh > 12) {
+
+				hh = hh % 12;
+			}*/
+		if (hh < 10) {
+			hh = "0" + hh;
+		}
+		hh = hh.toString();
+		var mi = oDate.getMinutes();
+		if (mi < 10) {
+			mi = "0" + mi;
+		}
+		mi = mi.toString();
+		var ss = oDate.getSeconds();
+		if (ss < 10) {
+			ss = "0" + ss;
+		}
+		ss = ss.toString();
+		var time1 = hh + ":" + mi + ":" + ss;
+		return newDate + "T" + time1;
 	}
 
 };
