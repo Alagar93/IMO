@@ -60,8 +60,8 @@
 				<Button text="{i18n>DETAIL_ADD_TASKS}" icon="sap-icon://add" iconFirst="true" class="sapUiSmallMarginBegin murphyWOBtn transparentBtn"
 					press="fnOpenTaskListPopup"
 					visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnSetTaskNotifBtnVisible'}"/>
-				<CheckBox text="{i18n>CREATE_WO_NOTIF}" class="checkBoxText" selected="{oWorkOrderDetailViewModel>/withNotificationCheck}"
-					enabled="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnSetCheckBoxVisible'}"/>
+				<!--<CheckBox text="{i18n>CREATE_WO_NOTIF}" class="checkBoxText" selected="{oWorkOrderDetailViewModel>/withNotificationCheck}"-->
+				<!--	enabled="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnSetCheckBoxVisible'}"/>-->
 				<ToolbarSpacer/>
 				<Button text="Print" type="Emphasized" press="onPrint" class="sapUiSmallMarginEnd"
 					visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.fnSetPrintBtnVisible'}"></Button>

@@ -88,6 +88,8 @@ sap.ui.define([
 					this.fnCreateUpdateBtnTxt("UPDATE_ORDER");
 					this.getWODetails(viewType);
 				}
+				var PMType = oWorkOrderDetailModel.getProperty("/OrderType")
+				this.getPmActTypes(PMType); // ST:PM ACT TYPE lookup
 			} else if (viewName === "detailTabWO") {
 				var oViewType = oEvent.getParameter("arguments").workOrderID;
 				util.initializeWODetailFields(oWorkOrderDetailModel, oWorkOrderDetailViewModel);
@@ -128,10 +130,13 @@ sap.ui.define([
 			var workCenter = oWorkOrderDetailModel.getProperty("/MnWkCtr");
 			var userPlant = this.oUserDetailModel.getProperty("/userPlant");
 			var ShortText = oWorkOrderDetailModel.getProperty("/ShortText");
+			// if(!workCenter){
+			// 	return;
+			// }
 			var bVal = this.addOperationMandatoryValidation();
 			if (!bVal) {
 				return;
-			}
+			}//ST: validation removed due to removed validation on Equipment
 			if (operations.length === 0) {
 				operations = [];
 				var newOperationId = this.generateOperationId(operations);
@@ -203,14 +208,14 @@ sap.ui.define([
 				oOpertionDetails.QuantityUnit = "EA";
 				oOpertionDetails.Price = "1000";
 				oOpertionDetails.Currency = "USD";
-				oOpertionDetails.MatlGroup = "S93141808";
+				oOpertionDetails.MatlGroup = "M31001000";
 				oOpertionDetails.PriceUnit = "1";
 				oOpertionDetails.PurGroup = "U43";
-				oOpertionDetails.CostElement = "60700100";
+				oOpertionDetails.CostElement = "61600100";
 				oOpertionDetails.PurchOrg = "US01";
 				oOpertionDetails.Recipient = "";
-				oOpertionDetails.Requisitioner = "6002181";
-				oOpertionDetails.VendorNo = "30001659";
+				oOpertionDetails.Requisitioner = "6000951";
+				oOpertionDetails.VendorNo = "";
 				oWorkOrderDetailViewModel.setProperty("/PreqPopupFlag", false);
 				oWorkOrderDetailViewModel.setProperty("/oControlkeyOperation", oOpertionDetails);
 				if (!this.controlKeyDialog) {
@@ -342,8 +347,8 @@ sap.ui.define([
 					oComponentDetails.PurchOrg = "US01";
 					oComponentDetails.GlAccount = "61600100";
 					oComponentDetails.Recipient = "";
-					oComponentDetails.Requisitioner = "6001911";
-					oComponentDetails.VendorNo = "33002290"
+					oComponentDetails.Requisitioner = "6000951";
+					oComponentDetails.VendorNo = ""
 					oWorkOrderDetailViewModel.setProperty("/oComponentDetails", oComponentDetails);
 					if (!this.oItemCatDialog) {
 						this.oItemCatDialog = sap.ui.xmlfragment("com.sap.incture.IMO_PM.fragment.ItemCatPRPopup", this);
@@ -363,8 +368,8 @@ sap.ui.define([
 								oComponentDetails.PurchOrg = "US01";
 								oComponentDetails.GlAccount = "61600100";
 								oComponentDetails.Recipient = "";
-								oComponentDetails.Requisitioner = "6001911";
-								oComponentDetails.VendorNo = "33002290"
+								oComponentDetails.Requisitioner = "6000951";
+								oComponentDetails.VendorNo = ""
 								oWorkOrderDetailViewModel.setProperty("/oComponentDetails", oComponentDetails);
 								if (!that.oItemCatDialog) {
 									that.oItemCatDialog = sap.ui.xmlfragment("com.sap.incture.IMO_PM.fragment.ItemCatPRPopup", that);
@@ -1496,7 +1501,7 @@ sap.ui.define([
 			var operations = oWorkOrderDetailModel.getProperty("/HEADERTOOPERATIONSNAV");
 			var workCenter = oWorkOrderDetailModel.getProperty("/MnWkCtr");
 			var userPlant = this.oUserDetailModel.getProperty("/userPlant");
-
+			
 			var bVal = this.addOperationMandatoryValidation();
 			if (!bVal) {
 				return;
@@ -4061,6 +4066,34 @@ sap.ui.define([
 			}
 			return components;
 		},
+		getPmActTypes: function (sPMType) {
+			var sUrl = "/ActTypeSet";
+			var mLookupModel = this.mLookupModel;
+			var oLookupDataModel = this.oLookupDataModel;
+			var oFilter = [];
+			if (!sPMType) {
+				sPMType = "";
+			}
+			//sPMType = "'" + sPMType.replace(/['"]+/g, '') + "'"
+			oFilter.push(new Filter("OrderType", "EQ", sPMType));
+			oLookupDataModel.read(sUrl, {
+				filters: oFilter,
+				success: function (oData) {
+					var aPmActTypeSet = oData.results;
+					mLookupModel.setProperty("/aPmActTypeSet", aPmActTypeSet);
+					mLookupModel.refresh();
+				},
+				error: function (oData) {
+					mLookupModel.setProperty("/aPmActTypeSet", []);
+					mLookupModel.refresh();
+				}
+			});
+		},
+		onPMTypeChange: function (oEvent) {
+			var sPMType = oEvent.getParameter("value");
+			this.oWorkOrderDetailModel.setProperty("/Pmacttype", "");
+			this.getPmActTypes(sPMType);
+		}
 
 	});
 });

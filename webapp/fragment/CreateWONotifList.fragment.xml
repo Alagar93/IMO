@@ -6,7 +6,7 @@
 				<l:Grid >
 					<VBox class="sapUiSmallMarginTop">
 						<Label text="{i18n>orderType}" required="true"></Label>
-						<ComboBox showSecondaryValues="true" items="{path:'mLookupModel>/aOrderTypeSet',sorter:{ path: 'text' }}"
+						<ComboBox showSecondaryValues="true" items="{path:'mLookupModel>/aOrderTypeSet',sorter:{ path: 'text' }}" change="onPMTypeChange"
 							selectedKey="{mLookupModel>/sOrderTypeSel}" class="sapInputBorderClass" width="100%">
 							<core:ListItem key="{mLookupModel>AUART}" additionalText="{mLookupModel>TXT}" text="{mLookupModel>AUART}"/>
 						</ComboBox>
@@ -34,6 +34,17 @@
 						<Label text="{i18n>mainWrkCtr}"></Label>
 						<Input value="{oNotificationDataModel>/WorkCenter}" width="100%" valueLiveUpdate="true" showValueHelp="true" showSuggestion="true"
 							enabled="false" valueHelpRequest="refNotifValueHelp" valueHelpOnly="false"></Input>
+						<layoutData>
+							<l:GridData span="XL6 L6 M6 S6"/>
+						</layoutData>
+					</VBox>
+					<!--for debugging ST-->
+					<VBox class="sapUiSmallMarginTop">
+						<Label text="{i18n>PM_ACT_Type}" required="true"></Label>
+						<Select  forceSelection="false" selectedKey="{mLookupModel>/Pmacttype}" items="{mLookupModel>/aPmActTypeSet}"
+							showSecondaryValues="true" tooltip="{mLookupModel>/Pmacttype}" width="100%">
+							<core:ListItem key="{mLookupModel>ActTypes}" text="{mLookupModel>ActTypes}" additionalText="{mLookupModel>ActDesc}"/>
+						</Select>
 						<layoutData>
 							<l:GridData span="XL6 L6 M6 S6"/>
 						</layoutData>

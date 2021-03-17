@@ -73,6 +73,13 @@ sap.ui.define([
 				},
 				success: function (oData) {
 					var notifData = oData.results[0];
+					
+					//ST:Cst to IST conversion 
+					notifData.CreatedOn=formatter.fnAddTimeZoneOffset(notifData.CreatedOn); 
+					// notifData.Strmlfndate=formatter.fnAddTimeZoneOffset(notifData.Strmlfndate); 
+					// notifData.Endmlfndate=formatter.fnAddTimeZoneOffset(notifData.Endmlfndate); 
+					// notifData.Desstdate=formatter.fnAddTimeZoneOffset(notifData.Desstdate); 
+					// notifData.Desenddate=formatter.fnAddTimeZoneOffset(notifData.Desenddate); 
 					that.resetUIFields(notifData);
 
 					that.busy.close();
@@ -90,7 +97,7 @@ sap.ui.define([
 			var mLookupModel = this.mLookupModel;
 			var oNotificationViewModel = this.oNotificationViewModel;
 			var oNotificationDataModel = this.oNotificationDataModel;
-			
+
 			util.resetCreateNotificationFieldsNotifList(oNotificationDataModel, oNotificationViewModel, mLookupModel, notifData, this);
 			var notifid = this.oNotificationDataModel.getProperty("/Notifid");
 			//this.fnsetBreakdownDur();
@@ -681,9 +688,17 @@ sap.ui.define([
 				oNotifData.Enddate = "";
 			}
 
-			oNotifData.Notif_date = formatter.formatDateobjToString(oNotifData.Notif_date);
-			oNotifData.ReqStartdate = formatter.formatDateobjToString(oNotifData.ReqStartdate);
-			oNotifData.ReqEnddate = formatter.formatDateobjToString(oNotifData.ReqEnddate);
+			// oNotifData.Notif_date = formatter.formatDateobjToString(oNotifData.Notif_date);
+			// oNotifData.ReqStartdate = formatter.formatDateobjToString(oNotifData.ReqStartdate);
+			// oNotifData.ReqEnddate = formatter.formatDateobjToString(oNotifData.ReqEnddate);
+			
+			oNotifData.ReqStartdate = formatter.formatDateobjToStringNotif(oNotifData.ReqStartdate);
+			oNotifData.ReqEnddate = formatter.formatDateobjToStringNotif(oNotifData.ReqEnddate);
+			//oNotifData.Notif_date = formatter.formatDateobjToStringNotif(new Date());
+			//ST:CST Conversion
+			// oNotifData.ReqStartdate = formatter.formatDateobjToStringNotif(formatter.fnRemoveTimeZoneOffset(oNotifData.ReqStartdate));
+			// oNotifData.ReqEnddate = formatter.formatDateobjToStringNotif(formatter.fnRemoveTimeZoneOffset(oNotifData.ReqEnddate));
+			oNotifData.Notif_date = formatter.formatDateobjToStringNotif(formatter.fnRemoveTimeZoneOffset(new Date()),true); //ST:CST Conversion
 			oNotifData.Type = "UPDATE";
 			if (oNotifData.Assembly === "NaN") {
 				oNotifData.Assembly = "";
@@ -694,12 +709,30 @@ sap.ui.define([
 				oNotifData.Breakdown = " ";
 			}
 
+			// var startTime = oNotificationViewModel.getProperty("/StartTime");
+			// if (!startTime) {
+			// 	startTime = "00:00";
+			// }
+			// var splitDate1 = oNotifData.Startdate.split("T")[0];
+			// oNotifData.Startdate = splitDate1 + "T" + startTime + ":00";
+
+			// var endTime = oNotificationViewModel.getProperty("/EndTime");
+			// if (!endTime) {
+			// 	endTime = "00:00";
+			// }
+			// if (oNotifData.Enddate !== "") {
+			// 	var splitDate2 = oNotifData.Enddate.split("T")[0];
+			// 	oNotifData.Enddate = splitDate2 + "T" + endTime + ":00";
+			// }
 			var startTime = oNotificationViewModel.getProperty("/StartTime");
 			if (!startTime) {
 				startTime = "00:00";
 			}
 			var splitDate1 = oNotifData.Startdate.split("T")[0];
-			oNotifData.Startdate = splitDate1 + "T" + startTime + ":00";
+			//oNotifData.Startdate=splitDate1 + "T" + startTime + ":00";
+			var oDupStartDateString = splitDate1 + "T" + startTime + ":00"; //CST Conversion
+			var oUTCStartDate = formatter.fnRemoveTimeZoneOffset(oDupStartDateString);
+			oNotifData.Startdate = formatter.formatDateobjToStringNotif(oUTCStartDate,true);
 
 			var endTime = oNotificationViewModel.getProperty("/EndTime");
 			if (!endTime) {
@@ -707,7 +740,11 @@ sap.ui.define([
 			}
 			if (oNotifData.Enddate !== "") {
 				var splitDate2 = oNotifData.Enddate.split("T")[0];
-				oNotifData.Enddate = splitDate2 + "T" + endTime + ":00";
+				//oNotifData.Enddate=splitDate2 + "T" + endTime + ":00";
+				var oDupdDateString = splitDate2 + "T" + endTime + ":00"; //CST Conversion
+				var oUTCEndDate = formatter.fnRemoveTimeZoneOffset(oDupdDateString);
+				oNotifData.Enddate = formatter.formatDateobjToStringNotif(oUTCEndDate,true);
+
 			}
 			var BreakdownDur = oNotificationDataModel.getProperty("/BreakdownDur");
 			if (BreakdownDur === "NaN") {
@@ -779,10 +816,30 @@ sap.ui.define([
 			} else {
 				oNotifData.Enddate = "";
 			}
-			oNotifData.Notif_date = formatter.formatDateobjToString(oNotifData.Notif_date);
-			oNotifData.ReqStartdate = formatter.formatDateobjToString(oNotifData.ReqStartdate);
-			oNotifData.ReqEnddate = formatter.formatDateobjToString(oNotifData.ReqEnddate);
-			oNotifData.Type = "RELEASE";
+			// oNotifData.Notif_date = formatter.formatDateobjToString(oNotifData.Notif_date);
+			// oNotifData.ReqStartdate = formatter.formatDateobjToString(oNotifData.ReqStartdate);
+			// oNotifData.ReqEnddate = formatter.formatDateobjToString(oNotifData.ReqEnddate);
+			oNotifData.Startdate = formatter.formatDateobjToStringNotif(oNotifData.Startdate, true);
+			//oNotifData.Enddate = formatter.formatDateobjToStringNotif(oNotifData.Enddate, false);
+			if (oNotifData.Enddate) {
+				oNotifData.Enddate = formatter.formatDateobjToStringNotif(oNotifData.Enddate, true);
+			} else {
+				oNotifData.Enddate = "";
+			}
+			oNotifData.ReqStartdate = formatter.formatDateobjToStringNotif(oNotifData.ReqStartdate);
+			oNotifData.ReqEnddate = formatter.formatDateobjToStringNotif(oNotifData.ReqEnddate);
+			//oNotifData.Notif_date = formatter.formatDateobjToStringNotif(new Date());
+			//ST:CST Conversion
+			// oNotifData.ReqStartdate = formatter.formatDateobjToStringNotif(formatter.fnRemoveTimeZoneOffset(oNotifData.ReqStartdate));
+			// oNotifData.ReqEnddate = formatter.formatDateobjToStringNotif(formatter.fnRemoveTimeZoneOffset(oNotifData.ReqEnddate));
+			oNotifData.Notif_date = formatter.formatDateobjToStringNotif(formatter.fnRemoveTimeZoneOffset(new Date()),true); //ST:CST Conversion
+			if (sVal == "revert") {
+				oNotifData.Type = "REVERT";
+			}
+			else{
+					oNotifData.Type = "APPROVE";
+			}
+		
 			if (oNotifData.Assembly === "NaN") {
 				oNotifData.Assembly = "";
 			}
@@ -792,12 +849,31 @@ sap.ui.define([
 				oNotifData.Breakdown = " ";
 			}
 
+			// var startTime = oNotificationViewModel.getProperty("/StartTime");
+			// if (!startTime) {
+			// 	startTime = "00:00";
+			// }
+			// var splitDate1 = oNotifData.Startdate.split("T")[0];
+			// oNotifData.Startdate = splitDate1 + "T" + startTime + ":00";
+
+			// var endTime = oNotificationViewModel.getProperty("/EndTime");
+			// if (!endTime) {
+			// 	endTime = "00:00";
+			// }
+			// if (oNotifData.Enddate !== "") {
+			// 	var splitDate2 = oNotifData.Enddate.split("T")[0];
+			// 	oNotifData.Enddate = splitDate2 + "T" + endTime + ":00";
+			// }
+			
 			var startTime = oNotificationViewModel.getProperty("/StartTime");
 			if (!startTime) {
 				startTime = "00:00";
 			}
 			var splitDate1 = oNotifData.Startdate.split("T")[0];
-			oNotifData.Startdate = splitDate1 + "T" + startTime + ":00";
+			//oNotifData.Startdate=splitDate1 + "T" + startTime + ":00";
+			var oDupStartDateString = splitDate1 + "T" + startTime + ":00"; //CST Conversion
+			var oUTCStartDate = formatter.fnRemoveTimeZoneOffset(oDupStartDateString);
+			oNotifData.Startdate = formatter.formatDateobjToStringNotif(oUTCStartDate,true);
 
 			var endTime = oNotificationViewModel.getProperty("/EndTime");
 			if (!endTime) {
@@ -805,7 +881,11 @@ sap.ui.define([
 			}
 			if (oNotifData.Enddate !== "") {
 				var splitDate2 = oNotifData.Enddate.split("T")[0];
-				oNotifData.Enddate = splitDate2 + "T" + endTime + ":00";
+				//oNotifData.Enddate=splitDate2 + "T" + endTime + ":00";
+				var oDupdDateString = splitDate2 + "T" + endTime + ":00"; //CST Conversion
+				var oUTCEndDate = formatter.fnRemoveTimeZoneOffset(oDupdDateString);
+				oNotifData.Enddate = formatter.formatDateobjToStringNotif(oUTCEndDate,true);
+
 			}
 			oPortalNotifOData.setHeaders({
 				"X-Requested-With": "X"
@@ -884,9 +964,18 @@ sap.ui.define([
 				/*MessageBox.error("Please enter Break DownEnd Date");*/
 				oNotifData.Enddate = "";
 			}
-			oNotifData.Notif_date = formatter.formatDateobjToString(oNotifData.Notif_date);
-			oNotifData.ReqStartdate = formatter.formatDateobjToString(oNotifData.ReqStartdate);
-			oNotifData.ReqEnddate = formatter.formatDateobjToString(oNotifData.ReqEnddate);
+			// oNotifData.Notif_date = formatter.formatDateobjToString(oNotifData.Notif_date);
+			// oNotifData.ReqStartdate = formatter.formatDateobjToString(oNotifData.ReqStartdate);
+			// oNotifData.ReqEnddate = formatter.formatDateobjToString(oNotifData.ReqEnddate);
+			
+			oNotifData.ReqStartdate = formatter.formatDateobjToStringNotif(oNotifData.ReqStartdate);
+			oNotifData.ReqEnddate = formatter.formatDateobjToStringNotif(oNotifData.ReqEnddate);
+			//oNotifData.Notif_date = formatter.formatDateobjToStringNotif(new Date());
+			//ST:CST Conversion
+			// oNotifData.ReqStartdate = formatter.formatDateobjToStringNotif(formatter.fnRemoveTimeZoneOffset(oNotifData.ReqStartdate));
+			// oNotifData.ReqEnddate = formatter.formatDateobjToStringNotif(formatter.fnRemoveTimeZoneOffset(oNotifData.ReqEnddate));
+			oNotifData.Notif_date = formatter.formatDateobjToStringNotif(formatter.fnRemoveTimeZoneOffset(new Date()),true); //ST:CST Conversion
+			
 			oNotifData.Type = "CLOSE";
 			if (oNotifData.Assembly === "NaN") {
 				oNotifData.Assembly = "";
@@ -897,12 +986,31 @@ sap.ui.define([
 				oNotifData.Breakdown = " ";
 			}
 
+			// var startTime = oNotificationViewModel.getProperty("/StartTime");
+			// if (!startTime) {
+			// 	startTime = "00:00";
+			// }
+			// var splitDate1 = oNotifData.Startdate.split("T")[0];
+			// oNotifData.Startdate = splitDate1 + "T" + startTime + ":00";
+
+			// var endTime = oNotificationViewModel.getProperty("/EndTime");
+			// if (!endTime) {
+			// 	endTime = "00:00";
+			// }
+			// if (oNotifData.Enddate !== "") {
+			// 	var splitDate2 = oNotifData.Enddate.split("T")[0];
+			// 	oNotifData.Enddate = splitDate2 + "T" + endTime + ":00";
+			// }
+			
 			var startTime = oNotificationViewModel.getProperty("/StartTime");
 			if (!startTime) {
 				startTime = "00:00";
 			}
 			var splitDate1 = oNotifData.Startdate.split("T")[0];
-			oNotifData.Startdate = splitDate1 + "T" + startTime + ":00";
+			//oNotifData.Startdate=splitDate1 + "T" + startTime + ":00";
+			var oDupStartDateString = splitDate1 + "T" + startTime + ":00"; //CST Conversion
+			var oUTCStartDate = formatter.fnRemoveTimeZoneOffset(oDupStartDateString);
+			oNotifData.Startdate = formatter.formatDateobjToStringNotif(oUTCStartDate,true);
 
 			var endTime = oNotificationViewModel.getProperty("/EndTime");
 			if (!endTime) {
@@ -910,7 +1018,11 @@ sap.ui.define([
 			}
 			if (oNotifData.Enddate !== "") {
 				var splitDate2 = oNotifData.Enddate.split("T")[0];
-				oNotifData.Enddate = splitDate2 + "T" + endTime + ":00";
+				//oNotifData.Enddate=splitDate2 + "T" + endTime + ":00";
+				var oDupdDateString = splitDate2 + "T" + endTime + ":00"; //CST Conversion
+				var oUTCEndDate = formatter.fnRemoveTimeZoneOffset(oDupdDateString);
+				oNotifData.Enddate = formatter.formatDateobjToStringNotif(oUTCEndDate,true);
+
 			}
 			oPortalNotifOData.setHeaders({
 				"X-Requested-With": "X"
@@ -1274,6 +1386,12 @@ sap.ui.define([
 		onCreateWO: function (oEvent) {
 			var that = this;
 			var sOrderType = this.mLookupModel.getProperty("/sOrderTypeSel");
+			//ST:for mcd
+			var sPMactype=this.mLookupModel.getProperty("/Pmacttype");
+			if(!sPMactype){
+				var oErrorMsg = this.oResourceModel.getText("SEL_PM_ACT_TYPE");
+				this.showMessage(oErrorMsg);
+			}
 			if (sOrderType === "" || sOrderType === null) {
 				MessageBox.warning("Work Order type is taken as PM02", {
 					onClose: function () {
@@ -1321,6 +1439,108 @@ sap.ui.define([
 				oEvent.getSource().setProperty("src", "sap-icon://grid");
 				oEvent.getSource().setAggregation("tooltip", "Open Attachments");
 			}*/
+		},
+		onPressReject: function () {
+			var that = this;
+			this.busy.open();
+			var mLookupModel = this.mLookupModel;
+			var oPortalNotifOData = this.oPortalNotifOData;
+			var oNotificationDataModel = this.oNotificationDataModel;
+			var oNotificationViewModel = this.oNotificationViewModel;
+			var oNotifData = oNotificationDataModel.getData();
+
+			var tempLongText = oNotificationViewModel.getProperty("/Longtext");
+			oNotifData.Longtext = tempLongText;
+
+			oNotifData.Startdate = formatter.formatDateobjToString(oNotifData.Startdate);
+			if (oNotifData.Enddate) {
+				oNotifData.Enddate = formatter.formatDateobjToString(oNotifData.Enddate, true);
+			} else {
+				oNotifData.Enddate = "";
+			}
+			// oNotifData.Notif_date = formatter.formatDateobjToString(oNotifData.Notif_date);
+			// oNotifData.ReqStartdate = formatter.formatDateobjToString(oNotifData.ReqStartdate);
+			// oNotifData.ReqEnddate = formatter.formatDateobjToString(oNotifData.ReqEnddate);
+			oNotifData.ReqStartdate = formatter.formatDateobjToStringNotif(oNotifData.ReqStartdate);
+			oNotifData.ReqEnddate = formatter.formatDateobjToStringNotif(oNotifData.ReqEnddate);
+			//oNotifData.Notif_date = formatter.formatDateobjToStringNotif(new Date());
+			//ST:CST Conversion
+			// oNotifData.ReqStartdate = formatter.formatDateobjToStringNotif(formatter.fnRemoveTimeZoneOffset(oNotifData.ReqStartdate));
+			// oNotifData.ReqEnddate = formatter.formatDateobjToStringNotif(formatter.fnRemoveTimeZoneOffset(oNotifData.ReqEnddate));
+			oNotifData.Notif_date = formatter.formatDateobjToStringNotif(formatter.fnRemoveTimeZoneOffset(new Date()),true); //ST:CST Conversion
+			oNotifData.Type = "REJECT";
+			if (oNotifData.Assembly === "NaN") {
+				oNotifData.Assembly = "";
+			}
+			if (oNotifData.Breakdown === true) {
+				oNotifData.Breakdown = "X";
+			} else if (oNotifData.Breakdown === false) {
+				oNotifData.Breakdown = " ";
+			}
+
+			// var startTime = oNotificationViewModel.getProperty("/StartTime");
+			// if (!startTime) {
+			// 	startTime = "00:00";
+			// }
+			// var splitDate1 = oNotifData.Startdate.split("T")[0];
+			// oNotifData.Startdate = splitDate1 + "T" + startTime + ":00";
+
+			// var endTime = oNotificationViewModel.getProperty("/EndTime");
+			// if (!endTime) {
+			// 	endTime = "00:00";
+			// }
+			// if (oNotifData.Enddate !== "") {
+			// 	var splitDate2 = oNotifData.Enddate.split("T")[0];
+			// 	oNotifData.Enddate = splitDate2 + "T" + endTime + ":00";
+			// }
+			var startTime = oNotificationViewModel.getProperty("/StartTime");
+			if (!startTime) {
+				startTime = "00:00";
+			}
+			var splitDate1 = oNotifData.Startdate.split("T")[0];
+			//oNotifData.Startdate=splitDate1 + "T" + startTime + ":00";
+			var oDupStartDateString = splitDate1 + "T" + startTime + ":00"; //CST Conversion
+			var oUTCStartDate = formatter.fnRemoveTimeZoneOffset(oDupStartDateString);
+			oNotifData.Startdate = formatter.formatDateobjToStringNotif(oUTCStartDate,true);
+
+			var endTime = oNotificationViewModel.getProperty("/EndTime");
+			if (!endTime) {
+				endTime = "00:00";
+			}
+			if (oNotifData.Enddate !== "") {
+				var splitDate2 = oNotifData.Enddate.split("T")[0];
+				//oNotifData.Enddate=splitDate2 + "T" + endTime + ":00";
+				var oDupdDateString = splitDate2 + "T" + endTime + ":00"; //CST Conversion
+				var oUTCEndDate = formatter.fnRemoveTimeZoneOffset(oDupdDateString);
+				oNotifData.Enddate = formatter.formatDateobjToStringNotif(oUTCEndDate,true);
+
+			}
+			oPortalNotifOData.setHeaders({
+				"X-Requested-With": "X"
+			});
+			oPortalNotifOData.create("/NotificationSet", oNotifData, {
+				async: false,
+				success: function (sData, oResponse) {
+					var statusCode = oResponse.statusCode;
+					var orderId = oResponse.Orderid;
+					if (statusCode == 201) {
+						MessageBox.success("Notification Rejected ", {
+							actions: [MessageBox.Action.OK],
+							emphasizedAction: MessageBox.Action.OK,
+							onClose: function (sAction) {
+								// that.getView().byId("releaseButton").setVisible(false);
+								// mLookupModel.setProperty("/SysStatus", "NOPR");
+								that.fnFetchDetailNotifList();
+							}
+						});
+					}
+
+					that.busy.close();
+				},
+				error: function (error, oResponse) {
+					that.busy.close();
+				}
+			});
 		}
 	});
 });

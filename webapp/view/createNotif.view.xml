@@ -16,7 +16,7 @@
 						<core:CustomData key="dateType" value="CREATE"/>
 					</customData>
 				</Button>
-				<Button text="{i18n>create_Wo}" press="onCreateWODialogOpen" class="tableHeadertansparentBtn" icon="sap-icon://document" iconFirst="true"/>
+				<!--<Button text="{i18n>create_Wo}" press="onCreateWODialogOpen" class="tableHeadertansparentBtn" icon="sap-icon://document" iconFirst="true"/>-->
 				<Button text="Clear" press="onClearCreateNotif" class="btnTransparent createNotifClearBtn" icon="sap-icon://decline" iconFirst="true"/>
 			</Toolbar>
 			<VBox height="{mLookupModel>/notificationPanelHeight}" class="iopRightPanelContainer"

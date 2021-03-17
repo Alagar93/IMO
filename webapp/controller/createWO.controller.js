@@ -427,13 +427,13 @@ sap.ui.define([
 			var equipment = mLookupModel.getProperty("/sEquip");
 			var priority = mLookupModel.getProperty("/sPrior");
 			if (orderType) {
-				if (equipment) {
-					if (priority) {
-						return true;
-					} else {
-						oErrorMsg = oResourceModel.getText("CREATE_SELECT_PRIORITY");
-						this.showMessage(oErrorMsg);
-					}
+				if (equipment) {// ST: Validation removed for mcd purpose
+				if (priority) {
+					return true;
+				} else {
+					oErrorMsg = oResourceModel.getText("CREATE_SELECT_PRIORITY");
+					this.showMessage(oErrorMsg);
+				}
 				} else {
 					oErrorMsg = oResourceModel.getText("CREATE_SELECT_EQUIPMENT");
 					this.showMessage(oErrorMsg);
@@ -1261,7 +1261,7 @@ sap.ui.define([
 			var sPath = oSource.getBindingContextPath();
 			var iFunLoc = mLookupModel.getProperty(sPath + "/FuncLoc");
 			mLookupModel.setProperty("/sFunLoc", iFunLoc);
-			
+
 			// oNotificationDataModel.setProperty("/FunctLoc", iFunLoc);
 			this.onCancelDialogFunLoc();
 		},

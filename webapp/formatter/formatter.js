@@ -64,7 +64,7 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 	},
 	//nischal -- Notification Detail's CreateWO button Visibility function
 	setBtnVisibleCreateOrder: function (sValue) {
-		if (sValue == "NOPR" || sValue == "APRQ NOPR") {
+		if (sValue == "NOPR" || sValue == "APOK NOPR") {
 			return true;
 		} else {
 			return false;
@@ -72,43 +72,108 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 	},
 	//nischal -- notification Detail Revert button visible
 	setBtnVisibleRevert: function (sValue) {
-		if (sValue == "NOCO" || sValue == "NOCO ORAS" || sValue == "APRQ NOCO") {
-			return true;
-		} else {
+		// if (sValue == "NOCO" || sValue == "NOCO ORAS") {
+		// 	return true;
+		// } else {
+		// 	return false;
+		// }
+		if(sValue){
+			if(sValue.includes("NOCO")){
+				return true;
+			}else{
+				return false;
+			}
+		}else{
+			return false;
+		}
+	},
+	//Sunanda--set Notification Detail reject button visible
+	setBtnVisibleReject: function (sValue) {
+		// if (sValue == "NOCO" || sValue == "NOCO ORAS" || sValue == "APRQ NOCO" || sValue == "APRQ NOCO ORAS"|| sValue == "APRF NOCO" || sValue ==
+		// 	"APRF NOCO ORAS") {
+		// 	return false;
+		// } else {
+		// 	return true;
+		// }
+	
+		if(sValue){
+			if(sValue.includes("NOCO")){
+				return false;
+			}else{
+				return true;
+			}
+		}else{
 			return false;
 		}
 	},
 	//nischal -- set Notification Detail View Enabled/Disabled based on Notification Status
 	setEnabledBasedOnStatus: function (sValue) {
-		if (sValue == "NOCO" || sValue == "NOCO ORAS" || sValue == "APRQ NOCO") {
-			return false;
-		} else {
+	// if (sValue == "NOCO" || sValue == "NOCO ORAS") {
+		// 	return false;
+		// } else {
+		// 	return true;
+		// }
+		if(sValue){
+			if(sValue.includes("NOCO")){
+				return false;
+			}else{
+				return true;
+			}
+		}else{
 			return true;
 		}
 	},
 
 	//nischal -- notificationDetail Release button visible
 	setBtnVisibleRelease: function (sValue) {
-		if (sValue == "NOPR" || sValue == "NOPR ORAS" || sValue == "NOCO" || sValue == "NOCO ORAS" || sValue == "APRQ NOCO") {
+		// if (sValue == "NOPR" || sValue == "NOPR ORAS" || sValue == "NOCO" || sValue == "NOCO ORAS" || sValue == "APRQ NOCO" || sValue ==
+		// 	"APRQ NOCO ORAS" || sValue == "APRF NOCO" || sValue == "APRF NOCO ORAS"||sValue=="APOK NOPR") {
+		// 	return false;
+		// } else {
+		// 	return true;
+		// }
+		if(sValue){
+			if(sValue.includes("OSNO") || sValue.includes("APRQ")){
+				return true;
+			}else{
+				return false;
+			}
+		}else{
 			return false;
-		} else {
-			return true;
 		}
 	},
 	//nischal -- notification Update button visible
 	setBtnVisibleUpdate: function (sValue) {
-		if (sValue == "NOCO" || sValue == "NOCO ORAS" || sValue == "APRQ NOCO") {
+		// if (sValue == "NOCO" || sValue == "NOCO ORAS") {
+		// 	return false;
+		// } else {
+		// 	return true;
+		// }
+		if(sValue){
+			if(sValue.includes("NOCO")){
+				return false;
+			}else{
+				return true;
+			}
+		}else{
 			return false;
-		} else {
-			return true;
 		}
 	},
 	//nischal -- notification close button visibility
 	setBtnVisibleClose: function (sValue) {
-		if (sValue == "NOCO" || sValue == "NOCO ORAS" || sValue == "APRQ NOCO") {
+			// if (sValue == "NOCO" || sValue == "NOCO ORAS") {
+		// 	return false;
+		// } else {
+		// 	return true;
+		// }
+		if(sValue){
+			if(sValue.includes("NOCO")){
+				return false;
+			}else{
+				return true;
+			}
+		}else{
 			return false;
-		} else {
-			return true;
 		}
 	},
 	VisiblityCNFLongText: function (operationId) {
@@ -905,7 +970,7 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 		for (var i = 0; i < selectedPaths.length; i++) {
 			var SelectedIndex = selectedPaths[i].sPath.split("/")[2];
 			var SysStatus = NotifList[SelectedIndex].SysStatus;
-			if (SysStatus !== "OSNO") {
+			if (SysStatus !== "OSNO"||SysStatus !== "APRQ OSNO"||SysStatus !== "APRQ NOPR"||SysStatus !== "APRQ NOPR ORAS" ||SysStatus !== "APRQ ORAS OSNO") {
 				bStatus = false;
 			}
 		}
@@ -920,7 +985,7 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 		for (var i = 0; i < selectedPaths.length; i++) {
 			var SelectedIndex = selectedPaths[i].sPath.split("/")[2];
 			var SysStatus = NotifList[SelectedIndex].SysStatus;
-			if (SysStatus !== "NOPR") {
+			if (SysStatus !== "NOPR"||SysStatus !== "APOK NOPR") {
 				bStatus = false;
 			}
 		}
@@ -935,7 +1000,7 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 		for (var i = 0; i < selectedPaths.length; i++) {
 			var SelectedIndex = selectedPaths[i].sPath.split("/")[2];
 			var SysStatus = NotifList[SelectedIndex].SysStatus;
-			if (SysStatus !== "OSNO") {
+			if (SysStatus !== "OSNO"||SysStatus!=="APRQ OSNO"||SysStatus!=="APRQ NOPR"||SysStatus!=="APRQ NOPR ORAS") {
 				bStatus = false;
 			}
 		}
@@ -1758,6 +1823,24 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 		ss = ss.toString();
 		var time1 = hh + ":" + mi + ":" + ss;
 		return newDate + "T" + time1;
+	},
+	fnDateSepartor:function(date){
+		var oDate = "";
+			if (date) {
+				var iYear = date.substr(0, 4);
+				var iMon = date.substr(4, 2);
+				var iDate = date.substr(6, 2);
+				oDate = iDate + "-" + iMon + "-" + iYear;
+			}
+			return oDate;
+	},
+	// },
+	fnStringtoDate:function(date){
+		var oDate;
+		if(date!==null){
+			oDate= new Date(date.split("-")[1]+"/"+date.split("-")[0]+"/"+date.split("-")[2]);
+		}
+		return oDate;
 	}
 
 };

@@ -1,7 +1,7 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" class="sapUiSizeCompact sapMPageBackground" xmlns:l="sap.ui.layout"
 	xmlns:layout="sap.ui.layout">
-	<Panel expanded="{oWorkOrderDetailViewModel>/headerDetails}" expandable="true" class="sapMPanelWOHeader sapUiTinyMarginBottom panelBackgroundClass"
-		expand="onOpenHideHeaderSections">
+	<Panel expanded="{oWorkOrderDetailViewModel>/headerDetails}" expandable="true"
+		class="sapMPanelWOHeader sapUiTinyMarginBottom panelBackgroundClass" expand="onOpenHideHeaderSections">
 		<customData>
 			<core:CustomData key="panelType" value="HEADER_DETAILS"/>
 		</customData>
@@ -29,9 +29,10 @@
 				<l:content>
 					<VBox class="sapUiTinyMarginTop">
 						<Label text="{i18n>ORDER_TYPE}" required="true"></Label>
-						<ComboBox showSecondaryValues="true" items="{path:'mLookupModel>/aOrderTypeSet',sorter:{ path: 'text' }}"
+						<ComboBox showSecondaryValues="true" items="{path:'mLookupModel>/aOrderTypeSet',sorter:{ path: 'text' }}" change="onPMTypeChange"
 							selectedKey="{oWorkOrderDetailModel>/OrderType}" class="inputRadius" tooltip="{oWorkOrderDetailModel>/OrderType}"
-							enabled="{oWODetailFieldsModel>/orderType}"  width="100%"> <!--change="getOrderTypeTasks"--> 
+							enabled="{oWODetailFieldsModel>/orderType}" width="100%">
+							<!--change="getOrderTypeTasks"-->
 							<core:ListItem key="{mLookupModel>AUART}" additionalText="{mLookupModel>TXT}" text="{mLookupModel>AUART}"/>
 							<customData>
 								<core:CustomData value="WO_DETAIL_ORDER_TYPE"/>
@@ -61,7 +62,7 @@
 					</VBox>
 					<VBox class="sapUiTinyMarginTop">
 						<Label text="{i18n>EQUIPMENT}" required="true"></Label>
-						<Input value="{oWorkOrderDetailModel>/Equipment}" maxLength="18" tooltip="{oWorkOrderDetailModel>/Equipment}" valueHelpOnly="true"
+						<Input value="{oWorkOrderDetailModel>/Equipment}" maxLength="18" tooltip="{oWorkOrderDetailModel>/Equipment}" valueHelpOnly="false"
 							enabled="{oWODetailFieldsModel>/equipment}" valueHelpRequest="equipmentValueHelp" showValueHelp="true" class="inputRadius"></Input>
 						<layoutData>
 							<l:GridData span="XL2 L2 M4 S6"/>
@@ -180,7 +181,7 @@
 						</Input>-->
 						<!--nischal Commented this code...binding is changed from mLookupModel to oWorkOrderDetailViewModel-->
 						<!--<Input value="{mLookupModel>/AssigedTechName}" enabled="false" class="inputRadius"></Input>-->
-						<Input value = "{oWorkOrderDetailViewModel>/ReportedByName}" enabled = "false" class = "inputRadius"/>
+						<Input value="{oWorkOrderDetailViewModel>/ReportedByName}" enabled="false" class="inputRadius"/>
 						<layoutData>
 							<l:GridData span="XL2 L2 M4 S6"/>
 						</layoutData>
@@ -211,6 +212,16 @@
 						<!--	</customData>-->
 						<!--</Button>-->
 						<!--</HBox>-->
+						<layoutData>
+							<l:GridData span="XL2 L2 M4 S6"/>
+						</layoutData>
+					</VBox>
+					<VBox class="sapUiTinyMarginTop">
+						<Label text="{i18n>PM_ACT_Type}" required="true"></Label>
+						<Select class="selectRadius" forceSelection="false" selectedKey="{oWorkOrderDetailModel>/Pmacttype}" items="{mLookupModel>/aPmActTypeSet}"
+							enabled="{oWODetailFieldsModel>/Pmacttype }" showSecondaryValues="true" tooltip="{oWorkOrderDetailModel>/Pmacttype}" width="100%">
+							<core:ListItem key="{mLookupModel>ActTypes}" text="{mLookupModel>ActTypes}" additionalText="{mLookupModel>ActDesc}"/>
+						</Select>
 						<layoutData>
 							<l:GridData span="XL2 L2 M4 S6"/>
 						</layoutData>

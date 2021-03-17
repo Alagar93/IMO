@@ -137,7 +137,7 @@ com.sap.incture.IMO_PM.util.util = {
 		var oReqEndDate = oWorkOrderDetailViewModel.getProperty("/oRequiredEndDate");
 
 		oWorkOrderDetailModel.setProperty("/Plant", userPlant);
-		oWorkOrderDetailModel.setProperty("/Pmacttype", "001");
+		oWorkOrderDetailModel.setProperty("/Pmacttype", "");
 		oWorkOrderDetailModel.setProperty("/NotifNo", "");
 		oWorkOrderDetailModel.setProperty("/Systcond", "");
 		oWorkOrderDetailModel.setProperty("/Maintplant", "");
@@ -266,11 +266,22 @@ com.sap.incture.IMO_PM.util.util = {
 			oErrorMsg = oResourceModel.getText("ENTER_ORDER_SHORT_DESC");
 			return [true, oErrorMsg];
 		}
-		var equipment = oWorkOrderDetailModel.getProperty("/Equipment");
-		if (!equipment) {
-			oErrorMsg = oResourceModel.getText("CREATE_SELECT_EQUIPMENT");
-			return [true, oErrorMsg];
+		// var equipment = oWorkOrderDetailModel.getProperty("/Equipment");
+		// if (!equipment) {
+		// 	oErrorMsg = oResourceModel.getText("CREATE_SELECT_EQUIPMENT");
+		// 	return [true, oErrorMsg];
+		// }
+		//ST:debugging
+		if (navType !== "WO_DETAIL_RELEASE" || navType !== "WO_DETAIL_TECHO") {
+
+		} else {
+			var equipment = oWorkOrderDetailModel.getProperty("/Equipment");
+			if (!equipment) {
+				oErrorMsg = oResourceModel.getText("CREATE_SELECT_EQUIPMENT");
+				return [true, oErrorMsg];
+			}
 		}
+
 		var functLoc = oWorkOrderDetailModel.getProperty("/FunctLoc");
 		if (!functLoc) {
 			oErrorMsg = oResourceModel.getText("ENTER_FUN_LOC");
@@ -305,6 +316,12 @@ com.sap.incture.IMO_PM.util.util = {
 		if (!planEndDate) {
 			oErrorMsg = oResourceModel.getText("SEL_PLANNED_END_DATE");
 			// oErrorMsg = "Please select Planned End Date";
+			return [true, oErrorMsg];
+		}
+		var Pmacttype = oWorkOrderDetailModel.getProperty("/Pmacttype");
+		if (!Pmacttype) {
+			oErrorMsg = oResourceModel.getText("SEL_PM_ACT_TYPE");
+
 			return [true, oErrorMsg];
 		}
 
@@ -486,6 +503,7 @@ com.sap.incture.IMO_PM.util.util = {
 		oWODetailFieldsModel.setProperty("/planEndDate", true);
 		oWODetailFieldsModel.setProperty("/assignedTo", true);
 		oWODetailFieldsModel.setProperty("/priority", true);
+		oWODetailFieldsModel.setProperty("/Pmacttype", true);
 		oWODetailFieldsModel.setProperty("/plannerGrp", true);
 		oWODetailFieldsModel.setProperty("/malFnStartDate", true);
 		oWODetailFieldsModel.setProperty("/malFnStartTime", true);
@@ -514,6 +532,7 @@ com.sap.incture.IMO_PM.util.util = {
 		oWODetailFieldsModel.setProperty("/planEndDate", true);
 		oWODetailFieldsModel.setProperty("/assignedTo", true);
 		oWODetailFieldsModel.setProperty("/priority", true);
+		oWODetailFieldsModel.setProperty("/Pmacttype", true);
 		oWODetailFieldsModel.setProperty("/plannerGrp", true);
 		oWODetailFieldsModel.setProperty("/malFnStartDate", true);
 		oWODetailFieldsModel.setProperty("/malFnStartTime", true);
@@ -542,6 +561,7 @@ com.sap.incture.IMO_PM.util.util = {
 		oWODetailFieldsModel.setProperty("/planEndDate", true);
 		oWODetailFieldsModel.setProperty("/assignedTo", true);
 		oWODetailFieldsModel.setProperty("/priority", true);
+		oWODetailFieldsModel.setProperty("/Pmacttype", true);
 		oWODetailFieldsModel.setProperty("/plannerGrp", true);
 		oWODetailFieldsModel.setProperty("/malFnStartDate", true);
 		oWODetailFieldsModel.setProperty("/malFnStartTime", true);
@@ -576,6 +596,7 @@ com.sap.incture.IMO_PM.util.util = {
 		oWODetailFieldsModel.setProperty("/planEndDate", false);
 		oWODetailFieldsModel.setProperty("/assignedTo", false);
 		oWODetailFieldsModel.setProperty("/priority", false);
+		oWODetailFieldsModel.setProperty("/Pmacttype", false);
 		oWODetailFieldsModel.setProperty("/plannerGrp", false);
 		oWODetailFieldsModel.setProperty("/malFnStartDate", false);
 		oWODetailFieldsModel.setProperty("/malFnStartTime", false);
@@ -750,10 +771,16 @@ com.sap.incture.IMO_PM.util.util = {
 		mLookupModel.setProperty("/SysStatus", oSelectedRow.SysStatus); //nischal - system status was not present
 		mLookupModel.setProperty("/Userstatus", oSelectedRow.Userstatus); //nischal -- user status was not pesent
 		oNotificationDataModel.refresh();
-		// Malfunction Enddate verification
-		// if (oSelectedRow.Endmlfndate.getFullYear() === 9999) {
-		// 	oNotificationDataModel.setProperty("/Enddate", null);
-		// }
+		//Malfunction Enddate verification
+		var oDupDate;
+		if (typeof (oSelectedRow.Endmlfndate) == "string") {
+			oDupDate = com.sap.incture.IMO_PM.formatter.formatter.fnStringtoDate(oSelectedRow.Endmlfndate);
+		} else {
+			oDupDate = oSelectedRow.Endmlfndate;
+		}
+		if (oDupDate.getFullYear() === 9999) {
+			oNotificationDataModel.setProperty("/Enddate", null);
+		}
 
 		mLookupModel.setProperty("/sCatelogProf", oSelectedRow.Rbnr);
 		// oController.fnFilterSlectedDamageGroup();
@@ -778,6 +805,24 @@ com.sap.incture.IMO_PM.util.util = {
 		} else {
 			strmlfntime = hours + ":" + minutes;
 		}
+		//CST to IST conversion
+		if (typeof (oSelectedRow.Strmlfndate) == "string") {
+			oDupDate = com.sap.incture.IMO_PM.formatter.formatter.fnStringtoDate(oSelectedRow.Strmlfndate);
+		} else {
+			oDupDate = oSelectedRow.Strmlfndate;
+		}
+
+		var oDupStartDate = com.sap.incture.IMO_PM.formatter.formatter.fnDateToUTCString(oDupDate).split("T")[0];
+		var oDupStartDatetime = com.sap.incture.IMO_PM.formatter.formatter.fnAddTimeZoneOffset(oDupStartDate + "T" + strmlfntime + ":00");
+		var hrs = oDupStartDatetime.getHours();
+		var mins = oDupStartDatetime.getMinutes();
+		if (hrs < 10) {
+			hrs = "0" + hrs;
+		}
+		if (mins < 10) {
+			mins = "0" + mins;
+		}
+		strmlfntime = hrs + ":" + mins;
 
 		// If the malfunction end date is not present
 		var endmlfntime = oSelectedRow.Endmlfntime.ms;
@@ -796,6 +841,22 @@ com.sap.incture.IMO_PM.util.util = {
 			} else {
 				endmlfntime = hours + ":" + minutes;
 			}
+			if (typeof (oSelectedRow.Endmlfndate) == "string") {
+				oDupDate = com.sap.incture.IMO_PM.formatter.formatter.fnStringtoDate(oSelectedRow.Endmlfndate);
+			} else {
+				oDupDate = oSelectedRow.Endmlfndate;
+			}
+			var oDupEndDate = com.sap.incture.IMO_PM.formatter.formatter.fnDateToUTCString(oDupDate).split("T")[0];
+			var oDupEndDatetime = com.sap.incture.IMO_PM.formatter.formatter.fnAddTimeZoneOffset(oDupEndDate + "T" + endmlfntime + ":00");
+			var hrs = oDupEndDatetime.getHours();
+			var mins = oDupEndDatetime.getMinutes();
+			if (hrs < 10) {
+				hrs = "0" + hrs;
+			}
+			if (mins < 10) {
+				mins = "0" + mins;
+			}
+			endmlfntime = hrs + ":" + mins;
 		} else {
 			endmlfntime = "";
 		}
@@ -2053,6 +2114,7 @@ com.sap.incture.IMO_PM.util.util = {
 		var sStartdate = sData.Startdate;
 		var sWorkCenter = sData.WorkCenter;
 		var sOrderType = mLookupModel.getProperty("/sOrderTypeSel");
+		var sPMacttype = mLookupModel.getProperty("/Pmacttype");
 		var sStartdate = this.formatDateobjToString(oNotifData.Startdate, true);
 
 		var sEnddate = oNotifData.Enddate;
@@ -2062,7 +2124,7 @@ com.sap.incture.IMO_PM.util.util = {
 		var sReqStartdate = this.formatDateobjToString(oNotifData.ReqStartdate);
 		var sReqEnddate = this.formatDateobjToString(oNotifData.ReqEnddate);
 		//var sNotif_date = this.formatDateobjToString(new Date());
-		var sNotif_date = this.formatDateobjToString(com.sap.incture.IMO_PM.formatter.formatter.fnRemoveTimeZoneOffset(new Date()));//ST:CST conversion
+		var sNotif_date = this.formatDateobjToString(com.sap.incture.IMO_PM.formatter.formatter.fnRemoveTimeZoneOffset(new Date())); //ST:CST conversion
 		var oObj = {
 			"Assembly": sAssembly,
 			"Breakdown": sBreakdown,
@@ -2089,7 +2151,7 @@ com.sap.incture.IMO_PM.util.util = {
 				"ShortText": sShortText
 			}],
 			"HEADERTOOPERATIONSNAV": [{
-				"Activity": "0010",
+				"Activity": "0020",
 				"Acttype": "",
 				"Assembly": "",
 				"BusArea": "",
@@ -2114,9 +2176,9 @@ com.sap.incture.IMO_PM.util.util = {
 				"systemstatustext": ""
 			}],
 			"HEADERTOPARTNERNAV": [{
-				"AssignedTo": sReportedby,
+				"AssignedTo": "",
 				"Orderid": "",
-				"PARTNERNAV": "C",
+				"PARTNERNAV": "",
 				"PARTNEROLD": ""
 			}],
 			"Maintplant": "",
@@ -2131,7 +2193,7 @@ com.sap.incture.IMO_PM.util.util = {
 			"Plangroup": sPlangroup,
 			"Planplant": sPlanPlant,
 			"Plant": sPlanPlant,
-			"Pmacttype": "001",
+			"Pmacttype": sPMacttype, // for mcd system ST:
 			"Priority": sPriority,
 			"ReportedBy": sReportedby,
 			"ShortText": sShortText,

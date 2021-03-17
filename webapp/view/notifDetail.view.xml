@@ -19,6 +19,8 @@
 				<Button text="{i18n>close_notif}" id="idcloseNotif" press="fnSaveandCloseNotif" class="tableHeadertansparentBtn"
 					visible="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setBtnVisibleClose'}"
 					icon="sap-icon://decline" iconFirst="true"/>
+				<Button text="{i18n>REJECT}" id="rejectButton" class="tableHeadertansparentBtn" press="onPressReject"
+					visible="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setBtnVisibleReject'}"/>
 				<Button text="{i18n>revert_Notif}" id="idrevertNotif" class="tableHeadertansparentBtn" press="onRevertNotif"
 					visible="{path:'mLookupModel>/SysStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setBtnVisibleRevert'}"/>
 				<!--<ToolbarSpacer/>-->

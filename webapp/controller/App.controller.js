@@ -60,7 +60,7 @@ sap.ui.define([
 					mLookupModel.setProperty("/userRole", oData.Role);
 					//mLookupModel.setProperty("/userPlant", oData.UserPlant);
 					mLookupModel.setProperty("/userPlant", "US02");
-					that.fnInitializeLaunchView();
+					//that.fnInitializeLaunchView();
 				},
 				error: function (oData) {
 					mLookupModel.setProperty("/userName", "");

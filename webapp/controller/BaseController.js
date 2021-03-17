@@ -1045,6 +1045,7 @@ sap.ui.define([
 					that.fnFilterCNFOperations(true);
 					that.getDamageGroupCode("", oData.Damagecode);
 					that.getCauseGroupCode("", oData.Causecode);
+					that.getPmActTypes(oData.OrderType);
 					oWorkOrderDetailModel.refresh(true);
 					////////TO show PR num////
 
@@ -3947,6 +3948,45 @@ sap.ui.define([
 					that.busy.close();
 				}
 			});
+		},
+		onSearchFnLocs: function (oEvent) {
+			var aFilters = [];
+			var sQuery = oEvent.getSource().getValue();
+			var oList = sap.ui.core.Fragment.byId("idFunctionalLocationFrag", "idFunLocListTable");
+			var oBinding = oList.getBinding("items");
+			if (sQuery && sQuery.length > 0) {
+				var filter = new Filter("FuncLoc", FilterOperator.Contains, sQuery);
+				aFilters.push(filter);
+			}
+			oBinding.filter(aFilters);
+		},
+		getPmActTypes: function (sPMType) {
+			var sUrl = "/ActTypeSet";
+			var mLookupModel = this.mLookupModel;
+			var oLookupDataModel = this.oLookupDataModel;
+			var oFilter = [];
+			if (!sPMType) {
+				sPMType = "";
+			}
+			//sPMType = "'" + sPMType.replace(/['"]+/g, '') + "'"
+			oFilter.push(new Filter("OrderType", "EQ", sPMType));
+			oLookupDataModel.read(sUrl, {
+				filters: oFilter,
+				success: function (oData) {
+					var aPmActTypeSet = oData.results;
+					mLookupModel.setProperty("/aPmActTypeSet", aPmActTypeSet);
+					mLookupModel.refresh();
+				},
+				error: function (oData) {
+					mLookupModel.setProperty("/aPmActTypeSet", []);
+					mLookupModel.refresh();
+				}
+			});
+		},
+		onPMTypeChange: function (oEvent) {
+			var sPMType = oEvent.getParameter("value");
+			this.oWorkOrderDetailModel.setProperty("/Pmacttype", "");
+			this.getPmActTypes(sPMType);
 		}
 
 	});

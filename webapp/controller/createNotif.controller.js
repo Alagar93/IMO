@@ -517,13 +517,13 @@ sap.ui.define([
 			} else {
 				oNotifData.Enddate = "";
 			}
-			// oNotifData.ReqStartdate = formatter.formatDateobjToStringNotif(oNotifData.ReqStartdate);
-			// oNotifData.ReqEnddate = formatter.formatDateobjToStringNotif(oNotifData.ReqEnddate);
+			oNotifData.ReqStartdate = formatter.formatDateobjToStringNotif(oNotifData.ReqStartdate);
+			oNotifData.ReqEnddate = formatter.formatDateobjToStringNotif(oNotifData.ReqEnddate);
 			//oNotifData.Notif_date = formatter.formatDateobjToStringNotif(new Date());
 			//ST:CST Conversion
-			oNotifData.ReqStartdate = formatter.formatDateobjToStringNotif(formatter.fnRemoveTimeZoneOffset(oNotifData.ReqStartdate));
-			oNotifData.ReqEnddate = formatter.formatDateobjToStringNotif(formatter.fnRemoveTimeZoneOffset(oNotifData.ReqEnddate));
-			oNotifData.Notif_date = formatter.formatDateobjToStringNotif(formatter.fnRemoveTimeZoneOffset(new Date())); //ST:CST Conversion
+			// oNotifData.ReqStartdate = formatter.formatDateobjToStringNotif(formatter.fnRemoveTimeZoneOffset(oNotifData.ReqStartdate));
+			// oNotifData.ReqEnddate = formatter.formatDateobjToStringNotif(formatter.fnRemoveTimeZoneOffset(oNotifData.ReqEnddate));
+			oNotifData.Notif_date = formatter.formatDateobjToStringNotif(formatter.fnRemoveTimeZoneOffset(new Date()),true); //ST:CST Conversion
 			oNotifData.Type = "CREATE";
 			if (oNotifData.Assembly === "NaN") {
 				oNotifData.Assembly = "";
@@ -538,7 +538,7 @@ sap.ui.define([
 			//oNotifData.Startdate=splitDate1 + "T" + startTime + ":00";
 			var oDupStartDateString = splitDate1 + "T" + startTime + ":00"; //CST Conversion
 			var oUTCStartDate = formatter.fnRemoveTimeZoneOffset(oDupStartDateString);
-			oNotifData.Startdate = formatter.formatDateobjToStringNotif(oUTCStartDate);
+			oNotifData.Startdate = formatter.formatDateobjToStringNotif(oUTCStartDate,true);
 
 			var endTime = oNotificationViewModel.getProperty("/EndTime");
 			if (!endTime) {
@@ -549,7 +549,7 @@ sap.ui.define([
 				//oNotifData.Enddate=splitDate2 + "T" + endTime + ":00";
 				var oDupdDateString = splitDate2 + "T" + endTime + ":00"; //CST Conversion
 				var oUTCEndDate = formatter.fnRemoveTimeZoneOffset(oDupdDateString);
-				oNotifData.Enddate = formatter.formatDateobjToStringNotif(oUTCEndDate);
+				oNotifData.Enddate = formatter.formatDateobjToStringNotif(oUTCEndDate,true);
 
 			}
 
@@ -621,12 +621,12 @@ sap.ui.define([
 				oNotifData.Enddate = "";
 			}
 			//
-			// oNotifData.ReqStartdate = formatter.formatDateobjToStringNotif(oNotifData.ReqStartdate);
-			// oNotifData.ReqEnddate = formatter.formatDateobjToStringNotif(oNotifData.ReqEnddate);
+			oNotifData.ReqStartdate = formatter.formatDateobjToStringNotif(oNotifData.ReqStartdate);
+			oNotifData.ReqEnddate = formatter.formatDateobjToStringNotif(oNotifData.ReqEnddate);
 			//oNotifData.Notif_date = formatter.formatDateobjToStringNotif(new Date());
 			 //ST:CST Conversion
-			oNotifData.ReqStartdate = formatter.formatDateobjToStringNotif(formatter.fnRemoveTimeZoneOffset(oNotifData.ReqStartdate));
-			oNotifData.ReqEnddate = formatter.formatDateobjToStringNotif(formatter.fnRemoveTimeZoneOffset(oNotifData.ReqEnddate));
+			// oNotifData.ReqStartdate = formatter.formatDateobjToStringNotif(formatter.fnRemoveTimeZoneOffset(oNotifData.ReqStartdate));
+			// oNotifData.ReqEnddate = formatter.formatDateobjToStringNotif(formatter.fnRemoveTimeZoneOffset(oNotifData.ReqEnddate));
 			oNotifData.Notif_date = formatter.formatDateobjToStringNotif(formatter.fnRemoveTimeZoneOffset(new Date()));
 
 			oNotifData.Type = "CREATE";

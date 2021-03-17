@@ -273,9 +273,9 @@
 						<Text wrapping="true" text="{i18n>Action}" class="tableHeaderText"/>
 						<table:template>
 							<HBox justifyContent="Center">
-								<Button icon="sap-icon://flag" press="onPressReleaseRowNotif" tooltip="Release" visible="{=${mLookupModel>SysStatus}==='OSNO'?true:false}" type="Transparent"/>
+								<Button icon="sap-icon://flag" press="onPressReleaseRowNotif" tooltip="Release" visible="{path:'mLookupModel>SysStatus',formatter:'com.sap.incture.IMO_PM.formatter.formatter.setBtnVisibleRelease'}" type="Transparent"/>
 								<Button icon="sap-icon://SAP-icons-TNT/data" press="onPressCreateRowNotif" tooltip="Create Order"
-									visible="{=${mLookupModel>SysStatus}==='NOPR'?true:false}" type="Transparent"/>
+									visible="{path:'mLookupModel>SysStatus',formatter:'com.sap.incture.IMO_PM.formatter.formatter.setBtnVisibleCreateOrder'}" type="Transparent"/>
 							</HBox>
 						</table:template>
 					</table:Column>

@@ -498,7 +498,7 @@ sap.ui.define([
 					"Priority": aSelectedWOs[j].Priority,
 					"ReportedBy": aSelectedWOs[j].EnteredByName,
 					"Plant": aSelectedWOs[j].Plant,
-					"Pmacttype": "001",
+					"Pmacttype": aSelectedWOs[j].Pmacttype,
 					"NotifNo": aSelectedWOs[j].NotifNo,
 					"Systcond": aSelectedWOs[j].Systcond,
 					"Maintplant": aSelectedWOs[j].Maintplant,
