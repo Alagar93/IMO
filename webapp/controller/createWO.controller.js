@@ -427,13 +427,13 @@ sap.ui.define([
 			var equipment = mLookupModel.getProperty("/sEquip");
 			var priority = mLookupModel.getProperty("/sPrior");
 			if (orderType) {
-				if (equipment) {// ST: Validation removed for mcd purpose
-				if (priority) {
-					return true;
-				} else {
-					oErrorMsg = oResourceModel.getText("CREATE_SELECT_PRIORITY");
-					this.showMessage(oErrorMsg);
-				}
+				if (equipment) { // ST: Validation removed for mcd purpose
+					if (priority) {
+						return true;
+					} else {
+						oErrorMsg = oResourceModel.getText("CREATE_SELECT_PRIORITY");
+						this.showMessage(oErrorMsg);
+					}
 				} else {
 					oErrorMsg = oResourceModel.getText("CREATE_SELECT_EQUIPMENT");
 					this.showMessage(oErrorMsg);
@@ -667,17 +667,23 @@ sap.ui.define([
 				}));
 				oFilter.push(new Filter("Descriptn", "EQ", sNotifIDDesFilter));
 				//oFilter.push(new Filter("SysStatus", "EQ",sNotifStatusFilter ));
-				if (sNotifStatusFilter === "") {
-					oFilter.push(new Filter({
-						filters: [new Filter("SysStatus", "EQ", "OSNO"),
-							new Filter("SysStatus", "EQ", "NOPR")
-						],
-						and: false
-					}));
-				} else {
-					oFilter.push(new Filter("SysStatus", "EQ", sNotifStatusFilter));
-				}
-				oFilter.push(new Filter("Userstatus", "EQ", sUnAssignedWOFlag));
+				// if (sNotifStatusFilter === "") {
+				// 	oFilter.push(new Filter({
+				// 		filters: [new Filter("SysStatus", "EQ", "OSNO"),
+				// 			new Filter("SysStatus", "EQ", "NOPR")
+				// 		],
+				// 		and: false
+				// 	}));
+				// } else {
+				// 	oFilter.push(new Filter("SysStatus", "EQ", sNotifStatusFilter));
+				// }
+				oFilter.push(new Filter({
+					filters: [new Filter("SysStatus", "EQ", "APOK NOPR"),
+						new Filter("SysStatus", "EQ", "NOPR")
+					],
+					and: false
+				}));
+				//oFilter.push(new Filter("Userstatus", "EQ", true));
 				oFilter.push(new Filter("NotifNo", "EQ", sNotifIdFilter));
 				oFilter.push(new Filter("Equipment", "EQ", sNotifEquipFilter));
 				oFilter.push(new Filter("Bdflag", "EQ", sNotifBDFilter));

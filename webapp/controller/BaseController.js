@@ -1705,12 +1705,15 @@ sap.ui.define([
 			});
 		},
 		//Function to get Notification list
-		getNotificationList: function (searchNotifVal) {
+		getNotificationList: function (searchNotifVal, notifStatus) {
 			var oNotifVal = "";
 			if (typeof (searchNotifVal) === "object") {
 				oNotifVal = "";
 			} else {
 				oNotifVal = searchNotifVal;
+			}
+			if (notifStatus === null || notifStatus === undefined) {
+				notifStatus = "";
 			}
 			var that = this;
 			this.busy.open();
@@ -1722,8 +1725,11 @@ sap.ui.define([
 				var oPortalDataModel = this.oPortalDataModel;
 				var userPlant = this.oUserDetailModel.getProperty("/userPlant");
 				oFilter.push(new Filter("Descriptn", "EQ", oNotifVal));
-				oFilter.push(new Filter("Userstatus", "EQ", true));
 				oFilter.push(new Filter("plant", "EQ", userPlant));
+				if (notifStatus !== "") {
+					oFilter.push(new Filter("Userstatus", "EQ", true));
+				}
+				oFilter.push(new Filter("SysStatus", "EQ", notifStatus));
 				oPortalDataModel.read(sUrl, {
 					filters: oFilter,
 					urlParameters: {

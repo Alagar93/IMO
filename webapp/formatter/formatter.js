@@ -970,8 +970,11 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 		for (var i = 0; i < selectedPaths.length; i++) {
 			var SelectedIndex = selectedPaths[i].sPath.split("/")[2];
 			var SysStatus = NotifList[SelectedIndex].SysStatus;
-			if (SysStatus !== "OSNO"||SysStatus !== "APRQ OSNO"||SysStatus !== "APRQ NOPR"||SysStatus !== "APRQ NOPR ORAS" ||SysStatus !== "APRQ ORAS OSNO") {
-				bStatus = false;
+			if (SysStatus === "OSNO"||SysStatus=== "APRQ OSNO"||SysStatus === "APRQ NOPR"||SysStatus === "APRQ NOPR ORAS" ||SysStatus === "APRQ ORAS OSNO") {
+				bStatus = true;
+			}
+			else{
+				bStatus=false;
 			}
 		}
 		return bStatus;
@@ -985,8 +988,11 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 		for (var i = 0; i < selectedPaths.length; i++) {
 			var SelectedIndex = selectedPaths[i].sPath.split("/")[2];
 			var SysStatus = NotifList[SelectedIndex].SysStatus;
-			if (SysStatus !== "NOPR"||SysStatus !== "APOK NOPR") {
-				bStatus = false;
+			if (SysStatus === "NOPR"||SysStatus === "APOK NOPR") {
+				bStatus = true;
+			}
+			else{
+				bStatus=false;
 			}
 		}
 		return bStatus;

@@ -562,14 +562,17 @@ sap.ui.define([
 
 			oNotifData.Startdate = formatter.formatDateobjToString(oNotifData.Startdate);
 			if (oNotifData.Enddate) {
-				oNotifData.Enddate = formatter.formatDateobjToString(oNotifData.Enddate);
+				oNotifData.Enddate = formatter.formatDateobjToStringNotif(oNotifData.Enddate, true);
 			} else {
 				oNotifData.Enddate = "";
 			}
-
-			oNotifData.Notif_date = formatter.formatDateobjToString(oNotifData.Notif_date);
-			oNotifData.ReqStartdate = formatter.formatDateobjToString(oNotifData.ReqStartdate);
-			oNotifData.ReqEnddate = formatter.formatDateobjToString(oNotifData.ReqEnddate);
+			oNotifData.ReqStartdate = formatter.formatDateobjToStringNotif(oNotifData.ReqStartdate);
+			oNotifData.ReqEnddate = formatter.formatDateobjToStringNotif(oNotifData.ReqEnddate);
+			//oNotifData.Notif_date = formatter.formatDateobjToStringNotif(new Date());
+			//ST:CST Conversion
+			// oNotifData.ReqStartdate = formatter.formatDateobjToStringNotif(formatter.fnRemoveTimeZoneOffset(oNotifData.ReqStartdate));
+			// oNotifData.ReqEnddate = formatter.formatDateobjToStringNotif(formatter.fnRemoveTimeZoneOffset(oNotifData.ReqEnddate));
+			oNotifData.Notif_date = formatter.formatDateobjToStringNotif(formatter.fnRemoveTimeZoneOffset(new Date()),true); //ST:CST Conversion
 			oNotifData.Type = "APPROVE";
 			if (oNotifData.Breakdown === true) {
 				oNotifData.Breakdown = "X";
@@ -582,14 +585,23 @@ sap.ui.define([
 				startTime = "00:00";
 			}
 			var splitDate1 = oNotifData.Startdate.split("T")[0];
-			oNotifData.Startdate = splitDate1 + "T" + startTime + ":00";
+			//oNotifData.Startdate=splitDate1 + "T" + startTime + ":00";
+			var oDupStartDateString = splitDate1 + "T" + startTime + ":00"; //CST Conversion
+			var oUTCStartDate = formatter.fnRemoveTimeZoneOffset(oDupStartDateString);
+			oNotifData.Startdate = formatter.formatDateobjToStringNotif(oUTCStartDate,true);
 
 			var endTime = oNotificationViewModel.getProperty("/EndTime");
 			if (!endTime) {
 				endTime = "00:00";
 			}
-			var splitDate2 = oNotifData.Enddate.split("T")[0];
-			oNotifData.Enddate = splitDate2 + "T" + endTime + ":00";
+			if (oNotifData.Enddate !== "") {
+				var splitDate2 = oNotifData.Enddate.split("T")[0];
+				//oNotifData.Enddate=splitDate2 + "T" + endTime + ":00";
+				var oDupdDateString = splitDate2 + "T" + endTime + ":00"; //CST Conversion
+				var oUTCEndDate = formatter.fnRemoveTimeZoneOffset(oDupdDateString);
+				oNotifData.Enddate = formatter.formatDateobjToStringNotif(oUTCEndDate,true);
+
+			}
 			oPortalNotifOData.setHeaders({
 				"X-Requested-With": "X"
 			});

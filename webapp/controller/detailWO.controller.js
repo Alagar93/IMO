@@ -2675,7 +2675,7 @@ sap.ui.define([
 		//Function to open Notification list pop-up
 		onOpenNotificationPopup: function () {
 			this.oWorkOrderDetailViewModel.setProperty("/selectedNotifications", []);
-			this.getNotificationList("");
+			this.getNotificationList("","APRQ NOPR");
 			if (!this.notificationsList) {
 				this.notificationsList = sap.ui.xmlfragment("com.sap.incture.IMO_PM.fragment.notificationsList", this);
 				this.getView().addDependent(this.notificationsList);

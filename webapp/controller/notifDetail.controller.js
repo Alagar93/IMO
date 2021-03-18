@@ -350,6 +350,15 @@ sap.ui.define([
 			if (!endTime) {
 				endTime = "00:00";
 			}
+			var hrs=parseInt(endTime.split(":")[0],10);
+			var mms=parseInt(endTime.split(":")[1],10)                ;
+			if(hrs<10){
+				hrs="0"+hrs;
+			}
+			if(mms<10){
+				mms="0+mms";
+			}
+			endTime=hrs+":"+mms;
 			if (fieldType === "Startdate" || fieldType === "Enddate") {
 				if (fieldType === "Startdate") {
 					var planEndDate = oNotificationDataModel.getProperty("/Enddate");
@@ -738,6 +747,15 @@ sap.ui.define([
 			if (!endTime) {
 				endTime = "00:00";
 			}
+			var hrs=parseInt(endTime.split(":")[0],10);
+			var mms=parseInt(endTime.split(":")[1],10)                ;
+			if(hrs<10){
+				hrs="0"+hrs;
+			}
+			if(mms<10){
+				mms="0+mms";
+			}
+			endTime=hrs+":"+mms;
 			if (oNotifData.Enddate !== "") {
 				var splitDate2 = oNotifData.Enddate.split("T")[0];
 				//oNotifData.Enddate=splitDate2 + "T" + endTime + ":00";
@@ -879,6 +897,15 @@ sap.ui.define([
 			if (!endTime) {
 				endTime = "00:00";
 			}
+			var hrs=parseInt(endTime.split(":")[0],10);
+			var mms=parseInt(endTime.split(":")[1],10)                ;
+			if(hrs<10){
+				hrs="0"+hrs;
+			}
+			if(mms<10){
+				mms="0+mms";
+			}
+			endTime=hrs+":"+mms;
 			if (oNotifData.Enddate !== "") {
 				var splitDate2 = oNotifData.Enddate.split("T")[0];
 				//oNotifData.Enddate=splitDate2 + "T" + endTime + ":00";
@@ -1016,6 +1043,15 @@ sap.ui.define([
 			if (!endTime) {
 				endTime = "00:00";
 			}
+			var hrs=parseInt(endTime.split(":")[0],10);
+			var mms=parseInt(endTime.split(":")[1],10)                ;
+			if(hrs<10){
+				hrs="0"+hrs;
+			}
+			if(mms<10){
+				mms="0+mms";
+			}
+			endTime=hrs+":"+mms;
 			if (oNotifData.Enddate !== "") {
 				var splitDate2 = oNotifData.Enddate.split("T")[0];
 				//oNotifData.Enddate=splitDate2 + "T" + endTime + ":00";
@@ -1507,6 +1543,15 @@ sap.ui.define([
 			if (!endTime) {
 				endTime = "00:00";
 			}
+			var hrs=parseInt(endTime.split(":")[0],10);
+			var mms=parseInt(endTime.split(":")[1],10)                ;
+			if(hrs<10){
+				hrs="0"+hrs;
+			}
+			if(mms<10){
+				mms="0+mms";
+			}
+			endTime=hrs+":"+mms;
 			if (oNotifData.Enddate !== "") {
 				var splitDate2 = oNotifData.Enddate.split("T")[0];
 				//oNotifData.Enddate=splitDate2 + "T" + endTime + ":00";

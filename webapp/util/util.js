@@ -779,7 +779,8 @@ com.sap.incture.IMO_PM.util.util = {
 			oDupDate = oSelectedRow.Endmlfndate;
 		}
 		if (oDupDate.getFullYear() === 9999) {
-			oNotificationDataModel.setProperty("/Enddate", null);
+			oDupDate=null;
+			oNotificationDataModel.setProperty("/Enddate", oDupDate);
 		}
 
 		mLookupModel.setProperty("/sCatelogProf", oSelectedRow.Rbnr);
@@ -823,10 +824,12 @@ com.sap.incture.IMO_PM.util.util = {
 			mins = "0" + mins;
 		}
 		strmlfntime = hrs + ":" + mins;
+		oNotificationDataModel.setProperty("/Startdate",oDupStartDatetime);
 
 		// If the malfunction end date is not present
 		var endmlfntime = oSelectedRow.Endmlfntime.ms;
-		if (endmlfntime !== 0) {
+		oDupDate=oNotificationDataModel.getProperty("/Enddate");
+		if (endmlfntime !== 0&&oDupDate!==null) {
 			var milliseconds = parseInt(endmlfntime, 10);
 			var hours = Math.floor(milliseconds / 3600000);
 			if (hours < 10) {
@@ -857,6 +860,8 @@ com.sap.incture.IMO_PM.util.util = {
 				mins = "0" + mins;
 			}
 			endmlfntime = hrs + ":" + mins;
+			
+			oNotificationDataModel.setProperty("/Enddate",oDupEndDatetime);
 		} else {
 			endmlfntime = "";
 		}
