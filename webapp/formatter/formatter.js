@@ -77,13 +77,13 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 		// } else {
 		// 	return false;
 		// }
-		if(sValue){
-			if(sValue.includes("NOCO")){
+		if (sValue) {
+			if (sValue.includes("NOCO")) {
 				return true;
-			}else{
+			} else {
 				return false;
 			}
-		}else{
+		} else {
 			return false;
 		}
 	},
@@ -95,31 +95,31 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 		// } else {
 		// 	return true;
 		// }
-	
-		if(sValue){
-			if(sValue.includes("NOCO")){
+
+		if (sValue) {
+			if (sValue.includes("NOCO")) {
 				return false;
-			}else{
+			} else {
 				return true;
 			}
-		}else{
+		} else {
 			return false;
 		}
 	},
 	//nischal -- set Notification Detail View Enabled/Disabled based on Notification Status
 	setEnabledBasedOnStatus: function (sValue) {
-	// if (sValue == "NOCO" || sValue == "NOCO ORAS") {
+		// if (sValue == "NOCO" || sValue == "NOCO ORAS") {
 		// 	return false;
 		// } else {
 		// 	return true;
 		// }
-		if(sValue){
-			if(sValue.includes("NOCO")){
+		if (sValue) {
+			if (sValue.includes("NOCO")) {
 				return false;
-			}else{
+			} else {
 				return true;
 			}
-		}else{
+		} else {
 			return true;
 		}
 	},
@@ -132,13 +132,13 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 		// } else {
 		// 	return true;
 		// }
-		if(sValue){
-			if(sValue.includes("OSNO") || sValue.includes("APRQ")){
+		if (sValue) {
+			if ((sValue.includes("OSNO") || sValue.includes("APRQ")) && !sValue.includes("NOCO")) {
 				return true;
-			}else{
+			} else {
 				return false;
 			}
-		}else{
+		} else {
 			return false;
 		}
 	},
@@ -149,30 +149,30 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 		// } else {
 		// 	return true;
 		// }
-		if(sValue){
-			if(sValue.includes("NOCO")){
+		if (sValue) {
+			if (sValue.includes("NOCO")) {
 				return false;
-			}else{
+			} else {
 				return true;
 			}
-		}else{
+		} else {
 			return false;
 		}
 	},
 	//nischal -- notification close button visibility
 	setBtnVisibleClose: function (sValue) {
-			// if (sValue == "NOCO" || sValue == "NOCO ORAS") {
+		// if (sValue == "NOCO" || sValue == "NOCO ORAS") {
 		// 	return false;
 		// } else {
 		// 	return true;
 		// }
-		if(sValue){
-			if(sValue.includes("NOCO")){
+		if (sValue) {
+			if (sValue.includes("NOCO")) {
 				return false;
-			}else{
+			} else {
 				return true;
 			}
-		}else{
+		} else {
 			return false;
 		}
 	},
@@ -970,11 +970,11 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 		for (var i = 0; i < selectedPaths.length; i++) {
 			var SelectedIndex = selectedPaths[i].sPath.split("/")[2];
 			var SysStatus = NotifList[SelectedIndex].SysStatus;
-			if (SysStatus === "OSNO"||SysStatus=== "APRQ OSNO"||SysStatus === "APRQ NOPR"||SysStatus === "APRQ NOPR ORAS" ||SysStatus === "APRQ ORAS OSNO") {
+			if (SysStatus === "OSNO" || SysStatus === "APRQ OSNO" || SysStatus === "APRQ NOPR" || SysStatus === "APRQ NOPR ORAS" || SysStatus ===
+				"APRQ ORAS OSNO") {
 				bStatus = true;
-			}
-			else{
-				bStatus=false;
+			} else {
+				bStatus = false;
 			}
 		}
 		return bStatus;
@@ -988,11 +988,10 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 		for (var i = 0; i < selectedPaths.length; i++) {
 			var SelectedIndex = selectedPaths[i].sPath.split("/")[2];
 			var SysStatus = NotifList[SelectedIndex].SysStatus;
-			if (SysStatus === "NOPR"||SysStatus === "APOK NOPR") {
+			if (SysStatus === "NOPR" || SysStatus === "APOK NOPR") {
 				bStatus = true;
-			}
-			else{
-				bStatus=false;
+			} else {
+				bStatus = false;
 			}
 		}
 		return bStatus;
@@ -1006,7 +1005,7 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 		for (var i = 0; i < selectedPaths.length; i++) {
 			var SelectedIndex = selectedPaths[i].sPath.split("/")[2];
 			var SysStatus = NotifList[SelectedIndex].SysStatus;
-			if (SysStatus !== "OSNO"||SysStatus!=="APRQ OSNO"||SysStatus!=="APRQ NOPR"||SysStatus!=="APRQ NOPR ORAS") {
+			if (SysStatus !== "OSNO" || SysStatus !== "APRQ OSNO" || SysStatus !== "APRQ NOPR" || SysStatus !== "APRQ NOPR ORAS") {
 				bStatus = false;
 			}
 		}
@@ -1830,21 +1829,21 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 		var time1 = hh + ":" + mi + ":" + ss;
 		return newDate + "T" + time1;
 	},
-	fnDateSepartor:function(date){
+	fnDateSepartor: function (date) {
 		var oDate = "";
-			if (date) {
-				var iYear = date.substr(0, 4);
-				var iMon = date.substr(4, 2);
-				var iDate = date.substr(6, 2);
-				oDate = iDate + "-" + iMon + "-" + iYear;
-			}
-			return oDate;
+		if (date) {
+			var iYear = date.substr(0, 4);
+			var iMon = date.substr(4, 2);
+			var iDate = date.substr(6, 2);
+			oDate = iDate + "-" + iMon + "-" + iYear;
+		}
+		return oDate;
 	},
 	// },
-	fnStringtoDate:function(date){
+	fnStringtoDate: function (date) {
 		var oDate;
-		if(date!==null){
-			oDate= new Date(date.split("-")[1]+"/"+date.split("-")[0]+"/"+date.split("-")[2]);
+		if (date !== null) {
+			oDate = new Date(date.split("-")[1] + "/" + date.split("-")[0] + "/" + date.split("-")[2]);
 		}
 		return oDate;
 	}

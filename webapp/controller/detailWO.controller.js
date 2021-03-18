@@ -1181,7 +1181,7 @@ sap.ui.define([
 						if (sData.HEADERTONOTIFNAV.length===0 && woCreateNavType === "WO_DETAIL_CREATE") {  //ST:changed due to HEADERTONOTIFNAV
 							var sNotifNo = sData.HEADERTONOTIFNAV.results[0].NotifNo;
 							var oNotifMessage = {
-								"Message": "Notification Created Successfully with Notification ID " + sNotifNo,
+								"Message": "Notification linked Successfully with Notification ID " + sNotifNo, //ST: removed create with notification for now
 								"Status": "S"
 							};
 							messages.push(oNotifMessage);

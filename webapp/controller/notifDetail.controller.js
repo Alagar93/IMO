@@ -593,6 +593,8 @@ sap.ui.define([
 				this.fnGetNotifAttachmentLinks(notifid);
 				this.showMessage(oResourceModel.getText("docuploadsuccess"));
 			} else {
+				// this.fnGetNotifAttachmentLinks(notifid);
+				// this.showMessage(oResourceModel.getText("docuploadsuccess"));
 				this.showMessage(oResourceModel.getText("errinuploadfile"));
 			}
 			// var oFileUploader = sap.ui.core.Fragment.byId("idRightAttachmentPanel", "MYLAN_CREATE_Notif_FILEUPLOADER");

@@ -111,9 +111,9 @@
 					</Panel>
 					<Toolbar class="tableHeaderBG" height="3rem">
 						<!--<ToolbarSpacer/>-->
-						<Button class="tableHeadertansparentBtn" icon="sap-icon://write-new-document" iconFirst="true" text="{i18n>assign}" press="onAssignWO" tooltip="Create Mass Order"
-								visible="{path:'oUserDetailModel>/userRole', formatter:'com.sap.incture.IMO_PM.formatter.formatter.disableReviewField'}" 
-								enabled="{parts:['mLookupModel>/iSelectedIndices','mLookupModel>/selectedNotifs','mLookupModel>/aNotificationListSet'],formatter:'com.sap.incture.IMO_PM.formatter.formatter.disableAssignWOField'}"/>
+						<!--<Button class="tableHeadertansparentBtn" icon="sap-icon://write-new-document" iconFirst="true" text="{i18n>assign}" press="onAssignWO" tooltip="Create Mass Order"-->
+						<!--		visible="{path:'oUserDetailModel>/userRole', formatter:'com.sap.incture.IMO_PM.formatter.formatter.disableReviewField'}" -->
+						<!--		enabled="{parts:['mLookupModel>/iSelectedIndices','mLookupModel>/selectedNotifs','mLookupModel>/aNotificationListSet'],formatter:'com.sap.incture.IMO_PM.formatter.formatter.disableAssignWOField'}"/>-->
 						<Button class="tableHeadertansparentBtn" text="{i18n>viewDetail}" enabled="{= ${mLookupModel>/iSelectedIndices} === 1 ? true: false}" press="onNotifDetail"/>
 						<Button class="tableHeadertansparentBtn" text="{i18n>Notif_List_Create_Mass_WO}" press="onPressCreateMassWO"
 								visible="{parts:['mLookupModel>/iSelectedIndices','mLookupModel>/selectedNotifs','mLookupModel>/aNotificationListSet'],formatter:'com.sap.incture.IMO_PM.formatter.formatter.disableMassCreateField'}"/>
