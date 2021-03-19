@@ -4023,11 +4023,13 @@ sap.ui.define([
 					success: function (oData) {
 						var oTempData = oData.results[0];
 						aHeaderOp.StText = oTempData.StText;
-						aHeaderOp.Description = oTempData.ShortText;
+						//aHeaderOp.Description = oTempData.ShortText;// limit the length os description from UI
 						aHeaderOp.LongText = oTempData.LongText;
 						if (aHeaderOp.OperCode === "N") {
 							aHeaderOp.OperCode = "U";
 						}
+						aHeaderOp.Description=oTempData.ShortText.substring(0,39);
+						
 						oWorkOrderDetailViewModel.setProperty("/operationLongTxt", oTempData.LongText);
 						oWorkOrderDetailModel.setProperty(sOpPath, aHeaderOp);
 						oWorkOrderDetailModel.refresh();
