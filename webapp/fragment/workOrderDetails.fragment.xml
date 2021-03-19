@@ -8,14 +8,14 @@
 							visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setAddRemoveVisible'}"></Button>
 						<Button text="{i18n>FINAL_CONFIRMATION}" type="Accept" icon="sap-icon://sys-enter" iconFirst="true" press="fnFullyConfirmOperation"
 							class="transparentBtn" enabled="{oWorkOrderDetailViewModel>/bConfFlag}"
-							visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setWOReleaseFieldsVisible'}">
+							visible="{parts:['oWorkOrderDetailModel>/OrderStatus','oWorkOrderDetailViewModel>/visibleOperationComment','oWorkOrderDetailModel>/HEADERTOOPERATIONSNAV'], formatter:'com.sap.incture.IMO_PM.formatter.formatter.setWOReleaseFieldsVisible'}">
 							<customData>
 								<core:CustomData key="dateType" value="WO_DETAIL_OPERATION_FINAL_CONFIRM"/>
 							</customData>
 						</Button>
 						<Button text="{i18n>CONFIRMATION}" press="fnConfirmOperation" icon="sap-icon://sys-enter" iconFirst="true"
 							class="partialConfirmBtn transparentBtn" enabled="{oWorkOrderDetailViewModel>/bConfFlag}"
-							visible="{path:'oWorkOrderDetailModel>/OrderStatus', formatter:'com.sap.incture.IMO_PM.formatter.formatter.setWOReleaseFieldsVisible'}">
+							visible="{parts:['oWorkOrderDetailModel>/OrderStatus','oWorkOrderDetailViewModel>/visibleOperationComment','oWorkOrderDetailModel>/HEADERTOOPERATIONSNAV'], formatter:'com.sap.incture.IMO_PM.formatter.formatter.setWOReleaseFieldsVisible'}">
 							<customData>
 								<core:CustomData key="dateType" value="WO_DETAIL_OPERATION_CONFIRM"/>
 							</customData>

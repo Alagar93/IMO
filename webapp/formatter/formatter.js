@@ -1031,7 +1031,7 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 
 	},
 	//Function to set visible of fields on WO Release [View: WorkOrder Detail]
-	setWOReleaseFieldsVisible: function (systemStatus, operationCommentVisible) {
+	setWOReleaseFieldsVisible: function (systemStatus, operationCommentVisible, operations) {
 		var bVal = false;
 		if (systemStatus === "") {
 			bVal = false;
@@ -1040,7 +1040,18 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 		} else if (systemStatus === "PCNF") {
 			bVal = true;
 		} else if (systemStatus === "CNF") {
-			bVal = false;
+			if (operations) {
+				for (var i = 0; i < operations.length; i++) {
+					var operationStatus = operations[i].systemstatustext;
+					if (operationStatus !== "CNF") {
+						bVal = true;
+					} else {
+						bVal = false;
+					}
+				}
+			}else{
+				bVal=false;
+			}
 		} else if (systemStatus === "REL") {
 			if (operationCommentVisible === true) {
 				bVal = true;
