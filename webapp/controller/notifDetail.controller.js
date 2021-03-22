@@ -755,7 +755,7 @@ sap.ui.define([
 				hrs="0"+hrs;
 			}
 			if(mms<10){
-				mms="0+mms";
+				mms="0"+mms;
 			}
 			endTime=hrs+":"+mms;
 			if (oNotifData.Enddate !== "") {
