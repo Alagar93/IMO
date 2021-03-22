@@ -436,8 +436,8 @@ sap.ui.define([
 			// }));
 			//ST:CST conversion
 			oFilter.push(new Filter({
-				filters: [new Filter("CreatedOn", "GE", formatter.fnRemoveTimeZoneOffset(formatter.fnDatewithTimezoneoffset(sCreatedOnStart))),
-					new Filter("CreatedOn", "LE", formatter.fnRemoveTimeZoneOffset(formatter.fnDatewithTimezoneoffset(sCreatedOnEnd)))
+				filters: [new Filter("CreatedOn", "GE", formatter.fnDatewithTimezoneoffset(sCreatedOnStart)),
+					new Filter("CreatedOn", "LE", formatter.fnDatewithTimezoneoffset(sCreatedOnEnd))
 				],
 				and: true
 			}));

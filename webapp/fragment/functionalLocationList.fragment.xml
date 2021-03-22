@@ -2,9 +2,10 @@
 	xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" class="sapUiSizeCompact">
 	<Dialog title="{i18n>Dialog_title_funLoc}" contentWidth="35%" verticalScrolling="false" class="dialogHeader sapUiSizeCompact">
 		<content>
-			<SearchField liveChange="onSearchFnLocs" width="90%" class="sapUiTinyMargin sapSearchFieldBorderClass"/>
+			<SearchField search="onSearchFnLocs" width="90%" class="sapUiTinyMargin sapSearchFieldBorderClass" value="{mLookupModel>/FnLocSearch}"/>
 			<ScrollContainer height="20rem" vertical="true" horizontal="false" focusable="false" class="sapUiTinyMargin">
-				<Table sticky="ColumnHeaders" mode="SingleSelectLeft" selectionChange="onFnLocSelect" growing="true" growingThreshold = "7" id ="idFunLocListTable" items="{path: 'mLookupModel>/aFnLocsList'}" class="tableCellNoBorder TableHeaderWhiteBG">
+				<Table sticky="ColumnHeaders" mode="SingleSelectLeft" selectionChange="onFnLocSelect" growing="false" id="idFunLocListTable"
+					items="{path: 'mLookupModel>/aFnLocsList'}" class="tableCellNoBorder TableHeaderWhiteBG">
 					<columns>
 						<Column>
 							<Text text="{i18n>FUN_LOC}"/>
@@ -18,10 +19,15 @@
 						</ColumnListItem>
 					</items>
 				</Table>
+				<Toolbar>
+					<ToolbarSpacer/>
+					<Link class="sapUiSmallMarginEnd" text="{i18n>LOAD_MORE}" press="handleLoadFnLocs"/>
+				</Toolbar>
 			</ScrollContainer>
 		</content>
 		<beginButton>
-			<Button text="{i18n>CANCEL}" press="onCancelDialogFunLoc" class="transparentBtn createNotifClearBtn" icon="sap-icon://decline" iconFirst="true"/>
+			<Button text="{i18n>CANCEL}" press="onCancelDialogFunLoc" class="transparentBtn createNotifClearBtn" icon="sap-icon://decline"
+				iconFirst="true"/>
 		</beginButton>
 		<!--<endButton>-->
 		<!--	<Button text="{i18n>SEARCH}" press="onSearchWOFilter" type="Emphasized"/>-->

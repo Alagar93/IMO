@@ -4,7 +4,7 @@
 		<!--<Page title="Change Corrective Maintenance Order" showHeader="true" class="whiteBG">-->
 		<content>
 			<ScrollContainer height="20rem" vertical="true" focusable="false" class="sapUiSmallMarginTop">
-				<Table sticky="ColumnHeaders" mode="SingleSelectLeft" selectionChange="onSelectShortTextKey" growing="false"
+				<Table sticky="ColumnHeaders" mode="SingleSelectLeft" selectionChange="onSelectShortTextKey" growing="true" growingThreshold="10"
 					items="{path: 'mLookupModel>/aShortTextKey'}" class="tableCellNoBorder TableHeaderWhiteBG">
 					<columns>
 						<Column>

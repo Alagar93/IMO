@@ -482,6 +482,12 @@ sap.ui.define([
 			var mLookupModel = this.mLookupModel;
 			// var oPortalDataModel = this.oPortalDataModel;
 			var userPlant = this.oUserDetailModel.getProperty("/userPlant");
+
+			var FnLocSearch = this.mLookupModel.getProperty("/FnLocSearch");
+			if (!FnLocSearch) {
+				FnLocSearch = "";
+			}
+			FnLocSearch = "'" + FnLocSearch.replace(/['"]+/g, '') + "'";
 			//ST:pagination for functional location
 			var aFnLocsList = mLookupModel.getProperty("/aFnLocsList");
 
@@ -496,14 +502,16 @@ sap.ui.define([
 				mLookupModel.setProperty("/iTopFnLoc", iTopFnLoc);
 			}
 			var oFilter = [];
-			oFilter.push(new Filter("plant", "EQ", userPlant));
+			//oFilter.push(new Filter("plant", "EQ", userPlant));
 			// oFilter.push(new Filter("Tidnr", "EQ", TechId.toUpperCase()));
 			// filters: oFilter,
+			oFilter.push(new Filter("FuncLoc ", "EQ", FnLocSearch));
 			oLookupDataModel.read("/FuncLocationSet", {
 				urlParameters: {
 					"$top": iTopFnLoc,
 					"$skip": iSkipFnLoc
 				},
+				filters: oFilter,
 				success: function (oData) {
 					aFnLocsList = oData.results;
 					if (iSkipFnLoc !== 0) {
@@ -3974,17 +3982,17 @@ sap.ui.define([
 				}
 			});
 		},
-		onSearchFnLocs: function (oEvent) {
-			var aFilters = [];
-			var sQuery = oEvent.getSource().getValue();
-			var oList = sap.ui.core.Fragment.byId("idFunctionalLocationFrag", "idFunLocListTable");
-			var oBinding = oList.getBinding("items");
-			if (sQuery && sQuery.length > 0) {
-				var filter = new Filter("FuncLoc", FilterOperator.Contains, sQuery);
-				aFilters.push(filter);
-			}
-			oBinding.filter(aFilters);
-		},
+		// onSearchFnLocs: function (oEvent) {
+		// 	var aFilters = [];
+		// 	var sQuery = oEvent.getSource().getValue();
+		// 	var oList = sap.ui.core.Fragment.byId("idFunctionalLocationFrag", "idFunLocListTable");
+		// 	var oBinding = oList.getBinding("items");
+		// 	if (sQuery && sQuery.length > 0) {
+		// 		var filter = new Filter("FuncLoc", FilterOperator.Contains, sQuery);
+		// 		aFilters.push(filter);
+		// 	}
+		// 	oBinding.filter(aFilters);
+		// },
 		getPmActTypes: function (sPMType) {
 			var sUrl = "/ActTypeSet";
 			var mLookupModel = this.mLookupModel;
@@ -4018,6 +4026,11 @@ sap.ui.define([
 			var iSkipFnLocs = mLookupModel.getProperty("/iSkipFnLoc");
 			iSkipFnLocs = iSkipFnLocs + 10;
 			mLookupModel.setProperty("/iSkipFnLoc", iSkipFnLocs);
+			this.getFnLocs();
+		},
+		onSearchFnLocs: function (oEvent) {
+			var sQuery = oEvent.getSource().getValue();
+			this.mLookupModel.setProperty("/FnLocSearch", sQuery);
 			this.getFnLocs();
 		}
 
