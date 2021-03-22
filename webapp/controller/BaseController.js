@@ -482,14 +482,33 @@ sap.ui.define([
 			var mLookupModel = this.mLookupModel;
 			// var oPortalDataModel = this.oPortalDataModel;
 			var userPlant = this.oUserDetailModel.getProperty("/userPlant");
+			//ST:pagination for functional location
+			var aFnLocsList = mLookupModel.getProperty("/aFnLocsList");
 
+			var iSkipFnLoc = mLookupModel.getProperty("/iSkipFnLoc");
+			var iTopFnLoc = mLookupModel.getProperty("/iTopFnLoc");
+			if (!iSkipFnLoc && iSkipFnLoc !== 0) {
+				iSkipFnLoc = 0;
+				mLookupModel.setProperty("/iSkipFnLoc", iSkipFnLoc);
+			}
+			if (!iTopFnLoc && iTopFnLoc !== 0) {
+				iTopFnLoc = 10;
+				mLookupModel.setProperty("/iTopFnLoc", iTopFnLoc);
+			}
 			var oFilter = [];
 			oFilter.push(new Filter("plant", "EQ", userPlant));
 			// oFilter.push(new Filter("Tidnr", "EQ", TechId.toUpperCase()));
 			// filters: oFilter,
 			oLookupDataModel.read("/FuncLocationSet", {
+				urlParameters: {
+					"$top": iTopFnLoc,
+					"$skip": iSkipFnLoc
+				},
 				success: function (oData) {
-					var aFnLocsList = oData.results;
+					aFnLocsList = oData.results;
+					if (iSkipFnLoc !== 0) {
+						aFnLocsList = aFnLocsList.concat(mLookupModel.getProperty("/aFnLocsList"));
+					}
 					mLookupModel.setProperty("/aFnLocsList", aFnLocsList);
 					mLookupModel.refresh();
 					that.busy.close();
@@ -3993,6 +4012,13 @@ sap.ui.define([
 			var sPMType = oEvent.getParameter("value");
 			this.oWorkOrderDetailModel.setProperty("/Pmacttype", "");
 			this.getPmActTypes(sPMType);
+		},
+		handleLoadFnLocs: function () {
+			var mLookupModel = this.mLookupModel;
+			var iSkipFnLocs = mLookupModel.getProperty("/iSkipFnLoc");
+			iSkipFnLocs = iSkipFnLocs + 10;
+			mLookupModel.setProperty("/iSkipFnLoc", iSkipFnLocs);
+			this.getFnLocs();
 		}
 
 	});

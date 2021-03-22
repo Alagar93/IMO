@@ -786,6 +786,9 @@ sap.ui.define([
 			this.functionalLocationListDialog.open();
 		},
 		onCancelDialogFunLoc: function () {
+			var mLookupModel = this.mLookupModel;
+			var iSkipFnLocs = 0;
+			mLookupModel.setProperty("/iSkipFnLoc", iSkipFnLocs);
 			this.functionalLocationListDialog.close();
 			this.functionalLocationListDialog.destroy();
 			this.functionalLocationListDialog = null;
