@@ -8,11 +8,11 @@
 						<l:Grid defaultSpan="L6 M6 S12">
 							<VBox>
 								<Label text="{i18n>TECHNICAL_ID}" class="sapUiTinyMarginTop"></Label>
-								<Input class="inputRadius" placeholder="{i18n>TECH_ID_PLACEHOLDER}" submit="onSearchEquipments" value="{oNotificationViewModel>/TechId}" width="100%"></Input>
+								<Input class="inputRadius" placeholder="{i18n>TECH_ID_PLACEHOLDER}" submit="onSearchEquipments" value="{mLookupModel>/TechId}" width="100%"></Input>
 							</VBox>
 							<VBox>
 								<Label text="{i18n>EQUIPMENT_ID}" class="sapUiTinyMarginTop"></Label>
-								<Input class="inputRadius" placeholder="{i18n>SEARCH_EQUIP_PLACEHOLDER}" submit="onSearchEquipments" value="{oNotificationViewModel>/EqIdDes}"></Input>
+								<Input class="inputRadius" placeholder="{i18n>SEARCH_EQUIP_PLACEHOLDER}" submit="onSearchEquipments" value="{mLookupModel>/EqIdDes}"></Input>
 							</VBox>
 						</l:Grid>
 						<ScrollContainer height="20rem" vertical="true" focusable="false" class="sapUiSmallMarginTop">

@@ -136,7 +136,7 @@ sap.ui.define([
 			var bVal = this.addOperationMandatoryValidation();
 			if (!bVal) {
 				return;
-			}//ST: validation removed due to removed validation on Equipment
+			} //ST: validation removed due to removed validation on Equipment
 			if (operations.length === 0) {
 				operations = [];
 				var newOperationId = this.generateOperationId(operations);
@@ -1006,7 +1006,7 @@ sap.ui.define([
 					oWorkOrderDetailViewModel.setProperty("/HEADERTOPARTNERNAV/0/AssignedTo", uiAssignedTo);
 					oWorkOrderDetailViewModel.setProperty("/HEADERTOPARTNERNAV/0/PARTNEROLD", assignedTo);
 				}
-				if(uiPartnerNav===""){
+				if (uiPartnerNav === "") {
 					oWorkOrderDetailViewModel.setProperty("/HEADERTOPARTNERNAV/0/PARTNERNAV", "C");
 					oWorkOrderDetailViewModel.setProperty("/HEADERTOPARTNERNAV/0/AssignedTo", uiAssignedTo);
 					oWorkOrderDetailViewModel.setProperty("/HEADERTOPARTNERNAV/0/PARTNEROLD", assignedTo);
@@ -1089,6 +1089,15 @@ sap.ui.define([
 				oConfirmTexts = that.getConfirmLongText(operationsList, oWorkOrderData.Orderid);
 				oWorkOrderDetailViewModel.setProperty("/listOperationCommentsDto", oConfirmTexts);
 				operationsList = this.setOperationSet(operationsList, "PCNF");
+				
+				
+				///Hardcoding for PM03
+				for (var i = 0; i < operationsList.length; i++) {
+					if (operationsList[i].ControlKey==="PM03"){
+						operationsList[i].CostElement="";         
+					}
+				}
+				///
 				oWorkOrderData.HEADERTOOPERATIONSNAV = operationsList;
 				oWorkOrderData.SetOrderStatus = "PCNF";
 			} else if (woCreateNavType === "WO_DETAIL_OPERATION_FINAL_CONFIRM") {
@@ -1096,6 +1105,14 @@ sap.ui.define([
 				oConfirmTexts = that.getConfirmLongText(oOperationsList, oWorkOrderData.Orderid);
 				oWorkOrderDetailViewModel.setProperty("/listOperationCommentsDto", oConfirmTexts);
 				oOperationsList = this.setOperationSet(oOperationsList, "CNF");
+
+				///Hardcoding for PM03
+				for (var i = 0; i < oOperationsList.length; i++) {
+					if (oOperationsList[i].ControlKey==="PM03"){
+						oOperationsList[i].CostElement="";         
+					}
+				}
+				///
 				oWorkOrderData.HEADERTOOPERATIONSNAV = oOperationsList;
 				oWorkOrderData.SetOrderStatus = "CNF";
 			}
@@ -1178,7 +1195,7 @@ sap.ui.define([
 							break;
 						}
 						messages[0].Message = successErrMsg;
-						if (sData.HEADERTONOTIFNAV.length===0 && woCreateNavType === "WO_DETAIL_CREATE") {  //ST:changed due to HEADERTONOTIFNAV
+						if (sData.HEADERTONOTIFNAV.length === 0 && woCreateNavType === "WO_DETAIL_CREATE") { //ST:changed due to HEADERTONOTIFNAV
 							var sNotifNo = sData.HEADERTONOTIFNAV.results[0].NotifNo;
 							var oNotifMessage = {
 								"Message": "Notification linked Successfully with Notification ID " + sNotifNo, //ST: removed create with notification for now
@@ -1501,7 +1518,7 @@ sap.ui.define([
 			var operations = oWorkOrderDetailModel.getProperty("/HEADERTOOPERATIONSNAV");
 			var workCenter = oWorkOrderDetailModel.getProperty("/MnWkCtr");
 			var userPlant = this.oUserDetailModel.getProperty("/userPlant");
-			
+
 			var bVal = this.addOperationMandatoryValidation();
 			if (!bVal) {
 				return;
@@ -2026,7 +2043,7 @@ sap.ui.define([
 			var spareParts = oWorkOrderDetailModel.getProperty("/HEADERTOCOMPONENTNAV");
 			var userPlant = this.oUserDetailModel.getProperty("/userPlant");
 			var sEquipId = oWorkOrderDetailModel.getProperty("/Equipment");
-			this.getMaterialsList("", "", true);//ST: to fetch all the materials
+			this.getMaterialsList("", "", true); //ST: to fetch all the materials
 			if (!spareParts) {
 				spareParts = [];
 			}
@@ -2675,7 +2692,7 @@ sap.ui.define([
 		//Function to open Notification list pop-up
 		onOpenNotificationPopup: function () {
 			this.oWorkOrderDetailViewModel.setProperty("/selectedNotifications", []);
-			this.getNotificationList("","APOK NOPR");
+			this.getNotificationList("", "APOK NOPR");
 			if (!this.notificationsList) {
 				this.notificationsList = sap.ui.xmlfragment("com.sap.incture.IMO_PM.fragment.notificationsList", this);
 				this.getView().addDependent(this.notificationsList);
@@ -4028,8 +4045,8 @@ sap.ui.define([
 						if (aHeaderOp.OperCode === "N") {
 							aHeaderOp.OperCode = "U";
 						}
-						aHeaderOp.Description=oTempData.ShortText.substring(0,39);
-						
+						aHeaderOp.Description = oTempData.ShortText.substring(0, 39);
+
 						oWorkOrderDetailViewModel.setProperty("/operationLongTxt", oTempData.LongText);
 						oWorkOrderDetailModel.setProperty(sOpPath, aHeaderOp);
 						oWorkOrderDetailModel.refresh();

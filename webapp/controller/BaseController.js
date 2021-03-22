@@ -487,6 +487,9 @@ sap.ui.define([
 			if (!FnLocSearch) {
 				FnLocSearch = "";
 			}
+			else{
+				this.busy.open();
+			}
 			FnLocSearch = "'" + FnLocSearch.replace(/['"]+/g, '') + "'";
 			//ST:pagination for functional location
 			var aFnLocsList = mLookupModel.getProperty("/aFnLocsList");
@@ -505,7 +508,7 @@ sap.ui.define([
 			//oFilter.push(new Filter("plant", "EQ", userPlant));
 			// oFilter.push(new Filter("Tidnr", "EQ", TechId.toUpperCase()));
 			// filters: oFilter,
-			oFilter.push(new Filter("FuncLoc ", "EQ", FnLocSearch));
+			oFilter.push(new Filter("FuncLoc ", "EQ", FnLocSearch.toUpperCase()));
 			oLookupDataModel.read("/FuncLocationSet", {
 				urlParameters: {
 					"$top": iTopFnLoc,
