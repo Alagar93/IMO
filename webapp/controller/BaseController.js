@@ -1950,8 +1950,18 @@ sap.ui.define([
 					EqIdDes = "";
 				}
 			}
-			var userPlant = this.oUserDetailModel.getProperty("/userPlant");
+			var userPlant = this.mLookupModel.getProperty("/userPlant");
 
+			var iSkipEquip = mLookupModel.getProperty("/iSkipEquip");
+			var iTopEquip = mLookupModel.getProperty("/iTopEquip");
+			if (!iSkipEquip && iSkipEquip !== 0) {
+				iSkipEquip = 0;
+				mLookupModel.setProperty("/iSkipEquip", iSkipEquip);
+			}
+			if (!iTopEquip && iTopEquip !== 0) {
+				iTopEquip = 50;
+				mLookupModel.setProperty("/iTopEquip", iTopEquip);
+			}
 			var oFilter = [];
 			oFilter.push(new Filter("Equnr", "EQ", EqIdDes.toUpperCase()));
 			oFilter.push(new Filter("Tidnr", "EQ", TechId.toUpperCase()));
@@ -1960,8 +1970,15 @@ sap.ui.define([
 
 			oPortalDataModel.read("/EquipmentDetailsSet", {
 				filters: oFilter,
+				urlParameters: {
+					"$top": iTopEquip,
+					"$skip": iSkipEquip
+				},
 				success: function (oData, oResponse) {
 					var aEquipmentsList = oData.results;
+					if (iSkipEquip !== 0) {
+						aEquipmentsList = aEquipmentsList.concat(mLookupModel.getProperty("/aEquipmentsList"));
+					}
 					mLookupModel.setProperty("/aEquipmentsList", aEquipmentsList);
 					if (isFromGetDetail) {
 						var oWorkOrderDetailViewModel = that.oWorkOrderDetailViewModel;
@@ -2849,18 +2866,35 @@ sap.ui.define([
 			if (!EqIdDes) {
 				EqIdDes = "";
 			}
+			var iSkipEquip = mLookupModel.getProperty("/iSkipEquip");
+			var iTopEquip = mLookupModel.getProperty("/iTopEquip");
+			if (!iSkipEquip && iSkipEquip !== 0) {
+				iSkipEquip = 0;
+				mLookupModel.setProperty("/iSkipEquip", iSkipEquip);
+			}
+			if (!iTopEquip && iTopEquip !== 0) {
+				iTopEquip = 50;
+				mLookupModel.setProperty("/iTopEquip", iTopEquip);
+			}
 
 			var oFilter = [];
 			oFilter.push(new Filter("Equnr", "EQ", EqIdDes.toUpperCase()));
 			oFilter.push(new Filter("Tidnr", "EQ", TechId.toUpperCase()));
 			oFilter.push(new Filter("Eqktu", "EQ", EqIdDes.toUpperCase()));
-			var userPlant = this.oUserDetailModel.getProperty("/userPlant");
+			var userPlant = this.mLookupModel.getProperty("/userPlant");
 			oFilter.push(new Filter("plant", "EQ", userPlant));
 
 			oPortalDataModel.read("/EquipmentDetailsSet", {
 				filters: oFilter,
+				urlParameters: {
+					"$top": iTopEquip,
+					"$skip": iSkipEquip
+				},
 				success: function (oData, oResponse) {
 					var aEquipmentsList = oData.results;
+					if (iSkipEquip !== 0) {
+						aEquipmentsList = aEquipmentsList.concat(mLookupModel.getProperty("/aEquipmentsList"));
+					}
 					mLookupModel.setProperty("/aEquipmentsList", aEquipmentsList);
 					that.busy.close();
 				},
@@ -4032,6 +4066,13 @@ sap.ui.define([
 			var sQuery = oEvent.getSource().getValue();
 			this.mLookupModel.setProperty("/FnLocSearch", sQuery);
 			this.getFnLocs();
+		},
+		handleLoadEquips: function () {
+			var mLookupModel = this.mLookupModel;
+			var iSkipEquip = mLookupModel.getProperty("/iSkipEquip");
+			iSkipEquip = iSkipEquip + 10;
+			mLookupModel.setProperty("/iSkipEquip", iSkipEquip);
+			this.onSearchEquipments("", false);
 		}
 
 	});

@@ -156,44 +156,45 @@ sap.ui.define([
 		},
 
 		onCancelDialogEquip: function (oEvent) {
+			this.mLookupModel.setProperty("/iSkipEquip",0);
 			this.equipmentsListDialog.close();
 		},
 
 		//Function to get Equiments List
-		onSearchWOFilter: function (oEvent) {
-			var that = this;
-			this.busy.open();
-			var mLookupModel = this.mLookupModel;
-			var oPortalDataModel = this.oPortalDataModel;
-			var userPlant = mLookupModel.getProperty("/userPlant");
-			var TechId = mLookupModel.getProperty("/TechId");
-			if (!TechId) {
-				TechId = "";
-			}
-			var EqIdDes = mLookupModel.getProperty("/EqIdDes");
-			if (!EqIdDes) {
-				EqIdDes = "";
-			}
+		// onSearchWOFilter: function (oEvent) {
+		// 	var that = this;
+		// 	this.busy.open();
+		// 	var mLookupModel = this.mLookupModel;
+		// 	var oPortalDataModel = this.oPortalDataModel;
+		// 	var userPlant = mLookupModel.getProperty("/userPlant");
+		// 	var TechId = mLookupModel.getProperty("/TechId");
+		// 	if (!TechId) {
+		// 		TechId = "";
+		// 	}
+		// 	var EqIdDes = mLookupModel.getProperty("/EqIdDes");
+		// 	if (!EqIdDes) {
+		// 		EqIdDes = "";
+		// 	}
 
-			var oFilter = [];
-			oFilter.push(new Filter("Equnr", "EQ", EqIdDes.toUpperCase()));
-			oFilter.push(new Filter("Tidnr", "EQ", TechId.toUpperCase()));
-			oFilter.push(new Filter("Eqktu", "EQ", EqIdDes.toUpperCase()));
-			oFilter.push(new Filter("plant", "EQ", userPlant));
+		// 	var oFilter = [];
+		// 	oFilter.push(new Filter("Equnr", "EQ", EqIdDes.toUpperCase()));
+		// 	oFilter.push(new Filter("Tidnr", "EQ", TechId.toUpperCase()));
+		// 	oFilter.push(new Filter("Eqktu", "EQ", EqIdDes.toUpperCase()));
+		// 	oFilter.push(new Filter("plant", "EQ", userPlant));
 
-			oPortalDataModel.read("/EquipmentDetailsSet", {
-				filters: oFilter,
-				success: function (oData, oResponse) {
-					var aEquipmentsList = oData.results;
-					mLookupModel.setProperty("/aEquipmentsList", aEquipmentsList);
-					that.busy.close();
-				},
-				error: function (oResponse) {
-					mLookupModel.setProperty("/aEquipmentsList", []);
-					that.busy.close();
-				}
-			});
-		},
+		// 	oPortalDataModel.read("/EquipmentDetailsSet", {
+		// 		filters: oFilter,
+		// 		success: function (oData, oResponse) {
+		// 			var aEquipmentsList = oData.results;
+		// 			mLookupModel.setProperty("/aEquipmentsList", aEquipmentsList);
+		// 			that.busy.close();
+		// 		},
+		// 		error: function (oResponse) {
+		// 			mLookupModel.setProperty("/aEquipmentsList", []);
+		// 			that.busy.close();
+		// 		}
+		// 	});
+		// },
 
 		//Function to get logged in user
 		getLoggedInUser: function () {
@@ -276,6 +277,7 @@ sap.ui.define([
 			mLookupModel.setProperty("/sEquip", iEqId);
 			mLookupModel.setProperty("/sEquipFilter", iEqId);
 			mLookupModel.setProperty("/EquipDesc", equipDesc);
+			this.mLookupModel.setProperty("/iSkipEquip",0);
 			this.equipmentsListDialog.close();
 		},
 

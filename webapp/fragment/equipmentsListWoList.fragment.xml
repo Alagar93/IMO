@@ -5,9 +5,11 @@
 			<IconTabBar select="handleEquipIconTabSelect" class="iconTabHeader">
 				<items>
 					<IconTabFilter text="{i18n>favEq}" key="idFav">
-						<SearchField liveChange="onSearchFavEqips" width="100%" class="sapUiSmallMarginBottom sapSearchFieldBorderClass" placeholder="{i18n>searchbyIDDes}"/>
+						<SearchField liveChange="onSearchFavEqips" width="100%" class="sapUiSmallMarginBottom sapSearchFieldBorderClass"
+							placeholder="{i18n>searchbyIDDes}"/>
 						<ScrollContainer height="20rem" vertical="true" focusable="false">
-							<Table class="tableCellNoBorder TableHeaderWhiteBG" sticky="ColumnHeaders" mode="SingleSelectLeft" selectionChange="onEquipSelect" growing="true" growingThreshold = "7" items="{path: 'mLookupModel>/aFavEquipList'}">
+							<Table class="tableCellNoBorder TableHeaderWhiteBG" sticky="ColumnHeaders" mode="SingleSelectLeft" selectionChange="onEquipSelect"
+								growing="false"  items="{path: 'mLookupModel>/aFavEquipList'}">
 								<columns>
 									<Column>
 										<Text text="{i18n>equipId}"/>
@@ -46,8 +48,9 @@
 								<Input class="inputRadius" placeholder="{i18n>searchbyIDDes}" submit="onSearchWOFilter" value="{mLookupModel>/EqIdDes}"></Input>
 							</VBox>
 						</l:Grid>
-						<ScrollContainer height="20rem" vertical="true" focusable="false"  class="sapUiSmallMarginTop">
-							<Table class="tableCellNoBorder TableHeaderWhiteBG" sticky="ColumnHeaders" mode="SingleSelectLeft" selectionChange="onEquipSelect" growing="true" growingThreshold = "7" items="{path: 'mLookupModel>/aEquipmentsList'}">
+						<ScrollContainer height="20rem" vertical="true" focusable="false" class="sapUiSmallMarginTop">
+							<Table class="tableCellNoBorder TableHeaderWhiteBG" sticky="ColumnHeaders" mode="SingleSelectLeft" selectionChange="onEquipSelect"
+								growing="false"  items="{path: 'mLookupModel>/aEquipmentsList'}">
 								<columns>
 									<Column>
 										<Text text="{i18n>equipId}"/>
@@ -73,6 +76,10 @@
 									</ColumnListItem>
 								</items>
 							</Table>
+							<Toolbar visible="{path:'mLookupModel>/aEquipmentsList',formatter:'com.sap.incture.IMO_PM.formatter.formatter.showLoadMore'}">
+								<ToolbarSpacer/>
+								<Link class="sapUiSmallMarginEnd" text="{i18n>LOAD_MORE}" press="handleLoadEquips"/>
+							</Toolbar>
 						</ScrollContainer>
 					</IconTabFilter>
 				</items>

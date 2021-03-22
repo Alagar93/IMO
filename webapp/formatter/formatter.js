@@ -1049,8 +1049,8 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 						bVal = false;
 					}
 				}
-			}else{
-				bVal=false;
+			} else {
+				bVal = false;
 			}
 		} else if (systemStatus === "REL") {
 			if (operationCommentVisible === true) {
@@ -1857,6 +1857,13 @@ com.sap.incture.IMO_PM.formatter.formatter = {
 			oDate = new Date(date.split("-")[1] + "/" + date.split("-")[0] + "/" + date.split("-")[2]);
 		}
 		return oDate;
+	},
+	showLoadMore: function (aEquipList) {
+		var bFlag = false;
+		if (aEquipList && aEquipList.length > 0) {
+			bFlag = true;
+		}
+		return bFlag;
 	}
 
 };
