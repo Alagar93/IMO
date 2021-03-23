@@ -1953,7 +1953,7 @@ sap.ui.define([
 					EqIdDes = "";
 				}
 			}
-			var userPlant = this.mLookupModel.getProperty("/userPlant");
+			var userPlant = this.oUserDetailModel.getProperty("/userPlant");
 
 			var iSkipEquip = mLookupModel.getProperty("/iSkipEquip");
 			var iTopEquip = mLookupModel.getProperty("/iTopEquip");
@@ -2884,7 +2884,7 @@ sap.ui.define([
 			oFilter.push(new Filter("Equnr", "EQ", EqIdDes.toUpperCase()));
 			oFilter.push(new Filter("Tidnr", "EQ", TechId.toUpperCase()));
 			oFilter.push(new Filter("Eqktu", "EQ", EqIdDes.toUpperCase()));
-			var userPlant = this.mLookupModel.getProperty("/userPlant");
+			var userPlant = this.oUserDetailModel.getProperty("/userPlant");
 			oFilter.push(new Filter("plant", "EQ", userPlant));
 
 			oPortalDataModel.read("/EquipmentDetailsSet", {

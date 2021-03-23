@@ -796,17 +796,17 @@ sap.ui.define([
 			this.functionalLocationListDialog = null;
 		},
 
-		onSearchFnLocs: function (oEvent) {
-			var aFilters = [];
-			var sQuery = oEvent.getSource().getValue();
-			var oList = sap.ui.core.Fragment.byId("idFunctionalLocationFrag", "idFunLocListTable");
-			var oBinding = oList.getBinding("items");
-			if (sQuery && sQuery.length > 0) {
-				var filter = new Filter("FuncLoc", FilterOperator.Contains, sQuery);
-				aFilters.push(filter);
-			}
-			oBinding.filter(aFilters);
-		},
+		// onSearchFnLocs: function (oEvent) {
+		// 	var aFilters = [];
+		// 	var sQuery = oEvent.getSource().getValue();
+		// 	var oList = sap.ui.core.Fragment.byId("idFunctionalLocationFrag", "idFunLocListTable");
+		// 	var oBinding = oList.getBinding("items");
+		// 	if (sQuery && sQuery.length > 0) {
+		// 		var filter = new Filter("FuncLoc", FilterOperator.Contains, sQuery);
+		// 		aFilters.push(filter);
+		// 	}
+		// 	oBinding.filter(aFilters);
+		// },
 		onFnLocSelect: function (oEvent) {
 			this.onFunlocChange();
 			var mLookupModel = this.mLookupModel;
