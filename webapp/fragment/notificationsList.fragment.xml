@@ -1,5 +1,5 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:ui="sap.ui.table">
-	<Dialog title="{i18n>NOTIFICATION_LIST}" class="sapUiSizeCompact dialogHeader">
+	<Dialog title="{i18n>NOTIFICATION_LIST}" class="sapUiSizeCompact dialogHeader" contentWidth="100%">
 		<content>
 			<Toolbar class="sapUiSmallMargin">
 				<content>
@@ -32,7 +32,7 @@
 							<Text text="{oWorkOrderDetailViewModel>Descriptn}"/>
 						</ui:template>
 					</ui:Column>
-					<ui:Column>
+					<ui:Column width="8rem">
 						<Label text="{i18n>Sys_Status}" class="tableHeaderText"/>
 						<ui:template>
 							<Text text="{oWorkOrderDetailViewModel>SysStatus}"/>
