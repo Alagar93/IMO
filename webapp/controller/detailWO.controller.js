@@ -1089,12 +1089,11 @@ sap.ui.define([
 				oConfirmTexts = that.getConfirmLongText(operationsList, oWorkOrderData.Orderid);
 				oWorkOrderDetailViewModel.setProperty("/listOperationCommentsDto", oConfirmTexts);
 				operationsList = this.setOperationSet(operationsList, "PCNF");
-				
-				
+
 				///Hardcoding for PM03
 				for (var i = 0; i < operationsList.length; i++) {
-					if (operationsList[i].ControlKey==="PM03"){
-						operationsList[i].CostElement="";         
+					if (operationsList[i].ControlKey === "PM03") {
+						operationsList[i].CostElement = "";
 					}
 				}
 				///
@@ -1108,8 +1107,8 @@ sap.ui.define([
 
 				///Hardcoding for PM03
 				for (var i = 0; i < oOperationsList.length; i++) {
-					if (oOperationsList[i].ControlKey==="PM03"){
-						oOperationsList[i].CostElement="";         
+					if (oOperationsList[i].ControlKey === "PM03") {
+						oOperationsList[i].CostElement = "";
 					}
 				}
 				///
@@ -1191,6 +1190,8 @@ sap.ui.define([
 						case "WO_DETAIL_TECHO":
 							successErrMsg = oResourceModel.getText("WO_TECOED_SUCCESFULLY") + orderId;
 							that.onUpdateNotifcationFields(sData, woCreateNavType);
+							//ST: disable Pm act type field
+							that.oWODetailFieldsModel.setProperty("/Pmacttype", false);
 							// that.fnGetWOHeaderDetails(orderId, woCreateNavType);
 							break;
 						}
@@ -1325,6 +1326,7 @@ sap.ui.define([
 						that.getOperationIdLookup();
 						that.getDamageGroupCode("", sData.Damagecode);
 						that.getCauseGroupCode("", sData.Causecode);
+
 						that.busy.close();
 						that.fnShowSuccessErrorMsg(messages);
 					}

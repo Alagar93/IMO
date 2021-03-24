@@ -219,7 +219,7 @@
 					<VBox class="sapUiTinyMarginTop">
 						<Label text="{i18n>PM_ACT_Type}" required="true"></Label>
 						<Select class="selectRadius" forceSelection="false" selectedKey="{oWorkOrderDetailModel>/Pmacttype}" items="{mLookupModel>/aPmActTypeSet}"
-							enabled="{oWODetailFieldsModel>/Pmacttype }" showSecondaryValues="true" tooltip="{oWorkOrderDetailModel>/Pmacttype}" width="100%">
+							enabled="{=(${oWorkOrderDetailModel>/OrderStatus}==='TECO')?false:true}" showSecondaryValues="true" tooltip="{oWorkOrderDetailModel>/Pmacttype}" width="100%">
 							<core:ListItem key="{mLookupModel>ActTypes}" text="{mLookupModel>ActTypes}" additionalText="{mLookupModel>ActDesc}"/>
 						</Select>
 						<layoutData>

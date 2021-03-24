@@ -486,8 +486,7 @@ sap.ui.define([
 			var FnLocSearch = this.mLookupModel.getProperty("/FnLocSearch");
 			if (!FnLocSearch) {
 				FnLocSearch = "";
-			}
-			else{
+			} else {
 				this.busy.open();
 			}
 			FnLocSearch = "'" + FnLocSearch.replace(/['"]+/g, '') + "'";
@@ -1046,6 +1045,29 @@ sap.ui.define([
 					}
 					//nischal -- ends
 					oData.MalFunStartTime = formatter.getMalfunctionStTime(oData.MalFunStartTime.ms);
+
+					//TO convert Malfunction start date time to IST
+					var oDupDate;
+					if (typeof (oData.MalFunStartDate) == "string") {
+						oDupDate = formatter.fnStringtoDate(oData.MalFunStartDate);
+					} else {
+						oDupDate = oData.MalFunStartDate;
+					}
+
+					var oDupStartDate = formatter.fnDateToUTCString(oDupDate).split("T")[0];
+					var oDupStartDatetime = formatter.fnAddTimeZoneOffset(oDupStartDate + "T" + oData.MalFunStartTime + ":00");
+					var hrs = oDupStartDatetime.getHours();
+					var mins = oDupStartDatetime.getMinutes();
+					if (hrs < 10) {
+						hrs = "0" + hrs;
+					}
+					if (mins < 10) {
+						mins = "0" + mins;
+					}
+					oData.MalFunStartTime = hrs + ":" + mins;
+					oData.MalFunStartDate = oDupStartDatetime;
+					///
+
 					oWorkOrderDetailModel.setProperty("/", oData);
 					that.sortOperations();
 					oWorkOrderDetailModel.refresh(true);
@@ -3614,13 +3636,13 @@ sap.ui.define([
 			// 	return;
 			// }
 			var sPlant = this.oUserDetailModel.getProperty("/userPlant");
-			var sPlant1 = "'" + sPlant.replace(/['"]+/g, '') + "'";
+			//var sPlant1 = "'" + sPlant.replace(/['"]+/g, '') + "'";
 			var sWrkCtr = oWorkOrderDetailModel.getProperty("/MnWkCtr");
-			var sWrkCtr1 = "'" + sWrkCtr.replace(/['"]+/g, '') + "'";
+			//var sWrkCtr1 = "'" + sWrkCtr.replace(/['"]+/g, '') + "'";
 			// var sUserId1 = "'" + sUserId.replace(/['"]+/g, '') + "'";
 			var oFilter = [];
-			oFilter.push(new Filter("Werks", "EQ", sPlant1.replace(/['"]+/g, '') + "'"));
-			oFilter.push(new Filter("Arbpl", "EQ", sWrkCtr1.replace(/['"]+/g, '') + "'"));
+			oFilter.push(new Filter("Werks", "EQ", sPlant));
+			oFilter.push(new Filter("Arbpl", "EQ", sWrkCtr));
 			// oFilter.push(new Filter("Pernr", "EQ", "00000129"));
 			oLookupDataModel.read("/Pm02Set", {
 				filters: oFilter,
