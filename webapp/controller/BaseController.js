@@ -517,7 +517,7 @@ sap.ui.define([
 				success: function (oData) {
 					aFnLocsList = oData.results;
 					if (iSkipFnLoc !== 0) {
-						aFnLocsList = aFnLocsList.concat(mLookupModel.getProperty("/aFnLocsList"));
+						aFnLocsList = mLookupModel.getProperty("/aFnLocsList").concat(aFnLocsList);
 					}
 					mLookupModel.setProperty("/aFnLocsList", aFnLocsList);
 					mLookupModel.refresh();
@@ -2011,7 +2011,7 @@ sap.ui.define([
 				success: function (oData, oResponse) {
 					var aEquipmentsList = oData.results;
 					if (iSkipEquip !== 0) {
-						aEquipmentsList = aEquipmentsList.concat(mLookupModel.getProperty("/aEquipmentsList"));
+						aEquipmentsList = mLookupModel.getProperty("/aEquipmentsList").concat(aEquipmentsList);
 					}
 					mLookupModel.setProperty("/aEquipmentsList", aEquipmentsList);
 					if (isFromGetDetail) {
@@ -2928,7 +2928,7 @@ sap.ui.define([
 				success: function (oData, oResponse) {
 					var aEquipmentsList = oData.results;
 					if (iSkipEquip !== 0) {
-						aEquipmentsList = aEquipmentsList.concat(mLookupModel.getProperty("/aEquipmentsList"));
+						aEquipmentsList = mLookupModel.getProperty("/aEquipmentsList").concat(aEquipmentsList);
 					}
 					mLookupModel.setProperty("/aEquipmentsList", aEquipmentsList);
 					that.busy.close();
