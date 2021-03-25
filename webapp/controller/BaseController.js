@@ -1956,7 +1956,7 @@ sap.ui.define([
 		},
 
 		//Function to get Equiments List
-		onSearchEquipments: function (oEvent, isFromGetDetail) {
+		onSearchEquipments: function (oEvent, isFromGetDetail, fromLoadmore) {
 			var that = this;
 			this.busy.open();
 			var EqIdDes = "";
@@ -1979,13 +1979,22 @@ sap.ui.define([
 
 			var iSkipEquip = mLookupModel.getProperty("/iSkipEquip");
 			var iTopEquip = mLookupModel.getProperty("/iTopEquip");
-			if (!iSkipEquip && iSkipEquip !== 0) {
+			if (!fromLoadmore) {
+				if (!iSkipEquip && iSkipEquip !== 0) {
+					iSkipEquip = 0;
+					mLookupModel.setProperty("/iSkipEquip", iSkipEquip);
+				}
+				if (!iTopEquip && iTopEquip !== 0) {
+					iTopEquip = 50;
+					mLookupModel.setProperty("/iTopEquip", iTopEquip);
+				}
+			} else {
 				iSkipEquip = 0;
 				mLookupModel.setProperty("/iSkipEquip", iSkipEquip);
-			}
-			if (!iTopEquip && iTopEquip !== 0) {
 				iTopEquip = 50;
 				mLookupModel.setProperty("/iTopEquip", iTopEquip);
+				mLookupModel.setProperty("/aEquipmentsList", []);
+
 			}
 			var oFilter = [];
 			oFilter.push(new Filter("Equnr", "EQ", EqIdDes.toUpperCase()));
@@ -2891,6 +2900,7 @@ sap.ui.define([
 			if (!EqIdDes) {
 				EqIdDes = "";
 			}
+
 			var iSkipEquip = mLookupModel.getProperty("/iSkipEquip");
 			var iTopEquip = mLookupModel.getProperty("/iTopEquip");
 			if (!iSkipEquip && iSkipEquip !== 0) {
@@ -4090,14 +4100,16 @@ sap.ui.define([
 		onSearchFnLocs: function (oEvent) {
 			var sQuery = oEvent.getSource().getValue();
 			this.mLookupModel.setProperty("/FnLocSearch", sQuery);
+			this.mLookupModel.setProperty("/iSkipFnLoc", 0);
+			this.mLookupModel.setProperty("/aFnLocsList", []);
 			this.getFnLocs();
 		},
 		handleLoadEquips: function () {
 			var mLookupModel = this.mLookupModel;
 			var iSkipEquip = mLookupModel.getProperty("/iSkipEquip");
-			iSkipEquip = iSkipEquip + 10;
+			iSkipEquip = iSkipEquip + 50;
 			mLookupModel.setProperty("/iSkipEquip", iSkipEquip);
-			this.onSearchEquipments("", false);
+			this.onSearchEquipments("", false, true);
 		}
 
 	});
