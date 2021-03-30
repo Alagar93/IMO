@@ -1979,7 +1979,7 @@ sap.ui.define([
 
 			var iSkipEquip = mLookupModel.getProperty("/iSkipEquip");
 			var iTopEquip = mLookupModel.getProperty("/iTopEquip");
-			if (!fromLoadmore) {
+			if (fromLoadmore) {
 				if (!iSkipEquip && iSkipEquip !== 0) {
 					iSkipEquip = 0;
 					mLookupModel.setProperty("/iSkipEquip", iSkipEquip);
